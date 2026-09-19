@@ -11,6 +11,15 @@
 - Preferred next work: statically prove and build fixed `setSimPowerStateForSlot(1, POWER_DOWN/POWER_UP)` helper. Raw QMI/HIDL calls stay blocked.
 - Existing auto-recovery module is unchanged.
 
+## 2026-09-19 slot mapping checkpoint
+
+- Read-only automatic mapping completed under `experiments/sim_soft_reset/SLOT_MAPPING/`.
+- VOXI: MCCMNC 23415 -> subId 11 -> Android slot/phone 1 -> `IRadio/slot2` -> `IUim/Uim1` -> `vendor.qcrild2 -c 2` -> modem/QMI stack 1.
+- China Telecom: MCCMNC 46011 -> subId 1 -> Android slot/phone 0 -> `IRadio/slot1` -> `IUim/Uim0` -> primary `vendor.qcrild` -> stack 0.
+- ICCIDs are represented only as SHA-256 hashes; privacy scan passed.
+- No SIM power, UIM reset, qcrild operation or other write was executed.
+- L2-01 stays blocked until the current-ROM method chain, power constants, result callback and rollback behavior are proven.
+
 UPDATED: 2026-09-18T10:30:40+08:00
 STATUS: PHASE8D_COMPLETE_FAILED_PRESERVED
 FINAL_GOAL: ACHIEVED

@@ -1,0 +1,4 @@
+[init.svc.vendor.qcrild]: [running]
+[init.svc.vendor.qcrild2]: [running]
+[init.svc_debug_pid.vendor.qcrild]: [9201]
+[init.svc_debug_pid.vendor.qcrild2]: [8330]

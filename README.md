@@ -84,3 +84,5 @@ Recommended validation sequence: install with `ENABLED=0`, capture healthy statu
 ## SIM soft-reset laboratory
 
 The next research phase changes the question from generic IMS restart to reproducing the lifecycle of physical VOXI SIM removal/insertion without rebooting Android. The staged experiment matrix and independently gated scripts live in [`experiments/sim_soft_reset`](experiments/sim_soft_reset). Existing auto-recovery sources and releases are unchanged.
+
+The read-only slot-to-Radio/UIM/QMI mapping is documented in [`experiments/sim_soft_reset/SLOT_MAPPING/VOXI_SLOT_MAPPING.md`](experiments/sim_soft_reset/SLOT_MAPPING/VOXI_SLOT_MAPPING.md). It does not execute SIM power or process operations.

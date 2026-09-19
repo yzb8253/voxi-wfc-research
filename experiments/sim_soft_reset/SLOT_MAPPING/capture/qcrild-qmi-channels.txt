@@ -1,0 +1,587 @@
+===role=primary pid=9201===
+/vendor/bin/hw/qcrild
+76b8297000-76b82a5000 r--p 00000000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+76b82a5000-76b82b1000 r-xp 0000e000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+76b82b1000-76b82b4000 r--p 0001a000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+76b82b4000-76b82b5000 rw-p 0001c000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+76b82d3000-76b82e5000 r--p 00000000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+76b82e5000-76b82f3000 r-xp 00012000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+76b82f3000-76b82f7000 r--p 00020000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+76b82f7000-76b82f8000 rw-p 00023000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+76b9e4f000-76b9eb7000 r--p 00000000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+76b9eb7000-76b9f2b000 r-xp 00068000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+76b9f2b000-76b9f3f000 r--p 000dc000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+76b9f3f000-76b9f40000 rw-p 000ef000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+76b9fc0000-76b9fc4000 r--p 00000000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+76b9fc4000-76b9fca000 r-xp 00004000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+76b9fca000-76b9fcb000 r--p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+76b9fcb000-76b9fcc000 rw-p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+76bb68a000-76bb69c000 r--p 00000000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+76bb69c000-76bb6ad000 r-xp 00012000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+76bb6ad000-76bb6b1000 r--p 00023000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+76bb6b1000-76bb6b2000 rw-p 00026000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+76bb6d1000-76bb715000 r--p 00000000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+76bb715000-76bb75f000 r-xp 00044000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+76bb75f000-76bb76d000 r--p 0008e000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+76bb76d000-76bb76e000 rw-p 0009b000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+76bb7c3000-76bb7e1000 r--p 00000000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+76bb7e1000-76bb7f9000 r-xp 0001e000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+76bb7f9000-76bb7ff000 r--p 00036000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+76bb7ff000-76bb800000 rw-p 0003b000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+76c2245000-76c2260000 r--p 00000000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+76c2260000-76c2275000 r-xp 0001b000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+76c2275000-76c227b000 r--p 00030000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+76c227b000-76c227c000 rw-p 00035000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+76c2288000-76c22ba000 r--p 00000000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+76c22ba000-76c22f0000 r-xp 00032000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+76c22f0000-76c22fa000 r--p 00068000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+76c22fa000-76c22fb000 rw-p 00071000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+76c2341000-76c235a000 r--p 00000000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+76c235a000-76c2372000 r-xp 00019000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+76c2372000-76c2377000 r--p 00031000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+76c2377000-76c2378000 rw-p 00035000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+76c2404000-76c2489000 r--p 00000000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+76c2489000-76c251e000 r-xp 00085000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+76c251e000-76c2538000 r--p 0011a000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+76c2538000-76c2539000 rw-p 00133000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+76c3844000-76c3874000 r--p 00000000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+76c3874000-76c38b7000 r-xp 00030000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+76c38b7000-76c38be000 r--p 00073000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+76c38be000-76c38bf000 rw-p 00079000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+76c3914000-76c394f000 r--p 00000000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+76c394f000-76c398d000 r-xp 0003b000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+76c398d000-76c3999000 r--p 00079000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+76c3999000-76c399a000 rw-p 00084000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+76c3a02000-76c3a14000 r--p 00000000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+76c3a14000-76c3a25000 r-xp 00012000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+76c3a25000-76c3a29000 r--p 00023000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+76c3a29000-76c3a2a000 rw-p 00026000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+76c3a88000-76c3aa2000 r--p 00000000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+76c3aa2000-76c3ab8000 r-xp 0001a000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+76c3ab8000-76c3abd000 r--p 00030000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+76c3abd000-76c3abe000 rw-p 00034000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+76c3ac4000-76c3ad9000 r--p 00000000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+76c3ad9000-76c3aed000 r-xp 00015000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+76c3aed000-76c3af2000 r--p 00029000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+76c3af2000-76c3af3000 rw-p 0002d000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+76c3c05000-76c3c1b000 r--p 00000000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+76c3c1b000-76c3c2f000 r-xp 00016000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+76c3c2f000-76c3c33000 r--p 0002a000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+76c3c33000-76c3c34000 rw-p 0002d000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+76c3c43000-76c3c54000 r--p 00000000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+76c3c54000-76c3c64000 r-xp 00011000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+76c3c64000-76c3c68000 r--p 00021000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+76c3c68000-76c3c69000 rw-p 00024000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+76c3caa000-76c4775000 r--p 00000000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+76c4775000-76c5b22000 r-xp 00acb000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+76c5b22000-76c5bc4000 r--p 01e78000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+76c5bc4000-76c5bc8000 rw-p 01f19000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+76c6143000-76c6144000 r--p 00000000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+76c6144000-76c6145000 r-xp 00001000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+76c6145000-76c6146000 r--p 00002000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+76c6146000-76c6147000 rw-p 00002000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+76c61d1000-76c61e3000 r--p 00000000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+76c61e3000-76c61f4000 r-xp 00012000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+76c61f4000-76c61f8000 r--p 00023000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+76c61f8000-76c61f9000 rw-p 00026000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+76c6586000-76c6597000 r--p 00000000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+76c6597000-76c65a7000 r-xp 00011000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+76c65a7000-76c65ab000 r--p 00021000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+76c65ab000-76c65ac000 rw-p 00024000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+76c765a000-76c7669000 r--p 00000000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+76c7669000-76c7676000 r-xp 0000f000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+76c7676000-76c7679000 r--p 0001c000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+76c7679000-76c767a000 rw-p 0001e000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+76c7701000-76c7703000 r--p 00000000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+76c7703000-76c7705000 r-xp 00002000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+76c7705000-76c7706000 r--p 00004000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+76c77c8000-76c77db000 r--p 00000000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+76c77db000-76c77ee000 r-xp 00013000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+76c77ee000-76c77f2000 r--p 00026000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+76c77f2000-76c77f3000 rw-p 00029000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+76c79ad000-76c79b1000 r--p 00000000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+76c79b1000-76c79b9000 r-xp 00004000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+76c79b9000-76c79ba000 r--p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+76c79ba000-76c79bb000 rw-p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+76ca6de000-76ca723000 r--p 00000000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+76ca723000-76ca76a000 r-xp 00045000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+76ca76a000-76ca779000 r--p 0008c000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+76ca779000-76ca77a000 rw-p 0009a000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+76ca7cd000-76ca7da000 r--p 00000000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+76ca7da000-76ca7e3000 r-xp 0000d000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+76ca7e3000-76ca7e5000 r--p 00016000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+76ca7e5000-76ca7e6000 rw-p 00017000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+76ca8dc000-76ca93a000 r--p 00000000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+76ca93a000-76ca9a2000 r-xp 0005e000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+76ca9a2000-76ca9b3000 r--p 000c6000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+76ca9b3000-76ca9b4000 rw-p 000d6000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+76cde48000-76cde5c000 r--p 00000000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+76cde5c000-76cde5d000 r-xp 00014000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+76cde5d000-76cde6d000 r--p 00015000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+76cde6d000-76cde6e000 rw-p 00024000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+76ce6e5000-76ce6f1000 r--p 00000000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+76ce6f1000-76ce6f9000 r-xp 0000c000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+76ce6f9000-76ce6fb000 r--p 00014000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+76ce6fb000-76ce6fc000 rw-p 00015000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+76ce731000-76ce74e000 r--p 00000000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+76ce74e000-76ce76e000 r-xp 0001d000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+76ce76e000-76ce773000 r--p 0003d000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+76ce773000-76ce774000 rw-p 00041000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+76ce7c0000-76ce7dc000 r--p 00000000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+76ce7dc000-76ce7f4000 r-xp 0001c000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+76ce7f4000-76ce7fa000 r--p 00034000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+76ce7fa000-76ce7fb000 rw-p 00039000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+76ce993000-76ce994000 r--p 00000000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+76ce994000-76ce997000 r-xp 00001000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+76ce997000-76ce998000 r--p 00004000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+76cec90000-76cecf2000 r--p 00000000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+76cecf2000-76ced5c000 r-xp 00062000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+76ced5c000-76ced70000 r--p 000cc000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+76ced70000-76ced71000 rw-p 000df000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+76cedc9000-76cedd9000 r--p 00000000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+76cedd9000-76cede6000 r-xp 00010000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+76cede6000-76cede9000 r--p 0001d000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+76cede9000-76cedea000 rw-p 0001f000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+76d3022000-76d3094000 r--p 00000000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+76d3094000-76d3112000 r-xp 00072000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+76d3112000-76d3129000 r--p 000f0000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+76d3129000-76d312a000 rw-p 00106000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+76d3181000-76d31b0000 r--p 00000000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+76d31b0000-76d31e4000 r-xp 0002f000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+76d31e4000-76d31ed000 r--p 00063000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+76d31ed000-76d31ee000 rw-p 0006b000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+76d3252000-76d3253000 r--p 00000000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+76d3253000-76d3254000 r-xp 00001000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+76d3254000-76d3255000 r--p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+76d3255000-76d3256000 rw-p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+76d3272000-76d3292000 r--s 00000000 00:11 21808                          /dev/__properties__/u:object_r:radio_prop:s0
+76d32cd000-76d333f000 r--p 00000000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+76d333f000-76d33ef000 r-xp 00072000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+76d33ef000-76d33ff000 r--p 00122000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+76d33ff000-76d3400000 rw-p 00131000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+76d342a000-76d343b000 r--p 00000000 fc:09 3429                           /vendor/lib64/libqmi.so
+76d343b000-76d346b000 r-xp 00011000 fc:09 3429                           /vendor/lib64/libqmi.so
+76d346b000-76d346f000 r--p 00041000 fc:09 3429                           /vendor/lib64/libqmi.so
+76d346f000-76d3470000 rw-p 00044000 fc:09 3429                           /vendor/lib64/libqmi.so
+76d3c45000-76d3c57000 r--p 00000000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+76d3c57000-76d3c67000 r-xp 00012000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+76d3c67000-76d3c6b000 r--p 00022000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+76d3c6b000-76d3c6c000 rw-p 00025000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+76d3c8c000-76d3ca4000 r--p 00000000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+76d3ca4000-76d3cbb000 r-xp 00018000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+76d3cbb000-76d3cbf000 r--p 0002f000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+76d3cbf000-76d3cc0000 rw-p 00032000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+76d3e4e000-76d3e62000 r--p 00000000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+76d3e62000-76d3e74000 r-xp 00014000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+76d3e74000-76d3e78000 r--p 00026000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+76d3e78000-76d3e79000 rw-p 00029000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+76d3e82000-76d3eb8000 r--p 00000000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+76d3eb8000-76d3ef2000 r-xp 00036000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+76d3ef2000-76d3efd000 r--p 00070000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+76d3efd000-76d3efe000 rw-p 0007a000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+76d4608000-76d4628000 r--s 00000000 00:11 21807                          /dev/__properties__/u:object_r:radio_control_prop:s0
+76d47e7000-76d4807000 r--s 00000000 00:11 31481                          /dev/__properties__/u:object_r:vendor_radio_prop:s0
+lrwx------ 1 radio radio 64 2026-09-19 22:45 0 -> /dev/null
+lrwx------ 1 radio radio 64 2026-09-19 22:45 1 -> /dev/null
+lrwx------ 1 radio radio 64 2026-09-19 22:45 10 -> socket:[2012155]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 100 -> pipe:[2051992]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 101 -> socket:[2064444]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 102 -> pipe:[2064445]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 103 -> pipe:[2064445]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 104 -> socket:[2052639]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 105 -> socket:[2052009]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 106 -> socket:[2064449]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 107 -> pipe:[2064450]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 108 -> pipe:[2064450]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 109 -> pipe:[2052010]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 11 -> anon_inode:[eventpoll]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 110 -> pipe:[2052010]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 111 -> socket:[2052014]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 112 -> pipe:[2052015]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 113 -> pipe:[2052015]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 114 -> socket:[2068433]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 115 -> pipe:[2068434]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 116 -> pipe:[2068434]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 12 -> socket:[2030589]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 129 -> socket:[2365091]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 13 -> socket:[2051960]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 130 -> pipe:[2365092]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 131 -> pipe:[2365092]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 14 -> /data/vendor/radio/qcril.db
+l-wx------ 1 radio radio 64 2026-09-19 22:45 15 -> /sys/kernel/debug/tracing/trace_marker
+lr-x------ 1 radio radio 64 2026-09-19 22:45 16 -> anon_inode:inotify
+lrwx------ 1 radio radio 64 2026-09-19 22:45 17 -> /data/vendor/radio/dummy_file
+lrwx------ 1 radio radio 64 2026-09-19 22:45 18 -> socket:[2064146]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 19 -> pipe:[2064147]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 2 -> /dev/null
+l-wx------ 1 radio radio 64 2026-09-19 22:45 20 -> pipe:[2064147]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 21 -> socket:[2064148]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 22 -> pipe:[2064149]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 23 -> pipe:[2064149]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 24 -> socket:[2064153]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 25 -> pipe:[2064154]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 26 -> pipe:[2064154]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 27 -> socket:[2064164]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 28 -> pipe:[2064165]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 29 -> pipe:[2064165]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 3 -> /dev/diag
+lrwx------ 1 radio radio 64 2026-09-19 22:45 30 -> socket:[2064169]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 31 -> pipe:[2064170]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 32 -> pipe:[2064170]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 33 -> socket:[2064391]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 34 -> pipe:[2064392]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 35 -> pipe:[2064392]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 36 -> socket:[2062406]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 37 -> socket:[2064173]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 38 -> pipe:[2062407]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 39 -> pipe:[2062407]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 4 -> socket:[2057182]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 40 -> socket:[2064203]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 41 -> pipe:[2064174]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 42 -> pipe:[2064174]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 43 -> socket:[2064176]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 44 -> pipe:[2064177]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 45 -> pipe:[2064177]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 46 -> socket:[2064178]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 47 -> pipe:[2064204]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 48 -> pipe:[2064179]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 49 -> pipe:[2064179]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 5 -> /dev/pmsg0
+lrwx------ 1 radio radio 64 2026-09-19 22:45 50 -> socket:[2064180]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 51 -> pipe:[2064181]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 52 -> pipe:[2064181]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 53 -> socket:[2064183]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 54 -> pipe:[2064184]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 55 -> pipe:[2064184]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 56 -> socket:[2064185]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 57 -> pipe:[2064186]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 58 -> pipe:[2064186]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 59 -> socket:[2064187]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 6 -> /dev/binderfs/hwbinder
+l-wx------ 1 radio radio 64 2026-09-19 22:45 60 -> pipe:[2064204]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 61 -> pipe:[2064188]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 62 -> pipe:[2064188]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 63 -> socket:[2064190]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 64 -> pipe:[2064191]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 65 -> pipe:[2064191]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 66 -> socket:[2064193]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 67 -> socket:[2057191]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 68 -> pipe:[2064194]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 69 -> pipe:[2064194]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 7 -> pipe:[2062394]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 70 -> socket:[2064197]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 71 -> pipe:[2064198]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 72 -> pipe:[2064198]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 73 -> pipe:[2057192]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 74 -> pipe:[2057192]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 75 -> socket:[2057197]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 76 -> socket:[2057193]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 77 -> pipe:[2057194]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 78 -> pipe:[2057194]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 79 -> socket:[2064438]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 8 -> pipe:[2062394]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 80 -> pipe:[2057198]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 81 -> pipe:[2057198]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 82 -> pipe:[2064439]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 83 -> pipe:[2064439]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 84 -> socket:[2064421]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 85 -> pipe:[2064422]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 86 -> pipe:[2064422]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 87 -> socket:[2064425]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 88 -> /sys/devices/platform/soc/17300000.qcom,lpass/subsys2/state
+lr-x------ 1 radio radio 64 2026-09-19 22:45 89 -> pipe:[2064426]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 9 -> /dev/binderfs/vndbinder
+l-wx------ 1 radio radio 64 2026-09-19 22:45 90 -> pipe:[2064426]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 91 -> socket:[2064228]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 92 -> socket:[2064230]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 93 -> pipe:[2064231]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 94 -> pipe:[2064231]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 95 -> socket:[2052610]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 96 -> pipe:[2052611]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 97 -> pipe:[2052611]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 98 -> socket:[2051991]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 99 -> pipe:[2051992]
+===role=target pid=8330===
+/vendor/bin/hw/qcrild -c 2
+7906c03000-7906c14000 r--p 00000000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+7906c14000-7906c24000 r-xp 00011000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+7906c24000-7906c28000 r--p 00021000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+7906c28000-7906c29000 rw-p 00024000 fc:09 3737                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@1.0.so
+7906c42000-7906c71000 r--p 00000000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+7906c71000-7906ca5000 r-xp 0002f000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+7906ca5000-7906cae000 r--p 00063000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+7906cae000-7906caf000 rw-p 0006b000 fc:09 3727                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.2.so
+7906ccf000-7906cdd000 r--p 00000000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+7906cdd000-7906ce9000 r-xp 0000e000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+7906ce9000-7906cec000 r--p 0001a000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+7906cec000-7906ced000 rw-p 0001c000 fc:09 3723                           /vendor/lib64/vendor.qti.hardware.radio.am@1.0.so
+7906dca000-7906dde000 r--p 00000000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+7906dde000-7906df0000 r-xp 00014000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+7906df0000-7906df4000 r--p 00026000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+7906df4000-7906df5000 rw-p 00029000 fc:09 3733                           /vendor/lib64/vendor.qti.hardware.radio.internal.deviceinfo@1.0.so
+7906e0b000-7906e3d000 r--p 00000000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+7906e3d000-7906e73000 r-xp 00032000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+7906e73000-7906e7d000 r--p 00068000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+7906e7d000-7906e7e000 rw-p 00071000 fc:09 3728                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.3.so
+7906e8c000-7906efe000 r--p 00000000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+7906efe000-7906f7c000 r-xp 00072000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+7906f7c000-7906f93000 r--p 000f0000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+7906f93000-7906f94000 rw-p 00106000 07:48 452                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.4.so
+7906fc1000-7906fdd000 r--p 00000000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+7906fdd000-7906ff5000 r-xp 0001c000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+7906ff5000-7906ffb000 r--p 00034000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+7906ffb000-7906ffc000 rw-p 00039000 fc:09 3739                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.1.so
+7907041000-790705f000 r--p 00000000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+790705f000-7907077000 r-xp 0001e000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+7907077000-790707d000 r--p 00036000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+790707d000-790707e000 rw-p 0003b000 fc:09 3740                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.2.so
+7907186000-7907193000 r--p 00000000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+7907193000-790719c000 r-xp 0000d000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+790719c000-790719e000 r--p 00016000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+790719e000-790719f000 rw-p 00017000 fc:09 3750                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
+7907258000-7907268000 r--p 00000000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+7907268000-7907275000 r-xp 00010000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+7907275000-7907278000 r--p 0001d000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+7907278000-7907279000 rw-p 0001f000 fc:09 3735                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.1.so
+790728b000-79072fd000 r--p 00000000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+79072fd000-79073ad000 r-xp 00072000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+79073ad000-79073bd000 r--p 00122000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+79073bd000-79073be000 rw-p 00131000 07:48 448                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.0.so
+7907412000-790741e000 r--p 00000000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+790741e000-7907426000 r-xp 0000c000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+7907426000-7907428000 r--p 00014000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+7907428000-7907429000 rw-p 00015000 fc:09 3749                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
+7907788000-79077a5000 r--p 00000000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+79077a5000-79077c5000 r-xp 0001d000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+79077c5000-79077ca000 r--p 0003d000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+79077ca000-79077cb000 rw-p 00041000 fc:09 3726                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.1.so
+790a0c1000-790a0fc000 r--p 00000000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+790a0fc000-790a13a000 r-xp 0003b000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+790a13a000-790a146000 r--p 00079000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+790a146000-790a147000 rw-p 00084000 fc:09 3730                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
+790a18c000-790a19d000 r--p 00000000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+790a19d000-790a1ad000 r-xp 00011000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+790a1ad000-790a1b1000 r--p 00021000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+790a1b1000-790a1b2000 rw-p 00024000 fc:09 3745                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.0.so
+790a1c4000-790a1c5000 r--p 00000000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+790a1c5000-790a1c6000 r-xp 00001000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+790a1c6000-790a1c7000 r--p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+790a1c7000-790a1c8000 rw-p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+790a246000-790a25e000 r--p 00000000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+790a25e000-790a275000 r-xp 00018000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+790a275000-790a279000 r--p 0002f000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+790a279000-790a27a000 rw-p 00032000 fc:09 3751                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+790d09d000-790d0fb000 r--p 00000000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+790d0fb000-790d163000 r-xp 0005e000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+790d163000-790d174000 r--p 000c6000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+790d174000-790d175000 rw-p 000d6000 07:48 449                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.1.so
+790d1c8000-790d1de000 r--p 00000000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+790d1de000-790d1f2000 r-xp 00016000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+790d1f2000-790d1f6000 r--p 0002a000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+790d1f6000-790d1f7000 rw-p 0002d000 fc:09 3748                           /vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
+790f8a2000-790f8e7000 r--p 00000000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+790f8e7000-790f92e000 r-xp 00045000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+790f92e000-790f93d000 r--p 0008c000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+790f93d000-790f93e000 rw-p 0009a000 fc:09 3732                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.7.so
+790f980000-790f994000 r--p 00000000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+790f994000-790f995000 r-xp 00014000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+790f995000-790f9a5000 r--p 00015000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+790f9a5000-790f9a6000 rw-p 00024000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+791065a000-791065b000 r--p 00000000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+791065b000-791065c000 r-xp 00001000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+791065c000-791065d000 r--p 00002000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+791065d000-791065e000 rw-p 00002000 fc:09 3469                           /vendor/lib64/librilqmiservices.so
+7910683000-791069e000 r--p 00000000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+791069e000-79106b3000 r-xp 0001b000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+79106b3000-79106b9000 r--p 00030000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+79106b9000-79106ba000 rw-p 00035000 fc:09 3742                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.4.so
+79106cb000-79106dd000 r--p 00000000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+79106dd000-79106eb000 r-xp 00012000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+79106eb000-79106ef000 r--p 00020000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+79106ef000-79106f0000 rw-p 00023000 07:48 446                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.2.so
+791071f000-7910763000 r--p 00000000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+7910763000-79107ad000 r-xp 00044000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+79107ad000-79107bb000 r--p 0008e000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+79107bb000-79107bc000 rw-p 0009b000 fc:09 3731                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
+7910956000-7910968000 r--p 00000000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+7910968000-7910978000 r-xp 00012000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+7910978000-791097c000 r--p 00022000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+791097c000-791097d000 rw-p 00025000 fc:09 3747                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.2.so
+79109c5000-79109d7000 r--p 00000000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+79109d7000-79109e8000 r-xp 00012000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+79109e8000-79109ec000 r--p 00023000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+79109ec000-79109ed000 rw-p 00026000 07:48 444                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.0.so
+7910a1f000-7910a30000 r--p 00000000 fc:09 3429                           /vendor/lib64/libqmi.so
+7910a30000-7910a60000 r-xp 00011000 fc:09 3429                           /vendor/lib64/libqmi.so
+7910a60000-7910a64000 r--p 00041000 fc:09 3429                           /vendor/lib64/libqmi.so
+7910a64000-7910a65000 rw-p 00044000 fc:09 3429                           /vendor/lib64/libqmi.so
+7911ac5000-7911b27000 r--p 00000000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+7911b27000-7911b91000 r-xp 00062000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+7911b91000-7911ba5000 r--p 000cc000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+7911ba5000-7911ba6000 rw-p 000df000 07:48 451                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.3.so
+7914448000-791445b000 r--p 00000000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+791445b000-791446e000 r-xp 00013000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+791446e000-7914472000 r--p 00026000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+7914472000-7914473000 rw-p 00029000 fc:09 3734                           /vendor/lib64/vendor.qti.hardware.radio.lpa@1.0.so
+7914482000-7914507000 r--p 00000000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+7914507000-791459c000 r-xp 00085000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+791459c000-79145b6000 r--p 0011a000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+79145b6000-79145b7000 rw-p 00133000 07:48 453                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.5.so
+791460c000-79150d7000 r--p 00000000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+79150d7000-7916484000 r-xp 00acb000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+7916484000-7916526000 r--p 01e78000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+7916526000-791652a000 rw-p 01f19000 fc:09 3463                           /vendor/lib64/libril-qc-hal-qmi.so
+79172c5000-791732d000 r--p 00000000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+791732d000-79173a1000 r-xp 00068000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+79173a1000-79173b5000 r--p 000dc000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+79173b5000-79173b6000 rw-p 000ef000 07:48 450                            /apex/com.android.vndk.v30/lib64/android.hardware.radio@1.2.so
+79173e2000-79173e6000 r--p 00000000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+79173e6000-79173ee000 r-xp 00004000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+79173ee000-79173ef000 r--p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+79173ef000-79173f0000 rw-p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+79174cc000-79174fc000 r--p 00000000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+79174fc000-791753f000 r-xp 00030000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+791753f000-7917546000 r--p 00073000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+7917546000-7917547000 rw-p 00079000 fc:09 3725                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.0.so
+7917596000-79175a8000 r--p 00000000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+79175a8000-79175b9000 r-xp 00012000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+79175b9000-79175bd000 r--p 00023000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+79175bd000-79175be000 rw-p 00026000 07:48 447                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.deprecated@1.0.so
+791a0ca000-791a0e4000 r--p 00000000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+791a0e4000-791a0fa000 r-xp 0001a000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+791a0fa000-791a0ff000 r--p 00030000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+791a0ff000-791a100000 rw-p 00034000 fc:09 3741                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.3.so
+791a3a6000-791a3c6000 r--s 00000000 00:11 21808                          /dev/__properties__/u:object_r:radio_prop:s0
+791a3c6000-791a3df000 r--p 00000000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+791a3df000-791a3f7000 r-xp 00019000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+791a3f7000-791a3fc000 r--p 00031000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+791a3fc000-791a3fd000 rw-p 00035000 fc:09 3738                           /vendor/lib64/vendor.qti.hardware.radio.qtiradio@2.0.so
+791d450000-791d45f000 r--p 00000000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+791d45f000-791d46c000 r-xp 0000f000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+791d46c000-791d46f000 r--p 0001c000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+791d46f000-791d470000 rw-p 0001e000 fc:09 3746                           /vendor/lib64/vendor.qti.hardware.radio.uim@1.1.so
+791d480000-791d484000 r--p 00000000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+791d484000-791d48a000 r-xp 00004000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+791d48a000-791d48b000 r--p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+791d48b000-791d48c000 rw-p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+791d510000-791d512000 r--p 00000000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+791d512000-791d514000 r-xp 00002000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+791d514000-791d515000 r--p 00004000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+791d642000-791d657000 r--p 00000000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+791d657000-791d66b000 r-xp 00015000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+791d66b000-791d670000 r--p 00029000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+791d670000-791d671000 rw-p 0002d000 07:48 445                            /apex/com.android.vndk.v30/lib64/android.hardware.radio.config@1.1.so
+791d6b5000-791d6b6000 r--p 00000000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+791d6b6000-791d6b9000 r-xp 00001000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+791d6b9000-791d6ba000 r--p 00004000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+791d6e8000-791d71e000 r--p 00000000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+791d71e000-791d758000 r-xp 00036000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+791d758000-791d763000 r--p 00070000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+791d763000-791d764000 rw-p 0007a000 fc:09 3729                           /vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
+791d7ca000-791d7dc000 r--p 00000000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+791d7dc000-791d7ed000 r-xp 00012000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+791d7ed000-791d7f1000 r--p 00023000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+791d7f1000-791d7f2000 rw-p 00026000 fc:09 3736                           /vendor/lib64/vendor.qti.hardware.radio.qcrilhook@1.0.so
+791dd18000-791dd38000 r--s 00000000 00:11 21807                          /dev/__properties__/u:object_r:radio_control_prop:s0
+791e542000-791e562000 r--s 00000000 00:11 31481                          /dev/__properties__/u:object_r:vendor_radio_prop:s0
+lrwx------ 1 radio radio 64 2026-09-19 22:45 0 -> /dev/null
+lrwx------ 1 radio radio 64 2026-09-19 22:45 1 -> /dev/null
+lrwx------ 1 radio radio 64 2026-09-19 22:45 10 -> socket:[2021749]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 100 -> pipe:[2365089]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 11 -> /data/vendor/radio/qcril.db
+l-wx------ 1 radio radio 64 2026-09-19 22:45 12 -> /sys/kernel/debug/tracing/trace_marker
+lr-x------ 1 radio radio 64 2026-09-19 22:45 13 -> anon_inode:inotify
+lrwx------ 1 radio radio 64 2026-09-19 22:45 14 -> /data/vendor/radio/dummy_file
+lrwx------ 1 radio radio 64 2026-09-19 22:45 15 -> socket:[2023491]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 16 -> pipe:[2023492]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 17 -> pipe:[2023492]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 18 -> socket:[2023493]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 19 -> pipe:[2023494]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 2 -> /dev/null
+l-wx------ 1 radio radio 64 2026-09-19 22:45 20 -> pipe:[2023494]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 21 -> socket:[2021754]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 22 -> pipe:[2021755]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 23 -> pipe:[2021755]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 24 -> socket:[2022808]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 25 -> pipe:[2022809]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 26 -> pipe:[2022809]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 27 -> socket:[2022813]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 28 -> pipe:[2022814]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 29 -> pipe:[2022814]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 3 -> /dev/diag
+lrwx------ 1 radio radio 64 2026-09-19 22:45 30 -> socket:[2019187]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 31 -> pipe:[2019188]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 32 -> pipe:[2019188]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 33 -> socket:[1992992]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 34 -> socket:[2023504]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 35 -> pipe:[1992993]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 36 -> pipe:[1992993]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 37 -> pipe:[2023505]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 38 -> pipe:[2023505]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 39 -> socket:[1993006]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 4 -> socket:[1992979]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 40 -> socket:[1992996]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 41 -> socket:[1992994]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 42 -> pipe:[1992995]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 43 -> pipe:[1992995]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 44 -> pipe:[1992997]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 45 -> pipe:[1992997]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 46 -> pipe:[1993007]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 47 -> socket:[1993000]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 48 -> pipe:[1993001]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 49 -> pipe:[1993001]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 5 -> /dev/pmsg0
+lrwx------ 1 radio radio 64 2026-09-19 22:45 50 -> socket:[1993002]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 51 -> pipe:[1993003]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 52 -> pipe:[1993003]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 53 -> socket:[1993004]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 54 -> pipe:[1993005]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 55 -> pipe:[1993005]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 56 -> pipe:[1993007]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 57 -> socket:[1993008]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 58 -> pipe:[1993009]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 59 -> pipe:[1993009]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 6 -> /dev/binderfs/hwbinder
+lrwx------ 1 radio radio 64 2026-09-19 22:45 60 -> socket:[2023518]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 61 -> socket:[1993021]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 62 -> socket:[2019194]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 63 -> pipe:[2019195]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 64 -> pipe:[2019195]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 65 -> pipe:[2023519]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 66 -> pipe:[2023519]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 67 -> socket:[1993016]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 68 -> pipe:[1993017]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 69 -> pipe:[1993017]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 7 -> pipe:[2022798]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 70 -> pipe:[1993022]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 71 -> pipe:[1993022]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 72 -> socket:[1993025]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 73 -> pipe:[1993026]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 74 -> pipe:[1993026]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 75 -> /sys/devices/platform/soc/17300000.qcom,lpass/subsys2/state
+lrwx------ 1 radio radio 64 2026-09-19 22:45 76 -> socket:[2023530]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 77 -> pipe:[2023531]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 78 -> pipe:[2023531]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 79 -> socket:[2023538]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 8 -> pipe:[2022798]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 80 -> pipe:[2023539]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 81 -> pipe:[2023539]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 82 -> socket:[2064214]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 83 -> pipe:[2064215]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 84 -> pipe:[2064215]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 85 -> socket:[2064218]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 86 -> socket:[2064415]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 87 -> socket:[2064220]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 88 -> pipe:[2064221]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 89 -> pipe:[2064221]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 9 -> /dev/binderfs/vndbinder
+lr-x------ 1 radio radio 64 2026-09-19 22:45 90 -> pipe:[2064416]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 91 -> pipe:[2064416]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 92 -> socket:[2052603]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 93 -> pipe:[2052604]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 94 -> pipe:[2052604]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 95 -> socket:[2062449]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 96 -> pipe:[2062450]
+l-wx------ 1 radio radio 64 2026-09-19 22:45 97 -> pipe:[2062450]
+lrwx------ 1 radio radio 64 2026-09-19 22:45 98 -> socket:[2365088]
+lr-x------ 1 radio radio 64 2026-09-19 22:45 99 -> pipe:[2365089]

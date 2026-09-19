@@ -8,6 +8,8 @@ Read-only live inventory on serial `192.168.1.25:42319` confirmed root, both qcr
 
 The preferred next candidate is a fixed slot1 `setSimPowerStateForSlot` power-down/up helper, but it is intentionally blocked until its current-ROM framework -> Radio HAL -> qcrild2 -> QMI UIM path, constants, callback and rollback are statically proven. No SIM/UICC/RIL/modem write was executed while building the matrix.
 
+Read-only slot mapping is now complete: VOXI is Android slot/phone 1, Radio HAL `IRadio/slot2`, Qualcomm `IUim/Uim1`, `vendor.qcrild2 -c 2`, modem stack 1. China Telecom is Android slot/phone 0, `IRadio/slot1`, `IUim/Uim0`, primary qcrild, stack 0. See `experiments/sim_soft_reset/SLOT_MAPPING/VOXI_SLOT_MAPPING.md`. SIM-power execution remains blocked.
+
 ## Purpose
 This repository is the cross-account handoff point for the VOXI Wi-Fi Calling research project. A new Codex session should read `AGENTS.md`, `README.md`, `STATUS.md`, `VALIDATION_REPORT.md`, `FINAL_RUNBOOK.md`, and the files under `autopilot/` before proposing new experiments.
 
