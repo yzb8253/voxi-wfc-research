@@ -18,3 +18,5 @@ SERIAL=192.168.1.25:42319 \
 The script rejects arguments and `LAB_EXECUTE=YES`. Captures are written beneath `../runs/` and are intentionally ignored by Git because full telephony dumps may contain subscriber identifiers.
 
 Read [`L1_5_INTERFACE_REPORT.md`](L1_5_INTERFACE_REPORT.md) before designing any write helper. The next write stage remains blocked pending an independently armed power-up rollback and final pre-write dual-SIM safety gate.
+
+The source-only execution preparation is now under [`executor/`](executor/). It has not been built, deployed, or run in write mode; see its execution plan and code audit before any later authorization.

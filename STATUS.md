@@ -10,6 +10,8 @@ L1.5 read-only discovery has now proven the current-ROM fixed slot1 route throug
 
 The preferred next candidate remains a callback-capable, hard-coded slot1 power-down/up helper, but the write is intentionally blocked until an independent power-up rollback and final pre-write safety gate are implemented and audited. No SIM/UICC/RIL/modem write was executed during L1.5.
 
+The source-only L1.5 executor preparation is now present under `experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/`. It fixes all target identifiers at compile time, requires dual execution locks, and arms an independent device-side POWER_UP watchdog before POWER_DOWN. Static audit and shell syntax checks pass. No dex was built because an audited JDK/D8 pair is not present on this computer; nothing was deployed and no real power cycle was executed.
+
 Read-only slot mapping is now complete: VOXI is Android slot/phone 1, Radio HAL `IRadio/slot2`, Qualcomm `IUim/Uim1`, `vendor.qcrild2 -c 2`, modem stack 1. China Telecom is Android slot/phone 0, `IRadio/slot1`, `IUim/Uim0`, primary qcrild, stack 0. See `experiments/sim_soft_reset/SLOT_MAPPING/VOXI_SLOT_MAPPING.md`. SIM-power execution remains blocked.
 
 ## Purpose
