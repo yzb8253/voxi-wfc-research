@@ -4,6 +4,12 @@
 
 Find, explain, and validate a minimal software-only recovery for VOXI Wi-Fi Calling on this Xiaomi 14 Pro without rebooting or physically removing the SIM. Final success requires 3/3 identical recovery cycles, no slot0 damage, and one-click status/recovery tooling.
 
+## Active Phase Override: SIM Soft Reset Lab
+
+As of 2026-09-19, the active research question is narrower: reproduce the modem/UICC event chain of physical VOXI SIM removal and insertion without rebooting the Android AP. The user explicitly authorized reversible framework, Radio HAL/RIL, QMI UIM and telephony-process experiments, while continuing to forbid AP reboot, boot modification, flashing, EFS/NV/PDC/MBN writes and permanent dual-SIM damage.
+
+This does not authorize unattended escalation. Follow `experiments/sim_soft_reset/MATRIX.md`: one fixed candidate per run, `LAB_EXECUTE=YES`, complete before/after evidence, no automatic fall-through, and no guessed Binder/HIDL/QMI transaction. Previously failed operations stay quarantined unless the hypothesis or environment materially changes. The old automatic-recovery contract remains unchanged.
+
 ## Fixed Device Mapping
 
 - slot0 / phoneId0: China Telecom, subId=1, MCCMNC=46011, carrierId=2237.
@@ -65,10 +71,13 @@ Any mismatch means ABORT WRITE and return to read-only analysis.
 - MAX_LEVEL1_WRITE_EXPERIMENTS=10.
 - Do not repeat an identical failed operation more than twice unless the environment or hypothesis materially changes.
 - Log time, API/command, arguments, pre-state, return/exception, post-state, outcome, and slot0 impact in `autopilot/EXPERIMENTS.jsonl` and `autopilot/COMMAND_AUDIT.log`.
+- The exhausted historical autopilot budget does not count matrix construction or read-only L0 captures. The SIM soft-reset lab has a separate manual budget of one execution per candidate until its evidence is reviewed; a failed candidate may not be repeated unchanged.
 
 ## Level 2: Escalation Required
 
 Do not automatically kill/restart phone, IMS, qcrild, IWLAN, or CNE processes/services; force-stop system packages; change radio power, airplane mode, SIM state, default data SIM, APN, CarrierConfig, or databases. If all Level 0/1 routes are exhausted and one is uniquely justified, record `WRITE_ESCALATION_REQUIRED` and stop.
+
+For the active SIM soft-reset lab, an individually documented Level 2 candidate may be run manually under the explicit phase authorization above. It must still pass the fixed dual-SIM gate and cannot be called by a boot service, recovery daemon, or another experiment.
 
 ## Level 3: Absolutely Forbidden
 

@@ -80,3 +80,7 @@ POSIX/Git Bash:
 The collector saves full logcat plus IMS/qcril-focused output, telephony/IMS/connectivity dumps, process state, routes and XFRM state. It does not modify the phone.
 
 Recommended validation sequence: install with `ENABLED=0`, capture healthy status, turn airplane mode off manually, collect the failure scene, verify slot0 mapping, then enable the daemon. A recovery is accepted only when all four direct health conditions return and remain stable for at least 60 seconds.
+
+## SIM soft-reset laboratory
+
+The next research phase changes the question from generic IMS restart to reproducing the lifecycle of physical VOXI SIM removal/insertion without rebooting Android. The staged experiment matrix and independently gated scripts live in [`experiments/sim_soft_reset`](experiments/sim_soft_reset). Existing auto-recovery sources and releases are unchanged.

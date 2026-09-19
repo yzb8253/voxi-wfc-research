@@ -1,5 +1,13 @@
 # Current Project Status
 
+## Active phase: SIM soft-reset matrix
+
+On 2026-09-19 the project moved from generic IMS process recovery to reproducing the event chain of physical VOXI SIM removal/insertion without rebooting Android. The matrix and opt-in scripts are under `experiments/sim_soft_reset/`.
+
+Read-only live inventory on serial `192.168.1.25:42319` confirmed root, both qcrild services, standard `IRadio/slot1` and `IRadio/slot2`, Qualcomm `IUim/Uim0` and `IUim/Uim1`, and current active/enabled F1. An L0 baseline successfully captured full before/after state and logcat without a phone write. Raw run data remains local and is Git-ignored.
+
+The preferred next candidate is a fixed slot1 `setSimPowerStateForSlot` power-down/up helper, but it is intentionally blocked until its current-ROM framework -> Radio HAL -> qcrild2 -> QMI UIM path, constants, callback and rollback are statically proven. No SIM/UICC/RIL/modem write was executed while building the matrix.
+
 ## Purpose
 This repository is the cross-account handoff point for the VOXI Wi-Fi Calling research project. A new Codex session should read `AGENTS.md`, `README.md`, `STATUS.md`, `VALIDATION_REPORT.md`, `FINAL_RUNBOOK.md`, and the files under `autopilot/` before proposing new experiments.
 

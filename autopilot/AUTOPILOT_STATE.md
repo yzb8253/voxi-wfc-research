@@ -1,5 +1,16 @@
 # Autopilot State
 
+## 2026-09-19 phase handoff
+
+- New active workstream: `experiments/sim_soft_reset/`.
+- Goal: emulate physical VOXI SIM remove/insert through a reversible slot1 UICC/Radio/UIM lifecycle without AP reboot.
+- Current live serial: `192.168.1.25:42319` (mDNS alias also visible).
+- Current preserved state: ACTIVE + UICC ENABLED + F1; direct IMS/WFC unhealthy, slot0 mapping gate PASS.
+- Matrix and independent scripts created; L0 read-only capture passed.
+- No new phone write was executed.
+- Preferred next work: statically prove and build fixed `setSimPowerStateForSlot(1, POWER_DOWN/POWER_UP)` helper. Raw QMI/HIDL calls stay blocked.
+- Existing auto-recovery module is unchanged.
+
 UPDATED: 2026-09-18T10:30:40+08:00
 STATUS: PHASE8D_COMPLETE_FAILED_PRESERVED
 FINAL_GOAL: ACHIEVED
