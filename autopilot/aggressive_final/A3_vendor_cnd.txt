@@ -1,0 +1,6 @@
+old=6825
+LABEL                          USER           PID  PPID     VSZ    RSS WCHAN            ADDR S NAME                       
+u:r:vendor_cnd:s0              system        6825     1 2494828  12732 0                   0 S cnd
+
+cmdline=/system/vendor/bin/cnd
+new=27097

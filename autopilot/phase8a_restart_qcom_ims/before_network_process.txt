@@ -1,0 +1,28 @@
+2026-09-18T09:05:30+08:00
+13: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 3000
+    link/ether 2a:3c:1e:a7:a6:e4 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.137.211/24 brd 192.168.137.255 scope global wlan0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::283c:1eff:fea7:a6e4/64 scope link 
+       valid_lft forever preferred_lft forever
+28: tun0: <POINTOPOINT,UP,LOWER_UP> mtu 9000 qdisc pfifo_fast state UNKNOWN group default qlen 500
+    link/none 
+    inet 172.19.0.1/30 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::666:e0fe:6fcc:cc4f/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+CNE_PACKAGE
+  Package [com.qualcomm.qti.cne] (d051a41):
+    userId=10104
+    userId=10104
+PROCESS_LIST
+radio         3125   918 .dataservices               .dataservices
+u0_a104       3170   918 .qtidataservices            .qtidataservices
+u0_a196       3184   918 org.codeaurora.ims          org.codeaurora.ims
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+shell        22855 11247 sh                          sh -c su -c 'date -Iseconds; ip addr show wlan0; ip addr show tun0 2>&1; ip xfrm state; echo CNE_PACKAGE; dumpsys package com.qualcomm.qti.cne | grep -E "Package \[|userId=|processName="; echo PROCESS_LIST; ps -A -o USER,PID,PPID,NAME,ARGS | grep -Ei "cne|dataservice|codeaurora.ims|android.phone"'
+shell        22857 22855 su                          su -c date -Iseconds; ip addr show wlan0; ip addr show tun0 2>&1; ip xfrm state; echo CNE_PACKAGE; dumpsys package com.qualcomm.qti.cne | grep -E "Package \[|userId=|processName="; echo PROCESS_LIST; ps -A -o USER,PID,PPID,NAME,ARGS | grep -Ei "cne|dataservice|codeaurora.ims|android.phone"
+root         22860   868 sh                          sh -c date -Iseconds; ip addr show wlan0; ip addr show tun0 2>&1; ip xfrm state; echo CNE_PACKAGE; dumpsys package com.qualcomm.qti.cne | grep -E "Package \[|userId=|processName="; echo PROCESS_LIST; ps -A -o USER,PID,PPID,NAME,ARGS | grep -Ei "cne|dataservice|codeaurora.ims|android.phone"
+root         22861 22859 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:22857 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; ip addr show wlan0; ip addr show tun0 2>&1; ip xfrm state; echo CNE_PACKAGE; dumpsys package com.qualcomm.qti.cne | grep -E "Package \\[|userId=|processName="; echo PROCESS_LIST; ps -A -o USER,PID,PPID,NAME,ARGS | grep -Ei "cne|dataservice|codeaurora.ims|android.phone" --extra notify:b:true
+root         22870 22860 grep                        grep -Ei cne|dataservice|codeaurora.ims|android.phone

@@ -1,0 +1,5 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell getenforce
+CAPTURED_AT: 2026-09-16T13:04:14.3016142+08:00
+
+Enforcing
+

@@ -1,0 +1,8 @@
+PhaseBStart=2026-09-18T16:34:55.4499641+08:00
+oldPid=1633
+cmdline=system_server
+uid=1000
+selinux=u:r:system_server:s0
+command=kill -TERM 1633
+hostReturn=2026-09-18T16:34:55.7352823+08:00
+exit=0

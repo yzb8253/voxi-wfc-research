@@ -1,0 +1,6 @@
+old=28722
+LABEL                          USER           PID  PPID     VSZ    RSS WCHAN            ADDR S NAME                       
+u:r:vendor_ims:s0              radio        28722     1 2463920  10092 0                   0 S imsdatadaemon
+
+cmdline=/vendor/bin/imsdatadaemon
+new=26887

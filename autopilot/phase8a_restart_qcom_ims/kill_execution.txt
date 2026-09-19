@@ -1,0 +1,9 @@
+--- verification-only aborted attempt (no kill) ---
+verify_time=2026-09-18T09:07:02+08:00
+target=3184 current=3184 cmdline=org.codeaurora.ims context=u:r:vendor_qtelephony:s0:c196,c256,c512,c768
+--- executed attempt ---
+verify_time=2026-09-18T09:08:07+08:00
+target=3184 current=3184 context=u:r:vendor_qtelephony:s0:c196,c256,c512,c768
+cmdline_prefix=org.codeaurora.ims
+kill_time=2026-09-18T09:08:07+08:00
+kill_signal=TERM kill_rc=0

@@ -1,0 +1,11 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys ims
+CAPTURED_AT: 2026-09-16T13:04:16.4561975+08:00
+
+adb.exe : Can't find service: ims
+At C:\Users\ZJH\Desktop\platform-tools\collect_golden_state.ps1:28 char:5
++     & .\adb.exe @AdbArgs *>> $Path
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Can't find service: ims:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

@@ -1,0 +1,74 @@
+{
+  "ready": true,
+  "systemServer": "2267",
+  "cnd": "27097",
+  "qtidataservices": "u:r:vendor_qtidataservices_app:s0:c104,c256,c512,c768 u0_a104 3532 2035 6556956 113048 0   0 S .qtidataservices",
+  "ims": "3553",
+  "phone": "u:r:radio:s0                   radio         3601  2035 7861776 170004 0                   0 S com.android.phone",
+  "wlan": "13: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DORMANT group default qlen 3000\r\n    link/ether 2a:3c:1e:a7:a6:e4 brd ff:ff:ff:ff:ff:ff\r\n",
+  "tun": "27: tun0: <POINTOPOINT,UP,LOWER_UP> mtu 9000 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 500\r\n    link/none \r\n",
+  "state": {
+    "timestamp": "2026-09-18T16:38:24.952+08:00",
+    "uid": 0,
+    "selinuxContext": "u:r:magisk:s0",
+    "target": {
+      "subId": 11,
+      "slotId": 1,
+      "phoneId": 1,
+      "carrierId": 28,
+      "mcc": 234,
+      "mnc": 15,
+      "mappingGate": true
+    },
+    "protectedSlot0": {
+      "subId": 1,
+      "slotId": 0,
+      "mcc": 460,
+      "mnc": 11,
+      "active": true,
+      "mappingGate": true
+    },
+    "subscription": {
+      "active": true,
+      "areUiccApplicationsEnabled": true,
+      "defaultDataSubId": 1,
+      "activeDataSubId": 1
+    },
+    "iwlan": {
+      "rilDataTechnology": "IWLAN",
+      "psWlanState": "HOME",
+      "accessNetworkTechnology": "IWLAN",
+      "iwlanPreferred": true
+    },
+    "ims": {
+      "registrationStateRaw": 0,
+      "registrationStateName": "NOT_REGISTERED",
+      "registrationTransportRaw": -1,
+      "registrationTransportName": "UNKNOWN_-1"
+    },
+    "mmtel": {
+      "voiceIwlanAvailable": false,
+      "voiceIwlanCapable": false,
+      "featureState": "READY"
+    },
+    "wfc": {
+      "settingEnabled": true,
+      "wifiCallingAvailable": false
+    },
+    "connectivity": {
+      "imsIwlanNetworkAgent": false,
+      "imsNetworkId": null,
+      "imsRequestActive": false,
+      "qtiCneRequestActive": false,
+      "qtiCneRequestId": null
+    },
+    "epdg": {
+      "udp4500Keepalive": false,
+      "keepaliveInterval": null
+    },
+    "safetyGate": true,
+    "goldenStrong": false,
+    "failureClass": "F1",
+    "errors": []
+  }
+}

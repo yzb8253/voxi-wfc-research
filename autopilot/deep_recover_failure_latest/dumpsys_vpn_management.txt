@@ -1,0 +1,3 @@
+VPNs:
+  0: com.follow.clash
+  999: [Legacy VPN]

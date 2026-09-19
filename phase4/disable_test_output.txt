@@ -1,0 +1,13 @@
+Phase 4 disable test
+HostStartTime=2026-09-16 15:47:38.389 +08:00
+Device=192.168.137.134:37667
+TargetSubId=11
+TargetSlotId=1
+TargetMccMnc=23415
+This script intentionally stops after disable and after-snapshot. It does not run enable-physical-subscription.
+Started watch process pid=21628
+
+===== EXECUTE DISABLE: adb -s 192.168.137.134:37667 shell cmd phone disable-physical-subscription 11 =====
+cc: Permission denied.
+HostEndTime=2026-09-16 15:52:58.831 +08:00
+Disable test complete. Recovery was not executed.

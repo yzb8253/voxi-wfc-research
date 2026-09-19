@@ -1,0 +1,7 @@
+
+METHOD TeleService.apk com.android.phone.PhoneInterfaceManager :: void resetIms(int)
+  invoke: com.android.phone.PhoneInterfaceManager void enforceModifyPermission()
+  invoke: android.os.Binder long clearCallingIdentity()
+  field: com.android.phone.PhoneInterfaceManager com.android.internal.telephony.ims.ImsResolver mImsResolver
+  invoke: com.android.internal.telephony.ims.ImsResolver void disableIms(int)
+  invoke: android.os.Binder void restoreCallingIdentity(long)

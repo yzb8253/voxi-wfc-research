@@ -1,0 +1,558 @@
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhone
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces android.os.IInterface
+  FIELD public,static,final java.lang.String DESCRIPTOR string@3544
+  METHOD public,abstract boolean abortIncrementalScan(int)
+  METHOD public,abstract boolean checkSimPinLockStatus(int)
+  METHOD public,abstract com.qti.extphone.Token disable5g(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token enable5g(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token enable5gOnly(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token enableEndc(int, boolean, com.qti.extphone.Client)
+  METHOD public,abstract boolean getAirplaneMode()
+  METHOD public,abstract int getCurrentPrimaryCardSlotId()
+  METHOD public,abstract com.qti.extphone.QtiSimType[] getCurrentSimType()
+  METHOD public,abstract com.qti.extphone.Token getDdsSwitchCapability(int, com.qti.extphone.Client)
+  METHOD public,abstract void getFacilityLockForApp(int, java.lang.String, java.lang.String, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.QtiImeiInfo[] getImeiInfo()
+  METHOD public,abstract com.qti.extphone.Token getNetworkSelectionMode(int, com.qti.extphone.Client)
+  METHOD public,abstract int getPrimaryCarrierSlotId()
+  METHOD public,abstract boolean getPropertyValueBool(java.lang.String, boolean)
+  METHOD public,abstract int getPropertyValueInt(java.lang.String, int)
+  METHOD public,abstract java.lang.String getPropertyValueString(java.lang.String, java.lang.String)
+  METHOD public,abstract com.qti.extphone.Token getQosParameters(int, int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token getQtiRadioCapability(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token getSecureModeStatus(com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.QtiSimType[] getSupportedSimTypes()
+  METHOD public,abstract boolean isEpdgOverCellularDataSupported(int)
+  METHOD public,abstract boolean isFeatureSupported(int)
+  METHOD public,abstract boolean isPrimaryCarrierSlotId(int)
+  METHOD public,abstract boolean isSMSPromptEnabled()
+  METHOD public,abstract boolean isSmartDdsSwitchFeatureAvailable()
+  METHOD public,abstract boolean performIncrementalScan(int)
+  METHOD public,abstract com.qti.extphone.Token query5gConfigInfo(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token query5gStatus(int, com.qti.extphone.Client)
+  METHOD public,abstract void queryCallForwardStatus(int, int, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryEndcStatus(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryNrBearerAllocation(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryNrConfig(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryNrDcParam(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryNrIconType(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryNrSignalStrength(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token queryUpperLayerIndInfo(int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Client registerCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public,abstract com.qti.extphone.Client registerQtiRadioConfigCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public,abstract com.qti.extphone.Token sendCdmaSms(int, byte[], boolean, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token sendUserPreferenceForDataDuringVoiceCall(int, boolean, com.qti.extphone.Client)
+  METHOD public,abstract boolean setAirplaneMode(boolean)
+  METHOD public,abstract com.qti.extphone.Token setCarrierInfoForImsiEncryption(int, android.telephony.ImsiEncryptionInfo, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token setMsimPreference(com.qti.extphone.Client, com.qti.extphone.MsimPreference)
+  METHOD public,abstract com.qti.extphone.Token setNetworkSelectionModeAutomatic(int, int, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token setNetworkSelectionModeManual(int, com.qti.extphone.QtiSetNetworkSelectionMode, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token setNrConfig(int, com.qti.extphone.NrConfig, com.qti.extphone.Client)
+  METHOD public,abstract void setPrimaryCardOnSlot(int)
+  METHOD public,abstract void setSMSPromptEnabled(boolean)
+  METHOD public,abstract com.qti.extphone.Token setSimType(com.qti.extphone.Client, com.qti.extphone.QtiSimType[])
+  METHOD public,abstract void setSmartDdsSwitchToggle(boolean, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token startNetworkScan(int, android.telephony.NetworkScanRequest, com.qti.extphone.Client)
+  METHOD public,abstract com.qti.extphone.Token stopNetworkScan(int, com.qti.extphone.Client)
+  METHOD public,abstract void supplyIccDepersonalization(java.lang.String, java.lang.String, com.qti.extphone.IDepersoResCallback, int)
+  METHOD public,abstract boolean toggleSimPinLock(int, boolean, java.lang.String)
+  METHOD public,abstract void unRegisterCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public,abstract void unregisterQtiRadioConfigCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public,abstract boolean verifySimPin(int, java.lang.String)
+  METHOD public,abstract boolean verifySimPukChangePin(int, java.lang.String, java.lang.String)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhoneCallback
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces android.os.IInterface
+  FIELD public,static,final java.lang.String DESCRIPTOR string@3545
+  METHOD public,abstract void getFacilityLockForAppResponse(com.qti.extphone.Status, int[])
+  METHOD public,abstract void getNetworkSelectionModeResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NetworkSelectionMode)
+  METHOD public,abstract void getQosParametersResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.QosParametersResult)
+  METHOD public,abstract void getQtiRadioCapabilityResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, int)
+  METHOD public,abstract void getSecureModeStatusResponse(com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public,abstract void networkScanResult(int, com.qti.extphone.Token, int, int, java.util.List)
+  METHOD public,abstract void on5gConfigInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfigType)
+  METHOD public,abstract void on5gStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public,abstract void onAnyNrBearerAllocation(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.BearerAllocationStatus)
+  METHOD public,abstract void onDataDeactivateDelayTime(int, long)
+  METHOD public,abstract void onDdsSwitchCapabilityChange(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public,abstract void onDdsSwitchCriteriaChange(int, boolean)
+  METHOD public,abstract void onDdsSwitchRecommendation(int, int)
+  METHOD public,abstract void onEnableEndc(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public,abstract void onEndcStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public,abstract void onEpdgOverCellularDataSupported(int, boolean)
+  METHOD public,abstract void onImeiTypeChanged(com.qti.extphone.QtiImeiInfo[])
+  METHOD public,abstract void onNrConfigStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfig)
+  METHOD public,abstract void onNrDcParam(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.DcParam)
+  METHOD public,abstract void onNrIconType(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrIconType)
+  METHOD public,abstract void onQosParametersChanged(int, int, com.qti.extphone.QosParametersResult)
+  METHOD public,abstract void onSecureModeStatusChange(boolean)
+  METHOD public,abstract void onSendUserPreferenceForDataDuringVoiceCall(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public,abstract void onSetNrConfig(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public,abstract void onSignalStrength(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SignalStrength)
+  METHOD public,abstract void onSimTypeChanged(com.qti.extphone.QtiSimType[])
+  METHOD public,abstract void onUpperLayerIndInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.UpperLayerIndInfo)
+  METHOD public,abstract void queryCallForwardStatusResponse(com.qti.extphone.Status, com.qti.extphone.QtiCallForwardInfo[])
+  METHOD public,abstract void sendCdmaSmsResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SmsResult)
+  METHOD public,abstract void setCarrierInfoForImsiEncryptionResponse(int, com.qti.extphone.Token, com.qti.extphone.QRadioResponseInfo)
+  METHOD public,abstract void setMsimPreferenceResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public,abstract void setNetworkSelectionModeAutomaticResponse(int, com.qti.extphone.Token, int)
+  METHOD public,abstract void setNetworkSelectionModeManualResponse(int, com.qti.extphone.Token, int)
+  METHOD public,abstract void setSimTypeResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public,abstract void setSmartDdsSwitchToggleResponse(com.qti.extphone.Token, boolean)
+  METHOD public,abstract void startNetworkScanResponse(int, com.qti.extphone.Token, int)
+  METHOD public,abstract void stopNetworkScanResponse(int, com.qti.extphone.Token, int)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhone$Default
+  access public
+  super java.lang.Object
+  interfaces com.qti.extphone.IExtPhone
+  METHOD public,constructor void <init>()
+  METHOD public boolean abortIncrementalScan(int)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public boolean checkSimPinLockStatus(int)
+  METHOD public com.qti.extphone.Token disable5g(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enable5g(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enable5gOnly(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enableEndc(int, boolean, com.qti.extphone.Client)
+  METHOD public boolean getAirplaneMode()
+  METHOD public int getCurrentPrimaryCardSlotId()
+  METHOD public com.qti.extphone.QtiSimType[] getCurrentSimType()
+  METHOD public com.qti.extphone.Token getDdsSwitchCapability(int, com.qti.extphone.Client)
+  METHOD public void getFacilityLockForApp(int, java.lang.String, java.lang.String, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.QtiImeiInfo[] getImeiInfo()
+  METHOD public com.qti.extphone.Token getNetworkSelectionMode(int, com.qti.extphone.Client)
+  METHOD public int getPrimaryCarrierSlotId()
+  METHOD public boolean getPropertyValueBool(java.lang.String, boolean)
+  METHOD public int getPropertyValueInt(java.lang.String, int)
+  METHOD public java.lang.String getPropertyValueString(java.lang.String, java.lang.String)
+  METHOD public com.qti.extphone.Token getQosParameters(int, int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token getQtiRadioCapability(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token getSecureModeStatus(com.qti.extphone.Client)
+  METHOD public com.qti.extphone.QtiSimType[] getSupportedSimTypes()
+  METHOD public boolean isEpdgOverCellularDataSupported(int)
+  METHOD public boolean isFeatureSupported(int)
+  METHOD public boolean isPrimaryCarrierSlotId(int)
+  METHOD public boolean isSMSPromptEnabled()
+  METHOD public boolean isSmartDdsSwitchFeatureAvailable()
+  METHOD public boolean performIncrementalScan(int)
+  METHOD public com.qti.extphone.Token query5gConfigInfo(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token query5gStatus(int, com.qti.extphone.Client)
+  METHOD public void queryCallForwardStatus(int, int, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryEndcStatus(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrBearerAllocation(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrConfig(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrDcParam(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrIconType(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrSignalStrength(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryUpperLayerIndInfo(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Client registerCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public com.qti.extphone.Client registerQtiRadioConfigCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public com.qti.extphone.Token sendCdmaSms(int, byte[], boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token sendUserPreferenceForDataDuringVoiceCall(int, boolean, com.qti.extphone.Client)
+  METHOD public boolean setAirplaneMode(boolean)
+  METHOD public com.qti.extphone.Token setCarrierInfoForImsiEncryption(int, android.telephony.ImsiEncryptionInfo, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setMsimPreference(com.qti.extphone.Client, com.qti.extphone.MsimPreference)
+  METHOD public com.qti.extphone.Token setNetworkSelectionModeAutomatic(int, int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setNetworkSelectionModeManual(int, com.qti.extphone.QtiSetNetworkSelectionMode, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setNrConfig(int, com.qti.extphone.NrConfig, com.qti.extphone.Client)
+  METHOD public void setPrimaryCardOnSlot(int)
+  METHOD public void setSMSPromptEnabled(boolean)
+  METHOD public com.qti.extphone.Token setSimType(com.qti.extphone.Client, com.qti.extphone.QtiSimType[])
+  METHOD public void setSmartDdsSwitchToggle(boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token startNetworkScan(int, android.telephony.NetworkScanRequest, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token stopNetworkScan(int, com.qti.extphone.Client)
+  METHOD public void supplyIccDepersonalization(java.lang.String, java.lang.String, com.qti.extphone.IDepersoResCallback, int)
+  METHOD public boolean toggleSimPinLock(int, boolean, java.lang.String)
+  METHOD public void unRegisterCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public void unregisterQtiRadioConfigCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public boolean verifySimPin(int, java.lang.String)
+  METHOD public boolean verifySimPukChangePin(int, java.lang.String, java.lang.String)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhone$Stub$Proxy
+  access 
+  super java.lang.Object
+  interfaces com.qti.extphone.IExtPhone
+  FIELD private android.os.IBinder mRemote 
+  METHOD constructor void <init>(android.os.IBinder)
+  METHOD public boolean abortIncrementalScan(int)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public boolean checkSimPinLockStatus(int)
+  METHOD public com.qti.extphone.Token disable5g(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enable5g(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enable5gOnly(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token enableEndc(int, boolean, com.qti.extphone.Client)
+  METHOD public boolean getAirplaneMode()
+  METHOD public int getCurrentPrimaryCardSlotId()
+  METHOD public com.qti.extphone.QtiSimType[] getCurrentSimType()
+  METHOD public com.qti.extphone.Token getDdsSwitchCapability(int, com.qti.extphone.Client)
+  METHOD public void getFacilityLockForApp(int, java.lang.String, java.lang.String, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.QtiImeiInfo[] getImeiInfo()
+  METHOD public java.lang.String getInterfaceDescriptor()
+  METHOD public com.qti.extphone.Token getNetworkSelectionMode(int, com.qti.extphone.Client)
+  METHOD public int getPrimaryCarrierSlotId()
+  METHOD public boolean getPropertyValueBool(java.lang.String, boolean)
+  METHOD public int getPropertyValueInt(java.lang.String, int)
+  METHOD public java.lang.String getPropertyValueString(java.lang.String, java.lang.String)
+  METHOD public com.qti.extphone.Token getQosParameters(int, int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token getQtiRadioCapability(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token getSecureModeStatus(com.qti.extphone.Client)
+  METHOD public com.qti.extphone.QtiSimType[] getSupportedSimTypes()
+  METHOD public boolean isEpdgOverCellularDataSupported(int)
+  METHOD public boolean isFeatureSupported(int)
+  METHOD public boolean isPrimaryCarrierSlotId(int)
+  METHOD public boolean isSMSPromptEnabled()
+  METHOD public boolean isSmartDdsSwitchFeatureAvailable()
+  METHOD public boolean performIncrementalScan(int)
+  METHOD public com.qti.extphone.Token query5gConfigInfo(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token query5gStatus(int, com.qti.extphone.Client)
+  METHOD public void queryCallForwardStatus(int, int, int, java.lang.String, boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryEndcStatus(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrBearerAllocation(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrConfig(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrDcParam(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrIconType(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryNrSignalStrength(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token queryUpperLayerIndInfo(int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Client registerCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public com.qti.extphone.Client registerQtiRadioConfigCallback(java.lang.String, com.qti.extphone.IExtPhoneCallback)
+  METHOD public com.qti.extphone.Token sendCdmaSms(int, byte[], boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token sendUserPreferenceForDataDuringVoiceCall(int, boolean, com.qti.extphone.Client)
+  METHOD public boolean setAirplaneMode(boolean)
+  METHOD public com.qti.extphone.Token setCarrierInfoForImsiEncryption(int, android.telephony.ImsiEncryptionInfo, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setMsimPreference(com.qti.extphone.Client, com.qti.extphone.MsimPreference)
+  METHOD public com.qti.extphone.Token setNetworkSelectionModeAutomatic(int, int, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setNetworkSelectionModeManual(int, com.qti.extphone.QtiSetNetworkSelectionMode, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token setNrConfig(int, com.qti.extphone.NrConfig, com.qti.extphone.Client)
+  METHOD public void setPrimaryCardOnSlot(int)
+  METHOD public void setSMSPromptEnabled(boolean)
+  METHOD public com.qti.extphone.Token setSimType(com.qti.extphone.Client, com.qti.extphone.QtiSimType[])
+  METHOD public void setSmartDdsSwitchToggle(boolean, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token startNetworkScan(int, android.telephony.NetworkScanRequest, com.qti.extphone.Client)
+  METHOD public com.qti.extphone.Token stopNetworkScan(int, com.qti.extphone.Client)
+  METHOD public void supplyIccDepersonalization(java.lang.String, java.lang.String, com.qti.extphone.IDepersoResCallback, int)
+  METHOD public boolean toggleSimPinLock(int, boolean, java.lang.String)
+  METHOD public void unRegisterCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public void unregisterQtiRadioConfigCallback(com.qti.extphone.IExtPhoneCallback)
+  METHOD public boolean verifySimPin(int, java.lang.String)
+  METHOD public boolean verifySimPukChangePin(int, java.lang.String, java.lang.String)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhone$Stub
+  access public,abstract
+  super android.os.Binder
+  interfaces com.qti.extphone.IExtPhone
+  FIELD static,final int TRANSACTION_abortIncrementalScan 9
+  FIELD static,final int TRANSACTION_checkSimPinLockStatus 45
+  FIELD static,final int TRANSACTION_disable5g 30
+  FIELD static,final int TRANSACTION_enable5g 29
+  FIELD static,final int TRANSACTION_enable5gOnly 32
+  FIELD static,final int TRANSACTION_enableEndc 19
+  FIELD static,final int TRANSACTION_getAirplaneMode 44
+  FIELD static,final int TRANSACTION_getCurrentPrimaryCardSlotId 4
+  FIELD static,final int TRANSACTION_getCurrentSimType 57
+  FIELD static,final int TRANSACTION_getDdsSwitchCapability 51
+  FIELD static,final int TRANSACTION_getFacilityLockForApp 40
+  FIELD static,final int TRANSACTION_getImeiInfo 50
+  FIELD static,final int TRANSACTION_getNetworkSelectionMode 14
+  FIELD static,final int TRANSACTION_getPrimaryCarrierSlotId 5
+  FIELD static,final int TRANSACTION_getPropertyValueBool 2
+  FIELD static,final int TRANSACTION_getPropertyValueInt 1
+  FIELD static,final int TRANSACTION_getPropertyValueString 3
+  FIELD static,final int TRANSACTION_getQosParameters 54
+  FIELD static,final int TRANSACTION_getQtiRadioCapability 28
+  FIELD static,final int TRANSACTION_getSecureModeStatus 55
+  FIELD static,final int TRANSACTION_getSupportedSimTypes 58
+  FIELD static,final int TRANSACTION_isEpdgOverCellularDataSupported 53
+  FIELD static,final int TRANSACTION_isFeatureSupported 49
+  FIELD static,final int TRANSACTION_isPrimaryCarrierSlotId 6
+  FIELD static,final int TRANSACTION_isSMSPromptEnabled 15
+  FIELD static,final int TRANSACTION_isSmartDdsSwitchFeatureAvailable 41
+  FIELD static,final int TRANSACTION_performIncrementalScan 8
+  FIELD static,final int TRANSACTION_query5gConfigInfo 37
+  FIELD static,final int TRANSACTION_query5gStatus 33
+  FIELD static,final int TRANSACTION_queryCallForwardStatus 39
+  FIELD static,final int TRANSACTION_queryEndcStatus 20
+  FIELD static,final int TRANSACTION_queryNrBearerAllocation 31
+  FIELD static,final int TRANSACTION_queryNrConfig 26
+  FIELD static,final int TRANSACTION_queryNrDcParam 34
+  FIELD static,final int TRANSACTION_queryNrIconType 18
+  FIELD static,final int TRANSACTION_queryNrSignalStrength 35
+  FIELD static,final int TRANSACTION_queryUpperLayerIndInfo 36
+  FIELD static,final int TRANSACTION_registerCallback 21
+  FIELD static,final int TRANSACTION_registerQtiRadioConfigCallback 23
+  FIELD static,final int TRANSACTION_sendCdmaSms 27
+  FIELD static,final int TRANSACTION_sendUserPreferenceForDataDuringVoiceCall 52
+  FIELD static,final int TRANSACTION_setAirplaneMode 43
+  FIELD static,final int TRANSACTION_setCarrierInfoForImsiEncryption 38
+  FIELD static,final int TRANSACTION_setMsimPreference 56
+  FIELD static,final int TRANSACTION_setNetworkSelectionModeAutomatic 13
+  FIELD static,final int TRANSACTION_setNetworkSelectionModeManual 12
+  FIELD static,final int TRANSACTION_setNrConfig 25
+  FIELD static,final int TRANSACTION_setPrimaryCardOnSlot 7
+  FIELD static,final int TRANSACTION_setSMSPromptEnabled 16
+  FIELD static,final int TRANSACTION_setSimType 59
+  FIELD static,final int TRANSACTION_setSmartDdsSwitchToggle 42
+  FIELD static,final int TRANSACTION_startNetworkScan 10
+  FIELD static,final int TRANSACTION_stopNetworkScan 11
+  FIELD static,final int TRANSACTION_supplyIccDepersonalization 17
+  FIELD static,final int TRANSACTION_toggleSimPinLock 46
+  FIELD static,final int TRANSACTION_unRegisterCallback 22
+  FIELD static,final int TRANSACTION_unregisterQtiRadioConfigCallback 24
+  FIELD static,final int TRANSACTION_verifySimPin 47
+  FIELD static,final int TRANSACTION_verifySimPukChangePin 48
+  METHOD public,constructor void <init>()
+  METHOD public,static com.qti.extphone.IExtPhone asInterface(android.os.IBinder)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhoneCallback$Default
+  access public
+  super java.lang.Object
+  interfaces com.qti.extphone.IExtPhoneCallback
+  METHOD public,constructor void <init>()
+  METHOD public android.os.IBinder asBinder()
+  METHOD public void getFacilityLockForAppResponse(com.qti.extphone.Status, int[])
+  METHOD public void getNetworkSelectionModeResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NetworkSelectionMode)
+  METHOD public void getQosParametersResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.QosParametersResult)
+  METHOD public void getQtiRadioCapabilityResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, int)
+  METHOD public void getSecureModeStatusResponse(com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void networkScanResult(int, com.qti.extphone.Token, int, int, java.util.List)
+  METHOD public void on5gConfigInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfigType)
+  METHOD public void on5gStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onAnyNrBearerAllocation(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.BearerAllocationStatus)
+  METHOD public void onDataDeactivateDelayTime(int, long)
+  METHOD public void onDdsSwitchCapabilityChange(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onDdsSwitchCriteriaChange(int, boolean)
+  METHOD public void onDdsSwitchRecommendation(int, int)
+  METHOD public void onEnableEndc(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onEndcStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onEpdgOverCellularDataSupported(int, boolean)
+  METHOD public void onImeiTypeChanged(com.qti.extphone.QtiImeiInfo[])
+  METHOD public void onNrConfigStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfig)
+  METHOD public void onNrDcParam(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.DcParam)
+  METHOD public void onNrIconType(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrIconType)
+  METHOD public void onQosParametersChanged(int, int, com.qti.extphone.QosParametersResult)
+  METHOD public void onSecureModeStatusChange(boolean)
+  METHOD public void onSendUserPreferenceForDataDuringVoiceCall(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onSetNrConfig(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onSignalStrength(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SignalStrength)
+  METHOD public void onSimTypeChanged(com.qti.extphone.QtiSimType[])
+  METHOD public void onUpperLayerIndInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.UpperLayerIndInfo)
+  METHOD public void queryCallForwardStatusResponse(com.qti.extphone.Status, com.qti.extphone.QtiCallForwardInfo[])
+  METHOD public void sendCdmaSmsResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SmsResult)
+  METHOD public void setCarrierInfoForImsiEncryptionResponse(int, com.qti.extphone.Token, com.qti.extphone.QRadioResponseInfo)
+  METHOD public void setMsimPreferenceResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void setNetworkSelectionModeAutomaticResponse(int, com.qti.extphone.Token, int)
+  METHOD public void setNetworkSelectionModeManualResponse(int, com.qti.extphone.Token, int)
+  METHOD public void setSimTypeResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void setSmartDdsSwitchToggleResponse(com.qti.extphone.Token, boolean)
+  METHOD public void startNetworkScanResponse(int, com.qti.extphone.Token, int)
+  METHOD public void stopNetworkScanResponse(int, com.qti.extphone.Token, int)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhoneCallback$Stub$Proxy
+  access 
+  super java.lang.Object
+  interfaces com.qti.extphone.IExtPhoneCallback
+  FIELD private android.os.IBinder mRemote 
+  METHOD constructor void <init>(android.os.IBinder)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public void getFacilityLockForAppResponse(com.qti.extphone.Status, int[])
+  METHOD public java.lang.String getInterfaceDescriptor()
+  METHOD public void getNetworkSelectionModeResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NetworkSelectionMode)
+  METHOD public void getQosParametersResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.QosParametersResult)
+  METHOD public void getQtiRadioCapabilityResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, int)
+  METHOD public void getSecureModeStatusResponse(com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void networkScanResult(int, com.qti.extphone.Token, int, int, java.util.List)
+  METHOD public void on5gConfigInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfigType)
+  METHOD public void on5gStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onAnyNrBearerAllocation(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.BearerAllocationStatus)
+  METHOD public void onDataDeactivateDelayTime(int, long)
+  METHOD public void onDdsSwitchCapabilityChange(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onDdsSwitchCriteriaChange(int, boolean)
+  METHOD public void onDdsSwitchRecommendation(int, int)
+  METHOD public void onEnableEndc(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onEndcStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, boolean)
+  METHOD public void onEpdgOverCellularDataSupported(int, boolean)
+  METHOD public void onImeiTypeChanged(com.qti.extphone.QtiImeiInfo[])
+  METHOD public void onNrConfigStatus(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrConfig)
+  METHOD public void onNrDcParam(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.DcParam)
+  METHOD public void onNrIconType(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.NrIconType)
+  METHOD public void onQosParametersChanged(int, int, com.qti.extphone.QosParametersResult)
+  METHOD public void onSecureModeStatusChange(boolean)
+  METHOD public void onSendUserPreferenceForDataDuringVoiceCall(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onSetNrConfig(int, com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void onSignalStrength(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SignalStrength)
+  METHOD public void onSimTypeChanged(com.qti.extphone.QtiSimType[])
+  METHOD public void onUpperLayerIndInfo(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.UpperLayerIndInfo)
+  METHOD public void queryCallForwardStatusResponse(com.qti.extphone.Status, com.qti.extphone.QtiCallForwardInfo[])
+  METHOD public void sendCdmaSmsResponse(int, com.qti.extphone.Token, com.qti.extphone.Status, com.qti.extphone.SmsResult)
+  METHOD public void setCarrierInfoForImsiEncryptionResponse(int, com.qti.extphone.Token, com.qti.extphone.QRadioResponseInfo)
+  METHOD public void setMsimPreferenceResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void setNetworkSelectionModeAutomaticResponse(int, com.qti.extphone.Token, int)
+  METHOD public void setNetworkSelectionModeManualResponse(int, com.qti.extphone.Token, int)
+  METHOD public void setSimTypeResponse(com.qti.extphone.Token, com.qti.extphone.Status)
+  METHOD public void setSmartDdsSwitchToggleResponse(com.qti.extphone.Token, boolean)
+  METHOD public void startNetworkScanResponse(int, com.qti.extphone.Token, int)
+  METHOD public void stopNetworkScanResponse(int, com.qti.extphone.Token, int)
+
+CLASS extphonelib.jar com.qti.extphone.IExtPhoneCallback$Stub
+  access public,abstract
+  super android.os.Binder
+  interfaces com.qti.extphone.IExtPhoneCallback
+  FIELD static,final int TRANSACTION_getFacilityLockForAppResponse 16
+  FIELD static,final int TRANSACTION_getNetworkSelectionModeResponse 33
+  FIELD static,final int TRANSACTION_getQosParametersResponse 25
+  FIELD static,final int TRANSACTION_getQtiRadioCapabilityResponse 7
+  FIELD static,final int TRANSACTION_getSecureModeStatusResponse 27
+  FIELD static,final int TRANSACTION_networkScanResult 34
+  FIELD static,final int TRANSACTION_on5gConfigInfo 12
+  FIELD static,final int TRANSACTION_on5gStatus 8
+  FIELD static,final int TRANSACTION_onAnyNrBearerAllocation 9
+  FIELD static,final int TRANSACTION_onDataDeactivateDelayTime 23
+  FIELD static,final int TRANSACTION_onDdsSwitchCapabilityChange 20
+  FIELD static,final int TRANSACTION_onDdsSwitchCriteriaChange 21
+  FIELD static,final int TRANSACTION_onDdsSwitchRecommendation 22
+  FIELD static,final int TRANSACTION_onEnableEndc 2
+  FIELD static,final int TRANSACTION_onEndcStatus 3
+  FIELD static,final int TRANSACTION_onEpdgOverCellularDataSupported 24
+  FIELD static,final int TRANSACTION_onImeiTypeChanged 18
+  FIELD static,final int TRANSACTION_onNrConfigStatus 5
+  FIELD static,final int TRANSACTION_onNrDcParam 10
+  FIELD static,final int TRANSACTION_onNrIconType 1
+  FIELD static,final int TRANSACTION_onQosParametersChanged 26
+  FIELD static,final int TRANSACTION_onSecureModeStatusChange 28
+  FIELD static,final int TRANSACTION_onSendUserPreferenceForDataDuringVoiceCall 19
+  FIELD static,final int TRANSACTION_onSetNrConfig 4
+  FIELD static,final int TRANSACTION_onSignalStrength 13
+  FIELD static,final int TRANSACTION_onSimTypeChanged 37
+  FIELD static,final int TRANSACTION_onUpperLayerIndInfo 11
+  FIELD static,final int TRANSACTION_queryCallForwardStatusResponse 15
+  FIELD static,final int TRANSACTION_sendCdmaSmsResponse 6
+  FIELD static,final int TRANSACTION_setCarrierInfoForImsiEncryptionResponse 14
+  FIELD static,final int TRANSACTION_setMsimPreferenceResponse 35
+  FIELD static,final int TRANSACTION_setNetworkSelectionModeAutomaticResponse 31
+  FIELD static,final int TRANSACTION_setNetworkSelectionModeManualResponse 32
+  FIELD static,final int TRANSACTION_setSimTypeResponse 36
+  FIELD static,final int TRANSACTION_setSmartDdsSwitchToggleResponse 17
+  FIELD static,final int TRANSACTION_startNetworkScanResponse 29
+  FIELD static,final int TRANSACTION_stopNetworkScanResponse 30
+  METHOD public,constructor void <init>()
+  METHOD public,static com.qti.extphone.IExtPhoneCallback asInterface(android.os.IBinder)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int)
+
+CLASS QtiTelephony.apk vendor.qti.data.factory.V2_0.IFactory$createDynamicddsISubscriptionManagerCallback
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces 
+  METHOD public,abstract void onValues(int, vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager)
+
+CLASS QtiTelephony.apk vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces android.hidl.base.V1_0.IBase
+  METHOD public,static vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager asInterface(android.os.IHwBinder)
+  METHOD public,abstract java.util.ArrayList interfaceChain()
+  METHOD public,abstract boolean linkToDeath(android.os.IHwBinder$DeathRecipient, long)
+  METHOD public,abstract int setDynamicSubscriptionChange(boolean)
+  METHOD public,abstract boolean unlinkToDeath(android.os.IHwBinder$DeathRecipient)
+
+CLASS QtiTelephony.apk vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager$Proxy
+  access public,final
+  super java.lang.Object
+  interfaces vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager
+  FIELD private android.os.IHwBinder mRemote 
+  METHOD public,constructor void <init>(android.os.IHwBinder)
+  METHOD public android.os.IHwBinder asBinder()
+  METHOD public void debug(android.os.NativeHandle, java.util.ArrayList)
+  METHOD public,final boolean equals(java.lang.Object)
+  METHOD public android.hidl.base.V1_0.DebugInfo getDebugInfo()
+  METHOD public java.util.ArrayList getHashChain()
+  METHOD public,final int hashCode()
+  METHOD public java.util.ArrayList interfaceChain()
+  METHOD public java.lang.String interfaceDescriptor()
+  METHOD public boolean linkToDeath(android.os.IHwBinder$DeathRecipient, long)
+  METHOD public void notifySyspropsChanged()
+  METHOD public void ping()
+  METHOD public int setDynamicSubscriptionChange(boolean)
+  METHOD public void setHALInstrumentation()
+  METHOD public java.lang.String toString()
+  METHOD public boolean unlinkToDeath(android.os.IHwBinder$DeathRecipient)
+
+CLASS telephony-common.jar com.android.internal.telephony.ITelephonyCommonUtils
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces 
+  METHOD public,abstract void checkCallingOrSelfPermission(android.content.Context, int, java.lang.String, java.lang.String)
+  METHOD public,abstract boolean checkCallingOrSelfPermissionGranted(int)
+  METHOD public,abstract void checkCallingPermission(android.content.Context, int, java.lang.String, java.lang.String)
+  METHOD public,abstract int disconnectCauseFromCode(int)
+  METHOD public,abstract java.lang.String getCallingPackage()
+  METHOD public,abstract java.io.BufferedInputStream getEccdataInputStream(java.io.BufferedInputStream)
+  METHOD public,abstract java.lang.String getMiuiString(android.content.Context, int)
+  METHOD public,abstract java.lang.String handlePii(int, java.lang.Object)
+  METHOD public,abstract java.lang.String[] handlePii(int, java.lang.String[])
+  METHOD public,transient/varargs,abstract void initMiuiTelephony(android.content.Context, java.lang.Object[])
+  METHOD public,abstract boolean isChinaTestBuild()
+  METHOD public,abstract boolean isCustForJpKd()
+  METHOD public,abstract boolean isCustSingleSimDevice()
+  METHOD public,abstract boolean isDataRatChanged(int, int)
+  METHOD public,abstract boolean isDemoBuild()
+  METHOD public,abstract boolean isInCnRegion()
+  METHOD public,abstract boolean isMiuiRom()
+  METHOD public,abstract boolean isRemoveEccData()
+  METHOD public,abstract boolean isSimLock(int)
+  METHOD public,abstract boolean isSpecialBuild()
+  METHOD public,abstract boolean isSupportDomesticRoaming()
+  METHOD public,abstract void localLog(java.lang.String, java.lang.String)
+  METHOD public,abstract void notifyDeviceStateListeners(int, boolean, boolean, boolean)
+  METHOD public,abstract void notifyDeviceStateListeners(boolean, boolean, boolean)
+  METHOD public,abstract java.lang.String pii(java.lang.String)
+  METHOD public,abstract java.lang.String piiIP(java.lang.String)
+  METHOD public,abstract void processForCustSingleSimDevice()
+  METHOD public,abstract void processForCustSingleSimDevice(com.android.internal.telephony.uicc.IccCardStatus, java.lang.Integer)
+  METHOD public,abstract void purgeGuti(android.content.Context, java.lang.String, int)
+  METHOD public,abstract void restoreSettings(com.android.internal.telephony.Phone)
+  METHOD public,abstract void sendEvent(com.miui.misight.MiEventStub)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener
+  access public,interface,abstract
+  super java.lang.Object
+  interfaces android.os.IInterface
+  METHOD public,abstract void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Default
+  access public
+  super java.lang.Object
+  interfaces com.xiaomi.continuity.messagecenter.ISubscriberListener
+  METHOD public,constructor void <init>()
+  METHOD public android.os.IBinder asBinder()
+  METHOD public void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Stub$Proxy
+  access 
+  super java.lang.Object
+  interfaces com.xiaomi.continuity.messagecenter.ISubscriberListener
+  FIELD public,static com.xiaomi.continuity.messagecenter.ISubscriberListener sDefaultImpl 
+  FIELD private android.os.IBinder mRemote 
+  METHOD public,constructor void <init>(android.os.IBinder)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public java.lang.String getInterfaceDescriptor()
+  METHOD public void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Stub
+  access public,abstract
+  super android.os.Binder
+  interfaces com.xiaomi.continuity.messagecenter.ISubscriberListener
+  FIELD private,static,final java.lang.String DESCRIPTOR string@31685
+  FIELD public,static,final int TRANSACTION_onSubscribe 1
+  METHOD public,constructor void <init>()
+  METHOD public,static com.xiaomi.continuity.messagecenter.ISubscriberListener asInterface(android.os.IBinder)
+  METHOD public,static com.xiaomi.continuity.messagecenter.ISubscriberListener getDefaultImpl()
+  METHOD public,static boolean setDefaultImpl(com.xiaomi.continuity.messagecenter.ISubscriberListener)
+  METHOD public android.os.IBinder asBinder()
+  METHOD public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int)

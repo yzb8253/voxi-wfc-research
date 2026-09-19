@@ -1,0 +1,26 @@
+Android sh -n syntax validation via stdin only
+Device: 192.168.137.18:40837
+Timestamp: 2026-09-18T13:19:38.5414614+08:00
+PASS: action.sh
+PASS: customize.sh
+PASS: service.sh
+PASS: uninstall.sh
+PASS: bin\wfc-auto-recover.sh
+PASS: bin\wfc-deep-recover.sh
+PASS: bin\wfc-full-lifecycle.sh
+PASS: bin\wfcctl.sh
+Phone files created: NO
+Module logic executed: NO
+Unpacked ZIP Android sh -n validation via stdin only
+Device: 192.168.137.18:40837
+Timestamp: 2026-09-18T13:20:58.4935070+08:00
+PASS: action.sh
+PASS: customize.sh
+PASS: service.sh
+PASS: uninstall.sh
+PASS: bin\wfc-auto-recover.sh
+PASS: bin\wfc-deep-recover.sh
+PASS: bin\wfc-full-lifecycle.sh
+PASS: bin\wfcctl.sh
+Phone files created: NO
+Module logic executed: NO

@@ -1,0 +1,140 @@
+oldPid=1633
+cmdline=system_server
+LABEL                          USER           PID  PPID     VSZ    RSS WCHAN            ADDR S NAME                       
+u:r:system_server:s0           system        1633   913 13687660 465052 0                  0 S system_server
+
+Name:	system_server
+Umask:	0077
+State:	S (sleeping)
+Tgid:	1633
+Ngid:	0
+Pid:	1633
+PPid:	913
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	2048
+Groups:	1001 1002 1003 1004 1005 1006 1007 1008 1009 1010 1018 1021 1023 1024 1032 1065 3001 3002 3003 3005 3006 3007 3009 3010 3011 3012 6101 
+VmPeak:	14685876 kB
+VmSize:	13687660 kB
+VmLck:	  203216 kB
+VmPin:	       0 kB
+VmHWM:	  732504 kB
+VmRSS:	  465052 kB
+RssAnon:	       0 kB
+RssFile:	  465052 kB
+RssShmem:	       0 kB
+VmData:	 2411556 kB
+VmStk:	    8192 kB
+VmExe:	      16 kB
+VmLib:	  239032 kB
+VmPTE:	    4736 kB
+VmSwap:	   42544 kB
+CoreDumping:	0
+Threads:	305
+SigQ:	8/44821
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000080001204
+SigIgn:	0000000000000001
+SigCgt:	0000006e400084f8
+CapInh:	0000001806897c20
+CapPrm:	0000001806897c20
+CapEff:	0000001806897c20
+CapBnd:	0000000000000000
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	2
+Speculation_Store_Bypass:	thread vulnerable
+Cpus_allowed:	f7
+Cpus_allowed_list:	0-2,4-7
+Mems_allowed:	1
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	801310
+nonvoluntary_ctxt_switches:	76239
+
+=== related processes ===
+u:r:zygote:s0                  root           913     1 6489980 112192 0                   0 S zygote64
+u:r:zygote:s0                  root           914     1 1826940  47048 0                   0 S zygote
+u:r:surfaceflinger:s0          system        1298     1 3023624  38064 0                   0 S surfaceflinger
+u:r:system_server:s0           system        1633   913 13687660 465052 0                  0 S system_server
+u:r:rild:s0                    radio         1881     1 3931864  17868 0                   0 S qcrild
+u:r:rild:s0                    radio         1965     1 3724352   9984 0                   0 S qcrild
+u:r:webview_zygote:s0          webview_zygote 3204  913 6427340  58160 0                   0 S webview_zygote
+u:r:radio:s0                   u999_radio   14997   913 6446292  93352 0                   0 S com.android.phone
+u:r:vendor_ims:s0              radio        26664     1 2213688   3800 0                   0 S imsqmidaemon
+u:r:vendor_ims:s0              radio        26887     1 2463920  10080 0                   0 S imsdatadaemon
+u:r:vendor_cnd:s0              system       27097     1 2601324  12692 0                   0 S cnd
+u:r:vendor_qtidataservices_app:s0:c104,c256,c512,c768 u0_a104 27335 913 6826116 98128 0    0 S .qtidataservices
+u:r:vendor_qtelephony:s0:c196,c256,c512,c768 u0_a196 27710 913 6698240 103132 0            0 S org.codeaurora.ims
+u:r:radio:s0                   radio        28053   913 7878320 130096 0                   0 S com.android.phone
+=== network ===
+13: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DORMANT group default qlen 3000
+    link/ether 2a:3c:1e:a7:a6:e4 brd ff:ff:ff:ff:ff:ff
+24: tun0: <POINTOPOINT,UP,LOWER_UP> mtu 9000 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 500
+    link/none 
+=== state ===
+{
+  "timestamp": "2026-09-18T16:34:27.76+08:00",
+  "uid": 0,
+  "selinuxContext": "u:r:magisk:s0",
+  "target": {
+    "subId": 11,
+    "slotId": 1,
+    "phoneId": 1,
+    "carrierId": 28,
+    "mcc": 234,
+    "mnc": 15,
+    "mappingGate": true
+  },
+  "protectedSlot0": {
+    "subId": 1,
+    "slotId": 0,
+    "mcc": 460,
+    "mnc": 11,
+    "active": true,
+    "mappingGate": true
+  },
+  "subscription": {
+    "active": true,
+    "areUiccApplicationsEnabled": true,
+    "defaultDataSubId": 1,
+    "activeDataSubId": 1
+  },
+  "iwlan": {
+    "rilDataTechnology": "Unknown",
+    "psWlanState": "UNKNOWN",
+    "accessNetworkTechnology": "UNKNOWN",
+    "iwlanPreferred": false
+  },
+  "ims": {
+    "registrationStateRaw": 0,
+    "registrationStateName": "NOT_REGISTERED",
+    "registrationTransportRaw": -1,
+    "registrationTransportName": "UNKNOWN_-1"
+  },
+  "mmtel": {
+    "voiceIwlanAvailable": false,
+    "voiceIwlanCapable": false,
+    "featureState": "READY"
+  },
+  "wfc": {
+    "settingEnabled": true,
+    "wifiCallingAvailable": false
+  },
+  "connectivity": {
+    "imsIwlanNetworkAgent": false,
+    "imsNetworkId": null,
+    "imsRequestActive": false,
+    "qtiCneRequestActive": false,
+    "qtiCneRequestId": null
+  },
+  "epdg": {
+    "udp4500Keepalive": false,
+    "keepaliveInterval": null
+  },
+  "safetyGate": true,
+  "goldenStrong": false,
+  "failureClass": "F1",
+  "errors": []
+}

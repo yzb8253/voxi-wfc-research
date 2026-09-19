@@ -1,0 +1,8 @@
+radio 1815 1 u:r:vendor_netmgrd:s0 netmgrd
+u0_a104 3532 2035 u:r:vendor_qtidataservices_app:s0:c104,c256,c512,c768 .qtidataservices
+radio 8330 1 u:r:rild:s0 qcrild -c 2
+radio 9201 1 u:r:rild:s0 qcrild
+radio 26664 1 u:r:vendor_ims:s0 imsqmidaemon
+radio 26887 1 u:r:vendor_ims:s0 imsdatadaemon
+
+Both qcrild instances were stable at the static-gate stop point.

@@ -1,0 +1,5 @@
+verify_time=2026-09-18T10:05:29+08:00
+service=vendor.cnd target=1838 state=running ppid=1 context=u:r:vendor_cnd:s0 airplane=1 clash_pid=5080
+binary=/system/vendor/bin/cnd init_rc=/vendor/etc/init/cnd.rc network_gate=PASS
+kill_time=2026-09-18T10:05:29+08:00
+kill_signal=TERM kill_rc=0

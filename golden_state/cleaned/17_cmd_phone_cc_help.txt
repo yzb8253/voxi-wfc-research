@@ -1,0 +1,11 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell cmd phone cc help
+CAPTURED_AT: 2026-09-16T13:04:16.3405536+08:00
+
+adb.exe : cc: Permission denied.
+At C:\Users\ZJH\Desktop\platform-tools\collect_golden_state.ps1:28 char:5
++     & .\adb.exe @AdbArgs *>> $Path
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (cc: Permission denied.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

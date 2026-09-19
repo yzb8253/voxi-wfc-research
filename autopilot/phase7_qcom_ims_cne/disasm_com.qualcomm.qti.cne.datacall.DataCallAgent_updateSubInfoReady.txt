@@ -1,0 +1,105 @@
+dex=classes.dex
+updateSubInfoReady code_off=0xe0d0 regs=9 ins=1 outs=3 tries=1
+0000: iget-object            v0, v8, field@70 android.telephony.TelephonyManager com.qualcomm.qti.cne.datacall.DataCallAgent.mTelephonyManager
+0002: invoke-virtual         {v0}, method@245 int android.telephony.TelephonyManager.getPhoneCount()
+0005: move-result            v0
+0006: const/4                v1, #0
+0007: new-instance           v2, type@199 java.lang.StringBuilder
+0009: invoke-direct          {v2}, method@880 void java.lang.StringBuilder.<init>()
+000c: const-string           v3, string@1971 "phoneCount: "
+000e: invoke-virtual         {v2, v3}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0011: invoke-virtual         {v2, v0}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0014: invoke-virtual         {v2}, method@886 java.lang.String java.lang.StringBuilder.toString()
+0017: move-result-object     v2
+0018: const-string           v3, string@942 "QCNEJ/DataCallAgent"
+001a: invoke-static          {v3, v2}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+001d: const/4                v2, #0
+001e: if-ge                  v2, v0, -> 00c2
+0020: const/4                v1, #0
+0021: iget-object            v4, v8, field@69 android.telephony.SubscriptionManager com.qualcomm.qti.cne.datacall.DataCallAgent.mSubscriptionManager
+0023: invoke-virtual         {v4, v2}, method@237 int[] android.telephony.SubscriptionManager.getSubscriptionIds(int)
+0026: move-result-object     v4
+0027: const/4                v5, #0
+0028: if-eqz                 v4, -> 005e
+002a: new-instance           v6, type@199 java.lang.StringBuilder
+002c: invoke-direct          {v6}, method@880 void java.lang.StringBuilder.<init>()
+002f: const-string           v7, string@2217 "subs for "
+0031: invoke-virtual         {v6, v7}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0034: invoke-virtual         {v6, v2}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0037: const-string           v7, string@2230 "th slot: "
+0039: invoke-virtual         {v6, v7}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+003c: invoke-static          {v4}, method@905 java.lang.String java.util.Arrays.toString(int[])
+003f: move-result-object     v7
+0040: invoke-virtual         {v6, v7}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0043: invoke-virtual         {v6}, method@886 java.lang.String java.lang.StringBuilder.toString()
+0046: move-result-object     v6
+0047: invoke-static          {v3, v6}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+004a: iget-object            v6, v8, field@64 android.content.Context com.qualcomm.qti.cne.datacall.DataCallAgent.mContext
+004c: invoke-static          {v6}, method@234 android.telephony.SubscriptionManager android.telephony.SubscriptionManager.from(android.content.Context)
+004f: move-result-object     v6
+0050: op_44                  
+0051: op_04                  
+0052: invoke-virtual         {v6, v7}, method@238 boolean android.telephony.SubscriptionManager.isActiveSubscriptionId(int)
+0055: move-result            v6
+0056: op_01                  
+0057: goto                   -> 005e
+0058: op_0d                  
+0059: const-string           v7, string@1060 "Unable to get ActiveSub info"
+005b: invoke-static          {v3, v7}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+005e: if-eqz                 v1, -> 00ba
+0060: iget-object            v5, v8, field@68 boolean[] com.qualcomm.qti.cne.datacall.DataCallAgent.mSubInfoReady
+0062: const/4                v6, #1
+0063: op_4e                  
+0064: op_05                  
+0065: new-instance           v5, type@199 java.lang.StringBuilder
+0067: invoke-direct          {v5}, method@880 void java.lang.StringBuilder.<init>()
+006a: const-string           v6, string@1825 "mSubInfoReady["
+006c: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+006f: invoke-virtual         {v5, v2}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0072: const-string           v6, string@1220 "] is set to true"
+0074: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0077: invoke-virtual         {v5}, method@886 java.lang.String java.lang.StringBuilder.toString()
+007a: move-result-object     v5
+007b: invoke-static          {v3, v5}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+007e: iget-object            v5, v8, field@67 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mPendingNetworkRequests
+0080: invoke-interface       {v5, v2}, method@916 java.lang.Object java.util.List.get(int)
+0083: move-result-object     v5
+0084: check-cast             
+0085: op_d5                  
+0086: invoke-interface       {v5}, method@917 boolean java.util.List.isEmpty()
+0089: move-result            v5
+008a: if-nez                 v5, -> 00be
+008c: iget-object            v5, v8, field@67 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mPendingNetworkRequests
+008e: invoke-interface       {v5, v2}, method@916 java.lang.Object java.util.List.get(int)
+0091: move-result-object     v5
+0092: check-cast             
+0093: op_d5                  
+0094: invoke-interface       {v5}, method@918 java.util.Iterator java.util.List.iterator()
+0097: move-result-object     v5
+0098: invoke-interface       {v5}, method@907 boolean java.util.Iterator.hasNext()
+009b: move-result            v6
+009c: if-eqz                 v6, -> 00ae
+009e: invoke-interface       {v5}, method@908 java.lang.Object java.util.Iterator.next()
+00a1: move-result-object     v6
+00a2: check-cast             
+00a3: op_be                  
+00a4: invoke-virtual         {v6}, method@857 int java.lang.Integer.intValue()
+00a7: move-result            v6
+00a8: op_d8                  
+00a9: op_02                  
+00aa: invoke-direct          {v8, v6, v7}, method@311 void com.qualcomm.qti.cne.datacall.DataCallAgent.startDataCall(int,int)
+00ad: goto                   -> 0098
+00ae: iget-object            v5, v8, field@67 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mPendingNetworkRequests
+00b0: invoke-interface       {v5, v2}, method@916 java.lang.Object java.util.List.get(int)
+00b3: move-result-object     v5
+00b4: check-cast             
+00b5: op_d5                  
+00b6: invoke-interface       {v5}, method@914 void java.util.List.clear()
+00b9: goto                   -> 00be
+00ba: iget-object            v6, v8, field@68 boolean[] com.qualcomm.qti.cne.datacall.DataCallAgent.mSubInfoReady
+00bc: op_4e                  
+00bd: op_06                  
+00be: op_d8                  
+00bf: op_02                  
+00c0: goto/16                -> 001e
+00c2: return-void            

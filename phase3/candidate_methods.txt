@@ -1,0 +1,89 @@
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerBase
+  METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerImpl
+  METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController
+  METHOD private void setUiccApplicationsEnabled_1_4(int, boolean)
+  METHOD public boolean setSubscriptionEnabled(boolean, int)
+  METHOD public int setUiccApplicationsEnabled(boolean, int)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater
+  METHOD protected void handleSimAbsent(int)
+  METHOD protected void handleSimLoaded(int)
+
+CLASS telephony-common.jar com.android.internal.telephony.CarrierResolver
+  METHOD private void handleSimAbsent()
+  METHOD private void handleSimLoaded(boolean)
+
+CLASS telephony-common.jar com.android.internal.telephony.IMiuiSubscriptionController
+  METHOD public,abstract void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerStub
+  METHOD public,static void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS telephony-common.jar com.android.internal.telephony.SubscriptionController
+  METHOD private,static,synthetic boolean lambda$setSubscriptionEnabled$11(int, android.telephony.SubscriptionInfo)
+  METHOD public boolean setSubscriptionEnabled(boolean, int)
+  METHOD public int setUiccApplicationsEnabled(boolean, int)
+
+CLASS telephony-common.jar com.android.internal.telephony.SubscriptionInfoUpdater
+  METHOD protected void handleSimAbsent(int)
+  METHOD protected void handleSimLoaded(int)
+
+CLASS telephony-common.jar com.android.internal.telephony.ims.ImsServiceController
+  METHOD public void disableIms(int, int)
+  METHOD public void enableIms(int, int)
+
+CLASS telephony-common.jar com.android.internal.telephony.ims.MmTelFeatureCompatAdapter
+  METHOD public void disableIms()
+  METHOD public void enableIms()
+
+CLASS telephony-common.jar com.android.internal.telephony.ims.ImsResolver
+  METHOD private,synthetic void lambda$disableIms$1(int, com.android.internal.telephony.ims.ImsServiceController)
+  METHOD private,synthetic void lambda$enableIms$0(int, com.android.internal.telephony.ims.ImsServiceController)
+  METHOD public void disableIms(int)
+  METHOD public void enableIms(int)
+
+CLASS telephony-common.jar com.android.internal.telephony.ims.ImsServiceControllerCompat
+  METHOD public,final void disableIms(int, int)
+  METHOD public,final void enableIms(int, int)
+
+CLASS telephony-common.jar com.android.internal.telephony.imsphone.ImsPhoneCallTracker
+  METHOD private void resetImsCapabilities()
+
+CLASS telephony-common.jar com.android.internal.telephony.imsphone.ImsPhone
+  METHOD public void resetImsRegistrationState()
+
+CLASS TeleService.apk com.android.phone.CarrierConfigLoader
+  METHOD private void updateConfigForPhoneId(int)
+  METHOD  void clearConfigForPhone(int, boolean)
+  METHOD public void notifyConfigChangedForSubId(int)
+  METHOD public void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.IMiCarrierConfigLoader
+  METHOD public,abstract void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderStub
+  METHOD public,static void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.PhoneInterfaceManager
+  METHOD public void disableIms(int)
+  METHOD public void enableIms(int)
+  METHOD public void resetIms(int)
+
+CLASS TeleService.apk com.android.phone.PhoneProxy
+  METHOD public,static void updateConfigForPhoneId(android.content.Context, int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.TelephonyShellCommand
+  METHOD private int handleDisableIms()
+  METHOD private int handleEnableIms()
+  METHOD private int handleEnablePhysicalSubscription(boolean)
+
+CLASS TeleService.apk com.android.phone.ims.MiuiImsRegControllerBase
+  METHOD protected void resetImsMonitorState()
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl
+  METHOD public void updateConfigForPhoneId(int, java.lang.String)

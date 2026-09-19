@@ -1,0 +1,5 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell cmd phone sub help
+CAPTURED_AT: 2026-09-16T13:14:24.3331217+08:00
+
+Unknown command: sub
+

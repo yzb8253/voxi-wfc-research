@@ -1,0 +1,1132 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys package com.android.phone
+CAPTURED_AT: 2026-09-16T13:14:21.5743900+08:00
+
+Activity Resolver Table:
+  Full MIME Types:
+      vnd.android.cursor.item/sim-contact:
+        d8d871c com.android.phone/.SimContacts filter 153f25
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        de758fa com.android.phone/.settings.fdn.FdnList filter 3f93eab
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        127240e com.android.phone/.settings.FdnList filter b7ace2f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+
+  Base MIME Types:
+      vnd.android.cursor.item:
+        d8d871c com.android.phone/.SimContacts filter 153f25
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        de758fa com.android.phone/.settings.fdn.FdnList filter 3f93eab
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        127240e com.android.phone/.settings.FdnList filter b7ace2f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+
+  Schemes:
+      tel:
+        7147c33 com.android.phone/.EmergencyDialer filter c3fb569
+          Action: "com.android.phone.EmergencyDialer.DIAL"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "tel"
+        7147c33 com.android.phone/.EmergencyDialer filter b90a88f
+          Action: "android.intent.action.DIAL_EMERGENCY"
+          Category: "android.intent.category.DEFAULT"
+          Scheme: "tel"
+
+  Non-Data Actions:
+      android.settings.NETWORK_OPERATOR_SETTINGS:
+        54258f8 com.android.phone/.settings.MobileNetworkSettings filter c2ba1d1
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        fc00ca4 com.android.phone/.settings.NetworkSetting filter 3778a0d
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      miui.intent.action.APP_SETTINGS:
+        e5f5e61 com.android.phone/.settings.CallFeaturesSetting filter d62ed86
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_SETTINGS"
+          Action: "miui.intent.action.APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.telephony.euicc.action.RENAME_SUBSCRIPTION_PRIVILEGED:
+        212c37c com.android.phone/.euicc.EuiccPrivilegedActionUiDispatcherActivity filter 7753405
+          Action: "android.telephony.euicc.action.TOGGLE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.DELETE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.RENAME_SUBSCRIPTION_PRIVILEGED"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      com.android.phone.CallFeaturesSetting.ADD_VOICEMAIL:
+        63c9cb2 com.android.phone/.settings.VoicemailSettingsActivity filter 3392403
+          Action: "com.android.phone.CallFeaturesSetting.ADD_VOICEMAIL"
+          Category: "android.intent.category.DEFAULT"
+      android.telecom.action.CHANGE_PHONE_ACCOUNTS:
+        fde0614 com.android.phone/.settings.PhoneAccountSettingsActivity filter edadebd
+          Action: "android.telecom.action.CHANGE_PHONE_ACCOUNTS"
+          Category: "android.intent.category.DEFAULT"
+      android.telephony.euicc.action.DELETE_SUBSCRIPTION_PRIVILEGED:
+        212c37c com.android.phone/.euicc.EuiccPrivilegedActionUiDispatcherActivity filter 7753405
+          Action: "android.telephony.euicc.action.TOGGLE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.DELETE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.RENAME_SUBSCRIPTION_PRIVILEGED"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      miui.intent.action.FAKECELL:
+        171107b com.android.phone/.settings.FakeCellSettingsActivity filter a4bae98
+          Action: "miui.intent.action.FAKECELL"
+      org.codeaurora.intent.action.SHOW_NOTICE_SCM_BLOCK_OTHERS:
+        95e6426 com.android.phone/.SmsCallbackModeExitDialog filter b186867
+          Action: "org.codeaurora.intent.action.ACTION_SHOW_SCM_EXIT_DIALOG"
+          Action: "org.codeaurora.intent.action.SHOW_NOTICE_SCM_BLOCK_OTHERS"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        579f908 com.android.phone/.GsmUmtsCallOptions filter 2ffa8a1
+          Action: "android.intent.action.MAIN"
+        9c20ac6 com.android.phone/.CdmaCallOptions filter 20b1a87
+          Action: "android.intent.action.MAIN"
+        c399db4 com.android.phone/.GsmUmtsCallForwardOptions filter fcd2ddd
+          Action: "android.intent.action.MAIN"
+        4440d52 com.android.phone/.CdmaCallForwardOptions filter c74d823
+          Action: "android.intent.action.MAIN"
+        5ace120 com.android.phone/.GsmUmtsCallBarringOptions filter 5f3cad9
+          Action: "android.intent.action.MAIN"
+        d71ac9e com.android.phone/.GsmUmtsAdditionalCallOptions filter c32d37f
+          Action: "android.intent.action.MAIN"
+        14eef4c com.android.phone/.CallForwardType filter c4d3b95
+          Action: "android.intent.action.MAIN"
+        f47f4aa com.android.phone/.settings.fdn.FdnSetting filter 3ab289b
+          Action: "android.intent.action.MAIN"
+        921b438 com.android.phone/.EnableIccPinScreen filter 392fc11
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEVELOPMENT_PREFERENCE"
+        488b176 com.android.phone/.ChangeIccPinScreen filter b89b377
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEVELOPMENT_PREFERENCE"
+        359dbe4 com.android.phone/.CallFeaturesSetting filter 49a484d
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+        466f02 com.android.phone/.settings.AccessibilitySettingsActivity filter 15c1013
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_ACCESSIBILITY_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        5dba9b9 com.android.phone/.settings.RadioInfo filter a53d1fe
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEVELOPMENT_PREFERENCE"
+        81ffd5f com.android.phone/.settings.BandMode filter b4c03ac
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.VOICE_LAUNCH"
+        b842875 com.android.phone/.settings.MiuiBandMode filter b17100a
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.VOICE_LAUNCH"
+        65f12d com.android.phone/.settings.CallForwardActivity filter b19662
+          Action: "android.intent.action.MAIN"
+        cdd7329 com.android.phone/.settings.CallForwardTypeActivity filter e16b6ae
+          Action: "android.intent.action.MAIN"
+        3e8fc4f com.android.phone/.settings.RespondViaSmsManager$Settings filter b2dafdc
+          Action: "android.intent.action.MAIN"
+        e3118e5 com.android.phone/.settings.VoicemailSetting filter 69b8fba
+          Action: "android.intent.action.MAIN"
+        9e30e6b com.android.phone/.settings.MultiSimInfoEditorActivity filter 5d3edc8
+          Action: "android.intent.action.MAIN"
+        e5f5e61 com.android.phone/.settings.CallFeaturesSetting filter d62ed86
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_SETTINGS"
+          Action: "miui.intent.action.APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+        f1e1e74 com.android.phone/.settings.ChangeIccPinScreen filter ed27f9d
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEVELOPMENT_PREFERENCE"
+        2f05c12 com.android.phone/.settings.EnableIccPinScreen filter 450dfe3
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEVELOPMENT_PREFERENCE"
+        738ade0 com.android.phone/.settings.FdnSetting filter 35c7899
+          Action: "android.intent.action.MAIN"
+        a74275e com.android.phone/.settings.GsmUmtsAdditionalCallOptions filter 827973f
+          Action: "android.intent.action.MAIN"
+        2aac80c com.android.phone/.settings.GsmUmtsCallBarringOptions filter f30555
+          Action: "android.intent.action.MAIN"
+        7d75b6a com.android.phone/.settings.GsmUmtsCallForwardOptions filter 288685b
+          Action: "android.intent.action.MAIN"
+        54258f8 com.android.phone/.settings.MobileNetworkSettings filter c2ba1d1
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        287c436 com.android.phone/.NetworkSelectSettingActivity filter 95b2f37
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+        fc00ca4 com.android.phone/.settings.NetworkSetting filter 3778a0d
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        903edc2 com.android.phone/.settings.GsmUmtsOptions filter f2987d3
+          Action: "android.intent.action.MAIN"
+        c434f10 com.android.phone/.settings.CdmaOptions filter 11fba09
+          Action: "android.intent.action.MAIN"
+      android.intent.action.VIEW:
+        54258f8 com.android.phone/.settings.MobileNetworkSettings filter c2ba1d1
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        fc00ca4 com.android.phone/.settings.NetworkSetting filter 3778a0d
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      org.codeaurora.intent.action.ACTION_SHOW_SCM_EXIT_DIALOG:
+        95e6426 com.android.phone/.SmsCallbackModeExitDialog filter b186867
+          Action: "org.codeaurora.intent.action.ACTION_SHOW_SCM_EXIT_DIALOG"
+          Action: "org.codeaurora.intent.action.SHOW_NOTICE_SCM_BLOCK_OTHERS"
+          Category: "android.intent.category.DEFAULT"
+      android.telephony.action.SHOW_NOTICE_ECM_BLOCK_OTHERS:
+        5869b68 com.android.phone/.EmergencyCallbackModeExitDialog filter 81a0b81
+          Action: "com.android.phone.action.ACTION_SHOW_ECM_EXIT_DIALOG"
+          Action: "android.telephony.action.SHOW_NOTICE_ECM_BLOCK_OTHERS"
+          Category: "android.intent.category.DEFAULT"
+      android.telephony.euicc.action.MANAGE_EMBEDDED_SUBSCRIPTIONS:
+        2cad250 com.android.phone/.euicc.EuiccUiDispatcherActivity filter 6501c49
+          Action: "android.telephony.euicc.action.MANAGE_EMBEDDED_SUBSCRIPTIONS"
+          Action: "android.telephony.euicc.action.PROVISION_EMBEDDED_SUBSCRIPTION"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.telephony.euicc.action.PROVISION_EMBEDDED_SUBSCRIPTION:
+        2cad250 com.android.phone/.euicc.EuiccUiDispatcherActivity filter 6501c49
+          Action: "android.telephony.euicc.action.MANAGE_EMBEDDED_SUBSCRIPTIONS"
+          Action: "android.telephony.euicc.action.PROVISION_EMBEDDED_SUBSCRIPTION"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.telephony.euicc.action.TOGGLE_SUBSCRIPTION_PRIVILEGED:
+        212c37c com.android.phone/.euicc.EuiccPrivilegedActionUiDispatcherActivity filter 7753405
+          Action: "android.telephony.euicc.action.TOGGLE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.DELETE_SUBSCRIPTION_PRIVILEGED"
+          Action: "android.telephony.euicc.action.RENAME_SUBSCRIPTION_PRIVILEGED"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.intent.action.DIAL_EMERGENCY:
+        7147c33 com.android.phone/.EmergencyDialer filter 89c6bee
+          Action: "android.intent.action.DIAL_EMERGENCY"
+          Category: "android.intent.category.DEFAULT"
+      android.settings.DATA_ROAMING_SETTINGS:
+        54258f8 com.android.phone/.settings.MobileNetworkSettings filter c2ba1d1
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+        fc00ca4 com.android.phone/.settings.NetworkSetting filter 3778a0d
+          Action: "android.intent.action.VIEW"
+          Action: "android.intent.action.MAIN"
+          Action: "android.settings.NETWORK_OPERATOR_SETTINGS"
+          Action: "android.settings.DATA_ROAMING_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      android.telecom.action.SHOW_CALL_ACCESSIBILITY_SETTINGS:
+        466f02 com.android.phone/.settings.AccessibilitySettingsActivity filter 15c1013
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_ACCESSIBILITY_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+      com.android.phone.settings.activity.PRIVACY_SETTIING:
+        2f63957 com.android.phone/.settings.PrivacySettingActivity filter 8991c44
+          Action: "com.android.phone.settings.activity.PRIVACY_SETTIING"
+          Category: "android.intent.category.DEFAULT"
+      android.telecom.action.SHOW_CALL_SETTINGS:
+        359dbe4 com.android.phone/.CallFeaturesSetting filter 49a484d
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+        e5f5e61 com.android.phone/.settings.CallFeaturesSetting filter d62ed86
+          Action: "android.intent.action.MAIN"
+          Action: "android.telecom.action.SHOW_CALL_SETTINGS"
+          Action: "miui.intent.action.APP_SETTINGS"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.telephony.euicc.action.START_EUICC_ACTIVATION:
+        39edc5a com.android.phone/.euicc.EuiccPublicActionUiDispatcherActivity filter 9636e8b
+          Action: "android.telephony.euicc.action.START_EUICC_ACTIVATION"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.telephony.action.CONFIGURE_VOICEMAIL:
+        63c9cb2 com.android.phone/.settings.VoicemailSettingsActivity filter 59f6f80
+          Action: "android.telephony.action.CONFIGURE_VOICEMAIL"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      miui.intent.action.NRDISPLAY:
+        93b13f3 com.android.phone/.NRDisplayActivity filter f2db8b0
+          Action: "miui.intent.action.NRDISPLAY"
+          Category: "android.intent.category.DEFAULT"
+      miui.intent.action.SWITCHDEBUGMENU:
+        2fbd6f1 com.android.phone/.SwitchDebugActivity filter 1e22d6
+          Action: "miui.intent.action.SWITCHDEBUGMENU"
+          Category: "android.intent.category.DEFAULT"
+      com.android.phone.action.ACTION_SHOW_ECM_EXIT_DIALOG:
+        5869b68 com.android.phone/.EmergencyCallbackModeExitDialog filter 81a0b81
+          Action: "com.android.phone.action.ACTION_SHOW_ECM_EXIT_DIALOG"
+          Action: "android.telephony.action.SHOW_NOTICE_ECM_BLOCK_OTHERS"
+          Category: "android.intent.category.DEFAULT"
+      android.telephony.euicc.action.RESOLVE_ERROR:
+        230794e com.android.phone/.euicc.EuiccResolutionUiDispatcherActivity filter 3ed9a6f
+          Action: "android.telephony.euicc.action.RESOLVE_ERROR"
+          Category: "android.intent.category.DEFAULT"
+          mPriority=1000, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      com.android.phone.EmergencyDialer.DIAL:
+        7147c33 com.android.phone/.EmergencyDialer filter 4029bf0
+          Action: "com.android.phone.EmergencyDialer.DIAL"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.SEARCH:
+        e5f5e61 com.android.phone/.settings.CallFeaturesSetting filter 3222647
+          Action: "android.intent.action.SEARCH"
+          Category: "android.intent.category.DEFAULT"
+
+  MIME Typed Actions:
+      android.intent.action.VIEW:
+        d8d871c com.android.phone/.SimContacts filter 153f25
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        de758fa com.android.phone/.settings.fdn.FdnList filter 3f93eab
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+        127240e com.android.phone/.settings.FdnList filter b7ace2f
+          Action: "android.intent.action.VIEW"
+          Category: "android.intent.category.DEFAULT"
+          StaticType: "vnd.android.cursor.item/sim-contact"
+
+Receiver Resolver Table:
+  Schemes:
+      android_secret_code:
+        191e6d4 com.android.phone/.SimUnLockReceiver filter b6c107d
+          Action: "android.provider.Telephony.SECRET_CODE"
+          Scheme: "android_secret_code"
+          Authority: "2539": -1
+
+  Non-Data Actions:
+      org.codeaurora.intent.action.RADIO_POWER_STATE:
+        da7a6e6 com.android.phone/.CiWlanNotificationReceiver filter 1205427
+          Action: "com.qti.phone.action.ACTION_DISABLE_C_IWLAN_NOTIFICATION"
+          Action: "org.codeaurora.intent.action.RADIO_POWER_STATE"
+      android.telephony.action.CARRIER_CONFIG_CHANGED:
+        5764c3c com.android.phone/.otasp.OtaspSimStateReceiver filter 100edc5
+          Action: "android.telephony.action.CARRIER_CONFIG_CHANGED"
+        479f028 com.android.phone/.vvm.VvmSimStateTracker filter 607a141
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.telephony.action.CARRIER_CONFIG_CHANGED"
+          Action: "android.intent.action.SIM_STATE_CHANGED"
+      miui.intent.action.RESET_RADIO:
+        7b74b72 com.android.phone/.ResetRadioReceiver filter e340bc3
+          Action: "miui.intent.action.RESET_RADIO"
+      android.intent.action.SIM_STATE_CHANGED:
+        479f028 com.android.phone/.vvm.VvmSimStateTracker filter 607a141
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.telephony.action.CARRIER_CONFIG_CHANGED"
+          Action: "android.intent.action.SIM_STATE_CHANGED"
+      android.intent.action.BOOT_COMPLETED:
+        479f028 com.android.phone/.vvm.VvmSimStateTracker filter 607a141
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.telephony.action.CARRIER_CONFIG_CHANGED"
+          Action: "android.intent.action.SIM_STATE_CHANGED"
+      com.qti.phone.action.ACTION_DISABLE_C_IWLAN_NOTIFICATION:
+        da7a6e6 com.android.phone/.CiWlanNotificationReceiver filter 1205427
+          Action: "com.qti.phone.action.ACTION_DISABLE_C_IWLAN_NOTIFICATION"
+          Action: "org.codeaurora.intent.action.RADIO_POWER_STATE"
+      com.android.internal.provider.action.VOICEMAIL_SMS_RECEIVED:
+        135731a com.android.phone/.vvm.VvmSmsReceiver filter cf01e4b
+          Action: "com.android.internal.provider.action.VOICEMAIL_SMS_RECEIVED"
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.service.simActivation.SimActivationService:
+        3909c40 com.android.phone/.otasp.OtaspActivationService filter dae3779 permission android.permission.MODIFY_PHONE_STATE
+          Action: "android.service.simActivation.SimActivationService"
+      android.telephony.data.DataService:
+        e1db358 com.android.phone/com.android.internal.telephony.data.CellularDataService filter d5a5cb1 permission android.permission.BIND_TELEPHONY_DATA_SERVICE
+          Action: "android.telephony.data.DataService"
+      miui.action.CLOUD_BACKUP_SETTINGS:
+        9239570 com.android.phone/.settings.cloudbackup.PhoneSettingsCloudBackupService filter 4ef0e9 permission com.xiaomi.permission.CLOUD_MANAGER
+          Action: "miui.action.CLOUD_BACKUP_SETTINGS"
+          Action: "miui.action.CLOUD_RESTORE_SETTINGS"
+      android.telecom.ConnectionService:
+        a033c6c com.android.phone/com.android.services.telephony.TelephonyConnectionService filter 751d235 permission android.permission.BIND_TELECOM_CONNECTION_SERVICE
+          Action: "android.telecom.ConnectionService"
+        99d9596 com.android.phone/com.android.services.telephony.relay.RelayConnectionService filter 3b09517 permission android.permission.BIND_TELECOM_CONNECTION_SERVICE
+          Action: "android.telecom.ConnectionService"
+      com.android.phone.TelephonyDebugService:
+        8aaacbe com.android.phone/.TelephonyDebugService filter a41a11f permission android.permission.DUMP
+          Action: "com.android.phone.TelephonyDebugService"
+      android.telephony.NetworkService:
+        5e0d6ca com.android.phone/com.android.internal.telephony.CellularNetworkService filter c69303b permission android.permission.BIND_TELEPHONY_NETWORK_SERVICE
+          Action: "android.telephony.NetworkService"
+      miui.action.CLOUD_RESTORE_SETTINGS:
+        9239570 com.android.phone/.settings.cloudbackup.PhoneSettingsCloudBackupService filter 4ef0e9 permission com.xiaomi.permission.CLOUD_MANAGER
+          Action: "miui.action.CLOUD_BACKUP_SETTINGS"
+          Action: "miui.action.CLOUD_RESTORE_SETTINGS"
+      com.android.phone.service.DataLowLatencyServiceEnhanced:
+        666ad04 com.android.phone/.DataLowLatencyServiceEnhanced filter 78712ed
+          Action: "com.android.phone.service.DataLowLatencyServiceEnhanced"
+      com.android.phone.ModemSmartEngineService:
+        c957522 com.android.phone/.ModemSmartEngineService filter f9f6bb3 permission miui.modemsmart.permission.ACCESS_MSE
+          Action: "com.android.phone.ModemSmartEngineService"
+
+Domain verification status:
+
+Permissions:
+  Permission [androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (fbf4176):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=signature
+    perm=PermissionInfo{1a50377 androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+
+Permissions:
+  Permission [com.android.phone.permission.ACCESS_RELAY_SERVICE] (f5aebe4):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{3ee184d com.android.phone.permission.ACCESS_RELAY_SERVICE}
+
+Permissions:
+  Permission [com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED] (55ff02):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{5dc6013 com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED}
+
+Permissions:
+  Permission [com.android.phone.permission.ACCESS_LAST_KNOWN_CELL_ID] (5cce250):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=signature
+    perm=PermissionInfo{f10ec49 com.android.phone.permission.ACCESS_LAST_KNOWN_CELL_ID}
+
+Permissions:
+  Permission [miui.permission.RESET_RADIO] (ba9094e):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{822ea6f miui.permission.RESET_RADIO}
+
+Permissions:
+  Permission [miui.modemsmart.permission.ACCESS_MSE] (b25d37c):
+    sourcePackage=com.android.phone
+    uid=1001 gids=[] type=0 prot=dangerous
+    perm=PermissionInfo{3730405 miui.modemsmart.permission.ACCESS_MSE}
+
+Registered ContentProviders:
+  com.android.phone/com.xiaomi.continuity.InitializationProvider:
+    Provider{4106c5a com.android.phone/com.xiaomi.continuity.InitializationProvider}
+  com.android.phone/.settings.search.provider.PhoneStatusProvider:
+    Provider{39dbe8b com.android.phone/.settings.search.provider.PhoneStatusProvider}
+  com.android.phone/com.android.ims.rcs.uce.eab.EabProvider:
+    Provider{4baab68 com.android.phone/com.android.ims.rcs.uce.eab.EabProvider}
+  com.android.phone/androidx.startup.InitializationProvider:
+    Provider{e24db81 com.android.phone/androidx.startup.InitializationProvider}
+  com.android.phone/.SimPhonebookProvider:
+    Provider{758f426 com.android.phone/.SimPhonebookProvider}
+  com.android.phone/.IccProvider:
+    Provider{6a7b867 com.android.phone/.IccProvider}
+  com.android.phone/.ServiceStateProvider:
+    Provider{6431614 com.android.phone/.ServiceStateProvider}
+
+ContentProvider Authorities:
+  [eab]:
+    Provider{4baab68 com.android.phone/com.android.ims.rcs.uce.eab.EabProvider}
+      applicationInfo=ApplicationInfo{2c2aebd com.android.phone}
+  [icc]:
+    Provider{6a7b867 com.android.phone/.IccProvider}
+      applicationInfo=ApplicationInfo{1502cb2 com.android.phone}
+  [com.android.simphonebook]:
+    Provider{758f426 com.android.phone/.SimPhonebookProvider}
+      applicationInfo=ApplicationInfo{6d7403 com.android.phone}
+  [com.android.phone.settings]:
+    Provider{39dbe8b com.android.phone/.settings.search.provider.PhoneStatusProvider}
+      applicationInfo=ApplicationInfo{5457f80 com.android.phone}
+  [androidx.legacy.preference.androidx-startup]:
+    Provider{e24db81 com.android.phone/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{87079b9 com.android.phone}
+  [com.android.phone.continuity-startup]:
+    Provider{4106c5a com.android.phone/com.xiaomi.continuity.InitializationProvider}
+      applicationInfo=ApplicationInfo{b1061fe com.android.phone}
+  [service-state]:
+    Provider{6431614 com.android.phone/.ServiceStateProvider}
+      applicationInfo=ApplicationInfo{c494d5f com.android.phone}
+
+Key Set Manager:
+  [com.android.phone]
+      Signing KeySets: 1
+
+Packages:
+  Package [com.android.phone] (9b55460):
+    userId=1001
+    sharedUser=SharedUserSetting{74313ac android.uid.phone/1001}
+    pkg=Package{a95f875 com.android.phone}
+    codePath=/system/priv-app/TeleService
+    resourcePath=/system/priv-app/TeleService
+    legacyNativeLibraryDir=/system/priv-app/TeleService/lib
+    extractNativeLibs=false
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=33 minSdk=33 targetSdk=33
+    minExtensionVersions=[]
+    versionName=13
+    usesNonSdkApi=true
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DEFAULT_TO_DEVICE_PROTECTED_STORAGE DIRECT_BOOT_AWARE PARTIALLY_DIRECT_BOOT_AWARE PRIVILEGED PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    queriesPackages=[com.xiaomi.mi_connect_service]
+    dataDir=/data/user_de/0/com.android.phone
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      qti-telephony-hidl-wrapper
+      qti-telephony-utils
+      dpmapi
+      com.qti.extphone.extphonelib
+      ims-ext-common
+      ims-ext-common
+      com.qti.extphone.extphonelib
+      org.apache.http.legacy
+    usesOptionalLibraries:
+      com.miui.core
+      micloud-sdk
+      gson.jar
+      MiuiSettingsSearchLib.jar
+      com.miui.system
+    usesLibraryFiles:
+      /system_ext/framework/qti-telephony-hidl-wrapper.jar
+      /system_ext/framework/qti-telephony-utils.jar
+      /system/system_ext/framework/dpmapi.jar
+      /system_ext/framework/extphonelib.jar
+      /product/framework/ims-ext-common.jar
+      /system/framework/org.apache.http.legacy.jar
+      /system_ext/app/miui/miui.apk
+      /system_ext/priv-app/RtMiCloudSDK/RtMiCloudSDK.apk
+      /system_ext/framework/gson.jar
+      /system_ext/framework/MiuiSettingsSearchLib.jar
+      /system_ext/app/miuisystem/miuisystem.apk
+    timeStamp=2009-01-01 08:00:00
+    lastUpdateTime=2009-01-01 08:00:00
+    packageSource=0
+    signatures=PackageSignatures{30ca00a version:3, signatures:[6c02dd51], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE ]
+    declared permissions:
+      com.android.phone.permission.ACCESS_LAST_KNOWN_CELL_ID: prot=signature, INSTALLED
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED: prot=signature|privileged, INSTALLED
+      miui.permission.RESET_RADIO: prot=signature|privileged, INSTALLED
+      miui.modemsmart.permission.ACCESS_MSE: prot=dangerous, INSTALLED
+      com.android.phone.permission.ACCESS_RELAY_SERVICE: prot=signature|privileged, INSTALLED
+      androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.GRANT_RUNTIME_PERMISSIONS_TO_TELEPHONY_DEFAULTS
+      android.permission.BROADCAST_STICKY
+      android.permission.CALL_PHONE
+      android.permission.CALL_PRIVILEGED
+      android.permission.CONTROL_INCALL_EXPERIENCE
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION
+      android.permission.WRITE_SETTINGS
+      android.permission.WRITE_SECURE_SETTINGS
+      android.permission.READ_CONTACTS
+      android.permission.READ_CALL_LOG
+      android.permission.WRITE_CONTACTS
+      android.permission.WRITE_CALL_LOG
+      android.permission.SYSTEM_ALERT_WINDOW
+      android.permission.INTERNAL_SYSTEM_WINDOW
+      android.permission.VIBRATE
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.BLUETOOTH_SCAN
+      android.permission.REORDER_TASKS
+      android.permission.CHANGE_CONFIGURATION
+      android.permission.WAKE_LOCK
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.STATUS_BAR
+      android.permission.STATUS_BAR_SERVICE
+      android.permission.RECEIVE_SMS
+      android.permission.READ_SMS
+      android.permission.WRITE_SMS
+      android.permission.SEND_SMS
+      android.permission.SEND_RESPOND_VIA_MESSAGE
+      android.permission.SUGGEST_TELEPHONY_TIME_AND_ZONE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.MODIFY_PHONE_STATE
+      android.permission.ACCESS_IMS_CALL_SERVICE
+      android.permission.DEVICE_POWER
+      android.permission.DISABLE_KEYGUARD
+      android.permission.INTERNET
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.WRITE_APN_SETTINGS
+      android.permission.BROADCAST_SMS
+      android.permission.BROADCAST_WAP_PUSH
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.SHUTDOWN
+      android.permission.RECORD_AUDIO
+      android.permission.PERFORM_CDMA_PROVISIONING
+      android.permission.USE_SIP
+      android.permission.REBOOT
+      android.permission.UPDATE_LOCK
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.INTERACT_ACROSS_USERS_FULL
+      com.android.smspush.WAPPUSH_MANAGER_BIND
+      android.permission.MANAGE_USERS
+      android.permission.UPDATE_APP_OPS_STATS
+      android.permission.READ_CARRIER_APP_INFO
+      android.permission.MANAGE_APP_OPS_MODES
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
+      android.permission.NETWORK_FACTORY
+      android.permission.OBSERVE_NETWORK_POLICY
+      android.permission.SET_PREFERRED_APPLICATIONS
+      android.permission.READ_SEARCH_INDEXABLES
+      android.permission.DUMP
+      android.permission.REGISTER_CALL_PROVIDER
+      android.permission.REGISTER_SIM_SUBSCRIPTION
+      android.permission.BIND_IMS_SERVICE
+      android.permission.BIND_CARRIER_SERVICES
+      android.permission.BIND_EUICC_SERVICE
+      android.permission.BIND_TELEPHONY_NETWORK_SERVICE
+      android.permission.BIND_CELL_BROADCAST_SERVICE
+      android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS
+      android.permission.READ_SYNC_SETTINGS
+      android.permission.WRITE_SYNC_SETTINGS
+      android.permission.AUTHENTICATE_ACCOUNTS
+      android.permission.MANAGE_ACCOUNTS
+      android.permission.GET_ACCOUNTS
+      com.android.voicemail.permission.ADD_VOICEMAIL
+      com.android.voicemail.permission.WRITE_VOICEMAIL
+      com.android.voicemail.permission.READ_VOICEMAIL
+      android.permission.BIND_VISUAL_VOICEMAIL_SERVICE
+      android.permission.LOCAL_MAC_ADDRESS
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE
+      android.permission.CHANGE_DEVICE_IDLE_TEMP_WHITELIST
+      android.permission.POST_NOTIFICATIONS
+      android.permission.READ_BLOCKED_NUMBERS
+      android.permission.WRITE_BLOCKED_NUMBERS
+      android.permission.NETWORK_SETTINGS
+      android.permission.REGISTER_STATS_PULL_ATOM
+      android.permission.STOP_APP_SWITCHES
+      android.permission.UPDATE_DEVICE_STATS
+      android.permission.MANAGE_NETWORK_POLICY
+      android.permission.READ_NETWORK_USAGE_HISTORY
+      android.permission.BIND_TELEPHONY_DATA_SERVICE
+      android.permission.PACKAGE_USAGE_STATS
+      android.permission.READ_PRECISE_PHONE_STATE
+      android.permission.MANAGE_ROLE_HOLDERS
+      android.permission.START_ACTIVITIES_FROM_BACKGROUND
+      android.permission.NETWORK_STATS_PROVIDER
+      android.permission.MANAGE_SUBSCRIPTION_PLANS
+      android.permission.OBSERVE_ROLE_HOLDERS
+      android.permission.BIND_GBA_SERVICE
+      android.permission.LOG_COMPAT_CHANGE
+      android.permission.READ_COMPAT_CHANGE_CONFIG
+      android.permission.READ_PROJECTION_STATE
+      android.permission.ACCESS_TELEPHONY_SIMINFO_DB
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS
+      com.qti.permission.BIND_QTI_IMS_SERVICE
+      com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED
+      android.permission.MANAGE_OWN_CALLS
+      com.mi.health.permission.DEFAULT_READ_DATA
+      miui.permission.ACCESS_TELECOMM_STATISTIC
+      android.permission.MANAGE_ACTIVITY_TASKS
+      miui.permission.USE_INTERNAL_GENERAL_API
+      android.permission.GET_INTENT_SENDER_INTENT
+      miui.cloud.finddevice.SEND_COMMAND
+      com.android.settings.permission.CLOUD_SETTINGS_PROVIDER
+      android.permission.OVERRIDE_WIFI_CONFIG
+      com.miui.antispam.permission.CONTENTPROVIDER
+      com.miui.antispam.permission.DATA_MONTH_REPORT
+      miui.permission.EXTRA_NETWORK
+      miui.permission.RESET_RADIO
+      android.permission.UNLIMITED_TOASTS
+      com.android.updater.permission.RECEIVE_BROADCAST
+      miui.permission.ACCESS_TELECOMM_SERVICE
+      miui.modemsmart.permission.ACCESS_MSE
+      android.permission.QUERY_ALL_PACKAGES
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE_INTERNAL
+      com.xiaomi.permission.BIND_CONTINUITY_LISTENER_SERVICE
+      com.miui.audiomonitor.permission.ACCESS_DIST_AUDIO_SERVICE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_EXTERNAL_STORAGE
+      com.xiaomi.dist.permission.WRITE_CONN_STATUS
+      androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.REAL_GET_TASKS: granted=true
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION: granted=true
+      com.android.settings.permission.CLOUD_SETTINGS_PROVIDER: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      com.qualcomm.permission.READPROC: granted=true
+      android.permission.NETWORK_STATS_PROVIDER: granted=true
+      com.miui.audiomonitor.permission.ACCESS_DIST_AUDIO_SERVICE: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.MANAGE_EXTERNAL_STORAGE: granted=true
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY: granted=true
+      android.permission.USE_RESERVED_DISK: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      com.miui.antispam.permission.DATA_MONTH_REPORT: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.BIND_CARRIER_SERVICES: granted=true
+      com.mi.health.permission.DEFAULT_READ_DATA: granted=true
+      com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE: granted=true
+      android.permission.SEND_RESPOND_VIA_MESSAGE: granted=true
+      miui.permission.USE_INTERNAL_GENERAL_API: granted=true
+      android.permission.SHUTDOWN: granted=true
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE: granted=true
+      androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.INTERNAL_SYSTEM_WINDOW: granted=true
+      android.permission.NETWORK_SETTINGS: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_LISTENER_SERVICE: granted=true
+      android.permission.BROADCAST_SMS: granted=true
+      android.permission.CALL_PRIVILEGED: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.MASTER_CLEAR: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.WRITE_SYNC_SETTINGS: granted=true
+      com.miui.yellowpage.permission.ACCESS_YELLOWPAGE: granted=true
+      android.permission.RESET_FINGERPRINT_LOCKOUT: granted=true
+      android.permission.MANAGE_ACTIVITY_TASKS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.stk.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.MANAGE_ROLE_HOLDERS: granted=true
+      android.permission.DEVICE_POWER: granted=true
+      miui.permission.ACCESS_TELECOMM_STATISTIC: granted=true
+      android.permission.MANAGE_SUBSCRIPTION_PLANS: granted=true
+      android.permission.BROADCAST_WAP_PUSH: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE: granted=true
+      com.android.voicemail.permission.READ_VOICEMAIL: granted=true
+      android.permission.WRITE_BLOCKED_NUMBERS: granted=true
+      com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL: granted=true
+      android.permission.GRANT_RUNTIME_PERMISSIONS_TO_TELEPHONY_DEFAULTS: granted=true
+      android.permission.AUTHENTICATE_ACCOUNTS: granted=true
+      android.permission.INTERNET: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE_INTERNAL: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.GET_INTENT_SENDER_INTENT: granted=true
+      android.permission.UPDATE_DEVICE_STATS: granted=true
+      android.permission.READ_PRECISE_PHONE_STATE: granted=true
+      com.qualcomm.permission.IZAT: granted=true
+      android.permission.READ_PROJECTION_STATE: granted=true
+      android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS: granted=true
+      miui.permission.ACCESS_TELECOMM_SERVICE: granted=true
+      android.permission.PERFORM_CDMA_PROVISIONING: granted=true
+      android.permission.REGISTER_CALL_PROVIDER: granted=true
+      android.permission.MANAGE_USB: granted=true
+      com.qualcomm.permission.UIM_REMOTE_CLIENT: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.STOP_APP_SWITCHES: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.SET_ACTIVITY_WATCHER: granted=true
+      android.permission.READ_BLOCKED_NUMBERS: granted=true
+      android.permission.STATUS_BAR_SERVICE: granted=true
+      android.permission.READ_SEARCH_INDEXABLES: granted=true
+      android.permission.SUGGEST_TELEPHONY_TIME_AND_ZONE: granted=true
+      android.permission.LOG_COMPAT_CHANGE: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.ACCESS_IMS_CALL_SERVICE: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      android.permission.NETWORK_FACTORY: granted=true
+      com.qti.permission.BIND_QTI_IMS_SERVICE: granted=true
+      android.permission.WRITE_SMS: granted=true
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE: granted=true
+      android.permission.ACCESS_KEYGUARD_SECURE_STORAGE: granted=true
+      android.permission.OBSERVE_ROLE_HOLDERS: granted=true
+      android.permission.WRITE_APN_SETTINGS: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.RECEIVE_STK_COMMANDS: granted=true
+      android.permission.BIND_CARRIER_MESSAGING_SERVICE: granted=true
+      android.permission.ACCESS_MESSAGES_ON_ICC: granted=true
+      android.permission.BIND_EUICC_SERVICE: granted=true
+      android.permission.BIND_VISUAL_VOICEMAIL_SERVICE: granted=true
+      miui.cloud.finddevice.SEND_COMMAND: granted=true
+      android.permission.MANAGE_USERS: granted=true
+      android.permission.SET_PREFERRED_APPLICATIONS: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      com.xiaomi.dist.permission.WRITE_CONN_STATUS: granted=true
+      android.permission.DISABLE_KEYGUARD: granted=true
+      android.permission.OBSERVE_NETWORK_POLICY: granted=true
+      android.permission.CHANGE_CONFIGURATION: granted=true
+      android.permission.USER_ACTIVITY: granted=true
+      android.permission.LOCAL_MAC_ADDRESS: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.UPDATE_LOCK: granted=true
+      android.permission.READ_NETWORK_USAGE_HISTORY: granted=true
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED: granted=true
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS: granted=true
+      android.permission.REGISTER_STATS_PULL_ATOM: granted=true
+      android.permission.REGISTER_SIM_SUBSCRIPTION: granted=true
+      android.permission.MANAGE_OWN_CALLS: granted=true
+      android.permission.BIND_TELEPHONY_NETWORK_SERVICE: granted=true
+      android.permission.REBOOT: granted=true
+      com.android.updater.permission.RECEIVE_BROADCAST: granted=true
+      android.permission.MANAGE_NETWORK_POLICY: granted=true
+      miui.permission.RESET_RADIO: granted=true
+      android.permission.READ_SYNC_SETTINGS: granted=true
+      android.permission.START_ACTIVITIES_FROM_BACKGROUND: granted=true
+      android.permission.BIND_TELEPHONY_DATA_SERVICE: granted=true
+      android.permission.BIND_CELL_BROADCAST_SERVICE: granted=true
+      android.permission.READ_COMPAT_CHANGE_CONFIG: granted=true
+      android.permission.OVERRIDE_WIFI_CONFIG: granted=true
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.READ_CARRIER_APP_INFO: granted=true
+      android.permission.BIND_GBA_SERVICE: granted=true
+      android.permission.CHANGE_DEVICE_IDLE_TEMP_WHITELIST: granted=true
+      android.provision.permission.SEND_PROVISION_COMPLETE_BROADCAST: granted=true
+      com.android.cellbroadcastservice.FULL_ACCESS_CELL_BROADCAST_HISTORY: granted=true
+      com.android.voicemail.permission.WRITE_VOICEMAIL: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.ACCESS_TELEPHONY_SIMINFO_DB: granted=true
+      android.permission.MANAGE_APP_OPS_MODES: granted=true
+      android.permission.BIND_IMS_SERVICE: granted=true
+      android.permission.CONTROL_INCALL_EXPERIENCE: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      com.android.smspush.WAPPUSH_MANAGER_BIND: granted=true
+      android.permission.STATUS_BAR: granted=true
+      android.permission.QUERY_ALL_PACKAGES: granted=true
+      android.permission.DUMP: granted=true
+      android.permission.READ_DEVICE_CONFIG: granted=true
+      android.permission.UNLIMITED_TOASTS: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      android.permission.INJECT_EVENTS: granted=true
+      miui.permission.EXTRA_NETWORK: granted=true
+      android.permission.UPDATE_APP_OPS_STATS: granted=true
+      com.miui.antispam.permission.CONTENTPROVIDER: granted=true
+    User 0: ceDataInode=7746 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2009-01-01 08:00:00
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+        /data/resource-cache/com.android.systemui-accent-2RSq.frro
+        /product/overlay/GmsMiCSPTelephonyOverlay.apk
+        /product/overlay/TelephonyResCommon_Sys.apk
+      legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /product/overlay/GmsMiCSPTelephonyOverlay.apk
+        /product/overlay/TelephonyResCommon_Sys.apk
+      
+com.miui.system overlay paths:
+          /product/overlay/GestureLineOverlay.apk
+          /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+          /data/resource-cache/com.android.systemui-accent-2RSq.frro
+        
+com.miui.system legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+      
+com.miui.core overlay paths:
+          /product/overlay/GestureLineOverlay.apk
+          /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+          /data/resource-cache/com.android.systemui-accent-2RSq.frro
+        
+com.miui.core legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+      
+micloud-sdk overlay paths:
+          /product/overlay/GestureLineOverlay.apk
+          /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+          /data/resource-cache/com.android.systemui-accent-2RSq.frro
+        
+micloud-sdk legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+    User 999: ceDataInode=36672 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=0
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  forceQueryable:
+    [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+  queries via package name:
+  queries via component:
+  queryable via interaction:
+    User 0:
+      [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]:
+        [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]
+        [com.google.android.gms,com.google.android.gsf]
+        com.android.mms
+        com.milink.service
+        com.google.android.dialer
+        com.google.android.apps.messaging
+      com.android.htmlviewer:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      [vendor.qti.iwlan,com.qualcomm.qti.cne,vendor.qti.hardware.cacert.server]:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      [com.google.android.gms,com.google.android.gsf]:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      com.miui.analytics:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      [com.qualcomm.qti.telephonyservice,com.qti.phone,com.qualcomm.qti.devicestatisticsservice,com.qualcomm.qcrilmsgtunnel]:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      org.codeaurora.ims:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      com.android.carrierconfig:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      com.android.smspush:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      com.google.android.inputmethod.latin:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+      com.google.android.dialer:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+    User 999:
+  queryable via uses-library:
+    [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]:
+      com.miui.core
+
+Shared users:
+  SharedUser [android.uid.phone] (74313ac):
+    userId=1001
+    Packages
+      PackageSetting{b4db3f com.android.mms.service/1001}
+      PackageSetting{282e39d com.android.providers.telephony/1001}
+      PackageSetting{3819274 com.android.cellbroadcastservice/1001}
+      PackageSetting{5a86f6a com.miui.vsimcore/1001}
+      PackageSetting{5cbe955 com.qti.qualcomm.datastatusnotification/1001}
+      PackageSetting{5f2807a com.android.stk/1001}
+      PackageSetting{72821c8 com.qualcomm.qti.uceShimService/1001}
+      PackageSetting{8344186 com.qualcomm.atfwd/1001}
+      PackageSetting{9b55460 com.android.phone/1001}
+      PackageSetting{b82f012 com.qualcomm.qti.autoregistration/1001}
+      PackageSetting{b9bfb5e com.qti.qualcomm.deviceinfo/1001}
+      PackageSetting{baf1c99 vendor.qti.imsdatachannel/1001}
+      PackageSetting{bd1e3e3 vendor.qti.imsrcs/1001}
+      PackageSetting{ddaea47 com.qti.dpmserviceapp/1001}
+      PackageSetting{f118261 com.qualcomm.qti.dynamicddsservice/1001}
+      PackageSetting{fd7926b com.android.ons/1001}
+    install permissions:
+      android.permission.REAL_GET_TASKS: granted=true
+      android.permission.DOWNLOAD_WITHOUT_NOTIFICATION: granted=true
+      com.android.settings.permission.CLOUD_SETTINGS_PROVIDER: granted=true
+      android.permission.WRITE_SETTINGS: granted=true
+      com.qualcomm.permission.READPROC: granted=true
+      android.permission.NETWORK_STATS_PROVIDER: granted=true
+      com.miui.audiomonitor.permission.ACCESS_DIST_AUDIO_SERVICE: granted=true
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.MANAGE_EXTERNAL_STORAGE: granted=true
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY: granted=true
+      android.permission.USE_RESERVED_DISK: granted=true
+      android.permission.MANAGE_ACCOUNTS: granted=true
+      com.miui.antispam.permission.DATA_MONTH_REPORT: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+      android.permission.BIND_CARRIER_SERVICES: granted=true
+      com.mi.health.permission.DEFAULT_READ_DATA: granted=true
+      com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE: granted=true
+      android.permission.SEND_RESPOND_VIA_MESSAGE: granted=true
+      miui.permission.USE_INTERNAL_GENERAL_API: granted=true
+      android.permission.SHUTDOWN: granted=true
+      android.permission.CHANGE_COMPONENT_ENABLED_STATE: granted=true
+      androidx.legacy.preference.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.INTERNAL_SYSTEM_WINDOW: granted=true
+      android.permission.NETWORK_SETTINGS: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_LISTENER_SERVICE: granted=true
+      android.permission.BROADCAST_SMS: granted=true
+      android.permission.CALL_PRIVILEGED: granted=true
+      android.permission.CHANGE_NETWORK_STATE: granted=true
+      android.permission.MASTER_CLEAR: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.WRITE_SYNC_SETTINGS: granted=true
+      com.miui.yellowpage.permission.ACCESS_YELLOWPAGE: granted=true
+      android.permission.RESET_FINGERPRINT_LOCKOUT: granted=true
+      android.permission.MANAGE_ACTIVITY_TASKS: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.android.stk.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.MANAGE_ROLE_HOLDERS: granted=true
+      android.permission.DEVICE_POWER: granted=true
+      miui.permission.ACCESS_TELECOMM_STATISTIC: granted=true
+      android.permission.MANAGE_SUBSCRIPTION_PLANS: granted=true
+      android.permission.BROADCAST_WAP_PUSH: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE: granted=true
+      com.android.voicemail.permission.READ_VOICEMAIL: granted=true
+      android.permission.WRITE_BLOCKED_NUMBERS: granted=true
+      com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL: granted=true
+      android.permission.GRANT_RUNTIME_PERMISSIONS_TO_TELEPHONY_DEFAULTS: granted=true
+      android.permission.AUTHENTICATE_ACCOUNTS: granted=true
+      android.permission.INTERNET: granted=true
+      com.xiaomi.permission.BIND_CONTINUITY_SERVICE_INTERNAL: granted=true
+      android.permission.REORDER_TASKS: granted=true
+      android.permission.GET_INTENT_SENDER_INTENT: granted=true
+      android.permission.UPDATE_DEVICE_STATS: granted=true
+      android.permission.READ_PRECISE_PHONE_STATE: granted=true
+      com.qualcomm.permission.IZAT: granted=true
+      android.permission.READ_PROJECTION_STATE: granted=true
+      android.permission.WRITE_EMBEDDED_SUBSCRIPTIONS: granted=true
+      miui.permission.ACCESS_TELECOMM_SERVICE: granted=true
+      android.permission.PERFORM_CDMA_PROVISIONING: granted=true
+      android.permission.REGISTER_CALL_PROVIDER: granted=true
+      android.permission.MANAGE_USB: granted=true
+      com.qualcomm.permission.UIM_REMOTE_CLIENT: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.STOP_APP_SWITCHES: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.SET_ACTIVITY_WATCHER: granted=true
+      android.permission.READ_BLOCKED_NUMBERS: granted=true
+      android.permission.STATUS_BAR_SERVICE: granted=true
+      android.permission.READ_SEARCH_INDEXABLES: granted=true
+      android.permission.SUGGEST_TELEPHONY_TIME_AND_ZONE: granted=true
+      android.permission.LOG_COMPAT_CHANGE: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.ACCESS_IMS_CALL_SERVICE: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      android.permission.NETWORK_FACTORY: granted=true
+      com.qti.permission.BIND_QTI_IMS_SERVICE: granted=true
+      android.permission.WRITE_SMS: granted=true
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE: granted=true
+      android.permission.ACCESS_KEYGUARD_SECURE_STORAGE: granted=true
+      android.permission.OBSERVE_ROLE_HOLDERS: granted=true
+      android.permission.WRITE_APN_SETTINGS: granted=true
+      android.permission.CHANGE_WIFI_STATE: granted=true
+      android.permission.RECEIVE_STK_COMMANDS: granted=true
+      android.permission.BIND_CARRIER_MESSAGING_SERVICE: granted=true
+      android.permission.ACCESS_MESSAGES_ON_ICC: granted=true
+      android.permission.BIND_EUICC_SERVICE: granted=true
+      android.permission.BIND_VISUAL_VOICEMAIL_SERVICE: granted=true
+      miui.cloud.finddevice.SEND_COMMAND: granted=true
+      android.permission.MANAGE_USERS: granted=true
+      android.permission.SET_PREFERRED_APPLICATIONS: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      com.xiaomi.dist.permission.WRITE_CONN_STATUS: granted=true
+      android.permission.DISABLE_KEYGUARD: granted=true
+      android.permission.OBSERVE_NETWORK_POLICY: granted=true
+      android.permission.CHANGE_CONFIGURATION: granted=true
+      android.permission.USER_ACTIVITY: granted=true
+      android.permission.LOCAL_MAC_ADDRESS: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.UPDATE_LOCK: granted=true
+      android.permission.READ_NETWORK_USAGE_HISTORY: granted=true
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY_CHANGED: granted=true
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS: granted=true
+      android.permission.REGISTER_STATS_PULL_ATOM: granted=true
+      android.permission.REGISTER_SIM_SUBSCRIPTION: granted=true
+      android.permission.MANAGE_OWN_CALLS: granted=true
+      android.permission.BIND_TELEPHONY_NETWORK_SERVICE: granted=true
+      android.permission.REBOOT: granted=true
+      com.android.updater.permission.RECEIVE_BROADCAST: granted=true
+      android.permission.MANAGE_NETWORK_POLICY: granted=true
+      miui.permission.RESET_RADIO: granted=true
+      android.permission.READ_SYNC_SETTINGS: granted=true
+      android.permission.START_ACTIVITIES_FROM_BACKGROUND: granted=true
+      android.permission.BIND_TELEPHONY_DATA_SERVICE: granted=true
+      android.permission.BIND_CELL_BROADCAST_SERVICE: granted=true
+      android.permission.READ_COMPAT_CHANGE_CONFIG: granted=true
+      android.permission.OVERRIDE_WIFI_CONFIG: granted=true
+      android.permission.HIDE_NON_SYSTEM_OVERLAY_WINDOWS: granted=true
+      android.permission.VIBRATE: granted=true
+      android.permission.READ_CARRIER_APP_INFO: granted=true
+      android.permission.BIND_GBA_SERVICE: granted=true
+      android.permission.CHANGE_DEVICE_IDLE_TEMP_WHITELIST: granted=true
+      android.provision.permission.SEND_PROVISION_COMPLETE_BROADCAST: granted=true
+      com.android.cellbroadcastservice.FULL_ACCESS_CELL_BROADCAST_HISTORY: granted=true
+      com.android.voicemail.permission.WRITE_VOICEMAIL: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.ACCESS_TELEPHONY_SIMINFO_DB: granted=true
+      android.permission.MANAGE_APP_OPS_MODES: granted=true
+      android.permission.BIND_IMS_SERVICE: granted=true
+      android.permission.CONTROL_INCALL_EXPERIENCE: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      com.android.smspush.WAPPUSH_MANAGER_BIND: granted=true
+      android.permission.STATUS_BAR: granted=true
+      android.permission.QUERY_ALL_PACKAGES: granted=true
+      android.permission.DUMP: granted=true
+      android.permission.READ_DEVICE_CONFIG: granted=true
+      android.permission.UNLIMITED_TOASTS: granted=true
+      android.permission.WAKE_LOCK: granted=true
+      android.permission.INJECT_EVENTS: granted=true
+      miui.permission.EXTRA_NETWORK: granted=true
+      android.permission.UPDATE_APP_OPS_STATS: granted=true
+      com.miui.antispam.permission.CONTENTPROVIDER: granted=true
+    User 0: 
+      gids=[3009, 1065, 3003, 3007, 1021, 1000, 2002, 1015, 1023, 1010, 3006]
+      runtime permissions:
+        android.permission.READ_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.RECEIVE_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.BLUETOOTH_CONNECT: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.READ_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|REVOKE_WHEN_REQUESTED|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.SEND_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.CALL_PHONE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.WRITE_CONTACTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.WRITE_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.USE_SIP: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CELL_BROADCASTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.GET_ACCOUNTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.RECORD_AUDIO: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        miui.modemsmart.permission.ACCESS_MSE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CONTACTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.BLUETOOTH_SCAN: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        com.android.voicemail.permission.ADD_VOICEMAIL: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+    User 999: 
+      gids=[3009, 1065, 3003, 3007, 1021, 1000, 2002, 1015, 1023, 1010, 3006]
+      runtime permissions:
+        android.permission.READ_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.RECEIVE_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.BLUETOOTH_CONNECT: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.READ_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|REVOKE_WHEN_REQUESTED|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.SEND_SMS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.CALL_PHONE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.WRITE_CONTACTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.WRITE_CALL_LOG: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.USE_SIP: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CELL_BROADCASTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.GET_ACCOUNTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.RECORD_AUDIO: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        miui.modemsmart.permission.ACCESS_MSE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+        android.permission.READ_CONTACTS: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.BLUETOOTH_SCAN: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        com.android.voicemail.permission.ADD_VOICEMAIL: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT]
+
+Dexopt state:
+  [com.android.phone]
+    path: /system/priv-app/TeleService/TeleService.apk
+      arm64: [status=speed] [reason=bg-dexopt]
+      used by other apps: [com.android.settings]
+      odex file size: TeleService.odex: 68Kb TeleService.vdex: 131Kb 
+
+Compiler stats:
+  [com.android.phone]
+     TeleService.apk - 8
+

@@ -1,0 +1,73 @@
+dex=classes.dex
+onReceive code_off=0xcd08 regs=10 ins=3 outs=3 tries=0
+0000: const-string           v0, string@941 "QCNEJ/CneAppReceiver"
+0002: if-nez                 v9, -> 000a
+0004: const-string           v1, string@907 "Null Intent received"
+0006: invoke-static          {v0, v1}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+0009: return-void            
+000a: invoke-virtual         {v9}, method@14 java.lang.String android.content.Intent.getAction()
+000d: move-result-object     v1
+000e: if-nez                 v1, -> 0016
+0010: const-string           v2, string@908 "Null intent action received"
+0012: invoke-static          {v0, v2}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+0015: return-void            
+0016: const-string           v2, string@1298 "android.intent.action.LOCKED_BOOT_COMPLETED"
+0018: invoke-virtual         {v1, v2}, method@871 boolean java.lang.String.equals(java.lang.Object)
+001b: move-result            v2
+001c: if-nez                 v2, -> 003c
+001e: const-string           v2, string@1297 "android.intent.action.BOOT_COMPLETED"
+0020: invoke-virtual         {v1, v2}, method@871 boolean java.lang.String.equals(java.lang.Object)
+0023: move-result            v2
+0024: if-eqz                 v2, -> 0027
+0026: goto                   -> 003c
+0027: new-instance           v2, type@199 java.lang.StringBuilder
+0029: invoke-direct          {v2}, method@880 void java.lang.StringBuilder.<init>()
+002c: const-string           v3, string@243 "CneAppReceiver received unknown action: "
+002e: invoke-virtual         {v2, v3}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0031: invoke-virtual         {v2, v1}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0034: invoke-virtual         {v2}, method@886 java.lang.String java.lang.StringBuilder.toString()
+0037: move-result-object     v2
+0038: invoke-static          {v0, v2}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+003b: goto                   -> 0096
+003c: const-string           v2, string@183 "ACTION_LOCKED_BOOT_COMPLETED or ACTION_BOOT_COMPLETED received"
+003e: invoke-static          {v0, v2}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+0041: sget-boolean           v2, field@41 boolean com.qualcomm.qti.cne.CneAppReceiver.isServiceStarted
+0043: if-nez                 v2, -> 0091
+0045: new-instance           v2, type@10 android.content.Intent
+0047: const-class            v3, type@78 com.qualcomm.qti.cne.CneApp
+0049: invoke-direct          {v2, v8, v3}, method@13 void android.content.Intent.<init>(android.content.Context,java.lang.Class)
+004c: const-string           v3, string@1002 "START CneApp"
+004e: invoke-static          {v0, v3}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+0051: new-instance           v3, type@7 android.content.ComponentName
+0053: invoke-virtual         {v8}, method@7 java.lang.String android.content.Context.getPackageName()
+0056: move-result-object     v4
+0057: const-class            v5, type@78 com.qualcomm.qti.cne.CneApp
+0059: invoke-virtual         {v5}, method@852 java.lang.String java.lang.Class.getName()
+005c: move-result-object     v5
+005d: invoke-direct          {v3, v4, v5}, method@3 void android.content.ComponentName.<init>(java.lang.String,java.lang.String)
+0060: new-instance           v4, type@10 android.content.Intent
+0062: invoke-direct          {v4}, method@12 void android.content.Intent.<init>()
+0065: invoke-virtual         {v4, v3}, method@17 android.content.Intent android.content.Intent.setComponent(android.content.ComponentName)
+0068: move-result-object     v4
+0069: invoke-virtual         {v8, v4}, method@10 android.content.ComponentName android.content.Context.startService(android.content.Intent)
+006c: move-result-object     v4
+006d: if-nez                 v4, -> 0088
+006f: new-instance           v5, type@199 java.lang.StringBuilder
+0071: invoke-direct          {v5}, method@880 void java.lang.StringBuilder.<init>()
+0074: const-string           v6, string@238 "CneApp Could Not Start Service "
+0076: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0079: invoke-virtual         {v3}, method@4 java.lang.String android.content.ComponentName.toString()
+007c: move-result-object     v6
+007d: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0080: invoke-virtual         {v5}, method@886 java.lang.String java.lang.StringBuilder.toString()
+0083: move-result-object     v5
+0084: invoke-static          {v0, v5}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+0087: goto                   -> 0090
+0088: const-string           v5, string@239 "CneApp Started Successfully"
+008a: invoke-static          {v0, v5}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+008d: const/4                v0, #1
+008e: op_6a                  
+008f: goto/16                -> 06b7
+0091: const-string           v2, string@240 "CneApp already Started"
+0093: invoke-static          {v0, v2}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+0096: return-void            

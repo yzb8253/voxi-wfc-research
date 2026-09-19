@@ -1,0 +1,62 @@
+Phase 4 controlled software-SIM-removal test plan
+
+This file is a preparation artifact only. Do not execute the disable/recover scripts until explicitly approved.
+
+Target
+------
+Device: Xiaomi 14 Pro
+ADB serial: 192.168.137.134:37667
+VOXI target: slot 1 / phoneId 1 / subId 11 / MCCMNC 23415
+Non-target SIM: Chinese SIM in slot 0
+
+Scripts
+-------
+1. phase4_capture_before.ps1
+   Purpose: read-only snapshot of active subscription/isub, telephony.registry, carrier_config, phone/ImsResolver/MMTEL, telephony_ims, ims, connectivity IWLAN/IMS, and selected SIM/operator properties.
+   Safety gate: confirms subId 11 is on simSlotIndex 1 with MCC 234 and MNC 15; refuses if subId 11 appears on slot 0.
+
+2. phase4_watch.ps1
+   Purpose: repeated read-only observation after disable, saved to phase4/disable_observation.txt.
+   Filters: subId, slot 1, phoneId 1, 23415, VOXI, ABSENT, CLEAR_CONFIG, NO_SIM, ESSENTIAL_LOADED, LOADED, ImsResolver, MMTEL, RCS, IWLAN, UICC, Subscription, CarrierConfig, registration, UNAVAILABLE, AVAILABLE, HOME, ePDG.
+
+3. phase4_disable_test.ps1
+   Purpose: first controlled test. It runs BEFORE snapshot, starts observation, executes exactly one disable command, waits for natural framework handling, captures AFTER snapshot, then stops.
+   Important: it does not execute enable-physical-subscription.
+
+4. phase4_recover.ps1
+   Purpose: manual recovery script for the candidate enable command and post-recovery read-only state capture.
+   Safety gate: requires the saved before_snapshot.txt to match subId 11 / slot 1 / MCCMNC 23415.
+
+Actual disable command prepared
+-------------------------------
+.\adb.exe -s 192.168.137.134:37667 shell cmd phone disable-physical-subscription 11
+
+Actual recovery command prepared
+--------------------------------
+.\adb.exe -s 192.168.137.134:37667 shell cmd phone enable-physical-subscription 11
+
+Expected success signals
+------------------------
+1. dumpsys isub no longer shows subId 11 as active on slot 1, or slot 1 maps to invalid/no active subscription.
+2. CarrierConfig logs/state show ABSENT/CLEAR_CONFIG/no-SIM behavior for phoneId 1.
+3. ImsResolver/IMS state shows slot 1 moving from subId 11 to invalid/-1 or removing MMTEL/RCS feature binding.
+4. MMTEL becomes unavailable or feature is removed for slot 1.
+5. IWLAN/WLAN PS registration exits or becomes unavailable for VOXI slot 1.
+6. Slot 0 Chinese SIM remains present and registered.
+
+Possible failure cases
+----------------------
+1. Command is rejected by permission or user-build restrictions.
+2. Command toggles uicc_applications_enabled but does not create a real subId 11 -> -1 transition.
+3. CarrierConfig refreshes without CLEAR_CONFIG/no-SIM.
+4. IMS disables but ImsResolver does not remove/rebind MMTEL/RCS.
+5. Slot 0 experiences service disruption because QTI UICC provisioning or multi-SIM state is broader than expected.
+6. VOXI does not recover automatically until enable-physical-subscription is run.
+
+If VOXI cannot be re-enabled by the recovery script
+---------------------------------------------------
+1. Do not run extra radio/IMS/process reset commands immediately.
+2. Capture read-only evidence: isub, carrier_config, phone, telephony.registry, telephony_ims.
+3. Try normal Android UI SIM enablement for the VOXI SIM if visible.
+4. If software recovery fails, use the known physical recovery path: remove VOXI SIM, boot/settle no-SIM state if needed, reconnect Wi-Fi, insert VOXI SIM, and observe CarrierConfig/ImsResolver reload.
+5. Reboot remains a last resort only after preserving evidence and explicit approval.

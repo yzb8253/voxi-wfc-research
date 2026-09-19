@@ -1,0 +1,5 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell uname -a
+CAPTURED_AT: 2026-09-16T13:04:14.1327335+08:00
+
+Linux localhost 4.19.157-perf-g19050d39787c #1 SMP PREEMPT Wed Jun 5 13:37:11 UTC 2024 aarch64 Toybox
+

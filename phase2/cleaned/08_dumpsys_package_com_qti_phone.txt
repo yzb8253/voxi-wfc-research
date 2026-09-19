@@ -1,0 +1,178 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys package com.qti.phone
+CAPTURED_AT: 2026-09-16T13:14:22.2847642+08:00
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.LOCKED_BOOT_COMPLETED:
+        6de65a1 com.qti.phone/.QtiTelephonyBootReceiver filter b2e83c6
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.LOCKED_BOOT_COMPLETED"
+          mPriority=1200, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+      android.intent.action.BOOT_COMPLETED:
+        6de65a1 com.qti.phone/.QtiTelephonyBootReceiver filter b2e83c6
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.LOCKED_BOOT_COMPLETED"
+          mPriority=1200, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+
+Domain verification status:
+
+Permissions:
+  Permission [com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE] (7d55f10):
+    sourcePackage=com.qti.phone
+    uid=10195 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{f308a09 com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE}
+
+Permissions:
+  Permission [com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (dafb40e):
+    sourcePackage=com.qti.phone
+    uid=10195 gids=[] type=0 prot=signature
+    perm=PermissionInfo{d801e2f com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+
+Registered ContentProviders:
+  com.qti.phone/androidx.startup.InitializationProvider:
+    Provider{195c3c com.qti.phone/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [com.qti.phone.androidx-startup]:
+    Provider{195c3c com.qti.phone/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{74ebdc5 com.qti.phone}
+
+Key Set Manager:
+  [com.qti.phone]
+      Signing KeySets: 1
+
+Packages:
+  Package [com.qti.phone] (8e88033):
+    userId=10195
+    sharedUser=SharedUserSetting{5b7031a android.uid.qtiphone/10195}
+    pkg=Package{1fa6e4b com.qti.phone}
+    codePath=/system_ext/app/QtiTelephony
+    resourcePath=/system_ext/app/QtiTelephony
+    legacyNativeLibraryDir=/system_ext/app/QtiTelephony/lib
+    extractNativeLibs=true
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=33 minSdk=33 targetSdk=33
+    minExtensionVersions=[]
+    versionName=13
+    usesNonSdkApi=true
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DIRECT_BOOT_AWARE SYSTEM_EXT PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    dataDir=/data/user/0/com.qti.phone
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      com.qti.extphone.extphonelib
+      com.qualcomm.qcrilhook
+      qti-telephony-utils
+      qti-telephony-hidl-wrapper
+    usesLibraryFiles:
+      /system_ext/framework/extphonelib.jar
+      /system_ext/framework/qcrilhook.jar
+      /system_ext/framework/qti-telephony-utils.jar
+      /system_ext/framework/qti-telephony-hidl-wrapper.jar
+    timeStamp=2009-01-01 08:00:00
+    lastUpdateTime=2009-01-01 08:00:00
+    packageSource=0
+    signatures=PackageSignatures{e3e0028 version:3, signatures:[6c02dd51], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    declared permissions:
+      com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE: prot=signature|privileged, INSTALLED
+      com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.MODIFY_PHONE_STATE
+      android.permission.WRITE_SECURE_SETTINGS
+      android.permission.STATUS_BAR
+      com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL
+      com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.MODIFY_AUDIO_ROUTING: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      android.permission.STATUS_BAR: granted=true
+      com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=7881 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2009-01-01 08:00:00
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+        /data/resource-cache/com.android.systemui-accent-2RSq.frro
+      legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+    User 999: ceDataInode=0 installed=false hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=0
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  forceQueryable:
+    [com.qualcomm.qti.telephonyservice,com.qti.phone,com.qualcomm.qti.devicestatisticsservice,com.qualcomm.qcrilmsgtunnel]
+  queries via package name:
+  queries via component:
+  queryable via interaction:
+    User 0:
+      [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]:
+        [com.qualcomm.qti.telephonyservice,com.qti.phone,com.qualcomm.qti.devicestatisticsservice,com.qualcomm.qcrilmsgtunnel]
+      [com.qualcomm.qti.telephonyservice,com.qti.phone,com.qualcomm.qti.devicestatisticsservice,com.qualcomm.qcrilmsgtunnel]:
+        [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+    User 999:
+  queryable via uses-library:
+
+Shared users:
+  SharedUser [android.uid.qtiphone] (5b7031a):
+    userId=10195
+    Packages
+      PackageSetting{567f36d com.qualcomm.qti.telephonyservice/10195}
+      PackageSetting{8e88033 com.qti.phone/10195}
+      PackageSetting{c804ff0 com.qualcomm.qti.devicestatisticsservice/10195}
+      PackageSetting{cbc0ba2 com.qualcomm.qcrilmsgtunnel/10195}
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.MODIFY_AUDIO_ROUTING: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      com.qualcomm.permission.USE_QCRIL_MSG_TUNNEL: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      android.permission.STATUS_BAR: granted=true
+      com.qti.phone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: 
+      runtime permissions:
+        android.permission.READ_PHONE_STATE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+    User 999: 
+      runtime permissions:
+        android.permission.READ_PHONE_STATE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED]
+
+Dexopt state:
+  [com.qti.phone]
+    path: /system_ext/app/QtiTelephony/QtiTelephony.apk
+      arm64: [status=speed] [reason=bg-dexopt]
+      used by other apps: [com.qualcomm.qti.telephonyservice]
+      odex file size: QtiTelephony.odex: 28Kb QtiTelephony.vdex: 27Kb 
+
+Compiler stats:
+  [com.qti.phone]
+     QtiTelephony.apk - 5
+

@@ -1,0 +1,43 @@
+
+METHOD qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController :: void setUiccApplicationsEnabled_1_4(int, boolean)
+  invoke: android.telephony.SubscriptionManager boolean isValidSubscriptionId(int)
+  invoke: android.content.ContentValues void <init>(int)
+  invoke: java.lang.Boolean java.lang.Boolean valueOf(boolean)
+  string:  uicc_applications_enabled
+  invoke: android.content.ContentValues void put(java.lang.String, java.lang.Boolean)
+  field: com.qualcomm.qti.internal.telephony.QtiSubscriptionController android.content.Context mContext
+  invoke: android.telephony.SubscriptionManager android.net.Uri getUriForSubscriptionId(int)
+  invoke: android.content.ContentResolver int update(android.net.Uri, android.content.ContentValues, java.lang.String, java.lang.String[])
+  field: com.qualcomm.qcrilhook.EmbmsOemHook$RadioStateIndication com.qualcomm.qcrilhook.EmbmsOemHook this$0
+
+METHOD qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController :: boolean setSubscriptionEnabled(boolean, int)
+  string:  setSubscriptionEnabled
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController void enforceModifyPhoneState(java.lang.String)
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController int getSlotIndex(int)
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController int getUiccProvisionStatus(int)
+  invoke: com.android.internal.telephony.vendor.VendorSubscriptionController boolean setSubscriptionEnabled(boolean, int)
+
+METHOD qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController :: int setUiccApplicationsEnabled(boolean, int)
+  invoke: android.telephony.SubscriptionManager int getPhoneId(int)
+  invoke: com.android.internal.telephony.PhoneFactory com.android.internal.telephony.Phone getPhone(int)
+  invoke: com.android.internal.telephony.Phone com.android.internal.telephony.HalVersion getHalVersion()
+  field: com.android.internal.telephony.RIL com.android.internal.telephony.HalVersion RADIO_HAL_VERSION_1_5
+  field: android.hardware.radio.V1_0.AppStatus java.lang.String appLabelPtr
+  invoke: com.android.internal.telephony.vendor.VendorSubscriptionController int setUiccApplicationsEnabled(boolean, int)
+  string:  setUiccApplicationsEnabled
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController void enforceModifyPhoneState(java.lang.String)
+  invoke: android.os.Binder long clearCallingIdentity()
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController int getSlotIdForSubId(int)
+  invoke: com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner getInstance()
+  invoke: com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner int activateUiccCard(int)
+  invoke: com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner int deactivateUiccCard(int)
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController void refreshCachedActiveSubscriptionInfoList()
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController void notifySubscriptionInfoChanged()
+  invoke: android.os.Binder void restoreCallingIdentity(long)
+  invoke: com.qualcomm.qti.internal.telephony.QtiSubscriptionController void setUiccApplicationsEnabled_1_4(int, boolean)
+
+METHOD qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater :: void handleSimAbsent(int)
+  field: com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater java.lang.String[] sIccId
+
+METHOD qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater :: void handleSimLoaded(int)
+  field: com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater java.lang.String[] sIccId

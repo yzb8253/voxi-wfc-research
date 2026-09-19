@@ -1,0 +1,63 @@
+dex=classes.dex
+handleEnablePhysicalSubscription code_off=0x2c3e88 regs=6 ins=2 outs=3 tries=1
+0000: invoke-virtual         {v4}, method@17002 java.io.PrintWriter com.android.modules.utils.BasicShellCommandHandler.getErrPrintWriter()
+0003: move-result-object     v0
+0004: const/4                v1, #-1
+0005: invoke-virtual         {v4}, method@17004 java.lang.String com.android.modules.utils.BasicShellCommandHandler.getNextArgRequired()
+0008: move-result-object     v2
+0009: invoke-static          {v2}, method@42744 int java.lang.Integer.parseInt(java.lang.String)
+000c: move-result            v2
+000d: invoke-static          {}, method@1795 int android.os.Binder.getCallingUid()
+0010: move-result            v3
+0011: if-nez                 v3, -> 005f
+0013: sget-boolean           v3, field@6674 boolean com.android.internal.telephony.util.TelephonyUtils.IS_USER
+0015: if-eqz                 v3, -> 0018
+0017: goto                   -> 005f
+0018: invoke-direct          {v4, v2}, method@23604 boolean com.android.phone.TelephonyShellCommand.subIsEsim(int)
+001b: move-result            v3
+001c: if-eqz                 v3, -> 0038
+001e: new-instance           v4, type@6612 java.lang.StringBuilder
+0020: invoke-direct          {v4}, method@42919 void java.lang.StringBuilder.<init>()
+0023: const-string           v5, string@23569 "SubId "
+0025: invoke-virtual         {v4, v5}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0028: invoke-virtual         {v4, v2}, method@42926 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+002b: const-string           v5, string@686 " is not for a physical subscription"
+002d: invoke-virtual         {v4, v5}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0030: invoke-virtual         {v4}, method@42943 java.lang.String java.lang.StringBuilder.toString()
+0033: move-result-object     v4
+0034: invoke-virtual         {v0, v4}, method@42597 void java.io.PrintWriter.println(java.lang.String)
+0037: return                 v1
+0038: new-instance           v0, type@6612 java.lang.StringBuilder
+003a: invoke-direct          {v0}, method@42919 void java.lang.StringBuilder.<init>()
+003d: if-eqz                 v5, -> 0042
+003f: const-string           v1, string@7943 "Enabling"
+0041: goto                   -> 0044
+0042: const-string           v1, string@7344 "Disabling"
+0044: invoke-virtual         {v0, v1}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0047: const-string           v1, string@866 " physical subscription with subId="
+0049: invoke-virtual         {v0, v1}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+004c: invoke-virtual         {v0, v2}, method@42926 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+004f: invoke-virtual         {v0}, method@42943 java.lang.String java.lang.StringBuilder.toString()
+0052: move-result-object     v0
+0053: const-string           v1, string@24438 "TelephonyShellCommand"
+0055: invoke-static          {v1, v0}, method@3750 int android.util.Log.d(java.lang.String,java.lang.String)
+0058: iget-object            v4, v4, field@9619 android.telephony.SubscriptionManager com.android.phone.TelephonyShellCommand.mSubscriptionManager
+005a: invoke-virtual         {v4, v2, v5}, method@3239 void android.telephony.SubscriptionManager.setUiccApplicationsEnabled(int,boolean)
+005d: const/4                v4, #0
+005e: return                 v4
+005f: const-string           v4, string@30498 "cc: Permission denied."
+0061: invoke-virtual         {v0, v4}, method@42597 void java.io.PrintWriter.println(java.lang.String)
+0064: return                 v1
+0065: new-instance           v4, type@6612 java.lang.StringBuilder
+0067: invoke-direct          {v4}, method@42919 void java.lang.StringBuilder.<init>()
+006a: if-eqz                 v5, -> 006f
+006c: const-string           v5, string@34322 "enable"
+006e: goto                   -> 0071
+006f: const-string           v5, string@33438 "disable"
+0071: invoke-virtual         {v4, v5}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0074: const-string           v5, string@3226 "-physical-subscription requires an integer as a subId."
+0076: invoke-virtual         {v4, v5}, method@42931 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0079: invoke-virtual         {v4}, method@42943 java.lang.String java.lang.StringBuilder.toString()
+007c: move-result-object     v4
+007d: invoke-virtual         {v0, v4}, method@42597 void java.io.PrintWriter.println(java.lang.String)
+0080: return                 v1

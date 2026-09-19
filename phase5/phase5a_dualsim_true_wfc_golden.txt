@@ -1,0 +1,325 @@
+Phase 5A - Dual-SIM True WFC Golden State
+Date: 2026-09-17
+Mode: READ-ONLY
+
+Source files used
+=================
+
+- voxi_wfc_research/phase5/phase5a_isub.txt
+- voxi_wfc_research/phase5/phase5a_telephony_registry.txt
+- voxi_wfc_research/phase5/phase5a_phone.txt
+- voxi_wfc_research/phase5/phase5a_connectivity.txt
+- voxi_wfc_research/phase5/phase5a_carrier_config.txt
+- voxi_wfc_research/phase5/phase5a_ims.txt
+- voxi_wfc_research/phase5/phase5a_telephony_ims.txt
+- voxi_wfc_research/phase5/phase5a_logcat_filtered.txt
+- voxi_wfc_research/phase4/phase4d2_after_300s.txt
+- voxi_wfc_research/phase4/phase4d2_observation.txt
+- voxi_wfc_research/phase4/phase4d2_write_report.txt
+
+No state-changing command was executed in this phase.
+
+
+1. Dual-SIM mapping after today's reboot
+========================================
+
+[DEVICE CONFIRMED]
+
+Current active subscription state:
+
+- defaultSubId=11
+- defaultDataSubId=11
+- defaultVoiceSubId=-1
+- defaultSmsSubId=11
+- defaultDataPhoneId=1
+- sSlotIndexToSubId[0] = [1]
+- sSlotIndexToSubId[1] = [11]
+
+SIM 1 / slot 0:
+
+- Carrier/display: 中国电信
+- slot / simSlotIndex: 0
+- phoneId: 0
+- subId: 1
+- MCC/MNC: 460/11
+- MCCMNC: 46011
+- carrierId: 2237
+- areUiccApplicationsEnabled: true
+
+SIM 2 / slot 1:
+
+- Carrier/display: voxi
+- carrierName in active subscription: WLAN Call
+- slot / simSlotIndex: 1
+- phoneId: 1
+- subId: 11
+- MCC/MNC: 234/15
+- MCCMNC: 23415
+- carrierId: 28
+- areUiccApplicationsEnabled: true
+
+
+2. Slot 0 / China Telecom current framework state
+=================================================
+
+[DEVICE CONFIRMED]
+
+From telephony.registry:
+
+- Phone Id=0
+- mVoiceRegState=3(POWER_OFF)
+- mDataRegState=3(POWER_OFF)
+- getRilDataRadioTechnology=0(Unknown)
+- PS/WLAN registrationState=UNKNOWN
+- accessNetworkTechnology=UNKNOWN
+- mIsIwlanPreferred=false
+
+Interpretation: China Telecom remains present as active subscription subId 1 on slot 0, but radio/service state is powered off/unknown under the current airplane-mode environment. It is not the active WFC target.
+
+
+3. VOXI IWLAN transport layer
+=============================
+
+[DEVICE CONFIRMED]
+
+VOXI phoneId 1 / subId 11 shows:
+
+- mVoiceRegState=0(IN_SERVICE)
+- mDataRegState=0(IN_SERVICE)
+- getRilDataRadioTechnology=18(IWLAN)
+- PS transportType=WLAN registrationState=HOME
+- accessNetworkTechnology=IWLAN
+- mIsIwlanPreferred=true
+
+Result: IWLAN transport = PASS.
+
+
+4. IMS service / MMTEL layer
+============================
+
+[DEVICE CONFIRMED]
+
+From dumpsys phone / ImsResolver:
+
+- Device MMTEL implementation: org.codeaurora.ims/org.codeaurora.ims.ImsService
+- Device RCS implementation: vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService
+- org.codeaurora.ims active controller isBound=true
+- Features include slot 1 MMTEL and slot 1 EMERGENCY_MMTEL
+- MmTelFeatureListeners includes:
+  Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+- Recent log:
+  2026-09-17T08:01:33.219747 - [1, MMTEL] connectionReady 11
+
+Result: MMTEL feature = READY.
+
+Important distinction: MMTEL READY proves the framework has an MMTEL feature bound and usable from ImsResolver's perspective. It does not by itself prove IMS registration over WLAN.
+
+
+5. Active IMS/IWLAN data path
+=============================
+
+[DEVICE CONFIRMED]
+
+Today's connectivity dump contains a stronger WFC/ePDG signal than yesterday's Phase 4D-2 after_300s snapshot:
+
+- NetworkAgentInfo network{101}
+- ni{MOBILE[IWLAN] CONNECTED extra: ims}
+- Capabilities include IMS, VALIDATED, MMTEL
+- Specifier: TelephonyNetworkSpecifier [mSubId = 11]
+- SubscriptionIds: {11}
+- Request id=263 from com.qualcomm.qti.cne:
+  Transports: CELLULAR
+  Capabilities: IMS&TRUSTED&NOT_VPN
+  Specifier: TelephonyNetworkSpecifier [mSubId = 11]
+- NetworkOffer provider for subId 11 is Needed by [263]
+- KeepaliveInfo:
+  network=100, STARTED, 192.168.137.134:42983 -> 198.18.1.101:4500, uid=10104, pid=3236, privileged=true
+
+Interpretation: this is concrete evidence of an active IMS-over-IWLAN/ePDG style path for VOXI subId 11. The UDP/4500 keepalive is especially important because it indicates an active NAT-T/IPsec tunnel maintenance path while Wi-Fi is the underlying network.
+
+
+6. IMS registration fields
+==========================
+
+[DEVICE CONFIRMED: not found in current captures]
+
+The requested literal registration indicators were not found in the available captured outputs:
+
+- handleImsRegistered: not found
+- setImsRegistrationState: not found
+- registered=true: not found
+- imsRadioTech=WLAN: not found
+- isVowifiEnabled=true: not found
+
+dumpsys ims:
+
+- Service not present: "Can't find service: ims"
+
+dumpsys telephony_ims:
+
+- Service exists, but the captured output was empty apart from the header.
+
+Result:
+
+- IMS registered=true: UNKNOWN from captured text
+- imsRadioTech=WLAN: UNKNOWN from captured text
+- isVowifiEnabled=true: UNKNOWN from captured text
+
+This does not mean IMS/WFC is absent. It means the current dumpsys/logcat set did not expose the exact requested textual fields. The active MOBILE[IWLAN] IMS network and NAT-T keepalive are strong indirect evidence, but they are not the same as a direct ImsRegistration state dump.
+
+
+7. CarrierConfig WFC values
+===========================
+
+[DEVICE CONFIRMED]
+
+VOXI-relevant CarrierConfig block contains:
+
+- carrier_cross_sim_ims_available_bool = true
+- carrier_default_wfc_ims_mode_int = 1
+- carrier_volte_available_bool = false
+- carrier_wfc_ims_available_bool = true
+- carrier_wfc_ims_available_bool_develop = false
+- carrier_wfc_supports_ims_preferred_bool = false
+- editable_wfc_mode_bool = true
+- editable_wfc_when_airplane_mode_on = true
+- config_disable_ss_over_wfc_when_airplane_enabled = false
+
+Not confirmed in the VOXI block:
+
+- carrier_default_wfc_ims_enabled_bool: not found in the confirmed VOXI block
+- carrier_wfc_supports_wifi_only_bool: not found in the confirmed VOXI block
+
+Note: these fields exist elsewhere in the carrier_config dump, but those earlier instances match a different carrier block and are not used as VOXI evidence here.
+
+
+8. TRUE WFC GOLDEN determination
+================================
+
+Requested strict criteria:
+
+- IWLAN transport present
+- IMS registered=true
+- imsRadioTech=WLAN
+- VoWiFi enabled=true
+
+Captured evidence:
+
+- IWLAN transport: PASS
+- IMS/ePDG active data path: PASS, by MOBILE[IWLAN] CONNECTED extra: ims and NAT-T keepalive
+- MMTEL feature: READY
+- IMS registered=true: UNKNOWN
+- imsRadioTech=WLAN: UNKNOWN
+- isVowifiEnabled=true: UNKNOWN
+
+Strict result:
+
+TRUE WFC GOLDEN = NO, if and only if the strict definition requires the literal fields IMS registered=true, imsRadioTech=WLAN, and isVowifiEnabled=true to appear in captured machine output.
+
+Operational result:
+
+The user-confirmed WFC UI state plus the active IMS-over-IWLAN network agent, MMTEL capability, subId 11 network specifier, and UDP/4500 keepalive make today's state a much stronger WFC-good baseline than yesterday's Phase 4D-2 after_300s state.
+
+
+9. Comparison with yesterday Phase 4D-2 after_300s
+==================================================
+
+[DEVICE CONFIRMED]
+
+Both yesterday after_300s and today show framework-level recovery:
+
+- subId 11 active again
+- VOXI slot 1 mapped again
+- CarrierConfig LOADED
+- ImsResolver slot 1 subId restored
+- MMTEL READY
+- IWLAN HOME
+- mIsIwlanPreferred=true
+
+Today's additional evidence:
+
+- Active NetworkAgentInfo: MOBILE[IWLAN] CONNECTED extra: ims
+- Capabilities: IMS and MMTEL
+- Specifier: TelephonyNetworkSpecifier [mSubId = 11]
+- Active request from com.qualcomm.qti.cne for IMS on subId 11
+- NetworkOffer for subId 11 Needed by [263]
+- NAT-T keepalive STARTED to UDP/4500
+
+Yesterday after_300s contrasting evidence:
+
+- NetworkOffer for subId 11 existed, but Needed by [] rather than an active IMS request.
+- Connectivity logs showed RELEASE of the com.qualcomm.qti.cne IMS request for subId 11:
+  2026-09-16T16:44:16.414441 - RELEASE ... Capabilities: IMS ... TelephonyNetworkSpecifier [mSubId = 11] ... com.qualcomm.qti.cne
+- No matching current MOBILE[IWLAN] CONNECTED extra: ims NetworkAgent was found in the after_300s comparison output.
+
+Interpretation:
+
+Yesterday's software-remove path restored Subscription, CarrierConfig, ImsResolver, MMTEL READY, and IWLAN HOME, but the IMS/ePDG data path appears not to have stayed established. That explains why the framework looked partially healthy while the user-facing WFC icon disappeared.
+
+
+10. Most likely missing field/event yesterday
+=============================================
+
+[INFERRED FROM DEVICE EVIDENCE]
+
+The most likely missing piece yesterday was not:
+
+- Subscription restoration
+- CarrierConfig WFC availability
+- ImsResolver rebinding
+- MMTEL feature READY
+- IWLAN HOME
+
+The most likely missing piece was:
+
+- a persistent active IMS-over-IWLAN/ePDG network/registration path for subId 11
+
+Concrete proxy evidence:
+
+- Today has MOBILE[IWLAN] CONNECTED extra: ims + IMS/MMTEL capabilities + UDP/4500 keepalive.
+- Yesterday after_300s shows the qti.cne IMS request being released and no active IMS IWLAN NetworkAgent in the compared output.
+
+
+11. Next phase recommendation
+=============================
+
+Choose: B - IMS/WFC registration failure mechanism.
+
+Reason:
+
+The software remove/re-add experiment already proved that subscription, CarrierConfig, ImsResolver, and MMTEL feature lifecycle can be rebuilt. The failure after Phase 4D-2 appears downstream of those framework rebuilds: IWLAN and MMTEL returned, but the durable IMS/ePDG/WFC registration/data path did not remain in the same state as today's real WFC-good baseline.
+
+
+12. Short checklist
+===================
+
+China Telecom:
+
+- slot: 0
+- phoneId: 0
+- subId: 1
+- MCCMNC: 46011
+- carrierId: 2237
+- current state: active subscription present; radio/service POWER_OFF under airplane-mode environment
+
+VOXI:
+
+- slot: 1
+- phoneId: 1
+- subId: 11
+- carrierId: 28
+- MCCMNC: 23415
+
+Layer results:
+
+- IWLAN transport: PASS
+- IMS/ePDG data path: PASS by connectivity proxy
+- IMS registered=true: UNKNOWN from captured text
+- imsRadioTech=WLAN: UNKNOWN from captured text
+- isVowifiEnabled=true: UNKNOWN from captured text
+- MMTEL: READY
+
+Final strict label:
+
+- TRUE WFC GOLDEN = NO under the requested literal-field standard.
+- TRUE WFC OPERATIONAL BASELINE = YES/STRONG, based on user confirmation plus connectivity evidence.

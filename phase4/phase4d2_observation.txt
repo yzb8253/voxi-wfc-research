@@ -1,0 +1,71 @@
+﻿PHASE 4D-2 OBSERVATION
+host_observation_start=2026-09-16T16:44:15.8623187+08:00
+logcat_since=09-16 16:44:15.862
+
+===== filtered logcat from Phase 4D-2 start =====
+host_time=2026-09-16T16:49:18.7097801+08:00
+09-16 16:44:15.878  1045  6042 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.rPA@Avo
+09-16 16:44:16.615  1045  6882 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.rPA@AwU
+09-16 16:44:16.618  1045  6882 I Telecom : CallsManager: Sending phone-account ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 11, UserHandle{0} unregistered intent as user: TSI.uPA@Awg
+09-16 16:44:16.618  1045  6882 I Telecom : CallsManager: Sending phone-account unregistered intent to default dialer: TSI.uPA@Awg
+09-16 16:44:16.618  1045  1097 W BroadcastQueue: Permission Denial: receiving Intent { act=android.telecom.action.PHONE_ACCOUNT_UNREGISTERED flg=0x1000010 (has extras) } to ProcessRecord{1fa3659 16530:com.google.android.dialer/u0a276} (pid=16530, uid=10276) requires android.permission.PROCESS_PHONE_ACCOUNT_REGISTRATION due to sender android (uid 1000)
+09-16 16:44:16.618  1045  1097 W BroadcastQueue: Permission Denial: receiving Intent { act=android.telecom.action.PHONE_ACCOUNT_UNREGISTERED flg=0x1000010 (has extras) } to ProcessRecord{1fa3659 16530:com.google.android.dialer/u0a276} (pid=16530, uid=10276) requires android.permission.PROCESS_PHONE_ACCOUNT_REGISTRATION due to sender android (uid 1000)
+09-16 16:44:16.629  1045  2780 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null
+09-16 16:44:16.646  1045  2821 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null
+09-16 16:44:16.650  1045  6042 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null
+09-16 16:44:16.700  1045  1045 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.gSCMFU@Aw4
+09-16 16:44:16.705  1045  1045 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.gSCMFU@Aw8
+09-16 16:44:16.829  1045  6882 I SmartPower.com.xiaomi.simactivate.service/10149(7163): idle->background(11647853ms) R(broadcast start Intent { act=android.intent.action.SIM_STATE_CHANGED flg=0x5000010 cmp=com.xiaomi.simactivate.service/com.xiaomi.activate.SimStateReceiver (has extras) }) adj=0.
+09-16 16:44:17.773  1045  2821 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.rPA@Axk
+09-16 16:44:17.778  1045  2821 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null
+09-16 16:44:17.783  1045 11203 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null
+09-16 16:44:17.785  1045  2821 I Telecom : CallsManager: Sending phone-account ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, E, UserHandle{0} unregistered intent as user: TSI.uPA@Ax0
+09-16 16:44:17.785  1045  1097 W BroadcastQueue: Permission Denial: receiving Intent { act=android.telecom.action.PHONE_ACCOUNT_UNREGISTERED flg=0x1000010 (has extras) } to ProcessRecord{1fa3659 16530:com.google.android.dialer/u0a276} (pid=16530, uid=10276) requires android.permission.PROCESS_PHONE_ACCOUNT_REGISTRATION due to sender android (uid 1000)
+09-16 16:44:17.785  1045  1097 W BroadcastQueue: Permission Denial: receiving Intent { act=android.telecom.action.PHONE_ACCOUNT_UNREGISTERED flg=0x1000010 (has extras) } to ProcessRecord{1fa3659 16530:com.google.android.dialer/u0a276} (pid=16530, uid=10276) requires android.permission.PROCESS_PHONE_ACCOUNT_REGISTRATION due to sender android (uid 1000)
+09-16 16:44:17.786  1045  2821 I Telecom : CallsManager: Sending phone-account unregistered intent to default dialer: TSI.uPA@Ax0
+09-16 16:44:18.704  1045  1045 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.gSCMFU@A0I
+09-16 16:44:18.717  1045  1045 I Telecom : PhoneAccountRegistrar: getSimCallManager: SimCallManager for subId 11 queried, returning: null: TSI.gSCMFU@A0M
+09-16 16:44:18.723  1045  1097 W BroadcastQueue: Permission Denial: receiving Intent { act=com.xiaomi.action.MICLOUD_SIM_STATE_CHANGED flg=0x10 (has extras) } to ProcessRecord{efdd036 8445:com.android.mms/u0a133} (pid=8445, uid=10133) requires com.xiaomi.simactivate.service.ACTIVATE_SIM due to sender com.xiaomi.simactivate.service (uid 10149)
+09-16 16:44:18.792  1045  2511 D PackageManager: MIUILOG- Permission Denied Get Telephony identifier :  pkg : com.xiaomi.simactivate.service action : getDeviceId
+09-16 16:44:18.869  1045  2704 D PackageManager: MIUILOG- Permission Denied Get Telephony identifier :  pkg : com.xiaomi.simactivate.service action : getDeviceId
+09-16 16:44:18.882  1045  2704 D PackageManager: MIUILOG- Permission Denied Get Telephony identifier :  pkg : com.xiaomi.simactivate.service action : getDeviceId
+09-16 16:44:19.074  1045  6042 D PackageManager: MIUILOG- Permission Denied Get Telephony identifier :  pkg : com.xiaomi.simactivate.service action : getDeviceId
+09-16 16:44:19.076  7163  7192 W ##XLogger##: #&^opv8IoZxSZqwj5LONDdymEP1rIL0R934nvORKLgZnuc6L3So96eJmMCdsm7VSund+cqq2N1twTOCSDNyr1bVN6GdlJCnuFlocLQwVV42f2ghBF+8PPKD1WYLsdgvKjZZWr6A7EVENykVrzeZusa+3Ucyku/VAAlxdtC4IzowcRQ=!simactivate!szwMyaEQi0kOTDhvNPQG7bN4uq2r13WNQ7K5S+xYYJod8WZxt0spmjc17amuWe/liPci4EagndGKDtSQm6wG+0gZeAT9AZpCYfmnAV1clyxz7gziPX/13MTQO+ps4MRSbiko1KUWCUUkYLJaXDzXng==^&#
+09-16 16:44:19.076  7163  7192 I DeviceId: blockingGetDeviceId is called by com.xiaomi.simactivate.service with timeout: 30000
+09-16 16:44:19.077  7163  7192 I ##XLogger##: #&^opv8IoZxSZqwj5LONDdymEP1rIL0R934nvORKLgZnuc6L3So96eJmMCdsm7VSund+cqq2N1twTOCSDNyr1bVN6GdlJCnuFlocLQwVV42f2ghBF+8PPKD1WYLsdgvKjZZWr6A7EVENykVrzeZusa+3Ucyku/VAAlxdtC4IzowcRQ=!simactivate!TcvxwVC3YAA6y0esOgIKeFfd905x09o7CETwgyckhaBvaUEti2QK9ArY6UnS2rUD4x9Zs+FKA8fL6LTiC24PPijdE4LwLEjIveV0Pu+0m0NFzppB/RsPn0BOrf/FUADVh/DocOei4LArtOrDANZz4hxU+woNQ3J8CIQ9zKAKKcfO3+T3rEsUDVewAoR5zBGlaA0aKSJoILXgJc6t5Tn5/Q1KnCqemDSPY632y33H1WVU3dnUyYNF1Gcxux2MyDFWdVagCl3r2+N8Wm52TQQf4g==^&#
+09-16 16:44:19.079  7163  7163 I ##XLogger##: #&^opv8IoZxSZqwj5LONDdymEP1rIL0R934nvORKLgZnuc6L3So96eJmMCdsm7VSund+cqq2N1twTOCSDNyr1bVN6GdlJCnuFlocLQwVV42f2ghBF+8PPKD1WYLsdgvKjZZWr6A7EVENykVrzeZusa+3Ucyku/VAAlxdtC4IzowcRQ=!simactivate!TcvxwVC3YAA6y0esOgIKeFE7tU9ENiEM4pQdNwvDmzd1kNiwZqGgb90nBNWJ4EKm79SwR+aEZBGQCkzo3Rh6hqRPRvytQrKIiHjGOSjDWMQ/s+xbjPIJ6ANbdebASrcbxF5bynFg2dltfAN/TzN3ig==^&#
+09-16 16:44:19.080  7163  7163 V ##XLogger##: #&^opv8IoZxSZqwj5LONDdymEP1rIL0R934nvORKLgZnuc6L3So96eJmMCdsm7VSund+cqq2N1twTOCSDNyr1bVN6GdlJCnuFlocLQwVV42f2ghBF+8PPKD1WYLsdgvKjZZWr6A7EVENykVrzeZusa+3Ucyku/VAAlxdtC4IzowcRQ=!simactivate!TcvxwVC3YAA6y0esOgIKeFE7tU9ENiEM4pQdNwvDmzc59+K/Zq4QSSI26iBXL4TW56y2XZX6hJqBx8ZVxFbnAPg7ptFdPCNKphZ/DDcvgAAH4yj9Dn17wMeb9LRGuwvfa/WJD9W7dvpTTQdDEtepZw==^&#
+09-16 16:44:19.418  1170  1170 I sensors-hal: activate:147, android.sensor.rotation_vector/14 en=0
+09-16 16:44:19.419  1170  1170 I sensors-hal: activate:158, android.sensor.rotation_vector/14 en=0 completed
+09-16 16:44:19.420  1170  1170 I sensors-hal: activate:147, android.sensor.linear_acceleration/40 en=0
+09-16 16:44:19.421  1170  1170 I sensors-hal: activate:158, android.sensor.linear_acceleration/40 en=0 completed
+09-16 16:44:19.721 10619 11732 I BugleSelfIdentity: Phone number for MyIdentity fbf0c59a-51e3-4eb7-a989-27fdf0271c43 does not change [CONTEXT sub_id=11 icc_id="redacted-pii[20-chars]" messaging_identity="redacted-pii[13-chars]" rcs_provisioning_id="redacted-pii[0-chars]" ]
+09-16 16:44:19.738 10619 11047 I BugleSelfIdentity: Phone number for MyIdentity fbf0c59a-51e3-4eb7-a989-27fdf0271c43 does not change [CONTEXT sub_id=11 icc_id="redacted-pii[20-chars]" messaging_identity="redacted-pii[13-chars]" rcs_provisioning_id="redacted-pii[0-chars]" ]
+09-16 16:44:19.740 10619 11732 I BugleSelfIdentity: Phone number for MyIdentity fbf0c59a-51e3-4eb7-a989-27fdf0271c43 does not change [CONTEXT sub_id=11 icc_id="redacted-pii[20-chars]" messaging_identity="redacted-pii[13-chars]" rcs_provisioning_id="redacted-pii[0-chars]" ]
+09-16 16:44:19.831  1045  2698 I SmartPower.com.xiaomi.simactivate.service/10149(7163): background->idle(3001ms) R(broadcast start Intent { act=android.intent.action.SIM_STATE_CHANGED flg=0x5000010 cmp=com.xiaomi.simactivate.service/com.xiaomi.activate.SimStateReceiver (has extras) }) adj=905.
+09-16 16:44:20.734  3278  3278 D TelephonyProvider: subIdString = 11 subId = 11
+09-16 16:44:22.965  6236  7419 W PushService: [Tid:101] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:44:22.973  6236  7419 W PushService: [Tid:101] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:44:23.501  6236  7419 W PushService: [Tid:101] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:44:24.008  3278  3278 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-16 16:44:58.450  3142  4988 D BtGatt.GattService: unregisterScanner() - scannerId=9
+09-16 16:45:58.500  3142  4988 D BtGatt.GattService: unregisterScanner() - scannerId=9
+09-16 16:46:13.888  2289  2289 I kickstart: STATUS: Successfully downloaded files from target 
+09-16 16:46:34.544 10619  8609 I RcsProvisioningFlow: Handling SIM state update work request for 2 with updateTrigger 8, scheduledAt 2026-09-16T08:44:16.821Z.
+09-16 16:46:48.509  6236  8634 W PushService: [Tid:677] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:46:48.515  6236  7419 W PushService: [Tid:101] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:46:48.517  6236  7419 W PushService: [Tid:101] [HwKaMgr] [Available] MdKa is Unavailable. reason: not supported
+09-16 16:46:58.562  3142  4988 D BtGatt.GattService: unregisterScanner() - scannerId=9
+09-16 16:47:31.254  3278  3278 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-16 16:47:58.580  3142  4988 D BtGatt.GattService: unregisterScanner() - scannerId=9
+09-16 16:48:54.612  5627  8712 E SQLiteLog: (1) near "30": syntax error in "SELECT * FROM javaheapleak WHERE isuploaded=? ORDER BY _idlimit 30"
+09-16 16:48:54.613  5627  8712 W System.err: android.database.sqlite.SQLiteException: near "30": syntax error (code 1 SQLITE_ERROR): , while compiling: SELECT * FROM javaheapleak WHERE isuploaded=? ORDER BY _idlimit 30
+09-16 16:48:54.615  5627  8712 E SQLiteLog: (1) near "30": syntax error in "SELECT * FROM nativeheapleak WHERE isuploaded=? ORDER BY _idlimit 30"
+09-16 16:48:54.615  5627  8712 W System.err: android.database.sqlite.SQLiteException: near "30": syntax error (code 1 SQLITE_ERROR): , while compiling: SELECT * FROM nativeheapleak WHERE isuploaded=? ORDER BY _idlimit 30
+09-16 16:48:54.618  5627  8712 D DatabaseUtils: start getGeneralEventListFromDB, condition=isuploaded=?
+09-16 16:48:54.831  1310  1310 D QSEECOMAPI: App is not loaded in QSEE
+09-16 16:48:54.868  1310  1310 D QSEECOMAPI: Loaded image: APP id = 73
+09-16 16:48:57.160  3142  3175 D BtGatt.GattService: unregisterScanner() - scannerId=9
+09-16 16:48:58.583  3142  3175 D BtGatt.GattService: unregisterScanner() - scannerId=9
+
+host_observation_end=2026-09-16T16:49:24.4690517+08:00

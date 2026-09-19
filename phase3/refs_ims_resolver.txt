@@ -1,0 +1,39 @@
+
+METHOD telephony-common.jar com.android.internal.telephony.ims.ImsResolver :: void bindCarrierServicesIfAvailable()
+  field: com.android.internal.telephony.ims.ImsResolver int mNumSlots
+  invoke: com.android.internal.telephony.ims.ImsResolver$SubscriptionManagerProxy int getSubId(int)
+  invoke: com.android.internal.telephony.ims.ImsResolver java.util.Map getImsPackageOverrideConfig(int)
+  invoke: java.lang.Integer java.lang.Integer valueOf(int)
+  string:  
+  invoke: java.util.Map java.lang.Object getOrDefault(java.lang.Object, java.lang.Object)
+  field: com.android.internal.telephony.ims.ImsResolver com.android.internal.telephony.LocalLog mEventLog
+  field: com.android.internal.telephony.nano.TelephonyProto$TelephonyCallSession$Event$CallQualitySummary com.android.internal.telephony.nano.TelephonyProto$TelephonyCallSession$Event$CallQuality snapshotOfWorstSsWithGoodQuality
+  field: com.android.internal.telephony.GsmCdmaPhone com.android.internal.telephony.RegistrantList mVolteSilentRedialRegistrants
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  invoke: com.android.internal.telephony.LocalLog void log(java.lang.String)
+  field: com.android.internal.telephony.ims.ImsResolver boolean mCarrierConfigReceived
+  invoke: android.hardware.radio.config.V1_1.ModemInfo boolean equals(java.lang.Object)
+  invoke: com.android.internal.telephony.uicc.UiccProfile void registerAllAppEvents()
+  field: com.android.internal.telephony.BaseCommands com.android.internal.telephony.RegistrantList mT53AudCntrlInfoRegistrants
+  invoke: com.android.internal.telephony.ims.ImsResolver void scheduleQueryForFeatures(com.android.internal.telephony.ims.ImsResolver$ImsServiceInfo)
+  invoke: com.android.internal.telephony.ims.ImsResolver void calculateFeatureConfigurationChange()
+
+METHOD telephony-common.jar com.android.internal.telephony.ims.ImsResolver :: void lambda$disableIms$1(int, com.android.internal.telephony.ims.ImsServiceController)
+  invoke: com.android.internal.telephony.ims.ImsResolver int getSubId(int)
+  invoke: com.android.internal.telephony.ims.ImsServiceController void disableIms(int, int)
+
+METHOD telephony-common.jar com.android.internal.telephony.ims.ImsResolver :: void lambda$enableIms$0(int, com.android.internal.telephony.ims.ImsServiceController)
+  invoke: com.android.internal.telephony.ims.ImsResolver int getSubId(int)
+  invoke: com.android.internal.telephony.ims.ImsServiceController void enableIms(int, int)
+
+METHOD telephony-common.jar com.android.internal.telephony.ims.ImsResolver :: void disableIms(int)
+  invoke: com.android.internal.telephony.ims.ImsResolver java.util.Set getImsServiceControllers(int)
+  invoke: com.android.internal.telephony.ims.ImsResolver$$ExternalSyntheticLambda3 void <init>(com.android.internal.telephony.ims.ImsResolver, int)
+  invoke: java.util.Set void forEach(java.util.function.Consumer)
+
+METHOD telephony-common.jar com.android.internal.telephony.ims.ImsResolver :: void enableIms(int)
+  invoke: com.android.internal.telephony.ims.ImsResolver java.util.Set getImsServiceControllers(int)
+  invoke: com.android.internal.telephony.ims.ImsResolver$$ExternalSyntheticLambda2 void <init>(com.android.internal.telephony.ims.ImsResolver, int)
+  invoke: java.util.Set void forEach(java.util.function.Consumer)

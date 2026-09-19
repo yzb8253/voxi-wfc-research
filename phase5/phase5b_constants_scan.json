@@ -1,0 +1,5730 @@
+[
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$AccessNetworkType",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$AccessNetworkType;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "CDMA2000",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 4
+      },
+      {
+        "name": "EUTRAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "GERAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "IWLAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "NGRAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 6
+      },
+      {
+        "name": "UNKNOWN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 0
+      },
+      {
+        "name": "UTRAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3579560
+      },
+      {
+        "name": "convertRanToAnt",
+        "signature": "int convertRanToAnt(int)",
+        "return": "int",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3579040
+      },
+      {
+        "name": "fromString",
+        "signature": "int fromString(java.lang.String)",
+        "return": "int",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3579116
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString(int)",
+        "return": "java.lang.String",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3579448
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$CdmaBands",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$CdmaBands;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "BAND_0",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "BAND_1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "BAND_10",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 11
+      },
+      {
+        "name": "BAND_11",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 12
+      },
+      {
+        "name": "BAND_12",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 13
+      },
+      {
+        "name": "BAND_13",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 14
+      },
+      {
+        "name": "BAND_14",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 15
+      },
+      {
+        "name": "BAND_15",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 16
+      },
+      {
+        "name": "BAND_16",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 17
+      },
+      {
+        "name": "BAND_17",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 18
+      },
+      {
+        "name": "BAND_18",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 19
+      },
+      {
+        "name": "BAND_19",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 20
+      },
+      {
+        "name": "BAND_2",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "BAND_20",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 21
+      },
+      {
+        "name": "BAND_21",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 22
+      },
+      {
+        "name": "BAND_3",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 4
+      },
+      {
+        "name": "BAND_4",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "BAND_5",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 6
+      },
+      {
+        "name": "BAND_6",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 7
+      },
+      {
+        "name": "BAND_7",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 8
+      },
+      {
+        "name": "BAND_8",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 9
+      },
+      {
+        "name": "BAND_9",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 10
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3579584
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$EutranBand$EutranBands",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$EutranBand$EutranBands;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$EutranBand",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$EutranBand;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "BAND_1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "BAND_10",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 10
+      },
+      {
+        "name": "BAND_11",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 11
+      },
+      {
+        "name": "BAND_12",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 12
+      },
+      {
+        "name": "BAND_13",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 13
+      },
+      {
+        "name": "BAND_14",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 14
+      },
+      {
+        "name": "BAND_17",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 17
+      },
+      {
+        "name": "BAND_18",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 18
+      },
+      {
+        "name": "BAND_19",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 19
+      },
+      {
+        "name": "BAND_2",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "BAND_20",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 20
+      },
+      {
+        "name": "BAND_21",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 21
+      },
+      {
+        "name": "BAND_22",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 22
+      },
+      {
+        "name": "BAND_23",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 23
+      },
+      {
+        "name": "BAND_24",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 24
+      },
+      {
+        "name": "BAND_25",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 25
+      },
+      {
+        "name": "BAND_26",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 26
+      },
+      {
+        "name": "BAND_27",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 27
+      },
+      {
+        "name": "BAND_28",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 28
+      },
+      {
+        "name": "BAND_3",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "BAND_30",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 30
+      },
+      {
+        "name": "BAND_31",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 31
+      },
+      {
+        "name": "BAND_33",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 33
+      },
+      {
+        "name": "BAND_34",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 34
+      },
+      {
+        "name": "BAND_35",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 35
+      },
+      {
+        "name": "BAND_36",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 36
+      },
+      {
+        "name": "BAND_37",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 37
+      },
+      {
+        "name": "BAND_38",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 38
+      },
+      {
+        "name": "BAND_39",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 39
+      },
+      {
+        "name": "BAND_4",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 4
+      },
+      {
+        "name": "BAND_40",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 40
+      },
+      {
+        "name": "BAND_41",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 41
+      },
+      {
+        "name": "BAND_42",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 42
+      },
+      {
+        "name": "BAND_43",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 43
+      },
+      {
+        "name": "BAND_44",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 44
+      },
+      {
+        "name": "BAND_45",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 45
+      },
+      {
+        "name": "BAND_46",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 46
+      },
+      {
+        "name": "BAND_47",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 47
+      },
+      {
+        "name": "BAND_48",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 48
+      },
+      {
+        "name": "BAND_49",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 49
+      },
+      {
+        "name": "BAND_5",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "BAND_50",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 50
+      },
+      {
+        "name": "BAND_51",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 51
+      },
+      {
+        "name": "BAND_52",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 52
+      },
+      {
+        "name": "BAND_53",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 53
+      },
+      {
+        "name": "BAND_6",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 6
+      },
+      {
+        "name": "BAND_65",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 65
+      },
+      {
+        "name": "BAND_66",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 66
+      },
+      {
+        "name": "BAND_68",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 68
+      },
+      {
+        "name": "BAND_7",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 7
+      },
+      {
+        "name": "BAND_70",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 70
+      },
+      {
+        "name": "BAND_71",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 71
+      },
+      {
+        "name": "BAND_72",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 72
+      },
+      {
+        "name": "BAND_73",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 73
+      },
+      {
+        "name": "BAND_74",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 74
+      },
+      {
+        "name": "BAND_8",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 8
+      },
+      {
+        "name": "BAND_85",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 85
+      },
+      {
+        "name": "BAND_87",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 87
+      },
+      {
+        "name": "BAND_88",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 88
+      },
+      {
+        "name": "BAND_9",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 9
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3583932
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$EutranBandArfcnFrequency;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "final",
+      "enum"
+    ],
+    "super": "java.lang.Enum",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "$VALUES",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency[]",
+        "access_flags": [
+          "private",
+          "static",
+          "final",
+          "synthetic"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_1",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_10",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_11",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_12",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_13",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_14",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_17",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_18",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_19",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_2",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_20",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_21",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_22",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_23",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_24",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_25",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_26",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_27",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_28",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_3",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_30",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_31",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_33",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_34",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_35",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_36",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_37",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_38",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_39",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_4",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_40",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_41",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_42",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_43",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_44",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_45",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_46",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_47",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_48",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_49",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_5",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_50",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_51",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_52",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_53",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_6",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_65",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_66",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_68",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_7",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_70",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_71",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_72",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_73",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_74",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_8",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_85",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_87",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_88",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "EUTRAN_ARFCN_FREQUENCY_BAND_9",
+        "type": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "band",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkLowKhz",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkRange",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkLowKhz",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkRange",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3579680
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String, int, int, int, int, int, int, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3583880
+      },
+      {
+        "name": "valueOf",
+        "signature": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency valueOf(java.lang.String)",
+        "return": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3579608
+      },
+      {
+        "name": "values",
+        "signature": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency[] values()",
+        "return": "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency[]",
+        "params": [],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3579644
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$GeranBand$GeranBands",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$GeranBand$GeranBands;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$GeranBand",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$GeranBand;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "BAND_450",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "BAND_480",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 4
+      },
+      {
+        "name": "BAND_710",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "BAND_750",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 6
+      },
+      {
+        "name": "BAND_850",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 8
+      },
+      {
+        "name": "BAND_DCS1800",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 12
+      },
+      {
+        "name": "BAND_E900",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 10
+      },
+      {
+        "name": "BAND_ER900",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 14
+      },
+      {
+        "name": "BAND_P900",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 9
+      },
+      {
+        "name": "BAND_PCS1900",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 13
+      },
+      {
+        "name": "BAND_R900",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 11
+      },
+      {
+        "name": "BAND_T380",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "BAND_T410",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "BAND_T810",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 7
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3584716
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$GeranBandArfcnFrequency;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "final",
+      "enum"
+    ],
+    "super": "java.lang.Enum",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "$VALUES",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency[]",
+        "access_flags": [
+          "private",
+          "static",
+          "final",
+          "synthetic"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_450",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_480",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_850",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_DCS1800",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_E900_1",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_E900_2",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_ER900_1",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_ER900_2",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_P900",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_PCS1900",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_R900_1",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "GERAN_ARFCN_FREQUENCY_BAND_R900_2",
+        "type": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "arfcnOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "arfcnRangeFirst",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "arfcnRangeLast",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "band",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkFrequencyFirst",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3584028
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String, int, int, int, int, int, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3584668
+      },
+      {
+        "name": "valueOf",
+        "signature": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency valueOf(java.lang.String)",
+        "return": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3583956
+      },
+      {
+        "name": "values",
+        "signature": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency[] values()",
+        "return": "android.telephony.AccessNetworkConstants$GeranBandArfcnFrequency[]",
+        "params": [],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3583992
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$NgranArfcnFrequency;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "final",
+      "enum"
+    ],
+    "super": "java.lang.Enum",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "$VALUES",
+        "type": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency[]",
+        "access_flags": [
+          "private",
+          "static",
+          "final",
+          "synthetic"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "NGRAN_ARFCN_FREQUENCY_RANGE_1",
+        "type": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "NGRAN_ARFCN_FREQUENCY_RANGE_2",
+        "type": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "NGRAN_ARFCN_FREQUENCY_RANGE_3",
+        "type": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "arfcnOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "globalKhz",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "rangeFirst",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "rangeLast",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "rangeOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3584812
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String, int, int, int, int, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3585000
+      },
+      {
+        "name": "valueOf",
+        "signature": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency valueOf(java.lang.String)",
+        "return": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3584740
+      },
+      {
+        "name": "values",
+        "signature": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency[] values()",
+        "return": "android.telephony.AccessNetworkConstants$NgranArfcnFrequency[]",
+        "params": [],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3584776
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$NgranBands$FrequencyRangeGroup",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$NgranBands$FrequencyRangeGroup;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$NgranBands$NgranBand",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$NgranBands$NgranBand;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$NgranBands",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$NgranBands;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "BAND_1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "BAND_12",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 12
+      },
+      {
+        "name": "BAND_14",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 14
+      },
+      {
+        "name": "BAND_18",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 18
+      },
+      {
+        "name": "BAND_2",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "BAND_20",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 20
+      },
+      {
+        "name": "BAND_25",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 25
+      },
+      {
+        "name": "BAND_257",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 257
+      },
+      {
+        "name": "BAND_258",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 258
+      },
+      {
+        "name": "BAND_26",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 26
+      },
+      {
+        "name": "BAND_260",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 260
+      },
+      {
+        "name": "BAND_261",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 261
+      },
+      {
+        "name": "BAND_28",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 28
+      },
+      {
+        "name": "BAND_29",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 29
+      },
+      {
+        "name": "BAND_3",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "BAND_30",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 30
+      },
+      {
+        "name": "BAND_34",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 34
+      },
+      {
+        "name": "BAND_38",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 38
+      },
+      {
+        "name": "BAND_39",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 39
+      },
+      {
+        "name": "BAND_40",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 40
+      },
+      {
+        "name": "BAND_41",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 41
+      },
+      {
+        "name": "BAND_46",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 46
+      },
+      {
+        "name": "BAND_48",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 48
+      },
+      {
+        "name": "BAND_5",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "BAND_50",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 50
+      },
+      {
+        "name": "BAND_51",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 51
+      },
+      {
+        "name": "BAND_53",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 53
+      },
+      {
+        "name": "BAND_65",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 65
+      },
+      {
+        "name": "BAND_66",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 66
+      },
+      {
+        "name": "BAND_7",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 7
+      },
+      {
+        "name": "BAND_70",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 70
+      },
+      {
+        "name": "BAND_71",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 71
+      },
+      {
+        "name": "BAND_74",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 74
+      },
+      {
+        "name": "BAND_75",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 75
+      },
+      {
+        "name": "BAND_76",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 76
+      },
+      {
+        "name": "BAND_77",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 77
+      },
+      {
+        "name": "BAND_78",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 78
+      },
+      {
+        "name": "BAND_79",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 79
+      },
+      {
+        "name": "BAND_8",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 8
+      },
+      {
+        "name": "BAND_80",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 80
+      },
+      {
+        "name": "BAND_81",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 81
+      },
+      {
+        "name": "BAND_82",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 82
+      },
+      {
+        "name": "BAND_83",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 83
+      },
+      {
+        "name": "BAND_84",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 84
+      },
+      {
+        "name": "BAND_86",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 86
+      },
+      {
+        "name": "BAND_89",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 89
+      },
+      {
+        "name": "BAND_90",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 90
+      },
+      {
+        "name": "BAND_91",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 91
+      },
+      {
+        "name": "BAND_92",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 92
+      },
+      {
+        "name": "BAND_93",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 93
+      },
+      {
+        "name": "BAND_94",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 94
+      },
+      {
+        "name": "BAND_95",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 95
+      },
+      {
+        "name": "BAND_96",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 96
+      },
+      {
+        "name": "FREQUENCY_RANGE_GROUP_1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "FREQUENCY_RANGE_GROUP_2",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "FREQUENCY_RANGE_GROUP_UNKNOWN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3585508
+      },
+      {
+        "name": "getFrequencyRangeGroup",
+        "signature": "int getFrequencyRangeGroup(int)",
+        "return": "int",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3585044
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$RadioAccessNetworkType",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$RadioAccessNetworkType;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$TransportType",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$TransportType;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$UtranBand$UtranBands",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$UtranBand$UtranBands;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$UtranBand",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$UtranBand;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "BAND_1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "BAND_10",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 10
+      },
+      {
+        "name": "BAND_11",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 11
+      },
+      {
+        "name": "BAND_12",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 12
+      },
+      {
+        "name": "BAND_13",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 13
+      },
+      {
+        "name": "BAND_14",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 14
+      },
+      {
+        "name": "BAND_19",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 19
+      },
+      {
+        "name": "BAND_2",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "BAND_20",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 20
+      },
+      {
+        "name": "BAND_21",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 21
+      },
+      {
+        "name": "BAND_22",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 22
+      },
+      {
+        "name": "BAND_25",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 25
+      },
+      {
+        "name": "BAND_26",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 26
+      },
+      {
+        "name": "BAND_3",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "BAND_4",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 4
+      },
+      {
+        "name": "BAND_5",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 5
+      },
+      {
+        "name": "BAND_6",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 6
+      },
+      {
+        "name": "BAND_7",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 7
+      },
+      {
+        "name": "BAND_8",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 8
+      },
+      {
+        "name": "BAND_9",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 9
+      },
+      {
+        "name": "BAND_A",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 101
+      },
+      {
+        "name": "BAND_B",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 102
+      },
+      {
+        "name": "BAND_C",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 103
+      },
+      {
+        "name": "BAND_D",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 104
+      },
+      {
+        "name": "BAND_E",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 105
+      },
+      {
+        "name": "BAND_F",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 106
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3587208
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants$UtranBandArfcnFrequency;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "final",
+      "enum"
+    ],
+    "super": "java.lang.Enum",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "$VALUES",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency[]",
+        "access_flags": [
+          "private",
+          "static",
+          "final",
+          "synthetic"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_1",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_10",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_11",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_12",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_13",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_14",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_19",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_2",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_20",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_21",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_22",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_25",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_3",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_4",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_5",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_6",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_7",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_8",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_9",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_A",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_B",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_C",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_D",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_E",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "UTRAN_ARFCN_FREQUENCY_BAND_F",
+        "type": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "access_flags": [
+          "public",
+          "static",
+          "final",
+          "enum"
+        ],
+        "kind": "static"
+      },
+      {
+        "name": "band",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkRangeFirst",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "downlinkRangeLast",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkOffset",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkRangeFirst",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      },
+      {
+        "name": "uplinkRangeLast",
+        "type": "int",
+        "access_flags": [],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3585604
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String, int, int, int, int, int, int, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3587156
+      },
+      {
+        "name": "valueOf",
+        "signature": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency valueOf(java.lang.String)",
+        "return": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3585532
+      },
+      {
+        "name": "values",
+        "signature": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency[] values()",
+        "return": "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency[]",
+        "params": [],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3585568
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkConstants",
+    "descriptor": "Landroid/telephony/AccessNetworkConstants;",
+    "source": "AccessNetworkConstants.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "TAG",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": null
+      },
+      {
+        "name": "TRANSPORT_TYPE_INVALID",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 255
+      },
+      {
+        "name": "TRANSPORT_TYPE_WLAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "TRANSPORT_TYPE_WWAN",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      }
+    ],
+    "methods": [
+      {
+        "name": "-$$Nest$sfgetTAG",
+        "signature": "java.lang.String -$$Nest$sfgetTAG()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "static",
+          "volatile/bridge",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 3587232
+      },
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3587332
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 3587368
+      },
+      {
+        "name": "transportTypeToString",
+        "signature": "java.lang.String transportTypeToString(int)",
+        "return": "java.lang.String",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3587256
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.AccessNetworkUtils",
+    "descriptor": "Landroid/telephony/AccessNetworkUtils;",
+    "source": "AccessNetworkUtils.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "isInEarfcnRange",
+        "signature": "boolean isInEarfcnRange(int, android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency, boolean)",
+        "return": "boolean",
+        "params": [
+          "int",
+          "android.telephony.AccessNetworkConstants$EutranBandArfcnFrequency",
+          "boolean"
+        ],
+        "access_flags": [
+          "private",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3587392
+      },
+      {
+        "name": "isInUarfcnRange",
+        "signature": "boolean isInUarfcnRange(int, android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency, boolean)",
+        "return": "boolean",
+        "params": [
+          "int",
+          "android.telephony.AccessNetworkConstants$UtranBandArfcnFrequency",
+          "boolean"
+        ],
+        "access_flags": [
+          "private",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 3587460
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.ImsRcsManager",
+    "descriptor": "Landroid/telephony/ims/ImsRcsManager;",
+    "source": "ImsRcsManager.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "registerImsRegistrationCallback",
+        "signature": "void registerImsRegistrationCallback(java.util.concurrent.Executor, android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4013352
+      },
+      {
+        "name": "unregisterImsRegistrationCallback",
+        "signature": "void unregisterImsRegistrationCallback(android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4013880
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$1",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$1;",
+    "source": "RegistrationManager.java",
+    "access_flags": [],
+    "super": "java.util.HashMap",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4048696
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$ImsRegistrationState",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$ImsRegistrationState;",
+    "source": "RegistrationManager.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract",
+      "annotation"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.annotation.Annotation"
+    ],
+    "fields": [],
+    "methods": []
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda0",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda0;",
+    "source": "D8$$SyntheticClass",
+    "access_flags": [
+      "public",
+      "final",
+      "synthetic"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.Runnable"
+    ],
+    "fields": [
+      {
+        "name": "f$0",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$1",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$2",
+        "type": "android.telephony.ims.ImsReasonInfo",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, int, android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "int",
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public",
+          "synthetic",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4048812
+      },
+      {
+        "name": "run",
+        "signature": "void run()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4048848
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda1",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda1;",
+    "source": "D8$$SyntheticClass",
+    "access_flags": [
+      "public",
+      "final",
+      "synthetic"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.Runnable"
+    ],
+    "fields": [
+      {
+        "name": "f$0",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$1",
+        "type": "android.telephony.ims.ImsRegistrationAttributes",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public",
+          "synthetic",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4048884
+      },
+      {
+        "name": "run",
+        "signature": "void run()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4048916
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda2",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda2;",
+    "source": "D8$$SyntheticClass",
+    "access_flags": [
+      "public",
+      "final",
+      "synthetic"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.Runnable"
+    ],
+    "fields": [
+      {
+        "name": "f$0",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$1",
+        "type": "android.net.Uri[]",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, android.net.Uri[])",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "android.net.Uri[]"
+        ],
+        "access_flags": [
+          "public",
+          "synthetic",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4048948
+      },
+      {
+        "name": "run",
+        "signature": "void run()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4048980
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda3",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda3;",
+    "source": "D8$$SyntheticClass",
+    "access_flags": [
+      "public",
+      "final",
+      "synthetic"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.Runnable"
+    ],
+    "fields": [
+      {
+        "name": "f$0",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$1",
+        "type": "android.telephony.ims.ImsReasonInfo",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public",
+          "synthetic",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4049012
+      },
+      {
+        "name": "run",
+        "signature": "void run()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4049044
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda4",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder$$ExternalSyntheticLambda4;",
+    "source": "D8$$SyntheticClass",
+    "access_flags": [
+      "public",
+      "final",
+      "synthetic"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "java.lang.Runnable"
+    ],
+    "fields": [
+      {
+        "name": "f$0",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "f$1",
+        "type": "android.telephony.ims.ImsRegistrationAttributes",
+        "access_flags": [
+          "public",
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public",
+          "synthetic",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4049076
+      },
+      {
+        "name": "run",
+        "signature": "void run()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4049108
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback;",
+    "source": "RegistrationManager.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "mBinder",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4049844
+      },
+      {
+        "name": "getBinder",
+        "signature": "android.telephony.ims.aidl.IImsRegistrationCallback getBinder()",
+        "return": "android.telephony.ims.aidl.IImsRegistrationCallback",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 4049820
+      },
+      {
+        "name": "onRegistered",
+        "signature": "void onRegistered(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049916
+      },
+      {
+        "name": "onRegistered",
+        "signature": "void onRegistered(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049884
+      },
+      {
+        "name": "onRegistering",
+        "signature": "void onRegistering(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049968
+      },
+      {
+        "name": "onRegistering",
+        "signature": "void onRegistering(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049936
+      },
+      {
+        "name": "onSubscriberAssociatedUriChanged",
+        "signature": "void onSubscriberAssociatedUriChanged(android.net.Uri[])",
+        "return": "void",
+        "params": [
+          "android.net.Uri[]"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049988
+      },
+      {
+        "name": "onTechnologyChangeFailed",
+        "signature": "void onTechnologyChangeFailed(int, android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "int",
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4050008
+      },
+      {
+        "name": "onUnregistered",
+        "signature": "void onUnregistered(android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4050028
+      },
+      {
+        "name": "setExecutor",
+        "signature": "void setExecutor(java.util.concurrent.Executor)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4050048
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager;",
+    "source": "RegistrationManager.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "IMS_REG_TO_ACCESS_TYPE_MAP",
+        "type": "java.util.Map",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": null
+      },
+      {
+        "name": "REGISTRATION_STATE_NOT_REGISTERED",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 0
+      },
+      {
+        "name": "REGISTRATION_STATE_REGISTERED",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "REGISTRATION_STATE_REGISTERING",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      }
+    ],
+    "methods": [
+      {
+        "name": "<clinit>",
+        "signature": "void <clinit>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "static",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4050272
+      },
+      {
+        "name": "getAccessType",
+        "signature": "int getAccessType(int)",
+        "return": "int",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 4050076
+      },
+      {
+        "name": "registrationStateToString",
+        "signature": "java.lang.String registrationStateToString(int)",
+        "return": "java.lang.String",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 4050200
+      },
+      {
+        "name": "getRegistrationState",
+        "signature": "void getRegistrationState(java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      },
+      {
+        "name": "getRegistrationTransportType",
+        "signature": "void getRegistrationTransportType(java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      },
+      {
+        "name": "registerImsRegistrationCallback",
+        "signature": "void registerImsRegistrationCallback(java.util.concurrent.Executor, android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      },
+      {
+        "name": "unregisterImsRegistrationCallback",
+        "signature": "void unregisterImsRegistrationCallback(android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.ImsMmTelManager",
+    "descriptor": "Landroid/telephony/ims/ImsMmTelManager;",
+    "source": "ImsMmTelManager.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "android.telephony.ims.RegistrationManager"
+    ],
+    "fields": [
+      {
+        "name": "TAG",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": "string@17914"
+      },
+      {
+        "name": "WIFI_MODE_CELLULAR_PREFERRED",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "WIFI_MODE_WIFI_ONLY",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 0
+      },
+      {
+        "name": "WIFI_MODE_WIFI_PREFERRED",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "mBinderCache",
+        "type": "android.telephony.BinderCacheManager",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mContext",
+        "type": "android.content.Context",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mSubId",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "$r8$lambda$8hRjnVioxU_y_77mclIjv6ZujmI",
+        "signature": "com.android.internal.telephony.ITelephony $r8$lambda$8hRjnVioxU_y_77mclIjv6ZujmI()",
+        "return": "com.android.internal.telephony.ITelephony",
+        "params": [],
+        "access_flags": [
+          "public",
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 4007584
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(int, android.telephony.BinderCacheManager)",
+        "return": "void",
+        "params": [
+          "int",
+          "android.telephony.BinderCacheManager"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4008056
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.content.Context, int, android.telephony.BinderCacheManager)",
+        "return": "void",
+        "params": [
+          "android.content.Context",
+          "int",
+          "android.telephony.BinderCacheManager"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4008020
+      },
+      {
+        "name": "createForSubscriptionId",
+        "signature": "android.telephony.ims.ImsMmTelManager createForSubscriptionId(int)",
+        "return": "android.telephony.ims.ImsMmTelManager",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 4006516
+      },
+      {
+        "name": "getITelephony",
+        "signature": "com.android.internal.telephony.ITelephony getITelephony()",
+        "return": "com.android.internal.telephony.ITelephony",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 4007612
+      },
+      {
+        "name": "getITelephonyInterface",
+        "signature": "com.android.internal.telephony.ITelephony getITelephonyInterface()",
+        "return": "com.android.internal.telephony.ITelephony",
+        "params": [],
+        "access_flags": [
+          "private",
+          "static"
+        ],
+        "kind": "direct",
+        "code_off": 4007648
+      },
+      {
+        "name": "getOpPackageName",
+        "signature": "java.lang.String getOpPackageName()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 4007980
+      },
+      {
+        "name": "lambda$getRegistrationState$0",
+        "signature": "void lambda$getRegistrationState$0(java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 4008788
+      },
+      {
+        "name": "lambda$getRegistrationTransportType$1",
+        "signature": "void lambda$getRegistrationTransportType$1(java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 4008824
+      },
+      {
+        "name": "getFeatureState",
+        "signature": "void getFeatureState(java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4008084
+      },
+      {
+        "name": "getRegistrationState",
+        "signature": "void getRegistrationState(java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4008244
+      },
+      {
+        "name": "getRegistrationTransportType",
+        "signature": "void getRegistrationTransportType(java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4008436
+      },
+      {
+        "name": "getVoWiFiModeSetting",
+        "signature": "int getVoWiFiModeSetting()",
+        "return": "int",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007700
+      },
+      {
+        "name": "getVoWiFiRoamingModeSetting",
+        "signature": "int getVoWiFiRoamingModeSetting()",
+        "return": "int",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007840
+      },
+      {
+        "name": "isAdvancedCallingSettingEnabled",
+        "signature": "boolean isAdvancedCallingSettingEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4006592
+      },
+      {
+        "name": "isAvailable",
+        "signature": "boolean isAvailable(int, int)",
+        "return": "boolean",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4006732
+      },
+      {
+        "name": "isCapable",
+        "signature": "boolean isCapable(int, int)",
+        "return": "boolean",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4006820
+      },
+      {
+        "name": "isCrossSimCallingEnabled",
+        "signature": "boolean isCrossSimCallingEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4006908
+      },
+      {
+        "name": "isSupported",
+        "signature": "void isSupported(int, int, java.util.concurrent.Executor, java.util.function.Consumer)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "java.util.concurrent.Executor",
+          "java.util.function.Consumer"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4008628
+      },
+      {
+        "name": "isTtyOverVolteEnabled",
+        "signature": "boolean isTtyOverVolteEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007024
+      },
+      {
+        "name": "isVoWiFiRoamingSettingEnabled",
+        "signature": "boolean isVoWiFiRoamingSettingEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007164
+      },
+      {
+        "name": "isVoWiFiSettingEnabled",
+        "signature": "boolean isVoWiFiSettingEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007304
+      },
+      {
+        "name": "isVtSettingEnabled",
+        "signature": "boolean isVtSettingEnabled()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4007444
+      },
+      {
+        "name": "registerImsRegistrationCallback",
+        "signature": "void registerImsRegistrationCallback(java.util.concurrent.Executor, android.telephony.ims.ImsMmTelManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.ImsMmTelManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4008860
+      },
+      {
+        "name": "registerImsRegistrationCallback",
+        "signature": "void registerImsRegistrationCallback(java.util.concurrent.Executor, android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009072
+      },
+      {
+        "name": "registerImsStateCallback",
+        "signature": "void registerImsStateCallback(java.util.concurrent.Executor, android.telephony.ims.ImsStateCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.ImsStateCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009256
+      },
+      {
+        "name": "registerMmTelCapabilityCallback",
+        "signature": "void registerMmTelCapabilityCallback(java.util.concurrent.Executor, android.telephony.ims.ImsMmTelManager$CapabilityCallback)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor",
+          "android.telephony.ims.ImsMmTelManager$CapabilityCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009452
+      },
+      {
+        "name": "setAdvancedCallingSettingEnabled",
+        "signature": "void setAdvancedCallingSettingEnabled(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009648
+      },
+      {
+        "name": "setCrossSimCallingEnabled",
+        "signature": "void setCrossSimCallingEnabled(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009788
+      },
+      {
+        "name": "setRttCapabilitySetting",
+        "signature": "void setRttCapabilitySetting(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4009900
+      },
+      {
+        "name": "setVoWiFiModeSetting",
+        "signature": "void setVoWiFiModeSetting(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010040
+      },
+      {
+        "name": "setVoWiFiNonPersistent",
+        "signature": "void setVoWiFiNonPersistent(boolean, int)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010180
+      },
+      {
+        "name": "setVoWiFiRoamingModeSetting",
+        "signature": "void setVoWiFiRoamingModeSetting(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010320
+      },
+      {
+        "name": "setVoWiFiRoamingSettingEnabled",
+        "signature": "void setVoWiFiRoamingSettingEnabled(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010460
+      },
+      {
+        "name": "setVoWiFiSettingEnabled",
+        "signature": "void setVoWiFiSettingEnabled(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010600
+      },
+      {
+        "name": "setVtSettingEnabled",
+        "signature": "void setVtSettingEnabled(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010740
+      },
+      {
+        "name": "unregisterImsRegistrationCallback",
+        "signature": "void unregisterImsRegistrationCallback(android.telephony.ims.ImsMmTelManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsMmTelManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010880
+      },
+      {
+        "name": "unregisterImsRegistrationCallback",
+        "signature": "void unregisterImsRegistrationCallback(android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4010996
+      },
+      {
+        "name": "unregisterImsStateCallback",
+        "signature": "void unregisterImsStateCallback(android.telephony.ims.ImsStateCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsStateCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4011112
+      },
+      {
+        "name": "unregisterMmTelCapabilityCallback",
+        "signature": "void unregisterMmTelCapabilityCallback(android.telephony.ims.ImsMmTelManager$CapabilityCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsMmTelManager$CapabilityCallback"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4011200
+      }
+    ]
+  },
+  {
+    "jar": "framework.jar",
+    "dex": "classes3.dex",
+    "class": "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+    "descriptor": "Landroid/telephony/ims/RegistrationManager$RegistrationCallback$RegistrationBinder;",
+    "source": "RegistrationManager.java",
+    "access_flags": [],
+    "super": "android.telephony.ims.aidl.IImsRegistrationCallback$Stub",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "mBundle",
+        "type": "android.os.Bundle",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mExecutor",
+        "type": "java.util.concurrent.Executor",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mLocalCallback",
+        "type": "android.telephony.ims.RegistrationManager$RegistrationCallback",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "-$$Nest$msetExecutor",
+        "signature": "void -$$Nest$msetExecutor(android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder, java.util.concurrent.Executor)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback$RegistrationBinder",
+          "java.util.concurrent.Executor"
+        ],
+        "access_flags": [
+          "static",
+          "volatile/bridge",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 4049140
+      },
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.telephony.ims.RegistrationManager$RegistrationCallback)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.RegistrationManager$RegistrationCallback"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 4049164
+      },
+      {
+        "name": "setExecutor",
+        "signature": "void setExecutor(java.util.concurrent.Executor)",
+        "return": "void",
+        "params": [
+          "java.util.concurrent.Executor"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 4049796
+      },
+      {
+        "name": "lambda$onDeregistered$2$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "signature": "void lambda$onDeregistered$2$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder(android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "synthetic"
+        ],
+        "kind": "virtual",
+        "code_off": 4049208
+      },
+      {
+        "name": "lambda$onRegistered$0$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "signature": "void lambda$onRegistered$0$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "synthetic"
+        ],
+        "kind": "virtual",
+        "code_off": 4049236
+      },
+      {
+        "name": "lambda$onRegistering$1$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "signature": "void lambda$onRegistering$1$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "synthetic"
+        ],
+        "kind": "virtual",
+        "code_off": 4049264
+      },
+      {
+        "name": "lambda$onSubscriberAssociatedUriChanged$4$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "signature": "void lambda$onSubscriberAssociatedUriChanged$4$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder(android.net.Uri[])",
+        "return": "void",
+        "params": [
+          "android.net.Uri[]"
+        ],
+        "access_flags": [
+          "synthetic"
+        ],
+        "kind": "virtual",
+        "code_off": 4049292
+      },
+      {
+        "name": "lambda$onTechnologyChangeFailed$3$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder",
+        "signature": "void lambda$onTechnologyChangeFailed$3$android-telephony-ims-RegistrationManager$RegistrationCallback$RegistrationBinder(int, android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "int",
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "synthetic"
+        ],
+        "kind": "virtual",
+        "code_off": 4049320
+      },
+      {
+        "name": "onDeregistered",
+        "signature": "void onDeregistered(android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049356
+      },
+      {
+        "name": "onRegistered",
+        "signature": "void onRegistered(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049444
+      },
+      {
+        "name": "onRegistering",
+        "signature": "void onRegistering(android.telephony.ims.ImsRegistrationAttributes)",
+        "return": "void",
+        "params": [
+          "android.telephony.ims.ImsRegistrationAttributes"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049532
+      },
+      {
+        "name": "onSubscriberAssociatedUriChanged",
+        "signature": "void onSubscriberAssociatedUriChanged(android.net.Uri[])",
+        "return": "void",
+        "params": [
+          "android.net.Uri[]"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049620
+      },
+      {
+        "name": "onTechnologyChangeFailed",
+        "signature": "void onTechnologyChangeFailed(int, android.telephony.ims.ImsReasonInfo)",
+        "return": "void",
+        "params": [
+          "int",
+          "android.telephony.ims.ImsReasonInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 4049708
+      }
+    ]
+  }
+]

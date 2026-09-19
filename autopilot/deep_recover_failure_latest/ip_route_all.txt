@@ -1,0 +1,54 @@
+default dev tun0 table tun0 proto static scope link 
+172.19.0.0/30 dev tun0 table tun0 proto static scope link 
+192.168.1.0/24 dev wlan0 table wlan0_local proto static scope link 
+172.19.0.0/30 dev tun0 table tun0_local proto static scope link 
+default dev dummy0 table dummy0 proto static scope link 
+default via 192.168.1.1 dev wlan0 table wlan0 proto static 
+192.168.1.0/24 dev wlan0 table wlan0 proto static scope link 
+255.0.1.0 dev r_rmnet_data0 table r_rmnet_data0 proto static scope link 
+172.19.0.0/30 dev tun0 proto kernel scope link src 172.19.0.1 
+192.168.1.0/24 dev wlan0 proto kernel scope link src 192.168.1.25 
+broadcast 127.0.0.0 dev lo table local proto kernel scope link src 127.0.0.1 
+local 127.0.0.0/8 dev lo table local proto kernel scope host src 127.0.0.1 
+local 127.0.0.1 dev lo table local proto kernel scope host src 127.0.0.1 
+broadcast 127.255.255.255 dev lo table local proto kernel scope link src 127.0.0.1 
+broadcast 172.19.0.0 dev tun0 table local proto kernel scope link src 172.19.0.1 
+local 172.19.0.1 dev tun0 table local proto kernel scope host src 172.19.0.1 
+broadcast 172.19.0.3 dev tun0 table local proto kernel scope link src 172.19.0.1 
+broadcast 192.168.1.0 dev wlan0 table local proto kernel scope link src 192.168.1.25 
+local 192.168.1.25 dev wlan0 table local proto kernel scope host src 192.168.1.25 
+broadcast 192.168.1.255 dev wlan0 table local proto kernel scope link src 192.168.1.25 
+fe80::/64 dev tun0 table tun0 proto kernel metric 256 pref medium
+unreachable default dev lo table tun0 proto static metric 1024 pref medium
+fd3a:36e:ab1d::/64 dev wlan0 table wlan0_local proto static metric 1024 pref medium
+fe80::/64 dev wlan0 table wlan0_local proto static metric 1024 pref medium
+fd95:d1e:12:: dev r_rmnet_data0 table r_rmnet_data0_local proto static metric 1024 pref medium
+fe80::/64 dev dummy0 table dummy0 proto kernel metric 256 pref medium
+default dev dummy0 table dummy0 proto static metric 1024 pref medium
+fe80::/64 dev rmnet_data0 table rmnet_data0 proto kernel metric 256 pref medium
+fd3a:36e:ab1d::/64 dev wlan0 table wlan0 proto kernel metric 256 expires 4913sec pref medium
+fd3a:36e:ab1d::/64 dev wlan0 table wlan0 proto static metric 1024 pref medium
+fd3a:36e:ab1d::/48 via fe80::2b0:c9ff:fe79:c700 dev wlan0 table wlan0 proto ra metric 1024 expires 4913sec pref medium
+fe80::/64 dev wlan0 table wlan0 proto kernel metric 256 pref medium
+fe80::/64 dev wlan0 table wlan0 proto static metric 1024 pref medium
+default via fe80::920e:9eff:fec2:8f8 dev wlan0 table wlan0 proto ra metric 1024 expires 6300sec hoplimit 64 pref low
+fd95:d1e:12:: dev r_rmnet_data0 table r_rmnet_data0 proto static metric 1024 pref medium
+local ::1 dev lo table local proto kernel metric 0 pref medium
+anycast fd3a:36e:ab1d:: dev wlan0 table local proto kernel metric 0 pref medium
+local fd3a:36e:ab1d:0:9965:7c08:394c:e6ae dev wlan0 table local proto kernel metric 0 pref medium
+local fd3a:36e:ab1d:0:bcd7:26ff:fec8:36d8 dev wlan0 table local proto kernel metric 0 pref medium
+anycast fe80:: dev dummy0 table local proto kernel metric 0 pref medium
+anycast fe80:: dev rmnet_data0 table local proto kernel metric 0 pref medium
+anycast fe80:: dev r_rmnet_data0 table local proto kernel metric 0 pref medium
+anycast fe80:: dev wlan0 table local proto kernel metric 0 pref medium
+anycast fe80:: dev tun0 table local proto kernel metric 0 pref medium
+local fe80::215e:b393:2d4c:4abf dev rmnet_data0 table local proto kernel metric 0 pref medium
+local fe80::3834:18ff:fee6:9bb8 dev dummy0 table local proto kernel metric 0 pref medium
+local fe80::bcd7:26ff:fec8:36d8 dev wlan0 table local proto kernel metric 0 pref medium
+local fe80::e56a:8ea3:49d1:b627 dev r_rmnet_data0 table local proto kernel metric 0 pref medium
+local fe80::f6d4:a694:f260:a091 dev tun0 table local proto kernel metric 0 pref medium
+ff00::/8 dev dummy0 table local metric 256 pref medium
+ff00::/8 dev rmnet_data0 table local metric 256 pref medium
+ff00::/8 dev r_rmnet_data0 table local metric 256 pref medium
+ff00::/8 dev wlan0 table local metric 256 pref medium
+ff00::/8 dev tun0 table local metric 256 pref medium

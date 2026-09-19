@@ -1,0 +1,7 @@
+module/action.sh: PASS
+module/service.sh: PASS
+module/customize.sh: PASS
+module/uninstall.sh: PASS
+module/bin/wfcctl.sh: PASS
+module/bin/wfc-auto-recover.sh: PASS
+module/bin/wfc-deep-recover.sh: PASS

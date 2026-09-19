@@ -1,0 +1,632 @@
+VOXI WFC Phase 2 Minimal Rebuild Analysis
+Generated: 2026-09-16
+Scope: research only, READ-ONLY. No repair action was executed.
+
+Input material used:
+  - voxi_wfc_research/golden_state/golden_state_report.txt
+  - voxi_wfc_research/golden_state/cleaned/60_logcat_all_d.txt
+  - voxi_wfc_research/golden_state/cleaned/{10_dumpsys_phone,11_dumpsys_telephony_registry,12_dumpsys_isub,14_dumpsys_carrier_config,30_dumpsys_connectivity}.txt
+  - voxi_wfc_research/phase2/{01_service_list,03_dumpsys_activity_services,20_framework_related_files,21_vendor_bin_related_files,22_vendor_lib64_related_files,23_vendor_etc_odm_related_files,30_cmd_phone_help}.txt
+
+Device context:
+  - Device: Xiaomi 14 Pro / 23116PN5BC / Android 13 / HyperOS OS1.0.4.0.TJJCNXM.
+  - Platform: Qualcomm/QTI, DSDS.
+  - VOXI: slot 1 / phoneId 1 / subId 11 / MCCMNC 23415 / carrierId 28.
+  - Golden WFC state: PS/WLAN HOME, accessNetworkTechnology=IWLAN, getRilDataRadioTechnology=18(IWLAN), mIsIwlanPreferred=true, IMS+MMTEL network connected for subId 11.
+
+Important classification:
+  - [DEVICE CONFIRMED] means directly observed in the saved logs/dumps.
+  - [AOSP INFERRED] means inferred from Android source behavior, not directly proven by a device-side method call trace.
+  - [CANDIDATE ONLY] means a possible interface for later controlled testing; it was not executed.
+
+
+1. Physical remove/insert lifecycle timeline
+============================================
+
+Boot / no-SIM baseline:
+  - 11:42:56 [DEVICE CONFIRMED] UiccController, SubscriptionController, ImsPhone, ImsStateCallbackController and ImsProvisioningController are created during telephony bring-up.
+  - 11:42:57.868 [DEVICE CONFIRMED] CarrierConfig receives phoneId 0 ABSENT.
+  - 11:42:57.891 [DEVICE CONFIRMED] CarrierConfig receives phoneId 1 ABSENT.
+  - 11:42:58.213 [DEVICE CONFIRMED] CarrierConfig EVENT_CLEAR_CONFIG for phoneId 1.
+  - 11:42:58.266 [DEVICE CONFIRMED] EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG for phoneId 1.
+  - 11:42:58.266 [DEVICE CONFIRMED] CarrierConfig binds com.android.carrierconfig for phoneId 1.
+  - 11:42:58.361 [DEVICE CONFIRMED] EVENT_CONNECTED_TO_DEFAULT_FOR_NO_SIM_CONFIG phoneId 1.
+  - 11:42:58.383 [DEVICE CONFIRMED] EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE phoneId 1.
+
+First VOXI insertion / first loaded sequence:
+  - 11:52:11.345 [DEVICE CONFIRMED] RadioConfig reports slot 1 CARDSTATE_PRESENT with VOXI ICCID and logicalSlotIndex=1.
+  - 11:52:11.498 [DEVICE CONFIRMED] RILJ GET_SIM_STATUS returns phoneId 1 CARDSTATE_PRESENT, 3 apps, ISIM app present.
+  - 11:52:11.499 [DEVICE CONFIRMED] UiccSlot notifies card added.
+  - 11:52:11.499 [DEVICE CONFIRMED] UiccCard Creating.
+  - 11:52:11.500 [DEVICE CONFIRMED] UiccPort Creating.
+  - 11:52:11.500 [DEVICE CONFIRMED] UiccProfile Creating profile, 3 applications.
+  - 11:52:11.544 [DEVICE CONFIRMED] Active subscription info list changes to subId 11 on slot 1.
+  - 11:52:11.548 [DEVICE CONFIRMED] Default data subId set to 11; phoneId 1 maps to subId 11.
+  - 11:52:11.650 [DEVICE CONFIRMED] [1, MMTEL] setSubId changed subId=11.
+  - 11:52:11.650 [DEVICE CONFIRMED] [1, RCS] setSubId changed subId=11.
+  - 11:52:12.396 [DEVICE CONFIRMED] CarrierConfig phoneId 1 ESSENTIAL_LOADED.
+  - 11:52:12.397 [DEVICE CONFIRMED] CarrierConfig EVENT_DO_FETCH_DEFAULT phoneId 1.
+  - 11:52:12.400 [DEVICE CONFIRMED] CarrierConfig EVENT_FETCH_DEFAULT_DONE phoneId 1.
+  - 11:52:12.434 [DEVICE CONFIRMED] CarrierConfig EVENT_SUBSCRIPTION_INFO_UPDATED phoneId 1.
+  - 11:52:14.507 [DEVICE CONFIRMED] CarrierConfig phoneId 1 LOADED.
+  - 11:52:14.520 [DEVICE CONFIRMED] CarrierConfig EVENT_DO_FETCH_DEFAULT phoneId 1.
+  - 11:52:14.536 [DEVICE CONFIRMED] CarrierConfig EVENT_FETCH_DEFAULT_DONE phoneId 1.
+  - 11:52:14.573 [DEVICE CONFIRMED] CarrierConfig EVENT_SUBSCRIPTION_INFO_UPDATED phoneId 1.
+  - 11:52:14.698 [DEVICE CONFIRMED] ImsResolver slot 1 subId changes -1 -> 11.
+  - 11:52:14.699 [DEVICE CONFIRMED] ImsResolver removes slot 1 MMTEL connection.
+  - 11:52:14.701 [DEVICE CONFIRMED] ImsResolver adds slot 1 MMTEL connection with subId=11.
+  - 11:52:14.703 [DEVICE CONFIRMED] MMTEL feature state READY.
+  - 11:52:14.705 [DEVICE CONFIRMED] RCS remove/add path is attempted; some RCS binder results are null.
+  - 11:52:14.753 [DEVICE CONFIRMED] [1, MMTEL] connectionReady 11.
+
+Physical removal during golden investigation:
+  - 12:07:48.871 [DEVICE CONFIRMED] CarrierConfig phoneId 1 receives ABSENT.
+  - 12:07:48.888 [DEVICE CONFIRMED] [1, MMTEL] setSubId changed subId=-1.
+  - 12:07:48.888 [DEVICE CONFIRMED] [1, RCS] setSubId changed subId=-1.
+  - 12:07:48.892 [DEVICE CONFIRMED] telephony.registry reports subId 11 OUT_OF_SERVICE; IWLAN no longer selected; mIsIwlanPreferred=false.
+  - 12:07:48.946 [DEVICE CONFIRMED] MMTEL feature state becomes UNAVAILABLE.
+  - 12:07:48.960 [DEVICE CONFIRMED] CarrierConfig EVENT_CLEAR_CONFIG phoneId 1.
+  - 12:07:49.002 [DEVICE CONFIRMED] ImsResolver slot 1 subId changes 11 -> -1.
+  - 12:07:49.003 [DEVICE CONFIRMED] ImsResolver removes MMTEL connection.
+  - 12:07:49.004 [DEVICE CONFIRMED] ImsResolver adds MMTEL connection with subId=-1.
+  - 12:07:49.005 [DEVICE CONFIRMED] MMTEL feature state UNAVAILABLE.
+  - 12:07:49.023 [DEVICE CONFIRMED] CarrierConfig EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId 1.
+  - 12:07:49.024 [DEVICE CONFIRMED] CarrierConfig binds com.android.carrierconfig phoneId 1.
+  - 12:07:49.128 [DEVICE CONFIRMED] CarrierConfig connected to default no-SIM config.
+  - 12:07:49.147 [DEVICE CONFIRMED] CarrierConfig EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE phoneId 1.
+
+Physical reinsertion / WFC recovery:
+  - 12:08:01.255 [DEVICE CONFIRMED] Active subscription info list changes back to subId 11 on slot 1.
+  - 12:08:01.256 [DEVICE CONFIRMED] Default data subId set to 11.
+  - 12:08:01.350 [DEVICE CONFIRMED] [1, MMTEL] setSubId changed subId=11.
+  - 12:08:01.351 [DEVICE CONFIRMED] [1, RCS] setSubId changed subId=11.
+  - 12:08:01.622 [DEVICE CONFIRMED] MMTEL feature state READY.
+  - 12:08:01.785 [DEVICE CONFIRMED] Service state for subId 11 shows data IN_SERVICE, RAT IWLAN, PS/WLAN HOME, mIsIwlanPreferred=true.
+  - 12:08:02.015 [DEVICE CONFIRMED] CarrierConfig phoneId 1 ESSENTIAL_LOADED.
+  - 12:08:02.015 [DEVICE CONFIRMED] CarrierConfig EVENT_DO_FETCH_DEFAULT phoneId 1.
+  - 12:08:02.016 [DEVICE CONFIRMED] CarrierConfig EVENT_FETCH_DEFAULT_DONE phoneId 1.
+  - 12:08:02.064 [DEVICE CONFIRMED] CarrierConfig EVENT_SUBSCRIPTION_INFO_UPDATED phoneId 1.
+  - 12:08:04.108 [DEVICE CONFIRMED] CarrierConfig phoneId 1 LOADED.
+  - 12:08:04.128 [DEVICE CONFIRMED] CarrierConfig EVENT_DO_FETCH_DEFAULT phoneId 1.
+  - 12:08:04.151 [DEVICE CONFIRMED] CarrierConfig EVENT_FETCH_DEFAULT_DONE phoneId 1.
+  - 12:08:04.192 [DEVICE CONFIRMED] CarrierConfig EVENT_SUBSCRIPTION_INFO_UPDATED phoneId 1.
+  - 12:08:04.364 [DEVICE CONFIRMED] ImsResolver slot 1 subId changes -1 -> 11.
+  - 12:08:04.367 [DEVICE CONFIRMED] ImsResolver removes slot 1 MMTEL connection.
+  - 12:08:04.372 [DEVICE CONFIRMED] ImsResolver adds slot 1 MMTEL connection with subId=11.
+  - 12:08:04.373 [DEVICE CONFIRMED] MMTEL feature state READY.
+  - 12:08:04.451 [DEVICE CONFIRMED] [1, MMTEL] connectionReady 11.
+  - 12:08:20.886 [DEVICE CONFIRMED] Active subscription info list shows carrierName=WLAN Call.
+  - 12:08:20.990 [DEVICE CONFIRMED] Service state voice/data IN_SERVICE, operator vodafone UK, RAT 18(IWLAN), PS/WLAN HOME, mIsIwlanPreferred=true.
+
+Golden connectivity after recovery:
+  - [DEVICE CONFIRMED] Connectivity network 104 is MOBILE[IWLAN] CONNECTED extra=ims, interface rmnet_data3, subId 11, capabilities IMS and MMTEL.
+  - [DEVICE CONFIRMED] P-CSCF addresses exist: 10.127.199.96 and 10.127.192.82.
+
+
+2. CarrierConfig lifecycle
+==========================
+
+Observed chain:
+  - ABSENT -> EVENT_CLEAR_CONFIG -> no-SIM default config fetch.
+  - ESSENTIAL_LOADED -> default config fetch.
+  - LOADED -> default config fetch -> SUBSCRIPTION_INFO_UPDATED.
+
+Evidence:
+  - [DEVICE CONFIRMED] phoneId 1 ABSENT at 12:07:48.871.
+  - [DEVICE CONFIRMED] EVENT_CLEAR_CONFIG phoneId 1 at 12:07:48.960.
+  - [DEVICE CONFIRMED] no-SIM config fetch begins at 12:07:49.023 and completes at 12:07:49.147.
+  - [DEVICE CONFIRMED] ESSENTIAL_LOADED at 12:08:02.015.
+  - [DEVICE CONFIRMED] LOADED at 12:08:04.108.
+
+AOSP behavior:
+  - [AOSP INFERRED] CarrierConfigLoader has EVENT_CLEAR_CONFIG and EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG. clearConfigForPhone(phoneId, fetchNoSimConfig) clears cached carrier/default config state and, when requested, starts the no-SIM default config path.
+  - [AOSP INFERRED] updateConfigForPhoneId(phoneId, simState) is permission-gated by MODIFY_PHONE_STATE and is the framework entry that causes config reload for SIM state changes.
+  - Source: https://android.googlesource.com/platform/packages/services/Telephony/+/master/src/com/android/phone/CarrierConfigLoader.java
+
+Interpretation:
+  - CLEAR_CONFIG is not just a cosmetic log line. It clears the in-memory per-phone config state before no-SIM defaults and later VOXI defaults are loaded again.
+  - The exported VOXI XML is not the full effective state. dumpsys carrier_config shows merged/default-app values and persistent overrides, including WFC-effective values such as carrier_wfc_ims_available_bool=true in the effective config.
+
+
+3. Subscription lifecycle
+=========================
+
+Observed chain:
+  - Active subId 11 on slot 1.
+  - Removal path makes slot 1 IMS-side subId become -1.
+  - Reinsertion restores active subId 11 and default data subId 11.
+
+Evidence:
+  - [DEVICE CONFIRMED] Active subscription info list contains subId 11 slot 1 at 11:52:11.544 and 12:08:01.255.
+  - [DEVICE CONFIRMED] setDefaultDataSubId subId=11 at 11:52:11.548 and 12:08:01.256.
+  - [DEVICE CONFIRMED] ImsResolver slot 1 subId 11 -> -1 at 12:07:49.002.
+  - [DEVICE CONFIRMED] ImsResolver slot 1 subId -1 -> 11 at 12:08:04.364.
+
+AOSP behavior:
+  - [AOSP INFERRED] SubscriptionInfoUpdater.handleSimAbsent marks the slot as no-SIM, updates subscription info, updates carrier id, and calls updateCarrierServices(slotId, ABSENT).
+  - [AOSP INFERRED] updateCarrierServices calls CarrierConfigManager.updateConfigForPhoneId(slotId, simState) and refreshes carrier service binding for the phoneId.
+  - Source: https://android.googlesource.com/platform/frameworks/opt/telephony/+/09a320c9085992637fdbae638d89f479f852ab01/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java
+
+Interpretation:
+  - The subId transition is a central difference from ordinary airplane mode cycling. Airplane mode can change radio power and registration but usually does not make the slot/subId mapping pass through no-subscription.
+
+
+4. UICC lifecycle
+=================
+
+Observed chain:
+  - During first insertion after no-SIM boot, slot 1 is reported present, UiccCard/UiccPort/UiccProfile are created, and USIM/ISIM applications are created.
+  - During removal/reinsertion, logs confirm SIM ABSENT/PRESENT and subscription/config transitions; the saved extract has stronger creation evidence for the first insertion than for every later hotplug step.
+
+Evidence:
+  - [DEVICE CONFIRMED] 11:52:11.498 GET_SIM_STATUS for phoneId 1 returns CARDSTATE_PRESENT with ISIM app.
+  - [DEVICE CONFIRMED] 11:52:11.499 UiccSlot notifies card added.
+  - [DEVICE CONFIRMED] 11:52:11.499 UiccCard Creating.
+  - [DEVICE CONFIRMED] 11:52:11.500 UiccPort Creating.
+  - [DEVICE CONFIRMED] 11:52:11.500 UiccProfile Creating profile.
+  - [DEVICE CONFIRMED] 12:07 and 12:08 logs indirectly confirm UICC-driven state changes by ABSENT/ESSENTIAL_LOADED/LOADED/subscription events.
+
+AOSP behavior:
+  - [AOSP INFERRED] UiccSlot.updateCardStateAbsent disposes the existing UiccCard and nulls it when the card becomes absent.
+  - [AOSP INFERRED] When a previously absent/no-card slot becomes present, UiccSlot creates a new UiccCard.
+  - Source: https://android.googlesource.com/platform/frameworks/opt/telephony/+/a98f93b166ccf188a3ed01d7eb2ce537cc05debd/src/java/com/android/internal/telephony/uicc/UiccSlot.java
+  - [AOSP INFERRED] UiccController.updateInternalIccState forwards SIM state into SubscriptionInfoUpdater.
+  - Source: https://android.googlesource.com/platform/frameworks/opt/telephony/+/15023be924dff9d063b197d28d46a3c2e630e9cc/src/java/com/android/internal/telephony/uicc/UiccController.java
+
+Interpretation:
+  - UICC recreation is very likely part of the true physical path, and directly confirmed for the insertion sequence in the saved logs. A purely IMS toggle would not recreate UICC state.
+
+
+5. Phone / ImsPhone lifecycle
+=============================
+
+Observed chain:
+  - Boot creates Phone/ImsPhone framework objects.
+  - Removal/reinsertion changes MMTEL/RCS subId and connection state.
+  - The logs do not prove that the Phone object itself is recreated during hot insertion. They prove per-slot IMS feature connectors are removed/re-added and subId is rebound.
+
+Evidence:
+  - [DEVICE CONFIRMED] boot logs show ImsPhone objects are created and registered.
+  - [DEVICE CONFIRMED] 12:07:48.888 MMTEL/RCS setSubId changed to -1.
+  - [DEVICE CONFIRMED] 12:08:01.350 MMTEL/RCS setSubId changed to 11.
+  - [DEVICE CONFIRMED] 12:08:04.451 MMTEL connectionReady 11.
+
+Interpretation:
+  - Phone/ImsPhone full recreation should not be treated as confirmed for the hotplug recovery path.
+  - What is confirmed and likely important is per-slot ImsPhone/feature connector reconfiguration caused by subscription and CarrierConfig changes.
+
+
+6. ImsResolver lifecycle
+========================
+
+Observed chain:
+  - Slot 1 subId 11 -> -1 on removal.
+  - MMTEL remove/add with subId=-1 and UNAVAILABLE.
+  - Slot 1 subId -1 -> 11 on reload.
+  - MMTEL remove/add/rebind with subId=11 and READY.
+  - RCS path also participates, but logs show weaker RCS readiness than MMTEL.
+
+Evidence:
+  - [DEVICE CONFIRMED] 12:07:49.002 slot 1 subId changed 11 -> -1.
+  - [DEVICE CONFIRMED] 12:07:49.003 removeConnection MMTEL.
+  - [DEVICE CONFIRMED] 12:07:49.004 addConnection subId=-1 type=MMTEL.
+  - [DEVICE CONFIRMED] 12:08:04.364 slot 1 subId changed -1 -> 11.
+  - [DEVICE CONFIRMED] 12:08:04.367 removeConnection MMTEL.
+  - [DEVICE CONFIRMED] 12:08:04.372 addConnection subId=11 type=MMTEL.
+  - [DEVICE CONFIRMED] dumpsys phone shows org.codeaurora.ims bound and slot 1 MMTEL READY in golden state.
+
+AOSP behavior:
+  - [AOSP INFERRED] ImsResolver binds carrier IMS services after carrier config/subId is known.
+  - [AOSP INFERRED] imsServiceFeatureCreated records the slot/feature controller; imsServiceFeatureRemoved removes it.
+  - [AOSP INFERRED] ImsResolver also has internal disableIms(slotId) and resetIms(slotId), but those are not the same as forcing subId -1 and carrier-config no-SIM reload.
+  - Source: https://android.googlesource.com/platform/prebuilts/fullsdk/sources/+/refs/heads/androidx-constraintlayout-release/android-35/com/android/internal/telephony/ims/ImsResolver.java
+
+Interpretation:
+  - This is one of the most important confirmed deltas versus ordinary airplane mode ON/OFF.
+  - The recovery path is not merely "IMS enabled"; it is feature connector removal, subId invalidation, and re-add/rebind after CarrierConfig reload.
+
+
+7. MMTEL / RCS lifecycle
+========================
+
+Observed chain:
+  - MMTEL subId becomes -1 during removal and READY again after subId 11 reload.
+  - RCS follows subId changes, but the RCS service path is less clean in logs and is likely secondary for voice WFC.
+
+Evidence:
+  - [DEVICE CONFIRMED] org.codeaurora.ims is device IMS service for MMTEL.
+  - [DEVICE CONFIRMED] vendor.qti.imsrcs is RCS service.
+  - [DEVICE CONFIRMED] slot 1 MMTEL READY after rebind.
+  - [DEVICE CONFIRMED] Connectivity IMS/MMTEL network is active for subId 11.
+
+Interpretation:
+  - MMTEL is the critical IMS feature for WFC calling.
+  - RCS remove/add is a companion lifecycle event because ImsResolver reevaluates slot features; it is probably not the primary WFC trigger.
+
+
+8. IWLAN / ePDG lifecycle
+=========================
+
+Observed chain:
+  - AccessNetworksManager binds vendor.qti.iwlan as the qualified networks service.
+  - Golden state has a live IMS network over IWLAN with P-CSCF.
+  - During removal, telephony registry leaves IWLAN-preferred service state.
+  - During reinsertion, ServiceState reaches PS/WLAN HOME and Connectivity shows MOBILE[IWLAN] IMS network.
+
+Evidence:
+  - [DEVICE CONFIRMED] phase2 activity services: vendor.qti.iwlan/.QualifiedNetworksServiceImpl is bound by com.android.phone with BIND_TELEPHONY_DATA_SERVICE.
+  - [DEVICE CONFIRMED] phase2 activity services: vendor.qti.iwlan/.IWlanDataService is bound by com.android.phone with BIND_TELEPHONY_DATA_SERVICE.
+  - [DEVICE CONFIRMED] golden connectivity: MOBILE[IWLAN] CONNECTED extra=ims, MMTEL, subId 11, P-CSCF addresses present.
+  - [DEVICE CONFIRMED] 12:08:01.785 and 12:08:20.990 show PS/WLAN HOME and mIsIwlanPreferred=true.
+
+AOSP behavior:
+  - [AOSP INFERRED] AccessNetworksManager reads config_qualified_networks_service_package and binds the qualified networks service package; changing/removing this provider causes unbind/rebind, but that is not a safe repair candidate.
+  - Source: https://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-31/+/refs/heads/androidx-savedstate-release/com/android/internal/telephony/dataconnection/AccessNetworksManager.java
+
+Interpretation:
+  - IWLAN/ePDG reinitialization is confirmed at the observable Android network level, not at the private Qualcomm daemon internal level.
+  - No safe, slot-only IWLAN reset interface was found in the saved phase2 material.
+
+
+9. Truly important trigger points
+=================================
+
+A. CarrierConfig CLEAR_CONFIG:
+  - Status: [DEVICE CONFIRMED] and [AOSP INFERRED].
+  - Role: likely necessary for faithful reproduction of the physical remove/insert path.
+  - Evidence: exact chain CLEAR_CONFIG -> no-SIM config -> ESSENTIAL_LOADED -> LOADED is observed for phoneId 1. AOSP confirms this clears per-phone config state.
+  - Why it matters: IMS service choice, WFC booleans, IWLAN policy, and MMTEL availability are carrier-config-dependent.
+  - Caveat: CLEAR_CONFIG alone is probably insufficient if subId remains 11 and ImsResolver does not remove/rebind features.
+
+B. Subscription 11 -> no subId / -1 -> 11:
+  - Status: [DEVICE CONFIRMED].
+  - Role: likely necessary for the closest no-reboot equivalent.
+  - Evidence: ImsResolver explicitly logs slot 1 subId 11 -> -1 on removal and -1 -> 11 after load.
+  - Why it matters: ImsResolver and feature connectors key state by slot/subId; a normal airplane toggle does not normally invalidate the subscription identity.
+
+C. ImsResolver remove/rebind:
+  - Status: [DEVICE CONFIRMED] and [AOSP INFERRED].
+  - Role: likely necessary for rebuilding the framework IMS feature graph.
+  - Evidence: removeConnection/addConnection around both subId transitions, then MMTEL READY.
+  - Caveat: not equivalent to restarting org.codeaurora.ims; the observed path is more precise and per-slot/feature-scoped.
+
+D. Phone / ImsPhone recreation:
+  - Status: boot creation [DEVICE CONFIRMED]; hotplug recreation [NOT CONFIRMED].
+  - Role: possible companion, not proven necessary.
+  - Evidence: setSubId/connectionReady events are confirmed; full Phone object recreation during hotplug is not.
+  - Conclusion: do not make this a required minimal step unless later logs prove Phone/ImsPhone object teardown.
+
+E. UICC recreation:
+  - Status: first insertion creation [DEVICE CONFIRMED]; physical absence/presence behavior [AOSP INFERRED] and indirectly confirmed during 12:07/12:08.
+  - Role: likely upstream trigger for subscription and CarrierConfig lifecycle.
+  - Evidence: UiccCard/UiccProfile creation at insertion; AOSP disposes card on absent and creates on present.
+  - Caveat: simulating UICC absent/loaded is high-risk and likely touches SIM/UICC/radio.
+
+F. IWLAN/ePDG reinitialization:
+  - Status: Android network outcome [DEVICE CONFIRMED]; vendor daemon internal reset [NOT CONFIRMED].
+  - Role: necessary final outcome, but not necessarily the earliest trigger.
+  - Evidence: final MOBILE[IWLAN] IMS network and PS/WLAN HOME.
+  - Caveat: resetting IWLAN directly may be broader and riskier than triggering the upstream subscription/config/IMS lifecycle.
+
+
+10. AOSP corresponding code/API
+===============================
+
+CarrierConfig:
+  - CarrierConfigLoader.updateConfigForPhoneId(int phoneId, String simState)
+  - CarrierConfigLoader.clearConfigForPhone(int phoneId, boolean fetchNoSimConfig)
+  - Events: EVENT_CLEAR_CONFIG, EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG, EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE, EVENT_DO_FETCH_DEFAULT, EVENT_FETCH_DEFAULT_DONE.
+  - Binder/service on device: carrier_config: com.android.internal.telephony.ICarrierConfigLoader.
+  - Source: https://android.googlesource.com/platform/packages/services/Telephony/+/master/src/com/android/phone/CarrierConfigLoader.java
+
+Subscription:
+  - SubscriptionInfoUpdater.handleSimAbsent(...)
+  - SubscriptionInfoUpdater.updateCarrierServices(slotId, simState)
+  - SubscriptionController / SubscriptionManager update active subscription mapping.
+  - Binder/service on device: isub: com.android.internal.telephony.ISub.
+  - Source: https://android.googlesource.com/platform/frameworks/opt/telephony/+/09a320c9085992637fdbae638d89f479f852ab01/src/java/com/android/internal/telephony/SubscriptionInfoUpdater.java
+
+UICC:
+  - UiccController.updateInternalIccState(...)
+  - UiccSlot.updateCardStateAbsent()
+  - UiccSlot creates UiccCard when absent/no-card becomes present.
+  - Sources:
+    - https://android.googlesource.com/platform/frameworks/opt/telephony/+/15023be924dff9d063b197d28d46a3c2e630e9cc/src/java/com/android/internal/telephony/uicc/UiccController.java
+    - https://android.googlesource.com/platform/frameworks/opt/telephony/+/a98f93b166ccf188a3ed01d7eb2ce537cc05debd/src/java/com/android/internal/telephony/uicc/UiccSlot.java
+
+IMS:
+  - ImsResolver.bindCarrierServicesIfAvailable()
+  - ImsResolver.putImsController(slotId, feature, controller)
+  - ImsResolver.removeImsController(slotId, feature)
+  - ImsResolver.disableIms(slotId) and resetIms(slotId) exist internally but are not the same as SIM absent/present.
+  - Binder/service on device: telephony_ims: android.telephony.ims.aidl.IImsRcsController.
+  - Source: https://android.googlesource.com/platform/prebuilts/fullsdk/sources/+/refs/heads/androidx-constraintlayout-release/android-35/com/android/internal/telephony/ims/ImsResolver.java
+
+IWLAN:
+  - AccessNetworksManager binds qualified networks services and tracks WLAN transport availability.
+  - Device service: vendor.qti.iwlan/.QualifiedNetworksServiceImpl.
+  - Device service: vendor.qti.iwlan/.IWlanDataService.
+  - Source: https://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-31/+/refs/heads/androidx-savedstate-release/com/android/internal/telephony/dataconnection/AccessNetworksManager.java
+
+
+11. Xiaomi / Qualcomm corresponding interfaces
+==============================================
+
+Device services and packages:
+  - [DEVICE CONFIRMED] phone: com.android.internal.telephony.ITelephony.
+  - [DEVICE CONFIRMED] isub: com.android.internal.telephony.ISub.
+  - [DEVICE CONFIRMED] carrier_config: com.android.internal.telephony.ICarrierConfigLoader.
+  - [DEVICE CONFIRMED] telephony_ims: android.telephony.ims.aidl.IImsRcsController.
+  - [DEVICE CONFIRMED] telephony.registry: com.android.internal.telephony.ITelephonyRegistry.
+  - [DEVICE CONFIRMED] extphone and qti.radio.extphone: org.codeaurora.internal.IExtTelephony.
+  - [DEVICE CONFIRMED] miui.radio.extphone: miui.telephony.IMiuiTelephony.
+  - [DEVICE CONFIRMED] com.qti.phone/.ExtTelephonyService is present and used by com.android.phone.
+  - [DEVICE CONFIRMED] org.codeaurora.ims/.ImsService provides android.telephony.ims.ImsService.
+  - [DEVICE CONFIRMED] vendor.qti.imsrcs provides RCS service.
+  - [DEVICE CONFIRMED] vendor.qti.iwlan provides QualifiedNetworksService and IWlanDataService.
+
+Framework/JAR evidence:
+  - [DEVICE CONFIRMED] /system/framework/telephony-common.jar
+  - [DEVICE CONFIRMED] /system/framework/ims-common.jar
+  - [DEVICE CONFIRMED] /system/framework/telephony-ext.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/miui-telephony-common.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/qti-telephony-common.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/qti-telephony-hidl-wrapper.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/qti-telephony-utils.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/xiaomi-modem-common.jar
+  - [DEVICE CONFIRMED] /system_ext/framework/xiaomi-telephony-common.jar
+  - [DEVICE CONFIRMED] /product/framework/ims-ext-common.jar
+  - [DEVICE CONFIRMED] /product/framework/uimservicelibrary.jar
+  - [DEVICE CONFIRMED] multiple vendor.qti.ims.* and vendor.qti.hardware.data.* Java libraries, including IWLAN-related jars.
+
+Vendor binaries:
+  - [DEVICE CONFIRMED] /vendor/bin/hw/qcrild
+  - [DEVICE CONFIRMED] /vendor/bin/ims_rtp_daemon
+  - [DEVICE CONFIRMED] /vendor/bin/imsdatadaemon
+  - [DEVICE CONFIRMED] /vendor/bin/imsqmidaemon
+  - [DEVICE CONFIRMED] /vendor/bin/imsrcsd
+  - [DEVICE CONFIRMED] /vendor/bin/dpmQmiMgr
+  - [DEVICE CONFIRMED] /vendor/bin/qmipriod
+  - [DEVICE CONFIRMED] /vendor/bin/xiaomi_extend_cmd
+
+Interpretation:
+  - Qualcomm/Xiaomi have several private telephony extension surfaces.
+  - The saved phase2 material identifies the services and files, but does not decode their AIDL/HIDL method lists.
+  - A later read-only JADX/javap pass over qti/miui telephony jars would be needed before considering any private interface candidate.
+
+
+12. Candidate interfaces and commands
+=====================================
+
+Level 0 read-only candidates:
+  - cmd phone ims get-ims-service -s 1 [-c|-d]
+  - cmd phone cc get-value -s 1 [KEY]
+  - cmd phone src get-* commands
+  - dumpsys phone / dumpsys carrier_config / dumpsys telephony.registry / dumpsys connectivity
+  - service list
+
+CarrierConfig state candidates:
+  - [CANDIDATE ONLY] CarrierConfigManager.updateConfigForPhoneId(phoneId=1, simState=ABSENT/LOADED).
+    - Could trigger framework CarrierConfig reload for phoneId 1.
+    - Requires privileged/system permission.
+    - Risk: Level 1 to Level 2 depending on invocation path.
+  - [CANDIDATE ONLY] Binder service carrier_config / ICarrierConfigLoader updateConfigForPhoneId.
+    - Same target as above, not safely exposed as a normal shell command in saved material.
+    - Risk: Level 1 to Level 2.
+  - [CANDIDATE ONLY] cmd phone cc clear-values -s 1.
+    - This clears override values, not the same as physical SIM CLEAR_CONFIG.
+    - Mutating and not a faithful candidate.
+    - Risk: Level 2 to Level 3.
+
+Subscription candidates:
+  - [CANDIDATE ONLY] cmd phone disable-physical-subscription 11 / enable-physical-subscription 11.
+    - Closest visible shell surface to subscription absent/present.
+    - Could emulate the wanted subId 11 -> no-subscription -> 11 chain.
+    - It touches physical subscription state and may affect UICC/radio behavior.
+    - Risk: Level 4.
+  - [CANDIDATE ONLY] SubscriptionController / SubscriptionManager hidden or privileged APIs to enable/disable physical subscription.
+    - Requires deeper method identification and permission validation.
+    - Risk: Level 3 to Level 4.
+  - [CANDIDATE ONLY] UiccController.updateInternalIccState or synthetic SIM ABSENT/LOADED path.
+    - Very close architecturally, but internal and dangerous.
+    - Risk: Level 4.
+
+IMS candidates:
+  - [CANDIDATE ONLY] cmd phone ims enable -s 1 / disable -s 1.
+    - Slot-scoped according to help.
+    - Not equivalent to subId -1 and CarrierConfig no-SIM reload.
+    - Risk: Level 2 to Level 3.
+  - [CANDIDATE ONLY] ImsResolver.resetIms(slotId=1).
+    - Internal AOSP method; likely per-slot but executed through com.android.phone.
+    - Risk: Level 2 to Level 3.
+  - [CANDIDATE ONLY] cmd phone ims set-ims-service / clear-ims-service-override.
+    - Changes IMS service override state and is not appropriate as a minimal rebuild first step.
+    - Risk: Level 3.
+
+IWLAN candidates:
+  - [CANDIDATE ONLY] AccessNetworksManager/provider rebind by changing qualified networks service package.
+    - Not safe; requires config/package/resource changes.
+    - Risk: Level 3 to Level 4.
+  - [CANDIDATE ONLY] Direct vendor.qti.iwlan service restart/rebind.
+    - No safe slot-only interface found.
+    - Risk: Level 3 to Level 4.
+
+Qualcomm/Xiaomi candidates:
+  - [CANDIDATE ONLY] org.codeaurora.internal.IExtTelephony via extphone/qti.radio.extphone.
+    - Service exists, but method list not yet decoded.
+    - Risk unknown, probably Level 2 to Level 4 depending on method.
+  - [CANDIDATE ONLY] miui.telephony.IMiuiTelephony via miui.radio.extphone.
+    - Service exists, but method list not yet decoded.
+    - Risk unknown, probably Level 2 to Level 4 depending on method.
+  - [CANDIDATE ONLY] qcrild / imsdatadaemon / imsqmidaemon / ims_rtp_daemon / imsrcsd restart.
+    - Broad vendor process reset; not slot-scoped.
+    - Risk: Level 4 to Level 5.
+
+
+13. Can each target be slot 1 / subId 11 only?
+==============================================
+
+Target 1: temporarily make slot 1 current subId enter no-subscription state.
+  - Candidate: disable/enable physical subscription subId 11.
+  - Slot/sub scope: likely subId-scoped at framework API, but vendor/radio effects may fan out.
+  - Risk: Level 4.
+
+Target 2: trigger CarrierConfig CLEAR_CONFIG.
+  - Candidate: updateConfigForPhoneId(1, ABSENT) through system/hidden API.
+  - Slot/sub scope: phoneId-scoped in AOSP.
+  - Risk: Level 1 to Level 2.
+
+Target 3: reload CarrierConfig.
+  - Candidate: updateConfigForPhoneId(1, ESSENTIAL_LOADED/LOADED) after subId is restored.
+  - Slot/sub scope: phoneId-scoped in AOSP.
+  - Risk: Level 1 to Level 2.
+
+Target 4: make ImsResolver remove slot 1 MMTEL/RCS.
+  - Candidate: indirect, via subId -> -1 and CarrierConfig update; direct resetIms/disableIms is less faithful.
+  - Slot/sub scope: ImsResolver is slot/feature-keyed, but service implementation is shared.
+  - Risk: Level 2 to Level 3.
+
+Target 5: make ImsResolver rebind slot 1 MMTEL/RCS.
+  - Candidate: indirect, via subId -1 -> 11 and CarrierConfig LOADED.
+  - Slot/sub scope: likely slot/feature-keyed.
+  - Risk: Level 2 to Level 3.
+
+Target 6: recreate/reset slot 1 ImsPhone.
+  - Candidate: no safe narrow candidate confirmed. ImsResolver feature rebind is a more evidenced target.
+  - Slot/sub scope: not confirmed.
+  - Risk: Level 3 if attempted through broad phone/IMS reset.
+
+Target 7: recreate IMS feature.
+  - Candidate: ImsResolver feature remove/add indirectly through subId/config transition; resetIms(slotId=1) possibly.
+  - Slot/sub scope: partly slot-scoped.
+  - Risk: Level 2 to Level 3.
+
+Target 8: reinitialize IWLAN.
+  - Candidate: indirect, after subscription/config/IMS rebind; no direct safe slot-only interface found.
+  - Slot/sub scope: telephony requests are subId-scoped; vendor IWLAN service is shared.
+  - Risk: Level 3 to Level 4 if forced directly.
+
+Target 9: restore subId 11.
+  - Candidate: enable physical subscription 11 or internal subscription reload.
+  - Slot/sub scope: subId-scoped at API surface, but radio/SIM side may fan out.
+  - Risk: Level 4.
+
+
+14. Risk classification
+=======================
+
+Level 0: Pure reads
+  - service list
+  - dumpsys phone / carrier_config / telephony.registry / connectivity / package
+  - cmd phone ims get-ims-service -s 1
+  - cmd phone cc get-value -s 1
+  - read-only file listing under /system, /system_ext, /product, /vendor, /odm
+
+Level 1: Theoretically only slot 1 / phoneId 1
+  - A privileged CarrierConfig updateConfigForPhoneId(1, LOADED) style reload.
+  - A read-write Binder transaction that only reloads phoneId 1 CarrierConfig, if precisely identified.
+
+Level 2: May rebuild slot 1 IMS
+  - ImsResolver.resetIms(1), if accessible.
+  - cmd phone ims enable/disable -s 1.
+  - A direct slot 1 MMTEL feature reset through telephony_ims, if identified.
+
+Level 3: May affect the whole IMS service
+  - cmd phone ims set-ims-service / clear-ims-service-override.
+  - org.codeaurora.ims service unbind/rebind.
+  - vendor.qti.iwlan service rebind.
+  - com.qti.phone ExtTelephony methods if method scope is unclear.
+
+Level 4: May affect dual-SIM or radio
+  - cmd phone disable-physical-subscription 11 / enable-physical-subscription 11.
+  - Synthetic UICC ABSENT/LOADED.
+  - Radio/modem service binding changes.
+  - Restarting qcrild or vendor IMS/IWLAN daemons.
+
+Level 5: Equivalent to reboot / high risk
+  - reboot.
+  - stop/start framework or radio services.
+  - kill/kill -9 com.android.phone, qcrild, org.codeaurora.ims, ims* daemons.
+  - modem restart.
+
+
+15. Minimal state rebuild reasoning
+===================================
+
+What must be preserved from the physical path:
+  - [DEVICE CONFIRMED] CarrierConfig must pass through phoneId 1 clear/no-SIM and then ESSENTIAL_LOADED/LOADED for VOXI.
+  - [DEVICE CONFIRMED] ImsResolver must observe slot 1 subId 11 -> -1 -> 11.
+  - [DEVICE CONFIRMED] slot 1 MMTEL feature connection must be removed/re-added and end READY for subId 11.
+  - [DEVICE CONFIRMED] IWLAN must end in PS/WLAN HOME and MOBILE[IWLAN] IMS/MMTEL connected for subId 11.
+
+What may be companion state rather than necessary:
+  - [NOT CONFIRMED AS NECESSARY] Full Phone object recreation.
+  - [NOT CONFIRMED AS NECESSARY] Restarting org.codeaurora.ims or Qualcomm IMS daemons.
+  - [NOT CONFIRMED AS NECESSARY] Direct IWLAN service restart.
+  - [NOT CONFIRMED AS NECESSARY] RCS readiness, because WFC calling depends on MMTEL.
+
+Why airplane mode ON/OFF is not equivalent:
+  - It can toggle radio power and registration, but the observed successful path specifically includes subscription invalidation, CarrierConfig CLEAR_CONFIG/no-SIM reload, ImsResolver feature remove/re-add, and then IWLAN/IMS recovery.
+  - If the broken state is a stale carrier-config/subscription/IMS feature graph, airplane mode may leave the stale graph intact.
+
+
+=== MINIMAL REBUILD CANDIDATE ===
+
+This is a candidate sequence only. It was not executed.
+
+1. Make slot 1 / subId 11 framework-visible as absent or no-subscription.
+   - Desired observed equivalent: ImsResolver slot 1 subId 11 -> -1.
+   - Closest known candidate: disable physical subscription 11, or a lower-level subscription/UICC absent simulation.
+   - Risk: Level 4.
+
+2. Trigger phoneId 1 CarrierConfig CLEAR_CONFIG and no-SIM default config load.
+   - Desired observed equivalent: EVENT_CLEAR_CONFIG -> EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG -> EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE.
+   - Closest known candidate: privileged CarrierConfig updateConfigForPhoneId(1, ABSENT), if it can be invoked precisely.
+   - Risk: Level 1 to Level 2 if direct; Level 4 if caused via physical-subscription disable.
+
+3. Let ImsResolver remove slot 1 MMTEL/RCS under subId=-1.
+   - Desired observed equivalent: removeConnection/addConnection subId=-1, MMTEL UNAVAILABLE.
+   - Best path: indirect via steps 1 and 2, not direct IMS disable.
+   - Risk: Level 2 to Level 3.
+
+4. Restore slot 1 / subId 11.
+   - Desired observed equivalent: Active subscription info list contains subId 11, setDefaultDataSubId 11, MMTEL/RCS setSubId 11.
+   - Closest known candidate: enable physical subscription 11, or internal subscription reload.
+   - Risk: Level 4.
+
+5. Trigger phoneId 1 CarrierConfig ESSENTIAL_LOADED and LOADED reload.
+   - Desired observed equivalent: ESSENTIAL_LOADED -> EVENT_DO_FETCH_DEFAULT -> LOADED -> EVENT_DO_FETCH_DEFAULT -> EVENT_SUBSCRIPTION_INFO_UPDATED.
+   - Closest known candidate: privileged CarrierConfig updateConfigForPhoneId(1, ESSENTIAL_LOADED/LOADED), if subId 11 is restored.
+   - Risk: Level 1 to Level 2 if direct; Level 4 if caused via subscription/UICC operations.
+
+6. Let ImsResolver re-add/rebind slot 1 MMTEL/RCS for subId 11.
+   - Desired observed equivalent: ImsResolver slot 1 subId -1 -> 11, removeConnection/addConnection subId=11, MMTEL READY.
+   - Best path: indirect via subId/config reload.
+   - Risk: Level 2 to Level 3.
+
+7. Let IWLAN/ePDG recover naturally from the rebuilt subscription/config/IMS graph.
+   - Desired observed equivalent: PS/WLAN HOME, mIsIwlanPreferred=true, MOBILE[IWLAN] IMS/MMTEL network for subId 11.
+   - No direct IWLAN reset is currently recommended.
+   - Risk: Level 0 if only observed; Level 3 to Level 4 if forced directly.
+
+Current closest theoretical chain:
+  subId 11 -> no subscription
+  -> CarrierConfig CLEAR_CONFIG/no-SIM config for phoneId 1
+  -> ImsResolver slot 1 MMTEL/RCS remove under subId=-1
+  -> restore subId 11
+  -> CarrierConfig ESSENTIAL_LOADED/LOADED
+  -> ImsResolver slot 1 MMTEL/RCS add/rebind under subId=11
+  -> IWLAN IMS network and MMTEL registration recover.
+
+Most promising later test candidate:
+  - A tightly monitored, slot/subId-scoped physical-subscription disable/enable test is the closest exposed shell analogue to "拔卡 -> 无SIM -> 插卡", but it is Level 4 and should not be used until a controlled test phase with pre/post snapshots and rollback expectations.
+
+Lower-risk but less faithful later test candidate:
+  - A privileged phoneId 1 CarrierConfig reload plus ImsResolver slot 1 reset may be Level 2/3, but it probably will not reproduce subId 11 -> -1 -> 11, so it may fail if the stale state is subscription keyed.
+
+Next read-only research needed before any test:
+  - Decode qti/miui telephony jars for IExtTelephony and IMiuiTelephony method names.
+  - Identify whether telephony_ims exposes a safe slot 1 reset/rebind method.
+  - Identify exact ICarrierConfigLoader Binder transaction signature on this build before any direct Binder thought experiment.
+  - Capture the broken state with the same read-only snapshot and compare against this golden report.
+

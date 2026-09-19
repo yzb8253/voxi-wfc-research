@@ -1,0 +1,5 @@
+M3 experimental log capture was not started because the mandatory static interface gate failed before the execution stage.
+
+No SSR, AP reboot, radio operation, service restart, process signal, or network modification was performed.
+The preceding M2 full log remains at:
+../m2_coordinated_ril_pair/m2_logcat_full.txt

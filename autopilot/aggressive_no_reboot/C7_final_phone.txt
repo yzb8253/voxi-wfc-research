@@ -1,0 +1,169 @@
+CellInfoLogger start:
+call getAllCellInfo packages---------:
+call getCellLocation packages---------:
+call getNeighboringCellInfo packages---------:
+CellInfoLogger end.
+------- PhoneGlobals -------
+  mPrevRoamingNotification=0
+  mDefaultDataSubId=1
+  mDataRoamingNotifLog:
+  isSmsCapable=true
+    2026-09-18T15:46:19.755492 - dataAllowed=false, reasons=[DATA_SERVICE_NOT_READY, SIM_NOT_READY, NOT_IN_SERVICE, NO_SUITABLE_DATA_PROFILE, DATA_DISABLED, RADIO_POWER_OFF, DATA_CONFIG_NOT_READY]
+    2026-09-18T15:46:21.147799 - dataAllowed=false, reasons=[SIM_NOT_READY, NOT_IN_SERVICE, NO_SUITABLE_DATA_PROFILE, DATA_DISABLED, RADIO_POWER_OFF, DATA_CONFIG_NOT_READY]
+    2026-09-18T15:46:22.310726 - dataAllowed=false, reasons=[NOT_IN_SERVICE, DATA_DISABLED, RADIO_POWER_OFF]
+    2026-09-18T15:46:22.476064 - dataAllowed=false, reasons=[NOT_IN_SERVICE, DATA_DISABLED, RADIO_POWER_OFF]
+    2026-09-18T15:46:23.770278 - dataAllowed=false, reasons=[NOT_IN_SERVICE, DATA_DISABLED, RADIO_POWER_OFF]
+  ImsResolver:
+    ImsResolver:
+      Configurations:
+        Device:
+          EMERGENCY_MMTEL -> org.codeaurora.ims
+          MMTEL -> org.codeaurora.ims
+          RCS -> vendor.qti.imsrcs
+        Carrier: 
+          slot=0, feature=EMERGENCY_MMTEL: 
+            none
+          slot=0, feature=MMTEL: 
+            none
+          slot=0, feature=RCS: 
+            none
+          slot=1, feature=EMERGENCY_MMTEL: 
+            none
+          slot=1, feature=MMTEL: 
+            none
+          slot=1, feature=RCS: 
+            none
+      Cached ImsServices:
+        [ImsServiceInfo] name=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, featureFromMetadata=true, features: [{1,MMTEL}{0,EMERGENCY_MMTEL}{0,MMTEL}{1,EMERGENCY_MMTEL}]
+        [ImsServiceInfo] name=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, featureFromMetadata=true, features: [{1,RCS}{0,RCS}]
+      Active controllers:
+        [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+          2026-09-18T15:46:19.736586 - grant permissions to ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}
+          2026-09-18T15:46:19.737027 - binding [{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}]
+          2026-09-18T15:46:20.010463 - onServiceConnected
+          2026-09-18T15:46:20.012125 - retrieveStaticImsServiceCapabilities: capabilities={ }
+          2026-09-18T15:46:22.398232 - subId changed for slot: 0, -1 -> 1
+          2026-09-18T15:46:22.398333 - Features ([{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}]->[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}])
+          2026-09-18T15:46:23.865978 - subId changed for slot: 1, -1 -> 11
+          2026-09-18T15:46:23.866045 - Features ([{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}]->[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}])
+        [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+          2026-09-18T15:46:19.869455 - addImsFeatureBinder: null IInterface reported for RCS
+          2026-09-18T15:46:19.870046 - addImsFeatureBinder: null IInterface reported for RCS
+          2026-09-18T15:46:22.406614 - subId changed for slot: 0, -1 -> 1
+          2026-09-18T15:46:22.406661 - Features ([{s=1, f=RCS}, {s=0, f=RCS}]->[{s=1, f=RCS}, {s=0, f=RCS}])
+          2026-09-18T15:46:22.407856 - addImsFeatureBinder: null IInterface reported for RCS
+          2026-09-18T15:46:23.880295 - subId changed for slot: 1, -1 -> 11
+          2026-09-18T15:46:23.880445 - Features ([{s=1, f=RCS}, {s=0, f=RCS}]->[{s=1, f=RCS}, {s=0, f=RCS}])
+          2026-09-18T15:46:23.882283 - addImsFeatureBinder: null IInterface reported for RCS
+      Connection Repository Log:
+        2026-09-18T15:46:18.418106 - [-1] FeatureConnectionRepository - created
+        2026-09-18T15:46:18.451716 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@a8383c3}
+        2026-09-18T15:46:18.452321 - [0] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@7f6b440}
+        2026-09-18T15:46:18.452747 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@8766f79}
+        2026-09-18T15:46:18.453098 - [1] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@fa84be}
+        2026-09-18T15:46:18.461674 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@1f194b1}
+        2026-09-18T15:46:18.462140 - [0] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@1106d96}
+        2026-09-18T15:46:18.462611 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@d668d17}
+        2026-09-18T15:46:18.463109 - [1] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@a714504}
+        2026-09-18T15:46:18.855384 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@1aa6bfd}
+        2026-09-18T15:46:19.346231 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@4364d32}
+        2026-09-18T15:46:19.718916 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@1abcf66}
+        2026-09-18T15:46:19.720339 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@e3c92a7}
+        2026-09-18T15:46:20.013645 - [1] addConnection, subId=-1, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@5380f57, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@1d53a44, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@422b72d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+        2026-09-18T15:46:20.014139 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+        2026-09-18T15:46:20.015211 - [0] addConnection, subId=-1, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@30db6b0, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@6a09929, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@fc1e4ae, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+        2026-09-18T15:46:20.015700 - [0] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+        2026-09-18T15:46:20.137572 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@879d8ed}
+        2026-09-18T15:46:20.248863 - [0] notifyFeatureStateChanged, type=MMTEL, state=READY
+        2026-09-18T15:46:20.259804 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@c07a60f}
+        2026-09-18T15:46:20.269406 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@bb2947a}
+        2026-09-18T15:46:20.391765 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@a1efd34}
+        2026-09-18T15:46:20.471964 - [-1] unregisterForConnectionUpdates, callback= com.android.ims.FeatureConnector$1@c07a60f
+        2026-09-18T15:46:20.523566 - [-1] unregisterForConnectionUpdates, callback= com.android.ims.FeatureConnector$1@a1efd34
+        2026-09-18T15:46:20.658024 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@a19102a}
+        2026-09-18T15:46:20.797901 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@71d6d91}
+        2026-09-18T15:46:20.851746 - [0] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@9af7a82}
+        2026-09-18T15:46:20.853983 - [1] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@6cb89d0}
+        2026-09-18T15:46:22.249994 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@96ff582}
+        2026-09-18T15:46:22.399626 - [0] removeConnection, type=MMTEL
+        2026-09-18T15:46:22.405339 - [0] addConnection, subId=1, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@30db6b0, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@124a2eb, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@2ff2848, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+        2026-09-18T15:46:22.406068 - [0] notifyFeatureStateChanged, type=MMTEL, state=READY
+        2026-09-18T15:46:22.406319 - [1] notifyFeatureCapabilitiesChanged, type=MMTEL, caps=capabilities={ EMERGENCY_OVER_MMTEL }
+        2026-09-18T15:46:22.406459 - [1] notifyFeatureCapabilitiesChanged, type=EMERGENCY_MMTEL, caps=capabilities={ EMERGENCY_OVER_MMTEL }
+        2026-09-18T15:46:22.407340 - [0] removeConnection, type=RCS
+        2026-09-18T15:46:22.408772 - [1] notifyFeatureCapabilitiesChanged, type=RCS, caps=capabilities={ }
+        2026-09-18T15:46:23.700996 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@e1f21b8}
+        2026-09-18T15:46:23.867321 - [1] removeConnection, type=MMTEL
+        2026-09-18T15:46:23.869500 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@5380f57, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@e17013a, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@f0761eb, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+        2026-09-18T15:46:23.876223 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+        2026-09-18T15:46:23.876686 - [0] notifyFeatureCapabilitiesChanged, type=EMERGENCY_MMTEL, caps=capabilities={ EMERGENCY_OVER_MMTEL }
+        2026-09-18T15:46:23.876861 - [0] notifyFeatureCapabilitiesChanged, type=MMTEL, caps=capabilities={ EMERGENCY_OVER_MMTEL }
+        2026-09-18T15:46:23.881496 - [1] removeConnection, type=RCS
+        2026-09-18T15:46:23.882891 - [0] notifyFeatureCapabilitiesChanged, type=RCS, caps=capabilities={ }
+        2026-09-18T15:46:24.735449 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@3168c54}
+        2026-09-18T15:46:24.736926 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@c5387fd}
+        2026-09-18T15:46:38.682580 - [-1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.android.ims.FeatureConnector$1@345bc09}
+      Event Log:
+        2026-09-18T15:46:18.419954 - Initializing
+        2026-09-18T15:46:19.734108 - handling BOOT_COMPLETE
+        2026-09-18T15:46:19.734142 - boot complete - update cache
+        2026-09-18T15:46:19.735429 - maybeAddedImsService - updating features for ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}:  features: [{1,MMTEL}{0,EMERGENCY_MMTEL}{0,MMTEL}{1,EMERGENCY_MMTEL}] ->  features: [{1,MMTEL}{0,EMERGENCY_MMTEL}{0,MMTEL}{1,EMERGENCY_MMTEL}]
+        2026-09-18T15:46:19.735545 - maybeAddedImsService - updating features for ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}:  features: [{1,RCS}{0,RCS}] ->  features: [{1,RCS}{0,RCS}]
+        2026-09-18T15:46:19.741485 - bindImsServiceWithFeatures - create new controller: [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=true, isBound=false, serviceController=null, rebindDelay=0]
+        2026-09-18T15:46:19.749353 - bindImsServiceWithFeatures - create new controller: [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=true, isBound=false, serviceController=null, rebindDelay=0]
+        2026-09-18T15:46:19.869770 - putImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+        2026-09-18T15:46:19.870242 - putImsController - [0, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+        2026-09-18T15:46:20.014192 - putImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:20.014325 - putImsController - [0, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:20.015745 - putImsController - [0, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:20.015869 - putImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:22.397765 - updateBoundServices - carrier package changed:  ->  on slot 0, hasConfigChanged=false
+        2026-09-18T15:46:22.397824 - updateBoundServices - carrier package changed:  ->  on slot 0, hasConfigChanged=true
+        2026-09-18T15:46:22.397885 - updateBoundServices - carrier package changed:  ->  on slot 0, hasConfigChanged=true
+        2026-09-18T15:46:22.398512 - removeImsController - [0, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:22.398669 - removeImsController - [0, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:22.400566 - putImsController - [0, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:22.406160 - putImsController - [0, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:22.406745 - removeImsController - [0, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+        2026-09-18T15:46:22.408587 - putImsController - [0, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+        2026-09-18T15:46:23.865609 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=false
+        2026-09-18T15:46:23.865666 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=true
+        2026-09-18T15:46:23.865739 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=true
+        2026-09-18T15:46:23.866212 - removeImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:23.868024 - removeImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:23.876201 - putImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:23.876477 - putImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@cc449f3, rebindDelay=0]
+        2026-09-18T15:46:23.880624 - removeImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+        2026-09-18T15:46:23.882729 - putImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@3251f76, rebindDelay=0]
+  RcsService:
+  RcsFeatureControllers:
+  ImsStateCallbackController:
+    CallbackWrappers:
+    MmTelFeatureListeners:
+      Listener={slotId=0, subId=1, state=READY, reason=READY, hasConfig=true}
+      Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+    RcsFeatureListeners:
+      Listener={slotId=0, subId=1, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+    Most recent logs:
+      2026-09-18T15:46:18.448518 - ImsStateCallbackController created
+      2026-09-18T15:46:18.450494 - updateFeatures: oldSlots=0, newNumSlots=2
+      2026-09-18T15:46:20.848179 - [0, MMTEL] setSubId changed subId=1
+      2026-09-18T15:46:20.848307 - [1, MMTEL] setSubId changed subId=11
+      2026-09-18T15:46:20.848411 - [0, RCS] setSubId changed subId=1
+      2026-09-18T15:46:20.848522 - [1, RCS] setSubId changed subId=11
+      2026-09-18T15:46:21.132376 - [1, MMTEL] connectionReady -1
+      2026-09-18T15:46:21.133683 - [0, MMTEL] connectionReady -1
+      2026-09-18T15:46:21.134194 - [0, MMTEL] connectionUnavailable reason=NOT_READY
+      2026-09-18T15:46:21.153002 - [0, MMTEL] setSubId changed subId=1
+      2026-09-18T15:46:21.153093 - [1, MMTEL] setSubId changed subId=11
+      2026-09-18T15:46:21.485338 - [0, MMTEL] connectionReady -1
+      2026-09-18T15:46:21.891005 - [0, MMTEL] setSubId changed subId=1
+      2026-09-18T15:46:22.468885 - [0, MMTEL] connectionUnavailable reason=DISCONNECTED
+      2026-09-18T15:46:22.470355 - [0, MMTEL] connectionReady 1
+      2026-09-18T15:46:23.934714 - [1, MMTEL] connectionUnavailable reason=DISCONNECTED
+      2026-09-18T15:46:23.936099 - [1, MMTEL] connectionReady 11
+------- End PhoneGlobals -------
+******* OmtpVvm *******
+======= Configs =======
+Security exception: Package com.android.phone does not belong to 2000

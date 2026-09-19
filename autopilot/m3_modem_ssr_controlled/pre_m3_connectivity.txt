@@ -1,0 +1,6 @@
+wlan0: UP, LOWER_UP
+tun0: UP, LOWER_UP
+VPN/TUN route: 172.19.0.0/30 dev tun0 src 172.19.0.1
+Wi-Fi route: 192.168.1.0/24 dev wlan0 src 192.168.1.25
+
+No network setting or route was modified.

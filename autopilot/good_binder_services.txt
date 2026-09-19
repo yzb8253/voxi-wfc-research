@@ -1,0 +1,8 @@
+89	extphone: [org.codeaurora.internal.IExtTelephony]
+108	iphonesubinfo: [com.android.internal.telephony.IPhoneSubInfo]
+111	isub: [com.android.internal.telephony.ISub]
+157	miui.radio.extphone: [miui.telephony.IMiuiTelephony]
+194	phone: [com.android.internal.telephony.ITelephony]
+203	qti.radio.extphone: [org.codeaurora.internal.IExtTelephony]
+226	simphonebook: [com.android.internal.telephony.IIccPhoneBook]
+249	telephony_ims: [android.telephony.ims.aidl.IImsRcsController]

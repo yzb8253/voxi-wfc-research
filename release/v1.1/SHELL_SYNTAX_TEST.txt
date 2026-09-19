@@ -1,0 +1,11 @@
+PASS
+
+Tested on the target Android device with `/system/bin/sh -n`:
+
+- action.sh
+- customize.sh
+- uninstall.sh
+- bin/wfcctl.sh
+- bin/wfc-deep-recover.sh
+
+No script was executed in a recovery mode during this syntax test.

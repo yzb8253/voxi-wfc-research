@@ -1,0 +1,10 @@
+09-17 16:03:06.061  1616  5760 D ConnectivityService: requestNetwork for uid/pid:10174/5509 activeRequest: null callbackRequest: 305 [NetworkRequest [ REQUEST id=306, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10174 RequestorUid: 10174 RequestorPkg: com.xiaomi.xmsf UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+09-17 16:03:06.078  1616  2521 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=306, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10174 RequestorUid: 10174 RequestorPkg: com.xiaomi.xmsf UnderlyingNetworks: Null] ]
+09-17 16:03:06.078  1616  2521 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=306, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10174 RequestorUid: 10174 RequestorPkg: com.xiaomi.xmsf UnderlyingNetworks: Null] ]
+09-17 16:03:06.078  1616  2521 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=306, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10174 RequestorUid: 10174 RequestorPkg: com.xiaomi.xmsf UnderlyingNetworks: Null] ]
+09-17 16:03:06.078  1616  2521 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=306, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10174 RequestorUid: 10174 RequestorPkg: com.xiaomi.xmsf UnderlyingNetworks: Null] ]
+09-17 16:03:15.900  5509  6095 W JavaCalls: Meet exception when call Method 'getTcpKeepAliveFeatureSupportVersion' in miui.telephony.TelephonyManagerEx@e01b375, java.lang.NoSuchMethodException
+09-17 16:03:31.614 20475 20475 W ziparchive: Unable to open '/data/adb/modules/voxi_wfc_recovery/lib/wfc-probe.dm': No such file or directory
+09-17 16:03:31.649 20475 20475 D AndroidRuntime: Calling main entry WfcStateProbe
+09-17 16:03:31.898  3224  3928 D Phone[0][1][2147483647][2147483647]: isImsCapabilityAvailable, capability=1, regTech=1, isAvailable=true
+09-17 16:03:31.899  3198  4568 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1

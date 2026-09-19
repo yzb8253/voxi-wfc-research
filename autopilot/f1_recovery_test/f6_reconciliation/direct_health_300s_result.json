@@ -1,0 +1,25 @@
+{
+    "durationSeconds":  301,
+    "sampleCount":  31,
+    "allDirectWfcHealthy":  true,
+    "allSlot0Protected":  true,
+    "userVisibleWfcIcon":  "PRESENT (user-confirmed)",
+    "imsIwlanNetworkAgentEverSeen":  false,
+    "udp4500KeepaliveEverMissing":  false,
+    "final":  {
+                  "elapsedSeconds":  301,
+                  "timestamp":  "2026-09-17T16:10:27.666+08:00",
+                  "directWfcHealthy":  true,
+                  "registrationStateRaw":  2,
+                  "registrationTransportRaw":  2,
+                  "voiceIwlanAvailable":  true,
+                  "wifiCallingAvailable":  true,
+                  "imsIwlanNetworkAgentEvidence":  false,
+                  "qtiCneRequestEvidence":  true,
+                  "udp4500KeepaliveEvidence":  true,
+                  "mmtelFeatureState":  "READY",
+                  "protectedSlot0":  true,
+                  "legacyFailureClass":  "F6"
+              },
+    "passed":  true
+}

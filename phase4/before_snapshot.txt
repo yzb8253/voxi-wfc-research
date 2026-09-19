@@ -1,0 +1,1831 @@
+Phase 4 before snapshot
+HostStartTime=2026-09-16 15:47:42.312 +08:00
+Device=192.168.137.134:37667
+TargetSubId=11
+TargetSlotId=1
+TargetMccMnc=23415
+
+===== device time =====
+> adb -s 192.168.137.134:37667 shell date '+%Y-%m-%d %H:%M:%S %Z'
+2026-09-16 15:47:41 CST
+
+===== active subscription / isub =====
+> adb -s 192.168.137.134:37667 shell dumpsys isub
+SubscriptionController:
+ mLastISubServiceRegTime=1789530175892
+ defaultSubId=11
+ defaultDataSubId=11
+ defaultVoiceSubId=-1
+ defaultSmsSubId=11
+ defaultDataPhoneId=1
+ defaultVoicePhoneId=-1
+ defaultSmsPhoneId=1
+ sSlotIndexToSubId[1]: subIds=1=[11]
+++++++++++++++++++++++++++++++++
+ ActiveSubInfoList:
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=WLAN Call nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@79a6f40 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+ ActiveSubInfoList in the DB:
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=WLAN Call nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+++++++++++++++++++++++++++++++++
+ AllSubInfoList:
+  {id=1 iccId=898611240[****] simSlotIndex=-1 carrierId=2237 displayName=中国电信 carrierName=中国电信 nameSource=1 iconTint=-16746133 mNumber=null dataRoaming=0 iconBitmap=null mcc=460 mnc=11 countryIso=cn isEmbedded=false nativeAccessRules=null cardString=898611240[****] cardId=1 portIndex=-1 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=2 iccId=894411006[****] simSlotIndex=-1 carrierId=2118 displayName=Giffgaff1 carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=10 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894411006[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23410, 23410] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=3 iccId=894411006[****] simSlotIndex=-1 carrierId=2118 displayName=Giffgaff2 carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=1 iconBitmap=null mcc=234 mnc=10 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894411006[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23410, 23410] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=4 iccId=890124049[****] simSlotIndex=-1 carrierId=1 displayName=Ultra mobile carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=310 mnc=240 countryIso=us isEmbedded=false nativeAccessRules=null cardString=890124049[****] cardId=2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[310260, 310240] hplmns=[310260, 310260, 310260, 310260] subscriptionType=0 groupOwner=null carrierConfigAccessRules=[cert: 92B5F8117FBD9BD5738FF168A4FA12CBE284BE834EDE1A7BB44DD8455BA15920 pkg: null access: 0, cert: 3D1A4BEF6EE7AF7D34D120E7B1AAC0DD245585DE6237CF100F68333AFACFF562 pkg: null access: 0, cert: 6892793FC413019D2DF609DFED7AF622D0F2D8FCF96EFA7E3FB87EEA34E10B93 pkg: null access: 0, cert: 7B68FD9D4E7610C9CB35FC0C6CC06EA04C6906E3DFA9F48F9A05460AF36BFFFC pkg: null access: 0] areUiccApplicationsEnabled=true usageSetting=0}
+  {id=5 iccId=892340100[****] simSlotIndex=-1 carrierId=1639 displayName=MTN carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=621 mnc=30 countryIso=us isEmbedded=false nativeAccessRules=null cardString=892340100[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=6 iccId=892340100[****] simSlotIndex=-1 carrierId=1639 displayName=MTN carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=1 iconBitmap=null mcc=621 mnc=30 countryIso=ng isEmbedded=false nativeAccessRules=null cardString=892340100[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=7 iccId=898520002[****] simSlotIndex=-1 carrierId=1526 displayName=Xesim carrierName=无服务 nameSource=1 iconTint=-16746133 mNumber=null dataRoaming=0 iconBitmap=null mcc=454 mnc=00 countryIso=hk isEmbedded=false nativeAccessRules=null cardString=898520002[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=8 iccId=892340100[****] simSlotIndex=-1 carrierId=1639 displayName=07039329813 carrierName=null nameSource=2 iconTint=-16746133 mNumber=null dataRoaming=1 iconBitmap=null mcc=621 mnc=30 countryIso=us isEmbedded=false nativeAccessRules=null cardString=892340100[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=9 iccId=898601142[****] simSlotIndex=-1 carrierId=1436 displayName=中国联通 carrierName=无服务 nameSource=0 iconTint=-16746133 mNumber=null dataRoaming=0 iconBitmap=null mcc=460 mnc=01 countryIso=cn isEmbedded=false nativeAccessRules=null cardString=898601142[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[46001] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=10 iccId=898601242[****] simSlotIndex=-1 carrierId=1436 displayName=中国联通 carrierName=无服务 nameSource=3 iconTint=-13408298 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=460 mnc=01 countryIso=us isEmbedded=false nativeAccessRules=null cardString=898601242[****] cardId=-2 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[46001] hplmns=[46001, 46009, 46001, 46009] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=WLAN Call nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+++++++++++++++++++++++++++++++++
+2026-09-16T11:52:11.542099 - setting default fallback subid to 11
+2026-09-16T11:52:11.544193 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T11:52:11.548466 - [setDefaultDataSubId] num phones=2, subId=11
+2026-09-16T11:52:11.548652 - [setDefaultDataSubId] phoneId=0 subId=-1 RAF=561252
+2026-09-16T11:52:11.548769 - [setDefaultDataSubId] phoneId=1 subId=11 RAF=561252
+2026-09-16T11:52:12.170178 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T11:52:12.171479 - [setDefaultDataSubId] num phones=2, subId=11
+2026-09-16T11:52:12.171589 - [setDefaultDataSubId] phoneId=0 subId=-1 RAF=561252
+2026-09-16T11:52:12.171693 - [setDefaultDataSubId] phoneId=1 subId=11 RAF=561252
+2026-09-16T11:52:12.404866 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@72156d4 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T12:08:01.255441 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T12:08:01.256877 - [setDefaultDataSubId] num phones=2, subId=11
+2026-09-16T12:08:01.256998 - [setDefaultDataSubId] phoneId=0 subId=-1 RAF=561252
+2026-09-16T12:08:01.257091 - [setDefaultDataSubId] phoneId=1 subId=11 RAF=561252
+2026-09-16T12:08:01.644891 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=null hplmns=null subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T12:08:01.645662 - [setDefaultDataSubId] num phones=2, subId=11
+2026-09-16T12:08:01.645718 - [setDefaultDataSubId] phoneId=0 subId=-1 RAF=561252
+2026-09-16T12:08:01.645760 - [setDefaultDataSubId] phoneId=1 subId=11 RAF=561252
+2026-09-16T12:08:02.019549 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@e2b593b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-16T12:08:20.886185 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=WLAN Call nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@eeacf9c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+++++++++++++++++++++++++++++++++
+
+===== telephony.registry filtered =====
+> adb -s 192.168.137.134:37667 shell dumpsys telephony.registry
+
+      mCallDisconnectCause=-1
+      mCallIncomingNumber=
+>     mServiceState={mVoiceRegState=1(OUT_OF_SERVICE), mDataRegState=1(OUT_OF_SERVICE), mChannelNumber=0, duplexMode()=
+0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), ge
+tRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=0(Unknown), mCssIndicator=unsupported, mNetworkId=0, mSy
+stemId=0, mCdmaRoamingIndicator=0, mCdmaDefaultRoamingIndicator=0, mIsEmergencyOnly=false, isUsingCarrierAggregation=fa
+lse, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[], mNrFrequencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaSh
+ortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=false}
+      mVoiceActivationState= 0
+      mDataActivationState= 0
+      mUserMobileDataState= false
+      mSignalStrength=null
+      mCallDisconnectCause=-1
+      mCallIncomingNumber=
+>     mServiceState={mVoiceRegState=0(IN_SERVICE), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCel
+lBandwidths=[], mOperatorAlphaLong=vodafone UK, mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), ge
+tRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSy
+stemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation
+=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registratio
+nState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableSe
+rvices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation
+=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=HOME roamingType=NOT_ROAMING accessNet
+workTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null
+ dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transp
+ortType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyE
+nabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= i
+sUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsData
+RoamingFromRegistration=false, mIsIwlanPreferred=true}
+      mVoiceActivationState= 0
+      mDataActivationState= 0
+      mUserMobileDataState= false
+      mSignalStrength=null
+      mCarrierPrivilegeState=<packages=[], uids=[]>
+      mCarrierServiceState=<package=***, uid=-1>
+>   mPhoneCapability=mMaxActiveVoiceSubscriptions=0 mMaxActiveDataSubscriptions=2 mNetworkValidationBeforeSwitchSupport
+ed=false mDeviceNrCapability [1, 2]
+>   mActiveDataSubId=11
+    mRadioPowerState=0
+    mEmergencyNumberList={-1=[EmergencyNumber:Number-112|CountryIso-|Mnc-|ServiceCategories-10111|Urns-[]|Sources-10|Ro
+uting-0, EmergencyNumber:Number-911|CountryIso-|Mnc-|ServiceCategories-11111|Urns-[]|Sources-10|Routing-0, EmergencyNum
+ber:Number-999|CountryIso-|Mnc-|ServiceCategories-10111|Urns-[]|Sources-10|Routing-0, EmergencyNumber:Number-110|Countr
+yIso-cn|Mnc-|ServiceCategories-1|Urns-[]|Sources-10000|Routing-0, EmergencyNumber:Number-119|CountryIso-cn|Mnc-|Service
+Categories-100|Urns-[]|Sources-10000|Routing-0, EmergencyNumber:Number-120|CountryIso-cn|Mnc-|ServiceCategories-10|Urns
+-[]|Sources-10000|Routing-0]}
+>   mDefaultPhoneId=1
+>   mDefaultSubId=11
+  local logs:
+>   2026-09-16T11:42:56.905296 - notifyServiceStateForSubscriber: subId=-1 phoneId=0 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=3(POWER_OFF), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperator
+AlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechn
+ology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoaming
+Indicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Ne
+tworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTech
+nology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataS
+pecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportTyp
+e=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled
+=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsing
+CarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN roamingType=
+NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null
+ voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange
+=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=fa
+lse}
+>   2026-09-16T11:42:56.932085 - notifyDisplayInfoChanged: PhoneId=0 subId=-1 telephonyDisplayInfo=TelephonyDisplayInfo
+ {network=UNKNOWN, override=NONE}
+>   2026-09-16T11:42:57.277525 - notifyServiceStateForSubscriber: subId=-1 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=3(POWER_OFF), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperator
+AlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechn
+ology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoaming
+Indicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Ne
+tworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTech
+nology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataS
+pecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportTyp
+e=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled
+=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsing
+CarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN roamingType=
+NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null
+ voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange
+=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=fa
+lse}
+>   2026-09-16T11:42:57.300034 - notifyDisplayInfoChanged: PhoneId=1 subId=-1 telephonyDisplayInfo=TelephonyDisplayInfo
+ {network=UNKNOWN, override=NONE}
+>   2026-09-16T11:42:58.215010 - notifyActiveDataSubIdChanged: activeDataSubId=-1
+>   2026-09-16T11:52:11.559682 - Default subscription updated: mDefaultPhoneId=1, mDefaultSubId=11
+>   2026-09-16T11:52:11.707500 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=3(POWER_OFF), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperator
+AlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechn
+ology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoaming
+Indicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Ne
+tworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTech
+nology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataS
+pecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportTyp
+e=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled
+=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsing
+CarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN roamingType=
+NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null
+ voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange
+=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=fa
+lse}
+>   2026-09-16T11:52:11.778430 - notifyActiveDataSubIdChanged: activeDataSubId=11
+>   2026-09-16T11:52:12.036628 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAlp
+haShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnolo
+gy=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndi
+cator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Networ
+kRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnolo
+gy=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpeci
+ficInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WL
+AN registrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false av
+ailableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAg
+gregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMI
+NG accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpe
+cificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOper
+atorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true}
+>   2026-09-16T12:07:48.892597 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=1(OUT_OF_SER
+VICE), mDataRegState=1(OUT_OF_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null,
+ mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilData
+RadioTechnology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefa
+ultRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistratio
+nInfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessN
+etworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=
+null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS tr
+ansportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emerge
+ncyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplm
+n= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN ro
+amingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIde
+ntity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFreq
+uencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPr
+eferred=false}
+>   2026-09-16T12:07:48.963084 - notifyActiveDataSubIdChanged: activeDataSubId=-1
+>   2026-09-16T12:07:49.070400 - notifyActiveDataSubIdChanged: activeDataSubId=-1
+>   2026-09-16T12:07:49.104913 - notifyServiceStateForSubscriber: subId=-1 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=3(POWER_OFF), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperator
+AlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechn
+ology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoaming
+Indicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Ne
+tworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTech
+nology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataS
+pecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportTyp
+e=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled
+=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsing
+CarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN roamingType=
+NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null
+ voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange
+=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=fa
+lse}
+>   2026-09-16T12:08:01.337817 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=3(POWER_OFF), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperator
+AlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechn
+ology=0(Unknown), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoaming
+Indicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Ne
+tworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTech
+nology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataS
+pecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportTyp
+e=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled
+=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsing
+CarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=UNKNOWN roamingType=
+NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null
+ voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange
+=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=fa
+lse}
+>   2026-09-16T12:08:01.593988 - notifyActiveDataSubIdChanged: activeDataSubId=11
+>   2026-09-16T12:08:01.785177 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=3(POWER_OFF)
+, mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAlp
+haShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnolo
+gy=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndi
+cator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Networ
+kRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnolo
+gy=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpeci
+ficInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WL
+AN registrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false av
+ailableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAg
+gregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMI
+NG accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpe
+cificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOper
+atorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true}
+>   2026-09-16T12:08:20.833740 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=0(IN_SERVICE
+), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAl
+phaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnol
+ogy=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingInd
+icator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Netwo
+rkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnol
+ogy=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpec
+ificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=W
+WAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=fa
+lse availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCar
+rierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=HOME roamingType=NOT_RO
+AMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSp
+ecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOpe
+ratorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true}
+>   2026-09-16T12:08:20.900983 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=0(IN_SERVICE
+), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAl
+phaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnol
+ogy=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingInd
+icator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[Netwo
+rkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnol
+ogy=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpec
+ificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=W
+WAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=fa
+lse availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCar
+rierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=HOME roamingType=NOT_RO
+AMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSp
+ecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOpe
+ratorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true}
+>   2026-09-16T12:08:20.990548 - notifyServiceStateForSubscriber: subId=11 phoneId=1 state={mVoiceRegState=0(IN_SERVICE
+), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=vodafone UK, 
+mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataR
+adioTechnology=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaul
+tRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationI
+nfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNet
+workTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=nu
+ll dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS tran
+sportType=WLAN registrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnab
+led=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUs
+ingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=UNKNOWN roamingTy
+pe=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=n
+ull voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRa
+nge=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred
+=true}
+  listen logs:
+>   2026-09-16T11:42:51.462473 - listen: E pkg=*** uid=1000 events=[36] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:52.126228 - listen: E pkg=*** uid=1000 events=[23] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:52.177662 - listen: E pkg=*** uid=1000 events=[36] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:53.201416 - listen: E pkg=*** uid=1000 events=[1, 7, 8, 9] notifyNow=false subId=2147483647 myUser
+Id=0 callerUserId=0
+>   2026-09-16T11:42:53.219807 - listen: E pkg=*** uid=1000 events=[29] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:53.220029 - listen: E pkg=*** uid=1000 events=[6] notifyNow=false subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:53.280865 - listen: E pkg=*** uid=1000 events=[23] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:53.288845 - listen: E pkg=*** uid=1000 events=[5, 7, 11] notifyNow=false subId=2147483647 myUserId
+=0 callerUserId=0
+>   2026-09-16T11:42:53.481523 - listen: E pkg=*** uid=1000 events=[7] notifyNow=false subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:54.388091 - listen: E pkg=*** uid=1000 events=[23] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:54.446228 - listen: E pkg=*** uid=1000 events=[6] notifyNow=false subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:54.451590 - listen: E pkg=*** uid=1000 events=[6, 29] notifyNow=false subId=2147483647 myUserId=0 
+callerUserId=0
+>   2026-09-16T11:42:55.147885 - listen: E pkg=*** uid=1000 events=[23] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:55.447704 - listen: E pkg=*** uid=10210 events=[7] notifyNow=false subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:42:55.866954 - listen: E pkg=*** uid=1000 events=[7] notifyNow=false subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:55.895016 - listen: E pkg=*** uid=1000 events=[1, 6, 23] notifyNow=false subId=2147483647 myUserId
+=0 callerUserId=0
+>   2026-09-16T11:42:55.957573 - listen: E pkg=*** uid=1000 events=[7] notifyNow=false subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:56.376376 - listen: E pkg=*** uid=1001 events=[23, 9] notifyNow=false subId=-1 myUserId=0 callerUs
+erId=0
+>   2026-09-16T11:42:56.522169 - listen: E pkg=*** uid=1001 events=[23, 9] notifyNow=false subId=-1 myUserId=0 callerUs
+erId=0
+>   2026-09-16T11:42:56.692696 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=-1 myUserId=0 callerUserId=
+0
+>   2026-09-16T11:42:56.693078 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=-1 myUserId=0 callerUserId=
+0
+>   2026-09-16T11:42:56.738733 - listen: E pkg=*** uid=1001 events=[1, 23] notifyNow=true subId=2147483647 myUserId=0 c
+allerUserId=0
+>   2026-09-16T11:42:56.771641 - listen: E pkg=*** uid=1001 events=[36] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:42:56.771828 - listen: E pkg=*** uid=1001 events=[36, 8] notifyNow=true subId=2147483647 myUserId=0 c
+allerUserId=0
+>   2026-09-16T11:42:59.724807 - listen: E pkg=*** uid=1001 events=[23] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:50:57.274723 - listen: E pkg=*** uid=10169 events=[1, 5, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T11:50:57.276781 - listen: E pkg=*** uid=1000 events=[1, 5, 9] notifyNow=true subId=2147483647 myUserId=0
+ callerUserId=0
+>   2026-09-16T11:50:57.554096 - listen: E pkg=*** uid=1000 events=[23] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:50:57.652848 - listen: E pkg=*** uid=1000 events=[23] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:50:57.765498 - listen: E pkg=*** uid=1000 events=[1, 9] notifyNow=true subId=-1 myUserId=0 callerUser
+Id=0
+>   2026-09-16T11:50:58.031064 - listen: E pkg=*** uid=10169 events=[5, 9, 11] notifyNow=true subId=2147483647 myUserId
+=0 callerUserId=0
+>   2026-09-16T11:50:58.521099 - listen: E pkg=*** uid=1000 events=[36, 7] notifyNow=true subId=2147483647 myUserId=0 c
+allerUserId=0
+>   2026-09-16T11:51:00.567446 - listen: E pkg=*** uid=10195 events=[24] notifyNow=true subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:51:03.673251 - listen: E pkg=*** uid=10252 events=[36] notifyNow=true subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:51:05.075244 - listen: E pkg=*** uid=10133 events=[1] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:51:07.923892 - listen: E pkg=*** uid=10129 events=[7] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:51:08.725929 - listen: E pkg=*** uid=99910279 events=[36] notifyNow=true subId=2147483647 myUserId=0 
+callerUserId=999
+>   2026-09-16T11:51:09.610094 - listen: E pkg=*** uid=10279 events=[36] notifyNow=true subId=2147483647 myUserId=0 cal
+lerUserId=0
+>   2026-09-16T11:51:12.354474 - listen: E pkg=*** uid=99910129 events=[7] notifyNow=true subId=2147483647 myUserId=0 c
+allerUserId=999
+>   2026-09-16T11:51:16.718952 - listen: E pkg=*** uid=10283 events=[9] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:51:19.764210 - listen: E pkg=*** uid=10169 events=[5, 9, 11] notifyNow=true subId=2147483647 myUserId
+=0 callerUserId=0
+>   2026-09-16T11:51:20.553065 - listen: E pkg=*** uid=10169 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T11:51:25.940514 - listen: E pkg=*** uid=10169 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T11:51:29.448993 - listen: E pkg=*** uid=10283 events=[7, 9] notifyNow=true subId=2147483647 myUserId=0 c
+allerUserId=0
+>   2026-09-16T11:51:30.952934 - listen: E pkg=*** uid=10283 events=[9] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:52:11.581530 - listen: E pkg=*** uid=1000 events=[12] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T11:52:11.584623 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T11:52:11.585733 - listen: E pkg=*** uid=1000 events=[7] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T11:52:11.594100 - listen: E pkg=*** uid=1000 events=[1, 17, 21, 6, 7, 23, 8, 9, 13] notifyNow=true subId
+=11 myUserId=0 callerUserId=0
+>   2026-09-16T11:52:11.647628 - listen: E pkg=*** uid=1001 events=[35] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T11:52:11.650897 - listen: E pkg=*** uid=1001 events=[3, 4] notifyNow=true subId=11 myUserId=0 callerUser
+Id=0
+>   2026-09-16T11:52:12.246968 - listen: E pkg=*** uid=10281 events=[1, 9] notifyNow=true subId=11 myUserId=0 callerUse
+rId=0
+>   2026-09-16T11:52:12.419318 - listen: E pkg=*** uid=1000 events=[21] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T11:52:13.290169 - listen: E pkg=*** uid=1000 events=[1] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T11:52:14.517779 - listen: E pkg=*** uid=1001 events=[34, 20, 6] notifyNow=true subId=11 myUserId=0 calle
+rUserId=0
+>   2026-09-16T11:52:14.706140 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=-1 myUserId=0 callerUserId=0
+>   2026-09-16T11:52:14.707157 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T11:52:14.861675 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T11:52:23.976504 - listen: E pkg=*** uid=1000 events=[24] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:52:23.984769 - listen: E pkg=*** uid=1000 events=[24] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:52:25.123435 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T11:52:25.687160 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T11:52:40.679832 - listen: E pkg=*** uid=10129 events=[1] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T11:52:40.689985 - listen: E pkg=*** uid=10129 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T11:58:15.570916 - listen: E pkg=*** uid=10088 events=[9, 26, 13] notifyNow=true subId=11 myUserId=0 call
+erUserId=0
+>   2026-09-16T11:58:15.633083 - listen: E pkg=*** uid=10088 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:07:14.060851 - listen: E pkg=*** uid=10169 events=[5, 9, 11] notifyNow=true subId=2147483647 myUserId
+=0 callerUserId=0
+>   2026-09-16T12:07:48.811378 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:07:48.814268 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:07:48.828825 - listen: E pkg=*** uid=1000 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:07:48.876037 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=-1 myUserId=0 callerUserId=0
+>   2026-09-16T12:07:48.940810 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T12:07:48.957476 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:07:48.958318 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T12:08:01.273712 - listen: E pkg=*** uid=1000 events=[12] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T12:08:01.302389 - listen: E pkg=*** uid=1000 events=[1, 17, 21, 6, 7, 23, 8, 9, 13] notifyNow=true subId
+=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:08:01.309986 - listen: E pkg=*** uid=10088 events=[9, 26, 13] notifyNow=true subId=11 myUserId=0 call
+erUserId=0
+>   2026-09-16T12:08:01.346932 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:08:01.348052 - listen: E pkg=*** uid=1001 events=[35] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T12:08:01.386845 - listen: E pkg=*** uid=1001 events=[3, 4] notifyNow=true subId=11 myUserId=0 callerUser
+Id=0
+>   2026-09-16T12:08:01.504481 - listen: E pkg=*** uid=10088 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:08:01.529389 - listen: E pkg=*** uid=10088 events=[9, 26, 13] notifyNow=true subId=11 myUserId=0 call
+erUserId=0
+>   2026-09-16T12:08:02.031604 - listen: E pkg=*** uid=1000 events=[21] notifyNow=true subId=11 myUserId=0 callerUserId
+=0
+>   2026-09-16T12:08:02.993439 - listen: E pkg=*** uid=10088 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T12:08:04.126563 - listen: E pkg=*** uid=1001 events=[34, 20, 6] notifyNow=true subId=11 myUserId=0 calle
+rUserId=0
+>   2026-09-16T12:08:04.376134 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=0
+>   2026-09-16T12:08:04.377258 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:08:04.457516 - listen: E pkg=*** uid=1001 events=[1] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:08:19.687943 - listen: E pkg=*** uid=1000 events=[9] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:08:20.846287 - listen: E pkg=*** uid=1001 events=[] notifyNow=true subId=2147483647 myUserId=0 caller
+UserId=0
+>   2026-09-16T12:14:04.435160 - listen: E pkg=*** uid=10088 events=[] notifyNow=true subId=11 myUserId=0 callerUserId=
+0
+>   2026-09-16T12:27:04.951225 - listen: E pkg=*** uid=10239 events=[5, 7, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T12:27:05.016909 - listen: E pkg=*** uid=10239 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T12:27:05.022563 - listen: E pkg=*** uid=10239 events=[5, 7, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T12:27:05.057228 - listen: E pkg=*** uid=10239 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T13:39:00.823365 - listen: E pkg=*** uid=10239 events=[5, 7, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T13:39:04.845459 - listen: E pkg=*** uid=10239 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T14:04:23.771851 - listen: E pkg=*** uid=10283 events=[9] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T14:42:11.570362 - listen: E pkg=*** uid=10283 events=[9] notifyNow=true subId=2147483647 myUserId=0 call
+erUserId=0
+>   2026-09-16T15:47:41.982978 - listen: E pkg=*** uid=10239 events=[5, 7, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T15:47:42.047282 - listen: E pkg=*** uid=10239 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+>   2026-09-16T15:47:42.052149 - listen: E pkg=*** uid=10239 events=[5, 7, 9] notifyNow=true subId=2147483647 myUserId=
+0 callerUserId=0
+>   2026-09-16T15:47:42.074970 - listen: E pkg=*** uid=10239 events=[] notifyNow=true subId=2147483647 myUserId=0 calle
+rUserId=0
+> registrations: count=113
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@9761743 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@9761743 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[36]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@33081c0 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@33081c0 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@dafeef9 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@dafeef
+9 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@c4ece3e callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@c4ece3
+e subId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@258e49f callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@258e49f onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[23]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@77bf9ec call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@77bf9ec onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[36]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@e7781b5 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@e7781b5 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[1, 7, 8, 9]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@965904a callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@965904a onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[29]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@5712bbb callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@5712bbb onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[6]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@a24c8d8 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@a24c8d8 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[23]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@5eb8431 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@5eb8431 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[5, 7, 11]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@6746716 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@674671
+6 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@7fcc897 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@7fcc89
+7 subId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@7899a84 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@7899a84 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@8c3326d callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@8c3326d onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@1c7dea2 callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@1c7dea2 onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[23]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@b3b5733 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@b3b573
+3 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@147daf0 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@147daf
+0 subId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@5ed8869 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@5ed8869 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@fe942ee callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@fe942ee onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[6]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@aca338f callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@aca338f onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 ev
+ents=[6, 29]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@367b61c callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@367b61c onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@24d4225 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@24d4225 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@2aa9ffa call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@2aa9ffa onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[23]}
+>   {callingPackage=*** callerUid=10210 binder=android.os.BinderProxy@4c079ab callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@481808 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[7]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@434dba1 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@4f2c1c6 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@78b0587 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@f4aacb4 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@aa290dd call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@aa290dd onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[7]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@7493452 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@7493452 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@1887323 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@a3fe020 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1, 6, 23]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@c3c5dd9 callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@c3c5dd9 onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@922439e call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@922439e onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 
+events=[7]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$1@e651e7f callback=null onSubs
+criptionsChangedListenererCallback=android.telephony.TelephonyRegistryManager$1@e651e7f onOpportunisticSubscriptionsCha
+ngedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@592de4c callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@a0bfe95 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@aeafbaa callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@e37239b onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@f359338 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@1faef11 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[23, 9]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@4d52876 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@25a5e77 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@4caae4 callback=null onSubscriptionsChangedListene
+rerCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d0e6b4d onOpportunisticSubscripti
+onsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@e635602 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@c0c6b13 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@d9b9150 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@5636f49 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[23, 9]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@2b4d04e callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@8c8a56f onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@2b0727c callback=null onSubscriptionsChangedListen
+ererCallback=null onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=com.android.inte
+rnal.telephony.ICarrierPrivilegesCallback$Stub$Proxy@feab705 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@d91a35a callback=null onSubscriptionsChangedListen
+ererCallback=null onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=com.android.inte
+rnal.telephony.ICarrierPrivilegesCallback$Stub$Proxy@864298b subId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@3d03a68 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@5e4be81 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@d369b26 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@8e9d367 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@2a29514 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@a1dc1bd onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@4e143b2 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@4363f03 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@19dee80 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@5e9bcb9 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@c1be8fe callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@b53c85f onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@23372ac callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@9e06b75 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@6c9970a callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@b968b7b onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@9bb0d98 callback=null onSubscriptionsChangedListen
+ererCallback=null onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=com.android.inte
+rnal.telephony.ICarrierPrivilegesCallback$Stub$Proxy@e5949f1 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@1f219d6 callback=null onSubscriptionsChangedListen
+ererCallback=null onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=com.android.inte
+rnal.telephony.ICarrierPrivilegesCallback$Stub$Proxy@9786457 subId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@91f6b44 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@fa7942d onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@14dfd62 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d34eef3 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@349f7b0 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@2164629 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@9928dae callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d25874f onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@e4ededc callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@9a41be5 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1, 23]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@37dd6ba callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@1dd496b onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36, 8]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@b590cc8 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@17f9161 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@3a2a486 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCal
+lback=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@3a2a48
+6 subId=-1 phoneId=0 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapp
+er@51147 callback=null onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedListenererCallb
+ack=null carrierPrivilegesCallback=android.telephony.TelephonyRegistryManager$CarrierPrivilegesCallbackWrapper@51147 su
+bId=-1 phoneId=1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@1562d74 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@f42e29d onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@2f48312 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@3f77ae3 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@662ace0 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@df00b99 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@413be5e callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@b1ce23f onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1002 binder=android.os.BinderProxy@3f5b70c callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@cacc855 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10196 binder=android.os.BinderProxy@159626a callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@707635b onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10196 binder=android.os.BinderProxy@1cd37f8 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d3e94d1 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10196 binder=android.os.BinderProxy@fa33b36 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@64eda37 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@399dba4 callback=null onSubscriptionsChangedListen
+ererCallback=null onOpportunisticSubscriptionsChangedListenererCallback=com.android.internal.telephony.IOnSubscriptions
+ChangedListener$Stub$Proxy@e46ad0d carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10104 binder=android.os.BinderProxy@1dfd4c2 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@f2ce2d3 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10104 binder=android.os.BinderProxy@56b0e10 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d3e0d09 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@95a7b0e callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@7d8d92f onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[23]}
+>   {callingPackage=*** callerUid=10169 binder=android.os.BinderProxy@2dafb3c callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@c3170c5 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1, 5, 9]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@ec73a1a callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@8a3d94b onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1, 5, 9]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@4fa8f28 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@73d5441 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[23]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@edde6 callback=com.android.internal.telephony.IPho
+neStateListener$Stub$Proxy@3d4bf27 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedLis
+tenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[23]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@2fd75d4 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@5c9f37d onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1, 9]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@edaf272 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@f4426c3 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@1a61b40 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@3874a79 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@be1c3be callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@bb86c1f onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36, 7]}
+>   {callingPackage=*** callerUid=10203 binder=android.os.BinderProxy@d71ab6c callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@d291535 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10195 binder=android.os.BinderProxy@af25dca callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@601ab3b onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[24]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@b841258 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@ce2cfb1 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10252 binder=android.os.BinderProxy@bc08c96 callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@dd5c017 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36]}
+>   {callingPackage=*** callerUid=10252 binder=android.os.BinderProxy@d53fc04 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@2a3b5ed onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10133 binder=android.os.BinderProxy@370dc22 callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@e6c46b3 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[1]}
+>   {callingPackage=*** callerUid=10133 binder=android.os.BinderProxy@316d470 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@412c3e9 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10129 binder=android.os.BinderProxy@8ecc79c callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@4ab5a5 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[7]}
+>   {callingPackage=*** callerUid=99910279 binder=android.os.BinderProxy@5c5cd7a callback=com.android.internal.telephon
+y.IPhoneStateListener$Stub$Proxy@2fd92b onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChang
+edListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36]}
+>   {callingPackage=*** callerUid=10128 binder=android.os.BinderProxy@accc188 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@3560721 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10129 binder=android.os.BinderProxy@6534746 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@750dd07 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10279 binder=android.os.BinderProxy@b306e34 callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@56af45d onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[36]}
+>   {callingPackage=*** callerUid=99910129 binder=android.os.BinderProxy@1ec91d2 callback=com.android.internal.telephon
+y.IPhoneStateListener$Stub$Proxy@9442a3 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChang
+edListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[7]}
+>   {callingPackage=*** callerUid=10283 binder=android.os.BinderProxy@88039a0 callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@1e77959 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[9]}
+>   {callingPackage=*** callerUid=99910129 binder=android.os.BinderProxy@a5df91e callback=null onSubscriptionsChangedLi
+stenererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@71e65ff onOpportunisticSubsc
+riptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10283 binder=android.os.BinderProxy@d3f4fcc callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@20d5215 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[7, 9]}
+>   {callingPackage=*** callerUid=10283 binder=android.os.BinderProxy@fec892a callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@9fd631b onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=-1 events=[9]}
+>   {callingPackage=*** callerUid=10281 binder=android.os.BinderProxy@6f79cb8 callback=null onSubscriptionsChangedListe
+nererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@77dfa91 onOpportunisticSubscrip
+tionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=10281 binder=android.os.BinderProxy@220df6 callback=null onSubscriptionsChangedListen
+ererCallback=com.android.internal.telephony.IOnSubscriptionsChangedListener$Stub$Proxy@10515f7 onOpportunisticSubscript
+ionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=-1 phoneId=-1 events={}}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@fe5cc64 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@fe5cc64 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=1 e
+vents=[7]}
+>   {callingPackage=*** callerUid=10281 binder=android.os.BinderProxy@276aecd callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@5591382 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[1, 9]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@36b1a93 call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@36b1a93 onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=1 e
+vents=[1]}
+>   {callingPackage=*** callerUid=10169 binder=android.os.BinderProxy@7654ad0 callback=com.android.internal.telephony.I
+PhoneStateListener$Stub$Proxy@fcc6ac9 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChanged
+ListenererCallback=null carrierPrivilegesCallback=null subId=2147483647 phoneId=1 events=[5, 9, 11]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.PhoneStateListener$IPhoneStateListenerStub@308e5ce call
+back=android.telephony.PhoneStateListener$IPhoneStateListenerStub@308e5ce onSubscriptionsChangedListenererCallback=null
+ onOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[1
+2]}
+>   {callingPackage=*** callerUid=1000 binder=android.os.BinderProxy@c22ccef callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@51c43fc onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[1, 17, 21, 6, 7, 23, 8, 9, 13]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@aa7ea85 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@ad190da onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[35]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@7f9490b callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@2e7a3e8 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[3, 4]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@e01aa01 callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@e01aa01 onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[21]
+}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@647e0a6 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@9716ae7 onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[34, 20, 6]}
+>   {callingPackage=*** callerUid=1001 binder=android.os.BinderProxy@9871694 callback=com.android.internal.telephony.IP
+honeStateListener$Stub$Proxy@1dde53d onSubscriptionsChangedListenererCallback=null onOpportunisticSubscriptionsChangedL
+istenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[1]}
+>   {callingPackage=*** callerUid=1000 binder=android.telephony.TelephonyCallback$IPhoneStateListenerStub@1816132 callb
+ack=android.telephony.TelephonyCallback$IPhoneStateListenerStub@1816132 onSubscriptionsChangedListenererCallback=null o
+nOpportunisticSubscriptionsChangedListenererCallback=null carrierPrivilegesCallback=null subId=11 phoneId=1 events=[9]}
+
+
+
+
+===== carrier_config filtered =====
+> adb -s 192.168.137.134:37667 shell dumpsys carrier_config
+
+> CarrierConfigLoader: com.android.phone.CarrierConfigLoader@c52b063
+  Phone Id = 0
+>     Default Values from CarrierConfigManager : 
+              4g_only_bool = false
+              5g_icon_configuration_string = connected_mmwave:5G,connected:5G,not_restricted_rrc_idle:5G,not_restricted
+_rrc_con:5G
+              5g_icon_display_grace_period_string = 
+              5g_icon_display_secondary_grace_period_string = 
+              carrier_auto_cancel_cs_notification = true
+              carrier_certificate_string_array = []
+>             carrier_config_applied_bool = false
+>             carrier_config_version_string = 
+>             carrier_cross_sim_ims_available_bool = false
+              carrier_data_call_apn_delay_default_long = 20000
+              carrier_data_call_apn_delay_faster_long = 3000
+              carrier_data_call_apn_retry_after_disconnect_long = 3000
+              carrier_data_call_retry_config_strings = [default:default_randomization=2000,5000,10000,20000,40000,80000
+:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000, mms:default_randomization=2000,5000,10000,20000,40
+000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000, ims:max_retries=10, 5000, 5000, 5000, oth
+ers:max_retries=3, 5000, 5000, 5000]
+              carrier_data_call_retry_network_requested_max_count_int = 3
+>             carrier_data_service_wlan_package_override_string = 
+              carrier_data_service_wwan_package_override_string = 
+>             carrier_default_actions_on_default_network_available_string_array = [false: 7, true: 8]
+              carrier_default_actions_on_redirection_string_array = [9, 4, 1]
+              carrier_default_actions_on_reset_string_array = [6, 8]
+              carrier_default_data_roaming_enabled_bool = false
+              carrier_default_redirection_url_string_array = null
+              carrier_force_disable_etws_cmas_test_bool = false
+              carrier_ims_gba_required_bool = false
+>             carrier_instant_lettering_available_bool = false
+              carrier_instant_lettering_encoding_string = 
+              carrier_instant_lettering_escaped_chars_string = 
+              carrier_instant_lettering_invalid_chars_string = 
+              carrier_instant_lettering_length_limit_int = 64
+              carrier_name_override_bool = false
+              carrier_name_string = 
+>             carrier_network_service_wlan_package_override_string = 
+              carrier_network_service_wwan_package_override_string = 
+              carrier_nr_availabilities_int_array = [1, 2]
+              carrier_promote_wfc_on_call_fail_bool = false
+              carrier_provisioning_app_string = 
+              carrier_provisions_wifi_merged_networks_bool = false
+              carrier_qualified_networks_service_package_override_string = 
+>             carrier_rcs_provisioning_required_bool = true
+              carrier_settings_activity_component_name_string = 
+              carrier_settings_enable_bool = false
+              carrier_setup_app_string = 
+              carrier_supports_caller_id_vertical_service_codes_bool = false
+              carrier_ussd_method_int = 0
+              carrier_ut_provisioning_required_bool = false
+>             carrier_volte_available_bool = false
+              carrier_volte_override_wfc_provisioning_bool = false
+              carrier_volte_provisioned_bool = false
+              carrier_volte_provisioning_required_bool = false
+              carrier_volte_tty_supported_bool = true
+              carrier_vowifi_tty_supported_bool = true
+>             carrier_vt_available_bool = false
+              carrier_vt_tty_support_bool = false
+              carrier_vvm_package_name_string = 
+              carrier_vvm_package_name_string_array = null
+>             carrier_wfc_ims_available_bool = false
+              carrier_wfc_supports_ims_preferred_bool = false
+              carrier_wfc_supports_wifi_only_bool = false
+>             carrier_wlan_disallowed_apn_types_string_array = []
+              carrier_wwan_disallowed_apn_types_string_array = []
+              cdma_3waycall_flash_delay_int = 0
+              cdma_cw_cf_enabled_bool = false
+              cdma_dtmf_tone_delay_int = 100
+>             cdma_enhanced_roaming_indicator_for_home_network_int_array = [1]
+>             cdma_home_registered_plmn_name_override_bool = false
+>             cdma_home_registered_plmn_name_string = 
+              cdma_nonroaming_networks_string_array = null
+              cdma_roaming_mode_int = -1
+              cdma_roaming_networks_string_array = null
+              cellular_usage_setting_int = -1
+              ci_action_on_sys_update_intent_string = 
+              config_cellBroadcastAppLinks = true
+>             config_ims_mmtel_package_override_string = null
+              config_ims_package_override_string = null
+>             config_ims_rcs_package_override_string = null
+              config_show_orig_dial_string_for_cdma = false
+              config_telephony_use_own_number_for_voicemail_bool = false
+              config_wifi_disable_in_ecbm = false
+              convert_cdma_caller_id_mmi_codes_while_roaming_on_3gpp_bool = false
+              default_rtt_mode_int = 0
+              default_sim_call_manager_string = 
+>             default_vm_number_roaming_and_ims_unregistered_string = 
+              default_vm_number_roaming_string = 
+              default_vm_number_string = 
+              delay_ims_tear_down_until_call_end_bool = false
+              dial_string_replace_string_array = null
+              feature_access_codes_string_array = null
+              filtered_cnap_names_string_array = null
+>             force_home_network_bool = false
+              force_imei_bool = false
+              format_incoming_number_to_national_for_jp_bool = false
+              gba_mode_int = 1
+              gba_ua_security_organization_int = 1
+              ims.gruu_enabled_bool = false
+              ims.ims_pdn_enabled_in_no_vops_support_int_array = []
+>             ims.ims_single_registration_required_bool = false
+              ims.ims_user_agent_string = #MANUFACTURER#_#MODEL#_Android#AV#_#BUILD#
+              ims.ipsec_authentication_algorithms_int_array = [0, 1]
+              ims.ipsec_encryption_algorithms_int_array = [0, 1, 2]
+              ims.ipv4_sip_mtu_size_cellular_int = 1500
+              ims.ipv6_sip_mtu_size_cellular_int = 1500
+              ims.keep_pdn_up_in_no_vops_bool = false
+>             ims.mmtel_requires_provisioning_bundle = PersistableBundle[{}]
+>             ims.non_rcs_capabilities_cache_expiration_sec_int = 2592000
+              ims.phone_context_domain_name_string = 
+              ims.publish_service_desc_feature_tag_map_override_string_array = []
+>             ims.rcs_bulk_capability_exchange_bool = false
+>             ims.rcs_feature_tag_allowed_string_array = [+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm
+.msg", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm.largemsg", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-se
+rvice.ims.icsi.oma.cpm.deferred", +g.gsma.rcs.cpm.pager-large, +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.om
+a.cpm.session", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm.filetransfer", +g.3gpp.iari-ref="urn%3Aur
+n-7%3A3gpp-application.ims.iari.rcs.fthttp", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.ftsms", +g.3
+gpp.iari-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.callcomposer", +g.gsma.callcomposer, +g.3gpp.icsi-ref="urn%3Aurn
+-7%3A3gpp-service.ims.icsi.gsma.callunanswered", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.sharedmap",
+ +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.sharedsketch", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-applica
+tion.ims.iari.rcs.geopush", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.geosms", +g.3gpp.iari-ref="ur
+n%3Aurn-7%3A3gpp-application.ims.iari.rcs.chatbot", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.chatb
+ot.sa", +g.gsma.rcs.botversion="#=1,#=2", +g.gsma.rcs.cpimext]
+>             ims.rcs_request_forbidden_by_sip_489_bool = false
+>             ims.rcs_request_retry_interval_millis_long = 1200000
+>             ims.rcs_requires_provisioning_bundle = PersistableBundle[{}]
+>             ims.registration_event_package_supported_bool = true
+>             ims.registration_expiry_timer_sec_int = 600000
+>             ims.registration_retry_base_timer_millis_int = 30000
+>             ims.registration_retry_max_timer_millis_int = 1800000
+>             ims.registration_subscribe_expiry_timer_sec_int = 600000
+              ims.request_uri_type_int = 0
+              ims.sip_over_ipsec_enabled_bool = true
+              ims.sip_preferred_transport_int = 2
+              ims.sip_server_port_number_int = 5060
+              imsemergency.emergency_over_ims_supported_rats_int_array = [3, 5]
+              imsemergency.emergency_qos_precondition_supported_bool = true
+>             imsemergency.emergency_registration_timer_millis_int = 10000
+              imsemergency.refresh_geolocation_timeout_millis_int = 5000
+              imsemergency.retry_emergency_on_ims_pdn_bool = false
+              imsi_carrier_public_key_epdg_string = null
+>             imsi_carrier_public_key_wlan_string = null
+              imsi_key_availability_int = 0
+              imsi_key_download_url_string = null
+              imsrtt.text_as_bandwidth_kbps_int = 4
+              imsrtt.text_codec_capability_payload_types_bundle = PersistableBundle[{imsrtt.t140_payload_type_int=111, 
+imsrtt.red_payload_type_int=112}]
+              imsss.ut_as_server_fqdn_string = 
+              imsss.ut_as_server_port_int = 80
+>             imsss.ut_iptype_home_int = 2
+              imsss.ut_iptype_roaming_int = 2
+>             imsss.ut_requires_ims_registration_bool = false
+              imsss.ut_server_based_services_int_array = [0, 1, 2, 6, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 17, 14, 15, 16,
+ 18, 19, 20, 21]
+              imsss.ut_supported_when_ps_data_off_bool = true
+              imsss.ut_supported_when_roaming_bool = true
+              imsss.ut_terminal_based_services_int_array = []
+              imsvoice.audio_rtcp_inactivity_timer_millis_int = 20000
+              imsvoice.audio_rtp_inactivity_timer_millis_int = 20000
+>             imsvoice.carrier_volte_roaming_available_bool = true
+              imsvoice.conference_factory_uri_string = 
+              imsvoice.conference_subscribe_type_int = 1
+              imsvoice.dedicated_bearer_wait_timer_millis_int = 8000
+              imsvoice.include_caller_id_service_codes_in_sip_invite_bool = false
+              international_roaming_dial_string_replace_string_array = null
+              is_ims_conference_size_enforced_bool = false
+>             is_opportunistic_subscription_bool = false
+>             iwlan.add_ke_to_child_session_rekey_bool = false
+>             iwlan.child_sa_rekey_hard_timer_sec_int = 7200
+>             iwlan.child_sa_rekey_soft_timer_sec_int = 3600
+>             iwlan.child_session_aes_cbc_key_size_int_array = [128, 192, 256]
+>             iwlan.child_session_aes_ctr_key_size_int_array = [128, 192, 256]
+>             iwlan.diffie_hellman_groups_int_array = [2, 5, 14]
+>             iwlan.dpd_timer_sec_int = 120
+>             iwlan.epdg_address_priority_int_array = [1, 0]
+>             iwlan.epdg_authentication_method_int = 0
+>             iwlan.epdg_pco_id_ipv4_int = 0
+>             iwlan.epdg_pco_id_ipv6_int = 0
+>             iwlan.epdg_static_address_roaming_string = 
+>             iwlan.epdg_static_address_string = 
+>             iwlan.ike_local_id_type_int = 3
+>             iwlan.ike_rekey_hard_timer_in_sec = 14400
+>             iwlan.ike_rekey_soft_timer_sec_int = 7200
+>             iwlan.ike_remote_id_type_int = 2
+>             iwlan.ike_session_encryption_aes_cbc_key_size_int_array = [128, 192, 256]
+>             iwlan.ike_session_encryption_aes_ctr_key_size_int_array = [128, 192, 256]
+>             iwlan.max_retries_int = 3
+>             iwlan.mcc_mncs_string_array = []
+>             iwlan.natt_keep_alive_timer_sec_int = 20
+>             iwlan.retransmit_timer_sec_int_array = [500, 1000, 2000, 4000, 8000]
+>             iwlan.supported_child_session_encryption_algorithms_int_array = [12]
+>             iwlan.supported_ike_session_encryption_algorithms_int_array = [12]
+>             iwlan.supported_integrity_algorithms_int_array = [5, 2, 12, 13, 14]
+>             iwlan.supported_prf_algorithms_int_array = [2, 4, 5, 6, 7]
+>             iwlan.supports_eap_aka_fast_reauth_bool = false
+>             iwlan_handover_policy_string_array = [source=GERAN|UTRAN|EUTRAN|NGRAN|IWLAN, target=GERAN|UTRAN|EUTRAN|NG
+RAN|IWLAN, type=allowed]
+              limited_sim_function_notification_for_dsds_bool = false
+              local_disconnect_empty_ims_conference_bool = false
+              lte_earfcns_rsrp_boost_int = 0
+              lte_enabled_bool = true
+              nr_timers_reset_if_non_endc_and_rrc_idle_bool = false
+              nrarfcns_rsrp_boost_int_array = null
+>             only_auto_select_in_home_network = false
+              only_single_dc_allowed_int_array = [4, 7, 5, 6, 12]
+              operator_name_filter_pattern_string = 
+              operator_selection_expand_bool = true
+              opl_override_opl_string_array = null
+              radio_restart_failure_causes_int_array = []
+              ratchet_rat_families = [1,2, 7,8,12, 3,11,9,10,15, 14,19]
+>             rcs_config_server_url_string = 
+              read_only_apn_fields_string_array = null
+              read_only_apn_types_string_array = [dun]
+              recipientLimit = 2147483647
+              require_apn_filtering_with_radio_capability_bool = false
+              show_forwarded_number_bool = false
+              show_iccid_in_sim_status_bool = false
+>             show_ims_registration_status_bool = false
+              show_onscreen_dial_button_bool = true
+              show_operator_name_in_statusbar_bool = false
+              show_precise_failed_cause_bool = false
+              show_signal_strength_in_sim_status_bool = true
+              show_single_operator_row_in_choose_network_setting_bool = true
+>             show_spn_for_home_in_choose_network_setting_bool = false
+              show_video_call_charges_alert_dialog_bool = false
+              show_wfc_location_privacy_policy_bool = false
+              show_wifi_calling_icon_in_status_bar_bool = false
+              signal_strength_nr_nsa_use_lte_as_primary_bool = true
+              stk_disable_launch_browser_bool = false
+              store_sim_pin_for_unattended_reboot_bool = true
+>             subscription_group_uuid_string = 
+              supportHttpCharsetHeader = false
+              supportMmsContentDisposition = true
+              support_3gpp_call_forwarding_while_roaming_bool = true
+              support_add_conference_participants_bool = false
+              unmetered_nr_sa_sub6_bool = false
+              unthrottle_data_retry_when_tac_changes_bool = true
+>             use_acs_for_rcs_bool = false
+              use_call_forwarding_ussd_bool = false
+              use_call_waiting_ussd_bool = false
+              use_caller_id_ussd_bool = false
+              use_hfa_for_provisioning_bool = false
+              use_only_rsrp_for_lte_signal_bar_bool = false
+              use_otasp_for_provisioning_bool = false
+>             use_rcs_presence_bool = false
+>             use_rcs_sip_options_bool = false
+              use_sms_callback_mode_bool = false
+              use_usim_bool = false
+>             use_wfc_home_network_mode_in_roaming_network_bool = false
+              userAgent = 
+              video_calls_can_be_hd_audio = true
+              vilte_data_is_metered_bool = true
+              voice_privacy_disable_ui_bool = false
+              carrier_b2c_enriched_calling_supported_bool = false
+              carrier_call_composer_supported_bool = false
+>             carrier_cross_sim_ims_available_bool = true
+              carrier_data_call_apn_retry_after_disconnect_long = 100
+              carrier_default_wfc_ims_mode_int = 1
+              carrier_disable_sa_mode_bool = true
+              carrier_disable_vice_sa_mode_bool = true
+>             carrier_fiveg_power_saving_available_bool = true
+              carrier_hide_wfc_bool = false
+>             carrier_sa_mode_available_bool = false
+              carrier_supports_multianchor_conference = false
+              carrier_supports_ss_over_ut_bool = true
+>             carrier_volte_available_bool = false
+              carrier_volte_globalization_enable = false
+>             carrier_volte_unavailable_bool = false
+>             carrier_vt_available_bool = false
+>             carrier_wfc_ims_available_bool = true
+>             carrier_wfc_ims_available_bool_develop = false
+              carrier_wfc_supports_ims_preferred_bool = false
+              config_call_forwarding_CFNRc_visibility_bool = true
+              config_callbarring_over_ims_no_need_password = false
+>             config_carrier_cs_retry_available = false
+              config_cota_carrier_customize_for_call_feature = false
+              config_cota_carrier_customize_for_mute_ringer_feature = false
+              config_cota_carrier_customize_for_stk_feature = false
+              config_cota_carrier_customize_for_ussd_mode_feature = false
+              config_show_cf_type_when_mmi = false
+              config_show_vonr_icon_in_statusbar = false
+>             config_show_wifi_call_subscription_displayname = true
+              config_smsc_no_need_show_international_number = false
+              config_support_add_call_during_ims_call = true
+              config_support_call_forward_time_dialog = false
+              config_support_callbarring_cancel_all_by_sequence = true
+              editable_wfc_when_airplane_mode_on = true
+              extra_show_roaming_wfc_mode_option = false
+>             force_home_network_bool = false
+              gps.nfw_proxy_apps = com.example.android.locationattribution
+              hide_emergency_apn_bool = true
+              hide_enable_2g_bool = true
+              hide_preferred_network_type_bool = false
+  
+  Phone Id = 1
+>     Default Values from CarrierConfigManager : 
+              4g_only_bool = false
+              5g_icon_configuration_string = connected_mmwave:5G,connected:5G,not_restricted_rrc_idle:5G,not_restricted
+_rrc_con:5G
+              5g_icon_display_grace_period_string = 
+              5g_icon_display_secondary_grace_period_string = 
+              carrier_auto_cancel_cs_notification = true
+              carrier_certificate_string_array = []
+>             carrier_config_applied_bool = false
+>             carrier_config_version_string = 
+>             carrier_cross_sim_ims_available_bool = false
+              carrier_data_call_apn_delay_default_long = 20000
+              carrier_data_call_apn_delay_faster_long = 3000
+              carrier_data_call_apn_retry_after_disconnect_long = 3000
+              carrier_data_call_retry_config_strings = [default:default_randomization=2000,5000,10000,20000,40000,80000
+:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000, mms:default_randomization=2000,5000,10000,20000,40
+000,80000:5000,160000:5000,320000:5000,640000:5000,1280000:5000,1800000:5000, ims:max_retries=10, 5000, 5000, 5000, oth
+ers:max_retries=3, 5000, 5000, 5000]
+              carrier_data_call_retry_network_requested_max_count_int = 3
+>             carrier_data_service_wlan_package_override_string = 
+              carrier_data_service_wwan_package_override_string = 
+>             carrier_default_actions_on_default_network_available_string_array = [false: 7, true: 8]
+              carrier_default_actions_on_redirection_string_array = [9, 4, 1]
+              carrier_default_actions_on_reset_string_array = [6, 8]
+              carrier_default_data_roaming_enabled_bool = false
+              carrier_default_redirection_url_string_array = null
+              carrier_force_disable_etws_cmas_test_bool = false
+              carrier_ims_gba_required_bool = false
+>             carrier_instant_lettering_available_bool = false
+              carrier_instant_lettering_encoding_string = 
+              carrier_instant_lettering_escaped_chars_string = 
+              carrier_instant_lettering_invalid_chars_string = 
+              carrier_instant_lettering_length_limit_int = 64
+              carrier_name_override_bool = false
+              carrier_name_string = 
+>             carrier_network_service_wlan_package_override_string = 
+              carrier_network_service_wwan_package_override_string = 
+              carrier_nr_availabilities_int_array = [1, 2]
+              carrier_promote_wfc_on_call_fail_bool = false
+              carrier_provisioning_app_string = 
+              carrier_provisions_wifi_merged_networks_bool = false
+              carrier_qualified_networks_service_package_override_string = 
+>             carrier_rcs_provisioning_required_bool = true
+              carrier_settings_activity_component_name_string = 
+              carrier_settings_enable_bool = false
+              carrier_setup_app_string = 
+              carrier_supports_caller_id_vertical_service_codes_bool = false
+              carrier_ussd_method_int = 0
+              carrier_ut_provisioning_required_bool = false
+>             carrier_volte_available_bool = false
+              carrier_volte_override_wfc_provisioning_bool = false
+              carrier_volte_provisioned_bool = false
+              carrier_volte_provisioning_required_bool = false
+              carrier_volte_tty_supported_bool = true
+              carrier_vowifi_tty_supported_bool = true
+>             carrier_vt_available_bool = false
+              carrier_vt_tty_support_bool = false
+              carrier_vvm_package_name_string = 
+              carrier_vvm_package_name_string_array = null
+>             carrier_wfc_ims_available_bool = false
+              carrier_wfc_supports_ims_preferred_bool = false
+              carrier_wfc_supports_wifi_only_bool = false
+>             carrier_wlan_disallowed_apn_types_string_array = []
+              carrier_wwan_disallowed_apn_types_string_array = []
+              cdma_3waycall_flash_delay_int = 0
+              cdma_cw_cf_enabled_bool = false
+              cdma_dtmf_tone_delay_int = 100
+>             cdma_enhanced_roaming_indicator_for_home_network_int_array = [1]
+>             cdma_home_registered_plmn_name_override_bool = false
+>             cdma_home_registered_plmn_name_string = 
+              cdma_nonroaming_networks_string_array = null
+              cdma_roaming_mode_int = -1
+              cdma_roaming_networks_string_array = null
+              cellular_usage_setting_int = -1
+              ci_action_on_sys_update_intent_string = 
+              config_cellBroadcastAppLinks = true
+>             config_ims_mmtel_package_override_string = null
+              config_ims_package_override_string = null
+>             config_ims_rcs_package_override_string = null
+              config_show_orig_dial_string_for_cdma = false
+              config_telephony_use_own_number_for_voicemail_bool = false
+              config_wifi_disable_in_ecbm = false
+              convert_cdma_caller_id_mmi_codes_while_roaming_on_3gpp_bool = false
+              default_rtt_mode_int = 0
+              default_sim_call_manager_string = 
+>             default_vm_number_roaming_and_ims_unregistered_string = 
+              default_vm_number_roaming_string = 
+              default_vm_number_string = 
+              delay_ims_tear_down_until_call_end_bool = false
+              dial_string_replace_string_array = null
+              feature_access_codes_string_array = null
+              filtered_cnap_names_string_array = null
+>             force_home_network_bool = false
+              force_imei_bool = false
+              format_incoming_number_to_national_for_jp_bool = false
+              gba_mode_int = 1
+              gba_ua_security_organization_int = 1
+              ims.gruu_enabled_bool = false
+              ims.ims_pdn_enabled_in_no_vops_support_int_array = []
+>             ims.ims_single_registration_required_bool = false
+              ims.ims_user_agent_string = #MANUFACTURER#_#MODEL#_Android#AV#_#BUILD#
+              ims.ipsec_authentication_algorithms_int_array = [0, 1]
+              ims.ipsec_encryption_algorithms_int_array = [0, 1, 2]
+              ims.ipv4_sip_mtu_size_cellular_int = 1500
+              ims.ipv6_sip_mtu_size_cellular_int = 1500
+              ims.keep_pdn_up_in_no_vops_bool = false
+>             ims.mmtel_requires_provisioning_bundle = PersistableBundle[{}]
+>             ims.non_rcs_capabilities_cache_expiration_sec_int = 2592000
+              ims.phone_context_domain_name_string = 
+              ims.publish_service_desc_feature_tag_map_override_string_array = []
+>             ims.rcs_bulk_capability_exchange_bool = false
+>             ims.rcs_feature_tag_allowed_string_array = [+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm
+.msg", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm.largemsg", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-se
+rvice.ims.icsi.oma.cpm.deferred", +g.gsma.rcs.cpm.pager-large, +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.om
+a.cpm.session", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.oma.cpm.filetransfer", +g.3gpp.iari-ref="urn%3Aur
+n-7%3A3gpp-application.ims.iari.rcs.fthttp", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.ftsms", +g.3
+gpp.iari-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.callcomposer", +g.gsma.callcomposer, +g.3gpp.icsi-ref="urn%3Aurn
+-7%3A3gpp-service.ims.icsi.gsma.callunanswered", +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.sharedmap",
+ +g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.gsma.sharedsketch", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-applica
+tion.ims.iari.rcs.geopush", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.geosms", +g.3gpp.iari-ref="ur
+n%3Aurn-7%3A3gpp-application.ims.iari.rcs.chatbot", +g.3gpp.iari-ref="urn%3Aurn-7%3A3gpp-application.ims.iari.rcs.chatb
+ot.sa", +g.gsma.rcs.botversion="#=1,#=2", +g.gsma.rcs.cpimext]
+>             ims.rcs_request_forbidden_by_sip_489_bool = false
+>             ims.rcs_request_retry_interval_millis_long = 1200000
+>             ims.rcs_requires_provisioning_bundle = PersistableBundle[{}]
+>             ims.registration_event_package_supported_bool = true
+>             ims.registration_expiry_timer_sec_int = 600000
+>             ims.registration_retry_base_timer_millis_int = 30000
+>             ims.registration_retry_max_timer_millis_int = 1800000
+>             ims.registration_subscribe_expiry_timer_sec_int = 600000
+              ims.request_uri_type_int = 0
+              ims.sip_over_ipsec_enabled_bool = true
+              ims.sip_preferred_transport_int = 2
+              ims.sip_server_port_number_int = 5060
+              imsemergency.emergency_over_ims_supported_rats_int_array = [3, 5]
+              imsemergency.emergency_qos_precondition_supported_bool = true
+>             imsemergency.emergency_registration_timer_millis_int = 10000
+              imsemergency.refresh_geolocation_timeout_millis_int = 5000
+              imsemergency.retry_emergency_on_ims_pdn_bool = false
+              imsi_carrier_public_key_epdg_string = null
+>             imsi_carrier_public_key_wlan_string = null
+              imsi_key_availability_int = 0
+              imsi_key_download_url_string = null
+              imsrtt.text_as_bandwidth_kbps_int = 4
+              imsrtt.text_codec_capability_payload_types_bundle = PersistableBundle[{imsrtt.t140_payload_type_int=111, 
+imsrtt.red_payload_type_int=112}]
+              imsss.ut_as_server_fqdn_string = 
+              imsss.ut_as_server_port_int = 80
+>             imsss.ut_iptype_home_int = 2
+              imsss.ut_iptype_roaming_int = 2
+>             imsss.ut_requires_ims_registration_bool = false
+              imsss.ut_server_based_services_int_array = [0, 1, 2, 6, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 17, 14, 15, 16,
+ 18, 19, 20, 21]
+              imsss.ut_supported_when_ps_data_off_bool = true
+              imsss.ut_supported_when_roaming_bool = true
+              imsss.ut_terminal_based_services_int_array = []
+              imsvoice.audio_rtcp_inactivity_timer_millis_int = 20000
+              imsvoice.audio_rtp_inactivity_timer_millis_int = 20000
+>             imsvoice.carrier_volte_roaming_available_bool = true
+              imsvoice.conference_factory_uri_string = 
+              imsvoice.conference_subscribe_type_int = 1
+              imsvoice.dedicated_bearer_wait_timer_millis_int = 8000
+              imsvoice.include_caller_id_service_codes_in_sip_invite_bool = false
+              international_roaming_dial_string_replace_string_array = null
+              is_ims_conference_size_enforced_bool = false
+>             is_opportunistic_subscription_bool = false
+>             iwlan.add_ke_to_child_session_rekey_bool = false
+>             iwlan.child_sa_rekey_hard_timer_sec_int = 7200
+>             iwlan.child_sa_rekey_soft_timer_sec_int = 3600
+>             iwlan.child_session_aes_cbc_key_size_int_array = [128, 192, 256]
+>             iwlan.child_session_aes_ctr_key_size_int_array = [128, 192, 256]
+>             iwlan.diffie_hellman_groups_int_array = [2, 5, 14]
+>             iwlan.dpd_timer_sec_int = 120
+>             iwlan.epdg_address_priority_int_array = [1, 0]
+>             iwlan.epdg_authentication_method_int = 0
+>             iwlan.epdg_pco_id_ipv4_int = 0
+>             iwlan.epdg_pco_id_ipv6_int = 0
+>             iwlan.epdg_static_address_roaming_string = 
+>             iwlan.epdg_static_address_string = 
+>             iwlan.ike_local_id_type_int = 3
+>             iwlan.ike_rekey_hard_timer_in_sec = 14400
+>             iwlan.ike_rekey_soft_timer_sec_int = 7200
+>             iwlan.ike_remote_id_type_int = 2
+>             iwlan.ike_session_encryption_aes_cbc_key_size_int_array = [128, 192, 256]
+>             iwlan.ike_session_encryption_aes_ctr_key_size_int_array = [128, 192, 256]
+>             iwlan.max_retries_int = 3
+>             iwlan.mcc_mncs_string_array = []
+>             iwlan.natt_keep_alive_timer_sec_int = 20
+>             iwlan.retransmit_timer_sec_int_array = [500, 1000, 2000, 4000, 8000]
+>             iwlan.supported_child_session_encryption_algorithms_int_array = [12]
+>             iwlan.supported_ike_session_encryption_algorithms_int_array = [12]
+>             iwlan.supported_integrity_algorithms_int_array = [5, 2, 12, 13, 14]
+>             iwlan.supported_prf_algorithms_int_array = [2, 4, 5, 6, 7]
+>             iwlan.supports_eap_aka_fast_reauth_bool = false
+>             iwlan_handover_policy_string_array = [source=GERAN|UTRAN|EUTRAN|NGRAN|IWLAN, target=GERAN|UTRAN|EUTRAN|NG
+RAN|IWLAN, type=allowed]
+              limited_sim_function_notification_for_dsds_bool = false
+              local_disconnect_empty_ims_conference_bool = false
+              lte_earfcns_rsrp_boost_int = 0
+              lte_enabled_bool = true
+              nr_timers_reset_if_non_endc_and_rrc_idle_bool = false
+              nrarfcns_rsrp_boost_int_array = null
+>             only_auto_select_in_home_network = false
+              only_single_dc_allowed_int_array = [4, 7, 5, 6, 12]
+              operator_name_filter_pattern_string = 
+              operator_selection_expand_bool = true
+              opl_override_opl_string_array = null
+              radio_restart_failure_causes_int_array = []
+              ratchet_rat_families = [1,2, 7,8,12, 3,11,9,10,15, 14,19]
+>             rcs_config_server_url_string = 
+              read_only_apn_fields_string_array = null
+              read_only_apn_types_string_array = [dun]
+              recipientLimit = 2147483647
+              require_apn_filtering_with_radio_capability_bool = false
+              show_forwarded_number_bool = false
+              show_iccid_in_sim_status_bool = false
+>             show_ims_registration_status_bool = false
+              show_onscreen_dial_button_bool = true
+              show_operator_name_in_statusbar_bool = false
+              show_precise_failed_cause_bool = false
+              show_signal_strength_in_sim_status_bool = true
+              show_single_operator_row_in_choose_network_setting_bool = true
+>             show_spn_for_home_in_choose_network_setting_bool = false
+              show_video_call_charges_alert_dialog_bool = false
+              show_wfc_location_privacy_policy_bool = false
+              show_wifi_calling_icon_in_status_bar_bool = false
+              signal_strength_nr_nsa_use_lte_as_primary_bool = true
+              stk_disable_launch_browser_bool = false
+              store_sim_pin_for_unattended_reboot_bool = true
+>             subscription_group_uuid_string = 
+              supportHttpCharsetHeader = false
+              supportMmsContentDisposition = true
+              support_3gpp_call_forwarding_while_roaming_bool = true
+              support_add_conference_participants_bool = false
+              unmetered_nr_sa_sub6_bool = false
+              unthrottle_data_retry_when_tac_changes_bool = true
+>             use_acs_for_rcs_bool = false
+              use_call_forwarding_ussd_bool = false
+              use_call_waiting_ussd_bool = false
+              use_caller_id_ussd_bool = false
+              use_hfa_for_provisioning_bool = false
+              use_only_rsrp_for_lte_signal_bar_bool = false
+              use_otasp_for_provisioning_bool = false
+>             use_rcs_presence_bool = false
+>             use_rcs_sip_options_bool = false
+              use_sms_callback_mode_bool = false
+              use_usim_bool = false
+>             use_wfc_home_network_mode_in_roaming_network_bool = false
+              userAgent = 
+              video_calls_can_be_hd_audio = true
+              vilte_data_is_metered_bool = true
+              voice_privacy_disable_ui_bool = false
+              apn_expand_bool = true
+              auto_retry_failed_wifi_emergency_call = true
+>             carrier_5g_switch_available_bool = true
+              carrier_allow_deflect_ims_call_bool = false
+              carrier_allow_transfer_gsm_call_bool = false
+              carrier_allow_transfer_ims_call_bool = false
+              carrier_b2c_enriched_calling_supported_bool = false
+              carrier_call_composer_supported_bool = false
+>             carrier_cross_sim_ims_available_bool = true
+              carrier_data_call_apn_retry_after_disconnect_long = 100
+              carrier_default_wfc_ims_mode_int = 1
+              carrier_disable_sa_mode_bool = true
+              carrier_disable_vice_sa_mode_bool = true
+>             carrier_fiveg_power_saving_available_bool = false
+              carrier_hide_wfc_bool = false
+>             carrier_sa_mode_available_bool = false
+              carrier_supports_multianchor_conference = false
+              carrier_supports_ss_over_ut_bool = true
+>             carrier_volte_available_bool = false
+              carrier_volte_globalization_enable = false
+>             carrier_volte_unavailable_bool = false
+>             carrier_vt_available_bool = false
+>             carrier_wfc_ims_available_bool = true
+>             carrier_wfc_ims_available_bool_develop = false
+              carrier_wfc_supports_ims_preferred_bool = false
+              config_call_forwarding_CFNRc_visibility_bool = true
+              config_callbarring_over_ims_no_need_password = false
+>             config_carrier_cs_retry_available = false
+              config_cota_carrier_customize_for_call_feature = true
+              config_cota_carrier_customize_for_mute_ringer_feature = false
+              config_cota_carrier_customize_for_stk_feature = false
+              config_cota_carrier_customize_for_ussd_mode_feature = true
+              config_show_cf_type_when_mmi = false
+              config_show_vonr_icon_in_statusbar = false
+>             config_show_wifi_call_subscription_displayname = true
+              config_smsc_no_need_show_international_number = true
+              config_support_add_call_during_ims_call = true
+              config_support_call_forward_time_dialog = true
+              config_support_callbarring_cancel_all_by_sequence = true
+              extra_show_roaming_wfc_mode_option = false
+              feature_access_codes_string_array = [153, 132, 45]
+>             force_home_network_bool = false
+              gps.a_glonass_pos_protocol_select = 0
+              gps.gps_lock = 0
+              gps.lpp_profile = 2
+              gps.nfw_proxy_apps = com.example.android.locationattribution
+              allow_adding_apns_bool = false
+              carrier_supports_ss_over_ut_bool = false
+>             carrier_volte_available_bool = true
+              editable_enhanced_4g_lte_bool = false
+              enhanced_4g_lte_on_by_default_bool = false
+              hide_enhanced_4g_lte_bool = true
+  
+      mNoSimConfig : 
+  
+> CarrierConfigLoadingLog=
+  2026-09-16T11:42:57.667463 - mHandler: EVENT_CHECK_SYSTEM_UPDATE phoneId: 0
+> 2026-09-16T11:42:57.868892 - Update config for phoneId: 0 simState: ABSENT
+> 2026-09-16T11:42:57.891960 - Update config for phoneId: 1 simState: ABSENT
+> 2026-09-16T11:42:58.149379 - mHandler: EVENT_CLEAR_CONFIG phoneId: 0
+> 2026-09-16T11:42:58.213090 - mHandler: EVENT_CLEAR_CONFIG phoneId: 1
+> 2026-09-16T11:42:58.258208 - mHandler: EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 0
+> 2026-09-16T11:42:58.259219 - Binding to com.android.carrierconfig for phone 0
+> 2026-09-16T11:42:58.266213 - mHandler: EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 1
+> 2026-09-16T11:42:58.266673 - Binding to com.android.carrierconfig for phone 1
+> 2026-09-16T11:42:58.360450 - mHandler: EVENT_CONNECTED_TO_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 0
+> 2026-09-16T11:42:58.360962 - Fetch no sim config from default app: com.android.carrierconfig
+> 2026-09-16T11:42:58.361070 - mHandler: EVENT_CONNECTED_TO_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 1
+> 2026-09-16T11:42:58.361232 - Fetch no sim config from default app: com.android.carrierconfig
+> 2026-09-16T11:42:58.364437 - mHandler: EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE phoneId: 0
+> 2026-09-16T11:42:58.383784 - mHandler: EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE phoneId: 1
+  2026-09-16T11:51:03.457473 - mHandler: EVENT_SYSTEM_UNLOCKED phoneId: 0
+  2026-09-16T11:51:03.457562 - System unlocked
+  2026-09-16T11:51:03.457602 - System unlocked
+  2026-09-16T11:51:03.457710 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 0
+> 2026-09-16T11:51:03.460768 - Skip restore config because SIM records are not loaded for phone 0
+> 2026-09-16T11:51:03.460821 - Skip restore config because SIM records are not loaded for phone 0
+> 2026-09-16T11:51:03.460845 - Binding to com.android.carrierconfig for phone 0
+  2026-09-16T11:51:03.463569 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 1
+> 2026-09-16T11:51:03.463653 - Skip restore config because SIM records are not loaded for phone 1
+> 2026-09-16T11:51:03.463695 - Skip restore config because SIM records are not loaded for phone 1
+> 2026-09-16T11:51:03.463715 - Binding to com.android.carrierconfig for phone 1
+  2026-09-16T11:51:03.629967 - mHandler: EVENT_CONNECTED_TO_DEFAULT phoneId: 1
+> 2026-09-16T11:51:03.630437 - Fetch config for default app: com.android.carrierconfig carrierid: CarrierIdentifier{mcc
+=,mnc=,spn=,imsi=null,gid1=null,gid2=null,iccid=null,carrierid=-1,specificCarrierId=-1}
+  2026-09-16T11:51:03.630491 - mHandler: EVENT_CONNECTED_TO_DEFAULT phoneId: 0
+> 2026-09-16T11:51:03.630591 - Fetch config for default app: com.android.carrierconfig carrierid: CarrierIdentifier{mcc
+=,mnc=,spn=,imsi=null,gid1=null,gid2=null,iccid=null,carrierid=-1,specificCarrierId=-1}
+> 2026-09-16T11:51:03.691397 - Skip save config because SIM records are not loaded for phone 1
+  2026-09-16T11:51:03.691513 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 1
+> 2026-09-16T11:51:03.691934 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 1
+> 2026-09-16T11:51:03.793525 - Skip save config because SIM records are not loaded for phone 0
+  2026-09-16T11:51:03.825512 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 0
+> 2026-09-16T11:51:03.843873 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 0
+> 2026-09-16T11:52:12.396478 - Update config for phoneId: 1 simState: ESSENTIAL_LOADED
+  2026-09-16T11:52:12.397445 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 1
+  2026-09-16T11:52:12.400193 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 1
+> 2026-09-16T11:52:12.434374 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 1
+> 2026-09-16T11:52:14.507415 - Update config for phoneId: 1 simState: LOADED
+  2026-09-16T11:52:14.520288 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 1
+  2026-09-16T11:52:14.536966 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 1
+> 2026-09-16T11:52:14.573503 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 1
+> 2026-09-16T12:07:48.871690 - Update config for phoneId: 1 simState: ABSENT
+> 2026-09-16T12:07:48.960169 - mHandler: EVENT_CLEAR_CONFIG phoneId: 1
+> 2026-09-16T12:07:49.023833 - mHandler: EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 1
+> 2026-09-16T12:07:49.024488 - Binding to com.android.carrierconfig for phone 1
+> 2026-09-16T12:07:49.128236 - mHandler: EVENT_CONNECTED_TO_DEFAULT_FOR_NO_SIM_CONFIG phoneId: 1
+> 2026-09-16T12:07:49.128475 - Fetch no sim config from default app: com.android.carrierconfig
+> 2026-09-16T12:07:49.147971 - mHandler: EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE phoneId: 1
+> 2026-09-16T12:08:02.015268 - Update config for phoneId: 1 simState: ESSENTIAL_LOADED
+  2026-09-16T12:08:02.015532 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 1
+  2026-09-16T12:08:02.016984 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 1
+> 2026-09-16T12:08:02.064043 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 1
+> 2026-09-16T12:08:04.108821 - Update config for phoneId: 1 simState: LOADED
+  2026-09-16T12:08:04.128651 - mHandler: EVENT_DO_FETCH_DEFAULT phoneId: 1
+  2026-09-16T12:08:04.151386 - mHandler: EVENT_FETCH_DEFAULT_DONE phoneId: 1
+> 2026-09-16T12:08:04.192237 - mHandler: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId: 1
+
+
+
+
+===== phone / ImsResolver / MMTEL filtered =====
+> adb -s 192.168.137.134:37667 shell dumpsys phone
+
+  ------- PhoneGlobals -------
+    mPrevRoamingNotification=0
+>   mDefaultDataSubId=11
+    mDataRoamingNotifLog:
+    isSmsCapable=true
+      2026-09-16T11:52:11.646227 - dataAllowed=false, reasons=[DATA_CONFIG_NOT_READY, SIM_NOT_READY, NOT_IN_SERVICE, NO
+_SUITABLE_DATA_PROFILE, RADIO_POWER_OFF, DATA_DISABLED]
+      2026-09-16T11:52:12.223651 - dataAllowed=false, reasons=[DATA_CONFIG_NOT_READY, SIM_NOT_READY, NOT_IN_SERVICE, NO
+_SUITABLE_DATA_PROFILE, RADIO_POWER_OFF, DATA_DISABLED]
+      2026-09-16T12:08:20.950717 - dataAllowed=false, reasons=[NOT_IN_SERVICE, RADIO_POWER_OFF, DATA_DISABLED]
+      2026-09-16T12:08:21.020807 - dataAllowed=false, reasons=[NOT_IN_SERVICE, RADIO_POWER_OFF, DATA_DISABLED]
+>   ImsResolver:
+>     ImsResolver:
+        Configurations:
+          Device:
+>           EMERGENCY_MMTEL -> org.codeaurora.ims
+>           MMTEL -> org.codeaurora.ims
+>           RCS -> vendor.qti.imsrcs
+          Carrier: 
+>           slot=0, feature=EMERGENCY_MMTEL: 
+              none
+>           slot=0, feature=MMTEL: 
+              none
+>           slot=0, feature=RCS: 
+              none
+>           slot=1, feature=EMERGENCY_MMTEL: 
+              none
+>           slot=1, feature=MMTEL: 
+              none
+>           slot=1, feature=RCS: 
+              none
+        Cached ImsServices:
+>         [ImsServiceInfo] name=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, featureFromMetadata=tr
+ue, features: [{1,MMTEL}{0,EMERGENCY_MMTEL}{0,MMTEL}{1,EMERGENCY_MMTEL}]
+>         [ImsServiceInfo] name=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, featureFromMetadata=t
+rue, features: [{1,RCS}{0,RCS}]
+        Active controllers:
+>         [ImsServiceController: componentName=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, feature
+s=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, 
+serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+            2026-09-16T11:42:57.902778 - onServiceConnected
+            2026-09-16T11:42:57.904643 - retrieveStaticImsServiceCapabilities: capabilities={ }
+>           2026-09-16T11:52:14.698518 - subId changed for slot: 1, -1 -> 11
+>           2026-09-16T11:52:14.698574 - Features ([{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=E
+MERGENCY_MMTEL}]->[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}])
+>           2026-09-16T12:07:49.002111 - subId changed for slot: 1, 11 -> -1
+>           2026-09-16T12:07:49.002180 - Features ([{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=E
+MERGENCY_MMTEL}]->[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}])
+>           2026-09-16T12:08:04.364645 - subId changed for slot: 1, -1 -> 11
+>           2026-09-16T12:08:04.364714 - Features ([{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=E
+MERGENCY_MMTEL}]->[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}])
+>         [ImsServiceController: componentName=ComponentInfo{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, featur
+es=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServic
+eController$Stub$Proxy@1de0089, rebindDelay=0]
+>           2026-09-16T11:52:14.704387 - Features ([{s=1, f=RCS}, {s=0, f=RCS}]->[{s=1, f=RCS}, {s=0, f=RCS}])
+>           2026-09-16T11:52:14.705517 - addImsFeatureBinder: null IInterface reported for RCS
+>           2026-09-16T12:07:49.005912 - subId changed for slot: 1, 11 -> -1
+>           2026-09-16T12:07:49.005965 - Features ([{s=1, f=RCS}, {s=0, f=RCS}]->[{s=1, f=RCS}, {s=0, f=RCS}])
+>           2026-09-16T12:07:49.006886 - addImsFeatureBinder: null IInterface reported for RCS
+>           2026-09-16T12:08:04.373877 - subId changed for slot: 1, -1 -> 11
+>           2026-09-16T12:08:04.373932 - Features ([{s=1, f=RCS}, {s=0, f=RCS}]->[{s=1, f=RCS}, {s=0, f=RCS}])
+>           2026-09-16T12:08:04.375326 - addImsFeatureBinder: null IInterface reported for RCS
+        Connection Repository Log:
+>         2026-09-16T11:42:57.643021 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@da41f19}
+>         2026-09-16T11:42:57.905960 - [1] addConnection, subId=-1, type=MMTEL, conn=FeatureContainer{imsFeature=androi
+d.os.BinderProxy@44424bc, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@99d1c45, imsRegistration=android.t
+elephony.ims.aidl.IImsRegistration$Stub$Proxy@8e03f9a, sipTransport=null, state=UNAVAILABLE, capabilities = capabilitie
+s={ EMERGENCY_OVER_MMTEL }}
+>         2026-09-16T11:42:57.906560 - [1] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+>         2026-09-16T11:42:57.907509 - [0] addConnection, subId=-1, type=MMTEL, conn=FeatureContainer{imsFeature=androi
+d.os.BinderProxy@a7837c1, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@672bb66, imsRegistration=android.t
+elephony.ims.aidl.IImsRegistration$Stub$Proxy@ad70ea7, sipTransport=null, state=UNAVAILABLE, capabilities = capabilitie
+s={ EMERGENCY_OVER_MMTEL }}
+>         2026-09-16T11:42:57.907795 - [0] notifyFeatureStateChanged, type=MMTEL, state=READY
+>         2026-09-16T11:42:57.915379 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@7c52b9f}
+>         2026-09-16T11:43:02.655022 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@efec786}
+>         2026-09-16T11:43:02.657009 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@ae9f847}
+>         2026-09-16T11:43:16.851250 - [-1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.a
+ndroid.ims.FeatureConnector$1@2d7a93f}
+>         2026-09-16T11:50:57.970925 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@ef0bcf7}
+>         2026-09-16T11:51:00.095917 - [-1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.a
+ndroid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@24bdf2c}
+>         2026-09-16T11:51:14.156262 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@567ee69}
+>         2026-09-16T11:51:14.164603 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@61ab0ee}
+>         2026-09-16T11:52:11.700482 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@e745a04}
+>         2026-09-16T11:52:11.716728 - [1] registerForConnectionUpdates, type= RCS, conn= ListenerContainer{cb=com.andr
+oid.ims.FeatureConnector$1@e0fbbed}
+>         2026-09-16T11:52:11.806880 - [0] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+>         2026-09-16T11:52:11.914029 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+>         2026-09-16T11:52:14.594916 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@845f63}
+>         2026-09-16T11:52:14.699963 - [1] removeConnection, type=MMTEL
+>         2026-09-16T11:52:14.701529 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=androi
+d.os.BinderProxy@44424bc, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@ef35dec, imsRegistration=android.t
+elephony.ims.aidl.IImsRegistration$Stub$Proxy@4c515b5, sipTransport=null, state=UNAVAILABLE, capabilities = capabilitie
+s={ EMERGENCY_OVER_MMTEL }}
+>         2026-09-16T11:52:14.703805 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+>         2026-09-16T11:52:14.704091 - [0] notifyFeatureCapabilitiesChanged, type=EMERGENCY_MMTEL, caps=capabilities={ 
+EMERGENCY_OVER_MMTEL }
+>         2026-09-16T11:52:14.704165 - [0] notifyFeatureCapabilitiesChanged, type=MMTEL, caps=capabilities={ EMERGENCY_
+OVER_MMTEL }
+>         2026-09-16T11:52:14.705026 - [1] removeConnection, type=RCS
+>         2026-09-16T11:52:14.705827 - [0] notifyFeatureCapabilitiesChanged, type=RCS, caps=capabilities={ }
+>         2026-09-16T12:07:48.855347 - [0] notifyFeatureStateChanged, type=MMTEL, state=READY
+          2026-09-16T12:07:48.892826 - [-1] unregisterForConnectionUpdates, callback= com.android.ims.FeatureConnector$
+1@e745a04
+>         2026-09-16T12:07:48.946828 - [1] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+>         2026-09-16T12:07:49.003020 - [1] removeConnection, type=MMTEL
+>         2026-09-16T12:07:49.004601 - [1] addConnection, subId=-1, type=MMTEL, conn=FeatureContainer{imsFeature=androi
+d.os.BinderProxy@44424bc, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@41b7d77, imsRegistration=android.t
+elephony.ims.aidl.IImsRegistration$Stub$Proxy@f8dde4, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities
+={ EMERGENCY_OVER_MMTEL }}
+>         2026-09-16T12:07:49.005453 - [1] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+>         2026-09-16T12:07:49.005677 - [0] notifyFeatureCapabilitiesChanged, type=EMERGENCY_MMTEL, caps=capabilities={ 
+EMERGENCY_OVER_MMTEL }
+>         2026-09-16T12:07:49.005755 - [0] notifyFeatureCapabilitiesChanged, type=MMTEL, caps=capabilities={ EMERGENCY_
+OVER_MMTEL }
+>         2026-09-16T12:07:49.006488 - [1] removeConnection, type=RCS
+>         2026-09-16T12:07:49.007201 - [0] notifyFeatureCapabilitiesChanged, type=RCS, caps=capabilities={ }
+>         2026-09-16T12:08:01.375092 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@529d41e}
+>         2026-09-16T12:08:01.391800 - [0] notifyFeatureStateChanged, type=MMTEL, state=UNAVAILABLE
+>         2026-09-16T12:08:01.622168 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+>         2026-09-16T12:08:04.367019 - [1] removeConnection, type=MMTEL
+>         2026-09-16T12:08:04.372082 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=androi
+d.os.BinderProxy@44424bc, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@65a10a1, imsRegistration=android.t
+elephony.ims.aidl.IImsRegistration$Stub$Proxy@2f052c6, sipTransport=null, state=UNAVAILABLE, capabilities = capabilitie
+s={ EMERGENCY_OVER_MMTEL }}
+>         2026-09-16T12:08:04.373081 - [1] notifyFeatureStateChanged, type=MMTEL, state=READY
+>         2026-09-16T12:08:04.373562 - [0] notifyFeatureCapabilitiesChanged, type=EMERGENCY_MMTEL, caps=capabilities={ 
+EMERGENCY_OVER_MMTEL }
+>         2026-09-16T12:08:04.373659 - [0] notifyFeatureCapabilitiesChanged, type=MMTEL, caps=capabilities={ EMERGENCY_
+OVER_MMTEL }
+>         2026-09-16T12:08:04.374547 - [1] removeConnection, type=RCS
+>         2026-09-16T12:08:04.375752 - [0] notifyFeatureCapabilitiesChanged, type=RCS, caps=capabilities={ }
+          2026-09-16T12:08:20.846964 - [-1] unregisterForConnectionUpdates, callback= com.android.ims.FeatureConnector$
+1@529d41e
+>         2026-09-16T12:08:20.858433 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.FeatureConnector$1@165abe9}
+>         2026-09-16T12:14:03.764977 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@4cbe979}
+>         2026-09-16T12:36:01.293866 - [0] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@db2c516}
+>         2026-09-16T12:36:01.295528 - [1] registerForConnectionUpdates, type= MMTEL, conn= ListenerContainer{cb=com.an
+droid.ims.internal.IImsServiceFeatureCallback$Stub$Proxy@22ece97}
+        Event Log:
+          2026-09-16T11:51:03.899870 - updateBoundServices - carrier package changed:  ->  on slot 0, hasConfigChanged=
+true
+          2026-09-16T11:51:03.899896 - updateBoundServices - carrier package changed:  ->  on slot 0, hasConfigChanged=
+true
+>         2026-09-16T11:52:14.698247 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+false
+>         2026-09-16T11:52:14.698289 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T11:52:14.698319 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T11:52:14.698699 - removeImsController - [1, MMTEL] -> [ImsServiceController: componentName=Compone
+ntInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=M
+MTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServi
+ceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T11:52:14.700366 - removeImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentNa
+me=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL},
+ {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl
+.IImsServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T11:52:14.703853 - putImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentI
+nfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTE
+L}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceC
+ontroller$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T11:52:14.703971 - putImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=
+ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s
+=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.II
+msServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T11:52:14.704455 - removeImsController - [1, RCS] -> [ImsServiceController: componentName=Component
+Info{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBoun
+d=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>         2026-09-16T11:52:14.705735 - putImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInf
+o{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=t
+rue, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>         2026-09-16T12:07:49.001797 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+false
+>         2026-09-16T12:07:49.001850 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:07:49.001893 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:07:49.002295 - removeImsController - [1, MMTEL] -> [ImsServiceController: componentName=Compone
+ntInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=M
+MTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServi
+ceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:07:49.003351 - removeImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentNa
+me=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL},
+ {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl
+.IImsServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:07:49.005440 - putImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentI
+nfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTE
+L}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceC
+ontroller$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:07:49.005573 - putImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=
+ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s
+=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.II
+msServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:07:49.006031 - removeImsController - [1, RCS] -> [ImsServiceController: componentName=Component
+Info{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBoun
+d=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>         2026-09-16T12:07:49.007093 - putImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInf
+o{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=t
+rue, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>         2026-09-16T12:07:49.271184 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+false
+>         2026-09-16T12:07:49.271290 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:07:49.271333 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:08:04.364280 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+false
+>         2026-09-16T12:08:04.364327 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:08:04.364401 - updateBoundServices - carrier package changed:  ->  on slot 1, hasConfigChanged=
+true
+>         2026-09-16T12:08:04.366103 - removeImsController - [1, MMTEL] -> [ImsServiceController: componentName=Compone
+ntInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=M
+MTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServi
+ceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:08:04.368650 - removeImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentNa
+me=ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL},
+ {s=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl
+.IImsServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:08:04.373307 - putImsController - [1, MMTEL] -> [ImsServiceController: componentName=ComponentI
+nfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s=0, f=MMTE
+L}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.IImsServiceC
+ontroller$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:08:04.373438 - putImsController - [1, EMERGENCY_MMTEL] -> [ImsServiceController: componentName=
+ComponentInfo{org.codeaurora.ims/org.codeaurora.ims.ImsService}, features=[{s=1, f=MMTEL}, {s=0, f=EMERGENCY_MMTEL}, {s
+=0, f=MMTEL}, {s=1, f=EMERGENCY_MMTEL}], isBinding=false, isBound=true, serviceController=android.telephony.ims.aidl.II
+msServiceController$Stub$Proxy@18cd0a8, rebindDelay=0]
+>         2026-09-16T12:08:04.374013 - removeImsController - [1, RCS] -> [ImsServiceController: componentName=Component
+Info{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBoun
+d=true, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>         2026-09-16T12:08:04.375627 - putImsController - [1, RCS] -> [ImsServiceController: componentName=ComponentInf
+o{vendor.qti.imsrcs/vendor.qti.imsrcs.ImsRcsService}, features=[{s=1, f=RCS}, {s=0, f=RCS}], isBinding=false, isBound=t
+rue, serviceController=android.telephony.ims.aidl.IImsServiceController$Stub$Proxy@1de0089, rebindDelay=0]
+>   RcsService:
+>   RcsFeatureControllers:
+    ImsStateCallbackController:
+      CallbackWrappers:
+>     MmTelFeatureListeners:
+>       Listener={slotId=0, subId=-1, state=UNAVAILABLE, reason=IMS_SERVICE_NOT_READY, hasConfig=true}
+>       Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+>     RcsFeatureListeners:
+>       Listener={slotId=0, subId=-1, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false
+, hasFeatures=false}
+>       Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false
+, hasFeatures=false}
+      Most recent logs:
+        2026-09-16T11:42:56.664185 - ImsStateCallbackController created
+        2026-09-16T11:42:56.664873 - updateFeatures: oldSlots=0, newNumSlots=2
+>       2026-09-16T11:42:58.218497 - [0, MMTEL] connectionReady -1
+>       2026-09-16T11:42:58.416984 - onReceive ACTION_CARRIER_CONFIG_CHANGED invalid subId
+>       2026-09-16T11:42:58.457695 - onReceive ACTION_CARRIER_CONFIG_CHANGED invalid subId
+>       2026-09-16T11:51:03.759134 - onReceive ACTION_CARRIER_CONFIG_CHANGED invalid subId
+>       2026-09-16T11:51:03.866145 - onReceive ACTION_CARRIER_CONFIG_CHANGED invalid subId
+>       2026-09-16T11:52:11.650418 - [1, MMTEL] setSubId changed subId=11
+>       2026-09-16T11:52:11.650616 - [1, RCS] setSubId changed subId=11
+>       2026-09-16T11:52:11.889012 - [0, MMTEL] connectionUnavailable reason=NOT_READY
+>       2026-09-16T11:52:11.916431 - [1, MMTEL] connectionReady -1
+>       2026-09-16T11:52:12.225629 - [1, MMTEL] setSubId changed subId=11
+>       2026-09-16T11:52:14.752069 - [1, MMTEL] connectionUnavailable reason=DISCONNECTED
+>       2026-09-16T11:52:14.753477 - [1, MMTEL] connectionReady 11
+>       2026-09-16T12:07:48.888801 - [1, MMTEL] setSubId changed subId=-1
+>       2026-09-16T12:07:48.888857 - [1, RCS] setSubId changed subId=-1
+>       2026-09-16T12:07:48.956460 - [0, MMTEL] connectionReady -1
+>       2026-09-16T12:07:48.987522 - [1, MMTEL] connectionUnavailable reason=NOT_READY
+>       2026-09-16T12:07:49.072058 - [1, MMTEL] connectionUnavailable reason=DISCONNECTED
+>       2026-09-16T12:07:49.183892 - onReceive ACTION_CARRIER_CONFIG_CHANGED invalid subId
+>       2026-09-16T12:08:01.350942 - [1, MMTEL] setSubId changed subId=11
+>       2026-09-16T12:08:01.351033 - [1, RCS] setSubId changed subId=11
+>       2026-09-16T12:08:01.456588 - [0, MMTEL] connectionUnavailable reason=NOT_READY
+>       2026-09-16T12:08:01.695282 - [1, MMTEL] connectionReady -1
+>       2026-09-16T12:08:01.713901 - [1, MMTEL] setSubId changed subId=11
+>       2026-09-16T12:08:04.444652 - [1, MMTEL] connectionUnavailable reason=DISCONNECTED
+>       2026-09-16T12:08:04.451254 - [1, MMTEL] connectionReady 11
+  ------- End PhoneGlobals -------
+  ******* OmtpVvm *******
+  ======= Configs =======
+  Security exception: Package com.android.phone does not belong to 2000
+
+
+
+
+===== telephony_ims filtered =====
+> adb -s 192.168.137.134:37667 shell dumpsys telephony_ims
+[no matching lines]
+
+===== ims filtered =====
+> adb -s 192.168.137.134:37667 shell dumpsys ims

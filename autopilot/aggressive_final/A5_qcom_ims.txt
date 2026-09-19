@@ -1,0 +1,7 @@
+old=2449
+LABEL                          USER           PID  PPID     VSZ    RSS WCHAN            ADDR S NAME                       
+u:r:vendor_qtelephony:s0:c196,c256,c512,c768 u0_a196 2449 913 6640896 103892 0             0 S org.codeaurora.ims
+
+cmdline=org.codeaurora.ims
+new=27710
+MMTEL=READY

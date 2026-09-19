@@ -1,0 +1,9 @@
+C7Start=2026-09-18T15:46:15.4862570+08:00
+oldPid=3333
+process=com.android.phone
+package=com.android.phone
+uid=1001
+selinux=u:r:radio:s0
+command=kill -TERM 3333
+C7End=2026-09-18T15:46:15.8723764+08:00
+exit=0

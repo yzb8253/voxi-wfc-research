@@ -1,0 +1,450 @@
+VOXI WFC GOLDEN STATE REPORT
+Captured on device: 192.168.137.134:37667
+Capture time: 2026-09-16 13:04 +08:00
+Scope: READ-ONLY. No reboot, no process kill, no settings/property write, no SIM/Radio/IMS/IWLAN modification.
+
+1. Capture layout
+
+Raw command output is stored in:
+  C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\golden_state
+
+PowerShell-added NUL-stripped copies for analysis are stored in:
+  C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\golden_state\cleaned
+
+Important files:
+  01_getprop.txt
+  10_dumpsys_phone.txt
+  11_dumpsys_telephony_registry.txt
+  12_dumpsys_isub.txt
+  14_dumpsys_carrier_config.txt
+  30_dumpsys_connectivity.txt
+  34_ps_A.txt
+  50_service_list.txt
+  60_logcat_all_d.txt
+  70_find_candidate_config_files.txt
+  80_voxi_carrierconfig_23415.xml
+  81_voxi_carrierconfig_override_23415.xml
+
+2. Device/system baseline
+
+Device model:
+  ro.product.model = 23116PN5BC
+
+Android / Xiaomi build:
+  Android release = 13
+  SDK = 33
+  ro.mi.os.version.incremental = OS1.0.4.0.TJJCNXM
+  ro.mi.os.version.name = OS1.0
+  ro.miui.ui.version.code = 816
+  ro.miui.ui.version.name = V816
+  ro.miui.region = CN
+
+Kernel:
+  Linux localhost 4.19.157-perf-g19050d39787c #1 SMP PREEMPT Wed Jun 5 13:37:11 UTC 2024 aarch64 Toybox
+
+Platform:
+  ro.boot.hardware = qcom
+  ro.hardware = qcom
+  ro.soc.manufacturer = QTI
+  ro.soc.model = SM8250
+  gsm.version.ril-impl = Qualcomm RIL 1.0
+  rild.libpath = /vendor/lib64/libril-qc-hal-qmi.so
+
+Security / shell identity:
+  SELinux = Enforcing
+  adb shell id = uid=2000(shell), context=u:r:shell:s0
+
+SIM/radio-related properties:
+  persist.radio.multisim.config = dsds
+  telephony.active_modems.max_count = 2
+  persist.radio.active.slots = 2
+  persist.radio.default.data = 1
+  ril.mcc.mnc1 = 23415
+  gsm.network.type = Unknown,IWLAN
+  ro.telephony.default_network = 22,22
+  persist.radio.airplane_mode_on = 1
+
+Note:
+  ro.telephony.sim_slots.count reports 1 even though telephony.active_modems.max_count=2 and DSDS state is active. The live telephony dumps are authoritative for slot/sub mapping.
+
+3. Subscription / UICC / phone chain for VOXI
+
+VOXI subscription from dumpsys isub:
+  subId = 11
+  simSlotIndex = 1
+  carrierId = 28
+  displayName = voxi
+  carrierName = WLAN Call
+  MCC/MNC = 234/15
+  countryIso = gb
+  areUiccApplicationsEnabled = true
+  dataRoaming = 0
+  cardId = 0
+  portIndex = 0
+
+Default subscription state:
+  defaultSubId = 11
+  defaultDataSubId = 11
+  defaultSmsSubId = 11
+  defaultDataPhoneId = 1
+  defaultSmsPhoneId = 1
+
+Telephony registry:
+  mActiveDataSubId = 11
+  mDefaultSubId = 11
+  mDefaultPhoneId = 1
+
+VOXI service state from telephony.registry:
+  mVoiceRegState = IN_SERVICE
+  mDataRegState = IN_SERVICE
+  operator = vodafone UK
+  getRilDataRadioTechnology = 18(IWLAN)
+  PS/WLAN NetworkRegistrationInfo registrationState = HOME
+  PS/WLAN accessNetworkTechnology = IWLAN
+  WWAN registrationState = UNKNOWN
+  mIsIwlanPreferred = true
+
+This is the most important golden-state fact: slot 1 / subId 11 is active on IWLAN with HOME registration over WLAN, not over WWAN.
+
+4. IMS state
+
+dumpsys ims:
+  Service name "ims" is not present on this build.
+
+dumpsys telephony_ims:
+  Binder service exists but dump output is empty.
+
+service list:
+  telephony_ims: android.telephony.ims.aidl.IImsRcsController
+  phone: com.android.internal.telephony.ITelephony
+  isub: com.android.internal.telephony.ISub
+  carrier_config: com.android.internal.telephony.ICarrierConfigLoader
+  telephony.registry: com.android.internal.telephony.ITelephonyRegistry
+  extphone / qti.radio.extphone: org.codeaurora.internal.IExtTelephony
+  miui.radio.extphone: miui.telephony.IMiuiTelephony
+
+dumpsys phone / ImsResolver:
+  Device IMS services:
+    EMERGENCY_MMTEL -> org.codeaurora.ims
+    MMTEL -> org.codeaurora.ims
+    RCS -> vendor.qti.imsrcs
+  Carrier overrides for slot 0 and slot 1 are none.
+  Cached org.codeaurora.ims features include slot 1 MMTEL and EMERGENCY_MMTEL.
+  org.codeaurora.ims ImsServiceController is bound: isBound=true, isBinding=false.
+  vendor.qti.imsrcs ImsRcsServiceController is bound for RCS.
+
+Slot 1 / subId 11 IMS event chain:
+  11:52:14 slot 1 subId changed -1 -> 11
+  11:52:14 remove/add MMTEL connection for slot 1
+  11:52:14 addConnection subId=11, type=MMTEL
+  11:52:14 notifyFeatureStateChanged type=MMTEL state=READY
+  12:07:49 slot 1 subId changed 11 -> -1
+  12:07:49 MMTEL removed/re-added with subId=-1, state UNAVAILABLE
+  12:08:04 slot 1 subId changed -1 -> 11
+  12:08:04 addConnection subId=11, type=MMTEL
+  12:08:04 notifyFeatureStateChanged type=MMTEL state=READY
+
+Interpretation:
+  The successful golden state includes a real ImsResolver re-evaluation for slot 1 after SIM removal/insertion. It removes and re-adds slot 1 MMTEL/RCS feature connections without restarting the whole phone process.
+
+5. IWLAN / ePDG / connectivity
+
+Connectivity:
+  Active Wi-Fi network:
+    Network 100, interface wlan0, IP 192.168.137.134/24
+    SSID "DESKTOP-AEM47RS 5918"
+    validated, trusted, not metered
+
+IMS/IWLAN network:
+  NetworkAgentInfo network 104:
+    ni = MOBILE[IWLAN] CONNECTED extra: ims
+    interface = rmnet_data3
+    Link address = 10.36.213.27/29
+    P-CSCF addresses = 10.127.199.96, 10.127.192.82
+    MTU = 1280
+    Capabilities = IMS, MMTEL, VALIDATED, TRUSTED, NOT_ROAMING, NOT_METERED
+    Specifier = TelephonyNetworkSpecifier [mSubId = 11]
+    SubscriptionIds = {11}
+
+Network request:
+  com.qualcomm.qti.cne owns/request id 268:
+    Transports CELLULAR, capabilities IMS, specifier subId 11
+
+Interpretation:
+  Android represents this WFC path as an IMS-capable CELLULAR telephony network backed by IWLAN state, with P-CSCF learned and active for subId 11.
+
+6. CarrierConfig state
+
+CarrierConfig service:
+  CarrierConfigLoader = com.android.phone.CarrierConfigLoader
+
+Actual VOXI config source found:
+  /data/user_de/0/com.android.phone/files/carrierconfig-com.android.carrierconfig-[VOXI_ICCID]-23415.xml
+  /data/user_de/0/com.android.phone/files/carrierconfig-com.android.carrierconfig-override-[VOXI_ICCID]-23415.xml
+
+Files were exported read-only as:
+  80_voxi_carrierconfig_23415.xml
+  81_voxi_carrierconfig_override_23415.xml
+
+CarrierConfig loading log for phoneId 1:
+  11:42:57 phoneId 1 ABSENT
+  11:42:58 CLEAR_CONFIG phoneId 1
+  11:42:58 FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId 1 from com.android.carrierconfig
+  11:52:12 phoneId 1 ESSENTIAL_LOADED
+  11:52:14 phoneId 1 LOADED
+  12:07:48 phoneId 1 ABSENT
+  12:07:48 CLEAR_CONFIG phoneId 1
+  12:07:49 FETCH_DEFAULT_FOR_NO_SIM_CONFIG phoneId 1
+  12:08:02 phoneId 1 ESSENTIAL_LOADED
+  12:08:04 phoneId 1 LOADED
+
+This confirms that the physical removal/insertion path clears and reloads carrier config for phoneId 1.
+
+VOXI carrier config file key values:
+  carrier_default_wfc_ims_mode_int = 1
+  carrier_wfc_ims_available_bool = false in the saved base XML
+  carrier_wfc_supports_ims_preferred_bool = false
+  editable_wfc_mode_bool = true
+  editable_wfc_when_airplane_mode_on = true
+  hide_wfc_mode_option = true in the saved base XML
+  carrier_cross_sim_ims_available_bool = true
+  carrier_volte_available_bool = false in base XML
+  override XML sets carrier_volte_available_bool = true
+
+dumpsys carrier_config effective/merged evidence for phoneId 1:
+  mConfigFromDefaultApp contains:
+    carrier_default_wfc_ims_mode_int = 1
+    carrier_wfc_ims_available_bool = true in one merged/default-app section
+    carrier_wfc_supports_ims_preferred_bool = false
+    editable_wfc_mode_bool = true
+    editable_wfc_when_airplane_mode_on = true
+    hide_wfc_mode_option = false in merged/default-app section
+    wfc_spn_format_idx_int = 1
+  mPersistentOverrideConfigs contains:
+    carrier_volte_available_bool = true
+    enhanced_4g_lte_on_by_default_bool = false
+    hide_enhanced_4g_lte_bool = true
+    editable_enhanced_4g_lte_bool = false
+
+Important observation:
+  The exported base XML alone is not the complete final state. dumpsys carrier_config shows merged values and persistent overrides. The WFC-working state depends on the effective CarrierConfig bundle loaded into CarrierConfigLoader, not merely the saved base XML.
+
+7. Settings snapshot
+
+Global:
+  airplane_mode_on = 1
+  airplane_mode_radios = cell,bluetooth,wifi,nfc,wimax
+  airplane_mode_toggleable_radios = bluetooth,wifi,nfc
+  mobile_data = 0
+  mobile_data0 = 0
+  mobile_data1 = 0
+  mobile_data_always_on = 0
+  multi_sim_data_call = 11
+  multi_sim_sms = 11
+  multi_sim_voice_call = -1
+  data_roaming11 = 0
+  preferred_network_mode11 = 32
+  preferred_network_mode = 20,32
+  vice_slot_volte_data_enabled = 0
+
+Secure:
+  sysui_qs_tiles includes vowifi2
+  simless_rtt_supported1 = 0
+  simless_rtt_downgrade_supported1 = 0
+
+System:
+  rcs_enable_cm = 1
+
+Interpretation:
+  WFC is operating while global airplane_mode_on=1 and mobile data settings are off. Therefore the golden state is not ordinary cellular data; it is specifically the IMS/IWLAN path.
+
+8. Key processes
+
+Observed telephony / Qualcomm / IMS processes:
+  radio      1869  imsqmidaemon
+  radio      2074  imsdatadaemon
+  radio      2512  ims_rtp_daemon
+  radio      2012  qcrild
+  radio      2057  qcrild
+  radio      3278  com.android.phone
+  u0_a195    3169  com.qti.phone
+  u0_a196    3177  org.codeaurora.ims
+  u0_a104    3159  .qtidataservices
+  radio      3155  .dataservices
+  root       1773  dpmd
+  system     1783  dpmQmiMgr
+  radio      1784  dpmd
+  radio      1874  netmgrd
+  vendor_qrtr 1322 qrtr-ns
+
+vendor.qti.iwlan was not visible as a live process name in ps -A, but logs show Android binding to vendor.qti.iwlan and profile files exist under /data/misc/profiles.
+
+9. Key logs
+
+Relevant logcat evidence:
+  System reads IMS permission XML from vendor/product/system_ext.
+  com.qti.phone and org.codeaurora.ims start during boot.
+  TelephonyComponentFactory loads Xiaomi/QTI telephony jars:
+    qti-telephony-common.jar
+    qti-telephony-hidl-wrapper.jar
+    qti-telephony-utils.jar
+    extphonelib.jar
+    ims-ext-common.jar
+  UiccController is created.
+  SubscriptionController is created.
+  ImsPhone objects are created and registered.
+  ImsStateCallbackController and ImsProvisioningController are created.
+  Android binds vendor.qti.iwlan:
+    ANM-0 bind to vendor.qti.iwlan
+    NRM-I-0 Trying to bind vendor.qti.iwlan for transport WLAN
+  Initial no-SIM / no-config state shows carrier config null and IMS feature unavailable.
+
+10. What physical SIM removal + reboot + insertion likely rebuilt
+
+Objects/state rebuilt or cleared:
+  UiccController card status for slot 1
+  UiccCard / UiccProfile / UICC applications for slot 1
+  SubscriptionInfo for subId 11
+  SubscriptionController active subscription map
+  Default data/SMS subId to 11
+  CarrierConfigLoader phoneId 1 config cache
+  No-SIM config for phoneId 1, then ESSENTIAL_LOADED, then LOADED config
+  ImsResolver slot 1 feature mapping
+  MMTEL FeatureConnector for slot 1
+  RCS feature connection attempt for slot 1
+  ImsPhone / ImsPhoneCallTracker carrier-config-dependent state
+  IWLAN network requests and telephony network specifier state
+  ePDG/IKE/IPSec derived path, represented here by IMS/IWLAN NetworkAgent and P-CSCF addresses
+
+Events observed or implied:
+  SIM absent -> CarrierConfig CLEAR_CONFIG phoneId 1
+  No-SIM config fetch
+  SIM essential records loaded
+  SIM loaded
+  SUBSCRIPTION_INFO_UPDATED phoneId 1
+  Active subscription list changed
+  Default data subId set to 11
+  ImsResolver subId changed 11 -> -1 -> 11
+  MMTEL remove/add connection for slot 1
+  MMTEL state READY
+  ServiceState transitions to IWLAN/HOME with mIsIwlanPreferred=true
+
+Why this differs from airplane mode ON/OFF:
+  Airplane toggling generally changes radio power and registration attempts, but may not force UiccController, SubscriptionController, CarrierConfigLoader, and ImsResolver to discard and recreate the slot 1/subId 11 object graph. The golden log shows the successful sequence specifically includes SIM ABSENT, CLEAR_CONFIG, no-SIM config fetch, SIM ESSENTIAL_LOADED/LOADED, subId transitions, IMS feature remove/add, and then IWLAN HOME registration.
+
+11. Theoretical non-reboot equivalents, not executed
+
+These are research candidates only. They were not executed.
+
+Candidate A: Per-slot CarrierConfig refresh/reload
+  Target: CarrierConfigLoader for phoneId 1 / subId 11.
+  Goal: reproduce CLEAR_CONFIG -> default fetch -> subscription updated.
+  Risk: Medium. May affect active IMS capability calculations and can disturb WFC. If strictly subId-scoped it is less likely to affect the China SIM.
+  Similarity to physical sequence: partial. It covers CarrierConfig, not UICC or IMS binder rebuild.
+
+Candidate B: Trigger subscription refresh for slot 1
+  Target: SubscriptionController / SubscriptionInfoUpdater.
+  Goal: reproduce SUBSCRIPTION_CHANGED and active subscription map rebuild.
+  Risk: Medium-high. Could change default data/SMS/voice selections or temporarily unset subId 11.
+  Slot specificity: possible in theory, but OEM/QTI internals may fan out globally.
+  Similarity: high for subscription portion.
+
+Candidate C: Rebind/recreate IMS feature for slot 1
+  Target: ImsResolver / ImsServiceController / MmTelFeature for slot 1.
+  Goal: reproduce removeConnection/addConnection and MMTEL READY.
+  Risk: High. May drop current WFC registration/calls and may affect global org.codeaurora.ims service if not truly slot-scoped.
+  Slot specificity: theoretically slot/feature keyed; practical Binder APIs may not expose a safe per-slot public entry.
+  Similarity: high for IMS portion.
+
+Candidate D: Reset IWLAN network selection / AccessNetworksManager binding
+  Target: AccessNetworksManager / vendor.qti.iwlan / telephony data network controller.
+  Goal: force WLAN transport reevaluation for IMS APN.
+  Risk: High. Can tear down IMS data network and affect data service routing.
+  Slot specificity: likely subId-scoped at telephony request level, vendor service may be shared.
+  Similarity: medium-high for IWLAN/ePDG portion.
+
+Candidate E: SIM application / UICC refresh event simulation
+  Target: UiccController / UiccProfile.
+  Goal: force records reload as if SIM application refreshed.
+  Risk: Very high. Could affect UICC app state and network attach. Not safe during golden-state capture.
+  Slot specificity: can be slot-specific in architecture, but vendor side may touch modem-wide state.
+  Similarity: closest to physical SIM removal/insertion if truly available.
+
+Candidate F: com.android.phone process restart or vendor IMS daemon restart
+  Target: Phone process / org.codeaurora.ims / imsdatadaemon / imsqmidaemon.
+  Goal: recreate the telephony stack by process lifecycle.
+  Risk: Very high. Not slot-specific; disrupts both SIMs and active WFC.
+  Similarity: broad but too destructive.
+
+Candidate G: Full reboot or radio service restart
+  Target: whole device / radio stack.
+  Risk: Highest; explicitly forbidden in this phase.
+  Similarity: high but not a non-reboot mechanism.
+
+12. Slot 1 / subId 11 isolation assessment
+
+Best candidates for only affecting VOXI:
+  Per-subId CarrierConfig refresh
+  Per-subId subscription refresh
+  Per-slot IMS feature re-evaluation if an internal API exists
+  Per-subId IMS network request/AccessNetworks reevaluation if exposed
+
+Likely to affect both SIMs:
+  Restarting com.android.phone
+  Restarting org.codeaurora.ims
+  Restarting imsdatadaemon / imsqmidaemon / ims_rtp_daemon
+  Radio power cycling
+  stop/start system services
+  global settings/property writes
+  modem MBN reloads
+
+Most similar to "SIM removed -> reboot no SIM -> Wi-Fi connected -> location enabled -> VOXI inserted":
+  1. Slot 1 UICC absent/loaded event reconstruction
+  2. Slot 1 CarrierConfig clear/reload
+  3. Slot 1 subId transition -1 -> 11
+  4. Slot 1 ImsResolver MMTEL remove/add
+  5. IWLAN IMS network recreation for subId 11
+
+13. Recommended next-stage tests
+
+Do not execute in this phase. For a later controlled test phase:
+  1. First compare a broken state against this golden snapshot using the same read-only script.
+  2. Prefer read-only observation during failure to identify which layer diverges:
+     UICC/subId, CarrierConfig, ImsResolver/MMTEL, or IWLAN network.
+  3. If testing repair candidates later, start with the narrowest subId/slot-scoped mechanism:
+     CarrierConfig/subscription refresh for subId 11 before any IMS/vendor resets.
+  4. Avoid process kills/service restarts until all Binder/API-level per-slot options are exhausted.
+  5. Treat any method touching radio power, SIM power, org.codeaurora.ims, com.android.phone, or ims* daemons as high-risk and non-slot-isolated.
+
+=== GOLDEN STATE SUMMARY ===
+
+1. Device serial: 192.168.137.134:37667
+2. Model: 23116PN5BC
+3. Android: 13 / SDK 33
+4. HyperOS/MIUI: OS1.0.4.0.TJJCNXM / V816
+5. Kernel: 4.19.157-perf-g19050d39787c
+6. Platform: QTI SM8250 / qcom
+7. SELinux: Enforcing
+8. Root available, but main capture shell was uid=2000
+9. DSDS: persist.radio.multisim.config=dsds
+10. Active modems: telephony.active_modems.max_count=2
+11. VOXI slot: slot 1 / phoneId 1
+12. VOXI subId: 11
+13. VOXI carrierId: 28
+14. VOXI MCC/MNC: 234/15
+15. VOXI displayName: voxi
+16. VOXI carrierName: WLAN Call
+17. defaultSubId/defaultDataSubId/defaultSmsSubId: 11/11/11
+18. mActiveDataSubId: 11
+19. Airplane mode: airplane_mode_on=1
+20. Mobile data settings: mobile_data=0, mobile_data1=0
+21. Data roaming for subId 11: data_roaming11=0
+22. VOXI ServiceState: voice IN_SERVICE, data IN_SERVICE
+23. VOXI data RAT: 18(IWLAN)
+24. VOXI WLAN registration: PS/WLAN HOME, accessNetworkTechnology=IWLAN
+25. mIsIwlanPreferred: true
+26. IMS network: MOBILE[IWLAN] CONNECTED extra ims
+27. IMS capabilities: IMS + MMTEL + VALIDATED for subId 11
+28. IMS interface/IP: rmnet_data3 / 10.36.213.27/29
+29. P-CSCF: 10.127.199.96, 10.127.192.82
+30. IMS service: org.codeaurora.ims bound; slot 1 MMTEL READY

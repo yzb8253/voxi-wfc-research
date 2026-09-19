@@ -1,0 +1,29 @@
+dex=classes.dex
+createNetworkRequest code_off=0xd848 regs=6 ins=1 outs=4 tries=1
+0000: iget                   
+0001: op_31                  
+0002: invoke-direct          {v5, v0}, method@297 int com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.getNetworkCapability(int)
+0005: move-result            v0
+0006: const/4                v1, #-1
+0007: if-eq                  v0, v1, -> 0031
+0009: new-instance           v1, type@32 android.net.NetworkRequest$Builder
+000b: invoke-direct          {v1}, method@120 void android.net.NetworkRequest$Builder.<init>()
+000e: invoke-virtual         {v1, v0}, method@121 android.net.NetworkRequest$Builder android.net.NetworkRequest$Builder.addCapability(int)
+0011: move-result-object     v1
+0012: const/4                v2, #0
+0013: invoke-virtual         {v1, v2}, method@122 android.net.NetworkRequest$Builder android.net.NetworkRequest$Builder.addTransportType(int)
+0016: move-result-object     v1
+0017: invoke-virtual         {v1}, method@123 android.net.NetworkRequest android.net.NetworkRequest$Builder.build()
+001a: move-result-object     v1
+001b: iget-object            v2, v5, field@48 android.net.ConnectivityManager com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.mConnectivityManager
+001d: iget-object            v3, v5, field@50 android.net.ConnectivityManager$NetworkCallback com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.mNetworkCallback
+001f: iget-object            v4, v5, field@55 com.qualcomm.qti.cne.datacall.DataCallAgent com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.this$0
+0021: invoke-static          {v4}, method@301 android.os.Handler com.qualcomm.qti.cne.datacall.DataCallAgent.access$000(com.qualcomm.qti.cne.datacall.DataCallAgent)
+0024: move-result-object     v4
+0025: invoke-virtual         {v2, v1, v3, v4}, method@100 void android.net.ConnectivityManager.requestNetwork(android.net.NetworkRequest,android.net.ConnectivityManager$NetworkCallback,android.os.Handler)
+0028: goto                   -> 0031
+0029: op_0d                  
+002a: const-string           v3, string@942 "QCNEJ/DataCallAgent"
+002c: const-string           v4, string@1062 "Unable to request network"
+002e: invoke-static          {v3, v4}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+0031: return-void            

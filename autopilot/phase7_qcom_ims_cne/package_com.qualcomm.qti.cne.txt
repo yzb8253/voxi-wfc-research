@@ -1,0 +1,147 @@
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.LOCKED_BOOT_COMPLETED:
+        25ba122 com.qualcomm.qti.cne/.CneAppReceiver filter e6827b3
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.LOCKED_BOOT_COMPLETED"
+      android.intent.action.BOOT_COMPLETED:
+        25ba122 com.qualcomm.qti.cne/.CneAppReceiver filter e6827b3
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.LOCKED_BOOT_COMPLETED"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.qualcomm.qti.cne]
+      Signing KeySets: 1
+
+Packages:
+  Package [com.qualcomm.qti.cne] (d051a41):
+    userId=10104
+    sharedUser=SharedUserSetting{551dcb9 com.qualcomm.qti.qtidataservices/10104}
+    pkg=Package{53188fe com.qualcomm.qti.cne}
+    codePath=/vendor/app/CneApp
+    resourcePath=/vendor/app/CneApp
+    legacyNativeLibraryDir=/vendor/app/CneApp/lib
+    extractNativeLibs=false
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=30 targetSdk=29
+    minExtensionVersions=[]
+    versionName=1.0
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DEFAULT_TO_DEVICE_PROTECTED_STORAGE DIRECT_BOOT_AWARE VENDOR PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    dataDir=/data/user_de/0/com.qualcomm.qti.cne
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      android.test.base
+    usesLibraryFiles:
+      /system/framework/android.test.base.jar
+    timeStamp=2009-01-01 08:00:00
+    lastUpdateTime=2009-01-01 08:00:00
+    packageSource=0
+    signatures=PackageSignatures{48e85f version:3, signatures:[6c02dd51], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ]
+    requested permissions:
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.PACKET_KEEPALIVE_OFFLOAD
+      android.permission.READ_PHONE_STATE
+      android.permission.WAKE_LOCK
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.INTERNET
+      android.permission.MAINLINE_NETWORK_STACK
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.POST_NOTIFICATIONS
+    install permissions:
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.MAINLINE_NETWORK_STACK: granted=true
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.PACKET_KEEPALIVE_OFFLOAD: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=6872 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2009-01-01 08:00:00
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+        /data/resource-cache/com.android.systemui-accent-2RSq.frro
+      legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+    User 999: ceDataInode=0 installed=false hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=0
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  forceQueryable:
+    [vendor.qti.iwlan,vendor.qti.hardware.cacert.server,com.qualcomm.qti.cne]
+  queries via package name:
+  queries via component:
+  queryable via interaction:
+    User 0:
+      [com.miui.maintenancemode,com.xiaomi.devauth,com.miui.miinput,com.xiaomi.barrage,com.xiaomi.digitalkey,com.xiaomi.misettings,com.miui.face,com.miui.securitycenter,com.wapi.wapicertmanage,com.xiaomi.otrpbroker,com.miui.freeform,com.xiaomi.mi_connect_service,com.miui.aod,com.android.providers.settings,com.android.keychain,com.android.location.fused,com.android.networkstack.inprocess,com.miui.catcherpatch,com.xiaomi.touchservice,com.miui.wmsvc,com.android.localtransport,com.miui.uireporter,com.miui.qr,android,com.android.settings,com.android.server.telecom,com.miui.contentcatcher,com.android.systemui,com.xiaomi.location.fused,com.android.inputdevices,com.miui.daemon,com.bsp.catchlog,com.miui.bugreport,com.xiaomi.mtb,com.miui.notification,com.xiaomi.aiasst.service,com.android.networkstack.tethering.inprocess,com.miui.powerkeeper,com.modemdebug,com.android.provision,com.qualcomm.qti.xrcb,com.xiaomi.aiasst.vision,com.xiaomi.trustservice,com.miui.cit,com.miui.touchassistant,com.miui.securitycore,com.android.dynsystem,com.miui.cleanmaster,com.xiaomi.joyose,com.xiaomi.gnss.polaris,com.android.wallpaperbackup,miui.systemui.plugin,com.xiaomi.mirror,com.miui.audiomonitor]:
+        [vendor.qti.iwlan,vendor.qti.hardware.cacert.server,com.qualcomm.qti.cne]
+      [vendor.qti.iwlan,vendor.qti.hardware.cacert.server,com.qualcomm.qti.cne]:
+        [com.qti.dpmserviceapp,com.qualcomm.atfwd,vendor.qti.imsdatachannel,com.qualcomm.qti.dynamicddsservice,com.android.phone,vendor.qti.imsrcs,com.qti.qualcomm.deviceinfo,com.android.providers.telephony,com.android.mms.service,com.qualcomm.qti.autoregistration,com.android.stk,com.miui.vsimcore,com.android.ons,com.qti.qualcomm.datastatusnotification,com.qualcomm.qti.uceShimService,com.android.cellbroadcastservice]
+    User 999:
+  queryable via uses-library:
+
+Shared users:
+  SharedUser [com.qualcomm.qti.qtidataservices] (551dcb9):
+    userId=10104
+    Packages
+      PackageSetting{25944ba vendor.qti.iwlan/10104}
+      PackageSetting{4cf1f6b vendor.qti.hardware.cacert.server/10104}
+      PackageSetting{d051a41 com.qualcomm.qti.cne/10104}
+    install permissions:
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.MAINLINE_NETWORK_STACK: granted=true
+      android.permission.CONNECTIVITY_USE_RESTRICTED_NETWORKS: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+      android.permission.PACKET_KEEPALIVE_OFFLOAD: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: 
+      gids=[3003, 3005, 3004]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ GRANTED_BY_DEFAULT]
+    User 999: 
+      gids=[3003, 3005, 3004]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ GRANTED_BY_DEFAULT]
+
+Dexopt state:
+  [com.qualcomm.qti.cne]
+    path: /vendor/app/CneApp/CneApp.apk
+      arm64: [status=speed] [reason=bg-dexopt]
+      used by other apps: [vendor.qti.hardware.cacert.server]
+      odex file size: CneApp.odex: 25Kb CneApp.vdex: 2Kb 
+
+Compiler stats:
+  [com.qualcomm.qti.cne]
+     CneApp.apk - 8

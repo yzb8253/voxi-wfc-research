@@ -1,0 +1,23 @@
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS

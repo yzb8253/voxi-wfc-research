@@ -1,0 +1,44 @@
+{
+  "initialState": "F1",
+  "initialSubscriptionActive": true,
+  "initialUiccApplicationsEnabled": true,
+  "initialSafetyGate": true,
+  "falseCall": {
+    "timestamp": "2026-09-17T15:50:37.136+08:00",
+    "returnInt": 1,
+    "exception": null,
+    "count": 1
+  },
+  "persistentF8Reached": true,
+  "f8FirstObserved": "2026-09-17T15:50:39.470+08:00",
+  "f8SecondObserved": "2026-09-17T15:50:41.795+08:00",
+  "trueCall": {
+    "timestamp": "2026-09-17T15:50:45.314+08:00",
+    "returnInt": 1,
+    "exception": null,
+    "count": 1
+  },
+  "recovery": {
+    "registeringWlanSeconds": 27,
+    "directWfcHealthySeconds": 30,
+    "registrationStateRaw": 2,
+    "registrationTransportRaw": 2,
+    "voiceIwlanAvailable": true,
+    "wifiCallingAvailable": true,
+    "userVisibleWfcIcon": "PRESENT",
+    "udp4500Keepalive": true,
+    "xfrmEspInUdpTunnel": true,
+    "mmtelReady": true,
+    "qtiCneImsCallbackRequestId": 296,
+    "qtiCneRequestSatisfiedByConnectivity": false,
+    "imsIwlanNetworkAgentSupportingEvidence": false
+  },
+  "directHealthStableSeconds": 301,
+  "directHealthSampleCount": 31,
+  "allDirectHealthSamplesPassed": true,
+  "protectedSlot0": true,
+  "legacyProbeClassification": "F6",
+  "reconciledClassification": "F0_DIRECT_WFC_HEALTHY",
+  "f1DeepRecovery": "PASS",
+  "additionalWritesAfterTrue": 0
+}

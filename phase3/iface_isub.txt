@@ -1,0 +1,220 @@
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerBase$DatabaseHandler
+SUPER android.os.Handler
+INTERFACES 
+METHOD public,constructor void <init>(android.os.Looper)
+METHOD public void handleMessage(android.os.Message)
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerBase
+SUPER java.lang.Object
+INTERFACES 
+METHOD static,constructor void <clinit>()
+METHOD public,constructor void <init>()
+METHOD protected,static void addPhoneNumberToSubInfo(android.content.Context, int)
+METHOD public,static,declared_synchronized boolean carrierNameEqualsCache(int, java.lang.String)
+METHOD protected,static,declared_synchronized void clearActiveSubInfosCache()
+METHOD protected,static,declared_synchronized boolean displayNameUsingSrcEqualsCache(int, java.lang.String, long)
+METHOD protected,static void dumpDatabaseSubInfoList(java.io.PrintWriter, boolean, java.util.List)
+METHOD protected,static,declared_synchronized java.util.List getActiveSubInfoListCache()
+METHOD protected,static,declared_synchronized java.util.List getOpportunisticSubInfoListCache()
+METHOD private,static,declared_synchronized android.telephony.SubscriptionInfo getSubscriptionInfoForSubId(int)
+METHOD private,static void logd(java.lang.String)
+METHOD protected,static,declared_synchronized boolean mccMncEqualsCache(int, int, int)
+METHOD protected,static,declared_synchronized void removeActiveSubInfosCache(int)
+METHOD protected,static void updateCarrierText(java.lang.String, int)
+METHOD protected,static void updateMccMnc(java.lang.String, int)
+METHOD protected void addActiveSubInfosCache(android.telephony.SubscriptionInfo)
+METHOD protected,abstract android.telephony.SubscriptionInfo createSubscriptionInfo(int, java.lang.String, int, java.lang.CharSequence, java.lang.CharSequence, int, int, java.lang.String, int, android.graphics.Bitmap, java.lang.String, java.lang.String, java.lang.String, boolean, android.telephony.UiccAccessRule[], java.lang.String, int, boolean, java.lang.String, boolean, int, int, int, java.lang.String, android.telephony.UiccAccessRule[], boolean, int, int)
+METHOD protected,abstract android.telephony.UiccAccessRule[] getAccessRules(android.telephony.SubscriptionInfo)
+METHOD protected,abstract java.lang.String getAccessRulesTag()
+METHOD protected,abstract android.telephony.UiccAccessRule[] getCarrierConfigAccessRules(android.telephony.SubscriptionInfo)
+METHOD protected,abstract java.lang.String getIsEmbeddedTag()
+METHOD protected java.lang.String getLine1Number(android.content.Context, int, java.lang.String)
+METHOD protected,abstract int getSimProvisioningStatus(android.telephony.SubscriptionInfo)
+METHOD protected,abstract java.lang.String getSimProvisioningStatusTag()
+METHOD protected,abstract boolean isEmbedded(android.telephony.SubscriptionInfo)
+METHOD protected,abstract void logdl(java.lang.String)
+METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+METHOD public void updateSubInfoListCache(android.content.Context, int, android.content.ContentValues)
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerImpl
+SUPER java.lang.Object
+INTERFACES com.android.internal.telephony.IMiuiSubscriptionController
+METHOD private,constructor void <init>()
+METHOD public void addActiveSubInfosCache(android.telephony.SubscriptionInfo)
+METHOD public void addPhoneNumberToSubInfo(android.content.Context, int)
+METHOD public boolean carrierNameEqualsCache(int, java.lang.String)
+METHOD public void clearActiveSubInfosCache()
+METHOD public boolean displayNameUsingSrcEqualsCache(int, java.lang.String, long)
+METHOD public void dumpDatabaseSubInfoList(java.io.PrintWriter, boolean, java.util.List)
+METHOD public java.util.List getActiveSubInfoListCache()
+METHOD public java.util.List getOpportunisticSubInfoListCache()
+METHOD public boolean mccMncEqualsCache(int, int, int)
+METHOD public void removeActiveSubInfosCache(int)
+METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+METHOD public void updateCarrierText(java.lang.String, int)
+METHOD public void updateMccMnc(java.lang.String, int)
+METHOD public void updateSubInfoListCache(android.content.Context, int, android.content.ContentValues)
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionController
+SUPER com.android.internal.telephony.MiuiSubscriptionControllerBase
+INTERFACES 
+METHOD public,constructor void <init>()
+METHOD public,static,declared_synchronized com.android.internal.telephony.MiuiSubscriptionController getInstance()
+METHOD public android.telephony.SubscriptionInfo createSubscriptionInfo(int, java.lang.String, int, java.lang.CharSequence, java.lang.CharSequence, int, int, java.lang.String, int, android.graphics.Bitmap, java.lang.String, java.lang.String, java.lang.String, boolean, android.telephony.UiccAccessRule[], java.lang.String, int, boolean, java.lang.String, boolean, int, int, int, java.lang.String, android.telephony.UiccAccessRule[], boolean, int, int)
+METHOD protected android.telephony.UiccAccessRule[] getAccessRules(android.telephony.SubscriptionInfo)
+METHOD protected java.lang.String getAccessRulesTag()
+METHOD protected android.telephony.UiccAccessRule[] getCarrierConfigAccessRules(android.telephony.SubscriptionInfo)
+METHOD protected java.lang.String getIsEmbeddedTag()
+METHOD protected int getSimProvisioningStatus(android.telephony.SubscriptionInfo)
+METHOD protected java.lang.String getSimProvisioningStatusTag()
+METHOD protected boolean isEmbedded(android.telephony.SubscriptionInfo)
+METHOD protected void logdl(java.lang.String)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController
+SUPER com.android.internal.telephony.vendor.VendorSubscriptionController
+INTERFACES 
+METHOD private,constructor void <init>(android.content.Context)
+METHOD public,static com.qualcomm.qti.internal.telephony.QtiSubscriptionController getInstance()
+METHOD private int getSlotIdForDeactivatedSub(int)
+METHOD private int getSlotIdForSubId(int)
+METHOD private int getUiccProvisionStatus(int)
+METHOD public,static com.qualcomm.qti.internal.telephony.QtiSubscriptionController init(android.content.Context)
+METHOD private void logd(java.lang.String)
+METHOD private void loge(java.lang.String)
+METHOD private void logi(java.lang.String)
+METHOD private void setUiccApplicationsEnabled_1_4(int, boolean)
+METHOD public int addSubInfo(java.lang.String, java.lang.String, int, int)
+METHOD protected void handleDataPreference(int)
+METHOD public boolean isRadioInValidState()
+METHOD public boolean isSMSPromptEnabled()
+METHOD protected boolean isSubProvisioned(int)
+METHOD protected boolean isUiccProvisioned(int)
+METHOD public void setSMSPromptEnabled(boolean)
+METHOD public boolean setSubscriptionEnabled(boolean, int)
+METHOD public int setUiccApplicationsEnabled(boolean, int)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater
+SUPER com.android.internal.telephony.SubscriptionInfoUpdater
+INTERFACES 
+METHOD static,constructor void <clinit>()
+METHOD private,constructor void <init>(android.os.Looper, android.content.Context, com.android.internal.telephony.SubscriptionController)
+METHOD public,static com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater getInstance()
+METHOD private,declared_synchronized void handleAddSubInfoRecordEvent(int, java.lang.String)
+METHOD static com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater init(android.os.Looper, android.content.Context, com.android.internal.telephony.SubscriptionController)
+METHOD  void addSubInfoRecord(int, java.lang.String)
+METHOD protected boolean areUiccAppsDisabledOnCard(int)
+METHOD public void handleMessage(android.os.Message)
+METHOD protected void handleSimAbsent(int)
+METHOD protected void handleSimError(int)
+METHOD protected void handleSimLoaded(int)
+METHOD protected void handleSimLocked(int, java.lang.String)
+METHOD protected void handleSimNotReady(int)
+METHOD protected void handleSimReady(int)
+METHOD protected,declared_synchronized void updateSubscriptionInfoByIccId(int, boolean)
+METHOD declared_synchronized void updateUserPreferences()
+
+CLASS QtiTelephony.apk vendor.qti.data.factory.V2_0.IFactory$createDynamicddsISubscriptionManagerCallback
+SUPER java.lang.Object
+INTERFACES 
+METHOD public,abstract void onValues(int, vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager)
+
+CLASS QtiTelephony.apk vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager
+SUPER java.lang.Object
+INTERFACES android.hidl.base.V1_0.IBase
+METHOD public,static vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager asInterface(android.os.IHwBinder)
+METHOD public,abstract java.util.ArrayList interfaceChain()
+METHOD public,abstract boolean linkToDeath(android.os.IHwBinder$DeathRecipient, long)
+METHOD public,abstract int setDynamicSubscriptionChange(boolean)
+METHOD public,abstract boolean unlinkToDeath(android.os.IHwBinder$DeathRecipient)
+
+CLASS QtiTelephony.apk vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager$Proxy
+SUPER java.lang.Object
+INTERFACES vendor.qti.hardware.data.dynamicdds.V1_0.ISubscriptionManager
+METHOD public,constructor void <init>(android.os.IHwBinder)
+METHOD public android.os.IHwBinder asBinder()
+METHOD public void debug(android.os.NativeHandle, java.util.ArrayList)
+METHOD public,final boolean equals(java.lang.Object)
+METHOD public android.hidl.base.V1_0.DebugInfo getDebugInfo()
+METHOD public java.util.ArrayList getHashChain()
+METHOD public,final int hashCode()
+METHOD public java.util.ArrayList interfaceChain()
+METHOD public java.lang.String interfaceDescriptor()
+METHOD public boolean linkToDeath(android.os.IHwBinder$DeathRecipient, long)
+METHOD public void notifySyspropsChanged()
+METHOD public void ping()
+METHOD public int setDynamicSubscriptionChange(boolean)
+METHOD public void setHALInstrumentation()
+METHOD public java.lang.String toString()
+METHOD public boolean unlinkToDeath(android.os.IHwBinder$DeathRecipient)
+
+CLASS telephony-common.jar com.android.internal.telephony.IMiuiSubscriptionController
+SUPER java.lang.Object
+INTERFACES 
+METHOD public,abstract void addActiveSubInfosCache(android.telephony.SubscriptionInfo)
+METHOD public,abstract void addPhoneNumberToSubInfo(android.content.Context, int)
+METHOD public,abstract boolean carrierNameEqualsCache(int, java.lang.String)
+METHOD public,abstract void clearActiveSubInfosCache()
+METHOD public,abstract boolean displayNameUsingSrcEqualsCache(int, java.lang.String, long)
+METHOD public,abstract void dumpDatabaseSubInfoList(java.io.PrintWriter, boolean, java.util.List)
+METHOD public,abstract java.util.List getActiveSubInfoListCache()
+METHOD public,abstract java.util.List getOpportunisticSubInfoListCache()
+METHOD public,abstract boolean mccMncEqualsCache(int, int, int)
+METHOD public,abstract void removeActiveSubInfosCache(int)
+METHOD public,abstract void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+METHOD public,abstract void updateCarrierText(java.lang.String, int)
+METHOD public,abstract void updateMccMnc(java.lang.String, int)
+METHOD public,abstract void updateSubInfoListCache(android.content.Context, int, android.content.ContentValues)
+
+CLASS telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerStub
+SUPER java.lang.Object
+INTERFACES 
+METHOD static,constructor void <clinit>()
+METHOD private,constructor void <init>()
+METHOD public,static void addActiveSubInfosCache(android.telephony.SubscriptionInfo)
+METHOD public,static void addPhoneNumberToSubInfo(android.content.Context, int)
+METHOD public,static boolean carrierNameEqualsCache(int, java.lang.String)
+METHOD public,static void clearActiveSubInfosCache()
+METHOD public,static boolean displayNameUsingSrcEqualsCache(int, java.lang.String, long)
+METHOD public,static void dumpDatabaseSubInfoList(java.io.PrintWriter, boolean, java.util.List)
+METHOD public,static java.util.List getActiveSubInfoListCache()
+METHOD public,static java.util.List getOpportunisticSubInfoListCache()
+METHOD private,static void logi(java.lang.String)
+METHOD public,static boolean mccMncEqualsCache(int, int, int)
+METHOD public,static void removeActiveSubInfosCache(int)
+METHOD public,static void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+METHOD public,static void updateCarrierText(java.lang.String, int)
+METHOD public,static void updateMccMnc(java.lang.String, int)
+METHOD public,static void updateSubInfoListCache(android.content.Context, int, android.content.ContentValues)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener
+SUPER java.lang.Object
+INTERFACES android.os.IInterface
+METHOD public,abstract void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Default
+SUPER java.lang.Object
+INTERFACES com.xiaomi.continuity.messagecenter.ISubscriberListener
+METHOD public,constructor void <init>()
+METHOD public android.os.IBinder asBinder()
+METHOD public void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Stub$Proxy
+SUPER java.lang.Object
+INTERFACES com.xiaomi.continuity.messagecenter.ISubscriberListener
+METHOD public,constructor void <init>(android.os.IBinder)
+METHOD public android.os.IBinder asBinder()
+METHOD public java.lang.String getInterfaceDescriptor()
+METHOD public void onSubscribe(java.lang.String, java.lang.String, com.xiaomi.continuity.messagecenter.MessageData)
+
+CLASS TeleService.apk com.xiaomi.continuity.messagecenter.ISubscriberListener$Stub
+SUPER android.os.Binder
+INTERFACES com.xiaomi.continuity.messagecenter.ISubscriberListener
+FIELD private,static,final java.lang.String DESCRIPTOR string@31685
+FIELD public,static,final int TRANSACTION_onSubscribe 1
+METHOD public,constructor void <init>()
+METHOD public,static com.xiaomi.continuity.messagecenter.ISubscriberListener asInterface(android.os.IBinder)
+METHOD public,static com.xiaomi.continuity.messagecenter.ISubscriberListener getDefaultImpl()
+METHOD public,static boolean setDefaultImpl(com.xiaomi.continuity.messagecenter.ISubscriberListener)
+METHOD public android.os.IBinder asBinder()
+METHOD public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int)

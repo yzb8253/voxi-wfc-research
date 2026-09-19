@@ -1,0 +1,4 @@
+dex=classes.dex
+onBind code_off=0xce48 regs=3 ins=2 outs=0 tries=0
+0000: const/4                v0, #0
+0001: return-object          v0

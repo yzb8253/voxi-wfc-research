@@ -1,0 +1,7 @@
+﻿FILTER: wfc|wifi_calling|ims|volte|vowifi|preferred_network|mobile_data|airplane
+
+SOURCE: 40_settings_global.txt
+
+SOURCE: 41_settings_secure.txt
+
+SOURCE: 42_settings_system.txt

@@ -1,0 +1,2519 @@
+[
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.CneApp",
+    "descriptor": "Lcom/qualcomm/qti/cne/CneApp;",
+    "source": "CneApp.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "android.app.Service",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "mDataCallAgent",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": []
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$1",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$1;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "android.telephony.SubscriptionManager$OnSubscriptionsChangedListener",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 53388
+      },
+      {
+        "name": "onSubscriptionsChanged",
+        "signature": "void onSubscriptionsChanged()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 53416
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$2",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$2;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "android.os.Handler",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent, android.os.Looper)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent",
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 53508
+      },
+      {
+        "name": "handleMessage",
+        "signature": "void handleMessage(android.os.Message)",
+        "return": "void",
+        "params": [
+          "android.os.Message"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 53536
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker$1",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$Tracker$1;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "android.net.ConnectivityManager$NetworkCallback",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "this$1",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 54176
+      },
+      {
+        "name": "onAvailable",
+        "signature": "void onAvailable(android.net.Network)",
+        "return": "void",
+        "params": [
+          "android.net.Network"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 54204
+      },
+      {
+        "name": "onLinkPropertiesChanged",
+        "signature": "void onLinkPropertiesChanged(android.net.Network, android.net.LinkProperties)",
+        "return": "void",
+        "params": [
+          "android.net.Network",
+          "android.net.LinkProperties"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 54484
+      },
+      {
+        "name": "onLost",
+        "signature": "void onLost(android.net.Network)",
+        "return": "void",
+        "params": [
+          "android.net.Network"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 54660
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$Tracker;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "mConnectivityManager",
+        "type": "android.net.ConnectivityManager",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mNetType",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mNetworkCallback",
+        "type": "android.net.ConnectivityManager$NetworkCallback",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mRatInfo",
+        "type": "com.qualcomm.qti.cne.relay.RatInfo",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mSlotId",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mSubId",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "ratRequestFlag",
+        "type": "boolean",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent, int, int, int)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent",
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 55240
+      },
+      {
+        "name": "access$500",
+        "signature": "int access$500(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "int",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 55060
+      },
+      {
+        "name": "access$600",
+        "signature": "int access$600(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "int",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 55084
+      },
+      {
+        "name": "access$700",
+        "signature": "android.net.ConnectivityManager access$700(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "android.net.ConnectivityManager",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 54916
+      },
+      {
+        "name": "access$800",
+        "signature": "com.qualcomm.qti.cne.relay.RatInfo access$800(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "com.qualcomm.qti.cne.relay.RatInfo",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 55012
+      },
+      {
+        "name": "access$900",
+        "signature": "boolean access$900(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 54940
+      },
+      {
+        "name": "access$902",
+        "signature": "boolean access$902(com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker, boolean)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker",
+          "boolean"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 54964
+      },
+      {
+        "name": "getNetworkCapability",
+        "signature": "int getNetworkCapability(int)",
+        "return": "int",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 55108
+      },
+      {
+        "name": "createNetworkRequest",
+        "signature": "void createNetworkRequest()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55368
+      },
+      {
+        "name": "createNetworkRequest",
+        "signature": "void createNetworkRequest(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55500
+      },
+      {
+        "name": "destroyNetworkRequest",
+        "signature": "void destroyNetworkRequest()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55648
+      },
+      {
+        "name": "getRatInfo",
+        "signature": "com.qualcomm.qti.cne.relay.RatInfo getRatInfo()",
+        "return": "com.qualcomm.qti.cne.relay.RatInfo",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55036
+      },
+      {
+        "name": "getRatRequestFlag",
+        "signature": "boolean getRatRequestFlag()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 54988
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent;",
+    "source": "DataCallAgent.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "DBG",
+        "type": "boolean",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": true
+      },
+      {
+        "name": "LOGTAG",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": "string@942"
+      },
+      {
+        "name": "MSG_RAT_BRINGUP",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 2
+      },
+      {
+        "name": "MSG_RAT_TEARDOWN",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 3
+      },
+      {
+        "name": "MSG_UPDATE_SUBS_INFO",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": 1
+      },
+      {
+        "name": "VDBG",
+        "type": "boolean",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": false
+      },
+      {
+        "name": "mConnectivityManager",
+        "type": "android.net.ConnectivityManager",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mConnector",
+        "type": "com.qualcomm.qti.cne.hwinterface.NativeConnector",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mContext",
+        "type": "android.content.Context",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mHandler",
+        "type": "android.os.Handler",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mOnSubscriptionsChangedListener",
+        "type": "android.telephony.SubscriptionManager$OnSubscriptionsChangedListener",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mPendingNetworkRequests",
+        "type": "java.util.List",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mSubInfoReady",
+        "type": "boolean[]",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mSubscriptionManager",
+        "type": "android.telephony.SubscriptionManager",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mTelephonyManager",
+        "type": "android.telephony.TelephonyManager",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mTrackers",
+        "type": "java.util.List",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(android.content.Context, com.qualcomm.qti.cne.hwinterface.NativeConnector)",
+        "return": "void",
+        "params": [
+          "android.content.Context",
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 55996
+      },
+      {
+        "name": "access$000",
+        "signature": "android.os.Handler access$000(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "android.os.Handler",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 55704
+      },
+      {
+        "name": "access$100",
+        "signature": "void access$100(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 56252
+      },
+      {
+        "name": "access$1000",
+        "signature": "android.content.Context access$1000(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "android.content.Context",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 55680
+      },
+      {
+        "name": "access$200",
+        "signature": "void access$200(com.qualcomm.qti.cne.datacall.DataCallAgent, int, int)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 56276
+      },
+      {
+        "name": "access$300",
+        "signature": "void access$300(com.qualcomm.qti.cne.datacall.DataCallAgent, int, int)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 56300
+      },
+      {
+        "name": "access$400",
+        "signature": "void access$400(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "static",
+          "synthetic"
+        ],
+        "kind": "direct",
+        "code_off": 56324
+      },
+      {
+        "name": "postCndUpInit",
+        "signature": "void postCndUpInit()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 56348
+      },
+      {
+        "name": "sendRatRequestResult",
+        "signature": "boolean sendRatRequestResult(com.qualcomm.qti.cne.relay.RatInfo, boolean)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.relay.RatInfo",
+          "boolean"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 55728
+      },
+      {
+        "name": "startDataCall",
+        "signature": "void startDataCall(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 56788
+      },
+      {
+        "name": "tearDownDataCall",
+        "signature": "void tearDownDataCall(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 57336
+      },
+      {
+        "name": "updateSubInfoReady",
+        "signature": "void updateSubInfoReady()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 57552
+      },
+      {
+        "name": "sendRatInfoOnDemand",
+        "signature": "void sendRatInfoOnDemand(com.qualcomm.qti.cne.relay.RatInfo, boolean)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.relay.RatInfo",
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 56552
+      },
+      {
+        "name": "start",
+        "signature": "boolean start(android.os.Looper)",
+        "return": "boolean",
+        "params": [
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55860
+      },
+      {
+        "name": "stop",
+        "signature": "boolean stop()",
+        "return": "boolean",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 55976
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$CommandEvent;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65088
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65036
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65064
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "android.os.Handler$Callback"
+    ],
+    "fields": [
+      {
+        "name": "mCmd",
+        "type": "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mHandler",
+        "type": "android.os.Handler",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.hwinterface.NativeConnector$Command, android.os.Looper)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command",
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 66604
+      },
+      {
+        "name": "dispatch",
+        "signature": "void dispatch(com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent"
+        ],
+        "access_flags": [],
+        "kind": "virtual",
+        "code_off": 66656
+      },
+      {
+        "name": "getCommand",
+        "signature": "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command getCommand()",
+        "return": "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66580
+      },
+      {
+        "name": "handleMessage",
+        "signature": "boolean handleMessage(android.os.Message)",
+        "return": "boolean",
+        "params": [
+          "android.os.Message"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66532
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$ServiceListenerWrapper",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$ServiceListenerWrapper;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "android.os.Handler$Callback"
+    ],
+    "fields": [
+      {
+        "name": "mHandler",
+        "type": "android.os.Handler",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mServiceListener",
+        "type": "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener, android.os.Looper)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener",
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 66772
+      },
+      {
+        "name": "dispatch",
+        "signature": "void dispatch(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [],
+        "kind": "virtual",
+        "code_off": 66824
+      },
+      {
+        "name": "getServiceListener",
+        "signature": "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener getServiceListener()",
+        "return": "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66748
+      },
+      {
+        "name": "handleMessage",
+        "signature": "boolean handleMessage(android.os.Message)",
+        "return": "boolean",
+        "params": [
+          "android.os.Message"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66700
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo",
+    "descriptor": "Lvendor/qti/hardware/data/cne/internal/constants/V1_0/NetRequestInfo;",
+    "source": "NetRequestInfo.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "rat",
+        "type": "int",
+        "access_flags": [
+          "public"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "slot",
+        "type": "int",
+        "access_flags": [
+          "public"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 121856
+      },
+      {
+        "name": "readVectorFromParcel",
+        "signature": "java.util.ArrayList readVectorFromParcel(android.os.HwParcel)",
+        "return": "java.util.ArrayList",
+        "params": [
+          "android.os.HwParcel"
+        ],
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "direct",
+        "code_off": 121728
+      },
+      {
+        "name": "writeVectorToParcel",
+        "signature": "void writeVectorToParcel(android.os.HwParcel, java.util.ArrayList)",
+        "return": "void",
+        "params": [
+          "android.os.HwParcel",
+          "java.util.ArrayList"
+        ],
+        "access_flags": [
+          "public",
+          "static",
+          "final"
+        ],
+        "kind": "direct",
+        "code_off": 122088
+      },
+      {
+        "name": "equals",
+        "signature": "boolean equals(java.lang.Object)",
+        "return": "boolean",
+        "params": [
+          "java.lang.Object"
+        ],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121428
+      },
+      {
+        "name": "hashCode",
+        "signature": "int hashCode()",
+        "return": "int",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121516
+      },
+      {
+        "name": "readEmbeddedFromParcel",
+        "signature": "void readEmbeddedFromParcel(android.os.HwParcel, android.os.HwBlob, long)",
+        "return": "void",
+        "params": [
+          "android.os.HwParcel",
+          "android.os.HwBlob",
+          "long"
+        ],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121892
+      },
+      {
+        "name": "readFromParcel",
+        "signature": "void readFromParcel(android.os.HwParcel)",
+        "return": "void",
+        "params": [
+          "android.os.HwParcel"
+        ],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121948
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121616
+      },
+      {
+        "name": "writeEmbeddedToBlob",
+        "signature": "void writeEmbeddedToBlob(android.os.HwBlob, long)",
+        "return": "void",
+        "params": [
+          "android.os.HwBlob",
+          "long"
+        ],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 121988
+      },
+      {
+        "name": "writeToParcel",
+        "signature": "void writeToParcel(android.os.HwParcel)",
+        "return": "void",
+        "params": [
+          "android.os.HwParcel"
+        ],
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "virtual",
+        "code_off": 122040
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$3",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$3;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener"
+    ],
+    "fields": [
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 53800
+      },
+      {
+        "name": "onServiceIndication",
+        "signature": "void onServiceIndication(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 53828
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalConnector",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalConnector;",
+    "source": "NativeHalConnector.java",
+    "access_flags": [
+      "public"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "com.qualcomm.qti.cne.hwinterface.NativeConnector"
+    ],
+    "fields": [
+      {
+        "name": "mCb",
+        "type": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": []
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CountryCodeRequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$CountryCodeRequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65164
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65112
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65140
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$ImsRegistrationStatusChanged",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$ImsRegistrationStatusChanged;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "rat",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "slot",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "status",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(int, int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65368
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65188
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65260
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$NatKeepAliveRequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$NatKeepAliveRequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "dstIpAddr",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "dstPort",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "interval",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "srcPort",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "subsInfo",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(int, int, int, java.lang.String, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "int",
+          "java.lang.String",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65652
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65404
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65504
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$NatKeepAliveUnrequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$NatKeepAliveUnrequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "subsInfo",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65764
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65696
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65740
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$RatRequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$RatRequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "rat",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "slot",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 65936
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65792
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65848
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$RatUnrequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$RatUnrequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "rat",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "slot",
+        "type": "int",
+        "access_flags": [
+          "public",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 66112
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 65968
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66024
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$RssiOffloadRequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$RssiOffloadRequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "highRssi",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "id",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "lowRssi",
+        "type": "int",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "operator",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String, java.lang.String, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "java.lang.String",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 66352
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66144
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66224
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$RssiOffloadUnrequested",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback$CommandWrapper$RssiOffloadUnrequested;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "id",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "final"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(java.lang.String)",
+        "return": "void",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 66504
+      },
+      {
+        "name": "bundle",
+        "signature": "android.os.Bundle bundle()",
+        "return": "android.os.Bundle",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66392
+      },
+      {
+        "name": "toString",
+        "signature": "java.lang.String toString()",
+        "return": "java.lang.String",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66436
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "vendor.qti.hardware.data.cne.internal.api.V1_0.IApiService",
+    "descriptor": "Lvendor/qti/hardware/data/cne/internal/api/V1_0/IApiService;",
+    "source": "IApiService.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "android.hidl.base.V1_0.IBase"
+    ],
+    "fields": [],
+    "methods": [
+      {
+        "name": "deRegNetRequestChange",
+        "signature": "void deRegNetRequestChange(long, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "long",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      },
+      {
+        "name": "getNetRequestInfo",
+        "signature": "void getNetRequestInfo(vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      },
+      {
+        "name": "regNetRequestChange",
+        "signature": "void regNetRequestChange(vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback, long, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback",
+          "long",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "vendor.qti.hardware.data.cne.internal.server.V1_0.IServiceCallback",
+    "descriptor": "Lvendor/qti/hardware/data/cne/internal/server/V1_0/IServiceCallback;",
+    "source": "IServiceCallback.java",
+    "access_flags": [
+      "public",
+      "interface",
+      "abstract"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "android.hidl.base.V1_0.IBase"
+    ],
+    "fields": [],
+    "methods": [
+      {
+        "name": "requestNetwork",
+        "signature": "void requestNetwork(boolean, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public",
+          "abstract"
+        ],
+        "kind": "virtual",
+        "code_off": 0
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$4",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$4;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeConnector$StartDataCall",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 53864
+      },
+      {
+        "name": "onCommand",
+        "signature": "void onCommand(android.os.Bundle)",
+        "return": "void",
+        "params": [
+          "android.os.Bundle"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 53892
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.datacall.DataCallAgent$5",
+    "descriptor": "Lcom/qualcomm/qti/cne/datacall/DataCallAgent$5;",
+    "source": "DataCallAgent.java",
+    "access_flags": [],
+    "super": "com.qualcomm.qti.cne.hwinterface.NativeConnector$StopDataCall",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "this$0",
+        "type": "com.qualcomm.qti.cne.datacall.DataCallAgent",
+        "access_flags": [
+          "final",
+          "synthetic"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>(com.qualcomm.qti.cne.datacall.DataCallAgent)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.datacall.DataCallAgent"
+        ],
+        "access_flags": [
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 54020
+      },
+      {
+        "name": "onCommand",
+        "signature": "void onCommand(android.os.Bundle)",
+        "return": "void",
+        "params": [
+          "android.os.Bundle"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 54048
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "vendor.qti.hardware.data.cne.internal.api.V1_0.IApiService$Proxy",
+    "descriptor": "Lvendor/qti/hardware/data/cne/internal/api/V1_0/IApiService$Proxy;",
+    "source": "IApiService.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "vendor.qti.hardware.data.cne.internal.api.V1_0.IApiService"
+    ],
+    "fields": [],
+    "methods": [
+      {
+        "name": "deRegNetRequestChange",
+        "signature": "void deRegNetRequestChange(long, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "long",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 105448
+      },
+      {
+        "name": "getNetRequestInfo",
+        "signature": "void getNetRequestInfo(vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 105792
+      },
+      {
+        "name": "regNetRequestChange",
+        "signature": "void regNetRequestChange(vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback, long, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "vendor.qti.hardware.data.cne.internal.api.V1_0.INetReqCallback",
+          "long",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 106256
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "vendor.qti.hardware.data.cne.internal.server.V1_0.IServiceCallback$Proxy",
+    "descriptor": "Lvendor/qti/hardware/data/cne/internal/server/V1_0/IServiceCallback$Proxy;",
+    "source": "IServiceCallback.java",
+    "access_flags": [
+      "public",
+      "final"
+    ],
+    "super": "java.lang.Object",
+    "interfaces": [
+      "vendor.qti.hardware.data.cne.internal.server.V1_0.IServiceCallback"
+    ],
+    "fields": [],
+    "methods": [
+      {
+        "name": "requestNetwork",
+        "signature": "void requestNetwork(boolean, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 133988
+      }
+    ]
+  },
+  {
+    "jar": "CneApp.apk",
+    "dex": "classes.dex",
+    "class": "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback",
+    "descriptor": "Lcom/qualcomm/qti/cne/hwinterface/NativeHalServerCallback;",
+    "source": "NativeHalServerCallback.java",
+    "access_flags": [],
+    "super": "vendor.qti.hardware.data.cne.internal.server.V1_0.IServiceCallback$Stub",
+    "interfaces": [],
+    "fields": [
+      {
+        "name": "DBG",
+        "type": "boolean",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": true
+      },
+      {
+        "name": "LOGTAG",
+        "type": "java.lang.String",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": "string@947"
+      },
+      {
+        "name": "VDBG",
+        "type": "boolean",
+        "access_flags": [
+          "private",
+          "static",
+          "final"
+        ],
+        "kind": "static",
+        "static_value": false
+      },
+      {
+        "name": "mCmdWrappers",
+        "type": "java.util.Map",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mConnected",
+        "type": "boolean",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      },
+      {
+        "name": "mServiceListenerWrappers",
+        "type": "java.util.List",
+        "access_flags": [
+          "private"
+        ],
+        "kind": "instance"
+      }
+    ],
+    "methods": [
+      {
+        "name": "<init>",
+        "signature": "void <init>()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public",
+          "constructor"
+        ],
+        "kind": "direct",
+        "code_off": 67524
+      },
+      {
+        "name": "dispatch",
+        "signature": "void dispatch(int, com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent)",
+        "return": "void",
+        "params": [
+          "int",
+          "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$CommandWrapper$CommandEvent"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67584
+      },
+      {
+        "name": "dispatchCountryCodeRequested",
+        "signature": "void dispatchCountryCodeRequested()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67776
+      },
+      {
+        "name": "dispatchImsRegistrationStatusChanged",
+        "signature": "void dispatchImsRegistrationStatusChanged(int, int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67812
+      },
+      {
+        "name": "dispatchNatKeepAliveRequested",
+        "signature": "void dispatchNatKeepAliveRequested(int, int, int, java.lang.String, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "int",
+          "java.lang.String",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67852
+      },
+      {
+        "name": "dispatchNatKeepAliveUnrequested",
+        "signature": "void dispatchNatKeepAliveUnrequested(int)",
+        "return": "void",
+        "params": [
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67900
+      },
+      {
+        "name": "dispatchOnAvailable",
+        "signature": "void dispatchOnAvailable()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 67936
+      },
+      {
+        "name": "dispatchOnLost",
+        "signature": "void dispatchOnLost()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68028
+      },
+      {
+        "name": "dispatchRatRequested",
+        "signature": "void dispatchRatRequested(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68120
+      },
+      {
+        "name": "dispatchRatUnrequested",
+        "signature": "void dispatchRatUnrequested(int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68156
+      },
+      {
+        "name": "dispatchRssiOffloadRequested",
+        "signature": "void dispatchRssiOffloadRequested(java.lang.String, java.lang.String, int, int)",
+        "return": "void",
+        "params": [
+          "java.lang.String",
+          "java.lang.String",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68192
+      },
+      {
+        "name": "dispatchRssiOffloadUnrequested",
+        "signature": "void dispatchRssiOffloadUnrequested(java.lang.String)",
+        "return": "void",
+        "params": [
+          "java.lang.String"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68228
+      },
+      {
+        "name": "maybeDispatchOnAvailable",
+        "signature": "void maybeDispatchOnAvailable(com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$ServiceListenerWrapper)",
+        "return": "void",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeHalServerCallback$ServiceListenerWrapper"
+        ],
+        "access_flags": [
+          "private"
+        ],
+        "kind": "direct",
+        "code_off": 68264
+      },
+      {
+        "name": "listen",
+        "signature": "boolean listen(com.qualcomm.qti.cne.hwinterface.NativeConnector$Command, android.os.Looper)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command",
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 66876
+      },
+      {
+        "name": "listen",
+        "signature": "boolean listen(com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener, android.os.Looper)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener",
+          "android.os.Looper"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 67076
+      },
+      {
+        "name": "notifyConnectedStatus",
+        "signature": "void notifyConnectedStatus(boolean)",
+        "return": "void",
+        "params": [
+          "boolean"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68300
+      },
+      {
+        "name": "notifyImsRegistrationStatusChanged",
+        "signature": "void notifyImsRegistrationStatusChanged(int, int, int)",
+        "return": "void",
+        "params": [
+          "int",
+          "int",
+          "int"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68348
+      },
+      {
+        "name": "requestCountryCodeRefresh",
+        "signature": "void requestCountryCodeRefresh()",
+        "return": "void",
+        "params": [],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68460
+      },
+      {
+        "name": "requestNatKeepAlive",
+        "signature": "void requestNatKeepAlive(boolean, vendor.qti.hardware.data.cne.internal.server.V1_0.NatKeepAliveRequestMsg)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "vendor.qti.hardware.data.cne.internal.server.V1_0.NatKeepAliveRequestMsg"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68484
+      },
+      {
+        "name": "requestNetwork",
+        "signature": "void requestNetwork(boolean, vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "vendor.qti.hardware.data.cne.internal.constants.V1_0.NetRequestInfo"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68548
+      },
+      {
+        "name": "requestRssiOffload",
+        "signature": "void requestRssiOffload(boolean, vendor.qti.hardware.data.cne.internal.server.V1_0.RssiOffloadMsg)",
+        "return": "void",
+        "params": [
+          "boolean",
+          "vendor.qti.hardware.data.cne.internal.server.V1_0.RssiOffloadMsg"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 68696
+      },
+      {
+        "name": "unlisten",
+        "signature": "boolean unlisten(com.qualcomm.qti.cne.hwinterface.NativeConnector$Command)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$Command"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 67156
+      },
+      {
+        "name": "unlisten",
+        "signature": "boolean unlisten(com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener)",
+        "return": "boolean",
+        "params": [
+          "com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener"
+        ],
+        "access_flags": [
+          "public"
+        ],
+        "kind": "virtual",
+        "code_off": 67416
+      }
+    ]
+  }
+]

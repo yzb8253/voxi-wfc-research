@@ -1,0 +1,56 @@
+
+CLASS TeleService.apk com.android.phone.IMiCarrierConfigLoader
+SUPER java.lang.Object
+INTERFACES 
+METHOD public,abstract java.lang.String getFilenameForConfig(java.lang.String, java.lang.String, java.lang.String, int)
+METHOD public,abstract void handleMessage(android.os.Message, int)
+METHOD public,transient/varargs,abstract void init(com.android.phone.CarrierConfigLoader, android.content.Context, android.os.PersistableBundle[], java.lang.Object[])
+METHOD public,abstract boolean isLoadedError(int)
+METHOD public,abstract void reportConfigErrorStatistics(int, boolean)
+METHOD public,abstract void resetCarrierConfig()
+METHOD public,abstract void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$1
+SUPER android.content.BroadcastReceiver
+INTERFACES 
+METHOD constructor void <init>(com.android.phone.MiCarrierConfigLoaderImpl)
+METHOD public void onReceive(android.content.Context, android.content.Intent)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$2
+SUPER java.lang.Object
+INTERFACES java.io.FilenameFilter
+METHOD constructor void <init>(com.android.phone.MiCarrierConfigLoaderImpl, java.lang.String)
+METHOD public boolean accept(java.io.File, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderStub
+SUPER java.lang.Object
+INTERFACES 
+METHOD static,constructor void <clinit>()
+METHOD public,static java.lang.String getFilenameForConfig(java.lang.String, java.lang.String, java.lang.String, int, java.lang.String)
+METHOD public,static boolean handleMessage(android.os.Message, int)
+METHOD public,static,transient/varargs void init(com.android.phone.CarrierConfigLoader, android.content.Context, android.os.PersistableBundle[], java.lang.Object[])
+METHOD public,static boolean isLoadedError(int)
+METHOD public,static void reportConfigErrorStatistics(int, boolean)
+METHOD public,static void resetCarrierConfig()
+METHOD public,static void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl
+SUPER java.lang.Object
+INTERFACES com.android.phone.IMiCarrierConfigLoader
+METHOD static,constructor void <clinit>()
+METHOD private,constructor void <init>()
+METHOD static,synthetic boolean access$000(com.android.phone.MiCarrierConfigLoaderImpl, java.lang.String)
+METHOD static,synthetic android.content.Context access$100(com.android.phone.MiCarrierConfigLoaderImpl)
+METHOD static,synthetic android.os.Handler access$200(com.android.phone.MiCarrierConfigLoaderImpl)
+METHOD static,synthetic void access$300(com.android.phone.MiCarrierConfigLoaderImpl, java.lang.String, boolean)
+METHOD private void broadcastOtaUpdate(java.lang.String)
+METHOD private boolean clearCachedConfigForPackage(java.lang.String)
+METHOD private void enableResOverlayIfNeeded(java.lang.String, boolean)
+METHOD private,static java.lang.String getSimOperatorNumeric(java.lang.String)
+METHOD public java.lang.String getFilenameForConfig(java.lang.String, java.lang.String, java.lang.String, int)
+METHOD public void handleMessage(android.os.Message, int)
+METHOD public,transient/varargs void init(com.android.phone.CarrierConfigLoader, android.content.Context, android.os.PersistableBundle[], java.lang.Object[])
+METHOD public boolean isLoadedError(int)
+METHOD public void reportConfigErrorStatistics(int, boolean)
+METHOD public void resetCarrierConfig()
+METHOD public void updateConfigForPhoneId(int, java.lang.String)

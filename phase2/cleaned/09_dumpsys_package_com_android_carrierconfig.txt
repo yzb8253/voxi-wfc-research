@@ -1,0 +1,94 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys package com.android.carrierconfig
+CAPTURED_AT: 2026-09-16T13:14:22.4468191+08:00
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.service.carrier.CarrierService:
+        470b429 com.android.carrierconfig/.DefaultCarrierConfigService filter b9763ae permission android.permission.BIND_CARRIER_SERVICES
+          Action: "android.service.carrier.CarrierService"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.android.carrierconfig]
+      Signing KeySets: 1
+
+Packages:
+  Package [com.android.carrierconfig] (b86f6d4):
+    userId=10205
+    pkg=Package{3a3e07d com.android.carrierconfig}
+    codePath=/system_ext/priv-app/CarrierConfig
+    resourcePath=/system_ext/priv-app/CarrierConfig
+    legacyNativeLibraryDir=/system_ext/priv-app/CarrierConfig/lib
+    extractNativeLibs=true
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=33 targetSdk=33
+    minExtensionVersions=[]
+    versionName=1.0.0
+    usesNonSdkApi=true
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DIRECT_BOOT_AWARE PRIVILEGED SYSTEM_EXT PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    dataDir=/data/user/0/com.android.carrierconfig
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2009-01-01 08:00:00
+    lastUpdateTime=2009-01-01 08:00:00
+    packageSource=0
+    signatures=PackageSignatures{8dadb72 version:3, signatures:[6c02dd51], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    requested permissions:
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+    install permissions:
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+    User 0: ceDataInode=7327 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2009-01-01 08:00:00
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+        /data/resource-cache/com.android.systemui-accent-2RSq.frro
+        /product/overlay/CarrierConfigResCommon_Sys.apk
+        /product/overlay/MiuiCarrierConfigOverlay.apk
+      legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /product/overlay/CarrierConfigResCommon_Sys.apk
+        /product/overlay/MiuiCarrierConfigOverlay.apk
+      runtime permissions:
+    User 999: ceDataInode=0 installed=false hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=0
+      runtime permissions:
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  forceQueryable:
+    com.android.carrierconfig
+  queries via package name:
+  queries via component:
+  queryable via interaction:
+    User 0:
+      [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]:
+        com.android.carrierconfig
+      com.android.carrierconfig:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+    User 999:
+  queryable via uses-library:
+
+Dexopt state:
+  [com.android.carrierconfig]
+    path: /system_ext/priv-app/CarrierConfig/CarrierConfig.apk
+      arm64: [status=verify] [reason=bg-dexopt]
+      odex file size: CarrierConfig.odex: 16Kb CarrierConfig.vdex: 0Kb 
+
+Compiler stats:
+  [com.android.carrierconfig]
+     CarrierConfig.apk - 8
+

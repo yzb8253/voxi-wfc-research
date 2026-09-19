@@ -1,0 +1,185 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys package org.codeaurora.ims
+CAPTURED_AT: 2026-09-16T13:14:21.7785907+08:00
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.telephony.ims.ImsService:
+        abf518f org.codeaurora.ims/.ImsService filter 1e97c1c permission android.permission.BIND_IMS_SERVICE
+          Action: "android.telephony.ims.ImsService"
+
+Domain verification status:
+
+Permissions:
+  Permission [com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY] (9dcb2d6):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{8f98957 com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY}
+
+Permissions:
+  Permission [com.qti.permission.AUDIO] (a622c44):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[1005] type=0 prot=signature|privileged
+    perm=PermissionInfo{5e1c12d com.qti.permission.AUDIO}
+
+Permissions:
+  Permission [com.qti.permission.RECEIVE_PRE_ALERTING_CALL_INFO] (fc92662):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{42363f3 com.qti.permission.RECEIVE_PRE_ALERTING_CALL_INFO}
+
+Permissions:
+  Permission [com.qti.permission.BIND_QTI_IMS_SERVICE] (c77c8b0):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{6464329 com.qti.permission.BIND_QTI_IMS_SERVICE}
+
+Permissions:
+  Permission [com.qti.permission.RECEIVE_SMS_CALLBACK_MODE] (f1746ae):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[] type=0 prot=signature|privileged
+    perm=PermissionInfo{d064c4f com.qti.permission.RECEIVE_SMS_CALLBACK_MODE}
+
+Permissions:
+  Permission [com.qti.permission.DIAG] (b08bfdc):
+    sourcePackage=org.codeaurora.ims
+    uid=10196 gids=[2901] type=0 prot=signature|privileged
+    perm=PermissionInfo{d56e8e5 com.qti.permission.DIAG}
+
+Key Set Manager:
+  [org.codeaurora.ims]
+      Signing KeySets: 1
+
+Packages:
+  Package [org.codeaurora.ims] (f151fba):
+    userId=10196
+    pkg=Package{f855e6b org.codeaurora.ims}
+    codePath=/system_ext/priv-app/ims
+    resourcePath=/system_ext/priv-app/ims
+    legacyNativeLibraryDir=/system_ext/priv-app/ims/lib
+    extractNativeLibs=true
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=33 targetSdk=33
+    minExtensionVersions=[]
+    versionName=1.0
+    usesNonSdkApi=true
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE DIRECT_BOOT_AWARE PRIVILEGED SYSTEM_EXT PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    dataDir=/data/user/0/org.codeaurora.ims
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesLibraries:
+      qti-telephony-hidl-wrapper
+      qti-telephony-utils
+      ims-ext-common
+    usesLibraryFiles:
+      /system_ext/framework/qti-telephony-hidl-wrapper.jar
+      /system_ext/framework/qti-telephony-utils.jar
+      /product/framework/ims-ext-common.jar
+    timeStamp=2009-01-01 08:00:00
+    lastUpdateTime=2009-01-01 08:00:00
+    packageSource=0
+    signatures=PackageSignatures{4ffdc8 version:3, signatures:[6c02dd51], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ SYSTEM HAS_CODE PERSISTENT ALLOW_CLEAR_USER_DATA ]
+    declared permissions:
+      com.qti.permission.DIAG: prot=signature|privileged, INSTALLED
+      com.qti.permission.AUDIO: prot=signature|privileged, INSTALLED
+      com.qti.permission.BIND_QTI_IMS_SERVICE: prot=signature|privileged, INSTALLED
+      com.qti.permission.RECEIVE_PRE_ALERTING_CALL_INFO: prot=signature|privileged, INSTALLED
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE: prot=signature|privileged, INSTALLED
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY: prot=signature|privileged, INSTALLED
+    requested permissions:
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.MODIFY_PHONE_STATE
+      android.permission.READ_PHONE_STATE
+      android.permission.READ_PRECISE_PHONE_STATE
+      android.permission.READ_PRIVILEGED_PHONE_STATE
+      android.permission.INTERACT_ACROSS_USERS
+      android.permission.INTERACT_ACROSS_USERS_FULL
+      android.permission.CREATE_USERS
+      android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.BROADCAST_STICKY
+      android.permission.WAKE_LOCK
+      android.permission.WRITE_SECURE_SETTINGS
+      android.permission.CAMERA
+      com.qti.permission.DIAG
+      com.qti.permission.AUDIO
+      com.qti.permission.RECEIVE_PRE_ALERTING_CALL_INFO
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY
+      android.permission.POST_NOTIFICATIONS
+    install permissions:
+      com.qti.permission.RECEIVE_MSIM_VOICE_CAPABILITY: granted=true
+      com.qti.permission.AUDIO: granted=true
+      com.qti.permission.RECEIVE_PRE_ALERTING_CALL_INFO: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.READ_PRECISE_PHONE_STATE: granted=true
+      android.permission.INTERACT_ACROSS_USERS_FULL: granted=true
+      android.permission.WRITE_SECURE_SETTINGS: granted=true
+      android.permission.READ_PRIVILEGED_PHONE_STATE: granted=true
+      android.permission.BROADCAST_STICKY: granted=true
+      com.qti.permission.RECEIVE_SMS_CALLBACK_MODE: granted=true
+      android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME: granted=true
+      com.qti.permission.DIAG: granted=true
+      android.permission.INTERACT_ACROSS_USERS: granted=true
+      android.permission.CREATE_USERS: granted=true
+      android.permission.MODIFY_PHONE_STATE: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=7463 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=2009-01-01 08:00:00
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-EQwA.frro
+        /data/resource-cache/com.android.systemui-accent-2RSq.frro
+      legacy overlay paths:
+        /product/overlay/GestureLineOverlay.apk
+      gids=[1005, 2901]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.READ_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.CAMERA: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+    User 999: ceDataInode=0 installed=false hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false
+      installReason=0
+      firstInstallTime=1970-01-01 08:00:00
+      uninstallReason=1
+      gids=[1005, 2901]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ GRANTED_BY_DEFAULT]
+        android.permission.READ_EXTERNAL_STORAGE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT|RESTRICTION_SYSTEM_EXEMPT|RESTRICTION_UPGRADE_EXEMPT]
+        android.permission.READ_PHONE_STATE: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+        android.permission.CAMERA: granted=true, flags=[ SYSTEM_FIXED|GRANTED_BY_DEFAULT]
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  forceQueryable:
+    org.codeaurora.ims
+  queries via package name:
+  queries via component:
+  queryable via interaction:
+    User 0:
+      [com.miui.securitycenter,com.miui.qr,com.android.systemui,com.android.networkstack.tethering.inprocess,com.miui.freeform,com.android.inputdevices,com.miui.contentcatcher,com.xiaomi.gnss.polaris,com.xiaomi.trustservice,com.miui.daemon,com.miui.wmsvc,com.miui.catcherpatch,com.xiaomi.mirror,com.xiaomi.digitalkey,com.xiaomi.aiasst.service,com.wapi.wapicertmanage,com.xiaomi.touchservice,com.xiaomi.location.fused,com.miui.miinput,com.miui.securitycore,com.miui.cleanmaster,com.xiaomi.barrage,com.xiaomi.joyose,com.android.settings,com.miui.uireporter,com.miui.cit,com.xiaomi.mi_connect_service,com.miui.notification,com.android.provision,com.miui.audiomonitor,com.xiaomi.otrpbroker,com.xiaomi.mtb,com.miui.touchassistant,com.xiaomi.aiasst.vision,com.android.providers.settings,com.xiaomi.devauth,com.xiaomi.misettings,com.android.networkstack.inprocess,com.miui.bugreport,com.modemdebug,android,com.miui.powerkeeper,com.android.location.fused,com.miui.maintenancemode,miui.systemui.plugin,com.bsp.catchlog,com.qualcomm.qti.xrcb,com.android.server.telecom,com.android.keychain,com.android.dynsystem,com.android.wallpaperbackup,com.miui.face,com.miui.aod,com.android.localtransport]:
+        org.codeaurora.ims
+      org.codeaurora.ims:
+        [com.android.mms.service,com.android.providers.telephony,com.android.cellbroadcastservice,com.miui.vsimcore,com.qti.qualcomm.datastatusnotification,com.android.stk,com.qualcomm.qti.uceShimService,com.qualcomm.atfwd,com.android.phone,com.qualcomm.qti.autoregistration,com.qti.qualcomm.deviceinfo,vendor.qti.imsdatachannel,vendor.qti.imsrcs,com.qti.dpmserviceapp,com.qualcomm.qti.dynamicddsservice,com.android.ons]
+    User 999:
+  queryable via uses-library:
+
+Dexopt state:
+  [org.codeaurora.ims]
+    path: /system_ext/priv-app/ims/ims.apk
+      arm64: [status=speed-profile] [reason=bg-dexopt]
+      odex file size: ims.odex: 24Kb ims.vdex: 13Kb 
+
+Compiler stats:
+  [org.codeaurora.ims]
+     ims.apk - 5
+

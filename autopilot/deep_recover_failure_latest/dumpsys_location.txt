@@ -1,0 +1,403 @@
+Location Manager State:
+  User Info:
+    running users: u[0, 999]
+    current users: u[0, 999]
+  Location Settings:
+    Location Setting: 
+      [u0] true
+      [u999] true
+    Location Allow/Deny Packages:
+    Throttling Allow Packages:
+      com.google.android.gms
+    Emergency Bypass Allow Packages:
+      com.google.android.dialer[*]
+      com.google.android.gms[.thunderbird]
+  Location Controller Extra Package: com.google.android.gms.location.history [disabled]
+  Location Providers:
+    passive provider:
+      service: registered
+      listeners:
+        1000/android[GnssService]/DB46811D Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 android}]
+        10129/com.google.android.gms[network_location_provider]/0EFC793C Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}]
+        99910129/com.google.android.gms[fused_location_provider]/6F6A818A Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}]
+        99910129/com.google.android.gms[network_location_provider]/30582A27 Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}]
+        1000/com.xiaomi.location.fused/1E0F05B8 Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 com.xiaomi.location.fused}]
+        1000/android[SensorNotificationService]/08A6608E Request[PASSIVE, minUpdateInterval=+30m0s0ms, minUpdateDistance=100000.0, WorkSource{1000 android}]
+        10129/com.google.android.gms[fused_location_provider]/405FEEC5 Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}]
+        10169/com.xiaomi.metoknlp/21E8898C {bg} Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10169 com.xiaomi.metoknlp}]
+      user 0:
+        last location=Location[fused 51.511629,-0.150517 hAcc=1.0 et=+17m48s906ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      user 999:
+        last location=Location[fused 51.511629,-0.150517 hAcc=1.0 et=+17m48s906ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      allowed=true
+      identity=1000/android[LocationService]
+      properties=ProviderProperties[powerUsage=Low, accuracy=Fine]
+    network provider [mock]:
+      service: ProviderRequest[OFF]
+      listeners:
+        1000/android[GnssService]/A0C7F17D Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{1000 android}]
+      user 0:
+        last location=Location[network 51.511629,-0.150517 hAcc=2.0 et=+17m48s898ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      user 999:
+        last location=Location[network 51.511629,-0.150517 hAcc=2.0 et=+17m48s898ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      allowed=true
+      identity=10273/com.cxorz.anywhere
+      properties=ProviderProperties[powerUsage=Low, accuracy=Coarse, requires=network,cell, hasMonetaryCost, supports=[bearing,speed,altitude]]
+      last mock location=Location[network 51.511629,-0.150517 hAcc=2.0 et=+17m48s898ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+    fused provider [mock]:
+      service: ProviderRequest[OFF]
+      user 0:
+        last location=Location[fused 51.511629,-0.150517 hAcc=1.0 et=+17m48s906ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      user 999:
+        last location=Location[fused 51.511629,-0.150517 hAcc=1.0 et=+17m48s906ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      allowed=true
+      identity=10273/com.cxorz.anywhere
+      properties=ProviderProperties[powerUsage=Low, accuracy=Fine, supports=[bearing,speed,altitude]]
+      last mock location=Location[fused 51.511629,-0.150517 hAcc=1.0 et=+17m48s906ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+    gps provider [mock]:
+      service: ProviderRequest[OFF]
+      user 0:
+        last location=Location[gps 51.511629,-0.150517 hAcc=1.0 et=+17m48s904ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      user 999:
+        last location=Location[gps 51.511629,-0.150517 hAcc=1.0 et=+17m48s904ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+        enabled=true
+      allowed=true
+      identity=10273/com.cxorz.anywhere
+      properties=ProviderProperties[powerUsage=High, accuracy=Fine, requires=satellite, supports=[bearing,speed,altitude]]
+      last mock location=Location[gps 51.511629,-0.150517 hAcc=1.0 et=+17m48s904ms alt=5.1044449101174925 vel=0.0 bear=96.17903 mock]
+  Historical Aggregate Location Provider Data:
+    passive:
+      10129/com.google.android.gms[fused_location_provider]: min/max interval = 9223372036854775s/9223372036854775s, total/active/foreground duration = +17m23s681ms/+17m23s681ms/+17m21s926ms, locations = 27762
+      10169/com.xiaomi.metoknlp: min/max interval = passive/passive, total/active/foreground duration = +17m22s775ms/+17m22s774ms/0, locations = 27771
+      1000/com.xiaomi.location.fused: min/max interval = passive/passive, total/active/foreground duration = +17m17s754ms/+17m17s754ms/+17m17s754ms, locations = 27762
+      99910129/com.google.android.gms[network_location_provider]: min/max interval = passive/passive, total/active/foreground duration = +16m51s106ms/+16m51s106ms/+15m12s623ms, locations = 27352
+      1000/android[SensorNotificationService]: min/max interval = passive/passive, total/active/foreground duration = +17m29s502ms/+17m29s502ms/+17m29s502ms, locations = 1
+      10129/com.google.android.gms[network_location_provider]: min/max interval = passive/passive, total/active/foreground duration = +17m20s294ms/+17m20s294ms/+17m20s294ms, locations = 27762
+      10292/com.autonavi.minimap: min/max interval = passive/passive, total/active/foreground duration = +13s71ms/+13s69ms/+12s884ms, locations = 353
+      1000/android[CountryDetector]: min/max interval = passive/passive, total/active/foreground duration = +300ms/+295ms/+298ms, locations = 6
+      1001/com.android.phone: min/max interval = 0s/0s, total/active/foreground duration = +26s26ms/+26s23ms/+26s25ms, locations = 1
+      1000/android[GnssService]: min/max interval = passive/passive, total/active/foreground duration = +17m33s730ms/+17m33s730ms/+17m33s730ms, locations = 27762
+      99910129/com.google.android.gms[fused_location_provider]: min/max interval = 9223372036854775s/9223372036854775s, total/active/foreground duration = +16m51s497ms/+16m51s496ms/+15m13s12ms, locations = 27364
+    gps:
+      10273/com.cxorz.anywhere: min/max interval = 0s/0s, total/active/foreground duration = +1s615ms/+1s608ms/+1s614ms, locations = 0
+      10292/com.autonavi.minimap: min/max interval = 1s/1s, total/active/foreground duration = +12s707ms/+12s707ms/+12s604ms, locations = 15
+    network:
+      10273/com.cxorz.anywhere: min/max interval = 0s/0s, total/active/foreground duration = +14s47ms/+14s36ms/+14s47ms, locations = 115
+      1000/android[GnssService]: min/max interval = 1s/passive, total/active/foreground duration = +17m33s720ms/+17m23s10ms/+17m33s719ms, locations = 9257
+  GNSS Manager:
+    Capabilities: [SCHEDULING MSB MSA GEOFENCING LOW_POWER_MODE SATELLITE_BLOCKLIST]
+    Status Provider:
+      service: registered
+      listeners:
+        99910129/com.google.android.gms[network_location_provider]/55B44BBA
+        10129/com.google.android.gms[network_location_provider]/BEA41D2B
+    Measurements Provider:
+      service: unregistered
+    Antenna Info Provider:
+      Antenna Infos: null
+      service: unregistered
+  Geofence Manager:
+    service: unregistered
+  Event Log:
+    09-17 22:27:14.793: passive provider [u0] enabled
+    09-17 22:27:16.689: gps provider [u0] enabled
+    09-17 22:27:16.917: passive provider [u0] enabled
+    09-17 22:27:16.917: gps provider [u0] enabled
+    09-17 22:27:17.088: passive provider +registration 1000/android[GnssService]/DB46811D -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 android}]
+    09-17 22:27:17.091: passive provider request = ProviderRequest[@0]
+    09-17 22:27:17.099: network provider +registration 1000/android[GnssService]/A0C7F17D -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{1000 android}]
+    09-17 22:27:19.136: passive provider +registration 1001/com.android.phone/63137F4F -> Request[@0 BALANCED, duration=+30s0ms, WorkSource{1001 com.android.phone}]
+    09-17 22:27:21.316: passive provider +registration 1000/android[SensorNotificationService]/08A6608E -> Request[PASSIVE, minUpdateInterval=+30m0s0ms, minUpdateDistance=100000.0, WorkSource{1000 android}]
+    09-17 22:27:22.420: passive provider [u999] enabled
+    09-17 22:27:22.420: gps provider [u999] enabled
+    09-17 22:27:27.137: passive provider +registration 10129/com.google.android.gms[fused_location_provider]/405FEEC5 -> Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}]
+    09-17 22:27:27.803: network provider [u0] enabled
+    09-17 22:27:27.805: network provider request = ProviderRequest[OFF]
+    09-17 22:27:27.805: network provider [u999] enabled
+    09-17 22:27:28.017: fused provider [u0] enabled
+    09-17 22:27:28.017: fused provider [u999] enabled
+    09-17 22:27:28.043: passive provider +registration 10169/com.xiaomi.metoknlp/E9624B9C -> Request[PASSIVE, minUpdateInterval=+2s0ms, WorkSource{10169 com.xiaomi.metoknlp}]
+    09-17 22:27:30.524: passive provider +registration 10129/com.google.android.gms[network_location_provider]/0EFC793C -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}]
+    09-17 22:27:32.801: passive provider +registration 10169/com.xiaomi.metoknlp/21E8898C -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10169 com.xiaomi.metoknlp}]
+    09-17 22:27:33.064: passive provider +registration 1000/com.xiaomi.location.fused/1E0F05B8 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 com.xiaomi.location.fused}]
+    09-17 22:27:43.390: network provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.391: network provider request = ProviderRequest[@0, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.405: gps provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.406: gps provider request = ProviderRequest[@0, HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.420: network provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:43.420: network provider request = ProviderRequest[OFF]
+    09-17 22:27:43.420: gps provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:43.421: gps provider request = ProviderRequest[OFF]
+    09-17 22:27:43.424: network provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.424: network provider request = ProviderRequest[@0, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.425: gps provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.425: gps provider request = ProviderRequest[@0, HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:43.656: network provider +registration 1000/android[GnssService]/8F597E7E -> Request[@+1s0ms BALANCED, maxUpdates=1, minUpdateDistance=1000.0, WorkSource{1000 android}]
+    09-17 22:27:43.658: network provider request = ProviderRequest[@0, WorkSource{1000 android, 10273 com.cxorz.anywhere}]
+    09-17 22:27:43.675: network provider -registration 1000/android[GnssService]/8F597E7E
+    09-17 22:27:43.675: network provider +registration 1000/android[GnssService]/8F597E7E -> Request[@+1s0ms BALANCED, maxUpdates=1, minUpdateDistance=1000.0, WorkSource{1000 android}]
+    09-17 22:27:45.007: gps provider added mock provider override
+    09-17 22:27:45.007: gps provider [u0] disabled
+    09-17 22:27:45.007: gps provider request = ProviderRequest[OFF]
+    09-17 22:27:45.007: gps provider [u999] disabled
+    09-17 22:27:45.008: gps provider removed mock provider override
+    09-17 22:27:45.009: gps provider [u0] enabled
+    09-17 22:27:45.012: gps provider request = ProviderRequest[@0, HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:45.012: gps provider [u999] enabled
+    09-17 22:27:45.023: network provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:45.024: network provider request = ProviderRequest[@+1s0ms, WorkSource{1000 android}]
+    09-17 22:27:45.025: gps provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:45.025: gps provider request = ProviderRequest[OFF]
+    09-17 22:27:45.027: network provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:45.027: network provider request = ProviderRequest[@0, WorkSource{1000 android, 10273 com.cxorz.anywhere}]
+    09-17 22:27:45.119: network provider removed mock provider override
+    09-17 22:27:45.120: network provider added mock provider override
+    09-17 22:27:45.120: network provider [u0] disabled
+    09-17 22:27:45.121: network provider request = ProviderRequest[OFF]
+    09-17 22:27:45.121: network provider [u999] disabled
+    09-17 22:27:45.126: network provider [u0] enabled
+    09-17 22:27:45.128: network provider request = ProviderRequest[@0, WorkSource{1000 android, 10273 com.cxorz.anywhere}]
+    09-17 22:27:45.128: network provider [u999] enabled
+    09-17 22:27:45.129: gps provider removed mock provider override
+    09-17 22:27:45.129: gps provider added mock provider override
+    09-17 22:27:45.129: gps provider [u0] disabled
+    09-17 22:27:45.131: gps provider [u999] disabled
+    09-17 22:27:45.132: gps provider [u0] enabled
+    09-17 22:27:45.133: gps provider [u999] enabled
+    09-17 22:27:45.137: fused provider removed mock provider override
+    09-17 22:27:45.138: fused provider added mock provider override
+    09-17 22:27:45.140: fused provider [u0] disabled
+    09-17 22:27:45.141: fused provider [u999] disabled
+    09-17 22:27:45.142: fused provider [u0] enabled
+    09-17 22:27:45.147: fused provider [u999] enabled
+    09-17 22:27:45.162: passive provider -registration 1001/com.android.phone/63137F4F
+    09-17 22:27:45.163: network provider -registration 1000/android[GnssService]/8F597E7E
+    09-17 22:27:45.163: network provider request = ProviderRequest[@0, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:27:45.418: passive provider -registration 10169/com.xiaomi.metoknlp/E9624B9C
+    09-17 22:27:52.597: network provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:52.597: network provider request = ProviderRequest[OFF]
+    09-17 22:27:59.321: passive provider +registration 99910129/com.google.android.gms[fused_location_provider]/6F6A818A -> Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}]
+    09-17 22:27:59.712: passive provider +registration 99910129/com.google.android.gms[network_location_provider]/30582A27 -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}]
+    09-17 22:29:53.933: passive provider +registration 1000/android[CountryDetector]/D7FC37BC -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:29:54.018: passive provider -registration 1000/android[CountryDetector]/D7FC37BC
+    09-17 22:30:08.000: passive provider +registration 1000/android[CountryDetector]/ECFAC0C5 -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:30:08.037: passive provider -registration 1000/android[CountryDetector]/ECFAC0C5
+    09-17 22:30:37.679: network provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:30:37.680: network provider request = ProviderRequest[@0, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:30:39.689: network provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:30:39.689: network provider request = ProviderRequest[OFF]
+    09-17 22:30:43.511: passive provider +registration 10292/com.autonavi.minimap/B3CCCF55 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:30:43.599: gps provider +registration 10292/com.autonavi.minimap/91436446 -> Request[@+1s0ms HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:30:43.599: gps provider request = ProviderRequest[@+1s0ms, HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:30:43.759: network provider +registration 1000/android[GnssService]/720C12A3 -> Request[@+1s0ms LOW_POWER, duration=+10s0ms, maxUpdates=1, WorkSource{1000 android}]
+    09-17 22:30:43.760: network provider request = ProviderRequest[@+1s0ms, LOW_POWER, WorkSource{1000 android}]
+    09-17 22:30:43.828: network provider -registration 1000/android[GnssService]/720C12A3
+    09-17 22:30:43.828: network provider request = ProviderRequest[OFF]
+    09-17 22:30:49.378: gps provider request = ProviderRequest[@+10m0s0ms, HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:30:49.415: gps provider -registration 10292/com.autonavi.minimap/91436446
+    09-17 22:30:49.415: gps provider request = ProviderRequest[OFF]
+    09-17 22:30:49.462: passive provider -registration 10292/com.autonavi.minimap/B3CCCF55
+    09-17 22:35:18.920: passive provider +registration 1000/android[CountryDetector]/9223484B -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:35:18.994: passive provider -registration 1000/android[CountryDetector]/9223484B
+    09-17 22:37:54.824: passive provider +registration 1000/android[CountryDetector]/AB01E8AF -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:37:54.864: passive provider -registration 1000/android[CountryDetector]/AB01E8AF
+    09-17 22:38:24.785: network provider +registration 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:38:24.785: network provider request = ProviderRequest[@0, WorkSource{10273 com.cxorz.anywhere}]
+    09-17 22:38:27.623: network provider -registration 10273/com.cxorz.anywhere/175431AD
+    09-17 22:38:27.623: network provider request = ProviderRequest[OFF]
+    09-17 22:38:29.219: passive provider +registration 10292/com.autonavi.minimap/B3CCCF55 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:38:29.359: network provider +registration 1000/android[GnssService]/CC2C6379 -> Request[@+1s0ms LOW_POWER, duration=+10s0ms, maxUpdates=1, WorkSource{1000 android}]
+    09-17 22:38:29.361: network provider request = ProviderRequest[@+1s0ms, LOW_POWER, WorkSource{1000 android}]
+    09-17 22:38:29.413: gps provider +registration 10292/com.autonavi.minimap/91436446 -> Request[@+1s0ms HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:38:29.413: gps provider request = ProviderRequest[@+1s0ms, HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:38:29.463: network provider -registration 1000/android[GnssService]/CC2C6379
+    09-17 22:38:29.464: network provider request = ProviderRequest[OFF]
+    09-17 22:38:36.239: gps provider request = ProviderRequest[@+10m0s0ms, HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}]
+    09-17 22:38:36.304: gps provider -registration 10292/com.autonavi.minimap/91436446
+    09-17 22:38:36.304: gps provider request = ProviderRequest[OFF]
+    09-17 22:38:36.339: passive provider -registration 10292/com.autonavi.minimap/B3CCCF55
+    09-17 22:40:54.804: passive provider +registration 1000/android[CountryDetector]/4B866FCA -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:40:54.814: passive provider -registration 1000/android[CountryDetector]/4B866FCA
+    09-17 22:43:55.532: passive provider +registration 1000/android[CountryDetector]/98189792 -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}]
+    09-17 22:43:55.587: passive provider -registration 1000/android[CountryDetector]/98189792
+    09-17 22:44:50.399: network provider received location[1]
+    09-17 22:44:50.399: network provider delivered location[1] to 1000/android[GnssService]/A0C7F17D
+    09-17 22:44:50.399: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.399: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.400: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.400: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.400: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.400: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.401: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.401: gps provider received location[1]
+    09-17 22:44:50.401: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.401: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.402: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.402: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.402: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.402: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.403: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.403: fused provider received location[1]
+    09-17 22:44:50.403: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.403: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.403: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.404: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.404: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.404: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.404: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.505: network provider received location[1]
+    09-17 22:44:50.506: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.506: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.506: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.506: network provider delivered location[1] to 1000/android[GnssService]/A0C7F17D
+    09-17 22:44:50.507: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.507: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.507: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.507: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.508: gps provider received location[1]
+    09-17 22:44:50.508: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.508: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.508: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.508: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.508: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.509: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.509: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.509: fused provider received location[1]
+    09-17 22:44:50.509: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.509: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.510: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.510: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.510: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.510: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.510: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.611: network provider received location[1]
+    09-17 22:44:50.612: network provider delivered location[1] to 1000/android[GnssService]/A0C7F17D
+    09-17 22:44:50.612: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.612: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.613: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.613: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.614: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.615: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.615: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.615: gps provider received location[1]
+    09-17 22:44:50.616: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.616: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.616: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.616: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.617: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.617: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.617: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.618: fused provider received location[1]
+    09-17 22:44:50.618: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.618: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.619: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.619: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.619: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.620: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.620: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.721: network provider received location[1]
+    09-17 22:44:50.721: network provider delivered location[1] to 1000/android[GnssService]/A0C7F17D
+    09-17 22:44:50.722: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.722: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.723: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.724: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.724: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.725: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.726: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.726: gps provider received location[1]
+    09-17 22:44:50.726: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.726: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.727: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.727: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.727: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.727: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.728: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    09-17 22:44:50.728: fused provider received location[1]
+    09-17 22:44:50.728: passive provider delivered location[1] to 1000/android[GnssService]/DB46811D
+    09-17 22:44:50.728: passive provider delivered location[1] to 10129/com.google.android.gms[network_location_provider]/0EFC793C
+    09-17 22:44:50.728: passive provider delivered location[1] to 99910129/com.google.android.gms[fused_location_provider]/6F6A818A
+    09-17 22:44:50.729: passive provider delivered location[1] to 99910129/com.google.android.gms[network_location_provider]/30582A27
+    09-17 22:44:50.729: passive provider delivered location[1] to 1000/com.xiaomi.location.fused/1E0F05B8
+    09-17 22:44:50.729: passive provider delivered location[1] to 10129/com.google.android.gms[fused_location_provider]/405FEEC5
+    09-17 22:44:50.729: passive provider delivered location[1] to 10169/com.xiaomi.metoknlp/21E8898C
+    LMS information:
+    =MI Random=SkboFs5jzrtlc2aYtUnIGOWOEXHXFZ9gKypN9UgAfbRUjtw1c+qQ1nPazOG+3g/Bo4Usa2tE8vRJWMMvjCFC1Uynni4LHllgvaCkRGP90959NCiATQGI1OqLMxDoYfXrRl1oVmbZxO2+5poyLeXR+v2o0ot+Td05rUMH+b1GdKs=
+    09-17 22:27:16.671 - =MI LMS= bind NLP com.xiaomi.metoknlp
+    09-17 22:27:16.672 - =MI LMS= bind FLP com.xiaomi.location.fused
+    09-17 22:27:16.691 - =MI LMS= bind Geocoder Provider com.xiaomi.metoknlp
+    09-17 22:27:16.695 - =MI LMS= bind Geofence Provider @0
+    09-17 22:27:17.079 - =MI LMS= [0]passive provider added registration from 1000/android[GnssService]/DB46811D -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:27:17.100 - =MI LMS= [0]network provider added registration from 1000/android[GnssService]/A0C7F17D -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:27:19.136 - =MI LMS= [0]passive provider added registration from 1001/com.android.phone/63137F4F -> Request[@0 BALANCED, duration=+30s0ms, WorkSource{1001 com.android.phone}] permissionLevel: 2 permitted: true
+    09-17 22:27:21.316 - =MI LMS= [0]passive provider added registration from 1000/android[SensorNotificationService]/08A6608E -> Request[PASSIVE, minUpdateInterval=+30m0s0ms, minUpdateDistance=100000.0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:27:27.137 - =MI LMS= [0]passive provider added registration from 10129/com.google.android.gms[fused_location_provider]/405FEEC5 -> Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}] permissionLevel: 2 permitted: true
+    09-17 22:27:28.044 - =MI LMS= [0]passive provider added registration from 10169/com.xiaomi.metoknlp/E9624B9C -> Request[PASSIVE, minUpdateInterval=+2s0ms, WorkSource{10169 com.xiaomi.metoknlp}] permissionLevel: 2 permitted: true
+    09-17 22:27:28.852 - =MI LMS= request from uid 10129 com.google.android.gms is now foreground
+    09-17 22:27:30.524 - =MI LMS= [0]passive provider added registration from 10129/com.google.android.gms[network_location_provider]/0EFC793C -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{10129 com.google.android.gms}] permissionLevel: 2 permitted: true
+    09-17 22:27:32.802 - =MI LMS= [0]passive provider added registration from 10169/com.xiaomi.metoknlp/21E8898C -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10169 com.xiaomi.metoknlp}] permissionLevel: 2 permitted: true
+    09-17 22:27:33.064 - =MI LMS= [0]passive provider added registration from 1000/com.xiaomi.location.fused/1E0F05B8 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{1000 com.xiaomi.location.fused}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.391 - =MI LMS= [0]network provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.403 - =MI LMS= [0]gps provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.421 - =MI LMS= [0]network provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:43.421 - =MI LMS= [0]gps provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:43.424 - =MI LMS= [0]network provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.425 - =MI LMS= [0]gps provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 HIGH_ACCURACY, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.656 - =MI LMS= [0]network provider added registration from 1000/android[GnssService]/8F597E7E -> Request[@+1s0ms BALANCED, maxUpdates=1, minUpdateDistance=1000.0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:27:43.676 - =MI LMS= [0]network provider removed registration from 1000/android[GnssService]/8F597E7E
+    09-17 22:27:43.676 - =MI LMS= [0]network provider added registration from 1000/android[GnssService]/8F597E7E -> Request[@+1s0ms BALANCED, maxUpdates=1, minUpdateDistance=1000.0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:27:45.024 - =MI LMS= [0]network provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:45.025 - =MI LMS= [0]gps provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:45.028 - =MI LMS= [0]network provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:27:45.163 - =MI LMS= [0]passive provider removed registration from 1001/com.android.phone/63137F4F
+    09-17 22:27:45.163 - =MI LMS= [0]network provider removed registration from 1000/android[GnssService]/8F597E7E
+    09-17 22:27:45.419 - =MI LMS= [0]passive provider removed registration from 10169/com.xiaomi.metoknlp/E9624B9C
+    09-17 22:27:52.598 - =MI LMS= [0]network provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:27:59.322 - =MI LMS= [0]passive provider added registration from 99910129/com.google.android.gms[fused_location_provider]/6F6A818A -> Request[@+24855d3h14m7s806ms BALANCED, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}] permissionLevel: 2 permitted: true
+    09-17 22:27:59.713 - =MI LMS= [0]passive provider added registration from 99910129/com.google.android.gms[network_location_provider]/30582A27 -> Request[PASSIVE, minUpdateInterval=0, hiddenFromAppOps, WorkSource{99910129 com.google.android.gms}] permissionLevel: 2 permitted: true
+    09-17 22:28:29.901 - =MI LMS= request from uid 99910129 com.google.android.gms is now background
+    09-17 22:28:29.904 - =MI LMS= request from uid 99910129 com.google.android.gms is now background
+    09-17 22:29:53.933 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/D7FC37BC -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:29:54.018 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/D7FC37BC
+    09-17 22:30:08.000 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/ECFAC0C5 -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:30:08.038 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/ECFAC0C5
+    09-17 22:30:08.387 - =MI LMS= request from uid 99910129 com.google.android.gms is now foreground
+    09-17 22:30:08.387 - =MI LMS= request from uid 99910129 com.google.android.gms is now foreground
+    09-17 22:30:37.680 - =MI LMS= [0]network provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:30:39.689 - =MI LMS= [0]network provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:30:43.512 - =MI LMS= [0]passive provider added registration from 10292/com.autonavi.minimap/B3CCCF55 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10292 com.autonavi.minimap}] permissionLevel: 2 permitted: true
+    09-17 22:30:43.591 - =MI LMS= [0]gps provider added registration from 10292/com.autonavi.minimap/91436446 -> Request[@+1s0ms HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}] permissionLevel: 2 permitted: true
+    09-17 22:30:43.610 - =MI LMS= com.autonavi.minimap request Measurement Request
+    09-17 22:30:43.759 - =MI LMS= [0]network provider added registration from 1000/android[GnssService]/720C12A3 -> Request[@+1s0ms LOW_POWER, duration=+10s0ms, maxUpdates=1, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:30:43.828 - =MI LMS= [0]network provider removed registration from 1000/android[GnssService]/720C12A3
+    09-17 22:30:49.378 - =MI LMS= request from uid 10292 com.autonavi.minimap is now background
+    09-17 22:30:49.378 - =MI LMS= request from uid 10292 com.autonavi.minimap is now background
+    09-17 22:30:49.414 - =MI LMS= remove Measurement Request
+    09-17 22:30:49.416 - =MI LMS= [0]gps provider removed registration from 10292/com.autonavi.minimap/91436446
+    09-17 22:30:49.462 - =MI LMS= [0]passive provider removed registration from 10292/com.autonavi.minimap/B3CCCF55
+    09-17 22:35:18.921 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/9223484B -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:35:18.995 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/9223484B
+    09-17 22:37:54.824 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/AB01E8AF -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:37:54.864 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/AB01E8AF
+    09-17 22:38:24.785 - =MI LMS= [0]network provider added registration from 10273/com.cxorz.anywhere/175431AD -> Request[@0 BALANCED, WorkSource{10273 com.cxorz.anywhere}] permissionLevel: 2 permitted: true
+    09-17 22:38:27.623 - =MI LMS= [0]network provider removed registration from 10273/com.cxorz.anywhere/175431AD
+    09-17 22:38:29.219 - =MI LMS= [0]passive provider added registration from 10292/com.autonavi.minimap/B3CCCF55 -> Request[PASSIVE, minUpdateInterval=+1s0ms, WorkSource{10292 com.autonavi.minimap}] permissionLevel: 2 permitted: true
+    09-17 22:38:29.226 - =MI LMS= com.autonavi.minimap request Measurement Request
+    09-17 22:38:29.360 - =MI LMS= [0]network provider added registration from 1000/android[GnssService]/CC2C6379 -> Request[@+1s0ms LOW_POWER, duration=+10s0ms, maxUpdates=1, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:38:29.404 - =MI LMS= [0]gps provider added registration from 10292/com.autonavi.minimap/91436446 -> Request[@+1s0ms HIGH_ACCURACY, WorkSource{10292 com.autonavi.minimap}] permissionLevel: 2 permitted: true
+    09-17 22:38:29.464 - =MI LMS= [0]network provider removed registration from 1000/android[GnssService]/CC2C6379
+    09-17 22:38:36.238 - =MI LMS= request from uid 10292 com.autonavi.minimap is now background
+    09-17 22:38:36.239 - =MI LMS= request from uid 10292 com.autonavi.minimap is now background
+    09-17 22:38:36.304 - =MI LMS= [0]gps provider removed registration from 10292/com.autonavi.minimap/91436446
+    09-17 22:38:36.306 - =MI LMS= remove Measurement Request
+    09-17 22:38:36.340 - =MI LMS= [0]passive provider removed registration from 10292/com.autonavi.minimap/B3CCCF55
+    09-17 22:40:54.805 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/4B866FCA -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:40:54.814 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/4B866FCA
+    09-17 22:43:55.533 - =MI LMS= [0]passive provider added registration from 1000/android[CountryDetector]/98189792 -> Request[PASSIVE, minUpdateInterval=0, WorkSource{1000 android}] permissionLevel: 2 permitted: true
+    09-17 22:43:55.588 - =MI LMS= [0]passive provider removed registration from 1000/android[CountryDetector]/98189792

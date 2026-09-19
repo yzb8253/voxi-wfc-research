@@ -1,0 +1,4 @@
+FILTER: radio|ims|iwlan|ril|telephony|multisim|modem
+
+SOURCE: 01_getprop.txt
+

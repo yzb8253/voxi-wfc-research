@@ -1,0 +1,147 @@
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleEnablePhysicalSubscription(boolean)
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.io.PrintWriter getErrPrintWriter()
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.lang.String getNextArgRequired()
+  invoke: java.lang.Integer int parseInt(java.lang.String)
+  invoke: android.os.Binder int getCallingUid()
+  field: com.android.internal.telephony.util.TelephonyUtils boolean IS_USER
+  invoke: com.android.phone.TelephonyShellCommand boolean subIsEsim(int)
+  invoke: java.lang.StringBuilder void <init>()
+  string:  SubId 
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  string:   is not for a physical subscription
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  invoke: java.io.PrintWriter void println(java.lang.String)
+  string:  Enabling
+  string:  Disabling
+  string:   physical subscription with subId=
+  string:  TelephonyShellCommand
+  invoke: android.util.Log int d(java.lang.String, java.lang.String)
+  field: com.android.phone.TelephonyShellCommand android.telephony.SubscriptionManager mSubscriptionManager
+  string:  cc: Permission denied.
+  string:  enable
+  string:  disable
+  string:  -physical-subscription requires an integer as a subId.
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleEndBlockSuppressionCommand()
+  invoke: com.android.phone.TelephonyShellCommand boolean checkShellUid()
+  field: com.android.phone.TelephonyShellCommand android.content.Context mContext
+  field: android.provider.BlockedNumberContract$SystemContract$BlockSuppressionStatus boolean isSuppressed
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleNumberVerificationCommand()
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.lang.String getNextArg()
+  invoke: com.android.phone.TelephonyShellCommand void onHelpNumberVerification()
+  invoke: com.android.phone.TelephonyShellCommand boolean checkShellUid()
+  string:  override-package
+  invoke: java.lang.String boolean equals(java.lang.Object)
+  string:  fake-call
+  invoke: com.android.phone.NumberVerificationManager com.android.phone.NumberVerificationManager getInstance()
+  invoke: com.android.phone.NumberVerificationManager boolean checkIncomingCall(java.lang.String)
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.io.PrintWriter getOutPrintWriter()
+  string:  1
+  string:  0
+  invoke: java.io.PrintWriter void println(java.lang.String)
+  invoke: com.android.phone.NumberVerificationManager void overrideAuthorizedPackage(java.lang.String)
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleSrcGetFeatureValidationCommand()
+  string:  src get-feature-validation
+  invoke: com.android.phone.TelephonyShellCommand int getSubId(java.lang.String)
+  field: com.android.phone.TelephonyShellCommand com.android.internal.telephony.ITelephony mInterface
+  invoke: java.lang.Boolean java.lang.Boolean valueOf(boolean)
+  invoke: java.lang.StringBuilder void <init>()
+  string:  src get-feature-validation -s 
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  string:  , returned: 
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.Object)
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  string:  TelephonyShellCommand
+  invoke: android.util.Log int v(java.lang.String, java.lang.String)
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.io.PrintWriter getOutPrintWriter()
+  invoke: java.io.PrintWriter void println(java.lang.Object)
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleSrcSetFeatureValidationCommand()
+  string:   
+  string:  src set-feature-validation -s 
+  string:  TelephonyShellCommand
+  invoke: com.android.modules.utils.BasicShellCommandHandler int getRemainingArgsCount()
+  string:  src set-feature-validation
+  invoke: com.android.phone.TelephonyShellCommand int getSubId(java.lang.String)
+  invoke: android.telephony.SubscriptionManager int getDefaultSubscriptionId()
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.lang.String getNextArg()
+  field: com.android.phone.TelephonyShellCommand com.android.internal.telephony.ITelephony mInterface
+  invoke: java.lang.StringBuilder void <init>()
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  string:  , result=
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(boolean)
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  invoke: android.util.Log int v(java.lang.String, java.lang.String)
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.io.PrintWriter getOutPrintWriter()
+  invoke: java.io.PrintWriter void println(boolean)
+  string:  , error
+  invoke: java.lang.Exception java.lang.String getMessage()
+  invoke: android.util.Log int w(java.lang.String, java.lang.String)
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.io.PrintWriter getErrPrintWriter()
+  string:  Exception: 
+  invoke: java.io.PrintWriter void println(java.lang.String)
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int handleThermalMitigationCommand()
+  invoke: com.android.modules.utils.BasicShellCommandHandler java.lang.String getNextArg()
+  invoke: com.android.phone.TelephonyShellCommand boolean checkShellUid()
+  string:  disallow-package
+  invoke: java.lang.String boolean equals(java.lang.Object)
+  string:  allow-package
+  invoke: com.android.phone.TelephonyShellCommand void onHelpThermalMitigation()
+  field: com.android.phone.TelephonyShellCommand android.content.Context mContext
+  field: android.content.res.Configuration int mcc
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: boolean subIsEsim(int)
+  field: com.android.phone.TelephonyShellCommand android.telephony.SubscriptionManager mSubscriptionManager
+  invoke: android.telephony.SubscriptionInfo boolean isEmbedded()
+
+METHOD TeleService.apk com.android.phone.TelephonyShellCommand :: int onCommand(java.lang.String)
+  invoke: com.android.modules.utils.BasicShellCommandHandler int handleDefaultCommands(java.lang.String)
+  invoke: java.lang.String int hashCode()
+  invoke: java.lang.String boolean equals(java.lang.Object)
+  invoke: android.animation.AnimatorListenerAdapter void onAnimationStart(android.animation.Animator)
+  string:  emergency-number-test-mode
+  string:  thermal-mitigation
+  string:  data
+  string:  uce
+  invoke: android.app.Dialog void setTitle(java.lang.CharSequence)
+  field: android.app.Notification long[] vibrate
+  field: android.support.v4.media.session.MediaControllerCompat$MediaControllerImplApi21 java.util.List mPendingCallbacks
+  string:  callcomposer
+  string:  unattended-reboot
+  string:  set-allowed-network-types-for-users
+  string:  has-carrier-privileges
+  string:  get-sim-slots-mapping
+  string:  restart-modem
+  string:  numverify
+  invoke: com.android.phone.TelephonyShellCommand int handleGetImei()
+  invoke: com.android.phone.TelephonyShellCommand int handleEmergencyCallbackModeCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleGetDataMode()
+  invoke: com.android.phone.TelephonyShellCommand int handleEmergencyNumberTestModeCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleThermalMitigationCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleRadioCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleDataTestModeCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleRcsUceCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleSingleRegistrationConfigCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleImsCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleGbaCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleD2dCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleCcCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleEnablePhysicalSubscription(boolean)
+  invoke: com.android.phone.TelephonyShellCommand int handleBarringCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleEndBlockSuppressionCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleCallComposerCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleUnattendedReboot()
+  invoke: com.android.phone.TelephonyShellCommand int handleAllowedNetworkTypesCommand(java.lang.String)
+  invoke: com.android.phone.TelephonyShellCommand int handleHasCarrierPrivilegesCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleGetSimSlotsMapping()
+  invoke: com.android.phone.TelephonyShellCommand int handleRestartModemCommand()
+  invoke: com.android.phone.TelephonyShellCommand int handleNumberVerificationCommand()
+  invoke: android.accounts.Account void <init>(java.lang.String, java.lang.String)
+  field: android.R$styleable int[] CheckBoxPreference

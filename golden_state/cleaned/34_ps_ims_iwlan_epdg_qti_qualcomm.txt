@@ -1,0 +1,4 @@
+FILTER: iwlan|ims|epdg|qti|qualcomm
+
+SOURCE: 34_ps_A.txt
+

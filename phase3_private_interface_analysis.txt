@@ -1,0 +1,551 @@
+VOXI WFC Phase 3 - Xiaomi / Qualcomm Private Interface Analysis
+Generated from existing local Phase 2/Phase 3 artifacts only. No Golden State recapture was performed. No candidate repair command was executed.
+
+Safety boundary
+---------------
+This phase is READ-ONLY research. The following were not executed in this resume: reboot, kill, stop/start, settings put/delete, setprop, SIM enable/disable, disable-physical-subscription, enable-physical-subscription, Radio/IMS/IWLAN/CarrierConfig mutation, write Binder transaction, or any phone file modification.
+
+Evidence labels
+---------------
+[DEVICE CONFIRMED] observed in saved Golden State / Phase 2 logs and reports.
+[SOURCE CONFIRMED] recovered from local ROM JAR/APK/Dex static analysis.
+[INFERRED] framework/vendor behavior inferred from call chains and Android telephony design, not directly executed in Phase 3.
+[CANDIDATE ONLY] possible next-stage test operation. Not executed.
+
+
+1. Resume status
+----------------
+[SOURCE CONFIRMED] Phase 3 already had these local artifacts:
+
+- voxi_wfc_research/phase3/private_jars_scan.json
+- voxi_wfc_research/phase3/extphone_interfaces.txt
+- voxi_wfc_research/phase3/iface_isub.txt
+- voxi_wfc_research/phase3/iface_itelephony.txt
+- voxi_wfc_research/phase3/iface_carrier_config_loader.txt
+- voxi_wfc_research/phase3/iface_ims_rcs_controller.txt
+- voxi_wfc_research/phase3/refs_shell_physical_subscription.txt
+- voxi_wfc_research/phase3/refs_qti_subscription.txt
+- voxi_wfc_research/phase3/refs_carrier_config.txt
+- voxi_wfc_research/phase3/refs_reset_ims.txt
+- voxi_wfc_research/phase3/refs_ims_resolver.txt
+- voxi_wfc_research/phase3/candidate_methods.txt
+- voxi_wfc_research/phase3/binder_interfaces.txt
+- local ROM artifacts under voxi_wfc_research/phase3/jars/
+
+[SOURCE CONFIRMED] The pulled/read artifacts include:
+
+- /system_ext/framework/qti-telephony-common.jar
+- /system_ext/framework/qti-telephony-utils.jar
+- /system_ext/framework/qti-telephony-hidl-wrapper.jar
+- /system_ext/framework/xiaomi-modem-common.jar
+- /system_ext/framework/xiaomi-telephony-common.jar
+- /system_ext/framework/miui-telephony-common.jar
+- /product/framework/ims-ext-common.jar
+- /system_ext/framework/extphonelib.jar
+- /system/framework/telephony-common.jar
+- /system/framework/ims-common.jar
+- /system/priv-app/TeleService/TeleService.apk
+- /system_ext/app/QtiTelephony/QtiTelephony.apk
+
+[SOURCE CONFIRMED] The final Phase 3 report did not exist at resume time, so this file consolidates and completes the existing analysis.
+
+
+2. Phase 2 facts carried into Phase 3
+-------------------------------------
+[DEVICE CONFIRMED] VOXI is slot 1 / phoneId 1 / subId 11.
+
+[DEVICE CONFIRMED] Golden WFC state includes:
+
+- IWLAN active
+- PS/WLAN registrationState=HOME
+- accessNetworkTechnology=IWLAN
+- mIsIwlanPreferred=true
+- IMS + MMTEL registered/available
+
+[DEVICE CONFIRMED] The physical path "remove VOXI SIM -> boot with no SIM -> Wi-Fi -> insert VOXI" produced:
+
+- CarrierConfig: CLEAR_CONFIG -> no-SIM config -> ESSENTIAL_LOADED -> LOADED
+- ImsResolver slot 1: subId 11 -> -1 -> 11
+- MMTEL/RCS remove -> add/rebind lifecycle
+
+[INFERRED] Therefore the target is not simple IMS enablement. The target is a slot 1/subId 11 subscription/UICC/CarrierConfig/IMS feature lifecycle rebuild that mimics the physical absent/present path as closely as possible.
+
+
+3. IExtTelephony / IExtPhone method table
+-----------------------------------------
+[SOURCE CONFIRMED] service list previously showed extphone / qti.radio.extphone associated with org.codeaurora.internal.IExtTelephony naming, but the ROM-side client AIDL exposed in the pulled framework is com.qti.extphone.IExtPhone from extphonelib.jar.
+
+[SOURCE CONFIRMED] Interface: com.qti.extphone.IExtPhone
+Jar: extphonelib.jar
+Access: public interface abstract, extends android.os.IInterface
+
+Recovered methods:
+
+| Method | Return | Scope hint | Risk |
+|---|---:|---|---:|
+| getPropertyValueInt(String,int) | int | property read | 0 |
+| getPropertyValueBool(String,boolean) | boolean | property read | 0 |
+| getPropertyValueString(String,String) | String | property read | 0 |
+| getCurrentPrimaryCardSlotId() | int | device/subscription read | 0 |
+| getPrimaryCarrierSlotId() | int | device/subscription read | 0 |
+| isPrimaryCarrierSlotId(int) | boolean | slot read | 0 |
+| setPrimaryCardOnSlot(int) | void | primary-card write | 4 |
+| performIncrementalScan(int) | boolean | slot/network scan | 2 |
+| abortIncrementalScan(int) | boolean | slot/network scan | 2 |
+| startNetworkScan(int, NetworkScanRequest, Client) | Token | slot/network scan | 2 |
+| stopNetworkScan(int, Client) | Token | slot/network scan | 2 |
+| setNetworkSelectionModeManual(int,QtiSetNetworkSelectionMode,Client) | Token | slot/radio selection | 4 |
+| setNetworkSelectionModeAutomatic(int,int,Client) | Token | slot/radio selection | 4 |
+| getNetworkSelectionMode(int,Client) | Token | slot read/query | 0 |
+| isSMSPromptEnabled() | boolean | read | 0 |
+| setSMSPromptEnabled(boolean) | void | global telephony setting | 2 |
+| supplyIccDepersonalization(String,String,IDepersoResCallback,int) | void | SIM lock operation | 4 |
+| enableEndc(int,boolean,Client) | Token | slot NR/ENDC write | 4 |
+| queryNrIconType(int,Client) | Token | slot NR read | 0 |
+| queryNrDcParam(int,Client) | Token | slot NR read | 0 |
+| queryNrBearerAllocation(int,Client) | Token | slot NR read | 0 |
+| queryNrSignalStrength(int,Client) | Token | slot NR read | 0 |
+| queryUpperLayerIndInfo(int,Client) | Token | slot NR read | 0 |
+| query5gStatus(int,Client) | Token | slot NR read | 0 |
+| queryEndcStatus(int,Client) | Token | slot NR read | 0 |
+| queryNrConfig(int,Client) | Token | slot NR read | 0 |
+| setNrConfig(int,NrConfig,Client) | Token | slot NR write | 4 |
+| query5gConfigInfo(int,Client) | Token | slot NR read | 0 |
+| getQtiRadioCapability(int,Client) | Token | slot radio read | 0 |
+| enable5g(int,Client) | Token | slot NR write | 4 |
+| disable5g(int,Client) | Token | slot NR write | 4 |
+| enable5gOnly(int,Client) | Token | slot NR write | 4 |
+| getFacilityLockForApp(int,String,String,int,String,boolean,Client) | void | SIM lock query | 1 |
+| setCarrierInfoForImsiEncryption(int,ImsiEncryptionInfo,Client) | Token | carrier IMSI info write | 2 |
+| isSmartDdsSwitchFeatureAvailable() | boolean | read | 0 |
+| setSmartDdsSwitchToggle(boolean,Client) | void | DDS behavior write | 3 |
+| getDdsSwitchCapability(int,Client) | Token | slot read | 0 |
+| setAirplaneMode(boolean) | boolean | global radio state | 4 |
+| getAirplaneMode() | boolean | global read | 0 |
+| checkSimPinLockStatus(int) | boolean | slot SIM read | 0 |
+| toggleSimPinLock(int,boolean,String) | boolean | slot SIM lock write | 4 |
+| verifySimPin(int,String) | boolean | slot SIM auth write | 4 |
+| verifySimPukChangePin(int,String,String) | boolean | slot SIM auth write | 4 |
+| isFeatureSupported(int) | boolean | feature read | 0 |
+| getImeiInfo() | QtiImeiInfo[] | device identity read | 0 |
+| getSecureModeStatus(Client) | Token | read/query | 0 |
+| getQosParameters(int,int,Client) | Token | slot/data read | 0 |
+| isEpdgOverCellularDataSupported(int) | boolean | slot/ePDG capability read | 0 |
+| sendUserPreferenceForDataDuringVoiceCall(int,boolean,Client) | Token | slot data behavior write | 3 |
+| sendCdmaSms(int,byte[],boolean,Client) | Token | SMS write | 4 |
+| setMsimPreference(Client,MsimPreference) | Token | multi-SIM write | 4 |
+| getCurrentSimType() | QtiSimType[] | SIM read | 0 |
+| getSupportedSimTypes() | QtiSimType[] | SIM read | 0 |
+| setSimType(Client,QtiSimType[]) | Token | SIM profile/type write | 4 |
+| queryCallForwardStatus(int,int,int,String,boolean,Client) | void | supplementary service query | 1 |
+| registerCallback(String,IExtPhoneCallback) | Client | callback registration | 0 |
+| unRegisterCallback(IExtPhoneCallback) | void | callback deregistration | 0 |
+| registerQtiRadioConfigCallback(String,IExtPhoneCallback) | Client | callback registration | 0 |
+| unregisterQtiRadioConfigCallback(IExtPhoneCallback) | void | callback deregistration | 0 |
+
+[SOURCE CONFIRMED] IExtPhone contains an ePDG-related read method, isEpdgOverCellularDataSupported(int), but no method name suggesting CarrierConfig clear/load, subscription invalidation, IMS feature remove/add, or ImsResolver rebind.
+
+[INFERRED] The QTI extphone service is useful for capability discovery but is not the closest private interface for reproducing the physical SIM absent/present WFC recovery.
+
+
+4. IMiuiTelephony and Xiaomi subscription interfaces
+----------------------------------------------------
+[SOURCE CONFIRMED] The exact interface class miui.telephony.IMiuiTelephony was not recovered from the pulled JAR/APK set used in Phase 3. Related MIUI telephony classes were recovered.
+
+[SOURCE CONFIRMED] Interface: com.android.internal.telephony.IMiuiSubscriptionController
+Jar: telephony-common.jar
+Access: public interface abstract
+
+Recovered methods:
+
+- addActiveSubInfosCache(SubscriptionInfo): void
+- addPhoneNumberToSubInfo(Context,int): void
+- carrierNameEqualsCache(int,String): boolean
+- clearActiveSubInfosCache(): void
+- displayNameUsingSrcEqualsCache(int,String,long): boolean
+- dumpDatabaseSubInfoList(PrintWriter,boolean,List): void
+- getActiveSubInfoListCache(): List
+- getOpportunisticSubInfoListCache(): List
+- mccMncEqualsCache(int,int,int): boolean
+- removeActiveSubInfosCache(int): void
+- setUiccApplicationsEnabled(Context,boolean,int): void
+- updateCarrierText(String,int): void
+- updateMccMnc(String,int): void
+- updateSubInfoListCache(Context,int,ContentValues): void
+
+[SOURCE CONFIRMED] Implementations/stubs:
+
+- miui-telephony-common.jar: com.android.internal.telephony.MiuiSubscriptionControllerBase.setUiccApplicationsEnabled(Context,boolean,int)
+- miui-telephony-common.jar: com.android.internal.telephony.MiuiSubscriptionControllerImpl.setUiccApplicationsEnabled(Context,boolean,int)
+- telephony-common.jar: com.android.internal.telephony.MiuiSubscriptionControllerStub.setUiccApplicationsEnabled(Context,boolean,int)
+
+[INFERRED] Xiaomi adds subscription cache/database hooks around active subscription info. These are relevant to subId visibility but the recovered MIUI layer does not by itself show a complete public "simulate SIM absent/present" API.
+
+
+5. ExtTelephonyService / QTI service chain
+------------------------------------------
+[SOURCE CONFIRMED] QtiTelephony.apk includes:
+
+- com.qti.phone.ExtTelephonyService
+- com.qti.phone.ExtTelephonyServiceImpl
+
+[SOURCE CONFIRMED] qti-telephony-common.jar also includes:
+
+- com.qualcomm.qti.internal.telephony.ExtTelephonyServiceImpl
+
+[SOURCE CONFIRMED] ExtTelephonyService contains permission gates:
+
+- enforceModifyPhoneState(String)
+- enforceReadPrivilegedPermission(String)
+- onBind(Intent)
+- onCreate()
+- onDestroy()
+
+[SOURCE CONFIRMED] ExtTelephonyServiceImpl contains initialization for QTI telephony components, including:
+
+- makeQtiTelephony
+- makeQtiUiccSwitcher
+- makeQtiPrimaryImeiHandler
+- startPrimaryCardServiceIfRequired
+- startPowerUpOptimizationServiceIfRequired
+- initSubsidyDeviceController
+
+[SOURCE CONFIRMED] Package-level permission observed in the saved package/service analysis: com.qualcomm.qti.permission.USE_EXT_TELEPHONY_SERVICE with signature|privileged protection.
+
+[INFERRED] This service is privileged and not a low-risk shell/user route. Its method surface is also focused on radio capability, NR, network selection, SIM PIN, primary card and ePDG capability, not CarrierConfig/ImsResolver lifecycle rebuild.
+
+
+6. Telephony IMS / ImsResolver path
+-----------------------------------
+[SOURCE CONFIRMED] Candidate TeleService methods:
+
+- com.android.phone.PhoneInterfaceManager.disableIms(int)
+- com.android.phone.PhoneInterfaceManager.enableIms(int)
+- com.android.phone.PhoneInterfaceManager.resetIms(int)
+
+[SOURCE CONFIRMED] PhoneInterfaceManager.resetIms(int) call references:
+
+- enforceModifyPermission()
+- Binder.clearCallingIdentity()
+- mImsResolver
+- ImsResolver.disableIms(int)
+- Binder.restoreCallingIdentity(long)
+
+[SOURCE CONFIRMED] ImsResolver.disableIms(int):
+
+- getImsServiceControllers(int)
+- forEach controller -> lambda$disableIms$1
+- lambda obtains current getSubId(slotId)
+- calls ImsServiceController.disableIms(slotId, subId)
+
+[SOURCE CONFIRMED] ImsResolver.enableIms(int):
+
+- getImsServiceControllers(int)
+- forEach controller -> lambda$enableIms$0
+- lambda obtains current getSubId(slotId)
+- calls ImsServiceController.enableIms(slotId, subId)
+
+[SOURCE CONFIRMED] ImsResolver.bindCarrierServicesIfAvailable():
+
+- iterates slots
+- obtains subId per slot from SubscriptionManagerProxy.getSubId(slotId)
+- uses CarrierConfig-received state
+- schedules feature query
+- calculates feature configuration change
+
+[INFERRED] resetIms(1) is not equivalent to the physical SIM absent/present path. It does not itself make subId 11 become -1, does not clear CarrierConfig, does not produce no-SIM config, and is not proven to trigger the full MMTEL/RCS remove/add/rebind lifecycle observed in Golden State restoration.
+
+[CANDIDATE ONLY] resetIms(1), enableIms(1), and disableIms(1) are slot-scoped IMS operations, but they are incomplete for the target WFC rebuild and carry Level 2/3 risk depending on implementation side effects.
+
+
+7. ICarrierConfigLoader and CarrierConfig path
+----------------------------------------------
+[SOURCE CONFIRMED] TeleService.apk class: com.android.phone.CarrierConfigLoader
+
+Recovered methods:
+
+- private updateConfigForPhoneId(int): posts handler message for phoneId.
+- package-private clearConfigForPhone(int, boolean): reads PhoneFactory.getPhone(phoneId), checks Phone.isShuttingDown(), clears mConfigFromDefaultApp[phoneId] and mConfigFromCarrierApp[phoneId].
+- public notifyConfigChangedForSubId(int): resolves phoneId/subId, clears package cache, calls updateConfigForPhoneId(phoneId).
+- public updateConfigForPhoneId(int, String): logs phoneId/simState, validates phoneId, handles simState strings, updates mIsEssentialSimRecordsLoaded, calls updateConfigForPhoneId(phoneId), and calls MiCarrierConfigLoaderStub.updateConfigForPhoneId(phoneId, simState).
+
+[SOURCE CONFIRMED] Recognized simState strings in CarrierConfigLoader.updateConfigForPhoneId(int,String):
+
+- CARD_RESTRICTED
+- NOT_READY
+- UNKNOWN
+- ESSENTIAL_LOADED
+- CARD_IO_ERROR
+- LOCKED
+- LOADED
+
+[SOURCE CONFIRMED] Xiaomi extension:
+
+- com.android.phone.IMiCarrierConfigLoader.updateConfigForPhoneId(int,String)
+- com.android.phone.MiCarrierConfigLoaderStub.updateConfigForPhoneId(int,String)
+- com.android.phone.MiCarrierConfigLoaderImpl.updateConfigForPhoneId(int,String)
+
+[SOURCE CONFIRMED] MiCarrierConfigLoaderImpl recognizes:
+
+- LOADED -> CarrierConfigLoaderInjector.onIccLoaded(phoneId)
+- ABSENT -> CarrierConfigLoaderInjector.onIccAbsent(phoneId)
+
+[SOURCE CONFIRMED] The exact Binder transaction table for com.android.internal.telephony.ICarrierConfigLoader was not recovered from the current pulled artifacts. CarrierConfigLoader extends the internal Binder stub, but the generated Stub class itself was not available in the extracted result set.
+
+[INFERRED] CarrierConfigLoader.updateConfigForPhoneId(1, "ABSENT"/"LOADED"/"ESSENTIAL_LOADED") is the closest source-visible per-phone CarrierConfig CLEAR/LOAD entry point. It is not a shell-safe read-only command and would be a write Binder/framework call if invoked.
+
+[CANDIDATE ONLY] Direct CarrierConfig manipulation could be phoneId-scoped to phoneId 1, but by itself it would not necessarily recreate subscription invalidation, UICC absent/present, or ImsResolver subId 11 -> -1 -> 11.
+
+
+8. disable-physical-subscription / enable-physical-subscription chain
+---------------------------------------------------------------------
+[SOURCE CONFIRMED] TeleService.apk class: com.android.phone.TelephonyShellCommand
+
+[SOURCE CONFIRMED] onCommand(String) dispatches both:
+
+- disable-physical-subscription
+- enable-physical-subscription
+
+into:
+
+- private int handleEnablePhysicalSubscription(boolean enable)
+
+[SOURCE CONFIRMED] handleEnablePhysicalSubscription(boolean):
+
+- obtains PrintWriter for errors
+- reads the next required shell argument
+- parses it as an integer subId
+- checks Binder.getCallingUid()
+- consults TelephonyUtils.IS_USER
+- calls subIsEsim(subId)
+- prints "SubId ... is not for a physical subscription" if the target is eSIM
+- logs "Enabling/Disabling physical subscription with subId=..."
+- uses field mSubscriptionManager
+- reports permission/argument errors for invalid use
+
+[SOURCE CONFIRMED] subIsEsim(int):
+
+- uses mSubscriptionManager
+- obtains SubscriptionInfo
+- checks SubscriptionInfo.isEmbedded()
+
+[SOURCE CONFIRMED] telephony-common.jar class com.android.internal.telephony.SubscriptionController contains:
+
+- public boolean setSubscriptionEnabled(boolean,int)
+- public int setUiccApplicationsEnabled(boolean,int)
+
+[SOURCE CONFIRMED] qti-telephony-common.jar class com.qualcomm.qti.internal.telephony.QtiSubscriptionController contains:
+
+- public boolean setSubscriptionEnabled(boolean,int)
+- public int setUiccApplicationsEnabled(boolean,int)
+- private void setUiccApplicationsEnabled_1_4(int, boolean)
+
+[SOURCE CONFIRMED] QtiSubscriptionController.setSubscriptionEnabled(boolean,int):
+
+- enforceModifyPhoneState("setSubscriptionEnabled")
+- getSlotIndex(subId)
+- getUiccProvisionStatus(slot)
+- delegates to VendorSubscriptionController.setSubscriptionEnabled(boolean,int)
+
+[SOURCE CONFIRMED] QtiSubscriptionController.setUiccApplicationsEnabled(boolean,int):
+
+- SubscriptionManager.getPhoneId(subId)
+- PhoneFactory.getPhone(phoneId)
+- Phone.getHalVersion()
+- for vendor path, delegates to VendorSubscriptionController.setUiccApplicationsEnabled(boolean,int)
+- otherwise enforces MODIFY_PHONE_STATE
+- Binder.clearCallingIdentity()
+- getSlotIdForSubId(subId)
+- QtiUiccCardProvisioner.getInstance()
+- if enable=true: QtiUiccCardProvisioner.activateUiccCard(slotId)
+- if enable=false: QtiUiccCardProvisioner.deactivateUiccCard(slotId)
+- refreshCachedActiveSubscriptionInfoList()
+- notifySubscriptionInfoChanged()
+- Binder.restoreCallingIdentity(long)
+- setUiccApplicationsEnabled_1_4(subId, enable)
+
+[SOURCE CONFIRMED] QtiSubscriptionController.setUiccApplicationsEnabled_1_4(int, boolean):
+
+- validates SubscriptionManager.isValidSubscriptionId(subId)
+- writes ContentValues key uicc_applications_enabled
+- updates SubscriptionManager.getUriForSubscriptionId(subId) through ContentResolver
+
+[SOURCE CONFIRMED] qti-telephony-common.jar QtiSubscriptionInfoUpdater contains:
+
+- handleSimAbsent(int)
+- handleSimLoaded(int)
+- handleSimReady(int)
+- handleSimLocked(int,String)
+- handleSimNotReady(int)
+- updateSubscriptionInfoByIccId(int,boolean)
+
+[INFERRED] disable-physical-subscription 11 is not a simple IMS toggle. Static source evidence shows it is intended to change physical subscription/UICC application state, and the QTI implementation can deactivate the UICC card for the subId's slot and notify subscription changes.
+
+[INFERRED] This is the closest recovered interface to the physical "SIM absent" leg, because it can touch the same Subscription/UICC layer that ultimately drives subId visibility and CarrierConfig/IMS observer cascades.
+
+[INFERRED] Static analysis alone does not prove it will reproduce the exact Phase 2 observed sequence:
+
+- subId 11 -> -1
+- CarrierConfig CLEAR_CONFIG
+- no-SIM config
+- ImsResolver MMTEL/RCS remove
+
+That must be confirmed only in a later controlled test if the risk is accepted.
+
+[CANDIDATE ONLY] enable-physical-subscription 11 is the symmetric "present/insert" candidate. Static source evidence shows it can activate the UICC card for the subId's slot, refresh cached active subscriptions, and notify subscription info changes. It is plausible, but not yet device-confirmed, that it can drive -1 -> 11, CarrierConfig ESSENTIAL_LOADED/LOADED, and ImsResolver add/rebind.
+
+
+9. Phone / ImsPhone / MMTEL / RCS implications
+----------------------------------------------
+[DEVICE CONFIRMED] Physical SIM absent/present caused MMTEL/RCS remove -> add/rebind and eventually WFC restored.
+
+[SOURCE CONFIRMED] ImsResolver binds carrier services based on slot -> subId mapping and carrier config availability.
+
+[SOURCE CONFIRMED] ImsServiceController exposes enableIms(slotId, subId) and disableIms(slotId, subId).
+
+[SOURCE CONFIRMED] ImsPhone has resetImsRegistrationState(), and ImsPhoneCallTracker has resetImsCapabilities(), but these are not the same as tearing down/recreating slot subscription and feature binding.
+
+[INFERRED] The decisive IMS event in the physical path is probably not "enable IMS" alone. It is likely the re-evaluation of IMS feature availability after the slot temporarily has no valid subId and CarrierConfig no-SIM state, then later regains subId 11 and loaded carrier config.
+
+
+10. IWLAN / ePDG implications
+-----------------------------
+[DEVICE CONFIRMED] WFC restoration ends with IWLAN and PS/WLAN registered HOME.
+
+[SOURCE CONFIRMED] QTI IExtPhone exposes isEpdgOverCellularDataSupported(int), a read-style ePDG capability query.
+
+[SOURCE CONFIRMED] No direct safe private "reset IWLAN/ePDG for slot 1" method was recovered from the Phase 3 method tables.
+
+[INFERRED] IWLAN/ePDG reinitialization appears downstream of subscription/config/IMS lifecycle restoration, not the primary exposed control point found in this ROM.
+
+
+11. Candidate operations and risk classification
+------------------------------------------------
+All operations in this table are candidates only unless marked read-only. None were executed in Phase 3.
+
+| Candidate | Evidence | Slot/subId scoped | Expected effect | Risk |
+|---|---|---:|---|---:|
+| IExtPhone.isEpdgOverCellularDataSupported(int) | [SOURCE CONFIRMED] | slot-ish int | read ePDG capability | 0 |
+| IExtPhone.getCurrentPrimaryCardSlotId() | [SOURCE CONFIRMED] | no | read primary card | 0 |
+| IExtPhone.getCurrentSimType() | [SOURCE CONFIRMED] | global array | read SIM type | 0 |
+| CarrierConfigLoader.notifyConfigChangedForSubId(11) | [SOURCE CONFIRMED], [CANDIDATE ONLY] | subId | reload/refresh config cache | 1/2 |
+| CarrierConfigLoader.updateConfigForPhoneId(1,"ABSENT") | [SOURCE CONFIRMED], [CANDIDATE ONLY] | phoneId 1 | closest CarrierConfig absent/no-SIM trigger | 2 |
+| CarrierConfigLoader.updateConfigForPhoneId(1,"ESSENTIAL_LOADED"/"LOADED") | [SOURCE CONFIRMED], [CANDIDATE ONLY] | phoneId 1 | closest CarrierConfig reload trigger | 2 |
+| PhoneInterfaceManager.resetIms(1) | [SOURCE CONFIRMED], [CANDIDATE ONLY] | slotId 1 | calls ImsResolver.disableIms(1), incomplete | 2/3 |
+| ImsResolver.disableIms(1) / enableIms(1) | [SOURCE CONFIRMED], [CANDIDATE ONLY] | slotId 1 | IMS enable/disable for current subId | 2/3 |
+| SubscriptionController.setSubscriptionEnabled(false/true,11) | [SOURCE CONFIRMED], [CANDIDATE ONLY] | subId 11 | subscription enablement path | 4 |
+| QtiSubscriptionController.setUiccApplicationsEnabled(false/true,11) | [SOURCE CONFIRMED], [CANDIDATE ONLY] | subId 11 -> slot | UICC app/card deactivate/activate + subscription notifications | 4 |
+| cmd phone disable-physical-subscription 11 | [SOURCE CONFIRMED], [CANDIDATE ONLY] | subId 11 | closest shell path to physical absent | 4 |
+| cmd phone enable-physical-subscription 11 | [SOURCE CONFIRMED], [CANDIDATE ONLY] | subId 11 | closest shell path to physical present | 4 |
+| QTI radio/network selection / airplane mode / primary-card writes | [SOURCE CONFIRMED], [CANDIDATE ONLY] | varies | radio/MSIM behavior changes | 4 |
+| modem restart / service restart / reboot | forbidden | global | high disruption | 5 |
+
+
+12. Key trigger assessment
+--------------------------
+A. Subscription change
+[DEVICE CONFIRMED] subId 11 -> -1 -> 11 occurred in physical path.
+[SOURCE CONFIRMED] ImsResolver consumes slot -> subId and carrier config state when binding carrier IMS services.
+[INFERRED] This is a necessary trigger for the observed remove/add/rebind chain, because ImsResolver sees a real slot identity transition rather than merely toggling IMS.
+
+B. CarrierConfig CLEAR_CONFIG / no-SIM / ESSENTIAL_LOADED / LOADED
+[DEVICE CONFIRMED] This exact sequence occurred in physical path.
+[SOURCE CONFIRMED] CarrierConfigLoader has per-phone update and clear logic and Xiaomi ABSENT/LOADED hooks.
+[INFERRED] CarrierConfig clearing/loading is likely required to force stale VOXI/WFC policy state out and make IMS/IWLAN re-evaluate with fresh slot/subscription state.
+
+C. ImsResolver remove/rebind
+[DEVICE CONFIRMED] MMTEL/RCS remove/add/rebind occurred.
+[SOURCE CONFIRMED] ImsResolver binds services based on subId and carrier config readiness.
+[INFERRED] This is likely a key consequence of subscription/config lifecycle rather than a standalone first step.
+
+D. Phone/ImsPhone recreation
+[DEVICE CONFIRMED] Physical path had enough lifecycle churn to refresh IMS state.
+[SOURCE CONFIRMED] Current static artifacts expose ImsPhone state reset methods, but no safe direct Phone/ImsPhone recreate API was found.
+[INFERRED] A direct ImsPhone reset is less faithful than rebuilding subscription/config and allowing framework observers to rebuild IMS features.
+
+E. UICC recreation
+[DEVICE CONFIRMED] Physical SIM removal/insertion implies UICC absent/present.
+[SOURCE CONFIRMED] QTI setUiccApplicationsEnabled path can deactivate/activate UICC card via QtiUiccCardProvisioner.
+[INFERRED] This is the closest internal analogue to physical SIM absent/present, but it is also high risk because it affects UICC provisioning/card state.
+
+F. IWLAN/ePDG reinitialization
+[DEVICE CONFIRMED] IWLAN is the final healthy access network.
+[SOURCE CONFIRMED] No precise per-slot IWLAN reset API was recovered.
+[INFERRED] IWLAN/ePDG recovery is probably downstream of IMS registration after subscription/config rebuild.
+
+
+13. Does disable-physical-subscription produce 11 -> -1?
+--------------------------------------------------------
+[SOURCE CONFIRMED] The command is wired to a physical-subscription handler, validates physical SIM vs eSIM, and uses SubscriptionManager.
+
+[SOURCE CONFIRMED] The ROM contains SubscriptionController/QtiSubscriptionController methods capable of disabling subscription/UICC applications for subId 11, deactivating the QTI UICC card by slot, refreshing active subscription cache, and notifying subscription info changes.
+
+[INFERRED] This makes subId invalidation or at least active-subscription removal plausible. It is the best static candidate for producing the ImsResolver-observed slot 1 subId 11 -> -1 transition.
+
+[DEVICE CONFIRMED] Not yet confirmed for this command. The 11 -> -1 transition is confirmed only for the physical remove/no-SIM boot path.
+
+
+14. Does enable-physical-subscription produce -1 -> 11?
+-------------------------------------------------------
+[SOURCE CONFIRMED] The symmetric QTI path can activate the UICC card by slot, refresh active subscription cache, notify subscription info changes, and update uicc_applications_enabled for the subscription row.
+
+[INFERRED] This makes subId restoration plausible, especially if disable-physical-subscription first causes the framework to remove/deactivate the active sub.
+
+[DEVICE CONFIRMED] Not yet confirmed for this command. The -1 -> 11 transition is confirmed only for physical SIM insertion after no-SIM state.
+
+
+15. Current best minimal private-interface hypothesis
+-----------------------------------------------------
+[INFERRED] The closest theoretical no-reboot/no-physical-removal state rebuild is:
+
+1. Make slot 1/subId 11 temporarily lose active physical subscription/UICC application availability.
+2. Let SubscriptionController/SubscriptionInfoUpdater notify active subscription change.
+3. Let CarrierConfigLoader see ABSENT/no-SIM and clear phoneId 1 config.
+4. Let ImsResolver observe slot 1 subId invalid / -1 and remove MMTEL/RCS features.
+5. Re-enable slot 1/subId 11 physical subscription/UICC applications.
+6. Let UICC/subscription records reload for phoneId 1.
+7. Let CarrierConfigLoader see ESSENTIAL_LOADED/LOADED for phoneId 1.
+8. Let ImsResolver observe subId -1 -> 11 and bind/add MMTEL/RCS features.
+9. Let IMS register and IWLAN/ePDG recover WFC.
+
+[CANDIDATE ONLY] The most faithful single command pair found is:
+
+- cmd phone disable-physical-subscription 11
+- cmd phone enable-physical-subscription 11
+
+These commands are explicitly not executed in this phase.
+
+[INFERRED] A lower-risk but less faithful candidate is a phoneId 1 CarrierConfig refresh followed by IMS slot 1 reset/re-enable. Static evidence says this does not reproduce subId 11 -> -1 and is therefore less likely to match the Golden restoration mechanism.
+
+
+=== PRIVATE INTERFACE FINDINGS ===
+
+A. Closest to physical "remove SIM"
+[CANDIDATE ONLY] cmd phone disable-physical-subscription 11, internally associated with SubscriptionManager / SubscriptionController / QtiSubscriptionController physical subscription and UICC application disabling. QTI source path reaches deactivateUiccCard(slotId), refreshCachedActiveSubscriptionInfoList(), and notifySubscriptionInfoChanged(). Risk Level 4.
+
+B. Closest to physical "insert SIM"
+[CANDIDATE ONLY] cmd phone enable-physical-subscription 11, symmetric path likely reaching QtiSubscriptionController.setUiccApplicationsEnabled(true,11) and activateUiccCard(slotId). Risk Level 4.
+
+C. Closest to CarrierConfig CLEAR/LOAD
+[CANDIDATE ONLY] CarrierConfigLoader.updateConfigForPhoneId(1,"ABSENT") for absent/no-SIM side and updateConfigForPhoneId(1,"ESSENTIAL_LOADED"/"LOADED") for reload side. Xiaomi MiCarrierConfigLoaderImpl also routes ABSENT to onIccAbsent(phoneId) and LOADED to onIccLoaded(phoneId). Risk Level 2, but direct invocation is a framework write operation and not tested.
+
+D. Closest to ImsResolver remove/rebind
+[INFERRED] The best remove/rebind trigger is not resetIms(1) alone. It is the subscription + CarrierConfig lifecycle that forces ImsResolver to re-evaluate slot 1 with subId -1 and then 11. Direct resetIms(1) only reaches ImsResolver.disableIms(1) in the recovered ROM path and is incomplete. Risk Level 2/3.
+
+E. Most likely to affect only VOXI slot 1/subId 11
+[CANDIDATE ONLY] CarrierConfigLoader phoneId 1 update is the most scoped but incomplete. IMS reset/enable/disable for slot 1 is scoped but incomplete. physical-subscription enable/disable is subId 11 scoped at API entry, but because it touches UICC provisioning and subscription notifications it is Level 4.
+
+F. Can disable-physical-subscription produce 11 -> -1?
+[INFERRED] Plausible and currently the strongest candidate, because it reaches physical subscription/UICC deactivation and subscription notification code. [DEVICE CONFIRMED] Not yet confirmed for this command; confirmed only for physical remove/no-SIM path.
+
+G. Can enable-physical-subscription produce -1 -> 11?
+[INFERRED] Plausible as the symmetric activation path. [DEVICE CONFIRMED] Not yet confirmed for this command; confirmed only for physical insertion path.
+
+H. Current most worthwhile next-stage test candidates
+[CANDIDATE ONLY] Do not execute without explicit user approval and a rollback/observation plan.
+
+1. Highest-fidelity, highest-risk: controlled slot 1 test of disable-physical-subscription 11 followed by enable-physical-subscription 11, while capturing only targeted read-only before/after evidence: subscription list, CarrierConfig logs, ImsResolver state, IMS registration, IWLAN.
+2. Lower-risk, less faithful: targeted CarrierConfig phoneId 1 absent/load experiment, if a safe privileged invocation route is found. This may refresh config but probably will not reproduce subId 11 -> -1.
+3. IMS-only fallback: reset/disable/enable IMS for slot 1. Static evidence says this is least faithful to the Golden recovery mechanism and should not be expected to solve stale subscription/CarrierConfig state by itself.
+
+End of Phase 3 report.

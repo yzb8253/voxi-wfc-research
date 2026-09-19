@@ -1,0 +1,49 @@
+dex=classes.dex
+startCne code_off=0xcf18 regs=3 ins=1 outs=2 tries=0
+0000: iget-object            v0, v2, field@34 android.os.HandlerThread com.qualcomm.qti.cne.CneApp.mFrameworkReceiver
+0002: invoke-virtual         {v0}, method@153 void android.os.HandlerThread.start()
+0005: iget-object            v0, v2, field@33 com.qualcomm.qti.cne.relay.DefaultNetworkInfoRelay com.qualcomm.qti.cne.CneApp.mDefaultNetworkInfoRelay
+0007: iget-object            v1, v2, field@34 android.os.HandlerThread com.qualcomm.qti.cne.CneApp.mFrameworkReceiver
+0009: invoke-virtual         {v1}, method@152 android.os.Looper android.os.HandlerThread.getLooper()
+000c: move-result-object     v1
+000d: invoke-virtual         {v0, v1}, method@544 boolean com.qualcomm.qti.cne.relay.DefaultNetworkInfoRelay.start(android.os.Looper)
+0010: move-result            v0
+0011: if-eqz                 v0, -> 0054
+0013: iget-object            v0, v2, field@38 com.qualcomm.qti.cne.relay.WifiInfoRelay com.qualcomm.qti.cne.CneApp.mWifiInfoRelay
+0015: iget-object            v1, v2, field@34 android.os.HandlerThread com.qualcomm.qti.cne.CneApp.mFrameworkReceiver
+0017: invoke-virtual         {v1}, method@152 android.os.Looper android.os.HandlerThread.getLooper()
+001a: move-result-object     v1
+001b: invoke-virtual         {v0, v1}, method@588 boolean com.qualcomm.qti.cne.relay.WifiInfoRelay.start(android.os.Looper)
+001e: move-result            v0
+001f: if-eqz                 v0, -> 0054
+0021: iget-object            v0, v2, field@39 com.qualcomm.qti.cne.relay.WwanInfoRelay com.qualcomm.qti.cne.CneApp.mWwanInfoRelay
+0023: iget-object            v1, v2, field@34 android.os.HandlerThread com.qualcomm.qti.cne.CneApp.mFrameworkReceiver
+0025: invoke-virtual         {v1}, method@152 android.os.Looper android.os.HandlerThread.getLooper()
+0028: move-result-object     v1
+0029: invoke-virtual         {v0, v1}, method@768 boolean com.qualcomm.qti.cne.relay.WwanInfoRelay.start(android.os.Looper)
+002c: move-result            v0
+002d: if-eqz                 v0, -> 0054
+002f: iget-object            v0, v2, field@32 com.qualcomm.qti.cne.datacall.DataCallAgent com.qualcomm.qti.cne.CneApp.mDataCallAgent
+0031: iget-object            v1, v2, field@34 android.os.HandlerThread com.qualcomm.qti.cne.CneApp.mFrameworkReceiver
+0033: invoke-virtual         {v1}, method@152 android.os.Looper android.os.HandlerThread.getLooper()
+0036: move-result-object     v1
+0037: invoke-virtual         {v0, v1}, method@310 boolean com.qualcomm.qti.cne.datacall.DataCallAgent.start(android.os.Looper)
+003a: move-result            v0
+003b: if-eqz                 v0, -> 0054
+003d: iget-object            v0, v2, field@35 com.qualcomm.qti.cne.natka.NatKeepAliveAgent com.qualcomm.qti.cne.CneApp.mNatKeepAliveAgent
+003f: invoke-virtual         {v0}, method@532 boolean com.qualcomm.qti.cne.natka.NatKeepAliveAgent.start()
+0042: move-result            v0
+0043: if-eqz                 v0, -> 0054
+0045: iget-object            v0, v2, field@37 com.qualcomm.qti.cne.rssioffload.RssiOffloadAgent com.qualcomm.qti.cne.CneApp.mRssiOffloadAgent
+0047: invoke-virtual         {v0}, method@839 boolean com.qualcomm.qti.cne.rssioffload.RssiOffloadAgent.start()
+004a: move-result            v0
+004b: if-eqz                 v0, -> 0054
+004d: iget-object            v0, v2, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+004f: invoke-interface       {v0}, method@364 boolean com.qualcomm.qti.cne.hwinterface.NativeConnector.start()
+0052: move-result            v0
+0053: return                 v0
+0054: const-string           v0, string@940 "QCNEJ/CneApp"
+0056: const-string           v1, string@1063 "Unable to start CneApp properly"
+0058: invoke-static          {v0, v1}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+005b: const/4                v0, #0
+005c: return                 v0

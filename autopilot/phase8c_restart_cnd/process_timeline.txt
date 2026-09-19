@@ -1,0 +1,38 @@
+=== first_available elapsed=30.3s ===
+2026-09-18T10:06:00+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t15 elapsed=32.7s ===
+2026-09-18T10:06:02+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t20 elapsed=34.6s ===
+2026-09-18T10:06:04+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t30 elapsed=36.5s ===
+2026-09-18T10:06:06+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t45 elapsed=45s ===
+2026-09-18T10:06:14+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t60 elapsed=60s ===
+2026-09-18T10:06:29+08:00
+CND_PID=909
+CND_STATE=running
+QTI_PID=25920
+=== t90 elapsed=90.1s ===
+2026-09-18T10:06:59+08:00
+CND_PID=909
+CND_STATE=running
+=== t120 elapsed=120s ===
+2026-09-18T10:07:29+08:00
+CND_PID=909
+CND_STATE=running

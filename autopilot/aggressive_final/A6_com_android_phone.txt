@@ -1,0 +1,5 @@
+old=14820
+u:r:radio:s0                   radio        14820   913 8011992 121012 0                   0 S com.android.phone
+cmdline=com.android.phone
+new=28053
+PhoneSubscriptionGate=PASS

@@ -1,0 +1,6 @@
+u:r:vendor_ims:s0              radio         1835     1 2217784   2564 do_select           0 S imsqmidaemon
+u:r:rild:s0                    radio         1929     1 4049680  23448 binder_ioctl_write_read 0 S qcrild
+u:r:rild:s0                    radio         1966     1 3880176  22652 binder_ioctl_write_read 0 S qcrild
+u:r:vendor_ims:s0              radio         1984     1 2620952   7980 do_select           0 S imsdatadaemon
+u:r:vendor_hal_imsrtp:s0       radio         2513     1 2421032   6828 binder_ioctl_write_read 0 S ims_rtp_daemon
+u:r:vendor_qtelephony:s0:c196,c256,c512,c768 u0_a196 3242 920 6185492 99684 do_epoll_wait  0 S org.codeaurora.ims

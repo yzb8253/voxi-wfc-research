@@ -1,0 +1,11 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys subscription
+CAPTURED_AT: 2026-09-16T13:04:15.5208251+08:00
+
+adb.exe : Can't find service: subscription
+At C:\Users\ZJH\Desktop\platform-tools\collect_golden_state.ps1:28 char:5
++     & .\adb.exe @AdbArgs *>> $Path
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Can't find service: subscription:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

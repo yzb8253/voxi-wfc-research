@@ -1,0 +1,434 @@
+Phase 4C - Direct SubscriptionManager / ISub path analysis
+
+Scope
+-----
+READ-ONLY research only. This phase did not execute setUiccApplicationsEnabled, disable/enable physical subscription, SIM/UICC changes, Binder write transactions, Radio/IMS/IWLAN/CarrierConfig writes, or recovery actions.
+
+
+1. Current-ROM artifacts analyzed
+---------------------------------
+[DEVICE READ-ONLY] Pulled /system/framework/framework.jar to:
+
+voxi_wfc_research/phase4/framework/framework.jar
+
+[DEVICE READ-ONLY] Pulled /system_ext/framework/miui-framework.jar to:
+
+voxi_wfc_research/phase4/framework/miui-framework.jar
+
+[LOCAL STATIC] Existing artifacts reused:
+
+- voxi_wfc_research/phase3/jars/telephony-common.jar
+- voxi_wfc_research/phase3/jars/qti-telephony-common.jar
+- voxi_wfc_research/phase3/jars/miui-telephony-common.jar
+- voxi_wfc_research/phase3/private_jars_scan.json
+
+
+2. SubscriptionManager full call chain
+--------------------------------------
+[SOURCE CONFIRMED] Public framework method:
+
+class: android.telephony.SubscriptionManager
+method: public void setUiccApplicationsEnabled(int subscriptionId, boolean enabled)
+artifact: framework.jar / classes3.dex
+
+[SOURCE CONFIRMED] Recovered client-side flow:
+
+SubscriptionManager.setUiccApplicationsEnabled(int subId, boolean enabled) {
+    ISub iSub = ISub.Stub.asInterface(
+        TelephonyFrameworkInitializer
+            .getTelephonyServiceManager()
+            .getSubscriptionServiceRegisterer()
+            .get()
+    );
+
+    if (iSub != null) {
+        iSub.setUiccApplicationsEnabled(enabled, subId);
+    }
+}
+
+[IMPORTANT] Public API parameter order is:
+
+SubscriptionManager.setUiccApplicationsEnabled(subId, enabled)
+
+but ISub Binder method order is:
+
+ISub.setUiccApplicationsEnabled(enabled, subId)
+
+[SOURCE CONFIRMED] Return behavior:
+
+- SubscriptionManager public method returns void.
+- ISub.setUiccApplicationsEnabled(boolean,int) returns int.
+- SubscriptionManager ignores the int return value.
+
+[SOURCE CONFIRMED] Binder service name:
+
+service list shows:
+
+isub: [com.android.internal.telephony.ISub]
+
+[SOURCE CONFIRMED] Binder descriptor:
+
+com.android.internal.telephony.ISub
+
+
+3. ISub transaction recovery
+----------------------------
+[SOURCE CONFIRMED] Current-ROM ISub classes are in framework.jar / classes2.dex:
+
+- com.android.internal.telephony.ISub
+- com.android.internal.telephony.ISub$Stub
+- com.android.internal.telephony.ISub$Stub$Proxy
+
+[SOURCE CONFIRMED] ISub$Stub fields:
+
+- DESCRIPTOR = "com.android.internal.telephony.ISub"
+- TRANSACTION_setUiccApplicationsEnabled = 48
+- TRANSACTION_isSubscriptionEnabled = 42
+- TRANSACTION_getPhoneId = 31
+- TRANSACTION_getSlotIndex = 27
+- TRANSACTION_getSubId = 28
+- TRANSACTION_canDisablePhysicalSubscription = 47
+
+[SOURCE CONFIRMED] ISub$Stub$Proxy.setUiccApplicationsEnabled(boolean enabled, int subId):
+
+Parcel data:
+
+1. writeInterfaceToken("com.android.internal.telephony.ISub")
+2. writeBoolean(enabled)
+3. writeInt(subId)
+4. mRemote.transact(48, data, reply, 0)
+5. reply.readException()
+6. reply.readInt()
+
+[SOURCE CONFIRMED] ISub$Stub.onTransact for code 48:
+
+1. enforceInterface("com.android.internal.telephony.ISub")
+2. readBoolean() -> enabled
+3. readInt() -> subId
+4. enforceNoDataAvail()
+5. setUiccApplicationsEnabled(enabled, subId)
+6. writeNoException()
+7. writeInt(result)
+
+
+4. Theoretical service call parcel
+----------------------------------
+[CANDIDATE ONLY - DO NOT EXECUTE]
+
+The theoretical service-call form for ISub transaction 48 is:
+
+Disable:
+
+service call isub 48 i32 0 i32 11
+
+Recover:
+
+service call isub 48 i32 1 i32 11
+
+Rationale:
+
+- transaction code 48
+- first argument is boolean enabled, represented by i32 0/1 in service-call syntax
+- second argument is int subId = 11
+- interface token is handled by the service-call mechanism for Binder interfaces
+
+[WARNING] This is more brittle than Java/AIDL because it hardcodes the transaction code and low-level parcel shape.
+
+
+5. Server-side call chain
+-------------------------
+[SOURCE CONFIRMED] Base AOSP-ish implementation:
+
+class: com.android.internal.telephony.SubscriptionController
+method: public int setUiccApplicationsEnabled(boolean enabled, int subId)
+artifact: telephony-common.jar
+
+Recovered pseudo-code:
+
+int setUiccApplicationsEnabled(boolean enabled, int subId) {
+    enforceModifyPhoneState("setUiccApplicationsEnabled");
+    long token = Binder.clearCallingIdentity();
+    try {
+        ContentValues values = new ContentValues(1);
+        values.put("uicc_applications_enabled", Boolean.valueOf(enabled));
+        int rows = mContext.getContentResolver().update(
+            SubscriptionManager.getUriForSubscriptionId(subId),
+            values,
+            null,
+            null
+        );
+        refreshCachedActiveSubscriptionInfoList();
+        notifyUiccAppsEnableChanged();
+        notifySubscriptionInfoChanged();
+        return rows;
+    } finally {
+        Binder.restoreCallingIdentity(token);
+    }
+}
+
+[SOURCE CONFIRMED] QTI override:
+
+class: com.qualcomm.qti.internal.telephony.QtiSubscriptionController
+method: public int setUiccApplicationsEnabled(boolean enabled, int subId)
+artifact: qti-telephony-common.jar
+
+Recovered pseudo-code:
+
+int setUiccApplicationsEnabled(boolean enabled, int subId) {
+    int phoneId = SubscriptionManager.getPhoneId(subId);
+    Phone phone = PhoneFactory.getPhone(phoneId);
+
+    if (phone != null && phone.getHalVersion().greaterOrEqual(RADIO_HAL_VERSION_1_5)) {
+        return super.setUiccApplicationsEnabled(enabled, subId);
+    }
+
+    enforceModifyPhoneState("setUiccApplicationsEnabled");
+    long token = Binder.clearCallingIdentity();
+    int result;
+    try {
+        int slotId = getSlotIdForSubId(subId);
+        if (enabled) {
+            result = QtiUiccCardProvisioner.getInstance().activateUiccCard(slotId);
+        } else {
+            result = QtiUiccCardProvisioner.getInstance().deactivateUiccCard(slotId);
+        }
+        refreshCachedActiveSubscriptionInfoList();
+        notifySubscriptionInfoChanged();
+    } finally {
+        Binder.restoreCallingIdentity(token);
+    }
+
+    if (result == 0) {
+        setUiccApplicationsEnabled_1_4(subId, enabled);
+    }
+    return result;
+}
+
+[SOURCE CONFIRMED] QTI setUiccApplicationsEnabled_1_4(int subId, boolean enabled):
+
+- validates usable/valid subId
+- writes uicc_applications_enabled to SubscriptionManager.getUriForSubscriptionId(subId)
+- uses ContentResolver.update(...)
+
+
+6. Permission gate
+------------------
+[SOURCE CONFIRMED] SubscriptionController.enforceModifyPhoneState(String message):
+
+void enforceModifyPhoneState(String message) {
+    int uid = Binder.getCallingUid();
+    if (TelephonyCommonUtilsStub.checkCallingOrSelfPermissionGranted(uid)) {
+        return;
+    }
+    mContext.enforceCallingOrSelfPermission(
+        "android.permission.MODIFY_PHONE_STATE",
+        message
+    );
+}
+
+[SOURCE CONFIRMED] TelephonyCommonUtilsStub.checkCallingOrSelfPermissionGranted(int uid):
+
+- delegates to MIUI implementation if present
+- otherwise returns false
+
+[SOURCE CONFIRMED] MIUI implementation path:
+
+TelephonyCommonUtilsImpl.checkCallingOrSelfPermissionGranted(int uid)
+    -> miui.telephony.TelephonyManager.checkCallingOrSelfPermissionGranted(uid)
+
+[SOURCE CONFIRMED] miui.telephony.TelephonyManager.checkCallingOrSelfPermissionGranted(int uid):
+
+- returns true if appId(uid) == 1000
+- also allows same app/user-handle as the current process in its own MIUI logic
+- otherwise returns false
+
+[INFERRED] For a root caller UID 0:
+
+- MIUI helper probably does not grant direct exemption because appId(0) is not 1000.
+- Then the framework falls back to android.permission.MODIFY_PHONE_STATE.
+- Android framework permission checks generally grant root/system UIDs, but this should be validated with a harmless privileged read first because the exact Context permission behavior is implementation-dependent.
+
+[SOURCE CONFIRMED] QTI override calls enforceModifyPhoneState before any UICC activate/deactivate operation. Permission is checked before Binder.clearCallingIdentity().
+
+
+7. Root direct Binder feasibility
+---------------------------------
+[DEVICE CONFIRMED from Phase 4B] Plain adb shell:
+
+uid=2000(shell), context=u:r:shell:s0
+
+[DEVICE CONFIRMED from Phase 4B] Magisk su:
+
+uid=0(root), context=u:r:magisk:s0
+
+[INFERRED] A direct Binder client launched through su should present Binder calling UID 0 to system_server / phone process.
+
+[INFERRED] Root direct Binder service-call to isub transaction 48 could reach SubscriptionController.setUiccApplicationsEnabled if UID 0 satisfies MODIFY_PHONE_STATE. It bypasses only the TelephonyShellCommand user-build wrapper guard; it does not bypass SubscriptionController's normal permission gate.
+
+[SELINUX] SELinux is Enforcing. This phase found no evidence that SELinux blocks Binder access from u:r:magisk:s0 to the framework isub service, but this has not been tested with a write transaction. Vendor/UICC lower layers might still produce denials after framework accepts the call.
+
+
+8. Java helper feasibility
+--------------------------
+[INFERRED] A root Java helper launched via app_process is more robust than service call because it can use the actual framework AIDL/API:
+
+Option 1:
+
+SubscriptionManager.setUiccApplicationsEnabled(11, false)
+SubscriptionManager.setUiccApplicationsEnabled(11, true)
+
+Option 2:
+
+ISub sub = ISub.Stub.asInterface(ServiceManager.getService("isub"));
+sub.setUiccApplicationsEnabled(false, 11);
+sub.setUiccApplicationsEnabled(true, 11);
+
+Comparison:
+
+- SubscriptionManager API is closest to TelephonyShellCommand's final behavior.
+- ISub Java/AIDL is also close and avoids service-call transaction shell syntax.
+- Both avoid hardcoding transaction 48 if compiled against the current framework classes.
+- Both still hit the same server-side MODIFY_PHONE_STATE gate.
+- Both are easier to implement with strict pre-flight safety checks than raw service call.
+
+[CONCLUSION] Root Java helper is better than raw service call for Phase 4D because it is less brittle and can implement strong target verification before the single write call.
+
+
+9. No-side-effect permission probes
+-----------------------------------
+[CANDIDATE ONLY - DO NOT EXECUTE IN PHASE 4C]
+
+There does not appear to be a no-side-effect method using exactly the same MODIFY_PHONE_STATE gate as setUiccApplicationsEnabled. The closest safe probes are:
+
+Probe A: bind and read ISub mapping
+
+- ISub.getPhoneId(11) transaction 31, Parcel: i32 11, expected result 1
+- ISub.getSlotIndex(11) transaction 27, Parcel: i32 11, expected result 1
+- ISub.getSubId(1) transaction 28, Parcel: i32 1, expected array containing 11
+
+Purpose:
+
+- proves root Java/Binder helper can bind to "isub" and marshal the current-ROM interface.
+- does not prove MODIFY_PHONE_STATE.
+
+Probe B: privileged read on same ISub service
+
+- ISub.isSubscriptionEnabled(11) transaction 42, Parcel: i32 11
+
+Server-side this calls enforceReadPrivilegedPhoneState("isSubscriptionEnabled"), then reads subscription state.
+
+Purpose:
+
+- stronger signal than getPhoneId because it crosses a privileged read permission gate.
+- still does not prove MODIFY_PHONE_STATE.
+
+Probe C: canDisablePhysicalSubscription() transaction 47
+
+- no args, boolean return.
+
+Purpose:
+
+- confirms framework support/capability surface.
+- does not prove write permission.
+
+[RECOMMENDATION] For Phase 4D, a helper dry-run mode should run Probe A and B first, then stop. The write modes should be separate explicit "disable" / "recover" invocations.
+
+
+10. Phase 4D minimal helper design
+----------------------------------
+[DESIGN ONLY - NOT EXECUTED]
+
+Launch:
+
+adb shell su -c "app_process /data/local/tmp Phase4UiccHelper dry-run"
+adb shell su -c "app_process /data/local/tmp Phase4UiccHelper disable"
+adb shell su -c "app_process /data/local/tmp Phase4UiccHelper recover"
+
+Helper modes:
+
+dry-run:
+
+- no writes
+- bind ISub / SubscriptionManager
+- verify target and permissions through read-only probes
+- print exactly what would be called
+
+disable:
+
+- perform all safety checks
+- final and only write call:
+  setUiccApplicationsEnabled(11, false)
+
+recover:
+
+- perform all safety checks that are still meaningful after disable
+- final and only write call:
+  setUiccApplicationsEnabled(11, true)
+
+Required safety verification before disable:
+
+1. Active subscription list contains id/subId 11.
+2. subId 11 simSlotIndex is 1.
+3. subId 11 phoneId is 1.
+4. carrierId is 28.
+5. MCC is 234.
+6. MNC is 15.
+7. slot 0 does not map to subId 11.
+8. optional: displayName contains voxi or carrierName indicates VOXI/WLAN Call.
+
+Required safety verification before recover:
+
+1. subId argument is fixed to 11; no free-form subId input.
+2. historical pre-disable snapshot file confirms VOXI was subId 11 / slot 1 / carrierId 28 / MCCMNC 23415.
+3. current AllSubInfoList or subscription DB still contains id 11 with ICC/card metadata matching VOXI.
+4. slot 0 does not map to subId 11.
+
+Hard prohibitions inside helper:
+
+- no setDefaultDataSubId
+- no setSubscriptionEnabled
+- no radio power/reset
+- no IMS enable/disable/reset
+- no CarrierConfig writes
+- no settings put/delete
+- no setprop
+- no process kill/restart
+- no reboot
+
+
+11. Final write operations for a future Phase 4D
+------------------------------------------------
+[CANDIDATE ONLY - NOT EXECUTED]
+
+Disable final and only write:
+
+SubscriptionManager.setUiccApplicationsEnabled(11, false)
+
+or equivalent:
+
+ISub.setUiccApplicationsEnabled(false, 11)
+
+Recover final and only write:
+
+SubscriptionManager.setUiccApplicationsEnabled(11, true)
+
+or equivalent:
+
+ISub.setUiccApplicationsEnabled(true, 11)
+
+
+12. Service call vs Java helper
+-------------------------------
+service call:
+
+- Pros: no compiled helper needed.
+- Cons: hardcoded transaction 48; parameter order is easy to reverse; less readable; harder to implement safety gate; raw Binder write.
+
+root Java helper:
+
+- Pros: uses current framework API/AIDL; can implement full target verification; clearer logging; easier dry-run; easier symmetric recover.
+- Cons: requires compiling/running helper under root; still needs permission validation.
+
+[CONCLUSION] Java helper is the safer and more maintainable Phase 4D candidate. Raw service call should be treated as a last-resort diagnostic, not the preferred write path.
+
+End of Phase 4C report.

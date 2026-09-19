@@ -1,0 +1,11 @@
+Test time: 2026-09-17 Asia/Shanghai
+Test target: /data/local/tmp/voxi-wfc-recovery-v1.0-test-1518/action.sh
+Installed as Magisk module: NO
+Telephony writes: ZERO
+
+Result: HEALTHY
+Failure class: F0
+
+VOXI WFC is healthy.
+WFC already healthy.
+No action required.

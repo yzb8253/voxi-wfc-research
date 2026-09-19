@@ -1,0 +1,13 @@
+strict-f1-success: PASS false=1 reboot=1 true=1 stage=COMPLETE outcome=PASS
+healthy-blocked: PASS false=0 reboot=0 true=0 stage=IDLE outcome=START_BLOCKED_ZERO_WRITE
+f8-start-blocked: PASS false=0 reboot=0 true=0 stage=IDLE outcome=START_BLOCKED_ZERO_WRITE
+unsafe-blocked: PASS false=0 reboot=0 true=0 stage=IDLE outcome=START_BLOCKED_ZERO_WRITE
+remove-fails: PASS false=1 reboot=0 true=0 stage=IDLE outcome=REMOVE_FAILED
+f8-not-confirmed: PASS false=1 reboot=0 true=0 stage=IDLE outcome=F8_NOT_CONFIRMED
+marker-not-persisted: PASS false=1 reboot=0 true=0 stage=IDLE outcome=MARKER_FAILED
+same-boot-blocked: PASS false=1 reboot=1 true=0 stage=FAILED outcome=NEW_BOOT_NOT_CONFIRMED
+post-boot-f8-fails: PASS false=1 reboot=1 true=0 stage=FAILED outcome=POST_BOOT_F8_FAILED
+network-timeout: PASS false=1 reboot=1 true=0 stage=FAILED outcome=NETWORK_TIMEOUT
+pre-insert-f8-fails: PASS false=1 reboot=1 true=0 stage=FAILED outcome=PRE_INSERT_F8_FAILED
+insert-fails-no-retry: PASS false=1 reboot=1 true=1 stage=FAILED outcome=INSERT_FAILED_NO_RETRY
+wfc-timeout-no-retry: PASS false=1 reboot=1 true=1 stage=FAILED outcome=WFC_TIMEOUT_NO_RETRY

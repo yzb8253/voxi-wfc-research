@@ -1,0 +1,44 @@
+dex=classes.dex
+setUiccApplicationsEnabled code_off=0xd3cd0 regs=8 ins=3 outs=3 tries=1
+0000: invoke-static          {v7}, method@3534 int android.telephony.SubscriptionManager.getPhoneId(int)
+0003: move-result            v0
+0004: invoke-static          {v0}, method@3722 com.android.internal.telephony.Phone com.android.internal.telephony.PhoneFactory.getPhone(int)
+0007: move-result-object     v0
+0008: if-eqz                 v0, -> 001b
+000a: invoke-virtual         {v0}, method@3708 com.android.internal.telephony.HalVersion com.android.internal.telephony.Phone.getHalVersion()
+000d: move-result-object     v1
+000e: sget-object            
+000f: op_fb                  
+0010: invoke-virtual         {v1, v2}, method@3686 boolean com.android.internal.telephony.HalVersion.greaterOrEqual(com.android.internal.telephony.HalVersion)
+0013: move-result            v1
+0014: if-eqz                 v1, -> 001b
+0016: invoke-super           {v5, v6, v7}, method@3935 int com.android.internal.telephony.vendor.VendorSubscriptionController.setUiccApplicationsEnabled(boolean,int)
+0019: move-result            v1
+001a: goto                   -> 004b
+001b: const-string           v1, string@14559 "setUiccApplicationsEnabled"
+001d: invoke-virtual         {v5, v1}, method@7036 void com.qualcomm.qti.internal.telephony.QtiSubscriptionController.enforceModifyPhoneState(java.lang.String)
+0020: invoke-static          {}, method@3347 long android.os.Binder.clearCallingIdentity()
+0023: move-result-wide       v1
+0024: invoke-direct          {v5, v7}, method@7043 int com.qualcomm.qti.internal.telephony.QtiSubscriptionController.getSlotIdForSubId(int)
+0027: move-result            v3
+0028: if-eqz                 v6, -> 0033
+002a: invoke-static          {}, method@7134 com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner.getInstance()
+002d: move-result-object     v4
+002e: invoke-virtual         {v4, v3}, method@7125 int com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner.activateUiccCard(int)
+0031: move-result            v4
+0032: goto                   -> 003b
+0033: invoke-static          {}, method@7134 com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner.getInstance()
+0036: move-result-object     v4
+0037: invoke-virtual         {v4, v3}, method@7128 int com.qualcomm.qti.internal.telephony.QtiUiccCardProvisioner.deactivateUiccCard(int)
+003a: move-result            v4
+003b: invoke-virtual         {v5}, method@7059 void com.qualcomm.qti.internal.telephony.QtiSubscriptionController.refreshCachedActiveSubscriptionInfoList()
+003e: invoke-virtual         {v5}, method@7058 void com.qualcomm.qti.internal.telephony.QtiSubscriptionController.notifySubscriptionInfoChanged()
+0041: invoke-static          {v1, v2}, method@3351 void android.os.Binder.restoreCallingIdentity(long)
+0044: op_00                  
+0045: if-nez                 v4, -> 004a
+0047: invoke-direct          {v5, v7, v6}, method@7064 void com.qualcomm.qti.internal.telephony.QtiSubscriptionController.setUiccApplicationsEnabled_1_4(int,boolean)
+004a: op_01                  
+004b: return                 v1
+004c: op_0d                  
+004d: invoke-static          {v1, v2}, method@3351 void android.os.Binder.restoreCallingIdentity(long)
+0050: op_27                  

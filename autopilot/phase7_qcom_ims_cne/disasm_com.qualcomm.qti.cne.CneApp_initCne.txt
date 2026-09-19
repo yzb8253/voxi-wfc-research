@@ -1,0 +1,51 @@
+dex=classes.dex
+initCne code_off=0xce5c regs=4 ins=1 outs=4 tries=0
+0000: invoke-static          {}, method@318 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.hwinterface.ConnectorFactory.create()
+0003: move-result-object     v0
+0004: op_5b                  
+0005: op_24                  
+0006: if-nez                 v0, -> 0011
+0008: const-string           v0, string@940 "QCNEJ/CneApp"
+000a: const-string           v1, string@888 "Native Connector creation failure"
+000c: invoke-static          {v0, v1}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+000f: const/4                v0, #0
+0010: return                 v0
+0011: new-instance           v0, type@45 android.os.HandlerThread
+0013: const-string           v1, string@342 "FrameworkReceiver"
+0015: invoke-direct          {v0, v1}, method@151 void android.os.HandlerThread.<init>(java.lang.String)
+0018: op_5b                  
+0019: new-instance           v0, type@34 android.net.NetworkSpecifier
+001b: op_85                  
+001c: iget-object            v1, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+001e: invoke-direct          {v0, v3, v1}, method@537 void com.qualcomm.qti.cne.relay.DefaultNetworkInfoRelay.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector)
+0021: op_5b                  
+0022: array-length           
+0023: new-instance           v1, type@137 com.qualcomm.qti.cne.relay.WifiInfoRelay
+0025: iget-object            v2, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+0027: invoke-direct          {v1, v3, v2, v0}, method@583 void com.qualcomm.qti.cne.relay.WifiInfoRelay.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector,com.qualcomm.qti.cne.relay.DefaultNetworkInfoRelay)
+002a: op_5b                  
+002b: op_26                  
+002c: new-instance           v0, type@155 com.qualcomm.qti.cne.relay.WwanInfoRelay
+002e: iget-object            v1, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+0030: invoke-direct          {v0, v3, v1}, method@736 void com.qualcomm.qti.cne.relay.WwanInfoRelay.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector)
+0033: op_5b                  
+0034: op_27                  
+0035: new-instance           v0, type@88 com.qualcomm.qti.cne.datacall.DataCallAgent
+0037: iget-object            v1, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+0039: invoke-direct          {v0, v3, v1}, method@300 void com.qualcomm.qti.cne.datacall.DataCallAgent.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector)
+003c: op_5b                  
+003d: instance-of            
+003e: new-instance           v0, type@131 com.qualcomm.qti.cne.natka.NatKeepAliveAgent
+0040: iget-object            v1, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+0042: iget-object            v2, v3, field@38 com.qualcomm.qti.cne.relay.WifiInfoRelay com.qualcomm.qti.cne.CneApp.mWifiInfoRelay
+0044: invoke-direct          {v0, v3, v1, v2}, method@525 void com.qualcomm.qti.cne.natka.NatKeepAliveAgent.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector,com.qualcomm.qti.cne.relay.WifiInfoRelay)
+0047: op_5b                  
+0048: new-array              
+0049: new-instance           v0, type@167 com.qualcomm.qti.cne.rssioffload.RssiOffloadAgent
+004b: iget-object            v1, v3, field@36 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.CneApp.mNativeConnector
+004d: iget-object            v2, v3, field@38 com.qualcomm.qti.cne.relay.WifiInfoRelay com.qualcomm.qti.cne.CneApp.mWifiInfoRelay
+004f: invoke-direct          {v0, v3, v1, v2}, method@823 void com.qualcomm.qti.cne.rssioffload.RssiOffloadAgent.<init>(android.content.Context,com.qualcomm.qti.cne.hwinterface.NativeConnector,com.qualcomm.qti.cne.relay.WifiInfoRelay)
+0052: op_5b                  
+0053: op_25                  
+0054: const/4                v0, #1
+0055: return                 v0

@@ -1,0 +1,74 @@
+TOTAL_CLASSES 4154
+--- IExtTelephony
+--- IMiuiTelephony
+--- ExtTelephonyService
+extphonelib.jar com.qti.extphone.ExtTelephonyManager$ExtTelephonyServiceConnection-IA methods 0 fields 0
+extphonelib.jar com.qti.extphone.ExtTelephonyManager$ExtTelephonyServiceConnection methods 4 fields 1
+qti-telephony-common.jar com.qualcomm.qti.internal.telephony.ExtTelephonyServiceImpl methods 11 fields 7
+QtiTelephony.apk com.qti.phone.ExtTelephonyService$1 methods 60 fields 1
+QtiTelephony.apk com.qti.phone.ExtTelephonyService methods 10 fields 3
+QtiTelephony.apk com.qti.phone.ExtTelephonyServiceImpl$1 methods 2 fields 1
+QtiTelephony.apk com.qti.phone.ExtTelephonyServiceImpl$ExtTelephonyThread methods 2 fields 1
+QtiTelephony.apk com.qti.phone.ExtTelephonyServiceImpl methods 88 fields 13
+--- TelephonyShellCommand
+TeleService.apk com.android.phone.TelephonyShellCommand$$ExternalSyntheticLambda0 methods 2 fields 4
+TeleService.apk com.android.phone.TelephonyShellCommand$$ExternalSyntheticLambda1 methods 2 fields 4
+TeleService.apk com.android.phone.TelephonyShellCommand$$ExternalSyntheticLambda2 methods 2 fields 1
+TeleService.apk com.android.phone.TelephonyShellCommand$1 methods 1 fields 0
+TeleService.apk com.android.phone.TelephonyShellCommand$2 methods 1 fields 1
+TeleService.apk com.android.phone.TelephonyShellCommand$CcOptionParseResult methods 2 fields 3
+TeleService.apk com.android.phone.TelephonyShellCommand$CcType methods 4 fields 12
+TeleService.apk com.android.phone.TelephonyShellCommand methods 98 fields 7
+--- PhoneInterfaceManager
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda0 methods 2 fields 4
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda10 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda1 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda2 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda3 methods 2 fields 5
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda4 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda5 methods 2 fields 4
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda6 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda7 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda8 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$$ExternalSyntheticLambda9 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$1 methods 3 fields 2
+TeleService.apk com.android.phone.PhoneInterfaceManager$3 methods 1 fields 2
+TeleService.apk com.android.phone.PhoneInterfaceManager$IccAPDUArgument methods 1 fields 7
+TeleService.apk com.android.phone.PhoneInterfaceManager$MainThreadHandler methods 5 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$MainThreadRequest methods 2 fields 5
+TeleService.apk com.android.phone.PhoneInterfaceManager$ManualNetworkSelectionArgument methods 1 fields 2
+TeleService.apk com.android.phone.PhoneInterfaceManager$UnlockSim$1 methods 2 fields 1
+TeleService.apk com.android.phone.PhoneInterfaceManager$UnlockSim methods 6 fields 6
+TeleService.apk com.android.phone.PhoneInterfaceManager methods 463 fields 20
+TeleService.apk com.android.phone.PhoneInterfaceManager$2 methods 1 fields 1
+--- CarrierConfigLoader
+TeleService.apk com.android.phone.CarrierConfigLoader$$ExternalSyntheticLambda0 methods 2 fields 4
+TeleService.apk com.android.phone.CarrierConfigLoader$1 methods 2 fields 2
+TeleService.apk com.android.phone.CarrierConfigLoader$CarrierServiceChangeCallback methods 3 fields 3
+TeleService.apk com.android.phone.CarrierConfigLoader$CarrierServiceConnection methods 5 fields 5
+TeleService.apk com.android.phone.CarrierConfigLoader$ConfigHandler$1 methods 2 fields 5
+TeleService.apk com.android.phone.CarrierConfigLoader$ConfigHandler$2 methods 2 fields 4
+TeleService.apk com.android.phone.CarrierConfigLoader$ConfigHandler$3 methods 2 fields 3
+TeleService.apk com.android.phone.CarrierConfigLoader$ConfigHandler methods 2 fields 1
+TeleService.apk com.android.phone.CarrierConfigLoader$ConfigLoaderBroadcastReceiver methods 3 fields 1
+TeleService.apk com.android.phone.CarrierConfigLoader methods 82 fields 21
+TeleService.apk com.android.phone.CarrierConfigLoaderInjector$1 methods 2 fields 0
+TeleService.apk com.android.phone.CarrierConfigLoaderInjector methods 18 fields 3
+TeleService.apk com.android.phone.IMiCarrierConfigLoader methods 7 fields 0
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$1 methods 2 fields 1
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$2 methods 2 fields 2
+TeleService.apk com.android.phone.MiCarrierConfigLoaderStub methods 8 fields 1
+TeleService.apk com.android.phone.CarrierConfigLoaderInjector$EnableDual4GForDualCTSim methods 4 fields 2
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl methods 17 fields 13
+--- ICarrierConfigLoader
+TeleService.apk com.android.phone.IMiCarrierConfigLoader methods 7 fields 0
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$1 methods 2 fields 1
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl$2 methods 2 fields 2
+TeleService.apk com.android.phone.MiCarrierConfigLoaderStub methods 8 fields 1
+TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl methods 17 fields 13
+--- IImsRcsController
+--- ImsResolver
+--- QtiSubscriptionController
+qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController methods 19 fields 9
+--- QtiSubscriptionInfoUpdater
+qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater methods 16 fields 8

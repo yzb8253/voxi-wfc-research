@@ -1,0 +1,24 @@
+dex=classes.dex
+start code_off=0xda34 regs=4 ins=2 outs=3 tries=0
+0000: new-instance           v0, type@82 com.qualcomm.qti.cne.datacall.DataCallAgent$2
+0002: invoke-direct          {v0, v2, v3}, method@275 void com.qualcomm.qti.cne.datacall.DataCallAgent$2.<init>(com.qualcomm.qti.cne.datacall.DataCallAgent,android.os.Looper)
+0005: op_5b                  
+0006: op_41                  
+0007: invoke-direct          {v2}, method@314 void com.qualcomm.qti.cne.datacall.DataCallAgent.updateSubInfoReady()
+000a: iget-object            v0, v2, field@69 android.telephony.SubscriptionManager com.qualcomm.qti.cne.datacall.DataCallAgent.mSubscriptionManager
+000c: iget-object            v1, v2, field@66 android.telephony.SubscriptionManager$OnSubscriptionsChangedListener com.qualcomm.qti.cne.datacall.DataCallAgent.mOnSubscriptionsChangedListener
+000e: invoke-virtual         {v0, v1}, method@233 void android.telephony.SubscriptionManager.addOnSubscriptionsChangedListener(android.telephony.SubscriptionManager$OnSubscriptionsChangedListener)
+0011: iget-object            v0, v2, field@63 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.datacall.DataCallAgent.mConnector
+0013: new-instance           v1, type@83 com.qualcomm.qti.cne.datacall.DataCallAgent$3
+0015: invoke-direct          {v1, v2}, method@277 void com.qualcomm.qti.cne.datacall.DataCallAgent$3.<init>(com.qualcomm.qti.cne.datacall.DataCallAgent)
+0018: invoke-interface       {v0, v1}, method@352 boolean com.qualcomm.qti.cne.hwinterface.NativeConnector.listen(com.qualcomm.qti.cne.hwinterface.NativeConnector$ServiceListener)
+001b: iget-object            v0, v2, field@63 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.datacall.DataCallAgent.mConnector
+001d: new-instance           v1, type@84 com.qualcomm.qti.cne.datacall.DataCallAgent$4
+001f: invoke-direct          {v1, v2}, method@279 void com.qualcomm.qti.cne.datacall.DataCallAgent$4.<init>(com.qualcomm.qti.cne.datacall.DataCallAgent)
+0022: invoke-interface       {v0, v1}, method@350 boolean com.qualcomm.qti.cne.hwinterface.NativeConnector.listen(com.qualcomm.qti.cne.hwinterface.NativeConnector$Command)
+0025: iget-object            v0, v2, field@63 com.qualcomm.qti.cne.hwinterface.NativeConnector com.qualcomm.qti.cne.datacall.DataCallAgent.mConnector
+0027: new-instance           v1, type@85 com.qualcomm.qti.cne.datacall.DataCallAgent$5
+0029: invoke-direct          {v1, v2}, method@281 void com.qualcomm.qti.cne.datacall.DataCallAgent$5.<init>(com.qualcomm.qti.cne.datacall.DataCallAgent)
+002c: invoke-interface       {v0, v1}, method@350 boolean com.qualcomm.qti.cne.hwinterface.NativeConnector.listen(com.qualcomm.qti.cne.hwinterface.NativeConnector$Command)
+002f: const/4                v0, #1
+0030: return                 v0

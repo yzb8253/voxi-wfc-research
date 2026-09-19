@@ -1,0 +1,71 @@
+
+METHOD TeleService.apk com.android.phone.CarrierConfigLoader :: void updateConfigForPhoneId(int)
+  field: com.android.phone.CarrierConfigLoader android.os.Handler mHandler
+  invoke: android.os.Handler android.os.Message obtainMessage(int, int, int)
+  invoke: android.os.Handler boolean sendMessage(android.os.Message)
+
+METHOD TeleService.apk com.android.phone.CarrierConfigLoader :: void clearConfigForPhone(int, boolean)
+  invoke: com.android.internal.telephony.PhoneFactory com.android.internal.telephony.Phone getPhone(int)
+  invoke: com.android.internal.telephony.Phone boolean isShuttingDown()
+  field: com.android.phone.CarrierConfigLoader android.os.PersistableBundle[] mConfigFromDefaultApp
+  field: com.android.phone.CarrierConfigLoader android.os.PersistableBundle[] mConfigFromCarrierApp
+
+METHOD TeleService.apk com.android.phone.CarrierConfigLoader :: void notifyConfigChangedForSubId(int)
+  field: com.android.phone.CarrierConfigLoader android.content.Context mContext
+  invoke: android.telephony.SubscriptionManager boolean isValidPhoneId(int)
+  invoke: android.os.Binder int getCallingUid()
+  invoke: android.content.pm.PackageManager java.lang.String getNameForUid(int)
+  invoke: com.android.phone.CarrierConfigLoader boolean clearCachedConfigForPackage(java.lang.String)
+  invoke: com.android.phone.CarrierConfigLoader void updateConfigForPhoneId(int)
+  invoke: java.lang.StringBuilder void <init>()
+  string:  Ignore invalid phoneId: 
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  string:   for subId: 
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  invoke: com.android.phone.CarrierConfigLoader void logd(java.lang.String)
+  string:  Invalid phoneId 
+  string:   for subId 
+  invoke: java.lang.IllegalArgumentException void <init>(java.lang.String)
+
+METHOD TeleService.apk com.android.phone.CarrierConfigLoader :: void updateConfigForPhoneId(int, java.lang.String)
+  field: com.android.phone.CarrierConfigLoader android.content.Context mContext
+  invoke: java.lang.StringBuilder void <init>()
+  string:  Update config for phoneId: 
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(java.lang.String)
+  invoke: java.lang.StringBuilder java.lang.StringBuilder append(int)
+  string:   simState: 
+  invoke: java.lang.StringBuilder java.lang.String toString()
+  invoke: com.android.phone.CarrierConfigLoader void logdWithLocalLog(java.lang.String)
+  invoke: android.telephony.SubscriptionManager boolean isValidPhoneId(int)
+  invoke: java.lang.String int hashCode()
+  field: android.content.pm.ActivityInfo android.os.Bundle metaData
+  invoke: java.lang.String boolean equals(java.lang.Object)
+  string:  CARD_RESTRICTED
+  string:  NOT_READY
+  string:  UNKNOWN
+  string:  ESSENTIAL_LOADED
+  string:  CARD_IO_ERROR
+  string:  LOCKED
+  string:  LOADED
+  field: com.android.phone.CarrierConfigLoader boolean[] mIsEssentialSimRecordsLoaded
+  invoke: com.android.phone.CarrierConfigLoader void updateConfigForPhoneId(int)
+  field: com.android.phone.CarrierConfigLoader android.os.Handler mHandler
+  field: com.android.phone.SubwayModeController com.android.phone.SubwayModeController sInstance
+  invoke: android.os.Handler boolean sendMessage(android.os.Message)
+  invoke: com.android.phone.MiCarrierConfigLoaderStub void updateConfigForPhoneId(int, java.lang.String)
+  string:  Invalid phoneId: 
+  invoke: java.lang.IllegalArgumentException void <init>(java.lang.String)
+
+METHOD TeleService.apk com.android.phone.IMiCarrierConfigLoader :: void updateConfigForPhoneId(int, java.lang.String)
+
+METHOD TeleService.apk com.android.phone.MiCarrierConfigLoaderStub :: void updateConfigForPhoneId(int, java.lang.String)
+  field: com.android.phone.MiCarrierConfigLoaderStub com.android.phone.IMiCarrierConfigLoader sInstance
+
+METHOD TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl :: void updateConfigForPhoneId(int, java.lang.String)
+  invoke: java.lang.String int hashCode()
+  string:  LOADED
+  invoke: java.lang.String boolean equals(java.lang.Object)
+  string:  ABSENT
+  invoke: com.android.phone.CarrierConfigLoaderInjector void onIccAbsent(int)
+  invoke: com.android.phone.CarrierConfigLoaderInjector void onIccLoaded(int)

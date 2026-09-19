@@ -1,0 +1,84 @@
+=== first_available elapsed=33.1s ===
+2026-09-18T09:21:33+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26103 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26105 26103 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26108 26107 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26105 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26109   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26114 26109 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t15 elapsed=35.4s ===
+2026-09-18T09:21:35+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26200 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26202 26200 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26205   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26206 26204 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26202 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26210 26205 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t20 elapsed=37.2s ===
+2026-09-18T09:21:37+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26271 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26273 26271 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26276 26275 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26273 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26277   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26281 26277 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t30 elapsed=39.1s ===
+2026-09-18T09:21:39+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26341 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26343 26341 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26346 26345 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26343 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26347   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26351 26347 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t45 elapsed=45s ===
+2026-09-18T09:21:45+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26413 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26415 26413 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26418 26417 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26415 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26419   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26423 26419 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t60 elapsed=60s ===
+2026-09-18T09:22:00+08:00
+QTI_PID=25920
+radio         3125   918 .dataservices               .dataservices
+radio         3260   918 com.android.phone           com.android.phone
+u999_radio   17653   918 com.android.phone           com.android.phone
+u0_a196      23125   918 org.codeaurora.ims          org.codeaurora.ims
+u0_a104      25920   918 .qtidataservices            .qtidataservices
+shell        26488 11247 sh                          sh -c su -c 'date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"'
+shell        26490 26488 su                          su -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26493 26492 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26490 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\\.qtidataservices|\\.dataservices|org.codeaurora.ims|com.android.phone" --extra notify:b:true
+root         26494   868 sh                          sh -c date -Iseconds; echo QTI_PID=$(pidof .qtidataservices); ps -A -o USER,PID,PPID,NAME,ARGS | grep -E "\.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone"
+root         26498 26494 grep                        grep -E \.qtidataservices|\.dataservices|org.codeaurora.ims|com.android.phone
+=== t90 elapsed=101.7s ===
+2026-09-18T09:22:42+08:00
+QTI_PID=25920
+=== t120 elapsed=120s ===
+2026-09-18T09:23:00+08:00
+QTI_PID=25920

@@ -1,0 +1,3 @@
+package:/vendor/app/CneApp/CneApp.apk
+package:/system_ext/priv-app/ims/ims.apk
+package:/vendor/app/IWlanService/IWlanService.apk

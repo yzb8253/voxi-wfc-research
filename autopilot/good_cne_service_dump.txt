@@ -1,0 +1,63 @@
+SERVICE com.qualcomm.qti.cne/.CneApp a007c07 pid=3236 user=0
+  Client:
+    Wifi Quality dump
+        2026-09-17 08:00:47.124 ROW_dynamic 2.4GHz Add Threshold is -85
+        2026-09-17 08:00:47.126 ROW_dynamic 5GHz Add Threshold is -85
+        2026-09-17 08:00:47.126 ROW_dynamic 2.4GHz Drop Threshold is -85
+        2026-09-17 08:00:47.126 ROW_dynamic 5GHz Drop Threshold is -85
+        2026-09-17 08:00:47.133 ROW_profile32 2.4GHz Add Threshold is -99
+        2026-09-17 08:00:47.133 ROW_profile32 5GHz Add Threshold is -99
+        2026-09-17 08:00:47.133 ROW_profile32 2.4GHz Drop Threshold is -99
+        2026-09-17 08:00:47.133 ROW_profile32 5GHz Drop Threshold is -99
+        2026-09-17 08:00:47.171 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is good
+        2026-09-17 08:00:47.212 ROW_profile32 Wifi is good
+        2026-09-17 08:00:47.248 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad, because it is disconnected
+        2026-09-17 08:00:47.248 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad 
+        2026-09-17 08:00:47.248 ROW_profile32 Wifi is bad, because it is disconnected
+        2026-09-17 08:00:47.248 ROW_profile32 Wifi is bad 
+        2026-09-17 08:01:29.986 ROW_dynamic 2.4GHz Add Threshold is -85
+        2026-09-17 08:01:29.986 ROW_dynamic 5GHz Add Threshold is -85
+        2026-09-17 08:01:29.986 ROW_dynamic 2.4GHz Drop Threshold is -85
+        2026-09-17 08:01:29.986 ROW_dynamic 5GHz Drop Threshold is -85
+        2026-09-17 08:01:29.989 ROW_profile32 2.4GHz Add Threshold is -99
+        2026-09-17 08:01:29.989 ROW_profile32 5GHz Add Threshold is -99
+        2026-09-17 08:01:29.989 ROW_profile32 2.4GHz Drop Threshold is -99
+        2026-09-17 08:01:29.989 ROW_profile32 5GHz Drop Threshold is -99
+        2026-09-17 08:01:30.019 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad, because it is disconnected
+        2026-09-17 08:01:30.019 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad 
+        2026-09-17 08:01:30.019 ROW_profile32 Wifi is bad, because it is disconnected
+        2026-09-17 08:01:30.019 ROW_profile32 Wifi is bad 
+        2026-09-17 08:01:30.026 ROW_dynamic 2.4GHz Add Threshold is -85
+        2026-09-17 08:01:30.026 ROW_dynamic 5GHz Add Threshold is -85
+        2026-09-17 08:01:30.026 ROW_dynamic 2.4GHz Drop Threshold is -85
+        2026-09-17 08:01:30.026 ROW_dynamic 5GHz Drop Threshold is -85
+        2026-09-17 08:01:30.027 ROW_profile32 2.4GHz Add Threshold is -99
+        2026-09-17 08:01:30.027 ROW_profile32 5GHz Add Threshold is -99
+        2026-09-17 08:01:30.027 ROW_profile32 2.4GHz Drop Threshold is -99
+        2026-09-17 08:01:30.027 ROW_profile32 5GHz Drop Threshold is -99
+        2026-09-17 08:01:30.059 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is good
+        2026-09-17 08:01:30.068 ROW_profile32 Wifi is good
+        2026-09-17 08:01:40.083 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad, because it is disconnected
+        2026-09-17 08:01:40.084 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is bad 
+        2026-09-17 08:01:40.084 ROW_profile32 Wifi is bad, because it is disconnected
+        2026-09-17 08:01:40.084 ROW_profile32 Wifi is bad 
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Add Threshold is -85
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Add Threshold is -85
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Drop Threshold is -85
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Drop Threshold is -85
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Add Threshold is -65
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Add Threshold is -65
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Drop Threshold is -65
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Drop Threshold is -65
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Add Threshold is -90
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Add Threshold is -90
+        2026-09-17 08:01:40.114 ROW_dynamic 2.4GHz Drop Threshold is -90
+        2026-09-17 08:01:40.114 ROW_dynamic 5GHz Drop Threshold is -90
+        2026-09-17 08:01:40.119 ROW_profile32 2.4GHz Add Threshold is -99
+        2026-09-17 08:01:40.119 ROW_profile32 5GHz Add Threshold is -99
+        2026-09-17 08:01:40.119 ROW_profile32 2.4GHz Drop Threshold is -99
+        2026-09-17 08:01:40.119 ROW_profile32 5GHz Drop Threshold is -99
+        2026-09-17 08:01:40.148 ROW_dynamic RSSI high override -85 RSSI low override -85 Wifi is good
+        2026-09-17 08:01:40.159 ROW_dynamic RSSI high override -65 RSSI low override -65 Wifi is good
+        2026-09-17 08:01:40.167 ROW_dynamic RSSI high override -90 RSSI low override -90 Wifi is good
+        2026-09-17 08:01:40.175 ROW_profile32 Wifi is good

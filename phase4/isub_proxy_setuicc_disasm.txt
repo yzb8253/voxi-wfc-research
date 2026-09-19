@@ -1,0 +1,27 @@
+dex=classes2.dex
+setUiccApplicationsEnabled code_off=0x4d60e0 regs=8 ins=3 outs=5 tries=1
+0000: invoke-static          {}, method@57313 android.os.Parcel android.os.Parcel.obtain()
+0003: move-result-object     v0
+0004: invoke-static          {}, method@57313 android.os.Parcel android.os.Parcel.obtain()
+0007: move-result-object     v1
+0008: const-string           v2, string@40788 "com.android.internal.telephony.ISub"
+000a: invoke-virtual         {v0, v2}, method@57367 void android.os.Parcel.writeInterfaceToken(java.lang.String)
+000d: invoke-virtual         {v0, v6}, method@57353 void android.os.Parcel.writeBoolean(boolean)
+0010: invoke-virtual         {v0, v7}, method@57365 void android.os.Parcel.writeInt(int)
+0013: iget-object            v2, v5, field@30912 android.os.IBinder com.android.internal.telephony.ISub$Stub$Proxy.mRemote
+0015: const/16               v3, #48
+0017: const/4                v4, #0
+0018: invoke-interface       {v2, v3, v0, v1, v4}, method@57258 boolean android.os.IBinder.transact(int,android.os.Parcel,android.os.Parcel,int)
+001b: move-result            v2
+001c: invoke-virtual         {v1}, method@57324 void android.os.Parcel.readException()
+001f: invoke-virtual         {v1}, method@57328 int android.os.Parcel.readInt()
+0022: move-result            v3
+0023: op_01                  
+0024: invoke-virtual         {v1}, method@57347 void android.os.Parcel.recycle()
+0027: invoke-virtual         {v0}, method@57347 void android.os.Parcel.recycle()
+002a: op_00                  
+002b: return                 v2
+002c: op_0d                  
+002d: invoke-virtual         {v1}, method@57347 void android.os.Parcel.recycle()
+0030: invoke-virtual         {v0}, method@57347 void android.os.Parcel.recycle()
+0033: op_27                  

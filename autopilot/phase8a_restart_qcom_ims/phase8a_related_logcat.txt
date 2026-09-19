@@ -1,0 +1,60 @@
+09-18 09:08:07.368  1481  2762 I ActivityManager: Process org.codeaurora.ims (pid 3184) has died: pers PER 
+09-18 09:08:07.370  1481  2762 W ActivityManager: Re-adding persistent process ProcessRecord{42c703a 3184:org.codeaurora.ims/u0a196}
+09-18 09:08:07.392  1481  2152 D Boost   : hostingType=restart, hostingName=org.codeaurora.ims, callerPackage=android, isSystem=true, isBoostNeeded=false.
+09-18 09:08:07.392  1481  2152 I ActivityManager: Start proc 23125:org.codeaurora.ims/u0a196 for restart org.codeaurora.ims caller=android
+09-18 09:08:07.426  1481  2793 I SmartPower.org.codeaurora.ims/10196(23125): died->background(58ms) R(process start ) adj=-10000.
+09-18 09:11:24.598  3260  3260 I SimApi  : getPackage: slotId=0, trafficName=未设置套餐, trafficValue=--, trafficUnit=MB, billName=null, billValue=null, billUnit=null, packageType=-1, clickAction=intent:#Intent;action=miui.intent.action.NETWORKASSISTANT_MONTH_PACKAGE_SETTING;package=com.miui.securitycenter;i.sim_slot_num_tag=0;end
+09-18 09:11:25.473  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:25.493  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:25.494  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:26.493  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:26.508  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:26.509  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:28.502  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:28.516  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:28.516  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:28.853  3260  3260 I SimApi  : getPackage: slotId=0, trafficName=未设置套餐, trafficValue=--, trafficUnit=MB, billName=null, billValue=null, billUnit=null, packageType=-1, clickAction=intent:#Intent;action=miui.intent.action.NETWORKASSISTANT_MONTH_PACKAGE_SETTING;package=com.miui.securitycenter;i.sim_slot_num_tag=0;end
+09-18 09:11:29.530  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:29.537  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:29.537  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:31.474  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:31.490  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:31.490  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:32.521  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:32.528  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:32.528  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:46.525  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:11:46.543  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:46.543  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:47.545  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:11:47.546  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:11:47.547  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:00.573  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:00.573  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:00.575  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:01.588  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:01.596  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:01.596  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:02.614  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:02.624  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:02.625  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:03.197 23125 23138 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-18 09:12:05.056 23125 23138 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-18 09:12:15.576  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:15.590  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:15.591  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:16.643  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:16.647  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:16.647  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:28.613  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:28.614  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:28.618  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:29.636  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:29.651  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:29.651  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:30.679  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:30.679  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile
+09-18 09:12:30.680  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:44.650  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-18 09:12:44.655  4850  4850 D RegisteredServicesCache: ServiceStateFileVersion=1.0
+09-18 09:12:44.656  4850  4850 E RegisteredServicesCache: 1invalidateCache:WriteServiceStateToFile

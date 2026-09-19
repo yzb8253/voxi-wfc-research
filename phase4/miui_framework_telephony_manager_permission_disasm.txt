@@ -1,0 +1,19 @@
+dex=classes.dex
+checkCallingOrSelfPermissionGranted code_off=0x265c2c regs=3 ins=1 outs=2 tries=0
+0000: invoke-static          {v2}, method@28617 int miui.telephony.TelephonyManager.getAppIdUserHandle(int)
+0003: move-result            v0
+0004: const/16               v1, #1000
+0006: if-eq                  v0, v1, -> 001b
+0008: invoke-static          {}, method@5813 int android.os.Process.myUid()
+000b: move-result            v1
+000c: if-ltz                 v1, -> 0019
+000e: invoke-static          {}, method@5813 int android.os.Process.myUid()
+0011: move-result            v1
+0012: invoke-static          {v2, v1}, method@28759 boolean miui.telephony.TelephonyManager.isSameAppUserHandle(int,int)
+0015: move-result            v1
+0016: if-eqz                 v1, -> 0019
+0018: goto                   -> 001b
+0019: const/4                v1, #0
+001a: return                 v1
+001b: const/4                v1, #1
+001c: return                 v1

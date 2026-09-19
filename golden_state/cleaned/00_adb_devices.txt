@@ -1,0 +1,8 @@
+COMMAND: .\adb.exe devices
+CAPTURED_AT: 2026-09-16T13:04:13.7514064+08:00
+
+List of devices attached
+192.168.137.134:37667	device
+adb-fd0ff892-wZRh7k._adb-tls-connect._tcp	device
+
+

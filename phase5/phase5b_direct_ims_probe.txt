@@ -1,0 +1,254 @@
+Phase 5B - DIRECT IMS/MMTEL READ-ONLY PROBE
+Generated: 2026-09-17
+
+Scope and safety
+================
+
+Target:
+- VOXI subId=11
+- slotId=1
+- phoneId=1
+
+This phase was strictly read-only with respect to telephony state.
+
+Performed:
+- Static inspection of the current ROM framework.jar.
+- Local compilation and dex conversion of Phase5ImsProbe.
+- Push of the helper jar to /data/local/tmp/phase5-ims-probe.jar.
+- Root app_process execution in the hard-locked read-only mode.
+- Read-only framework/Binder queries.
+- Read-only dumpsys connectivity, telephony.registry, and phone snapshots before and after.
+
+Not performed:
+- No IMS enable/disable/reset or registration trigger.
+- No setUiccApplicationsEnabled call.
+- No SIM/UICC/Radio/CarrierConfig modification.
+- No airplane-mode, settings, property, process, service, or reboot operation.
+- No Binder write transaction.
+
+
+Current ROM API confirmation
+============================
+
+[SOURCE CONFIRMED] framework.jar contains:
+
+android.telephony.ims.ImsMmTelManager
+- public static ImsMmTelManager createForSubscriptionId(int)
+- public void getRegistrationState(Executor, Consumer<Integer>)
+- public void getRegistrationTransportType(Executor, Consumer<Integer>)
+- public boolean isAvailable(int capability, int registrationTech)
+- public boolean isCapable(int capability, int registrationTech)
+- public boolean isVoWiFiSettingEnabled()
+
+android.telephony.TelephonyManager
+- public static TelephonyManager getDefault()
+- public TelephonyManager createForSubscriptionId(int)
+- public boolean isWifiCallingAvailable()
+
+[SOURCE CONFIRMED] Current-ROM constants:
+- RegistrationManager.REGISTRATION_STATE_NOT_REGISTERED = 0
+- RegistrationManager.REGISTRATION_STATE_REGISTERING = 1
+- RegistrationManager.REGISTRATION_STATE_REGISTERED = 2
+- AccessNetworkConstants.TRANSPORT_TYPE_WWAN = 1
+- AccessNetworkConstants.TRANSPORT_TYPE_WLAN = 2
+- AccessNetworkConstants.TRANSPORT_TYPE_INVALID = 255
+- MmTelFeature.MmTelCapabilities.CAPABILITY_TYPE_VOICE = 1
+- ImsRegistrationImplBase.REGISTRATION_TECH_IWLAN = 1
+
+[SOURCE CONFIRMED] ImsMmTelManager delegates these reads to ITelephony:
+- getImsMmTelRegistrationState(subId, IIntegerConsumer)
+- getImsMmTelRegistrationTransportType(subId, IIntegerConsumer)
+- isAvailable(subId, capability, registrationTech)
+- isCapable(subId, capability, registrationTech)
+
+The standalone app_process required process-local initialization of
+TelephonyFrameworkInitializer with a TelephonyServiceManager instance. This only
+initializes the helper's client-side framework wrapper; it does not change the
+phone service or any telephony state.
+
+TelephonyManager normally requires an application Context. A bare app_process
+does not have one, so the helper queried the exact read-only ITelephony backend
+method used for WFC availability:
+
+  ITelephony.isWifiCallingAvailable(11)
+
+
+Helper identity
+===============
+
+[DEVICE CONFIRMED]
+- Process.myUid() = 0
+- SELinux context = u:r:magisk:s0
+- Target subId is compile-time fixed to 11.
+- The only accepted command-line mode is read-only.
+
+
+Direct registration result
+==========================
+
+[DEVICE CONFIRMED]
+
+ImsMmTelManager binding:
+- PASS
+
+getRegistrationState:
+- raw = 2
+- parsed = REGISTERED
+
+getRegistrationTransportType:
+- raw = 2
+- parsed = WLAN
+
+MMTEL voice over IWLAN:
+- isAvailable(VOICE=1, IWLAN=1) = true
+- isCapable(VOICE=1, IWLAN=1) = true
+
+VoWiFi/WFC:
+- ImsMmTelManager.isVoWiFiSettingEnabled() = true
+- ITelephony.isWifiCallingAvailable(11) = true
+
+Exceptions and access control:
+- SecurityException = none
+- Binder exception = none
+- SELinux denial = none observed
+- Callback timeout = none
+
+
+Before/after connectivity baseline
+==================================
+
+[DEVICE CONFIRMED] Present both before and after the probe:
+
+IMS NetworkAgent:
+- MOBILE[IWLAN] CONNECTED extra: ims
+- Capabilities include IMS, VALIDATED, and MMTEL.
+- TelephonyNetworkSpecifier mSubId = 11.
+- SubscriptionIds = {11}.
+- qti.cne IMS request id 263 remains active.
+
+NAT-T/ePDG keepalive:
+- state = STARTED
+- network = 100
+- source = 192.168.137.134:42983
+- destination = 198.18.1.101:4500
+- interval = 20 seconds
+
+Telephony registry for phoneId 1:
+- mVoiceRegState = IN_SERVICE
+- mDataRegState = IN_SERVICE
+- getRilDataRadioTechnology = IWLAN
+- PS/WLAN registrationState = HOME
+- accessNetworkTechnology = IWLAN
+- mIsIwlanPreferred = true
+- mActiveDataSubId = 11
+- mDefaultSubId = 11
+
+IMS Resolver/MMTEL:
+- org.codeaurora.ims ImsService remains bound.
+- Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+
+No loss of the IMS NetworkAgent, NAT-T keepalive, IWLAN registration, or MMTEL
+READY state occurred across the probe.
+
+
+DIRECT IMS/WFC GOLDEN decision
+==============================
+
+Required direct evidence:
+- registrationState = REGISTERED: PASS
+- registrationTransport = WLAN: PASS
+- MOBILE[IWLAN] CONNECTED extra: ims: PASS
+
+Additional strong evidence:
+- MMTEL VOICE over IWLAN available = true: PASS
+- MMTEL VOICE over IWLAN capable = true: PASS
+- Telephony WFC availability = true: PASS
+- VoWiFi setting enabled = true: PASS
+- UDP/4500 NAT-T keepalive active: PASS
+
+DIRECT IMS/WFC GOLDEN = STRONG YES
+
+
+Reusable normal-WFC machine fingerprint
+=======================================
+
+For VOXI subId 11, the minimum direct comparison fingerprint is:
+
+1. ImsMmTelManager.getRegistrationState = 2 / REGISTERED
+2. ImsMmTelManager.getRegistrationTransportType = 2 / WLAN
+3. ImsMmTelManager.isAvailable(VOICE, IWLAN) = true
+4. ITelephony.isWifiCallingAvailable(11) = true
+5. MOBILE[IWLAN] CONNECTED extra: ims with mSubId=11
+
+The stronger data-plane fingerprint additionally includes:
+
+6. ImsMmTelManager.isCapable(VOICE, IWLAN) = true
+7. ImsMmTelManager.isVoWiFiSettingEnabled = true
+8. qti.cne IMS request for subId 11 is active
+9. UDP/4500 keepalive is STARTED
+10. PS/WLAN is HOME, access technology is IWLAN, and mIsIwlanPreferred=true
+
+This probe can distinguish a future failure as follows:
+- state 0: IMS NOT_REGISTERED
+- state 1: IMS REGISTERING/stuck
+- state 2 plus non-WLAN transport: registered on a different transport
+- state 2/WLAN plus VOICE unavailable: MMTEL voice capability failure
+- all direct framework values normal but missing NetworkAgent/keepalive: likely IMS
+  data-plane/ePDG inconsistency
+
+
+Artifacts
+=========
+
+- helper/Phase5ImsProbe.java
+- helper/phase5-ims-probe-classes.jar
+- helper/phase5-ims-probe-dex.jar
+- phase5b_helper_output.txt
+- phase5b_before_connectivity.txt
+- phase5b_after_connectivity.txt
+- phase5b_before_telephony_registry.txt
+- phase5b_after_telephony_registry.txt
+- phase5b_before_phone.txt
+- phase5b_after_phone.txt
+- phase5b_framework_api_scan.json
+- phase5b_constants_scan.json
+
+
+=== PHASE 5B DIRECT IMS RESULT ===
+
+1. helper UID
+0; SELinux u:r:magisk:s0
+
+2. ImsMmTelManager available
+YES
+
+3. getRegistrationState raw/result
+2 / REGISTERED
+
+4. getRegistrationTransportType raw/result
+2 / WLAN
+
+5. MMTEL voice-over-IWLAN availability
+true (and isCapable=true)
+
+6. TelephonyManager WFC availability
+true, obtained from its read-only ITelephony backend for subId 11
+
+7. SecurityException
+NONE
+
+8. Binder/SELinux denial
+NONE OBSERVED
+
+9. IMS NetworkAgent still present
+YES: MOBILE[IWLAN] CONNECTED extra: ims, IMS/MMTEL, mSubId=11
+
+10. UDP/4500 keepalive still present
+YES: STARTED, destination 198.18.1.101:4500, interval 20 seconds
+
+11. DIRECT IMS/WFC GOLDEN
+STRONG YES
+
+12. Normal-WFC minimum machine fingerprint
+REGISTERED(2) + WLAN(2) + VOICE/IWLAN available=true +
+isWifiCallingAvailable(11)=true + active subId-11 IMS IWLAN NetworkAgent.

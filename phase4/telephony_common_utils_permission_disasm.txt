@@ -1,0 +1,12 @@
+dex=classes.dex
+checkCallingOrSelfPermissionGranted code_off=0x127c84 regs=2 ins=1 outs=2 tries=0
+0000: sget-object            
+0001: op_97                  
+0002: if-eqz                 v0, -> 000b
+0004: sget-object            
+0005: op_97                  
+0006: invoke-interface       {v0, v1}, method@5845 boolean com.android.internal.telephony.ITelephonyCommonUtils.checkCallingOrSelfPermissionGranted(int)
+0009: move-result            v1
+000a: return                 v1
+000b: const/4                v1, #0
+000c: return                 v1

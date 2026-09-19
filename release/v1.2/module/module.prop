@@ -1,0 +1,6 @@
+id=voxi_wfc_recovery
+name=VOXI WFC Recovery
+version=v1.2
+versionCode=120
+author=local
+description=Validated VOXI Wi-Fi Calling safe, deep, and opt-in boot recovery helper

@@ -1,0 +1,14 @@
+shell-syntax action.sh: PASS
+shell-syntax service.sh: PASS
+shell-syntax customize.sh: PASS
+shell-syntax uninstall.sh: PASS
+shell-syntax bin/wfcctl.sh: PASS
+shell-syntax bin/wfc-auto-recover.sh: PASS
+shell-syntax bin/wfc-deep-recover.sh: PASS
+source-vs-extracted-file-hashes: PASS
+exact-release-file-set: PASS
+forbidden-experimental-executable-paths: NONE
+action-zero-write: PASS
+deep-timeout-120-no-retry: PASS
+boot-marker-manual-independence: PASS
+version-metadata: PASS

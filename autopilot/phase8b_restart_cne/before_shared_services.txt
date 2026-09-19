@@ -1,0 +1,447 @@
+ACTIVITY_PROCESS
+    lastCompactTime=0 lastCompactAction=0
+    hasPendingCompaction=false    isFreezeExempt=true isPendingFreeze=false isFrozen=false
+     Configuration={1.0 234mcc15mnc [zh_CN] ldltr sw392dp w392dp h818dp 440dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2340) mAppBounds=Rect(0, 90 - 1080, 2340) mMaxBounds=Rect(0, 0 - 1080, 2340) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mInSplitScreen=false letterBoxed=false foScaled=false} s.106 fontWeightAdjustment=0 themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/d} ImeAppBounds:null ;isMultiWindowMode:false
+     OverrideConfiguration={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mInSplitScreen=false letterBoxed=false foScaled=false} ?fontWeightAdjustment themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/0} ImeAppBounds:null ;isMultiWindowMode:false
+     mLastReportedConfiguration={1.0 234mcc15mnc [zh_CN] ldltr sw392dp w392dp h818dp 440dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2340) mAppBounds=Rect(0, 90 - 1080, 2340) mMaxBounds=Rect(0, 0 - 1080, 2340) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mInSplitScreen=false letterBoxed=false foScaled=false} s.106 fontWeightAdjustment=0 themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/d} ImeAppBounds:null ;isMultiWindowMode:false
+  *PERS* UID 10104 ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    user #0 uid=10104 gids={3003, 3005, 3004, 50104, 20104, 9997}
+    mRequiredAbi=arm64-v8a instructionSet=arm64
+    dir=/vendor/app/CACertService/CACertService.apk publicDir=/vendor/app/CACertService/CACertService.apk data=/data/user_de/0/vendor.qti.hardware.cacert.server
+    packageList={vendor.qti.hardware.cacert.server, vendor.qti.iwlan, com.qualcomm.qti.cne}
+    compat={440dpi always-compat}
+    thread=android.app.IApplicationThread$Stub$Proxy@c0803bc
+    pid=3170
+    lastActivityTime=-9h24m28s142ms    startUptimeTime=-9h25m5s22ms    startElapsedTime=-10h52m39s286ms
+    persistent=true removed=false
+    startSeq=7
+    mountMode=DEFAULT
+    callerPackage=android
+    lastPssTime=-30m12s613ms pssProcState=0 pssStatType=1 nextPssTime=+29m45s806ms
+    lastPss=14MB lastSwapPss=7.5MB lastCachedPss=0.00 lastCachedSwapPss=0.00 lastRss=84MB
+    trimMemoryLevel=0
+    procStateMemTracker: best=0 (0=0 1477.8918x)
+    lastRequestedGc=-9h25m4s811ms lastLowMemory=-9h25m4s811ms reportLowMemory=false
+    currentHostingComponentTypes=0x202 historicalHostingComponentTypes=0x202
+    reportedInteraction=true time=-45m22s222ms
+    adjSeq=51039 lruSeq=28
+    oom adj: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+    mCurSchedGroup=2 setSchedGroup=2 systemNoUi=true
+    curProcState=0 mMaxProcState=0 mRepProcState=0 setProcState=0 lastStateTime=-9h25m4s811ms
+    curCapability=LCMN setCapability=LCMN
+
+    cached=false empty=false
+    notCachedSinceIdle=true initialIdlePss=13838
+    Services:
+      - ServiceRecord{6e8d99f u0 vendor.qti.hardware.cacert.server/.CACertService}
+      - ServiceRecord{87c5b6c u0 vendor.qti.iwlan/.QualifiedNetworksServiceImpl}
+      - ServiceRecord{8d7e9a0 u0 vendor.qti.iwlan/.IWlanNetworkService}
+      - ServiceRecord{d12ed4f u0 com.qualcomm.qti.cne/.CneApp}
+      - ServiceRecord{e53c4fc u0 vendor.qti.iwlan/.IWlanDataService}
+    Connected Providers:
+      - f23dd49/com.android.providers.settings/.SettingsProvider->3170:.qtidataservices/u0a104 s1/1 u0/0 +10h52m38s953ms
+    mReceivers:
+      - ReceiverList{15d9cf4 3170 .qtidataservices/10104/u0 remote:9ce8ec7}
+      - ReceiverList{30877a9 3170 .qtidataservices/10104/u0 remote:bc7ff30}
+    lastCompactTime=0 lastCompactAction=0
+    hasPendingCompaction=false    isFreezeExempt=false isPendingFreeze=false isFrozen=false
+    BoundClientUids:[1001]
+     Configuration={1.0 234mcc15mnc [zh_CN] ldltr sw392dp w392dp h818dp 440dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2340) mAppBounds=Rect(0, 90 - 1080, 2340) mMaxBounds=Rect(0, 0 - 1080, 2340) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mInSplitScreen=false letterBoxed=false foScaled=false} s.195 fontWeightAdjustment=0 themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/d} ImeAppBounds:null ;isMultiWindowMode:false
+     OverrideConfiguration={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mMaxBounds=Rect(0, 0 - 0, 0) mDisplayRotation=undefined mWindowingMode=undefined mDisplayWindowingMode=undefined mActivityType=undefined mAlwaysOnTop=undefined mRotation=undefined mInSplitScreen=false letterBoxed=false foScaled=false} ?fontWeightAdjustment themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/0} ImeAppBounds:null ;isMultiWindowMode:false
+     mLastReportedConfiguration={1.0 234mcc15mnc [zh_CN] ldltr sw392dp w392dp h818dp 440dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2340) mAppBounds=Rect(0, 90 - 1080, 2340) mMaxBounds=Rect(0, 0 - 1080, 2340) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0 mInSplitScreen=false letterBoxed=false foScaled=false} s.195 fontWeightAdjustment=0 themeChanged=0 themeChangedFlags=0 extraData = Bundle[{}]/d} ImeAppBounds:null ;isMultiWindowMode:false
+  *APP* UID 1000 ProcessRecord{7921d62 15818:com.miui.securitycenter:ui/1000}
+    user #0 uid=1000 gids={2001, 1065, 3002, 3003, 3001, 3007, 1021, 1000, 2002, 1015, 1023, 1010, 1024, 1007, 3006, 3005, 3004, 1000, 9997, 1015, 1078, 1079, 1077, 99909997}
+    mRequiredAbi=arm64-v8a instructionSet=arm64
+    class=com.miui.securitycenter.Application
+    dir=/data/app/~~UfD1u0FZXf0mPVs6WkIKTg==/com.miui.securitycenter-eAV3uFNKopQ4vBbemOB8_w==/base.apk publicDir=/data/app/~~UfD1u0FZXf0mPVs6WkIKTg==/com.miui.securitycenter-eAV3uFNKopQ4vBbemOB8_w==/base.apk data=/data/user/0/com.miui.securitycenter
+    packageList={com.miui.securitycenter}
+    compat={440dpi}
+    thread=android.app.IApplicationThread$Stub$Proxy@ff50f45
+    pid=15818
+    lastActivityTime=-9h23m12s138ms    startUptimeTime=-9h23m24s372ms    startElapsedTime=-10h50m58s637ms
+    startSeq=164
+    mountMode=ANDROID_WRITABLE
+    callerPackage=com.miui.securitycenter
+    lastCpuTime=600 timeUsed=0
+    lastPssTime=-30m12s869ms pssProcState=19 pssStatType=1 nextPssTime=+29m45s806ms
+    lastPss=22MB lastSwapPss=16MB lastCachedPss=22MB lastCachedSwapPss=16MB lastRss=90MB
+    trimMemoryLevel=0
+    procStateMemTracker: best=4 (4=4 1477.8918x)
+    lastRequestedGc=-9h23m24s313ms lastLowMemory=-9h23m24s313ms reportLowMemory=false
+    currentHostingComponentTypes=0x0 historicalHostingComponentTypes=0x200
+    adjSeq=51657 lruSeq=2260
+    oom adj: max=1001 curRaw=935 setRaw=935 cur=935 set=935
+    mCurSchedGroup=0 setSchedGroup=0 systemNoUi=false
+    curProcState=19 mMaxProcState=0 mRepProcState=19 setProcState=19 lastStateTime=-9h23m12s100ms
+    curCapability=---- setCapability=----
+
+--
+        cached=false empty=false hasAboveClient=false
+    PERS #141: pers   F/ /PER  LCMN  t: 0 3125:.dataservices/1001 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=10MB lastSwapPss=5.3MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #140: pers   F/ /PER  LCMN  t: 0 3170:.qtidataservices/u0a104 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=14MB lastSwapPss=7.5MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #139: pers   F/ /PER  LCMN  t: 0 23125:org.codeaurora.ims/u0a196 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=21MB lastSwapPss=7.6MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #138: pers   F/ /PER  LCMN  t: 0 3192:com.xiaomi.finddevice/6110 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=17MB lastSwapPss=5.0MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #137: pers   F/ /PER  LCMN  t: 0 3188:com.android.se/1068 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=16MB lastSwapPss=3.5MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #136: pers   F/ /PER  LCMN  t: 0 3175:com.qti.phone/u0a195 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=14MB lastSwapPss=6.9MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #135: pers   F/ /PER  LCMN  t: 0 3219:com.xiaomi.mtb/1000 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=7.6MB lastSwapPss=5.7MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #134: pers   F/ /PER  LCMN  t: 0 3293:com.qti.qcc/u0a210 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=9.0MB lastSwapPss=5.7MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #133: pers   F/ /PER  LCMN  t: 0 3285:com.android.systemui/1000 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=294MB lastSwapPss=44MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+    PERS #132: pers   F/ /PER  LCMN  t: 0 3260:com.android.phone/1001 (fixed)
+        oom: max=-800 curRaw=-800 setRaw=-800 cur=-800 set=-800
+        state: cur=PER  set=PER  lastPss=77MB lastSwapPss=17MB lastCachedPss=0.00
+        cached=false empty=false hasAboveClient=false
+--
+    UID u0a102: UidRecord{614803f u0a102 CEM  bg:+2h33m28s662ms idle change:procadj procs:0 seq(761338,582255)}
+      curProcState=19 curCapability=----
+      proc=ProcessRecord{22e1d19 11502:com.qualcomm.timeservice/u0a102}
+    UID u0a104: UidRecord{9b4e196 u0a104 PER  change:procadj procs:0 seq(761337,46)}
+      curProcState=0 curCapability=LCMN
+      proc=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    UID u0a106: UidRecord{ec3f117 u0a106 PER  change:procadj procs:0 seq(761336,1819)}
+      curProcState=0 curCapability=LCMN
+      proc=ProcessRecord{ba7c6ae 4887:org.ifaa.aidl.manager/u0a106}
+    UID u0a107: UidRecord{bacd904 u0a107 PER  change:procadj procs:0 seq(761335,1889)}
+      curProcState=0 curCapability=LCMN
+      proc=ProcessRecord{a05fd86 4971:org.mipay.android.manager/u0a107}
+    UID u0a113: UidRecord{fcfceed u0a113 CEM  bg:+1h30m24s649ms idle change:procadj procs:0 seq(761334,606912)}
+      curProcState=19 curCapability=----
+      proc=ProcessRecord{780bc43 6221:com.android.camera/u0a113}
+    UID u0a117: UidRecord{587fd0c u0a117 LAST bg:+2m33s360ms idle change:idle|procstate procs:0 seq(762162,599085)}
+      curProcState=15 curCapability=----
+      proc=ProcessRecord{96287f 13790:com.miui.packageinstaller/u0a117}
+    UID u0a124: UidRecord{4d58122 u0a124 BFGS change:procstate procs:0 seq(766892,748538)}
+      curProcState=5 curCapability=---N
+      proc=ProcessRecord{f8fbe8f 3320:com.miui.home/u0a124}
+    UID u0a126: UidRecord{e8c87b3 u0a126 CEM  bg:+2h33m33s971ms idle change:procadj procs:0 seq(761331,129465)}
+      curProcState=19 curCapability=----
+      proc=ProcessRecord{7b58e6c 17898:com.android.calendar/u0a126}
+      proc=ProcessRecord{b71cb8 17835:com.android.calendar:widgetProvider/u0a126}
+    UID u0a127: UidRecord{aa08170 u0a127 SVC  bg:+2h33m33s968ms idle change:procadj procs:0 seq(761330,354933)}
+      curProcState=10 curCapability=----
+      proc=ProcessRecord{ccaba73 12065:com.miui.gallery/u0a127}
+    UID u0a128: UidRecord{a676ce9 u0a128 CEM  bg:+1h30m27s609ms idle change:procadj procs:0 seq(761329,606505)}
+      curProcState=19 curCapability=----
+      proc=ProcessRecord{e90377a 14423:com.android.vending/u0a128}
+      proc=ProcessRecord{83694ce 27577:com.android.vending:instant_app_installer/u0a128}
+      proc=ProcessRecord{57de0a2 16094:com.android.vending:background/u0a128}
+      proc=ProcessRecord{3acd4ef 27292:com.android.vending:quick_launch/u0a128}
+    UID u0a129: UidRecord{66e8d6e u0a129 BFGS change:procadj procs:0 seq(766891,2726)}
+      curProcState=5 curCapability=LCMN
+      proc=ProcessRecord{df599a7 5247:com.google.process.gservices/u0a129}
+      proc=ProcessRecord{acd064e 4082:com.google.android.gms/u0a129}
+      proc=ProcessRecord{7f4f7f0 5287:com.google.process.gapps/u0a129}
+    UID u0a131: UidRecord{d3dec0f u0a131 CEM  idle change:procadj procs:0 seq(761327,120882)}
+      curProcState=19 curCapability=----
+--
+    # 7: pers   PER  LCMN 3219:com.xiaomi.mtb/1000
+    # 6: pers   PER  LCMN 3175:com.qti.phone/u0a195
+    # 5: pers   PER  LCMN 3188:com.android.se/1068
+    # 4: pers   PER  LCMN 3192:com.xiaomi.finddevice/6110
+    # 3: pers   PER  LCMN 23125:org.codeaurora.ims/u0a196
+    # 2: pers   PER  LCMN 3170:.qtidataservices/u0a104
+    # 1: pers   PER  LCMN 3125:.dataservices/1001
+    # 0: sys    PER  LCMN 1481:system/1000
+
+  Process LRU list (sorted by oom_adj, 143 total, non-act at 16, non-svc at 16):
+    PERS #142: sys    F/ /PER  LCMN  t: 0 1481:system/1000 (fixed)
+    PERS #141: pers   F/ /PER  LCMN  t: 0 3125:.dataservices/1001 (fixed)
+    PERS #140: pers   F/ /PER  LCMN  t: 0 3170:.qtidataservices/u0a104 (fixed)
+    PERS #139: pers   F/ /PER  LCMN  t: 0 23125:org.codeaurora.ims/u0a196 (fixed)
+    PERS #138: pers   F/ /PER  LCMN  t: 0 3192:com.xiaomi.finddevice/6110 (fixed)
+    PERS #137: pers   F/ /PER  LCMN  t: 0 3188:com.android.se/1068 (fixed)
+    PERS #136: pers   F/ /PER  LCMN  t: 0 3175:com.qti.phone/u0a195 (fixed)
+    PERS #135: pers   F/ /PER  LCMN  t: 0 3219:com.xiaomi.mtb/1000 (fixed)
+    PERS #134: pers   F/ /PER  LCMN  t: 0 3293:com.qti.qcc/u0a210 (fixed)
+    PERS #133: pers   F/ /PER  LCMN  t: 0 3285:com.android.systemui/1000 (fixed)
+    PERS #132: pers   F/ /PER  LCMN  t: 0 3260:com.android.phone/1001 (fixed)
+    PERS #129: pers   F/ /PER  LCMN  t: 0 4850:com.android.nfc/1027 (fixed)
+    PERS #128: pers   F/ /PER  LCMN  t: 0 4862:com.xiaomi.touchservice/1000 (fixed)
+    PERS #127: pers   F/ /PER  LCMN  t: 0 4831:com.miui.daemon/1000 (fixed)
+    PERS #126: pers   F/ /PER  LCMN  t: 0 4904:com.xiaomi.xmsfkeeper/u0a183 (fixed)
+    PERS #125: pers   F/ /PER  LCMN  t: 0 4882:system/u0a69 (fixed)
+    PERS #124: pers   F/ /PER  LCMN  t: 0 4887:org.ifaa.aidl.manager/u0a106 (fixed)
+    PERS #123: pers   F/ /PER  LCMN  t: 0 4976:com.qualcomm.location/u0a203 (fixed)
+    PERS #122: pers   F/ /PER  LCMN  t: 0 4936:com.tencent.soter.soterserver/u0a101 (fixed)
+    PERS #121: pers   F/ /PER  LCMN  t: 0 4927:com.qualcomm.qti.workloadclassifier/u0a217 (fixed)
+    PERS #120: pers   F/ /PER  LCMN  t: 0 4971:org.mipay.android.manager/u0a107 (fixed)
+    PERS #119: pers   F/ /PER  LCMN  t: 0 5016:com.miui.face/1000 (fixed)
+    Proc #58: psvc   F/ /PER  LCMN  t: 0 4789:com.android.providers.media.module/u0a230 (service)
+        com.android.providers.media.module/com.android.providers.media.fuse.ExternalStorageServiceImpl<=Proc{1481:system/1000}
+    Proc #13: psvc   F/ /PER  LCMN  t: 0 3088:com.android.bluetooth/1002 (service)
+    Proc # 0: fg     T/A/TOP  LCMN  t: 0 21757:com.android.settings/1000 (top-activity)
+    Proc #29: fg     F/ /BTOP ---N  t: 0 13181:com.xiaomi.misettings/1000 (provider)
+        com.xiaomi.misettings/com.android.settings.banner.BannerProvider<=Proc{21757:com.android.settings/1000}
+    Proc # 4: fg     F/S/BTOP ---N  t: 0 5028:com.miui.securitycenter.remote/1000 (provider)
+        com.miui.securitycenter/com.miui.idprovider.IdProvider<=Proc{3285:com.android.systemui/1000}
+    Proc #43: fg     F/S/FGS  ---N  t: 0 5891:com.xiaomi.mi_connect_service/1000 (provider)
+        com.xiaomi.mi_connect_service/com.xiaomi.resourcemanager.lock.runtime.lock.LockContentProvider<=Proc{3814:com.xiaomi.mirror/1000}
+    Proc #37: fg     F/S/FGS  ---N  t: 0 3814:com.xiaomi.mirror/1000 (provider)
+        com.xiaomi.mirror/.provider.CallProvider<=Proc{3260:com.android.phone/1001}
+    Proc #31: fg     F/ /FGS  -CMN  t: 0 4195:com.xiaomi.bluetooth/1002 (service)
+    Proc #36: fg     F/ /BFGS ---N  t: 0 6274:com.miui.powerkeeper/1000 (provider)
+        com.miui.powerkeeper/.provider.PowerKeeperConfigureProvider<=Proc{1481:system/1000}
+    Proc # 1: vis    F/ /BTOP ---N  t: 0 5388:com.miui.analytics/u0a136 (service)
+--
+    PID #1481: ProcessRecord{2815d9c 1481:system/1000}
+    PID #2854: ProcessRecord{76bf993 2854:com.android.htmlviewer:remote/u0a100}
+    PID #2871: ProcessRecord{85021db 2871:com.miui.miwallpaper/u0a170}
+    PID #3088: ProcessRecord{3fb6fe8 3088:com.android.bluetooth/1002}
+    PID #3125: ProcessRecord{7cb2acf 3125:.dataservices/1001}
+    PID #3170: ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    PID #3175: ProcessRecord{2ef2b65 3175:com.qti.phone/u0a195}
+    PID #3188: ProcessRecord{7f9a4eb 3188:com.android.se/1068}
+    PID #3192: ProcessRecord{e4d0248 3192:com.xiaomi.finddevice/6110}
+    PID #3219: ProcessRecord{5f0621d 3219:com.xiaomi.mtb/1000}
+    PID #3260: ProcessRecord{4accc92 3260:com.android.phone/1001}
+    PID #3285: ProcessRecord{ed3c663 3285:com.android.systemui/1000}
+    PID #3293: ProcessRecord{a2fd260 3293:com.qti.qcc/u0a210}
+    PID #3320: ProcessRecord{f8fbe8f 3320:com.miui.home/u0a124}
+    PID #3324: ProcessRecord{b1d38a0 3324:com.google.android.ext.services/u0a234}
+    PID #3727: ProcessRecord{85c57ec 3727:com.android.smspush/u0a216}
+    PID #3814: ProcessRecord{8352a43 3814:com.xiaomi.mirror/1000}
+    PID #4082: ProcessRecord{acd064e 4082:com.google.android.gms/u0a129}
+    PID #4177: ProcessRecord{f774846 4177:com.qualcomm.qtil.btdsda/u0a208}
+    PID #4195: ProcessRecord{affa715 4195:com.xiaomi.bluetooth/1002}
+    PID #4259: ProcessRecord{348b086 4259:com.miui.securitycore.remote/1000}
+    PID #4789: ProcessRecord{3a3a0e7 4789:com.android.providers.media.module/u0a230}
+    PID #4798: ProcessRecord{6d5e4cf 4798:com.miui.voiceassist:core/u0a158}
+    PID #4831: ProcessRecord{62fcd5f 4831:com.miui.daemon/1000}
+    PID #4850: ProcessRecord{d26f1 4850:com.android.nfc/1027}
+    PID #4862: ProcessRecord{6dd32d6 4862:com.xiaomi.touchservice/1000}
+    PID #4882: ProcessRecord{d7448b0 4882:system/u0a69}
+    PID #4887: ProcessRecord{ba7c6ae 4887:org.ifaa.aidl.manager/u0a106}
+    PID #4904: ProcessRecord{f4d3fdc 4904:com.xiaomi.xmsfkeeper/u0a183}
+    PID #4927: ProcessRecord{42d9fba 4927:com.qualcomm.qti.workloadclassifier/u0a217}
+    PID #4936: ProcessRecord{45c7dc8 4936:com.tencent.soter.soterserver/u0a101}
+    PID #4971: ProcessRecord{a05fd86 4971:org.mipay.android.manager/u0a107}
+    PID #4976: ProcessRecord{59fae74 4976:com.qualcomm.location/u0a203}
+    PID #5016: ProcessRecord{a5f673f 5016:com.miui.face/1000}
+    PID #5028: ProcessRecord{86d385b 5028:com.miui.securitycenter.remote/1000}
+    PID #5054: ProcessRecord{a743d04 5054:youqu.android.todesk/u0a252}
+    PID #5080: ProcessRecord{62cdf15 5080:com.follow.clash/u0a297}
+    PID #5092: ProcessRecord{34cb9a6 5092:cn.ppps.forwarder/u0a250}
+    PID #5103: ProcessRecord{18c1f4d 5103:com.miui.personalassistant/u0a132}
+    PID #5105: ProcessRecord{d7fc75a 5105:com.xiaomi.metoknlp/u0a169}
+    PID #5117: ProcessRecord{9cbfc55 5117:com.xiaomi.location.fused/1000}
+IWLAN_PACKAGE
+Service Resolver Table:
+      android.telephony.data.DataService:
+        a3d82ca vendor.qti.iwlan/.IWlanDataService filter c466c3b permission android.permission.BIND_TELEPHONY_DATA_SERVICE
+          Action: "android.telephony.data.DataService"
+      android.telephony.data.QualifiedNetworksService:
+        5190196 vendor.qti.iwlan/.QualifiedNetworksServiceImpl filter a259117 permission android.permission.BIND_TELEPHONY_DATA_SERVICE
+          Action: "android.telephony.data.QualifiedNetworksService"
+      android.telephony.NetworkService:
+        f983f58 vendor.qti.iwlan/.IWlanNetworkService filter d2ff8b1 permission android.permission.BIND_TELEPHONY_NETWORK_SERVICE
+          Action: "android.telephony.NetworkService"
+  Package [vendor.qti.iwlan] (25944ba):
+    userId=10104
+    codePath=/vendor/app/IWlanService
+    resourcePath=/vendor/app/IWlanService
+    legacyNativeLibraryDir=/vendor/app/IWlanService/lib
+        [com.qti.dpmserviceapp,com.qualcomm.atfwd,vendor.qti.imsdatachannel,com.qualcomm.qti.dynamicddsservice,com.android.phone,vendor.qti.imsrcs,com.qti.qualcomm.deviceinfo,com.android.providers.telephony,com.android.mms.service,com.qualcomm.qti.autoregistration,com.android.stk,com.miui.vsimcore,com.android.ons,com.qti.qualcomm.datastatusnotification,com.qualcomm.qti.uceShimService,com.android.cellbroadcastservice]
+    userId=10104
+    path: /vendor/app/IWlanService/IWlanService.apk
+      odex file size: IWlanService.odex: 20Kb IWlanService.vdex: 2Kb 
+     IWlanService.apk - 8
+IWLAN_SERVICES
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{87c5b6c u0 vendor.qti.iwlan/.QualifiedNetworksServiceImpl}
+    intent={act=android.telephony.data.QualifiedNetworksService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_DATA_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+    startForegroundCount=0
+    infoAllowStartForeground=[callingPackage: com.android.phone; callingUid: 1001; uidState: PER ; intent: Intent { act=android.telephony.data.QualifiedNetworksService pkg=vendor.qti.iwlan }; code:PROC_STATE_PERSISTENT; tempAllowListReason:<,reasonCode:SYSTEM_ALLOW_LISTED,duration:9223372036854775807,callingUid:-1>; targetSdkVersion:29; callerTargetSdkVersion:33; startForegroundCount:0; bindFromPackage:null]
+    createTime=-10h52m37s98ms startingBgTimeout=--
+    lastActivity=-9h25m2s358ms restartTime=-9h25m2s833ms createdFromFg=true
+    Bindings:
+    * IntentBindRecord{3220d3 CREATE}:
+      intent={act=android.telephony.data.QualifiedNetworksService pkg=vendor.qti.iwlan}
+      binder=android.os.BinderProxy@18a7410
+      requested=true received=true hasBound=true doRebind=false
+      * Client AppBindRecord{bb07b09 ProcessRecord{4accc92 3260:com.android.phone/1001}}
+        Per-process Connections:
+          ConnectionRecord{535b823 u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@5fc6d52}
+          ConnectionRecord{67fdc1f u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@60f3be}
+    All Connections:
+      ConnectionRecord{67fdc1f u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@60f3be}
+      ConnectionRecord{535b823 u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@5fc6d52}
+
+  * ServiceRecord{e53c4fc u0 vendor.qti.iwlan/.IWlanDataService}
+    intent={act=android.telephony.data.DataService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_DATA_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+    startForegroundCount=0
+    infoAllowStartForeground=[callingPackage: com.android.phone; callingUid: 1001; uidState: PER ; intent: Intent { act=android.telephony.data.DataService pkg=vendor.qti.iwlan }; code:PROC_STATE_PERSISTENT; tempAllowListReason:<,reasonCode:SYSTEM_ALLOW_LISTED,duration:9223372036854775807,callingUid:-1>; targetSdkVersion:29; callerTargetSdkVersion:33; startForegroundCount:0; bindFromPackage:null]
+    createTime=-10h52m37s878ms startingBgTimeout=--
+    lastActivity=-9h25m3s390ms restartTime=-9h25m3s613ms createdFromFg=true
+    Bindings:
+    * IntentBindRecord{197510e CREATE}:
+      intent={act=android.telephony.data.DataService pkg=vendor.qti.iwlan}
+      binder=android.os.BinderProxy@6f3f72f
+      requested=true received=true hasBound=true doRebind=false
+      * Client AppBindRecord{88ac13c ProcessRecord{4accc92 3260:com.android.phone/1001}}
+        Per-process Connections:
+          ConnectionRecord{18a8177 u0 CR vendor.qti.iwlan/.IWlanDataService:@df3f776}
+          ConnectionRecord{b73b1ef u0 CR vendor.qti.iwlan/.IWlanDataService:@d2a3ece}
+    All Connections:
+      ConnectionRecord{b73b1ef u0 CR vendor.qti.iwlan/.IWlanDataService:@d2a3ece}
+      ConnectionRecord{18a8177 u0 CR vendor.qti.iwlan/.IWlanDataService:@df3f776}
+
+  * ServiceRecord{8d7e9a0 u0 vendor.qti.iwlan/.IWlanNetworkService}
+    intent={act=android.telephony.NetworkService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_NETWORK_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+    startForegroundCount=0
+    infoAllowStartForeground=[callingPackage: com.android.phone; callingUid: 1001; uidState: PER ; intent: Intent { act=android.telephony.NetworkService pkg=vendor.qti.iwlan }; code:PROC_STATE_PERSISTENT; tempAllowListReason:<,reasonCode:SYSTEM_ALLOW_LISTED,duration:9223372036854775807,callingUid:-1>; targetSdkVersion:29; callerTargetSdkVersion:33; startForegroundCount:0; bindFromPackage:null]
+    createTime=-10h52m37s55ms startingBgTimeout=--
+    lastActivity=-9h25m2s339ms restartTime=-9h25m2s790ms createdFromFg=true
+    Bindings:
+    * IntentBindRecord{a5cbec5 CREATE}:
+      intent={act=android.telephony.NetworkService pkg=vendor.qti.iwlan}
+      binder=android.os.BinderProxy@cfb701a
+      requested=true received=true hasBound=true doRebind=false
+      * Client AppBindRecord{152d74b ProcessRecord{4accc92 3260:com.android.phone/1001}}
+        Per-process Connections:
+          ConnectionRecord{1bcb2a3 u0 CR vendor.qti.iwlan/.IWlanNetworkService:@5b0c1d2}
+          ConnectionRecord{5b0284d u0 CR vendor.qti.iwlan/.IWlanNetworkService:@59b3be4}
+    All Connections:
+      ConnectionRecord{5b0284d u0 CR vendor.qti.iwlan/.IWlanNetworkService:@59b3be4}
+      ConnectionRecord{1bcb2a3 u0 CR vendor.qti.iwlan/.IWlanNetworkService:@5b0c1d2}
+
+  Connection bindings to services:
+  * ConnectionRecord{67fdc1f u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@60f3be}
+    binding=AppBindRecord{bb07b09 vendor.qti.iwlan/.QualifiedNetworksServiceImpl:com.android.phone}
+    conn=android.os.BinderProxy@60f3be flags=0x1
+  * ConnectionRecord{5b0284d u0 CR vendor.qti.iwlan/.IWlanNetworkService:@59b3be4}
+    binding=AppBindRecord{152d74b vendor.qti.iwlan/.IWlanNetworkService:com.android.phone}
+    conn=android.os.BinderProxy@59b3be4 flags=0x1
+  * ConnectionRecord{1bcb2a3 u0 CR vendor.qti.iwlan/.IWlanNetworkService:@5b0c1d2}
+    binding=AppBindRecord{152d74b vendor.qti.iwlan/.IWlanNetworkService:com.android.phone}
+    conn=android.os.BinderProxy@5b0c1d2 flags=0x1
+  * ConnectionRecord{535b823 u0 CR vendor.qti.iwlan/.QualifiedNetworksServiceImpl:@5fc6d52}
+    binding=AppBindRecord{bb07b09 vendor.qti.iwlan/.QualifiedNetworksServiceImpl:com.android.phone}
+    conn=android.os.BinderProxy@5fc6d52 flags=0x1
+  * ConnectionRecord{b73b1ef u0 CR vendor.qti.iwlan/.IWlanDataService:@d2a3ece}
+    binding=AppBindRecord{88ac13c vendor.qti.iwlan/.IWlanDataService:com.android.phone}
+    conn=android.os.BinderProxy@d2a3ece flags=0x1
+  * ConnectionRecord{18a8177 u0 CR vendor.qti.iwlan/.IWlanDataService:@df3f776}
+    binding=AppBindRecord{88ac13c vendor.qti.iwlan/.IWlanDataService:com.android.phone}
+    conn=android.os.BinderProxy@df3f776 flags=0x1
+UID_SERVICES
+  * ServiceRecord{87c5b6c u0 vendor.qti.iwlan/.QualifiedNetworksServiceImpl}
+    intent={act=android.telephony.data.QualifiedNetworksService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_DATA_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+--
+  * ServiceRecord{e53c4fc u0 vendor.qti.iwlan/.IWlanDataService}
+    intent={act=android.telephony.data.DataService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_DATA_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+--
+  * ServiceRecord{d12ed4f u0 com.qualcomm.qti.cne/.CneApp}
+    intent={cmp=com.qualcomm.qti.cne/.CneApp}
+    packageName=com.qualcomm.qti.cne
+    processName=.qtidataservices
+    baseDir=/vendor/app/CneApp/CneApp.apk
+    dataDir=/data/user_de/0/com.qualcomm.qti.cne
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.qualcomm.qti.cne
+    recentCallingUid=10104
+    allowStartForeground=PROC_STATE_PERSISTENT
+    startForegroundCount=0
+--
+  * ServiceRecord{8d7e9a0 u0 vendor.qti.iwlan/.IWlanNetworkService}
+    intent={act=android.telephony.NetworkService pkg=vendor.qti.iwlan}
+    packageName=vendor.qti.iwlan
+    processName=.qtidataservices
+    permission=android.permission.BIND_TELEPHONY_NETWORK_SERVICE
+    baseDir=/vendor/app/IWlanService/IWlanService.apk
+    dataDir=/data/user/0/vendor.qti.iwlan
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=com.android.phone
+    recentCallingUid=1001
+    allowStartForeground=PROC_STATE_PERSISTENT
+--
+  * ServiceRecord{6e8d99f u0 vendor.qti.hardware.cacert.server/.CACertService}
+    intent={cmp=vendor.qti.hardware.cacert.server/.CACertService}
+    packageName=vendor.qti.hardware.cacert.server
+    processName=.qtidataservices
+    baseDir=/vendor/app/CACertService/CACertService.apk
+    dataDir=/data/user_de/0/vendor.qti.hardware.cacert.server
+    app=ProcessRecord{3a67c5c 3170:.qtidataservices/u0a104}
+    allowWhileInUsePermissionInFgs=true
+    recentCallingPackage=vendor.qti.hardware.cacert.server
+    recentCallingUid=10104
+    allowStartForeground=PROC_STATE_PERSISTENT
+    startForegroundCount=0

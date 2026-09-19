@@ -1,0 +1,5 @@
+old=10140
+u:r:vendor_qtidataservices_app:s0:c104,c256,c512,c768 u0_a104 10140 913 6860988 97304 0    0 S .qtidataservices
+cmdline=.qtidataservices
+new=27335
+bindings=PASS

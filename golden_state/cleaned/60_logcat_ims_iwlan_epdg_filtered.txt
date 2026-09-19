@@ -1,0 +1,4 @@
+FILTER: ims|iwlan|epdg|uicc|subscription|carrierconfig|mm tel|ImsPhone|ImsResolver|ImsService|org.codeaurora.ims|vendor.qti.iwlan|com.qti.phone
+
+SOURCE: 60_logcat_all_d.txt
+

@@ -1,0 +1,124 @@
+dex=classes.dex
+startDataCall code_off=0xddd4 regs=10 ins=3 outs=5 tries=5
+0000: new-instance           v0, type@199 java.lang.StringBuilder
+0002: invoke-direct          {v0}, method@880 void java.lang.StringBuilder.<init>()
+0005: const-string           v1, string@2203 "startDataCall: net Type: "
+0007: invoke-virtual         {v0, v1}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+000a: invoke-virtual         {v0, v8}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+000d: const-string           v1, string@43 " slotidx: "
+000f: invoke-virtual         {v0, v1}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0012: invoke-virtual         {v0, v9}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0015: invoke-virtual         {v0}, method@886 java.lang.String java.lang.StringBuilder.toString()
+0018: move-result-object     v0
+0019: const-string           v1, string@942 "QCNEJ/DataCallAgent"
+001b: invoke-static          {v1, v0}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+001e: iget-object            v0, v7, field@71 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mTrackers
+0020: invoke-interface       {v0, v9}, method@916 java.lang.Object java.util.List.get(int)
+0023: move-result-object     v0
+0024: check-cast             
+0025: op_db                  
+0026: invoke-static          {v8}, method@861 java.lang.Integer java.lang.Integer.valueOf(int)
+0029: move-result-object     v1
+002a: invoke-virtual         {v0, v1}, method@933 boolean java.util.concurrent.ConcurrentHashMap.containsKey(java.lang.Object)
+002d: move-result            v1
+002e: if-eqz                 v1, -> 0046
+0030: invoke-static          {v8}, method@861 java.lang.Integer java.lang.Integer.valueOf(int)
+0033: move-result-object     v1
+0034: invoke-virtual         {v0, v1}, method@935 java.lang.Object java.util.concurrent.ConcurrentHashMap.get(java.lang.Object)
+0037: move-result-object     v1
+0038: check-cast             
+0039: op_57                  
+003a: invoke-virtual         {v1}, method@298 com.qualcomm.qti.cne.relay.RatInfo com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.getRatInfo()
+003d: move-result-object     v2
+003e: invoke-virtual         {v1}, method@299 boolean com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.getRatRequestFlag()
+0041: move-result            v3
+0042: invoke-direct          {v7, v2, v3}, method@309 boolean com.qualcomm.qti.cne.datacall.DataCallAgent.sendRatRequestResult(com.qualcomm.qti.cne.relay.RatInfo,boolean)
+0045: return-void            
+0046: const/4                v1, #-1
+0047: if-nez                 v9, -> 004f
+0049: invoke-static          {}, method@235 int android.telephony.SubscriptionManager.getDefaultDataSubscriptionId()
+004c: move-result            v2
+004d: op_01                  
+004e: goto                   -> 00a4
+004f: op_d8                  
+0050: op_09                  
+0051: iget-object            v3, v7, field@69 android.telephony.SubscriptionManager com.qualcomm.qti.cne.datacall.DataCallAgent.mSubscriptionManager
+0053: invoke-virtual         {v3, v2}, method@237 int[] android.telephony.SubscriptionManager.getSubscriptionIds(int)
+0056: move-result-object     v3
+0057: invoke-static          {v2}, method@568 boolean com.qualcomm.qti.cne.relay.RatInfo.isSlotIdValid(int)
+005a: move-result            v4
+005b: if-eqz                 v4, -> 00a0
+005d: iget-object            v4, v7, field@68 boolean[] com.qualcomm.qti.cne.datacall.DataCallAgent.mSubInfoReady
+005f: op_47                  
+0060: op_04                  
+0061: if-nez                 v4, -> 00a0
+0063: iget-object            v4, v7, field@67 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mPendingNetworkRequests
+0065: invoke-interface       {v4, v2}, method@916 java.lang.Object java.util.List.get(int)
+0068: move-result-object     v4
+0069: check-cast             
+006a: op_d5                  
+006b: invoke-static          {v8}, method@861 java.lang.Integer java.lang.Integer.valueOf(int)
+006e: move-result-object     v5
+006f: invoke-interface       {v4, v5}, method@915 boolean java.util.List.contains(java.lang.Object)
+0072: move-result            v4
+0073: if-nez                 v4, -> 009f
+0075: iget-object            v4, v7, field@67 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mPendingNetworkRequests
+0077: invoke-interface       {v4, v2}, method@916 java.lang.Object java.util.List.get(int)
+007a: move-result-object     v4
+007b: check-cast             
+007c: op_d5                  
+007d: invoke-static          {v8}, method@861 java.lang.Integer java.lang.Integer.valueOf(int)
+0080: move-result-object     v5
+0081: invoke-interface       {v4, v5}, method@913 boolean java.util.List.add(java.lang.Object)
+0084: const-string           v4, string@942 "QCNEJ/DataCallAgent"
+0086: new-instance           v5, type@199 java.lang.StringBuilder
+0088: invoke-direct          {v5}, method@880 void java.lang.StringBuilder.<init>()
+008b: const-string           v6, string@191 "Adding net type "
+008d: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0090: invoke-virtual         {v5, v8}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0093: const-string           v6, string@46 " to pending list"
+0095: invoke-virtual         {v5, v6}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0098: invoke-virtual         {v5}, method@886 java.lang.String java.lang.StringBuilder.toString()
+009b: move-result-object     v5
+009c: invoke-static          {v4, v5}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+009f: return-void            
+00a0: const/4                v4, #0
+00a1: op_44                  
+00a2: op_03                  
+00a3: op_01                  
+00a4: const-string           v2, string@942 "QCNEJ/DataCallAgent"
+00a6: new-instance           v3, type@199 java.lang.StringBuilder
+00a8: invoke-direct          {v3}, method@880 void java.lang.StringBuilder.<init>()
+00ab: const-string           v4, string@2204 "startDataCall: subId = "
+00ad: invoke-virtual         {v3, v4}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+00b0: invoke-virtual         {v3, v1}, method@881 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+00b3: invoke-virtual         {v3}, method@886 java.lang.String java.lang.StringBuilder.toString()
+00b6: move-result-object     v3
+00b7: invoke-static          {v2, v3}, method@252 int android.util.Log.d(java.lang.String,java.lang.String)
+00ba: new-instance           v2, type@87 com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker
+00bc: invoke-direct          {v2, v7, v1, v9, v8}, method@287 void com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.<init>(com.qualcomm.qti.cne.datacall.DataCallAgent,int,int,int)
+00bf: iget-object            v3, v7, field@71 java.util.List com.qualcomm.qti.cne.datacall.DataCallAgent.mTrackers
+00c1: op_1d                  
+00c2: invoke-static          {v8}, method@861 java.lang.Integer java.lang.Integer.valueOf(int)
+00c5: move-result-object     v4
+00c6: invoke-virtual         {v0, v4, v2}, method@936 java.lang.Object java.util.concurrent.ConcurrentHashMap.put(java.lang.Object,java.lang.Object)
+00c9: op_1e                  
+00ca: if-nez                 v9, -> 00d0
+00cc: invoke-virtual         {v2}, method@294 void com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.createNetworkRequest()
+00cf: goto                   -> 00d3
+00d0: invoke-virtual         {v2, v1}, method@295 void com.qualcomm.qti.cne.datacall.DataCallAgent$Tracker.createNetworkRequest(int)
+00d3: goto                   -> 00ee
+00d4: op_0d                  
+00d5: op_1e                  
+00d6: op_27                  
+00d7: op_0d                  
+00d8: new-instance           v2, type@199 java.lang.StringBuilder
+00da: invoke-direct          {v2}, method@880 void java.lang.StringBuilder.<init>()
+00dd: const-string           v3, string@2202 "startDataCall NullPointerException"
+00df: invoke-virtual         {v2, v3}, method@884 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+00e2: invoke-virtual         {v2, v1}, method@883 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.Object)
+00e5: invoke-virtual         {v2}, method@886 java.lang.String java.lang.StringBuilder.toString()
+00e8: move-result-object     v2
+00e9: const-string           v3, string@942 "QCNEJ/DataCallAgent"
+00eb: invoke-static          {v3, v2}, method@253 int android.util.Log.e(java.lang.String,java.lang.String)
+00ee: return-void            

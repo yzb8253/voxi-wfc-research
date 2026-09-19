@@ -1,0 +1,12 @@
+bin/wfc-auto-recover.sh
+bin/wfc-deep-recover.sh
+bin/wfcctl.sh
+lib/wfc-deep-remove-helper.jar
+lib/wfc-probe.jar
+lib/wfc-recovery-helper.jar
+action.sh
+customize.sh
+module.prop
+README.md
+service.sh
+uninstall.sh

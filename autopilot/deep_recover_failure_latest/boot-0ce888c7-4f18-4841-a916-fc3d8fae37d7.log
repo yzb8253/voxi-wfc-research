@@ -1,0 +1,223 @@
+2026-09-17T22:27:24+08:00 mode=boot boot_id=0ce888c7-4f18-4841-a916-fc3d8fae37d7
+2026-09-17T22:27:24+08:00 boot_completed_time=2026-09-17T22:27:24+08:00
+2026-09-17T22:27:24+08:00 auto_config=AUTO_RECOVER_BOOT=1
+2026-09-17T22:27:24+08:00 wifi_ready=YES waited_seconds=0
+2026-09-17T22:27:35+08:00 vpn_tun_ready=YES interface=tun0 waited_seconds=10
+2026-09-17T22:27:35+08:00 vpn_tun_stabilization_seconds=20
+2026-09-17T22:27:56+08:00 network_prerequisites_stable=YES vpn_interface=tun0
+2026-09-17T22:27:58+08:00 first_probe_exit=20
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+2026-09-17T22:27:58+08:00 first_probe_strict_f1=YES safety_gate=PASS
+2026-09-17T22:27:58+08:00 strict_f1_confirmation_wait_seconds=30
+2026-09-17T22:28:32+08:00 second_probe_exit=20
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+2026-09-17T22:28:32+08:00 second_probe_strict_f1=YES safety_gate=PASS
+2026-09-17T22:28:32+08:00 boot_attempt_mark=CREATED max_attempts_this_boot=1
+2026-09-17T22:28:32+08:00 final_safety_gate=ENFORCED_BY_WFCCTL_DEEP_RECOVER
+2026-09-17T22:28:32+08:00 deep_recover=STARTED
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+mode=dry-run
+uid=0
+selinux=u:r:magisk:s0
+descriptor=com.android.internal.telephony.ISub
+voxiActiveSlot1Sub11Carrier28MccMnc23415Enabled=PASS
+protectedSlot0Sub1Carrier2237MccMnc46011Enabled=PASS
+deepRemoveGate=PASS
+WOULD_CALL=ISub.setUiccApplicationsEnabled(false,11)
+Executing one fixed VOXI software-remove write...
+mode=disable
+uid=0
+selinux=u:r:magisk:s0
+descriptor=com.android.internal.telephony.ISub
+voxiActiveSlot1Sub11Carrier28MccMnc23415Enabled=PASS
+protectedSlot0Sub1Carrier2237MccMnc46011Enabled=PASS
+deepRemoveGate=PASS
+WRITE_CALL=ISub.setUiccApplicationsEnabled(false,11)
+writeStartEpochMs=[REDACTED]
+writeEndEpochMs=[REDACTED]
+return=1
+F8/inactive confirmed after 5s.
+mode=dry-run
+uid=0
+selinux=u:r:magisk:s0
+descriptor=com.android.internal.telephony.ISub
+voxiIdentity11Carrier28MccMnc23415=PASS
+voxiInactiveSlotMinus1=PASS
+voxiUiccAppsDisabled=PASS
+protectedSlot0Sub1MccMnc46011Enabled=PASS
+inactiveRecoveryGate=PASS
+WOULD_CALL=ISub.setUiccApplicationsEnabled(true,11)
+Executing one fixed VOXI software-insert write...
+mode=recover
+uid=0
+selinux=u:r:magisk:s0
+descriptor=com.android.internal.telephony.ISub
+voxiIdentity11Carrier28MccMnc23415=PASS
+voxiInactiveSlotMinus1=PASS
+voxiUiccAppsDisabled=PASS
+protectedSlot0Sub1MccMnc46011Enabled=PASS
+inactiveRecoveryGate=PASS
+WRITE_CALL=ISub.setUiccApplicationsEnabled(true,11)
+writeStartEpochMs=[REDACTED]
+writeEndEpochMs=[REDACTED]
+return=1
+DEEP RECOVERY SUCCESS
+Recovery time: 28 seconds
+2026-09-17T22:29:11+08:00 final_probe_exit=0
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: REGISTERED (raw 2)
+Transport: WLAN (raw 2)
+VOICE/IWLAN: AVAILABLE
+WFC: AVAILABLE
+Result: HEALTHY
+Failure class: F0
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=YES active=NO request=265 satisfied=null
+ePDG UDP/4500: PRESENT
+XFRM: PRESENT
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+2026-09-17T22:29:11+08:00 AUTO RECOVERY SUCCESS
+2026-09-17T22:29:11+08:00 Recovery time: 37 sec
+2026-09-17T22:32:50+08:00 mode=run-now boot_id=0ce888c7-4f18-4841-a916-fc3d8fae37d7
+2026-09-17T22:32:50+08:00 manual_auto_run_now=YES current_auto_config=1
+2026-09-17T22:32:50+08:00 wifi_ready=YES waited_seconds=0
+2026-09-17T22:32:50+08:00 vpn_tun_ready=YES interface=tun0 waited_seconds=0
+2026-09-17T22:32:50+08:00 vpn_tun_stabilization_seconds=20
+2026-09-17T22:33:10+08:00 network_prerequisites_stable=YES vpn_interface=tun0
+2026-09-17T22:33:12+08:00 first_probe_exit=20
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+2026-09-17T22:33:12+08:00 first_probe_strict_f1=YES safety_gate=PASS
+2026-09-17T22:33:12+08:00 BOOT RECOVERY ALREADY ATTEMPTED
+2026-09-17T22:33:12+08:00 ZERO WRITE
+2026-09-17T22:35:15+08:00 mode=run-now boot_id=0ce888c7-4f18-4841-a916-fc3d8fae37d7
+2026-09-17T22:35:15+08:00 manual_auto_run_now=YES current_auto_config=1
+2026-09-17T22:35:15+08:00 wifi_ready=YES waited_seconds=0
+2026-09-17T22:35:15+08:00 vpn_tun_ready=YES interface=tun0 waited_seconds=0
+2026-09-17T22:35:15+08:00 vpn_tun_stabilization_seconds=20
+2026-09-17T22:35:35+08:00 network_prerequisites_stable=YES vpn_interface=tun0
+2026-09-17T22:35:37+08:00 first_probe_exit=20
+==============================
+VOXI WFC Recovery v1.2.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: BROKEN
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+2026-09-17T22:35:37+08:00 first_probe_strict_f1=YES safety_gate=PASS
+2026-09-17T22:35:37+08:00 BOOT RECOVERY ALREADY ATTEMPTED
+2026-09-17T22:35:37+08:00 ZERO WRITE

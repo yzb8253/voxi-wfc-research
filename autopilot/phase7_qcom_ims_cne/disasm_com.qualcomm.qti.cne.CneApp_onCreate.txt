@@ -1,0 +1,12 @@
+dex=classes.dex
+onCreate code_off=0xd038 regs=3 ins=1 outs=2 tries=0
+0000: invoke-super           {v2}, method@1 void android.app.Service.onCreate()
+0003: const-string           v0, string@940 "QCNEJ/CneApp"
+0005: const-string           v1, string@241 "CneApp created"
+0007: invoke-static          {v0, v1}, method@256 int android.util.Log.w(java.lang.String,java.lang.String)
+000a: invoke-direct          {v2}, method@265 boolean com.qualcomm.qti.cne.CneApp.initCne()
+000d: move-result            v0
+000e: if-nez                 v0, -> 0011
+0010: return-void            
+0011: invoke-direct          {v2}, method@268 boolean com.qualcomm.qti.cne.CneApp.startCne()
+0014: return-void            

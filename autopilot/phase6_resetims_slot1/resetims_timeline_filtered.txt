@@ -1,0 +1,94 @@
+09-17 23:01:00.443  3184  4599 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:01:03.541  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:04.562  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:10.536  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:11.564  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:13.538  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:14.544  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:15.553  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:18.543  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:19.541  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:20.545  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:33.554  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:34.563  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:35.575  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:42.554  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:43.547  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:48.558  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:49.584  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:55.429  3184 23643 I QImsService: ImsService : disableIms :: slotId=1
+09-17 23:01:55.431  3184 23643 I QImsService: ImsSenderRxr : [0071]> REQUEST_IMS_REG_STATE_CHANGE [SUB1]
+09-17 23:01:55.431  3184 23643 I QImsService: ImsSenderRxr : REQUEST_IMS_REG_STATE_CHANGE request to ImsRadio - token:71 RegState2
+09-17 23:01:55.431  3184 23643 I QImsService: ImsService : enableIms :: slotId=1
+09-17 23:01:55.431  3184 23643 I QImsService: ImsSenderRxr : [0072]> REQUEST_IMS_REG_STATE_CHANGE [SUB1]
+09-17 23:01:55.431  3184 23643 I QImsService: ImsSenderRxr : REQUEST_IMS_REG_STATE_CHANGE request to ImsRadio - token:72 RegState1
+09-17 23:01:55.471  3184  4042 I QImsService: ImsRadioResponseHidl : Got registration change response from ImsRadio.
+09-17 23:01:55.471  3184  4042 I QImsService: ImsSenderRxr : [0071]< REQUEST_IMS_REG_STATE_CHANGE [SUB1]
+09-17 23:01:55.471  3184  3184 I QImsService: ImsServiceSubHandler : Message received: what = 9
+09-17 23:01:55.471  3184  4042 I QImsService: ImsRadioResponseHidl : Got registration change response from ImsRadio.
+09-17 23:01:55.471  3184  4042 I QImsService: ImsSenderRxr : [0072]< REQUEST_IMS_REG_STATE_CHANGE [SUB1]
+09-17 23:01:55.471  3184  3184 I QImsService: ImsServiceSubHandler : Message received: what = 9
+09-17 23:01:56.556  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:56.623  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:01:56.934  3184  3184 I QImsService: ImsSenderRxr : [0073]> REQUEST_IMS_REGISTRATION_STATE [SUB1]
+09-17 23:01:56.934  3184  4042 I QImsService: ImsRadioResponseHidl : getRegistrationResponse_1_6()
+09-17 23:01:56.934  3184  4042 I QImsService: ImsSenderRxr : [0073]< REQUEST_IMS_REGISTRATION_STATE ImsRegistrationInfo state: 2 errorCode: 999 errorMessage: General_Error17-Unable to connect radioTech: 18 pAssociatedUris[SUB1]
+09-17 23:01:56.935  3184  3184 I QImsService: ImsRegistrationController : Message received: what = 4
+09-17 23:01:56.935  3184  3184 I QImsService: ImsRegistrationController : handleImsStateChanged
+09-17 23:01:56.935  3260  3260 D ImsRegCallbackHelper: updateRegistrationState: registration state from REGISTRATION_STATE_NOT_REGISTERED to REGISTRATION_STATE_NOT_REGISTERED
+09-17 23:01:56.935  3260  3260 D ImsPhone[1]: [1] handleImsUnregistered: onImsMmTelDisconnected imsReasonInfo=ImsReasonInfo :: {1000 : CODE_REGISTRATION_ERROR, 4002, null}
+09-17 23:01:56.935  3184  3184 I QImsService: ImsServiceSub : [1] sendBroadcastForDisconnected
+09-17 23:01:56.936  3260  3260 D ImsSmsDispatcher [1]: onImsDisconnected imsReasonInfo=ImsReasonInfo :: {1000 : CODE_REGISTRATION_ERROR, 4002, null}
+09-17 23:01:56.936  3260  3260 D ImsSmsDispatcher [1]: onImsDisconnected imsReasonInfo=ImsReasonInfo :: {1000 : CODE_REGISTRATION_ERROR, 999, General_Error17-Unable to connect}
+09-17 23:01:56.936  3260  3260 D ImsRegCallbackHelper: updateRegistrationState: registration state from REGISTRATION_STATE_NOT_REGISTERED to REGISTRATION_STATE_NOT_REGISTERED
+09-17 23:01:56.936  3260  3260 D ImsPhone[1]: [1] handleImsUnregistered: onImsMmTelDisconnected imsReasonInfo=ImsReasonInfo :: {1000 : CODE_REGISTRATION_ERROR, 999, General_Error17-Unable to connect}
+09-17 23:01:56.936  3260  3260 D ImsPhone[1]: [1] updateDataServiceState: defSs = {mVoiceRegState=3(POWER_OFF), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=, mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true} imsSs = {mVoiceRegState=1(OUT_OF_SERVICE), mDataRegState=0(IN_SERVICE), mChannelNumber=-1, duplexMode()=0, mCellBandwidths=[], mOperatorAlphaLong=null, mOperatorAlphaShort=null, isManualNetworkSelection=false(automatic), getRilVoiceRadioTechnology=0(Unknown), getRilDataRadioTechnology=18(IWLAN), mCssIndicator=unsupported, mNetworkId=-1, mSystemId=-1, mCdmaRoamingIndicator=-1, mCdmaDefaultRoamingIndicator=-1, mIsEmergencyOnly=false, isUsingCarrierAggregation=false, mArfcnRsrpBoost=0, mNetworkRegistrationInfos=[NetworkRegistrationInfo{ domain=CS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WWAN registrationState=UNKNOWN roamingType=NOT_ROAMING accessNetworkTechnology=UNKNOWN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}, NetworkRegistrationInfo{ domain=PS transportType=WLAN registrationState=HOME roamingType=NOT_ROAMING accessNetworkTechnology=IWLAN rejectCause=0 emergencyEnabled=false availableServices=[] cellIdentity=null voiceSpecificInfo=null dataSpecificInfo=null nrState=**** rRplmn= isUsingCarrierAggregation=false}], mNrFrequencyRange=0, mOperatorAlphaLongRaw=null, mOperatorAlphaShortRaw=null, mIsDataRoamingFromRegistration=false, mIsIwlanPreferred=true}
+09-17 23:01:56.940  3260  3260 D SST     : [1] setImsRegistrationState: {registered=false mImsRegistrationOnOff=false}
+09-17 23:01:57.556  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:57.829  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:01:58.554  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:01:58.971  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:01:59.584  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:00.128  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:01.564  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:01.640  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:02.561  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:03.565  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:05.555  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:06.560  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:07.584  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:17.555  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:18.585  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:20.565  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:21.596  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:26.701  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:27.991  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:29.713  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:30.865  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:31.578  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:32.582  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:33.585  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:40.396  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:02:46.570  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:47.611  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:02:55.390  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:03:00.581  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:01.619  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:07.573  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:08.611  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:15.578  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:16.588  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:18.582  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:19.613  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:25.397  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:03:29.584  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:30.610  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:32.586  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:33.604  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:40.593  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:41.603  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:42.611  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:44.588  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:45.613  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder
+09-17 23:03:55.405  3184 23643 I QImsService: ImsServiceSub : [1] queryCapabilityConfiguration :: capability=1 radioTech=1
+09-17 23:03:59.599  3260  3260 D ImsResolver: maybeAddedImsService, packageName: cn.ppps.forwarder

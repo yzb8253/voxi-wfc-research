@@ -1,0 +1,14 @@
+{
+    "cycle":  3,
+    "persistentF8":  true,
+    "goldenStrongFirstSeenAtSeconds":  37,
+    "continuousGoldenSeconds":  302,
+    "finalGoldenStrong":  true,
+    "protectedSlot0":  true,
+    "registrationStateRaw":  2,
+    "registrationTransportRaw":  2,
+    "voiceIwlanAvailable":  true,
+    "wifiCallingAvailable":  true,
+    "imsIwlanNetworkAgent":  true,
+    "passed":  true
+}

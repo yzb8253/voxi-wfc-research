@@ -1,0 +1,67 @@
+dex=classes.dex
+isSubscriptionEnabled code_off=0x11e584 regs=7 ins=2 outs=3 tries=3
+0000: const-string           v0, string@23618 "isSubscriptionEnabled"
+0002: invoke-direct          {v5, v0}, method@10147 void com.android.internal.telephony.SubscriptionController.enforceReadPrivilegedPhoneState(java.lang.String)
+0005: invoke-static          {}, method@1501 long android.os.Binder.clearCallingIdentity()
+0008: move-result-wide       v0
+0009: invoke-static          {v6}, method@2433 boolean android.telephony.SubscriptionManager.isUsableSubscriptionId(int)
+000c: move-result            v2
+000d: if-eqz                 v2, -> 0064
+000f: new-instance           v2, type@3229 java.lang.StringBuilder
+0011: invoke-direct          {v2}, method@22177 void java.lang.StringBuilder.<init>()
+0014: const-string           v3, string@16348 "_id="
+0016: invoke-virtual         {v2, v3}, method@22188 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0019: invoke-virtual         {v2, v6}, method@22184 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+001c: invoke-virtual         {v2}, method@22204 java.lang.String java.lang.StringBuilder.toString()
+001f: move-result-object     v2
+0020: const/4                v3, #0
+0021: invoke-virtual         {v5, v2, v3}, method@10193 java.util.List com.android.internal.telephony.SubscriptionController.getSubInfo(java.lang.String,java.lang.Object)
+0024: move-result-object     v2
+0025: const/4                v3, #0
+0026: if-eqz                 v2, -> 0060
+0028: invoke-interface       {v2}, method@22543 boolean java.util.List.isEmpty()
+002b: move-result            v4
+002c: if-eqz                 v4, -> 002f
+002e: goto                   -> 0060
+002f: invoke-interface       {v2, v3}, method@22541 java.lang.Object java.util.List.get(int)
+0032: move-result-object     v2
+0033: check-cast             
+0034: const/16               v3, #4206
+0036: op_56                  
+0037: op_02                  
+0038: move-result            v2
+0039: if-eqz                 v2, -> 0043
+003b: invoke-virtual         {v5, v6}, method@10215 boolean com.android.internal.telephony.SubscriptionController.isActiveSubId(int)
+003e: move-result            v5
+003f: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+0042: return                 v5
+0043: invoke-virtual         {v5, v6}, method@10215 boolean com.android.internal.telephony.SubscriptionController.isActiveSubId(int)
+0046: move-result            v2
+0047: if-eqz                 v2, -> 005c
+0049: invoke-static          {}, method@7537 com.android.internal.telephony.PhoneConfigurationManager com.android.internal.telephony.PhoneConfigurationManager.getInstance()
+004c: move-result-object     v2
+004d: invoke-virtual         {v5, v6}, method@10179 int com.android.internal.telephony.SubscriptionController.getPhoneId(int)
+0050: move-result            v5
+0051: invoke-static          {v5}, method@7574 com.android.internal.telephony.Phone com.android.internal.telephony.PhoneFactory.getPhone(int)
+0054: move-result-object     v5
+0055: invoke-virtual         {v2, v5}, method@7541 boolean com.android.internal.telephony.PhoneConfigurationManager.getPhoneStatus(com.android.internal.telephony.Phone)
+0058: move-result            v5
+0059: if-eqz                 v5, -> 005c
+005b: const/4                v3, #1
+005c: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+005f: return                 v3
+0060: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+0063: return                 v3
+0064: new-instance           v5, type@3205 java.lang.IllegalArgumentException
+0066: new-instance           v2, type@3229 java.lang.StringBuilder
+0068: invoke-direct          {v2}, method@22177 void java.lang.StringBuilder.<init>()
+006b: const-string           v3, string@23619 "isSubscriptionEnabled not usable subId "
+006d: invoke-virtual         {v2, v3}, method@22188 java.lang.StringBuilder java.lang.StringBuilder.append(java.lang.String)
+0070: invoke-virtual         {v2, v6}, method@22184 java.lang.StringBuilder java.lang.StringBuilder.append(int)
+0073: invoke-virtual         {v2}, method@22204 java.lang.String java.lang.StringBuilder.toString()
+0076: move-result-object     v6
+0077: invoke-direct          {v5, v6}, method@22028 void java.lang.IllegalArgumentException.<init>(java.lang.String)
+007a: op_27                  
+007b: op_0d                  
+007c: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+007f: op_27                  

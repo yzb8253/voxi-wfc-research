@@ -1,0 +1,272 @@
+Phase 4D-2 ROOT JAVA SOFTWARE-REMOVE WRITE REPORT
+Generated: 2026-09-16
+
+Scope
+=====
+
+This phase executed the first real root Java software-remove test.
+
+Approved single write operation:
+ISub.setUiccApplicationsEnabled(false, 11)
+
+No recover was executed.
+No enable-physical-subscription was executed.
+No ISub.setUiccApplicationsEnabled(true, 11) was executed.
+No reboot/kill/restart/stop/start/settings/setprop/radio reset/IMS reset/IWLAN reset/CarrierConfig write was executed.
+
+Generated evidence files:
+- C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\phase4d2_before.txt
+- C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\phase4d2_helper_output.txt
+- C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\phase4d2_after_90s.txt
+- C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\phase4d2_after_300s.txt
+- C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\phase4d2_observation.txt
+
+
+Write Call Result
+=================
+
+Pre-write safety gate:
+PASS
+
+Pre-write target:
+- subId 11: PASS
+- slot 1: PASS
+- phoneId 1: PASS
+- carrierId 28: PASS
+- MCC 234: PASS
+- MNC 15: PASS
+- slot0 != subId11: PASS
+- ActiveSubInfoList contained 11: PASS
+- areUiccApplicationsEnabled=true before call: PASS
+
+Call:
+ISub.setUiccApplicationsEnabled(false, 11)
+
+Helper UID:
+0
+
+SELinux context:
+u:r:magisk:s0
+
+Call start:
+2026-09-16T16:44:15.503+0800
+
+Call end:
+2026-09-16T16:44:15.526+0800
+
+Return int:
+1
+
+Exception:
+NONE
+
+Interpretation:
+The call reached ISub and returned normally. There was no SecurityException or RemoteException.
+
+
+Observed Timeline
+=================
+
+Before write:
+- ActiveSubInfoList had id=11, simSlotIndex=1, carrierId=28, mcc=234, mnc=15.
+- areUiccApplicationsEnabled=true.
+- phoneId 1 was IWLAN/WFC active: PS/WLAN registrationState=HOME, accessNetworkTechnology=IWLAN, mIsIwlanPreferred=true.
+- defaultSubId=11 and activeDataSubId=11.
+
+2026-09-16T16:44:15.503:
+- Helper invoked ISub.setUiccApplicationsEnabled(false, 11).
+
+2026-09-16T16:44:15.855:
+- telephony.registry still reported subId=11 phoneId=1, IWLAN HOME, mIsIwlanPreferred=true.
+
+2026-09-16T16:44:15.939 to 16:44:15.985:
+- Service state started changing for subId=11 phoneId=1.
+- Voice became POWER_OFF, data stayed IWLAN briefly.
+
+2026-09-16T16:44:16.414:
+- Connectivity released an IMS cellular network request for com.qualcomm.qti.cne with TelephonyNetworkSpecifier mSubId=11.
+
+2026-09-16T16:44:16.555:
+- CarrierConfigLoader: Update config for phoneId 1 simState=NOT_READY.
+
+2026-09-16T16:44:16.587:
+- telephony.registry: subId=11 phoneId=1 became OUT_OF_SERVICE, data technology Unknown, WLAN registration UNKNOWN, mIsIwlanPreferred=false.
+
+2026-09-16T16:44:16.630:
+- telephony.registry: subId=-1 phoneId=1 POWER_OFF.
+
+2026-09-16T16:44:16.632:
+- CarrierConfigLoader: EVENT_CLEAR_CONFIG phoneId=1.
+
+2026-09-16T16:44:16.643:
+- activeDataSubId changed to -1.
+
+2026-09-16T16:44:16.667 to 16:44:16.693:
+- CarrierConfigLoader entered no-SIM path:
+  EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG
+  Binding to com.android.carrierconfig
+  EVENT_CONNECTED_TO_DEFAULT_FOR_NO_SIM_CONFIG
+  Fetch no sim config from default app
+  EVENT_FETCH_DEFAULT_FOR_NO_SIM_CONFIG_DONE
+
+2026-09-16T16:44:16.742:
+- ImsResolver for slot 1: subId changed 11 -> -1.
+- updateBoundServices ran for slot 1.
+- removeImsController for [1, MMTEL] and [1, EMERGENCY_MMTEL].
+
+2026-09-16T16:44:16.743 to 16:44:16.745:
+- MMTEL removeConnection type=MMTEL.
+- MMTEL addConnection subId=-1.
+- MMTEL state UNAVAILABLE.
+
+2026-09-16T16:44:16.745:
+- ImsResolver for RCS: subId changed 11 -> -1.
+- removeImsController for [1, RCS].
+- RCS removeConnection.
+
+2026-09-16T16:44:17.271:
+- MMTEL state changed back to READY while slot was recovering.
+
+2026-09-16T16:44:17.552:
+- telephony.registry: subId=-1 phoneId=1 returned to data IWLAN/HOME and mIsIwlanPreferred=true.
+
+2026-09-16T16:44:17.736:
+- telephony.registry: subId=11 phoneId=1 restored on IWLAN/HOME.
+
+2026-09-16T16:44:17.848:
+- activeDataSubId changed back to 11.
+
+2026-09-16T16:44:17.945:
+- CarrierConfigLoader: Update config for phoneId 1 simState=ESSENTIAL_LOADED.
+
+2026-09-16T16:44:18.025:
+- CarrierConfigLoader: EVENT_SUBSCRIPTION_INFO_UPDATED phoneId=1.
+
+2026-09-16T16:44:18.572:
+- CarrierConfigLoader: Update config for phoneId 1 simState=LOADED.
+
+2026-09-16T16:44:18.843:
+- ImsResolver for slot 1: subId changed -1 -> 11.
+- removeImsController/putImsController occurred again for MMTEL and EMERGENCY_MMTEL.
+
+2026-09-16T16:44:18.851 to 16:44:18.855:
+- MMTEL addConnection subId=11.
+- MMTEL state READY.
+- RCS remove/put sequence occurred again.
+
+After 90s and 300s:
+- ActiveSubInfoList still contained id=11, simSlotIndex=1.
+- areUiccApplicationsEnabled was still true.
+- defaultSubId=11 and activeDataSubId=11.
+- phoneId 1 remained IWLAN/HOME with mIsIwlanPreferred=true.
+- carrier_wfc_ims_available_bool remained true in loaded VOXI config.
+
+
+=== PHASE 4D-2 WRITE RESULT ===
+
+1. 写调用是否真正到达ISub
+YES. Helper reached ISub and received return_int=1.
+
+2. 返回int值
+1
+
+3. 是否SecurityException/RemoteException
+NO. exception=NONE.
+
+4. areUiccApplicationsEnabled true -> false？
+NO as a stable final state. It was true before the call and still true in 90s/300s dumpsys isub. The call nevertheless triggered a transient framework lifecycle.
+
+5. subId11是否仍active
+YES. subId 11 remained in ActiveSubInfoList at 90s and 300s.
+
+6. slot1 mapping是否11 -> -1
+PARTIAL / TRANSIENT YES. telephony.registry and ImsResolver showed slot/phoneId 1 entering subId=-1 around 16:44:16.630-16:44:17.552, then returning to subId=11 by 16:44:17.736-16:44:18.843.
+
+7. 是否出现UICC deactivate/ABSENT
+PARTIAL. The evidence shows simState=NOT_READY, SIM_STATE_CHANGED broadcasts, and subId=-1 transient state. It does not show a durable UICC ABSENT final state or explicit QtiUiccCardProvisioner.deactivateUiccCard log.
+
+8. 是否出现CarrierConfig ABSENT
+NO exact ABSENT for this run. This run showed simState=NOT_READY, not ABSENT.
+
+9. 是否出现CLEAR_CONFIG
+YES. CarrierConfigLoader EVENT_CLEAR_CONFIG phoneId=1 at 16:44:16.632.
+
+10. 是否进入no-SIM config
+YES. CarrierConfigLoader ran EVENT_DO_FETCH_DEFAULT_FOR_NO_SIM_CONFIG and fetched no-SIM config at 16:44:16.667-16:44:16.693.
+
+11. ImsResolver是否11 -> -1
+YES. ImsResolver slot 1 MMTEL and RCS both recorded subId changed 11 -> -1 at 16:44:16.742-16:44:16.745, then -1 -> 11 at 16:44:18.843-16:44:18.855.
+
+12. MMTEL/RCS是否remove/unavailable
+YES. MMTEL became UNAVAILABLE, MMTEL removeConnection/addConnection subId=-1 occurred, RCS removeConnection occurred. Later both rebounded/re-added for subId=11.
+
+13. IMS是否unregistered
+PARTIAL / NOT DIRECTLY CONFIRMED. The IMS feature/controller lifecycle clearly removed/re-added MMTEL/RCS and released an IMS network request, but the captured evidence does not contain a clean "IMS unregistered" line.
+
+14. IWLAN是否退出
+YES transiently. telephony.registry showed IWLAN/HOME -> UNKNOWN with mIsIwlanPreferred=false at 16:44:16.587, then IWLAN/HOME restored at 16:44:17.552/16:44:17.736.
+
+15. WFC是否消失
+YES transiently by framework state: IWLAN/WLAN HOME disappeared and MMTEL went UNAVAILABLE. It recovered automatically within a few seconds.
+
+16. slot0是否受到影响
+No clear new slot0 fault caused by this write. Existing slot0 state remains not mapped to subId11. There were slot0 MMTEL capability logs, but no evidence that subId11 was mapped to slot0 or that slot0 UICC was disabled.
+
+17. 推断QTI实际路径及证据
+QTI PATH = UNKNOWN / likely framework-super path, but not proven.
+Evidence: no explicit QtiUiccCardProvisioner.deactivateUiccCard(slot 1) log was found. The behavior did trigger framework subscription, CarrierConfig, and IMS resolver lifecycles. Because no HAL version was confirmed and no explicit provisioner log appeared, this report does not assert the exact QTI branch.
+
+
+=== PHYSICAL REMOVE COMPARISON ===
+
+UICC lifecycle:
+PARTIAL
+Reason: NOT_READY and transient subId=-1 appeared, but no durable UICC ABSENT and no explicit QTI deactivate log.
+
+Subscription lifecycle:
+PARTIAL
+Reason: subId 11 did not disappear from ActiveSubInfoList as a stable final state. However, telephony.registry/ImsResolver observed transient subId 11 -> -1 -> 11 and activeDataSubId 11 -> -1 -> 11.
+
+CarrierConfig lifecycle:
+PARTIAL / near MATCH
+Reason: software-remove reproduced CLEAR_CONFIG and no-SIM config fetch, then ESSENTIAL_LOADED and LOADED. Difference: simState was NOT_READY rather than ABSENT.
+
+ImsResolver lifecycle:
+MATCH
+Reason: slot 1 subId changed 11 -> -1 and then -1 -> 11 for MMTEL/RCS.
+
+MMTEL/RCS lifecycle:
+MATCH
+Reason: MMTEL/RCS remove/re-add/rebind pattern occurred, including MMTEL UNAVAILABLE and later READY.
+
+IWLAN lifecycle:
+PARTIAL
+Reason: IWLAN exited transiently and then automatically restored quickly. Physical remove path exits IWLAN as part of a more durable no-SIM period.
+
+
+=== FINAL CLASSIFICATION ===
+
+PARTIAL MATCH
+
+Missing or incomplete compared with physical remove:
+- No stable removal of subId 11 from ActiveSubInfoList.
+- areUiccApplicationsEnabled did not remain false; it was still true at 90s and 300s.
+- CarrierConfig showed NOT_READY rather than ABSENT.
+- No explicit QtiUiccCardProvisioner.deactivateUiccCard(slot 1) evidence.
+- No durable no-SIM state; framework recovered automatically within roughly 2-3 seconds.
+- IMS unregistered was not directly confirmed, although IMS feature remove/re-add and MMTEL UNAVAILABLE were confirmed.
+
+Strongly matched elements:
+- subId 11 -> -1 -> 11 transient lifecycle.
+- CarrierConfig CLEAR_CONFIG -> no-SIM config -> ESSENTIAL_LOADED -> LOADED.
+- ImsResolver 11 -> -1 -> 11.
+- MMTEL/RCS remove/add/rebind.
+- IWLAN exit and restoration.
+
+
+Should the next phase execute ISub.setUiccApplicationsEnabled(true, 11) as software-insert?
+
+NO.
+
+Reason:
+The device already auto-restored to subId 11, activeDataSubId 11, IWLAN/HOME, MMTEL READY, and areUiccApplicationsEnabled=true. Running true now would not be a clean software-insert test because there is no remaining disabled/no-SIM state to insert from. A future insert test only makes sense if a later remove method leaves VOXI persistently disabled or inactive.

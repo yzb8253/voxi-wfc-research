@@ -1,0 +1,254 @@
+Phase 4B - disable-physical-subscription permission analysis
+
+Scope
+-----
+READ-ONLY analysis only. This phase did not execute disable-physical-subscription, enable-physical-subscription, SIM/radio/IMS/CarrierConfig writes, Binder write transactions, SELinux changes, framework patches, or recovery actions.
+
+
+1. Current root / build / SELinux environment
+---------------------------------------------
+[DEVICE CONFIRMED] Plain adb shell:
+
+uid=2000(shell) gid=2000(shell) groups=2000(shell),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:shell:s0
+
+[DEVICE CONFIRMED] Magisk su:
+
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+
+[DEVICE CONFIRMED] SELinux:
+
+Enforcing
+
+[DEVICE CONFIRMED] Build:
+
+ro.build.type=user
+ro.debuggable=0
+
+
+2. Exact source of "cc: Permission denied."
+-------------------------------------------
+[SOURCE CONFIRMED] The string "cc: Permission denied." is embedded in:
+
+TeleService.apk
+class: com.android.phone.TelephonyShellCommand
+method: private int handleEnablePhysicalSubscription(boolean enable)
+
+[SOURCE CONFIRMED] It is printed directly by TelephonyShellCommand before SubscriptionManager.setUiccApplicationsEnabled(...) is called. Therefore the rejection seen in Phase 4 is not from QTI UICC, not from SubscriptionManager, not from SELinux, and not from /system/bin/cmd itself. It is an explicit TelephonyShellCommand policy gate.
+
+[SOURCE CONFIRMED] The disassembly is saved at:
+
+voxi_wfc_research/phase4/handle_enable_physical_subscription_disasm.txt
+
+
+3. Recovered handleEnablePhysicalSubscription pseudo-code
+---------------------------------------------------------
+[SOURCE CONFIRMED] The target method's relevant control flow is:
+
+int handleEnablePhysicalSubscription(boolean enable) {
+    PrintWriter err = getErrPrintWriter();
+    int result = -1;
+
+    try {
+        int subId = Integer.parseInt(getNextArgRequired());
+
+        int uid = Binder.getCallingUid();
+        if (uid != 0) {
+            err.println("cc: Permission denied.");
+            return -1;
+        }
+
+        if (TelephonyUtils.IS_USER) {
+            err.println("cc: Permission denied.");
+            return -1;
+        }
+
+        if (subIsEsim(subId)) {
+            err.println("SubId " + subId + " is not for a physical subscription");
+            return -1;
+        }
+
+        Log.d("TelephonyShellCommand",
+              (enable ? "Enabling" : "Disabling")
+              + " physical subscription with subId=" + subId);
+
+        mSubscriptionManager.setUiccApplicationsEnabled(subId, enable);
+        return 0;
+    } catch (NumberFormatException e) {
+        err.println((enable ? "enable" : "disable")
+            + "-physical-subscription requires an integer as a subId.");
+        return -1;
+    }
+}
+
+[SOURCE CONFIRMED] The exact critical branch from disassembly:
+
+- Binder.getCallingUid()
+- if callingUid != 0 -> print "cc: Permission denied."
+- sget TelephonyUtils.IS_USER
+- if IS_USER != false -> print "cc: Permission denied."
+- only after both checks pass does it call subIsEsim(subId)
+- only after that does it call SubscriptionManager.setUiccApplicationsEnabled(int subId, boolean enabled)
+
+
+4. Why ordinary adb shell failed
+--------------------------------
+[DEVICE CONFIRMED] Plain adb shell is UID 2000 and SELinux context u:r:shell:s0.
+
+[SOURCE CONFIRMED] TelephonyShellCommand requires Binder.getCallingUid() == 0.
+
+[CONCLUSION] Ordinary:
+
+adb shell cmd phone disable-physical-subscription 11
+
+fails because the Binder caller seen by the phone service is UID 2000, not UID 0. The method prints "cc: Permission denied." immediately and never reaches SubscriptionManager or QTI UICC code.
+
+
+5. Would su -c cmd phone pass?
+------------------------------
+[DEVICE CONFIRMED] su -c id returns UID 0 with SELinux context u:r:magisk:s0.
+
+[INFERRED] If the command is executed as:
+
+adb shell su -c "cmd phone disable-physical-subscription 11"
+
+then the /system/bin/cmd process should be launched by su as UID 0. For Binder shellCommand, the phone service should see Binder.getCallingUid() == 0 rather than 2000.
+
+[SOURCE CONFIRMED] However, the method also requires TelephonyUtils.IS_USER == false.
+
+[DEVICE CONFIRMED] This phone is a production user build:
+
+ro.build.type=user
+ro.debuggable=0
+
+[INFERRED] On this ROM, TelephonyUtils.IS_USER is expected to be true. Therefore su -c cmd phone is expected to pass the UID check but fail the IS_USER check and still print:
+
+cc: Permission denied.
+
+[CONCLUSION] su -c cmd phone is not expected to work on this user build unless TelephonyUtils.IS_USER is false, which it is not expected to be here.
+
+
+6. MODIFY_PHONE_STATE and deeper permission gates
+-------------------------------------------------
+[SOURCE CONFIRMED] The shell-command wrapper reaches:
+
+android.telephony.SubscriptionManager.setUiccApplicationsEnabled(int subId, boolean enabled)
+
+only after the UID 0 and !IS_USER gate.
+
+[SOURCE CONFIRMED] Phase 3 analysis of the ROM's subscription path found:
+
+- telephony-common.jar SubscriptionController.setUiccApplicationsEnabled(boolean,int)
+- qti-telephony-common.jar QtiSubscriptionController.setUiccApplicationsEnabled(boolean,int)
+- QtiSubscriptionController enforces MODIFY_PHONE_STATE on its non-vendor path.
+- QtiSubscriptionController can call QtiUiccCardProvisioner.deactivateUiccCard(slotId) / activateUiccCard(slotId), refreshCachedActiveSubscriptionInfoList(), notifySubscriptionInfoChanged(), and update uicc_applications_enabled.
+
+[INFERRED] Direct Binder/API calls to SubscriptionController/QtiSubscriptionController still have a MODIFY_PHONE_STATE style permission gate. UID 0 normally has a privileged permission posture in framework permission checks, but this must be validated carefully for the exact entry point and SELinux domain. This phase did not execute any such call.
+
+
+7. SELinux assessment
+---------------------
+[DEVICE CONFIRMED] SELinux is Enforcing.
+
+[DEVICE CONFIRMED] su context is u:r:magisk:s0.
+
+[CONCLUSION] The observed Phase 4 failure was not caused by SELinux. The command returned a Java-side TelephonyShellCommand error string before reaching the deeper subscription/UICC operation.
+
+[INFERRED] SELinux could still matter for non-shell root helper approaches, depending on how the helper is launched and which Binder/HIDL/vendor interfaces it touches. A pure framework Binder call into system_server/phone is more likely to fail on Java permission policy than on direct SELinux denial, but vendor/UICC lower layers can still be constrained.
+
+
+8. Candidate path comparison
+----------------------------
+A. su -c 'cmd phone disable-physical-subscription 11'
+
+Evidence:
+- Root su gives UID 0.
+- TelephonyShellCommand requires UID 0.
+- TelephonyShellCommand also requires !TelephonyUtils.IS_USER.
+
+Expected result:
+- Likely still denied on this phone because ro.build.type=user / ro.debuggable=0 implies TelephonyUtils.IS_USER=true.
+
+Scope:
+- If it worked, it would be the closest original shell command path and subId-scoped.
+
+Risk:
+- Level 4 if executed successfully, because it reaches physical subscription/UICC application state.
+- Low chance of success on this user build.
+
+
+B. root direct Binder/API call to framework subscription service
+
+Examples for research only:
+- Direct ISub / SubscriptionController path to setUiccApplicationsEnabled(false, 11)
+- Direct SubscriptionManager API from a privileged/root Java context
+
+Evidence:
+- Phase 3 recovered SubscriptionController/QtiSubscriptionController setUiccApplicationsEnabled paths.
+- This bypasses the TelephonyShellCommand-specific UID 0 AND !IS_USER gate.
+
+Expected permission checks:
+- MODIFY_PHONE_STATE / privileged telephony permission checks are still expected.
+- UID 0 may satisfy some framework permission checks, but this is entry-point dependent.
+
+Scope:
+- subId-scoped at the API boundary.
+
+Risk:
+- Level 4.
+- More powerful than the shell wrapper because it bypasses a deliberate user-build guard.
+- Requires very careful dry-run design and exact transaction/API selection.
+
+
+C. Magisk/root Java helper calling SubscriptionManager / SubscriptionController / QtiSubscriptionController
+
+Examples for research only:
+- app_process/root Java helper uses android.telephony.SubscriptionManager.setUiccApplicationsEnabled(11, false)
+- root-side reflection/binder client targets ISub or SubscriptionController method
+
+Evidence:
+- The shell wrapper itself ultimately calls SubscriptionManager.setUiccApplicationsEnabled(subId, enable).
+- QTI implementation below can deactivate/activate the UICC card and notify subscription changes.
+
+Expected permission checks:
+- Same deeper MODIFY_PHONE_STATE / framework permission checks as B.
+- If the helper runs as UID 0, Java/Binder permission behavior must be validated with a harmless read-style call first where possible.
+
+SELinux:
+- app_process launched under Magisk context may have Binder access, but vendor paths could still be constrained.
+
+Scope:
+- Best chance to remain subId 11 scoped if using SubscriptionManager.setUiccApplicationsEnabled(11, false).
+
+Risk:
+- Level 4.
+- Closer to what the shell command would do after its guard, but still bypasses a user-build shell restriction.
+
+
+9. Minimum next-test candidate
+------------------------------
+[CANDIDATE ONLY] The closest-to-original command form is:
+
+adb shell su -c "cmd phone disable-physical-subscription 11"
+
+But based on recovered code, this is expected to fail on this user build due to TelephonyUtils.IS_USER.
+
+[CANDIDATE ONLY] If the goal is an actually viable root path, the more promising next research/test candidate is a minimal root Java/Binder helper that calls the same API the shell wrapper would have called:
+
+SubscriptionManager.setUiccApplicationsEnabled(11, false)
+
+or the equivalent ISub/SubscriptionController transaction, while preserving the Phase 4 safety gate and observation/recovery plan.
+
+This was not executed.
+
+
+10. Prepared command if testing only su -c next
+-----------------------------------------------
+[CANDIDATE ONLY - NOT EXECUTED]
+
+.\adb.exe -s 192.168.137.134:37667 shell su -c "cmd phone disable-physical-subscription 11"
+
+Expected result:
+
+Probably "cc: Permission denied." again, because TelephonyUtils.IS_USER is expected true on this user build.
+
+End of Phase 4B report.

@@ -1,0 +1,337 @@
+#!/system/bin/sh
+
+MODDIR=${0%/*}
+MODDIR=${MODDIR%/*}
+PROBE_JAR="$MODDIR/lib/wfc-probe.jar"
+RECOVERY_JAR="$MODDIR/lib/wfc-recovery-helper.jar"
+DEEP_REMOVE_JAR="$MODDIR/lib/wfc-deep-remove-helper.jar"
+DATA_DIR=/data/adb/voxi-wfc-recovery
+LOG_DIR="$DATA_DIR/logs"
+STATE_DIR="$DATA_DIR/state"
+FALLBACK_LOCK="$STATE_DIR/recovery.lock.d"
+LOCK_OWNED=false
+VERSION=v1.1.1
+
+umask 077
+
+require_root() {
+  if [ "$(id -u)" != "0" ]; then
+    echo "ERROR: run through Magisk root (su -c)." >&2
+    exit 40
+  fi
+}
+
+ensure_storage() {
+  mkdir -p "$LOG_DIR" "$STATE_DIR" || return 1
+  chmod 0700 "$DATA_DIR" "$LOG_DIR" "$STATE_DIR" 2>/dev/null
+}
+
+run_probe() {
+  PROBE_RAW=$(CLASSPATH="$PROBE_JAR" app_process /system/bin WfcStateProbe read-only-json 2>&1)
+  PROBE_RC=$?
+  PROBE_JSON=$(printf '%s\n' "$PROBE_RAW" | sed -n '/^{/p' | tail -n 1)
+  [ "$PROBE_RC" -eq 0 ] && [ -n "$PROBE_JSON" ]
+}
+
+json_object() {
+  printf '%s\n' "$PROBE_JSON" | sed -n "s/.*\"$1\":{\([^}]*\)}.*/\1/p"
+}
+
+json_field() {
+  printf '%s\n' "$1" | sed -n "s/.*\"$2\":\([^,}]*\).*/\1/p" | sed 's/^"//;s/"$//'
+}
+
+json_root_field() {
+  printf '%s\n' "$PROBE_JSON" | sed -n "s/.*\"$1\":\([^,}]*\).*/\1/p" | sed 's/^"//;s/"$//'
+}
+
+pretty_bool() {
+  case "$1" in
+    true) echo "$2" ;;
+    false) echo "$3" ;;
+    *) echo "UNKNOWN" ;;
+  esac
+}
+
+load_fields() {
+  TARGET_OBJ=$(json_object target)
+  SLOT0_OBJ=$(json_object protectedSlot0)
+  SUB_OBJ=$(json_object subscription)
+  IMS_OBJ=$(json_object ims)
+  MMTEL_OBJ=$(json_object mmtel)
+  WFC_OBJ=$(json_object wfc)
+  CONN_OBJ=$(json_object connectivity)
+  EPDG_OBJ=$(json_object epdg)
+
+  TARGET_SUB=$(json_field "$TARGET_OBJ" subId)
+  TARGET_SLOT=$(json_field "$TARGET_OBJ" slotId)
+  TARGET_PHONE=$(json_field "$TARGET_OBJ" phoneId)
+  TARGET_CARRIER=$(json_field "$TARGET_OBJ" carrierId)
+  TARGET_MCC=$(json_field "$TARGET_OBJ" mcc)
+  TARGET_MNC=$(json_field "$TARGET_OBJ" mnc)
+  TARGET_GATE=$(json_field "$TARGET_OBJ" mappingGate)
+  SLOT0_GATE=$(json_field "$SLOT0_OBJ" mappingGate)
+  SLOT0_SUB=$(json_field "$SLOT0_OBJ" subId)
+  SLOT0_SLOT=$(json_field "$SLOT0_OBJ" slotId)
+  SLOT0_CARRIER=$(json_field "$SLOT0_OBJ" carrierId)
+  SLOT0_MCC=$(json_field "$SLOT0_OBJ" mcc)
+  SLOT0_MNC=$(json_field "$SLOT0_OBJ" mnc)
+  SUB_ACTIVE=$(json_field "$SUB_OBJ" active)
+  UICC_ENABLED=$(json_field "$SUB_OBJ" areUiccApplicationsEnabled)
+  IMS_STATE=$(json_field "$IMS_OBJ" registrationStateName)
+  IMS_STATE_RAW=$(json_field "$IMS_OBJ" registrationStateRaw)
+  IMS_TRANSPORT=$(json_field "$IMS_OBJ" registrationTransportName)
+  IMS_TRANSPORT_RAW=$(json_field "$IMS_OBJ" registrationTransportRaw)
+  VOICE_IWLAN=$(json_field "$MMTEL_OBJ" voiceIwlanAvailable)
+  MMTEL_READY=$(json_field "$MMTEL_OBJ" featureState)
+  WFC_AVAILABLE=$(json_field "$WFC_OBJ" wifiCallingAvailable)
+  IMS_AGENT=$(json_field "$CONN_OBJ" imsIwlanNetworkAgent)
+  IMS_NETWORK_ID=$(json_field "$CONN_OBJ" imsNetworkId)
+  QTI_REGISTERED=$(json_field "$CONN_OBJ" qtiCneRequestRegistered)
+  QTI_ACTIVE=$(json_field "$CONN_OBJ" qtiCneRequestActive)
+  QTI_REQUEST_ID=$(json_field "$CONN_OBJ" qtiCneRequestId)
+  QTI_SATISFIED_ID=$(json_field "$CONN_OBJ" qtiCneSatisfiedRequestId)
+  EPDG_KEEPALIVE=$(json_field "$EPDG_OBJ" udp4500Keepalive)
+  XFRM_TUNNEL=$(json_field "$EPDG_OBJ" xfrmTunnel)
+  SAFETY_GATE=$(json_root_field safetyGate)
+  DIRECT_HEALTH=$(json_root_field directWfcHealthy)
+  FAILURE_CLASS=$(json_root_field failureClass)
+}
+
+classify_result() {
+  if [ "$DIRECT_HEALTH" = true ] && [ "$SAFETY_GATE" = true ]; then
+    RESULT=HEALTHY; RESULT_RC=0
+  elif [ "$SLOT0_GATE" != true ]; then
+    RESULT=UNSAFE; RESULT_RC=30
+  elif [ "$SUB_ACTIVE" = false ] || [ "$UICC_ENABLED" = false ]; then
+    RESULT=INACTIVE; RESULT_RC=10
+  elif [ "$SUB_ACTIVE" = true ] && [ "$UICC_ENABLED" = true ] && [ "$TARGET_GATE" = true ]; then
+    RESULT=BROKEN; RESULT_RC=20
+  elif [ -z "$SUB_ACTIVE" ] || [ "$SUB_ACTIVE" = null ]; then
+    RESULT=UNKNOWN; RESULT_RC=40
+  else
+    RESULT=UNSAFE; RESULT_RC=30
+  fi
+}
+
+print_status() {
+  MCCMNC=UNKNOWN
+  if [ "$TARGET_MCC" != null ] && [ "$TARGET_MNC" != null ] && [ -n "$TARGET_MCC" ] && [ -n "$TARGET_MNC" ]; then
+    MCCMNC="${TARGET_MCC}${TARGET_MNC}"
+  fi
+  echo "=============================="
+  echo "VOXI WFC Recovery $VERSION"
+  echo "=============================="
+  echo
+  echo "VOXI: slot=${TARGET_SLOT:-UNKNOWN} phoneId=${TARGET_PHONE:-UNKNOWN} subId=${TARGET_SUB:-11} MCCMNC=$MCCMNC carrierId=${TARGET_CARRIER:-UNKNOWN}"
+  echo "Subscription: $(pretty_bool "$SUB_ACTIVE" ACTIVE INACTIVE)"
+  echo "UICC Apps: $(pretty_bool "$UICC_ENABLED" ENABLED DISABLED)"
+  echo
+  echo "CORE HEALTH:"
+  echo "IMS: ${IMS_STATE:-UNKNOWN} (raw ${IMS_STATE_RAW:-UNKNOWN})"
+  echo "Transport: ${IMS_TRANSPORT:-UNKNOWN} (raw ${IMS_TRANSPORT_RAW:-UNKNOWN})"
+  echo "VOICE/IWLAN: $(pretty_bool "$VOICE_IWLAN" AVAILABLE UNAVAILABLE)"
+  echo "WFC: $(pretty_bool "$WFC_AVAILABLE" AVAILABLE UNAVAILABLE)"
+  echo "Result: $RESULT"
+  echo "Failure class: ${FAILURE_CLASS:-F9}"
+  echo
+  echo "Supporting:"
+  echo "IMS NetworkAgent: $(pretty_bool "$IMS_AGENT" PRESENT MISSING) (id ${IMS_NETWORK_ID:-UNKNOWN})"
+  echo "qti.cne: registered=$(pretty_bool "$QTI_REGISTERED" YES NO) active=$(pretty_bool "$QTI_ACTIVE" YES NO) request=${QTI_REQUEST_ID:-UNKNOWN} satisfied=${QTI_SATISFIED_ID:-NONE}"
+  echo "ePDG UDP/4500: $(pretty_bool "$EPDG_KEEPALIVE" PRESENT MISSING)"
+  echo "XFRM: $(pretty_bool "$XFRM_TUNNEL" PRESENT MISSING)"
+  echo "MMTEL: ${MMTEL_READY:-UNKNOWN}"
+  echo "Protected slot0: subId=${SLOT0_SUB:-UNKNOWN} slot=${SLOT0_SLOT:-UNKNOWN} carrierId=${SLOT0_CARRIER:-UNKNOWN} MCCMNC=${SLOT0_MCC:-UNKNOWN}${SLOT0_MNC:-UNKNOWN} gate=$(pretty_bool "$SLOT0_GATE" PASS FAIL)"
+}
+
+status_command() {
+  require_root
+  if ! run_probe; then
+    echo "Unable to run WfcStateProbe." >&2
+    printf '%s\n' "$PROBE_RAW" >&2
+    return 40
+  fi
+  load_fields; classify_result; print_status
+  return "$RESULT_RC"
+}
+
+sanitize_stream() {
+  sed -E \
+    -e 's/(iccId=)[^ ,}]*/\1[REDACTED]/gI' \
+    -e 's/(cardString=)[^ ,}]*/\1[REDACTED]/gI' \
+    -e 's/(mNumber=)[^ ,}]*/\1[REDACTED]/gI' \
+    -e 's/(imsi=)[^ ,}]*/\1[REDACTED]/gI' \
+    -e 's/(subscriberId=)[^ ,}]*/\1[REDACTED]/gI' \
+    -e 's/[0-9]{12,}/[REDACTED]/g'
+}
+
+save_diagnostics() {
+  ensure_storage || return 1
+  STAMP=$(date '+%Y%m%d-%H%M%S'); DIR="$LOG_DIR/$STAMP"
+  mkdir -p "$DIR" || return 1; chmod 0700 "$DIR"
+  date -Iseconds > "$DIR/timestamp.txt" 2>/dev/null || date > "$DIR/timestamp.txt"
+  printf '%s\n' "$PROBE_JSON" | sanitize_stream > "$DIR/probe.json"
+  dumpsys isub 2>&1 | sanitize_stream > "$DIR/isub.txt"
+  dumpsys telephony.registry 2>&1 | sanitize_stream > "$DIR/telephony.registry.txt"
+  dumpsys phone 2>&1 | sanitize_stream > "$DIR/phone.txt"
+  dumpsys connectivity 2>&1 | sanitize_stream > "$DIR/connectivity.txt"
+  dumpsys carrier_config 2>&1 | sanitize_stream > "$DIR/carrier_config.txt"
+  ip xfrm state 2>&1 | sanitize_stream > "$DIR/xfrm-state.txt"
+  logcat -d -t 800 2>&1 | grep -Ei 'ims|iwlan|epdg|wfc|vowifi|carrierconfig|subscription|uicc' | tail -n 400 | sanitize_stream > "$DIR/logcat.txt"
+  echo "$DIR"
+}
+
+release_lock() {
+  if [ "$LOCK_OWNED" = true ]; then
+    rm -rf "$FALLBACK_LOCK"
+    LOCK_OWNED=false
+  fi
+}
+
+acquire_lock() {
+  ensure_storage || return 1
+  if ! mkdir "$FALLBACK_LOCK" 2>/dev/null; then
+    echo "Recovery already running or a lock directory is present."
+    return 1
+  fi
+  LOCK_OWNED=true
+  printf '%s\n' "$$" > "$FALLBACK_LOCK/pid"
+  trap 'release_lock' EXIT HUP INT TERM
+}
+
+safe_recover_command() {
+  require_root; acquire_lock || return 50
+  if ! run_probe; then echo "Initial probe failed. No write operation was executed."; return 40; fi
+  load_fields; classify_result; print_status
+  if [ "$RESULT" = HEALTHY ]; then echo "WFC already healthy. No action required."; return 0; fi
+  if [ "$SUB_ACTIVE" = true ] && [ "$UICC_ENABLED" = true ]; then
+    echo "Active subscription detected. Safe Recover is blocked."
+    echo "No write operation was executed. FAILURE_CLASS=${FAILURE_CLASS:-F9}"
+    return 20
+  fi
+  if [ "$SUB_ACTIVE" != false ] && [ "$UICC_ENABLED" != false ]; then
+    echo "Inactive/apps-disabled state was not established. No write operation was executed."; return 30
+  fi
+
+  GATE_OUTPUT=$(CLASSPATH="$RECOVERY_JAR" app_process /system/bin Slot1UiccRecoverHelper dry-run 2>&1); GATE_RC=$?
+  printf '%s\n' "$GATE_OUTPUT" | sanitize_stream
+  if [ "$GATE_RC" -ne 0 ] || ! printf '%s\n' "$GATE_OUTPUT" | grep -q '^inactiveRecoveryGate=PASS$'; then
+    echo "Full inactive safety gate failed. No write operation was executed."; return 30
+  fi
+  OP_LOG="$LOG_DIR/safe-recovery-$(date '+%Y%m%d-%H%M%S').log"
+  echo "initial=$(date -Iseconds 2>/dev/null || date) failure=${FAILURE_CLASS:-F9}" > "$OP_LOG"
+  START_EPOCH=$(date +%s)
+  WRITE_OUTPUT=$(CLASSPATH="$RECOVERY_JAR" app_process /system/bin Slot1UiccRecoverHelper recover 2>&1); WRITE_RC=$?
+  printf '%s\n' "$WRITE_OUTPUT" | sanitize_stream | tee -a "$OP_LOG"
+  [ "$WRITE_RC" -eq 0 ] || { echo "Safe Recover write failed; no retry."; return 60; }
+  while [ $(( $(date +%s) - START_EPOCH )) -lt 60 ]; do
+    sleep 2
+    if run_probe; then
+      load_fields; ELAPSED=$(( $(date +%s) - START_EPOCH ))
+      printf '%s\n' "elapsed=${ELAPSED}s $PROBE_JSON" | sanitize_stream >> "$OP_LOG"
+      if [ "$DIRECT_HEALTH" = true ] && [ "$SAFETY_GATE" = true ]; then
+        echo "WFC RECOVERY SUCCESS"; echo "Recovery time: $ELAPSED seconds"; return 0
+      fi
+    fi
+  done
+  echo "WFC RECOVERY FAILED. No additional write operation was attempted."; return 60
+}
+
+deep_recover_command() {
+  require_root; acquire_lock || return 50
+  if ! run_probe; then echo "Initial probe failed. No write operation was executed."; return 40; fi
+  load_fields; classify_result; print_status
+  if [ "$RESULT" = HEALTHY ]; then echo "WFC already healthy. Deep Recover is blocked; zero writes."; return 0; fi
+  if [ "$SAFETY_GATE" != true ] || [ "$TARGET_GATE" != true ] || [ "$SLOT0_GATE" != true ] \
+      || [ "$SUB_ACTIVE" != true ] || [ "$UICC_ENABLED" != true ] \
+      || [ "$FAILURE_CLASS" != F1 ] || [ "$IMS_STATE_RAW" != 0 ] || [ "$WFC_AVAILABLE" != false ]; then
+    echo "Deep Recover requires verified F1 ACTIVE-BROKEN with the complete dual-SIM safety gate."
+    echo "No write operation was executed."; return 30
+  fi
+
+  REMOVE_GATE=$(CLASSPATH="$DEEP_REMOVE_JAR" app_process /system/bin Slot1UiccDisableHelper dry-run 2>&1); REMOVE_GATE_RC=$?
+  printf '%s\n' "$REMOVE_GATE" | sanitize_stream
+  if [ "$REMOVE_GATE_RC" -ne 0 ] || ! printf '%s\n' "$REMOVE_GATE" | grep -q '^deepRemoveGate=PASS$'; then
+    echo "Deep remove safety gate failed. No write operation was executed."; return 30
+  fi
+  OP_LOG="$LOG_DIR/deep-recovery-$(date '+%Y%m%d-%H%M%S').log"
+  {
+    echo "initial_f1_timestamp=$(date -Iseconds 2>/dev/null || date)"
+    echo "initial_failure_class=$FAILURE_CLASS"
+    echo "initial_slot0=subId:$SLOT0_SUB slot:$SLOT0_SLOT carrierId:$SLOT0_CARRIER mcc:$SLOT0_MCC mnc:$SLOT0_MNC"
+    printf '%s\n' "$PROBE_JSON"; printf '%s\n' "$REMOVE_GATE"
+  } | sanitize_stream > "$OP_LOG"
+
+  echo "Executing one fixed VOXI software-remove write..."
+  FALSE_START=$(date +%s)
+  FALSE_OUTPUT=$(CLASSPATH="$DEEP_REMOVE_JAR" app_process /system/bin Slot1UiccDisableHelper disable 2>&1); FALSE_RC=$?
+  printf '%s\n' "false_timestamp=$(date -Iseconds 2>/dev/null || date) false_exit=$FALSE_RC" >> "$OP_LOG"
+  printf '%s\n' "$FALSE_OUTPUT" | sanitize_stream | tee -a "$OP_LOG"
+  if [ "$FALSE_RC" -ne 0 ]; then echo "Software remove failed. No true call and no retry will be attempted."; return 61; fi
+
+  F8_REACHED=false
+  while [ $(( $(date +%s) - FALSE_START )) -lt 30 ]; do
+    sleep 1
+    if run_probe; then
+      load_fields; ELAPSED=$(( $(date +%s) - FALSE_START ))
+      printf '%s\n' "remove_elapsed=${ELAPSED}s $PROBE_JSON" | sanitize_stream >> "$OP_LOG"
+      if [ "$FAILURE_CLASS" = F8 ] && { [ "$SUB_ACTIVE" = false ] || [ "$UICC_ENABLED" = false ]; }; then
+        F8_REACHED=true; echo "f8_confirmation_timestamp=$(date -Iseconds 2>/dev/null || date)" >> "$OP_LOG"
+        echo "F8/inactive confirmed after ${ELAPSED}s."; break
+      fi
+    fi
+  done
+  if [ "$F8_REACHED" != true ]; then
+    echo "F8/inactive was not confirmed within 30 seconds. True is blocked."
+    echo "No further write will be attempted."; return 62
+  fi
+
+  RECOVERY_GATE=$(CLASSPATH="$RECOVERY_JAR" app_process /system/bin Slot1UiccRecoverHelper dry-run 2>&1); RECOVERY_GATE_RC=$?
+  printf '%s\n' "$RECOVERY_GATE" | sanitize_stream | tee -a "$OP_LOG"
+  if [ "$RECOVERY_GATE_RC" -ne 0 ] || ! printf '%s\n' "$RECOVERY_GATE" | grep -q '^inactiveRecoveryGate=PASS$'; then
+    echo "F8 recovery safety gate failed. True is blocked."; return 63
+  fi
+
+  echo "Executing one fixed VOXI software-insert write..."
+  TRUE_START=$(date +%s)
+  TRUE_OUTPUT=$(CLASSPATH="$RECOVERY_JAR" app_process /system/bin Slot1UiccRecoverHelper recover 2>&1); TRUE_RC=$?
+  printf '%s\n' "true_timestamp=$(date -Iseconds 2>/dev/null || date) true_exit=$TRUE_RC" >> "$OP_LOG"
+  printf '%s\n' "$TRUE_OUTPUT" | sanitize_stream | tee -a "$OP_LOG"
+  if [ "$TRUE_RC" -ne 0 ]; then echo "Software insert failed. No retry will be attempted."; return 64; fi
+
+  while [ $(( $(date +%s) - TRUE_START )) -lt 60 ]; do
+    sleep 1
+    if run_probe; then
+      load_fields; ELAPSED=$(( $(date +%s) - TRUE_START ))
+      printf '%s\n' "recover_elapsed=${ELAPSED}s $PROBE_JSON" | sanitize_stream >> "$OP_LOG"
+      if [ "$DIRECT_HEALTH" = true ] && [ "$SAFETY_GATE" = true ]; then
+        {
+          echo "deep_recovery_success_timestamp=$(date -Iseconds 2>/dev/null || date)"
+          echo "recovery_time_seconds=$ELAPSED"
+          echo "final_ims=$IMS_STATE/$IMS_STATE_RAW transport=$IMS_TRANSPORT/$IMS_TRANSPORT_RAW voice_iwlan=$VOICE_IWLAN wfc=$WFC_AVAILABLE"
+          echo "final_slot0=subId:$SLOT0_SUB slot:$SLOT0_SLOT carrierId:$SLOT0_CARRIER mcc:$SLOT0_MCC mnc:$SLOT0_MNC"
+        } >> "$OP_LOG"
+        echo "DEEP RECOVERY SUCCESS"; echo "Recovery time: $ELAPSED seconds"; return 0
+      fi
+    fi
+  done
+  echo "DEEP RECOVERY FAILED. No retry or additional write was attempted."; return 65
+}
+
+diagnose_command() {
+  require_root
+  run_probe || PROBE_JSON='{"error":"WfcStateProbe failed"}'
+  DIR=$(save_diagnostics) || { echo "Unable to save diagnostics." >&2; return 40; }
+  echo "Diagnostics saved: $DIR"
+}
+
+usage() { echo "Usage: wfcctl.sh {status|recover|deep-recover|diagnose|version}"; }
+
+case "${1:-}" in
+  status) status_command ;;
+  recover) safe_recover_command ;;
+  deep-recover) deep_recover_command ;;
+  diagnose) diagnose_command ;;
+  version) echo "VOXI WFC Recovery $VERSION" ;;
+  *) usage; exit 2 ;;
+esac

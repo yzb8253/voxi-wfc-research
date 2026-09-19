@@ -1,0 +1,22 @@
+Test time: 2026-09-17 Asia/Shanghai
+Test target: /data/local/tmp/voxi-wfc-recovery-v1.0-test-1518
+Installed as Magisk module: NO
+Telephony writes: ZERO
+
+VOXI:
+slot: 1
+phoneId: 1
+subId: 11
+MCCMNC: 23415
+carrierId: 28
+
+Subscription: ACTIVE
+UICC Apps: ENABLED
+IMS: REGISTERED
+Transport: WLAN
+Voice over IWLAN: AVAILABLE
+WFC: AVAILABLE
+IMS NetworkAgent: ACTIVE
+ePDG: ACTIVE
+Result: HEALTHY
+Failure class: F0

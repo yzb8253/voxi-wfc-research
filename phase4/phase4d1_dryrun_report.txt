@@ -1,0 +1,265 @@
+Phase 4D-1 ROOT JAVA HELPER READ-ONLY DRY-RUN REPORT
+Generated: 2026-09-16
+
+Scope
+=====
+
+This phase built and ran a root Java helper through app_process in dry-run mode only.
+
+Allowed operations performed:
+- Compiled helper locally.
+- Converted helper to dex locally.
+- Pushed helper jar to /data/local/tmp/phase4-uicc-helper.jar.
+- Started helper through su -c app_process.
+- Bound isub Binder service.
+- Called read-only ISub APIs only.
+- Read current telephony.registry for IWLAN/WFC confirmation.
+
+Forbidden operations were not executed:
+- No setUiccApplicationsEnabled(false/true).
+- No service call isub 48.
+- No cmd phone disable-physical-subscription.
+- No cmd phone enable-physical-subscription.
+- No SIM/UICC/Radio/IMS/IWLAN/CarrierConfig write operation.
+
+
+Build Result
+============
+
+Helper source:
+C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\helper\Phase4UiccHelper.java
+
+Class jar:
+C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\phase4\helper\phase4-uicc-helper-classes.jar
+
+Dex jar pushed to device:
+/data/local/tmp/phase4-uicc-helper.jar
+
+Compilation:
+PASS
+
+Dex conversion:
+PASS
+
+
+Helper Execution Command
+========================
+
+adb target:
+192.168.137.134:37667
+
+Executed command:
+.\adb.exe -s 192.168.137.134:37667 shell su -c "CLASSPATH=/data/local/tmp/phase4-uicc-helper.jar app_process /system/bin Phase4UiccHelper dry-run"
+
+Mode:
+dry-run only
+
+
+Identity / Root Context
+=======================
+
+Process.myUid():
+0
+
+Process.myPid():
+7089
+
+SELinux context:
+u:r:magisk:s0
+
+UID0 startup:
+PASS
+
+SELinux denial observed during read-only helper:
+NO
+
+Binder denial observed during read-only helper:
+NO
+
+
+ISub Binder Binding
+===================
+
+Service:
+isub
+
+Binder non-null:
+PASS
+
+Interface descriptor:
+com.android.internal.telephony.ISub
+
+Descriptor matches expected:
+PASS
+
+ISub proxy:
+PASS
+
+
+Read-only Probe A: Binder Mapping
+=================================
+
+getPhoneId(11):
+1
+Result:
+PASS
+
+getSlotIndex(11):
+1
+Result:
+PASS
+
+getSubId(1):
+[11]
+Result:
+PASS
+
+
+Read-only Probe B: Privileged Read
+==================================
+
+ISub.isSubscriptionEnabled(11):
+false
+
+Call completed without SecurityException:
+PASS
+
+Important note:
+This value conflicts with the active SubscriptionInfo row, which reports areUiccApplicationsEnabled=true for subId 11. Therefore, on this ROM, isSubscriptionEnabled(11)=false should be treated only as proof that a privileged read Binder call succeeded, not as proof that VOXI UICC applications are disabled. The current live state still shows VOXI active and IWLAN/WFC normal.
+
+
+Target Verification
+===================
+
+Active subscription evidence:
+{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=WLAN Call nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+
+subId 11:
+PASS
+
+slot 1:
+PASS
+
+phoneId 1:
+PASS
+
+carrierId 28:
+PASS
+
+MCC 234:
+PASS
+
+MNC 15:
+PASS
+
+slot0 != 11:
+PASS
+
+slot0 evidence:
+ISub.getSubId(0)=null
+
+
+Radio HAL / QTI Branch
+======================
+
+Runtime helper reflection:
+UNKNOWN
+
+dumpsys phone HAL field search:
+No matching HAL/HalVersion/mHal/Radio HAL/RIL line exposed.
+
+Current Radio HAL version:
+UNKNOWN
+
+QTI expected branch:
+UNKNOWN
+
+Reason:
+PhoneFactory.getPhone(1).getHalVersion() reflection failed with InvocationTargetException, and the current dumpsys phone output does not expose a usable HAL version field. Per phase instructions, this is marked UNKNOWN instead of guessed.
+
+
+Current VOXI WFC / IWLAN State After Dry-run
+============================================
+
+Read-only telephony.registry check after helper run shows phoneId 1:
+- mVoiceRegState=0(IN_SERVICE)
+- mDataRegState=0(IN_SERVICE)
+- getRilDataRadioTechnology=18(IWLAN)
+- NetworkRegistrationInfo domain=PS transportType=WLAN registrationState=HOME accessNetworkTechnology=IWLAN
+- mIsIwlanPreferred=true
+- mDefaultSubId=11
+- mActiveDataSubId=11
+
+Conclusion:
+VOXI WFC/IWLAN remained normal after the dry-run.
+
+
+Audit
+=====
+
+Source audit:
+No direct setUiccApplicationsEnabled(false/true) call exists in helper source.
+No service call isub 48 exists in helper source.
+No disable-physical-subscription command exists in helper source.
+No enable-physical-subscription command exists in helper source.
+
+Runtime audit:
+The helper printed only the required WOULD CALL lines. Those lines are documentation of future candidate calls and were not executed. The helper implementation has no code path that invokes the write method in Phase 4D-1.
+
+
+=== PHASE 4D-1 DRY RUN RESULT ===
+
+1. helper是否成功编译
+PASS
+
+2. helper是否成功以UID0启动
+PASS: Process.myUid()=0
+
+3. isub Binder是否成功绑定
+PASS
+
+4. descriptor
+com.android.internal.telephony.ISub
+
+5. getPhoneId(11)
+1 PASS
+
+6. getSlotIndex(11)
+1 PASS
+
+7. getSubId(1)
+[11] PASS
+
+8. isSubscriptionEnabled(11)
+false, call succeeded without SecurityException
+
+9. privileged read是否通过
+PASS
+
+10. 安全门7项结果
+subId 11: PASS
+slot 1: PASS
+phoneId 1: PASS
+carrierId 28: PASS
+MCC 234: PASS
+MNC 15: PASS
+slot0 != 11: PASS
+
+11. 当前Radio HAL version
+UNKNOWN
+
+12. QTI预计走super路径还是QtiUiccCardProvisioner路径
+UNKNOWN
+
+13. SELinux/Binder是否出现拒绝
+NO
+
+14. 当前VOXI WFC/IWLAN是否仍正常
+YES. VOXI remains on IWLAN with PS/WLAN HOME and mIsIwlanPreferred=true.
+
+
+WOULD CALL ON FUTURE DISABLE:
+ISub.setUiccApplicationsEnabled(false, 11)
+
+WOULD CALL ON FUTURE RECOVER:
+ISub.setUiccApplicationsEnabled(true, 11)

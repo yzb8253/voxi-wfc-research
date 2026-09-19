@@ -1,0 +1,168 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys binder_calls_stats
+CAPTURED_AT: 2026-09-16T13:14:20.7456879+08:00
+
+Start time: 2026-09-16 11:42:53
+On battery time (ms): 4816407
+Sampling interval period: 1000
+Sharding modulo: 1
+Per-UID raw data (top 90% by cpu time) (package/uid, worksource, call_desc, screen_interactive, cpu_time_micros, max_cpu_time_micros, latency_time_micros, max_latency_time_micros, exception_count, max_request_size_bytes, max_reply_size_bytes, recorded_call_count, call_count):
+    com.cxorz.anywhere/u0a273,com.cxorz.anywhere/u0a273,com.android.server.location.LocationManagerService#setTestProviderLocation,false,154174,6877,218090,11715,0,228,4,51,55224
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.location.provider.LocationProviderManager$ExternalWakeLockReleaser#sendResult,false,21271,780,32125,2082,0,76,0,53,59097
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.net.NetworkStatsService#getTotalStats,false,4675,1138,5605,1512,0,88,12,6,5748
+    com.google.android.inputmethod.latin/u0a253,com.google.android.inputmethod.latin/u0a253,com.android.server.am.ActivityManagerService#getContentProvider,false,2217,2217,5028,5028,0,228,1584,1,3
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.am.ActivityManagerService#serviceDoneExecuting,false,2115,2115,2251,2251,0,116,0,1,13
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.accounts.AccountManagerService#setUserData,false,2021,2021,3732,3732,0,436,4,1,3
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.power.PowerManagerService$BinderService#acquireWakeLock,false,1639,1023,1731,1115,0,332,4,2,578
+    com.android.updater/6102,com.android.updater/6102,com.android.server.am.ActivityManagerService#startService,false,1434,1434,4546,4546,0,392,124,1,6
+    org.codeaurora.ims/u0a196,org.codeaurora.ims/u0a196,com.android.server.am.ActivityManagerService#broadcastIntentWithFeature,false,1329,1329,1742,1742,0,460,8,1,3
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.am.ActivityManagerService#serviceDoneExecuting,false,1282,1209,2291,1252,0,116,0,2,737
+    com.android.chrome/u0a240,com.android.chrome/u0a240,com.android.server.wm.ActivityClientController#activityIdle,false,1090,1090,2247,2247,0,356,0,1,1
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.am.ActivityManagerService#serviceDoneExecuting,false,1083,1083,1082,1082,0,116,0,1,474
+    com.xiaomi.market/u0a165,com.xiaomi.market/u0a165,com.android.server.am.ActivityManagerService#registerReceiverWithFeature,false,980,980,6577,6577,0,452,8,1,15
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.ConnectivityService#getActiveNetworkInfo,false,946,514,930,502,0,84,112,6,4037
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.usage.UsageStatsService$BinderService#isAppInactive,false,927,225,928,225,0,168,8,5,1551
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.am.ActivityManagerService#finishReceiver,false,872,872,871,871,0,124,0,1,80
+    0,0,com.miui.server.greeze.GreezeManagerService#3,false,793,431,781,424,0,108,0,3,1089
+    com.cxorz.anywhere/u0a273,com.cxorz.anywhere/u0a273,com.android.server.ConnectivityService#getActiveNetworkInfo,false,783,133,791,146,0,84,112,18,17558
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.am.ActivityManagerService#registerReceiverWithFeature,false,751,184,1087,483,0,344,704,5,4283
+    com.xiaomi.finddevice/6110,com.xiaomi.finddevice/6110,com.android.server.accounts.AccountManagerService#getAccountsAsUser,false,662,662,682,682,0,164,148,1,9
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ActivityManagerService#finishReceiver,false,572,572,636,636,0,124,0,1,359
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.appop.AppOpsService#noteOperation,false,570,143,917,389,0,248,92,6,2525
+    com.github.metacubex.clash.meta/u0a235,com.github.metacubex.clash.meta/u0a235,com.android.server.ConnectivityService#getConnectionOwnerUid,false,568,568,794,794,0,116,8,1,42
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.net.NetworkStatsService#getIfaceStats,false,535,535,534,534,0,116,12,1,154
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.am.ActivityManagerService#publishService,false,518,518,517,517,0,548,4,1,57
+    shared:android.uid.bluetooth/1002,shared:android.uid.bluetooth/1002,android.content.ContentProvider$Transport#21,false,474,403,530,459,0,304,48,2,380
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.content.ContentService#syncAsUser,false,471,471,471,471,0,604,4,1,1
+    youqu.android.todesk/u0a252,youqu.android.todesk/u0a252,com.android.server.ConnectivityService#getActiveNetworkInfo,false,465,377,464,377,0,84,112,3,460
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,android.content.ContentProvider$Transport#21,false,454,454,465,465,0,456,72,1,86
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getActivityInfo,false,435,292,435,293,0,280,4628,5,5171
+    cn.ppps.forwarder/u0a250,cn.ppps.forwarder/u0a250,com.android.server.pm.PackageManagerService$IPackageManagerImpl#setComponentEnabledSetting,false,430,430,1609,1609,0,272,4,1,46
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.power.PowerManagerService$BinderService#acquireWakeLock,false,413,413,443,443,0,252,4,1,388
+    0,0,com.android.server.connectivity.NetdEventListenerService#3,false,374,374,443,443,0,160,0,1,57
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.accounts.AccountManagerService#peekAuthToken,false,291,291,59665,59665,0,476,1088,1,27
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.accessibility.AccessibilityManagerService#sendAccessibilityEvent,false,287,287,286,286,0,348,0,1,726
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.am.ActivityManagerService#getTasks,false,281,281,669,669,0,80,2940,1,117
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.ConnectivityService#getNetworkCapabilities,false,273,150,336,186,0,132,456,2,500
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.am.ActivityManagerService#getIntentSenderWithFeature,false,272,137,272,137,0,1520,32,2,395
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.accounts.AccountManagerService#getUserData,false,266,266,1096,1096,0,192,8,1,310
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#resolveIntent,false,266,143,266,144,0,288,2140,3,1008
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.pm.LauncherAppsService$LauncherAppsImpl#getLauncherActivities,false,261,261,261,261,0,164,1960,1,22
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.permission.PermissionManagerService#getPermissionFlags,false,255,69,252,68,0,244,8,6,5164
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,240,54,238,54,0,172,2664,6,4767
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,237,90,252,105,0,156,8672,4,2641
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,221,118,226,124,0,152,7228,3,2233
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.wm.ActivityTaskManagerService#getTasks,false,221,221,221,221,0,96,2956,1,31
+    shared:android.uid.shared/u0a70,shared:android.uid.shared/u0a70,com.android.server.content.ContentService#unregisterContentObserver,false,198,198,197,197,0,108,4,1,31
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,198,139,197,139,0,212,1944,3,1058
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.pm.LauncherAppsService$LauncherAppsImpl#getApplicationInfo,false,194,126,335,210,0,188,22936,2,585
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.wm.Session#setWallpaperZoomOut,false,194,194,195,195,0,104,0,1,729
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ProcessManagerService#17,false,185,185,183,183,0,80,132,1,1428
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.power.PowerManagerService$BinderService#acquireWakeLock,false,183,183,195,195,0,312,4,1,177
+    0,0,com.android.server.NetworkManagementService$NetdUnsolicitedEventListener#5,false,182,93,193,100,0,184,0,2,7
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.PackageManagerService$IPackageManagerImpl#queryIntentActivities,false,182,182,182,182,0,232,5880,1,171
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.android.server.pm.UserManagerService#isUserRunning,false,173,22,169,22,0,68,8,10,6223
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.alarm.AlarmManagerService$5#remove,false,168,168,167,167,0,100,4,1,80
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.android.server.appop.AppOpsService#setMode,false,163,42,164,42,0,220,4,5,4765
+    shared:android.uid.bluetooth/1002,shared:android.uid.bluetooth/1002,com.android.server.pm.permission.PermissionManagerService$PermissionCheckerService#1,false,161,161,919,919,0,496,8,1,445
+    com.miui.home/u0a124,com.miui.home/u0a124,android.content.ContentProvider$Transport#21,false,160,160,160,160,0,264,44,1,9
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.pm.permission.LegacyPermissionManagerService#checkDeviceIdentifierAccess,false,158,81,158,81,0,208,8,2,1312
+    shared:android.uid.nfc/1027,shared:android.uid.nfc/1027,com.android.server.am.ActivityManagerService#broadcastIntentWithFeature,false,157,157,156,156,0,444,8,1,3
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getDeclaredSharedLibraries,false,154,154,190,190,0,156,8,1,198
+    com.miui.analytics/u0a136,com.miui.analytics/u0a136,com.android.server.ConnectivityService#getActiveNetworkInfo,false,149,149,147,147,0,84,112,1,181
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.am.ActivityManagerService#registerReceiverWithFeature,false,149,149,167,167,0,568,8,1,103
+    shared:com.qualcomm.qti.qtidataservices/u0a104,shared:com.qualcomm.qti.qtidataservices/u0a104,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,147,147,9315,9315,0,140,1488,1,2
+    com.xiaomi.xmsf/u0a174,com.xiaomi.xmsf/u0a174,com.android.server.ConnectivityService#getActiveNetworkInfo,false,143,87,143,87,0,84,112,2,354
+    com.miui.home/u0a124,com.miui.home/u0a124,com.android.server.am.ActivityManagerService#broadcastIntentWithFeature,false,143,143,14786,14786,0,356,8,1,1
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,142,79,135,73,0,164,8,3,2457
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.permission.PermissionManagerService#updatePermissionFlags,false,140,79,140,79,0,248,4,2,856
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.content.ContentService#unregisterContentObserver,false,136,136,136,136,0,108,4,1,17
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.wm.Session#setOnBackInvokedCallbackInfo,false,135,135,281,281,0,104,0,1,98
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.StorageManagerService#getVolumeList,false,133,133,133,133,0,144,204,1,42
+    com.xiaomi.market/u0a165,com.xiaomi.market/u0a165,com.android.server.notification.NotificationManagerService$10#cancelNotificationWithTag,false,132,132,131,131,0,220,4,1,3
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.am.ActivityManagerService#getServices,false,131,131,131,131,0,84,1556,1,367
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.pm.PackageManagerService$IPackageManagerImpl#queryIntentReceivers,false,130,130,185,185,0,208,2624,1,397
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.usage.UsageStatsService$BinderService#getAppStandbyBucket,false,128,84,126,82,0,168,8,2,1841
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.net.NetworkStatsService#getUidStats,false,127,127,127,127,0,92,12,1,185
+    shared:android.uid.bluetooth/1002,shared:android.uid.bluetooth/1002,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackagesForUid,false,122,61,118,57,0,92,2628,3,741
+    com.cxorz.anywhere/u0a273,com.cxorz.anywhere/u0a273,com.android.server.location.provider.LocationProviderManager$ExternalWakeLockReleaser#sendResult,false,119,119,118,118,0,76,0,1,82
+    shared:android.uid.bluetooth/1002,shared:android.uid.bluetooth/1002,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,116,75,115,75,0,148,2276,2,849
+    1041,1041,com.android.server.am.ActivityManagerService#isUidActive,false,114,114,113,113,0,108,8,1,52
+    com.xiaomi.market/u0a165,com.xiaomi.market/u0a165,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,114,114,114,114,0,140,2164,1,23
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.role.RoleService$Stub#3,false,111,75,112,75,0,164,56,2,878
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.am.ActivityManagerService#getIntentSenderWithFeature,false,103,103,102,102,0,828,32,1,111
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackagesForUid,false,103,43,100,43,0,92,92,5,3188
+    shared:android.uid.nfc/1027,shared:android.uid.nfc/1027,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,98,98,98,98,0,136,1588,1,43
+    com.android.vending/u0a128,com.android.vending/u0a128,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,96,96,95,95,0,148,1624,1,49
+    com.miui.analytics/u0a136,com.miui.analytics/u0a136,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageInfo,false,93,93,92,92,0,160,1736,1,69
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,85,85,85,85,0,156,1852,1,270
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageUid,false,84,35,83,35,0,172,8,3,501
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,84,84,144,144,0,140,4924,1,134
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackageUid,false,80,22,79,21,0,220,8,4,999
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.am.ActivityManagerService#checkPermission,false,79,51,79,51,0,200,8,2,1464
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.am.ActivityManagerService#cancelIntentSender,false,79,79,78,78,0,104,4,1,77
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getPackagesForUid,false,72,72,71,71,0,92,52,1,48
+    com.google.android.apps.messaging/u0a281,com.google.android.apps.messaging/u0a281,com.android.server.ConnectivityService#getAllNetworks,false,70,70,69,69,0,84,16,1,7
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.miui.server.SecurityManagerService#87,false,68,68,66,66,0,208,8,1,200
+    0,0,com.android.server.NetworkObserverRegistry#1,false,64,64,64,64,0,120,0,1,5
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ProcessManagerService#20,false,64,64,90,90,0,64,8,1,2082
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.power.PowerManagerService$BinderService#isDeviceIdleMode,false,62,47,673,658,0,68,8,2,507
+    com.milink.service/u0a188,com.milink.service/u0a188,com.android.server.appop.AppOpsService#checkPackage,false,57,57,57,57,0,140,8,1,6
+    0,0,com.android.server.NetworkManagementService$NetdUnsolicitedEventListener#9,false,55,55,63,63,0,120,0,1,19
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.ConnectivityService#getActiveNetworkInfo,false,54,54,54,54,0,84,112,1,425
+    com.google.android.apps.messaging/u0a281,com.google.android.apps.messaging/u0a281,com.android.server.am.ActivityManagerService#checkPermission,false,50,50,50,50,0,148,8,1,30
+    1047,1047,com.android.server.am.ActivityManagerService$PermissionController#checkPermission,false,50,50,50,50,0,188,8,1,23
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.miui.server.SecurityManagerService#88,false,50,50,49,49,0,184,4,1,549
+    0,0,com.android.server.net.NetworkStatsService$AlertObserver#2,false,49,49,49,49,0,144,0,1,38
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.wifi.WifiServiceImpl#46,false,49,49,48,48,0,76,8,1,6
+    cn.ppps.forwarder/u0a250,cn.ppps.forwarder/u0a250,com.android.server.ConnectivityService#getActiveNetworkInfo,false,48,48,210,210,0,84,112,1,15
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.android.server.appop.AppOpsService#setUidMode,false,47,47,47,47,0,108,4,1,352
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationEnabledSetting,false,47,26,46,25,0,164,8,2,275
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ActivityManagerService#getIntentSenderWithFeature,false,46,46,46,46,0,580,32,1,118
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.server.pm.PackageManagerService$IPackageManagerImpl#checkPermission,false,46,31,60,31,0,252,8,2,2126
+    com.android.se/1068,com.android.se/1068,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,44,44,44,44,0,136,1080,1,32
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getComponentEnabledSetting,false,44,44,43,43,0,288,8,1,310
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#checkPermission,false,41,41,41,41,0,188,8,1,238
+    shared:com.google.uid.shared/u999a129,shared:com.google.uid.shared/u999a129,com.android.server.am.ActivityManagerService#checkPermission,false,40,40,40,40,0,164,8,1,26
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.appop.AppOpsService#checkOperation,false,40,40,39,39,0,144,8,1,29
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.pm.UserManagerService#getUsers,false,40,40,40,40,0,76,324,1,549
+    com.android.providers.media.module/u0a230,com.android.chrome/u0a240,com.android.server.appop.AppOpsService#checkPackage,false,39,39,38,38,0,144,8,1,30
+    com.android.permissioncontroller/u0a224,com.android.permissioncontroller/u0a224,com.android.role.RoleService$Stub#1,false,34,19,33,19,0,136,8,2,433
+    com.lbe.security.miui/u0a198,com.lbe.security.miui/u0a198,com.android.server.appop.AppOpsService#checkOperation,false,32,32,31,31,0,160,8,1,129
+    shared:android.uid.shared/u0a70,shared:android.uid.shared/u0a70,com.android.server.appop.AppOpsService#checkPackage,false,31,31,31,31,0,172,8,1,149
+    shared:android.uid.nfc/1027,shared:android.uid.nfc/1027,com.android.server.pm.PackageManagerService$IPackageManagerImpl#checkPermission,false,31,31,30,30,0,192,8,1,88
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.policy.keyguard.KeyguardStateMonitor#onSimSecureStateChanged,false,31,31,30,30,0,124,4,1,2
+    com.miui.analytics/u999a136,com.miui.analytics/u999a136,com.android.server.ConnectivityService#getProxyForNetwork,false,29,29,29,29,0,88,820,1,2
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.power.hint.HintManagerService$BinderService#getHintSessionPreferredRate,false,28,28,27,27,0,64,12,1,1
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.NetworkManagementService#setUidCleartextNetworkPolicy,false,27,27,27,27,0,100,4,1,187
+    com.android.mms/u0a133,com.android.mms/u0a133,com.android.server.wm.WindowManagerService#useBLAST,false,27,27,26,26,0,72,8,1,1
+    shared:android.uid.phone/1001,shared:android.uid.phone/1001,com.android.server.appop.AppOpsService#checkOperation,false,24,24,23,23,0,176,8,1,239
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.miui.server.SecurityManagerService#27,false,23,23,23,23,0,264,8,1,13
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getComponentEnabledSetting,false,22,22,21,21,0,232,8,1,217
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ActivityManagerService#getCurrentUserId,false,20,20,40,40,0,76,8,1,983
+    com.tencent.mm/u0a283,com.tencent.mm/u0a283,com.android.server.net.NetworkStatsService$1#close,false,19,19,19,19,0,84,4,1,173
+    com.miui.analytics/u0a136,com.miui.analytics/u0a136,com.miui.server.MiuiInitServer#6,false,18,18,18,18,0,100,8,1,75
+    com.whatsapp/u0a279,com.whatsapp/u0a279,com.android.server.pm.PackageManagerService$IPackageManagerImpl#getApplicationInfo,false,17,17,17,17,0,172,8,1,50
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.am.ActivityManagerService#refContentProvider,false,16,16,15,15,0,112,8,1,67
+    shared:android.uid.bluetooth/1002,shared:android.uid.bluetooth/1002,com.android.server.am.ActivityManagerService#refContentProvider,false,16,16,16,16,0,112,8,1,59
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.miui.server.greeze.GreezeManagerService#17,false,16,16,16,16,0,76,8,1,847
+    shared:com.google.uid.shared/u0a129,shared:com.google.uid.shared/u0a129,com.android.server.am.ActivityManagerService#refContentProvider,false,15,15,15,15,0,112,8,1,37
+    shared:android.uid.system/1000,shared:android.uid.system/1000,com.android.server.wallpaper.WallpaperManagerService#null,false,10,10,10,10,0,0,0,1,1
+
+Per-UID Summary (top 90% by cpu time) (cpu_time, % of total cpu_time, recorded_call_count, call_count, package/uid):
+      155076  71%       70    80473 com.cxorz.anywhere/u0a273
+       23141  11%       63    69082 shared:com.google.uid.shared/u999a129
+        7840   4%       47    55202 shared:android.uid.system/1000
+        7513   3%       19    18026 shared:com.google.uid.shared/u0a129
+        4185   2%       26    22375 com.tencent.mm/u0a283
+
+  Summary: total_cpu_time=219071, calls_count=368648, avg_call_cpu_time=619
+
+Exceptions thrown (exception_count, class_name):
+      14 java.lang.IllegalStateException
+      12 java.lang.SecurityException
+      12 java.lang.IllegalArgumentException
+       3 java.lang.UnsupportedOperationException
+       1 android.database.sqlite.SQLiteException
+
+/!\ Displayed data is sampled. See sampling interval at the top.
+

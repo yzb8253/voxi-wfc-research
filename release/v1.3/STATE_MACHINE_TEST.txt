@@ -1,0 +1,10 @@
+healthy-zero-write: PASS false=0 true=0 outcome=HEALTHY_ZERO_WRITE
+f8-safe-once: PASS false=0 true=1 outcome=SAFE_SUCCESS
+f1-deep-once: PASS false=1 true=1 outcome=DEEP_SUCCESS
+f8-not-confirmed: PASS false=1 true=0 outcome=F8_NOT_CONFIRMED_TRUE_BLOCKED
+post-insert-failure-no-retry: PASS false=1 true=1 outcome=DEEP_RECOVERY_FAILED_NO_RETRY
+unsafe-zero-write: PASS false=0 true=0 outcome=BLOCKED_ZERO_WRITE
+boot-marker-blocks-boot: PASS false=0 true=0 outcome=BOOT_ALREADY_ATTEMPTED_ZERO_WRITE
+manual-deep-ignores-marker: PASS false=1 true=1 outcome=DEEP_SUCCESS
+manual-hard-ignores-marker: PASS false=1 true=1 outcome=DEEP_SUCCESS
+manual-auto-ignores-marker: PASS false=1 true=1 outcome=DEEP_SUCCESS

@@ -1,0 +1,18 @@
+Capture time (device epoch): 1789735804.827852351
+Device: Xiaomi 14 Pro (23116PN5BC)
+ADB: 192.168.1.25:41201
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Failure class: F1
+IMS NetworkAgent: MISSING
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS

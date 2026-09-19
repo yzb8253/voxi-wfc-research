@@ -1,0 +1,33 @@
+===IDENTITY===
+uid=2000(shell) gid=2000(shell) groups=2000(shell),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:shell:s0
+u:r:vendor_ims:s0              radio         1949     1 u:r:vendor_ims:s0              imsdatadaemon               imsdatadaemon
+PID=1949
+EXE=
+CMDLINE=/vendor/bin/imsdatadaemon
+STATUS
+Name:	imsdatadaemon
+Umask:	0077
+State:	S (sleeping)
+Tgid:	1949
+Ngid:	0
+Pid:	1949
+PPid:	1
+TracerPid:	0
+Uid:	1001	1001	1001	1001
+Gid:	1001	1001	1001	1001
+FDSize:	64
+Groups:	1007 1010 2901 3003 
+SELINUX=u:r:vendor_ims:s0
+===INIT_PROPERTIES===
+
+
+
+===INIT_RC_MATCHES===
+/vendor/etc/init/ims_rtp_daemon.rc:6:# imsdatadaemon starts with root and UID will be downgraded to RADIO.
+/vendor/etc/init/imsdatadaemon.rc:6:# imsdatadaemon starts with root and UID will be downgraded to RADIO.
+/vendor/etc/init/imsdatadaemon.rc:7:service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
+/vendor/etc/init/imsdatadaemon.rc:15:    start vendor.imsdatadaemon
+/system/vendor/etc/init/ims_rtp_daemon.rc:6:# imsdatadaemon starts with root and UID will be downgraded to RADIO.
+/system/vendor/etc/init/imsdatadaemon.rc:6:# imsdatadaemon starts with root and UID will be downgraded to RADIO.
+/system/vendor/etc/init/imsdatadaemon.rc:7:service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
+/system/vendor/etc/init/imsdatadaemon.rc:15:    start vendor.imsdatadaemon

@@ -1,0 +1,72 @@
+COMMAND: .\adb.exe -s 192.168.137.134:37667 shell dumpsys netstats
+CAPTURED_AT: 2026-09-16T13:04:17.5243247+08:00
+
+Directory:
+  /data/misc/apexdata/com.android.tethering/netstats
+Configs:
+  netstats_combine_subtype_enabled=false 
+  netstats_store_files_in_apexdata=true 
+  netstats_import_legacy_target_attempts=1 
+  platform legacy stats import attempts count=1 
+  platform legacy stats import successes count=1 
+  platform legacy stats import fallbacks count=0 
+Active interfaces:
+  iface=rmnet_data3 ident=[{type=0, ratType=0, subscriberId=234159..., metered=false, defaultNetwork=false, oemManaged=OEM_NONE, subId=11}] 
+  iface=vt_data011 ident=[{type=0, ratType=0, subscriberId=234159..., metered=true, defaultNetwork=true, oemManaged=OEM_NONE, subId=11}] 
+  iface=wlan0 ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] 
+Active UID interfaces:
+  iface=rmnet_data3 ident=[{type=0, ratType=0, subscriberId=234159..., metered=false, defaultNetwork=false, oemManaged=OEM_NONE, subId=11}] 
+  iface=vt_data011 ident=[{type=0, ratType=0, subscriberId=234159..., metered=true, defaultNetwork=true, oemManaged=OEM_NONE, subId=11}] 
+  iface=wlan0 ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] 
+All wifi interfaces:
+  wlan0 
+All mobile interfaces:
+  rmnet_data3 
+Top openSession callers:
+  {uid=1000,package=android}=991
+  {uid=10283,package=com.tencent.mm}=284
+  {uid=1000,package=null}=2
+
+Stats Providers:
+  OffloadController Xt:
+    NetworkStats: elapsedRealtime=0
+  BpfCoordinator Xt:
+    NetworkStats: elapsedRealtime=0
+  ImsPhoneCallTracker Xt:
+    NetworkStats: elapsedRealtime=0
+  ImsPhoneCallTracker Xt:
+    NetworkStats: elapsedRealtime=0
+
+Stats Observers:
+  RequestInfo from pid/uid:1045/1000(android) for DataUsageRequest [ requestId=1, networkTemplate=NetworkTemplate: matchRule=MOBILE_WILDCARD, matchSubscriberIds=[], matchWifiNetworkKeys=[], subscriberIdMatchRule=ALL, thresholdInBytes=0 ] accessLevel:3
+  RequestInfo from pid/uid:1045/1000(android) for DataUsageRequest [ requestId=2, networkTemplate=NetworkTemplate: matchRule=WIFI_WILDCARD, matchSubscriberIds=[], matchWifiNetworkKeys=[], subscriberIdMatchRule=ALL, thresholdInBytes=0 ] accessLevel:3
+
+Dev stats:
+  Pending bytes: 0
+  History since boot:
+  ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=false, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=5277 rp=13 tb=2129 tp=16 op=0
+  ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=4866646 rp=11576 tb=2400902 tp=13169 op=0
+      st=1789531200 rb=3382930 rp=10293 tb=1755068 tp=11303 op=0
+      st=1789534800 rb=104459 rp=1043 tb=267157 tp=1157 op=0
+  ident=[{type=17, ratType=COMBINED, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=913734 rp=2798 tb=900829 tp=2530 op=0
+Xt stats:
+  Pending bytes: 0
+  History since boot:
+  ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=false, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=5277 rp=13 tb=2129 tp=16 op=0
+  ident=[{type=1, ratType=COMBINED, wifiNetworkKey="DESKTOP-AEM47RS 5918"wpa2-psk, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=4866646 rp=11576 tb=2400902 tp=13169 op=0
+      st=1789531200 rb=3382930 rp=10293 tb=1755068 tp=11303 op=0
+      st=1789534800 rb=104459 rp=1043 tb=267157 tp=1157 op=0
+  ident=[{type=17, ratType=COMBINED, metered=false, defaultNetwork=true, oemManaged=OEM_NONE, subId=-1}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1789527600 rb=913734 rp=2798 tb=900829 tp=2530 op=0
+

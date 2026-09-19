@@ -1,0 +1,29 @@
+VOXI WFC Recovery v1.1
+Checking current state...
+
+==============================
+VOXI WFC Recovery v1.1
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: REGISTERED (raw 2)
+Transport: WLAN (raw 2)
+VOICE/IWLAN: AVAILABLE
+WFC: AVAILABLE
+Result: HEALTHY
+Failure class: F0
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=YES active=NO request=296 satisfied=null
+ePDG UDP/4500: PRESENT
+XFRM: PRESENT
+MMTEL: READY
+Protected slot0: subId=1 slot=0 carrierId=2237 MCCMNC=46011 gate=PASS
+
+VOXI WFC is healthy.
+No action required. Zero writes.

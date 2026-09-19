@@ -1,0 +1,29 @@
+dex=classes.dex
+setUiccApplicationsEnabled code_off=0x121128 regs=7 ins=3 outs=5 tries=1
+0000: const-string           v0, string@31653 "setUiccApplicationsEnabled"
+0002: invoke-virtual         {v4, v0}, method@10146 void com.android.internal.telephony.SubscriptionController.enforceModifyPhoneState(java.lang.String)
+0005: invoke-static          {}, method@1501 long android.os.Binder.clearCallingIdentity()
+0008: move-result-wide       v0
+0009: new-instance           v2, type@64 android.content.ContentValues
+000b: const/4                v3, #1
+000c: invoke-direct          {v2, v3}, method@173 void android.content.ContentValues.<init>(int)
+000f: const-string           v3, string@32656 "uicc_applications_enabled"
+0011: invoke-static          {v5}, method@21951 java.lang.Boolean java.lang.Boolean.valueOf(boolean)
+0014: move-result-object     v5
+0015: invoke-virtual         {v2, v3, v5}, method@175 void android.content.ContentValues.put(java.lang.String,java.lang.Boolean)
+0018: iget-object            v5, v4, field@4195 android.content.Context com.android.internal.telephony.SubscriptionController.mContext
+001a: invoke-virtual         {v5}, method@195 android.content.ContentResolver android.content.Context.getContentResolver()
+001d: move-result-object     v5
+001e: invoke-static          {v6}, method@2424 android.net.Uri android.telephony.SubscriptionManager.getUriForSubscriptionId(int)
+0021: move-result-object     v6
+0022: const/4                v3, #0
+0023: invoke-virtual         {v5, v6, v2, v3, v3}, method@170 int android.content.ContentResolver.update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[])
+0026: move-result            v5
+0027: invoke-virtual         {v4}, method@10252 void com.android.internal.telephony.SubscriptionController.refreshCachedActiveSubscriptionInfoList()
+002a: invoke-virtual         {v4}, method@10250 void com.android.internal.telephony.SubscriptionController.notifyUiccAppsEnableChanged()
+002d: invoke-virtual         {v4}, method@10249 void com.android.internal.telephony.SubscriptionController.notifySubscriptionInfoChanged()
+0030: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+0033: return                 v5
+0034: op_0d                  
+0035: invoke-static          {v0, v1}, method@1506 void android.os.Binder.restoreCallingIdentity(long)
+0038: op_27                  

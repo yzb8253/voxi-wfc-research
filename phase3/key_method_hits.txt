@@ -1,0 +1,43 @@
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerBase
+  METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS miui-telephony-common.jar com.android.internal.telephony.MiuiSubscriptionControllerImpl
+  METHOD public void setUiccApplicationsEnabled(android.content.Context, boolean, int)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionController
+  METHOD private void setUiccApplicationsEnabled_1_4(int, boolean)
+  METHOD public boolean setSubscriptionEnabled(boolean, int)
+  METHOD public int setUiccApplicationsEnabled(boolean, int)
+
+CLASS qti-telephony-common.jar com.qualcomm.qti.internal.telephony.QtiSubscriptionInfoUpdater
+  METHOD protected void handleSimAbsent(int)
+  METHOD protected void handleSimLoaded(int)
+
+CLASS TeleService.apk com.android.phone.CarrierConfigLoader
+  METHOD private void updateConfigForPhoneId(int)
+  METHOD  void clearConfigForPhone(int, boolean)
+  METHOD public void notifyConfigChangedForSubId(int)
+  METHOD public void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.IMiCarrierConfigLoader
+  METHOD public,abstract void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderStub
+  METHOD public,static void updateConfigForPhoneId(int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.PhoneInterfaceManager
+  METHOD public void resetIms(int)
+
+CLASS TeleService.apk com.android.phone.PhoneProxy
+  METHOD public,static void updateConfigForPhoneId(android.content.Context, int, java.lang.String)
+
+CLASS TeleService.apk com.android.phone.TelephonyShellCommand
+  METHOD private int handleEnablePhysicalSubscription(boolean)
+  METHOD private void onHelpDisableOrEnablePhysicalSubscription()
+
+CLASS TeleService.apk com.android.phone.ims.MiuiImsRegControllerBase
+  METHOD protected void resetImsMonitorState()
+
+CLASS TeleService.apk com.android.phone.MiCarrierConfigLoaderImpl
+  METHOD public void updateConfigForPhoneId(int, java.lang.String)

@@ -1,0 +1,387 @@
+64bfce5000-64bfcfc000 r--p 00000000 fc:09 264                            /vendor/bin/imsdatadaemon
+64bfcfc000-64bfd16000 r-xp 00017000 fc:09 264                            /vendor/bin/imsdatadaemon
+64bfd16000-64bfd17000 r--p 00031000 fc:09 264                            /vendor/bin/imsdatadaemon
+64bfd17000-64bfd18000 rw-p 00031000 fc:09 264                            /vendor/bin/imsdatadaemon
+64bfd18000-64bfd1c000 rw-p 00000000 00:00 0                              [anon:.bss]
+6f9a51a000-6f9b022000 ---p 00000000 00:00 0 
+6f9b022000-6f9b024000 rw-p 00000000 00:00 0 
+6f9b024000-6f9b51a000 ---p 00000000 00:00 0 
+6f9b51a000-6f9b51b000 ---p 00000000 00:00 0 
+6f9b51b000-6f9b617000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:14113]
+6f9b617000-6f9b618000 ---p 00000000 00:00 0 
+6f9b618000-6f9b716000 r--p 00000000 00:20 5                              /dev/binderfs/hwbinder
+6f9ea10000-6f9ee78000 ---p 00000000 00:00 0 
+6f9ee78000-6f9ee7a000 rw-p 00000000 00:00 0 
+6f9ee7a000-6f9fa10000 ---p 00000000 00:00 0 
+6f9fa10000-6f9fa11000 ---p 00000000 00:00 0 
+6f9fa11000-6f9fb0d000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2901]
+6f9fb0d000-6f9fb0e000 ---p 00000000 00:00 0 
+6f9fb0e000-6fa0340000 ---p 00000000 00:00 0 
+6fa0340000-6fa0342000 rw-p 00000000 00:00 0 
+6fa0342000-6fa0b0e000 ---p 00000000 00:00 0 
+6fa0b0e000-6fa0b0f000 ---p 00000000 00:00 0 
+6fa0b0f000-6fa0c0b000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2900]
+6fa0c0b000-6fa0c0c000 ---p 00000000 00:00 0 
+6fa0c0c000-6fa14ce000 ---p 00000000 00:00 0 
+6fa14ce000-6fa14d0000 rw-p 00000000 00:00 0 
+6fa14d0000-6fa2026000 ---p 00000000 00:00 0 
+6fa2026000-6fa2028000 rw-p 00000000 00:00 0 
+6fa2028000-6fa2d4c000 ---p 00000000 00:00 0 
+6fa2d4c000-6fa2d4e000 rw-p 00000000 00:00 0 
+6fa2d4e000-6fa3c0c000 ---p 00000000 00:00 0 
+6fa3c0c000-6fa3c0d000 ---p 00000000 00:00 0 
+6fa3c0d000-6fa3d09000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2899]
+6fa3d09000-6fa3d0b000 ---p 00000000 00:00 0 
+6fa3d0b000-6fa3e07000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2478]
+6fa3e07000-6fa3e09000 ---p 00000000 00:00 0 
+6fa3e09000-6fa3f05000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2477]
+6fa3f05000-6fa3f06000 ---p 00000000 00:00 0 
+6fa3f06000-6fa48b0000 ---p 00000000 00:00 0 
+6fa48b0000-6fa48b2000 rw-p 00000000 00:00 0 
+6fa48b2000-6fa4f06000 ---p 00000000 00:00 0 
+6fa4f06000-6fa4f07000 ---p 00000000 00:00 0 
+6fa4f07000-6fa5003000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2469]
+6fa5003000-6fa5004000 ---p 00000000 00:00 0 
+6fa5004000-6fa5882000 ---p 00000000 00:00 0 
+6fa5882000-6fa5884000 rw-p 00000000 00:00 0 
+6fa5884000-6fa6004000 ---p 00000000 00:00 0 
+6fa6004000-6fa6005000 ---p 00000000 00:00 0 
+6fa6005000-6fa6101000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2468]
+6fa6101000-6fa6102000 ---p 00000000 00:00 0 
+6fa6102000-6fa63e8000 ---p 00000000 00:00 0 
+6fa63e8000-6fa63ea000 rw-p 00000000 00:00 0 
+6fa63ea000-6fa7102000 ---p 00000000 00:00 0 
+6fa7102000-6fa7103000 ---p 00000000 00:00 0 
+6fa7103000-6fa71ff000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2425]
+6fa71ff000-6fa7200000 ---p 00000000 00:00 0 
+6fa7200000-6fa7600000 rw-p 00000000 00:00 0                              [anon:libc_malloc]
+6fa7604000-6fa7672000 ---p 00000000 00:00 0 
+6fa7672000-6fa7674000 rw-p 00000000 00:00 0 
+6fa7674000-6fa8604000 ---p 00000000 00:00 0 
+6fa8604000-6fa8605000 ---p 00000000 00:00 0 
+6fa8605000-6fa8701000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2013]
+6fa8701000-6fa8702000 ---p 00000000 00:00 0 
+6fa8702000-6fa8c9a000 ---p 00000000 00:00 0 
+6fa8c9a000-6fa8c9c000 rw-p 00000000 00:00 0 
+6fa8c9c000-6fa9702000 ---p 00000000 00:00 0 
+6fa9702000-6fa9703000 ---p 00000000 00:00 0 
+6fa9703000-6fa97ff000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:2006]
+6fa97ff000-6fa9800000 ---p 00000000 00:00 0 
+6fa9800000-6faa000000 rw-p 00000000 00:00 0                              [anon:libc_malloc]
+6faa002000-6faa327000 ---p 00000000 00:00 0                              [anon:cfi shadow]
+6faa327000-6faa328000 r--p 00000000 00:00 0                              [anon:cfi shadow]
+6faa328000-6faa383000 ---p 00000000 00:00 0                              [anon:cfi shadow]
+6faa383000-6faa384000 r--p 00000000 00:00 0                              [anon:cfi shadow]
+6faa384000-702a002000 ---p 00000000 00:00 0                              [anon:cfi shadow]
+702a002000-702a04a000 r--p 00000000 07:50 39                             /apex/com.android.runtime/lib64/bionic/libc.so
+702a04a000-702a104000 r-xp 00048000 07:50 39                             /apex/com.android.runtime/lib64/bionic/libc.so
+702a104000-702a10b000 r--p 00102000 07:50 39                             /apex/com.android.runtime/lib64/bionic/libc.so
+702a10b000-702a10e000 rw-p 00108000 07:50 39                             /apex/com.android.runtime/lib64/bionic/libc.so
+702a10e000-702a31e000 rw-p 00000000 00:00 0                              [anon:.bss]
+702a31e000-702a31f000 r--p 00000000 00:00 0                              [anon:.bss]
+702a31f000-702a327000 rw-p 00000000 00:00 0                              [anon:.bss]
+702a384000-702a385000 r--p 00000000 07:50 41                             /apex/com.android.runtime/lib64/bionic/libdl_android.so
+702a385000-702a386000 r-xp 00001000 07:50 41                             /apex/com.android.runtime/lib64/bionic/libdl_android.so
+702a386000-702a387000 r--p 00002000 07:50 41                             /apex/com.android.runtime/lib64/bionic/libdl_android.so
+702a3d5000-702a3e2000 r--p 00000000 fc:09 3654                           /vendor/lib64/vendor.qti.data.slm@1.0.so
+702a3e2000-702a3ed000 r-xp 0000d000 fc:09 3654                           /vendor/lib64/vendor.qti.data.slm@1.0.so
+702a3ed000-702a3f0000 r--p 00018000 fc:09 3654                           /vendor/lib64/vendor.qti.data.slm@1.0.so
+702a3f0000-702a3f1000 rw-p 0001a000 fc:09 3654                           /vendor/lib64/vendor.qti.data.slm@1.0.so
+702a400000-702c000000 ---p 00000000 00:00 0 
+702c04f000-702c063000 r--p 00000000 fc:09 3651                           /vendor/lib64/vendor.qti.data.factory@2.2.so
+702c063000-702c07b000 r-xp 00014000 fc:09 3651                           /vendor/lib64/vendor.qti.data.factory@2.2.so
+702c07b000-702c07e000 r--p 0002c000 fc:09 3651                           /vendor/lib64/vendor.qti.data.factory@2.2.so
+702c07e000-702c07f000 rw-p 0002e000 fc:09 3651                           /vendor/lib64/vendor.qti.data.factory@2.2.so
+702c08f000-702c090000 r--p 00000000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+702c090000-702c093000 r-xp 00001000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+702c093000-702c094000 r--p 00004000 fc:09 3436                           /vendor/lib64/libqmi_encdec.so
+702c0d8000-702c0e5000 r--p 00000000 fc:09 3653                           /vendor/lib64/vendor.qti.data.mwqem@1.0.so
+702c0e5000-702c0f0000 r-xp 0000d000 fc:09 3653                           /vendor/lib64/vendor.qti.data.mwqem@1.0.so
+702c0f0000-702c0f3000 r--p 00018000 fc:09 3653                           /vendor/lib64/vendor.qti.data.mwqem@1.0.so
+702c0f3000-702c0f4000 rw-p 0001a000 fc:09 3653                           /vendor/lib64/vendor.qti.data.mwqem@1.0.so
+702c100000-702c112000 r--p 00000000 fc:06 2602                           /system/lib64/libbase.so
+702c112000-702c13c000 r-xp 00012000 fc:06 2602                           /system/lib64/libbase.so
+702c13c000-702c13d000 r--p 0003c000 fc:06 2602                           /system/lib64/libbase.so
+702c13d000-702c13e000 rw-p 0003c000 fc:06 2602                           /system/lib64/libbase.so
+702c152000-702c165000 r--p 00000000 fc:09 3233                           /vendor/lib64/libdiag.so
+702c165000-702c186000 r-xp 00013000 fc:09 3233                           /vendor/lib64/libdiag.so
+702c186000-702c188000 r--p 00034000 fc:09 3233                           /vendor/lib64/libdiag.so
+702c188000-702c18d000 rw-p 00035000 fc:09 3233                           /vendor/lib64/libdiag.so
+702c18d000-702c3e9000 rw-p 00000000 00:00 0                              [anon:.bss]
+702c400000-702da00000 ---p 00000000 00:00 0 
+702da70000-702da73000 r--p 00000000 07:48 549                            /apex/com.android.vndk.v30/lib64/libhardware_legacy.so
+702da73000-702da75000 r-xp 00003000 07:48 549                            /apex/com.android.vndk.v30/lib64/libhardware_legacy.so
+702da75000-702da76000 r--p 00005000 07:48 549                            /apex/com.android.vndk.v30/lib64/libhardware_legacy.so
+702da76000-702da77000 rw-p 00005000 07:48 549                            /apex/com.android.vndk.v30/lib64/libhardware_legacy.so
+702da88000-702da8a000 r--p 00000000 fc:09 3578                           /vendor/lib64/libxml.so
+702da8a000-702da93000 r-xp 00002000 fc:09 3578                           /vendor/lib64/libxml.so
+702da93000-702da94000 r--p 0000b000 fc:09 3578                           /vendor/lib64/libxml.so
+702da94000-702da95000 rw-p 0000b000 fc:09 3578                           /vendor/lib64/libxml.so
+702dac6000-702dad9000 r--p 00000000 fc:09 3649                           /vendor/lib64/vendor.qti.data.factory@2.0.so
+702dad9000-702daf5000 r-xp 00013000 fc:09 3649                           /vendor/lib64/vendor.qti.data.factory@2.0.so
+702daf5000-702daf8000 r--p 0002f000 fc:09 3649                           /vendor/lib64/vendor.qti.data.factory@2.0.so
+702daf8000-702daf9000 rw-p 00031000 fc:09 3649                           /vendor/lib64/vendor.qti.data.factory@2.0.so
+702db03000-702db12000 r--p 00000000 07:48 521                            /apex/com.android.vndk.v30/lib64/libbase.so
+702db12000-702db3e000 r-xp 0000f000 07:48 521                            /apex/com.android.vndk.v30/lib64/libbase.so
+702db3e000-702db3f000 r--p 0003b000 07:48 521                            /apex/com.android.vndk.v30/lib64/libbase.so
+702db3f000-702db40000 rw-p 0003b000 07:48 521                            /apex/com.android.vndk.v30/lib64/libbase.so
+702db62000-702db64000 r--p 00000000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+702db64000-702db66000 r-xp 00002000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+702db66000-702db67000 r--p 00004000 fc:09 3431                           /vendor/lib64/libqmi_client_helper.so
+702dba0000-702dbb8000 r--p 00000000 fc:09 3684                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+702dbb8000-702dbe2000 r-xp 00018000 fc:09 3684                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+702dbe2000-702dbe6000 r--p 00042000 fc:09 3684                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+702dbe6000-702dbe7000 rw-p 00045000 fc:09 3684                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.server@1.0.so
+702dc3a000-702dc77000 r--p 00000000 07:48 523                            /apex/com.android.vndk.v30/lib64/libbinder.so
+702dc77000-702dcb1000 r-xp 0003d000 07:48 523                            /apex/com.android.vndk.v30/lib64/libbinder.so
+702dcb1000-702dcbe000 r--p 00077000 07:48 523                            /apex/com.android.vndk.v30/lib64/libbinder.so
+702dcbe000-702dcbf000 rw-p 00083000 07:48 523                            /apex/com.android.vndk.v30/lib64/libbinder.so
+702dcbf000-702dcc0000 rw-p 00000000 00:00 0                              [anon:.bss]
+702dcef000-702dcf0000 r--p 00000000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+702dcf0000-702dcf1000 r-xp 00001000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+702dcf1000-702dcf2000 r--p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+702dcf2000-702dcf3000 rw-p 00002000 fc:09 3433                           /vendor/lib64/libqmi_common_so.so
+702dd2b000-702dd44000 r--p 00000000 fc:09 3682                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+702dd44000-702dd6c000 r-xp 00019000 fc:09 3682                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+702dd6c000-702dd71000 r--p 00041000 fc:09 3682                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+702dd71000-702dd72000 rw-p 00045000 fc:09 3682                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so
+702ddaf000-702ddb0000 r--p 00000000 fc:06 3037                           /system/lib64/libvndksupport.so
+702ddb0000-702ddb1000 r-xp 00001000 fc:06 3037                           /system/lib64/libvndksupport.so
+702ddb1000-702ddb2000 r--p 00002000 fc:06 3037                           /system/lib64/libvndksupport.so
+702ddb2000-702ddb3000 rw-p 00002000 fc:06 3037                           /system/lib64/libvndksupport.so
+702ddc2000-702ddc3000 r--p 00000000 fc:09 3683                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+702ddc3000-702ddc5000 r-xp 00001000 fc:09 3683                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+702ddc5000-702ddc6000 r--p 00003000 fc:09 3683                           /vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so
+702de22000-702de2f000 r--p 00000000 fc:09 3785                           /vendor/lib64/vendor.qti.latency@2.0.so
+702de2f000-702de3a000 r-xp 0000d000 fc:09 3785                           /vendor/lib64/vendor.qti.latency@2.0.so
+702de3a000-702de3d000 r--p 00018000 fc:09 3785                           /vendor/lib64/vendor.qti.latency@2.0.so
+702de3d000-702de3e000 rw-p 0001a000 fc:09 3785                           /vendor/lib64/vendor.qti.latency@2.0.so
+702de65000-702de68000 r--p 00000000 07:48 565                            /apex/com.android.vndk.v30/lib64/libnetutils.so
+702de68000-702de6c000 r-xp 00003000 07:48 565                            /apex/com.android.vndk.v30/lib64/libnetutils.so
+702de6c000-702de6d000 r--p 00007000 07:48 565                            /apex/com.android.vndk.v30/lib64/libnetutils.so
+702de6d000-702de6e000 rw-p 00007000 07:48 565                            /apex/com.android.vndk.v30/lib64/libnetutils.so
+702de94000-702de95000 r--p 00000000 07:50 40                             /apex/com.android.runtime/lib64/bionic/libdl.so
+702de95000-702de96000 r-xp 00001000 07:50 40                             /apex/com.android.runtime/lib64/bionic/libdl.so
+702de96000-702de97000 r--p 00002000 07:50 40                             /apex/com.android.runtime/lib64/bionic/libdl.so
+702de97000-702de98000 ---p 00000000 00:00 0 
+702de98000-702de99000 r--p 00000000 00:00 0                              [anon:.bss]
+702ded4000-702dee7000 r--p 00000000 fc:09 3218                           /vendor/lib64/libcneapiclient.so
+702dee7000-702def8000 r-xp 00013000 fc:09 3218                           /vendor/lib64/libcneapiclient.so
+702def8000-702defa000 r--p 00024000 fc:09 3218                           /vendor/lib64/libcneapiclient.so
+702defa000-702defb000 rw-p 00025000 fc:09 3218                           /vendor/lib64/libcneapiclient.so
+702df35000-702df38000 r--p 00000000 fc:09 3434                           /vendor/lib64/libqmi_csi.so
+702df38000-702df3d000 r-xp 00003000 fc:09 3434                           /vendor/lib64/libqmi_csi.so
+702df3d000-702df3e000 r--p 00008000 fc:09 3434                           /vendor/lib64/libqmi_csi.so
+702df3e000-702df3f000 rw-p 00008000 fc:09 3434                           /vendor/lib64/libqmi_csi.so
+702df50000-702df64000 r--p 00000000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+702df64000-702df65000 r-xp 00014000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+702df65000-702df75000 r--p 00015000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+702df75000-702df76000 rw-p 00024000 fc:09 3439                           /vendor/lib64/libqmiservices.so
+702dfa2000-702dfaf000 r--p 00000000 07:48 510                            /apex/com.android.vndk.v30/lib64/android.system.suspend@1.0.so
+702dfaf000-702dfba000 r-xp 0000d000 07:48 510                            /apex/com.android.vndk.v30/lib64/android.system.suspend@1.0.so
+702dfba000-702dfbd000 r--p 00018000 07:48 510                            /apex/com.android.vndk.v30/lib64/android.system.suspend@1.0.so
+702dfbd000-702dfbe000 rw-p 0001a000 07:48 510                            /apex/com.android.vndk.v30/lib64/android.system.suspend@1.0.so
+702dfc4000-702dfd6000 r--p 00000000 07:50 42                             /apex/com.android.runtime/lib64/bionic/libm.so
+702dfd6000-702dffb000 r-xp 00012000 07:50 42                             /apex/com.android.runtime/lib64/bionic/libm.so
+702dffb000-702dffc000 r--p 00037000 07:50 42                             /apex/com.android.runtime/lib64/bionic/libm.so
+702dffc000-702dffd000 rw-p 00037000 07:50 42                             /apex/com.android.runtime/lib64/bionic/libm.so
+702e004000-702e047000 r--p 00000000 07:48 551                            /apex/com.android.vndk.v30/lib64/libhidlbase.so
+702e047000-702e09e000 r-xp 00043000 07:48 551                            /apex/com.android.vndk.v30/lib64/libhidlbase.so
+702e09e000-702e0a9000 r--p 0009a000 07:48 551                            /apex/com.android.vndk.v30/lib64/libhidlbase.so
+702e0a9000-702e0aa000 rw-p 000a4000 07:48 551                            /apex/com.android.vndk.v30/lib64/libhidlbase.so
+702e124000-702e126000 r--p 00000000 fc:09 3329                           /vendor/lib64/libmdmdetect.so
+702e126000-702e128000 r-xp 00002000 fc:09 3329                           /vendor/lib64/libmdmdetect.so
+702e128000-702e129000 r--p 00004000 fc:09 3329                           /vendor/lib64/libmdmdetect.so
+702e129000-702e12a000 rw-p 00004000 fc:09 3329                           /vendor/lib64/libmdmdetect.so
+702e145000-702e14c000 r--p 00000000 fc:09 3424                           /vendor/lib64/libqdi.so
+702e14c000-702e167000 r-xp 00007000 fc:09 3424                           /vendor/lib64/libqdi.so
+702e167000-702e16c000 r--p 00022000 fc:09 3424                           /vendor/lib64/libqdi.so
+702e16c000-702e16d000 rw-p 00026000 fc:09 3424                           /vendor/lib64/libqdi.so
+702e192000-702e199000 r--p 00000000 07:48 538                            /apex/com.android.vndk.v30/lib64/libcutils.so
+702e199000-702e1a1000 r-xp 00007000 07:48 538                            /apex/com.android.vndk.v30/lib64/libcutils.so
+702e1a1000-702e1a3000 r--p 0000f000 07:48 538                            /apex/com.android.vndk.v30/lib64/libcutils.so
+702e1a3000-702e1a4000 rw-p 00010000 07:48 538                            /apex/com.android.vndk.v30/lib64/libcutils.so
+702e1cb000-702e1d2000 r--p 00000000 fc:09 3250                           /vendor/lib64/libdsutils.so
+702e1d2000-702e1e2000 r-xp 00007000 fc:09 3250                           /vendor/lib64/libdsutils.so
+702e1e2000-702e1e4000 r--p 00017000 fc:09 3250                           /vendor/lib64/libdsutils.so
+702e1e4000-702e1e5000 rw-p 00018000 fc:09 3250                           /vendor/lib64/libdsutils.so
+702e200000-702ee00000 ---p 00000000 00:00 0 
+702ee4b000-702ee4e000 r--p 00000000 fc:06 2878                           /system/lib64/libnetd_client.so
+702ee4e000-702ee53000 r-xp 00003000 fc:06 2878                           /system/lib64/libnetd_client.so
+702ee53000-702ee54000 r--p 00008000 fc:06 2878                           /system/lib64/libnetd_client.so
+702ee54000-702ee55000 rw-p 00008000 fc:06 2878                           /system/lib64/libnetd_client.so
+702ee8f000-702eea2000 r--p 00000000 fc:09 3650                           /vendor/lib64/vendor.qti.data.factory@2.1.so
+702eea2000-702eeba000 r-xp 00013000 fc:09 3650                           /vendor/lib64/vendor.qti.data.factory@2.1.so
+702eeba000-702eebd000 r--p 0002b000 fc:09 3650                           /vendor/lib64/vendor.qti.data.factory@2.1.so
+702eebd000-702eebe000 rw-p 0002d000 fc:09 3650                           /vendor/lib64/vendor.qti.data.factory@2.1.so
+702eec1000-702eed7000 r--p 00000000 fc:09 3691                           /vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so
+702eed7000-702eef6000 r-xp 00016000 fc:09 3691                           /vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so
+702eef6000-702eefb000 r--p 00035000 fc:09 3691                           /vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so
+702eefb000-702eefc000 rw-p 00039000 fc:09 3691                           /vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so
+702ef3b000-702ef3d000 r--p 00000000 fc:06 2638                           /system/lib64/libcgrouprc.so
+702ef3d000-702ef3e000 r-xp 00002000 fc:06 2638                           /system/lib64/libcgrouprc.so
+702ef3e000-702ef3f000 r--p 00003000 fc:06 2638                           /system/lib64/libcgrouprc.so
+702ef3f000-702ef40000 rw-p 00003000 fc:06 2638                           /system/lib64/libcgrouprc.so
+702ef49000-702ef5f000 r--p 00000000 fc:09 3249                           /vendor/lib64/libdsi_netctrl.so
+702ef5f000-702efcc000 r-xp 00016000 fc:09 3249                           /vendor/lib64/libdsi_netctrl.so
+702efcc000-702efe0000 r--p 00083000 fc:09 3249                           /vendor/lib64/libdsi_netctrl.so
+702efe0000-702efe2000 rw-p 00096000 fc:09 3249                           /vendor/lib64/libdsi_netctrl.so
+702efe2000-702efed000 rw-p 00000000 00:00 0                              [anon:.bss]
+702f011000-702f022000 r--p 00000000 fc:09 3429                           /vendor/lib64/libqmi.so
+702f022000-702f052000 r-xp 00011000 fc:09 3429                           /vendor/lib64/libqmi.so
+702f052000-702f056000 r--p 00041000 fc:09 3429                           /vendor/lib64/libqmi.so
+702f056000-702f057000 rw-p 00044000 fc:09 3429                           /vendor/lib64/libqmi.so
+702f057000-702f1d7000 rw-p 00000000 00:00 0                              [anon:.bss]
+702f238000-702f283000 r--p 00000000 07:48 526                            /apex/com.android.vndk.v30/lib64/libc++.so
+702f283000-702f2dc000 r-xp 0004b000 07:48 526                            /apex/com.android.vndk.v30/lib64/libc++.so
+702f2dc000-702f2e3000 r--p 000a4000 07:48 526                            /apex/com.android.vndk.v30/lib64/libc++.so
+702f2e3000-702f2e4000 rw-p 000aa000 07:48 526                            /apex/com.android.vndk.v30/lib64/libc++.so
+702f2e4000-702f2e7000 rw-p 00000000 00:00 0                              [anon:.bss]
+702f2f1000-702f355000 rw-p 00000000 00:00 0                              [anon:linker_alloc]
+702f355000-702f364000 r--p 00000000 07:48 589                            /apex/com.android.vndk.v30/lib64/libutils.so
+702f364000-702f371000 r-xp 0000f000 07:48 589                            /apex/com.android.vndk.v30/lib64/libutils.so
+702f371000-702f372000 r--p 0001c000 07:48 589                            /apex/com.android.vndk.v30/lib64/libutils.so
+702f372000-702f373000 rw-p 0001c000 07:48 589                            /apex/com.android.vndk.v30/lib64/libutils.so
+702f384000-702f385000 r--p 00000000 fc:09 3300                           /vendor/lib64/libidl.so
+702f385000-702f388000 r-xp 00001000 fc:09 3300                           /vendor/lib64/libidl.so
+702f388000-702f389000 r--p 00004000 fc:09 3300                           /vendor/lib64/libidl.so
+702f3c1000-702f3dc000 r--p 00000000 fc:09 3687                           /vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+702f3dc000-702f3f7000 r-xp 0001b000 fc:09 3687                           /vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+702f3f7000-702f3fd000 r--p 00036000 fc:09 3687                           /vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+702f3fd000-702f3fe000 rw-p 0003b000 fc:09 3687                           /vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so
+702f400000-7030e00000 ---p 00000000 00:00 0 
+7030e41000-7030e58000 r--p 00000000 07:48 571                            /apex/com.android.vndk.v30/lib64/libprocessgroup.so
+7030e58000-7030e7d000 r-xp 00017000 07:48 571                            /apex/com.android.vndk.v30/lib64/libprocessgroup.so
+7030e7d000-7030e7f000 r--p 0003c000 07:48 571                            /apex/com.android.vndk.v30/lib64/libprocessgroup.so
+7030e7f000-7030e80000 rw-p 0003d000 07:48 571                            /apex/com.android.vndk.v30/lib64/libprocessgroup.so
+7030ea6000-7030eaa000 r--p 00000000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+7030eaa000-7030eb2000 r-xp 00004000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+7030eb2000-7030eb3000 r--p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+7030eb3000-7030eb4000 rw-p 0000c000 fc:09 3430                           /vendor/lib64/libqmi_cci.so
+7030ef3000-7030ef4000 r--p 00000000 fc:06 2560                           /system/lib64/libandroid_net.so
+7030ef4000-7030ef5000 r-xp 00001000 fc:06 2560                           /system/lib64/libandroid_net.so
+7030ef5000-7030ef6000 r--p 00002000 fc:06 2560                           /system/lib64/libandroid_net.so
+7030f16000-7030f1b000 r--p 00000000 fc:06 2810                           /system/lib64/liblog.so
+7030f1b000-7030f25000 r-xp 00005000 fc:06 2810                           /system/lib64/liblog.so
+7030f25000-7030f26000 r--p 0000f000 fc:06 2810                           /system/lib64/liblog.so
+7030f26000-7030f27000 rw-p 0000f000 fc:06 2810                           /system/lib64/liblog.so
+7030f54000-7030f57000 r--p 00000000 fc:09 3573                           /vendor/lib64/libwpa_client.so
+7030f57000-7030f5a000 r-xp 00003000 fc:09 3573                           /vendor/lib64/libwpa_client.so
+7030f5a000-7030f5b000 r--p 00006000 fc:09 3573                           /vendor/lib64/libwpa_client.so
+7030f5b000-7030f5c000 rw-p 00006000 fc:09 3573                           /vendor/lib64/libwpa_client.so
+7030f92000-7030f96000 r--p 00000000 fc:09 3225                           /vendor/lib64/libconfigdb.so
+7030f96000-7030f99000 r-xp 00004000 fc:09 3225                           /vendor/lib64/libconfigdb.so
+7030f99000-7030f9a000 r--p 00007000 fc:09 3225                           /vendor/lib64/libconfigdb.so
+7030f9a000-7030f9b000 rw-p 00007000 fc:09 3225                           /vendor/lib64/libconfigdb.so
+7030fc7000-7030fda000 r--p 00000000 fc:09 3780                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
+7030fda000-7030fed000 r-xp 00013000 fc:09 3780                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
+7030fed000-7030ff1000 r--p 00026000 fc:09 3780                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
+7030ff1000-7030ff2000 rw-p 00029000 fc:09 3780                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
+703100c000-7031056000 r--p 00000000 fc:06 2625                           /system/lib64/libc++.so
+7031056000-70310b4000 r-xp 0004a000 fc:06 2625                           /system/lib64/libc++.so
+70310b4000-70310bb000 r--p 000a8000 fc:06 2625                           /system/lib64/libc++.so
+70310bb000-70310bc000 rw-p 000ae000 fc:06 2625                           /system/lib64/libc++.so
+70310bc000-70310bf000 rw-p 00000000 00:00 0                              [anon:.bss]
+70310c5000-70310cc000 r--p 00000000 fc:09 3381                           /vendor/lib64/libnetmgr.so
+70310cc000-70310ed000 r-xp 00007000 fc:09 3381                           /vendor/lib64/libnetmgr.so
+70310ed000-70310f0000 r--p 00028000 fc:09 3381                           /vendor/lib64/libnetmgr.so
+70310f0000-70310f1000 rw-p 0002a000 fc:09 3381                           /vendor/lib64/libnetmgr.so
+7031119000-703112a000 r--p 00000000 fc:09 3779                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+703112a000-703113a000 r-xp 00011000 fc:09 3779                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+703113a000-703113e000 r--p 00021000 fc:09 3779                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+703113e000-703113f000 rw-p 00024000 fc:09 3779                           /vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+7031140000-7031144000 r--p 00000000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+7031144000-703114a000 r-xp 00004000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+703114a000-703114b000 r--p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+703114b000-703114c000 rw-p 0000a000 fc:09 3432                           /vendor/lib64/libqmi_client_qmux.so
+703114c000-7031180000 rw-p 00000000 00:00 0                              [anon:.bss]
+703119b000-703119c000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70311d7000-70311d8000 ---p 00000000 00:00 0 
+70311d8000-70311e0000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+70311e0000-70311e1000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70311e1000-7031201000 r--s 00000000 00:11 21746                          /dev/__properties__/u:object_r:hwservicemanager_prop:s0
+7031201000-7031221000 r--s 00000000 00:11 21880                          /dev/__properties__/u:object_r:vendor_cnd_prop:s0
+703123c000-703123d000 ---p 00000000 00:00 0 
+703123d000-7031245000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+7031245000-7031246000 ---p 00000000 00:00 0 
+7031246000-703124e000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+703124e000-703124f000 ---p 00000000 00:00 0 
+703124f000-7031257000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+7031257000-7031258000 ---p 00000000 00:00 0 
+7031258000-7031260000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+7031260000-7031280000 r--s 00000000 00:11 21802                          /dev/__properties__/u:object_r:property_service_version_prop:s0
+7031280000-7031281000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+7031281000-7031282000 ---p 00000000 00:00 0 
+7031282000-703128a000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+703128a000-703128b000 ---p 00000000 00:00 0 
+703128b000-7031293000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+7031293000-70312b3000 r--s 00000000 00:11 31434                          /dev/__properties__/u:object_r:vendor_ims_prop:s0
+70312b3000-70312d3000 r--s 00000000 00:11 21727                          /dev/__properties__/u:object_r:exported_system_prop:s0
+70312d3000-70312f3000 r--s 00000000 00:11 21909                          /dev/__properties__/u:object_r:vendor_default_prop:s0
+70312f3000-7031313000 r--s 00000000 00:11 21744                          /dev/__properties__/u:object_r:heapprofd_prop:s0
+7031313000-7031333000 r--s 00000000 00:11 21758                          /dev/__properties__/u:object_r:libc_debug_prop:s0
+7031333000-7031353000 r--s 00000000 00:11 21644                          /dev/__properties__/u:object_r:build_prop:s0
+7031353000-7031373000 r--s 00000000 00:11 21739                          /dev/__properties__/u:object_r:gwp_asan_prop:s0
+7031373000-7031393000 r--s 00000000 00:11 21685                          /dev/__properties__/u:object_r:debug_prop:s0
+7031393000-70313b3000 r--s 00000000 00:11 31539                          /dev/__properties__/properties_serial
+70313b3000-70313cf000 r--s 00000000 00:11 21610                          /dev/__properties__/property_info
+70313cf000-70313d0000 ---p 00000000 00:00 0 
+70313d0000-70313d4000 rw-p 00000000 00:00 0                              [anon:stack_and_tls:main]
+70313d4000-70313d5000 ---p 00000000 00:00 0 
+70313d5000-70313d6000 ---p 00000000 00:00 0 
+70313d6000-70313de000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+70313de000-70313df000 ---p 00000000 00:00 0 
+70313df000-70313e7000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+70313e7000-70313e8000 ---p 00000000 00:00 0 
+70313e8000-70313f0000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+70313f0000-7031410000 r--s 00000000 00:11 21764                          /dev/__properties__/u:object_r:log_tag_prop:s0
+7031410000-7031411000 ---p 00000000 00:00 0 
+7031411000-7031419000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+7031419000-7031439000 r--s 00000000 00:11 31495                          /dev/__properties__/u:object_r:vendor_socket_hook_prop:s0
+7031439000-703149d000 r--p 00000000 00:00 0                              [anon:linker_alloc]
+703149d000-70314a5000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70314a5000-70314a6000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_lob]
+70314a6000-70314a8000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70314aa000-70314ab000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70314ab000-70314b0000 rw-p 00000000 00:00 0                              [anon:System property context nodes]
+70314b0000-7031514000 r--p 00000000 00:00 0                              [anon:linker_alloc]
+7031514000-7031517000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_lob]
+7031518000-703151a000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+703151c000-703151e000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+7031522000-7031526000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+703152a000-703152d000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+703152d000-703154d000 r--s 00000000 00:11 31523                          /dev/__properties__/u:object_r:vndk_prop:s0
+703154d000-7031550000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+7031550000-7031570000 r--s 00000000 00:11 21685                          /dev/__properties__/u:object_r:debug_prop:s0
+7031570000-7031571000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+7031571000-7031591000 r--s 00000000 00:11 21622                          /dev/__properties__/u:object_r:arm64_memtag_prop:s0
+7031591000-7031592000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+7031592000-70315f6000 r--p 00000000 00:00 0                              [anon:linker_alloc]
+70315f6000-7031616000 r--s 00000000 00:11 21644                          /dev/__properties__/u:object_r:build_prop:s0
+7031616000-7031617000 ---p 00000000 00:00 0 
+7031617000-703161f000 rw-p 00000000 00:00 0 
+703161f000-7031620000 ---p 00000000 00:00 0 
+7031620000-7031640000 r--s 00000000 00:11 31539                          /dev/__properties__/properties_serial
+7031640000-7031645000 rw-p 00000000 00:00 0                              [anon:System property context nodes]
+7031645000-7031661000 r--s 00000000 00:11 21610                          /dev/__properties__/property_info
+7031661000-70316c5000 r--p 00000000 00:00 0                              [anon:linker_alloc]
+70316c5000-70316c7000 rw-p 00000000 00:00 0                              [anon:bionic_alloc_small_objects]
+70316c7000-70316c8000 r--p 00000000 00:00 0                              [anon:atexit handlers]
+70316c8000-703214c000 ---p 00000000 00:00 0 
+703214c000-703214e000 rw-p 00000000 00:00 0 
+703214e000-70326c8000 ---p 00000000 00:00 0 
+70326c8000-70326c9000 ---p 00000000 00:00 0 
+70326c9000-70326d1000 rw-p 00000000 00:00 0                              [anon:thread signal stack]
+70326d1000-70326d2000 rw-p 00000000 00:00 0                              [anon:arc4random data]
+70326d3000-70326d4000 r--p 00000000 00:00 0                              [anon:atexit handlers]
+70326d4000-70326d5000 rw-p 00000000 00:00 0                              [anon:arc4random data]
+70326d5000-70326d6000 r--p 00000000 00:00 0                              [vvar]
+70326d6000-70326d7000 r-xp 00000000 00:00 0                              [vdso]
+70326d7000-703270f000 r--p 00000000 07:50 16                             /apex/com.android.runtime/bin/linker64
+703270f000-70327f9000 r-xp 00038000 07:50 16                             /apex/com.android.runtime/bin/linker64
+70327f9000-7032801000 r--p 00122000 07:50 16                             /apex/com.android.runtime/bin/linker64
+7032801000-7032803000 rw-p 00129000 07:50 16                             /apex/com.android.runtime/bin/linker64
+7032803000-703280c000 rw-p 00000000 00:00 0                              [anon:.bss]
+703280c000-703280d000 r--p 00000000 00:00 0                              [anon:.bss]
+703280d000-703280f000 rw-p 00000000 00:00 0                              [anon:.bss]
+7fe97f3000-7fe9814000 rw-p 00000000 00:00 0                              [stack]

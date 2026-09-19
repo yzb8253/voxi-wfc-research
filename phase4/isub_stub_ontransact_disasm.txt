@@ -1,0 +1,658 @@
+dex=classes2.dex
+onTransact code_off=0x4d6bdc regs=22 ins=5 outs=6 tries=0
+0000: op_08                  
+0001: return-object          v0
+0002: op_02                  
+0003: const/4                v0, #0
+0004: op_08                  
+0005: const/16               v0, #2312
+0007: const                  
+0008: const-string           v10, string@40788 "com.android.internal.telephony.ISub"
+000a: const/4                v11, #1
+000b: if-lt                  v7, v11, -> 0015
+000d: const                  
+000e: op_ff                  
+000f: op_ff                  
+0010: if-gt                  v7, v0, -> 0015
+0012: invoke-virtual         {v8, v10}, method@57310 void android.os.Parcel.enforceInterface(java.lang.String)
+0015: op_2b                  
+0016: op_9f                  
+0017: op_00                  
+0018: op_2b                  
+0019: op_a2                  
+001a: op_00                  
+001b: invoke-super/range     {v17..v21}, method@57089 boolean android.os.Binder.onTransact(int,android.os.Parcel,android.os.Parcel,int)
+001e: move-result            v0
+001f: return                 v0
+0020: invoke-virtual         {v9, v10}, method@57378 void android.os.Parcel.writeString(java.lang.String)
+0023: return                 v11
+0024: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0027: move-result            v0
+0028: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+002b: move-result            v1
+002c: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+002f: move-result-object     v2
+0030: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0033: invoke-virtual         {v6, v0, v1, v2}, method@59545 int com.android.internal.telephony.ISub$Stub.setUsageSetting(int,int,java.lang.String)
+0036: move-result            v3
+0037: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+003a: invoke-virtual         {v9, v3}, method@57365 void android.os.Parcel.writeInt(int)
+003d: goto/16                -> 04b3
+003f: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0042: move-result            v12
+0043: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0046: move-result            v13
+0047: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+004a: move-result-object     v14
+004b: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+004e: move-result-object     v15
+004f: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0052: move-result-object     v16
+0053: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0056: op_08                  
+0057: return-object          v0
+0058: op_01                  
+0059: op_01                  
+005a: op_07                  
+005b: op_07                  
+005c: op_08                  
+005d: return-wide            v0
+005e: invoke-virtual/range   {v0..v5}, method@59540 void com.android.internal.telephony.ISub$Stub.setPhoneNumber(int,int,java.lang.String,java.lang.String,java.lang.String)
+0061: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0064: goto/16                -> 04b3
+0066: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0069: move-result            v0
+006a: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+006d: move-result-object     v1
+006e: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0071: move-result-object     v2
+0072: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0075: invoke-virtual         {v6, v0, v1, v2}, method@59516 java.lang.String com.android.internal.telephony.ISub$Stub.getPhoneNumberFromFirstAvailableSource(int,java.lang.String,java.lang.String)
+0078: move-result-object     v3
+0079: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+007c: invoke-virtual         {v9, v3}, method@57378 void android.os.Parcel.writeString(java.lang.String)
+007f: goto/16                -> 04b3
+0081: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0084: move-result            v0
+0085: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0088: move-result            v1
+0089: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+008c: move-result-object     v2
+008d: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0090: move-result-object     v3
+0091: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0094: invoke-virtual         {v6, v0, v1, v2, v3}, method@59515 java.lang.String com.android.internal.telephony.ISub$Stub.getPhoneNumber(int,int,java.lang.String,java.lang.String)
+0097: move-result-object     v4
+0098: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+009b: invoke-virtual         {v9, v4}, method@57378 void android.os.Parcel.writeString(java.lang.String)
+009e: goto/16                -> 04b3
+00a0: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+00a3: move-result-object     v0
+00a4: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+00a7: move-result            v1
+00a8: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+00ab: invoke-virtual         {v6, v0, v1}, method@59535 int com.android.internal.telephony.ISub$Stub.setDeviceToDeviceStatusSharingContacts(java.lang.String,int)
+00ae: move-result            v2
+00af: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+00b2: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+00b5: goto/16                -> 04b3
+00b7: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+00ba: move-result            v0
+00bb: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+00be: move-result            v1
+00bf: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+00c2: invoke-virtual         {v6, v0, v1}, method@59534 int com.android.internal.telephony.ISub$Stub.setDeviceToDeviceStatusSharing(int,int)
+00c5: move-result            v2
+00c6: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+00c9: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+00cc: goto/16                -> 04b3
+00ce: invoke-virtual/range   {v19..v19}, method@57317 boolean android.os.Parcel.readBoolean()
+00d1: move-result            v0
+00d2: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+00d5: move-result            v1
+00d6: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+00d9: invoke-virtual         {v6, v0, v1}, method@59544 int com.android.internal.telephony.ISub$Stub.setUiccApplicationsEnabled(boolean,int)
+00dc: move-result            v2
+00dd: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+00e0: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+00e3: goto/16                -> 04b3
+00e5: invoke-virtual/range   {v17..v17}, method@59491 boolean com.android.internal.telephony.ISub$Stub.canDisablePhysicalSubscription()
+00e8: move-result            v0
+00e9: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+00ec: invoke-virtual         {v9, v0}, method@57353 void android.os.Parcel.writeBoolean(boolean)
+00ef: goto/16                -> 04b3
+00f1: invoke-virtual/range   {v17..v17}, method@59495 int com.android.internal.telephony.ISub$Stub.getActiveDataSubscriptionId()
+00f4: move-result            v0
+00f5: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+00f8: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+00fb: goto/16                -> 04b3
+00fd: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0100: move-result            v0
+0101: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0104: move-result-object     v1
+0105: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0108: move-result-object     v2
+0109: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+010c: invoke-virtual         {v6, v0, v1, v2}, method@59524 boolean com.android.internal.telephony.ISub$Stub.isActiveSubId(int,java.lang.String,java.lang.String)
+010f: move-result            v3
+0110: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0113: invoke-virtual         {v9, v3}, method@57353 void android.os.Parcel.writeBoolean(boolean)
+0116: goto/16                -> 04b3
+0118: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+011b: move-result            v0
+011c: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+011f: invoke-virtual         {v6, v0}, method@59518 int com.android.internal.telephony.ISub$Stub.getSimStateForSlotIndex(int)
+0122: move-result            v1
+0123: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0126: invoke-virtual         {v9, v1}, method@57365 void android.os.Parcel.writeInt(int)
+0129: goto/16                -> 04b3
+012b: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+012e: move-result            v0
+012f: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0132: invoke-virtual         {v6, v0}, method@59511 int com.android.internal.telephony.ISub$Stub.getEnabledSubscriptionId(int)
+0135: move-result            v1
+0136: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0139: invoke-virtual         {v9, v1}, method@57365 void android.os.Parcel.writeInt(int)
+013c: goto/16                -> 04b3
+013e: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0141: move-result            v0
+0142: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0145: invoke-virtual         {v6, v0}, method@59525 boolean com.android.internal.telephony.ISub$Stub.isSubscriptionEnabled(int)
+0148: move-result            v1
+0149: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+014c: invoke-virtual         {v9, v1}, method@57353 void android.os.Parcel.writeBoolean(boolean)
+014f: goto/16                -> 04b3
+0151: invoke-virtual/range   {v19..v19}, method@57317 boolean android.os.Parcel.readBoolean()
+0154: move-result            v0
+0155: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0158: move-result            v1
+0159: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+015c: invoke-virtual         {v6, v0, v1}, method@59542 boolean com.android.internal.telephony.ISub$Stub.setSubscriptionEnabled(boolean,int)
+015f: move-result            v2
+0160: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0163: invoke-virtual         {v9, v2}, method@57353 void android.os.Parcel.writeBoolean(boolean)
+0166: goto/16                -> 04b3
+0168: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+016b: move-result            v0
+016c: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+016f: move-result-object     v1
+0170: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0173: move-result-object     v2
+0174: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0177: move-result-object     v3
+0178: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+017b: invoke-virtual         {v6, v0, v1, v2, v3}, method@59521 java.lang.String com.android.internal.telephony.ISub$Stub.getSubscriptionProperty(int,java.lang.String,java.lang.String,java.lang.String)
+017e: move-result-object     v4
+017f: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0182: invoke-virtual         {v9, v4}, method@57378 void android.os.Parcel.writeString(java.lang.String)
+0185: goto/16                -> 04b3
+0187: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+018a: move-result            v0
+018b: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+018e: move-result-object     v1
+018f: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0192: move-result-object     v2
+0193: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0196: invoke-virtual         {v6, v0, v1, v2}, method@59543 int com.android.internal.telephony.ISub$Stub.setSubscriptionProperty(int,java.lang.String,java.lang.String)
+0199: move-result            v3
+019a: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+019d: invoke-virtual         {v9, v3}, method@57365 void android.os.Parcel.writeInt(int)
+01a0: goto/16                -> 04b3
+01a2: invoke-virtual/range   {v19..v19}, method@57317 boolean android.os.Parcel.readBoolean()
+01a5: move-result            v0
+01a6: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+01a9: invoke-virtual         {v6, v0}, method@59496 int[] com.android.internal.telephony.ISub$Stub.getActiveSubIdList(boolean)
+01ac: move-result-object     v1
+01ad: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01b0: invoke-virtual         {v9, v1}, method@57366 void android.os.Parcel.writeIntArray(int[])
+01b3: goto/16                -> 04b3
+01b5: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+01b8: move-result            v0
+01b9: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+01bc: invoke-virtual         {v6, v0}, method@59532 void com.android.internal.telephony.ISub$Stub.setDefaultSmsSubId(int)
+01bf: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01c2: goto/16                -> 04b3
+01c4: invoke-virtual/range   {v17..v17}, method@59507 int com.android.internal.telephony.ISub$Stub.getDefaultSmsSubId()
+01c7: move-result            v0
+01c8: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01cb: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+01ce: goto/16                -> 04b3
+01d0: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+01d3: move-result            v0
+01d4: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+01d7: invoke-virtual         {v6, v0}, method@59533 void com.android.internal.telephony.ISub$Stub.setDefaultVoiceSubId(int)
+01da: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01dd: goto/16                -> 04b3
+01df: invoke-virtual/range   {v17..v17}, method@59510 int com.android.internal.telephony.ISub$Stub.getDefaultVoiceSubId()
+01e2: move-result            v0
+01e3: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01e6: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+01e9: goto/16                -> 04b3
+01eb: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+01ee: move-result            v0
+01ef: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+01f2: invoke-virtual         {v6, v0}, method@59531 void com.android.internal.telephony.ISub$Stub.setDefaultDataSubId(int)
+01f5: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+01f8: goto/16                -> 04b3
+01fa: invoke-virtual/range   {v17..v17}, method@59506 int com.android.internal.telephony.ISub$Stub.getDefaultDataSubId()
+01fd: move-result            v0
+01fe: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0201: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+0204: goto/16                -> 04b3
+0206: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0209: move-result            v0
+020a: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+020d: invoke-virtual         {v6, v0}, method@59514 int com.android.internal.telephony.ISub$Stub.getPhoneId(int)
+0210: move-result            v1
+0211: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0214: invoke-virtual         {v9, v1}, method@57365 void android.os.Parcel.writeInt(int)
+0217: goto/16                -> 04b3
+0219: invoke-virtual/range   {v17..v17}, method@59492 int com.android.internal.telephony.ISub$Stub.clearSubInfo()
+021c: move-result            v0
+021d: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0220: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+0223: goto/16                -> 04b3
+0225: invoke-virtual/range   {v17..v17}, method@59508 int com.android.internal.telephony.ISub$Stub.getDefaultSubId()
+0228: move-result            v0
+0229: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+022c: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+022f: goto/16                -> 04b3
+0231: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0234: move-result            v0
+0235: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0238: invoke-virtual         {v6, v0}, method@59520 int[] com.android.internal.telephony.ISub$Stub.getSubId(int)
+023b: move-result-object     v1
+023c: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+023f: invoke-virtual         {v9, v1}, method@57366 void android.os.Parcel.writeIntArray(int[])
+0242: goto/16                -> 04b3
+0244: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0247: move-result            v0
+0248: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+024b: invoke-virtual         {v6, v0}, method@59519 int com.android.internal.telephony.ISub$Stub.getSlotIndex(int)
+024e: move-result            v1
+024f: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0252: invoke-virtual         {v9, v1}, method@57365 void android.os.Parcel.writeInt(int)
+0255: goto/16                -> 04b3
+0257: sget-object            
+0258: invoke-interface/range {v57346..v57463}, method@8302 long android.hardware.location.ContextHubIntentEvent.getLongExtraOrThrow(android.content.Intent,java.lang.String)
+025b: op_08                  
+025c: move-result-object     v0
+025d: check-cast             
+025e: op_0d                  
+025f: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0262: move-result-object     v1
+0263: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0266: move-result-object     v2
+0267: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+026a: invoke-virtual         {v6, v0, v1, v2}, method@59522 java.util.List com.android.internal.telephony.ISub$Stub.getSubscriptionsInGroup(android.os.ParcelUuid,java.lang.String,java.lang.String)
+026d: move-result-object     v3
+026e: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0271: invoke-virtual         {v9, v3}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+0274: goto/16                -> 04b3
+0276: invoke-virtual/range   {v19..v19}, method@57299 int[] android.os.Parcel.createIntArray()
+0279: move-result-object     v0
+027a: sget-object            
+027b: invoke-interface/range {v57346..v57463}, method@8302 long android.hardware.location.ContextHubIntentEvent.getLongExtraOrThrow(android.content.Intent,java.lang.String)
+027e: op_18                  
+027f: move-result-object     v1
+0280: check-cast             
+0281: op_0d                  
+0282: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0285: move-result-object     v2
+0286: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0289: invoke-virtual         {v6, v0, v1, v2}, method@59487 void com.android.internal.telephony.ISub$Stub.addSubscriptionsIntoGroup(int[],android.os.ParcelUuid,java.lang.String)
+028c: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+028f: goto/16                -> 04b3
+0291: invoke-virtual/range   {v19..v19}, method@57299 int[] android.os.Parcel.createIntArray()
+0294: move-result-object     v0
+0295: sget-object            
+0296: invoke-interface/range {v57346..v57463}, method@8302 long android.hardware.location.ContextHubIntentEvent.getLongExtraOrThrow(android.content.Intent,java.lang.String)
+0299: op_18                  
+029a: move-result-object     v1
+029b: check-cast             
+029c: op_0d                  
+029d: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+02a0: move-result-object     v2
+02a1: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+02a4: invoke-virtual         {v6, v0, v1, v2}, method@59528 void com.android.internal.telephony.ISub$Stub.removeSubscriptionsFromGroup(int[],android.os.ParcelUuid,java.lang.String)
+02a7: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+02aa: goto/16                -> 04b3
+02ac: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+02af: move-result-object     v0
+02b0: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+02b3: move-result-object     v1
+02b4: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+02b7: invoke-virtual         {v6, v0, v1}, method@59513 java.util.List com.android.internal.telephony.ISub$Stub.getOpportunisticSubscriptions(java.lang.String,java.lang.String)
+02ba: move-result-object     v2
+02bb: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+02be: invoke-virtual         {v9, v2}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+02c1: goto/16                -> 04b3
+02c3: invoke-virtual/range   {v17..v17}, method@59517 int com.android.internal.telephony.ISub$Stub.getPreferredDataSubscriptionId()
+02c6: move-result            v0
+02c7: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+02ca: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+02cd: goto/16                -> 04b3
+02cf: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+02d2: move-result            v0
+02d3: invoke-virtual/range   {v19..v19}, method@57317 boolean android.os.Parcel.readBoolean()
+02d6: move-result            v1
+02d7: invoke-virtual/range   {v19..v19}, method@57343 android.os.IBinder android.os.Parcel.readStrongBinder()
+02da: move-result-object     v2
+02db: invoke-static          {v2}, method@59146 com.android.internal.telephony.ISetOpportunisticDataCallback com.android.internal.telephony.ISetOpportunisticDataCallback$Stub.asInterface(android.os.IBinder)
+02de: move-result-object     v2
+02df: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+02e2: invoke-virtual         {v6, v0, v1, v2}, method@59541 void com.android.internal.telephony.ISub$Stub.setPreferredDataSubscriptionId(int,boolean,com.android.internal.telephony.ISetOpportunisticDataCallback)
+02e5: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+02e8: goto/16                -> 04b3
+02ea: invoke-virtual/range   {v19..v19}, method@57299 int[] android.os.Parcel.createIntArray()
+02ed: move-result-object     v0
+02ee: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+02f1: move-result-object     v1
+02f2: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+02f5: invoke-virtual         {v6, v0, v1}, method@59493 android.os.ParcelUuid com.android.internal.telephony.ISub$Stub.createSubscriptionGroup(int[],java.lang.String)
+02f8: move-result-object     v2
+02f9: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+02fc: invoke-virtual         {v9, v2, v11}, method@57387 void android.os.Parcel.writeTypedObject(android.os.Parcelable,int)
+02ff: goto/16                -> 04b3
+0301: invoke-virtual/range   {v19..v19}, method@57317 boolean android.os.Parcel.readBoolean()
+0304: move-result            v0
+0305: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0308: move-result            v1
+0309: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+030c: move-result-object     v2
+030d: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0310: invoke-virtual         {v6, v0, v1, v2}, method@59539 int com.android.internal.telephony.ISub$Stub.setOpportunistic(boolean,int,java.lang.String)
+0313: move-result            v3
+0314: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0317: invoke-virtual         {v9, v3}, method@57365 void android.os.Parcel.writeInt(int)
+031a: goto/16                -> 04b3
+031c: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+031f: move-result            v0
+0320: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0323: move-result            v1
+0324: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0327: invoke-virtual         {v6, v0, v1}, method@59530 int com.android.internal.telephony.ISub$Stub.setDataRoaming(int,int)
+032a: move-result            v2
+032b: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+032e: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+0331: goto/16                -> 04b3
+0333: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0336: move-result-object     v0
+0337: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+033a: move-result            v1
+033b: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+033e: invoke-virtual         {v6, v0, v1}, method@59537 int com.android.internal.telephony.ISub$Stub.setDisplayNumber(java.lang.String,int)
+0341: move-result            v2
+0342: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0345: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+0348: goto/16                -> 04b3
+034a: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+034d: move-result-object     v0
+034e: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0351: move-result            v1
+0352: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0355: move-result            v2
+0356: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0359: invoke-virtual         {v6, v0, v1, v2}, method@59536 int com.android.internal.telephony.ISub$Stub.setDisplayNameUsingSrc(java.lang.String,int,int)
+035c: move-result            v3
+035d: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0360: invoke-virtual         {v9, v3}, method@57365 void android.os.Parcel.writeInt(int)
+0363: goto/16                -> 04b3
+0365: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0368: move-result            v0
+0369: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+036c: move-result            v1
+036d: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0370: invoke-virtual         {v6, v0, v1}, method@59538 int com.android.internal.telephony.ISub$Stub.setIconTint(int,int)
+0373: move-result            v2
+0374: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0377: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+037a: goto/16                -> 04b3
+037c: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+037f: move-result-object     v0
+0380: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0383: move-result            v1
+0384: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0387: invoke-virtual         {v6, v0, v1}, method@59527 int com.android.internal.telephony.ISub$Stub.removeSubInfo(java.lang.String,int)
+038a: move-result            v2
+038b: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+038e: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+0391: goto/16                -> 04b3
+0393: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0396: move-result-object     v0
+0397: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+039a: move-result-object     v1
+039b: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+039e: move-result            v2
+039f: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+03a2: move-result            v3
+03a3: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+03a6: invoke-virtual         {v6, v0, v1, v2, v3}, method@59485 int com.android.internal.telephony.ISub$Stub.addSubInfo(java.lang.String,java.lang.String,int,int)
+03a9: move-result            v4
+03aa: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+03ad: invoke-virtual         {v9, v4}, method@57365 void android.os.Parcel.writeInt(int)
+03b0: goto/16                -> 04b3
+03b2: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+03b5: move-result-object     v0
+03b6: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+03b9: move-result            v1
+03ba: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+03bd: invoke-virtual         {v6, v0, v1}, method@59486 int com.android.internal.telephony.ISub$Stub.addSubInfoRecord(java.lang.String,int)
+03c0: move-result            v2
+03c1: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+03c4: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+03c7: goto/16                -> 04b3
+03c9: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+03cc: move-result            v0
+03cd: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+03d0: invoke-virtual         {v6, v0}, method@59529 void com.android.internal.telephony.ISub$Stub.requestEmbeddedSubscriptionInfoListRefresh(int)
+03d3: goto/16                -> 04b3
+03d5: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+03d8: move-result-object     v0
+03d9: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+03dc: invoke-virtual         {v6, v0}, method@59494 java.util.List com.android.internal.telephony.ISub$Stub.getAccessibleSubscriptionInfoList(java.lang.String)
+03df: move-result-object     v1
+03e0: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+03e3: invoke-virtual         {v9, v1}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+03e6: goto/16                -> 04b3
+03e8: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+03eb: move-result-object     v0
+03ec: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+03ef: move-result-object     v1
+03f0: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+03f3: invoke-virtual         {v6, v0, v1}, method@59505 java.util.List com.android.internal.telephony.ISub$Stub.getAvailableSubscriptionInfoList(java.lang.String,java.lang.String)
+03f6: move-result-object     v2
+03f7: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+03fa: invoke-virtual         {v9, v2}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+03fd: goto/16                -> 04b3
+03ff: invoke-virtual/range   {v17..v17}, method@59498 int com.android.internal.telephony.ISub$Stub.getActiveSubInfoCountMax()
+0402: move-result            v0
+0403: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0406: invoke-virtual         {v9, v0}, method@57365 void android.os.Parcel.writeInt(int)
+0409: goto/16                -> 04b3
+040b: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+040e: move-result-object     v0
+040f: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0412: move-result-object     v1
+0413: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0416: invoke-virtual         {v6, v0, v1}, method@59497 int com.android.internal.telephony.ISub$Stub.getActiveSubInfoCount(java.lang.String,java.lang.String)
+0419: move-result            v2
+041a: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+041d: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+0420: goto/16                -> 04b3
+0422: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0425: move-result-object     v0
+0426: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0429: move-result-object     v1
+042a: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+042d: invoke-virtual         {v6, v0, v1}, method@59502 java.util.List com.android.internal.telephony.ISub$Stub.getActiveSubscriptionInfoList(java.lang.String,java.lang.String)
+0430: move-result-object     v2
+0431: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0434: invoke-virtual         {v9, v2}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+0437: goto/16                -> 04b3
+0439: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+043c: move-result            v0
+043d: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0440: move-result-object     v1
+0441: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0444: move-result-object     v2
+0445: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0448: invoke-virtual         {v6, v0, v1, v2}, method@59501 android.telephony.SubscriptionInfo com.android.internal.telephony.ISub$Stub.getActiveSubscriptionInfoForSimSlotIndex(int,java.lang.String,java.lang.String)
+044b: move-result-object     v3
+044c: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+044f: invoke-virtual         {v9, v3, v11}, method@57387 void android.os.Parcel.writeTypedObject(android.os.Parcelable,int)
+0452: goto                   -> 04b3
+0453: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0456: move-result-object     v0
+0457: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+045a: move-result-object     v1
+045b: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+045e: move-result-object     v2
+045f: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0462: invoke-virtual         {v6, v0, v1, v2}, method@59500 android.telephony.SubscriptionInfo com.android.internal.telephony.ISub$Stub.getActiveSubscriptionInfoForIccId(java.lang.String,java.lang.String,java.lang.String)
+0465: move-result-object     v3
+0466: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0469: invoke-virtual         {v9, v3, v11}, method@57387 void android.os.Parcel.writeTypedObject(android.os.Parcelable,int)
+046c: goto                   -> 04b3
+046d: invoke-virtual/range   {v19..v19}, method@57328 int android.os.Parcel.readInt()
+0470: move-result            v0
+0471: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0474: move-result-object     v1
+0475: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+0478: move-result-object     v2
+0479: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+047c: invoke-virtual         {v6, v0, v1, v2}, method@59499 android.telephony.SubscriptionInfo com.android.internal.telephony.ISub$Stub.getActiveSubscriptionInfo(int,java.lang.String,java.lang.String)
+047f: move-result-object     v3
+0480: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0483: invoke-virtual         {v9, v3, v11}, method@57387 void android.os.Parcel.writeTypedObject(android.os.Parcelable,int)
+0486: goto                   -> 04b3
+0487: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+048a: move-result-object     v0
+048b: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+048e: move-result-object     v1
+048f: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+0492: invoke-virtual         {v6, v0, v1}, method@59503 int com.android.internal.telephony.ISub$Stub.getAllSubInfoCount(java.lang.String,java.lang.String)
+0495: move-result            v2
+0496: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+0499: invoke-virtual         {v9, v2}, method@57365 void android.os.Parcel.writeInt(int)
+049c: goto                   -> 04b3
+049d: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+04a0: move-result-object     v0
+04a1: invoke-virtual/range   {v19..v19}, method@57339 java.lang.String android.os.Parcel.readString()
+04a4: move-result-object     v1
+04a5: invoke-virtual/range   {v19..v19}, method@57311 void android.os.Parcel.enforceNoDataAvail()
+04a8: invoke-virtual         {v6, v0, v1}, method@59504 java.util.List com.android.internal.telephony.ISub$Stub.getAllSubInfoList(java.lang.String,java.lang.String)
+04ab: move-result-object     v2
+04ac: invoke-virtual/range   {v20..v20}, method@57372 void android.os.Parcel.writeNoException()
+04af: invoke-virtual         {v9, v2}, method@57386 void android.os.Parcel.writeTypedList(java.util.List)
+04b2: op_00                  
+04b3: return                 v11
+04b4: op_00                  
+04b5: op_01                  
+04b6: op_46                  
+04b7: op_4e                  
+04b8: move-result-wide       v0
+04b9: op_00                  
+04ba: op_00                  
+04bb: if-gt                  v0, v0, -> 04bc
+04bd: op_00                  
+04be: op_85                  
+04bf: op_00                  
+04c0: invoke-super           {}, method@0 void android.animation.Animator.cancel()
+04c3: op_00                  
+04c4: if-gez                 v4, -> 04c4
+04c6: array-length           
+04c7: op_00                  
+04c8: move-result            v4
+04c9: op_00                  
+04ca: op_f3                  
+04cb: op_00                  
+04cc: op_e7                  
+04cd: op_00                  
+04ce: op_d0                  
+04cf: op_00                  
+04d0: op_bd                  
+04d1: op_00                  
+04d2: op_b1                  
+04d3: op_00                  
+04d4: op_9a                  
+04d5: op_00                  
+04d6: op_7b                  
+04d7: op_00                  
+04d8: op_64                  
+04d9: op_00                  
+04da: op_4d                  
+04db: op_00                  
+04dc: if-eq                  v3, v0, -> 04dc
+04de: const-string/jumbo     
+04df: op_00                  
+04e0: op_04                  
+04e1: op_00                  
+04e2: op_e9                  
+04e3: op_00                  
+04e4: op_d2                  
+04e5: op_00                  
+04e6: op_b7                  
+04e7: op_00                  
+04e8: op_ab                  
+04e9: op_00                  
+04ea: op_94                  
+04eb: op_00                  
+04ec: op_79                  
+04ed: op_00                  
+04ee: op_5e                  
+04ef: op_00                  
+04f0: op_3f                  
+04f1: op_00                  
+04f2: op_2c                  
+04f3: op_00                  
+04f4: op_19                  
+04f5: op_00                  
+04f6: op_0d                  
+04f7: op_00                  
+04f8: op_01                  
+04f9: op_00                  
+04fa: op_ee                  
+04fb: op_00                  
+04fc: op_e2                  
+04fd: op_00                  
+04fe: op_d3                  
+04ff: op_00                  
+0500: op_c7                  
+0501: op_00                  
+0502: op_b8                  
+0503: op_00                  
+0504: op_ac                  
+0505: op_00                  
+0506: op_9d                  
+0507: op_00                  
+0508: op_8a                  
+0509: op_00                  
+050a: invoke-super           {}, method@0 void android.animation.Animator.cancel()
+050d: op_00                  
+050e: if-nez                 v1, -> 050e
+0510: op_26                  
+0511: op_00                  
+0512: const/16               v1, #0
+0514: op_00                  
+0515: op_00                  
+0516: op_e5                  
+0517: op_00                  
+0518: op_d9                  
+0519: op_00                  
+051a: op_cd                  
+051b: op_00                  
+051c: op_b6                  
+051d: op_00                  
+051e: op_9f                  
+051f: op_00                  
+0520: op_88                  
+0521: op_00                  
+0522: op_69                  
+0523: op_00                  
+0524: op_4e                  
+0525: op_00                  
+0526: op_27                  
+0527: op_00                  
+0528: move-result-object     v0
+0529: op_00                  

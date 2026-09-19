@@ -1,0 +1,46 @@
+version: PASS
+version-code: PASS
+ctl-version: PASS
+full-recover-dispatch: PASS
+full-status-dispatch: PASS
+full-cancel-dispatch: PASS
+full-single-false-callsite: PASS
+full-single-reboot-callsite: PASS
+full-single-true-callsite: PASS
+persistent-f8-counter: PASS
+persistent-f8-two-samples: PASS
+pending-before-reboot: PASS
+marker-order-before-reboot: PASS
+reboot-attempt-persisted: PASS
+true-attempt-marker: PASS
+true-attempt-persisted-before-call: PASS
+wfc-timeout-schedule: PASS
+network-five-minute-timeout: PASS
+network-stability-delay: PASS
+no-retry: PASS
+boot-resume-precedes-normal-auto: PASS
+boot-resume-dispatch: PASS
+action-shows-full-status: PASS
+action-zero-write-label: PASS
+action-no-write-entry: PASS
+installer-requires-full-runner: PASS
+runner-executable-permission: PASS
+legacy-boot-loop-protection-retained: PASS
+config-upgrade-preserved: PASS
+forbidden-absent-resetIms: PASS
+forbidden-absent-disableIms: PASS
+forbidden-absent-enableIms: PASS
+forbidden-absent-killall: PASS
+forbidden-absent-pkill: PASS
+forbidden-absent-qcrild: PASS
+forbidden-absent-modem reset: PASS
+forbidden-absent-radio reset: PASS
+forbidden-absent-setprop: PASS
+forbidden-absent-settings put: PASS
+forbidden-absent-settings delete: PASS
+forbidden-absent-setenforce: PASS
+forbidden-absent-svc wifi: PASS
+forbidden-absent-vendor.cnd: PASS
+forbidden-absent-qtidataservices: PASS
+forbidden-absent-org.codeaurora.ims: PASS
+package-exactly-one-reboot-callsite: PASS

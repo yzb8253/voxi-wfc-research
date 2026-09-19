@@ -1,0 +1,36 @@
+version: PASS
+status-json-command: PASS
+safe-recover-command: PASS
+recover-hard-command: PASS
+deep-timeout-schedule: PASS
+persistent-f8-two-samples: PASS
+single-false-callsite: PASS
+true-callsites-safe-and-deep-only: PASS
+no-retry-log: PASS
+hard-recovery-guidance: PASS
+action-zero-write: PASS
+action-no-recovery-call: PASS
+marker-read-boot-only: PASS
+manual-marker-independence: PASS
+config-existence-guard: PASS
+default-auto-disabled: PASS
+forbidden-absent-resetIms: PASS
+forbidden-absent-disableIms: PASS
+forbidden-absent-enableIms: PASS
+forbidden-absent-killall: PASS
+forbidden-absent-pkill: PASS
+forbidden-absent-kill -: PASS
+forbidden-absent-qcrild: PASS
+forbidden-absent-modem reset: PASS
+forbidden-absent-radio reset: PASS
+forbidden-absent-setprop: PASS
+forbidden-absent-settings put: PASS
+forbidden-absent-settings delete: PASS
+forbidden-absent-setenforce: PASS
+forbidden-absent-svc wifi: PASS
+forbidden-absent-vendor.cnd: PASS
+forbidden-absent-qtidataservices: PASS
+forbidden-absent-org.codeaurora.ims: PASS
+forbidden-absent-reboot-command: PASS
+config-upgrade-preserves-enabled: PASS
+config-first-install-disabled: PASS

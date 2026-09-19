@@ -1,0 +1,7 @@
+dex=classes.dex
+checkCallingOrSelfPermissionGranted code_off=0x2d0fc regs=3 ins=2 outs=1 tries=0
+0000: invoke-static          {}, method@178 int android.os.Binder.getCallingUid()
+0003: move-result            v0
+0004: invoke-static          {v0}, method@3423 boolean miui.telephony.TelephonyManager.checkCallingOrSelfPermissionGranted(int)
+0007: move-result            v0
+0008: return                 v0

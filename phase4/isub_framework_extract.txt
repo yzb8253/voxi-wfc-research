@@ -1,0 +1,182 @@
+JAR framework.jar DEX classes2.dex CLASS com.android.internal.telephony.ISub SUPER java.lang.Object
+ METHOD ['public', 'abstract'] int addSubInfo(java.lang.String, java.lang.String, int, int) code 0
+ METHOD ['public', 'abstract'] int addSubInfoRecord(java.lang.String, int) code 0
+ METHOD ['public', 'abstract'] void addSubscriptionsIntoGroup(int[], android.os.ParcelUuid, java.lang.String) code 0
+ METHOD ['public', 'abstract'] boolean canDisablePhysicalSubscription() code 0
+ METHOD ['public', 'abstract'] int clearSubInfo() code 0
+ METHOD ['public', 'abstract'] android.os.ParcelUuid createSubscriptionGroup(int[], java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.util.List getAccessibleSubscriptionInfoList(java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getActiveDataSubscriptionId() code 0
+ METHOD ['public', 'abstract'] int[] getActiveSubIdList(boolean) code 0
+ METHOD ['public', 'abstract'] int getActiveSubInfoCount(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getActiveSubInfoCountMax() code 0
+ METHOD ['public', 'abstract'] android.telephony.SubscriptionInfo getActiveSubscriptionInfo(int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] android.telephony.SubscriptionInfo getActiveSubscriptionInfoForIccId(java.lang.String, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] android.telephony.SubscriptionInfo getActiveSubscriptionInfoForSimSlotIndex(int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.util.List getActiveSubscriptionInfoList(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getAllSubInfoCount(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.util.List getAllSubInfoList(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.util.List getAvailableSubscriptionInfoList(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getDefaultDataSubId() code 0
+ METHOD ['public', 'abstract'] int getDefaultSmsSubId() code 0
+ METHOD ['public', 'abstract'] int getDefaultSubId() code 0
+ METHOD ['public', 'abstract'] int getDefaultVoiceSubId() code 0
+ METHOD ['public', 'abstract'] int getEnabledSubscriptionId(int) code 0
+ METHOD ['public', 'abstract'] java.util.List getOpportunisticSubscriptions(java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getPhoneId(int) code 0
+ METHOD ['public', 'abstract'] java.lang.String getPhoneNumber(int, int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.lang.String getPhoneNumberFromFirstAvailableSource(int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int getPreferredDataSubscriptionId() code 0
+ METHOD ['public', 'abstract'] int getSimStateForSlotIndex(int) code 0
+ METHOD ['public', 'abstract'] int getSlotIndex(int) code 0
+ METHOD ['public', 'abstract'] int[] getSubId(int) code 0
+ METHOD ['public', 'abstract'] java.lang.String getSubscriptionProperty(int, java.lang.String, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] java.util.List getSubscriptionsInGroup(android.os.ParcelUuid, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] boolean isActiveSubId(int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] boolean isSubscriptionEnabled(int) code 0
+ METHOD ['public', 'abstract'] int removeSubInfo(java.lang.String, int) code 0
+ METHOD ['public', 'abstract'] void removeSubscriptionsFromGroup(int[], android.os.ParcelUuid, java.lang.String) code 0
+ METHOD ['public', 'abstract'] void requestEmbeddedSubscriptionInfoListRefresh(int) code 0
+ METHOD ['public', 'abstract'] int setDataRoaming(int, int) code 0
+ METHOD ['public', 'abstract'] void setDefaultDataSubId(int) code 0
+ METHOD ['public', 'abstract'] void setDefaultSmsSubId(int) code 0
+ METHOD ['public', 'abstract'] void setDefaultVoiceSubId(int) code 0
+ METHOD ['public', 'abstract'] int setDeviceToDeviceStatusSharing(int, int) code 0
+ METHOD ['public', 'abstract'] int setDeviceToDeviceStatusSharingContacts(java.lang.String, int) code 0
+ METHOD ['public', 'abstract'] int setDisplayNameUsingSrc(java.lang.String, int, int) code 0
+ METHOD ['public', 'abstract'] int setDisplayNumber(java.lang.String, int) code 0
+ METHOD ['public', 'abstract'] int setIconTint(int, int) code 0
+ METHOD ['public', 'abstract'] int setOpportunistic(boolean, int, java.lang.String) code 0
+ METHOD ['public', 'abstract'] void setPhoneNumber(int, int, java.lang.String, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] void setPreferredDataSubscriptionId(int, boolean, com.android.internal.telephony.ISetOpportunisticDataCallback) code 0
+ METHOD ['public', 'abstract'] boolean setSubscriptionEnabled(boolean, int) code 0
+ METHOD ['public', 'abstract'] int setSubscriptionProperty(int, java.lang.String, java.lang.String) code 0
+ METHOD ['public', 'abstract'] int setUiccApplicationsEnabled(boolean, int) code 0
+ METHOD ['public', 'abstract'] int setUsageSetting(int, int, java.lang.String) code 0
+
+JAR framework.jar DEX classes2.dex CLASS com.android.internal.telephony.ISub$Stub$Proxy SUPER java.lang.Object
+ METHOD ['constructor'] void <init>(android.os.IBinder) code 5072872
+ METHOD ['public'] int addSubInfo(java.lang.String, java.lang.String, int, int) code 5067848
+ METHOD ['public'] int addSubInfoRecord(java.lang.String, int) code 5067992
+ METHOD ['public'] void addSubscriptionsIntoGroup(int[], android.os.ParcelUuid, java.lang.String) code 5072900
+ METHOD ['public'] android.os.IBinder asBinder() code 5066732
+ METHOD ['public'] boolean canDisablePhysicalSubscription() code 5067328
+ METHOD ['public'] int clearSubInfo() code 5068124
+ METHOD ['public'] android.os.ParcelUuid createSubscriptionGroup(int[], java.lang.String) code 5066756
+ METHOD ['public'] java.util.List getAccessibleSubscriptionInfoList(java.lang.String) code 5072052
+ METHOD ['public'] int getActiveDataSubscriptionId() code 5068244
+ METHOD ['public'] int[] getActiveSubIdList(boolean) code 5071344
+ METHOD ['public'] int getActiveSubInfoCount(java.lang.String, java.lang.String) code 5068364
+ METHOD ['public'] int getActiveSubInfoCountMax() code 5068496
+ METHOD ['public'] android.telephony.SubscriptionInfo getActiveSubscriptionInfo(int, java.lang.String, java.lang.String) code 5066896
+ METHOD ['public'] android.telephony.SubscriptionInfo getActiveSubscriptionInfoForIccId(java.lang.String, java.lang.String, java.lang.String) code 5067040
+ METHOD ['public'] android.telephony.SubscriptionInfo getActiveSubscriptionInfoForSimSlotIndex(int, java.lang.String, java.lang.String) code 5067184
+ METHOD ['public'] java.util.List getActiveSubscriptionInfoList(java.lang.String, java.lang.String) code 5072184
+ METHOD ['public'] int getAllSubInfoCount(java.lang.String, java.lang.String) code 5068616
+ METHOD ['public'] java.util.List getAllSubInfoList(java.lang.String, java.lang.String) code 5072320
+ METHOD ['public'] java.util.List getAvailableSubscriptionInfoList(java.lang.String, java.lang.String) code 5072456
+ METHOD ['public'] int getDefaultDataSubId() code 5068748
+ METHOD ['public'] int getDefaultSmsSubId() code 5068868
+ METHOD ['public'] int getDefaultSubId() code 5068988
+ METHOD ['public'] int getDefaultVoiceSubId() code 5069108
+ METHOD ['public'] int getEnabledSubscriptionId(int) code 5069228
+ METHOD ['public'] java.lang.String getInterfaceDescriptor() code 5071600
+ METHOD ['public'] java.util.List getOpportunisticSubscriptions(java.lang.String, java.lang.String) code 5072592
+ METHOD ['public'] int getPhoneId(int) code 5069356
+ METHOD ['public'] java.lang.String getPhoneNumber(int, int, java.lang.String, java.lang.String) code 5071624
+ METHOD ['public'] java.lang.String getPhoneNumberFromFirstAvailableSource(int, java.lang.String, java.lang.String) code 5071768
+ METHOD ['public'] int getPreferredDataSubscriptionId() code 5069484
+ METHOD ['public'] int getSimStateForSlotIndex(int) code 5069604
+ METHOD ['public'] int getSlotIndex(int) code 5069732
+ METHOD ['public'] int[] getSubId(int) code 5071472
+ METHOD ['public'] java.lang.String getSubscriptionProperty(int, java.lang.String, java.lang.String, java.lang.String) code 5071908
+ METHOD ['public'] java.util.List getSubscriptionsInGroup(android.os.ParcelUuid, java.lang.String, java.lang.String) code 5072728
+ METHOD ['public'] boolean isActiveSubId(int, java.lang.String, java.lang.String) code 5067448
+ METHOD ['public'] boolean isSubscriptionEnabled(int) code 5067588
+ METHOD ['public'] int removeSubInfo(java.lang.String, int) code 5069860
+ METHOD ['public'] void removeSubscriptionsFromGroup(int[], android.os.ParcelUuid, java.lang.String) code 5073028
+ METHOD ['public'] void requestEmbeddedSubscriptionInfoListRefresh(int) code 5073156
+ METHOD ['public'] int setDataRoaming(int, int) code 5069992
+ METHOD ['public'] void setDefaultDataSubId(int) code 5073248
+ METHOD ['public'] void setDefaultSmsSubId(int) code 5073364
+ METHOD ['public'] void setDefaultVoiceSubId(int) code 5073480
+ METHOD ['public'] int setDeviceToDeviceStatusSharing(int, int) code 5070124
+ METHOD ['public'] int setDeviceToDeviceStatusSharingContacts(java.lang.String, int) code 5070256
+ METHOD ['public'] int setDisplayNameUsingSrc(java.lang.String, int, int) code 5070388
+ METHOD ['public'] int setDisplayNumber(java.lang.String, int) code 5070528
+ METHOD ['public'] int setIconTint(int, int) code 5070660
+ METHOD ['public'] int setOpportunistic(boolean, int, java.lang.String) code 5070792
+ METHOD ['public'] void setPhoneNumber(int, int, java.lang.String, java.lang.String, java.lang.String) code 5073596
+ METHOD ['public'] void setPreferredDataSubscriptionId(int, boolean, com.android.internal.telephony.ISetOpportunisticDataCallback) code 5073736
+ METHOD ['public'] boolean setSubscriptionEnabled(boolean, int) code 5067716
+ METHOD ['public'] int setSubscriptionProperty(int, java.lang.String, java.lang.String) code 5070932
+ METHOD ['public'] int setUiccApplicationsEnabled(boolean, int) code 5071072
+ METHOD ['public'] int setUsageSetting(int, int, java.lang.String) code 5071204
+
+JAR framework.jar DEX classes2.dex CLASS com.android.internal.telephony.ISub$Stub SUPER android.os.Binder
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'Ljava/lang/String;', 'name': 'DESCRIPTOR', 'kind': 'static', 'access_flags': ['public', 'static', 'final'], 'static_value': 'string@40788'}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_addSubInfo', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 13}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_addSubInfoRecord', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 12}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_addSubscriptionsIntoGroup', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 25}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_canDisablePhysicalSubscription', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 47}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_clearSubInfo', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 30}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_createSubscriptionGroup', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 20}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getAccessibleSubscriptionInfoList', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 10}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveDataSubscriptionId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 46}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubIdList', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 38}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubInfoCount', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 7}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubInfoCountMax', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 8}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubscriptionInfo', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 3}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubscriptionInfoForIccId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 4}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubscriptionInfoForSimSlotIndex', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 5}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getActiveSubscriptionInfoList', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 6}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getAllSubInfoCount', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 2}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getAllSubInfoList', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 1}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getAvailableSubscriptionInfoList', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 9}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getDefaultDataSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 32}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getDefaultSmsSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 36}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getDefaultSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 29}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getDefaultVoiceSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 34}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getEnabledSubscriptionId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 43}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getOpportunisticSubscriptions', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 23}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getPhoneId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 31}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getPhoneNumber', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 51}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getPhoneNumberFromFirstAvailableSource', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 52}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getPreferredDataSubscriptionId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 22}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getSimStateForSlotIndex', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 44}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getSlotIndex', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 27}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 28}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getSubscriptionProperty', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 40}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_getSubscriptionsInGroup', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 26}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_isActiveSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 45}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_isSubscriptionEnabled', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 42}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_removeSubInfo', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 14}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_removeSubscriptionsFromGroup', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 24}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_requestEmbeddedSubscriptionInfoListRefresh', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 11}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDataRoaming', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 18}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDefaultDataSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 33}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDefaultSmsSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 37}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDefaultVoiceSubId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 35}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDeviceToDeviceStatusSharing', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 49}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDeviceToDeviceStatusSharingContacts', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 50}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDisplayNameUsingSrc', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 16}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setDisplayNumber', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 17}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setIconTint', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 15}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setOpportunistic', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 19}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setPhoneNumber', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 53}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setPreferredDataSubscriptionId', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 21}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setSubscriptionEnabled', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 41}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setSubscriptionProperty', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 39}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setUiccApplicationsEnabled', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 48}
+ FIELD {'class': 'Lcom/android/internal/telephony/ISub$Stub;', 'type': 'I', 'name': 'TRANSACTION_setUsageSetting', 'kind': 'static', 'access_flags': ['static', 'final'], 'static_value': 54}
+ METHOD ['public', 'constructor'] void <init>() code 5077240
+ METHOD ['public', 'static'] com.android.internal.telephony.ISub asInterface(android.os.IBinder) code 5076544
+ METHOD ['public', 'static'] java.lang.String getDefaultTransactionName(int) code 5076636
+ METHOD ['public'] android.os.IBinder asBinder() code 5073864
+ METHOD ['public'] int getMaxTransactionId() code 5076612
+ METHOD ['public'] java.lang.String getTransactionName(int) code 5077212
+ METHOD ['public'] boolean onTransact(int, android.os.Parcel, android.os.Parcel, int) code 5073884
+
+JAR framework.jar DEX classes3.dex CLASS android.telephony.SubscriptionManager SUPER java.lang.Object
+ METHOD ['public'] void setUiccApplicationsEnabled(int, boolean) code 3814940
+

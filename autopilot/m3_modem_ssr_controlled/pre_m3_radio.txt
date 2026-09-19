@@ -1,0 +1,24 @@
+Subsystem path: /sys/devices/platform/soc/soc:qcom,mdm0/subsys10
+Subsystem name: esoc0
+State: ONLINE
+Restart level: RELATED
+Crash count: 0
+Driver: /sys/bus/platform/drivers/ext-mdm
+Subsystem bus: /sys/bus/msm_subsys
+ESOC identity: SDX55MPCIe0306_02.01.00485:0
+Kernel CONFIG_MSM_SUBSYSTEM_RESTART=y
+Kernel CONFIG_DEBUG_FS=y
+AP boot ID: 8034952d-9ad8-4ccd-930a-c595cd7bcab4
+AP uptime: 21555.05 seconds
+
+Available device nodes:
+/dev/subsys_esoc0 (subsystem get/put character device; not a restart trigger)
+/dev/esoc-0 (ESOC control-link ioctl device; no verified one-shot SSR userspace contract on this ROM)
+
+Expected standard trigger node:
+/sys/kernel/debug/msm_subsys/esoc0
+
+Observed result:
+/sys/kernel/debug/msm_subsys is ABSENT.
+
+No modem or AP write was performed.

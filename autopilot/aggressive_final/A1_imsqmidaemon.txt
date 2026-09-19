@@ -1,0 +1,6 @@
+old=31349
+LABEL                          USER           PID  PPID     VSZ    RSS WCHAN            ADDR S NAME                       
+u:r:vendor_ims:s0              radio        31349     1 2189112   3776 0                   0 S imsqmidaemon
+
+cmdline=/vendor/bin/imsqmidaemon
+new=26664

@@ -1,0 +1,23 @@
+2026-09-18T09:23:31+08:00
+CND_PROPS
+[init.svc.vendor.cnd]: [running]
+[init.svc_debug_pid.vendor.cnd]: [1838]
+[persist.vendor.cne.feature]: [1]
+[ro.boottime.vendor.cnd]: [7405803589]
+CND_PS
+u:r:vendor_cnd:s0              u:r:vendor_cnd:s0              system        1838     1 cnd                         cnd
+u:r:shell:s0                   u:r:shell:s0                   shell        26702 11247 sh                          sh -c su -c 'date -Iseconds; echo CND_PROPS; getprop | grep -Ei "cnd|cne"; echo CND_PS; ps -AZ -o LABEL,USER,PID,PPID,NAME,ARGS | grep -Ei "(^|[ /])cnd([ ]|$)|cne"; echo PIDOF; echo cnd=$(pidof cnd); echo CND_BINARY; ls -lZ /vendor/bin/cnd /system/vendor/bin/cnd 2>/dev/null; echo CND_RC; grep -R -n -E "^service[[:space:]]+.*cnd|/[^ ]*/cnd([[:space:]]|$)" /vendor/etc/init /odm/etc/init /system/etc/init 2>/dev/null; echo SERVICE_STATE; getprop init.svc.cnd; getprop ro.boottime.cnd'
+u:r:shell:s0                   u:r:shell:s0                   shell        26704 26702 su                          su -c date -Iseconds; echo CND_PROPS; getprop | grep -Ei "cnd|cne"; echo CND_PS; ps -AZ -o LABEL,USER,PID,PPID,NAME,ARGS | grep -Ei "(^|[ /])cnd([ ]|$)|cne"; echo PIDOF; echo cnd=$(pidof cnd); echo CND_BINARY; ls -lZ /vendor/bin/cnd /system/vendor/bin/cnd 2>/dev/null; echo CND_RC; grep -R -n -E "^service[[:space:]]+.*cnd|/[^ ]*/cnd([[:space:]]|$)" /vendor/etc/init /odm/etc/init /system/etc/init 2>/dev/null; echo SERVICE_STATE; getprop init.svc.cnd; getprop ro.boottime.cnd
+u:r:magisk:s0                  u:r:magisk:s0                  root         26707 26706 app_process                 app_process /system/bin com.android.commands.content.Content call --uri content://com.topjohnwu.magisk.provider --user 0 --method log --extra from.uid:i:2000 --extra to.uid:i:0 --extra pid:i:26704 --extra policy:i:2 --extra target:i:-1 --extra context:s: --extra gids:s: --extra command:s:date -Iseconds; echo CND_PROPS; getprop | grep -Ei "cnd|cne"; echo CND_PS; ps -AZ -o LABEL,USER,PID,PPID,NAME,ARGS | grep -Ei "(^|[ /])cnd([ ]|$)|cne"; echo PIDOF; echo cnd=$(pidof cnd); echo CND_BINARY; ls -lZ /vendor/bin/cnd /system/vendor/bin/cnd 2>/dev/null; echo CND_RC; grep -R -n -E "^service[[\:space\:]]+.*cnd|/[^ ]*/cnd([[\:space\:]]|$)" /vendor/etc/init /odm/etc/init /system/etc/init 2>/dev/null; echo SERVICE_STATE; getprop init.svc.cnd; getprop ro.boottime.cnd --extra notify:b:true
+u:r:magisk:s0                  u:r:magisk:s0                  root         26708   868 sh                          sh -c date -Iseconds; echo CND_PROPS; getprop | grep -Ei "cnd|cne"; echo CND_PS; ps -AZ -o LABEL,USER,PID,PPID,NAME,ARGS | grep -Ei "(^|[ /])cnd([ ]|$)|cne"; echo PIDOF; echo cnd=$(pidof cnd); echo CND_BINARY; ls -lZ /vendor/bin/cnd /system/vendor/bin/cnd 2>/dev/null; echo CND_RC; grep -R -n -E "^service[[:space:]]+.*cnd|/[^ ]*/cnd([[:space:]]|$)" /vendor/etc/init /odm/etc/init /system/etc/init 2>/dev/null; echo SERVICE_STATE; getprop init.svc.cnd; getprop ro.boottime.cnd
+u:r:magisk:s0                  u:r:magisk:s0                  root         26713 26708 grep                        grep -Ei (^|[ /])cnd([ ]|$)|cne
+PIDOF
+cnd=1838
+CND_BINARY
+-rwxr-xr-x 1 system system u:object_r:vendor_cnd_exec:s0  126800 2009-01-01 08:00 /system/vendor/bin/cnd
+-rwxr-xr-x 1 system system u:object_r:vendor_cnd_exec:s0  126800 2009-01-01 08:00 /vendor/bin/cnd
+CND_RC
+/vendor/etc/init/cnd.rc:1:service vendor.cnd /system/vendor/bin/cnd
+SERVICE_STATE
+
+

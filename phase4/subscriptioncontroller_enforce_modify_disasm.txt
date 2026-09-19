@@ -1,0 +1,12 @@
+dex=classes.dex
+enforceModifyPhoneState code_off=0x12377c regs=3 ins=2 outs=3 tries=0
+0000: invoke-static          {}, method@1503 int android.os.Binder.getCallingUid()
+0003: move-result            v0
+0004: invoke-static          {v0}, method@10395 boolean com.android.internal.telephony.TelephonyCommonUtilsStub.checkCallingOrSelfPermissionGranted(int)
+0007: move-result            v0
+0008: if-eqz                 v0, -> 000b
+000a: return-void            
+000b: iget-object            v1, v1, field@4195 android.content.Context com.android.internal.telephony.SubscriptionController.mContext
+000d: const-string           v0, string@16729 "android.permission.MODIFY_PHONE_STATE"
+000f: invoke-virtual         {v1, v0, v2}, method@188 void android.content.Context.enforceCallingOrSelfPermission(java.lang.String,java.lang.String)
+0012: return-void            

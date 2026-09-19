@@ -1,0 +1,29 @@
+﻿COMMAND: .\adb.exe -s 192.168.137.134:37667 shell su -c find /system_ext/etc /product/etc /vendor/etc -maxdepth 4 -type f 2>/dev/null | grep -iE 'ims|iwlan|carrierconfig|telephony'
+CAPTURED_AT: 2026-09-16T13:14:23.8984109+08:00
+
+/system_ext/etc/forcedarkconfig/com.tencent.qqpimsecure.json
+/system_ext/etc/permissions/vendor.qti.imsdcservice.xml
+/system_ext/etc/permissions/vendor.qti.ims.rcsservice.xml
+/system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.2-java.xml
+/system_ext/etc/permissions/com.android.carrierconfig.xml
+/system_ext/etc/permissions/qti_telephony_hidl_wrapper.xml
+/system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml
+/system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml
+/system_ext/etc/permissions/qti_telephony_utils.xml
+/system_ext/etc/permissions/telephony_system-ext_privapp-permissions-qti.xml
+/system_ext/etc/sysconfig/qti_telephony_system_packages_config.xml
+/product/etc/permissions/telephony_product_privapp-permissions-qti.xml
+/product/etc/permissions/ims_ext_common.xml
+/product/etc/permissions/UimService.xml
+/product/etc/permissions/qti_telephony_hidl_wrapper_prd.xml
+/product/etc/permissions/qti_telephony_utils_prd.xml
+/vendor/etc/init/ims_rtp_daemon.rc
+/vendor/etc/init/imsdatadaemon.rc
+/vendor/etc/init/imsqmidaemon.rc
+/vendor/etc/init/imsrcsd.rc
+/vendor/etc/media_codecs_google_telephony.xml
+/vendor/etc/permissions/android.hardware.telephony.gsm.xml
+/vendor/etc/permissions/android.hardware.telephony.ims.xml
+/vendor/etc/permissions/android.hardware.telephony.cdma.xml
+/vendor/etc/seccomp_policy/imsrtp.policy
+

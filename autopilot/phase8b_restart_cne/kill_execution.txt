@@ -1,0 +1,5 @@
+verify_time=2026-09-18T09:20:59+08:00
+target=3170 current=3170 context=u:r:vendor_qtidataservices_app:s0:c104,c256,c512,c768
+cmdline=.qtidataservices
+kill_time=2026-09-18T09:21:00+08:00
+kill_signal=TERM kill_rc=0

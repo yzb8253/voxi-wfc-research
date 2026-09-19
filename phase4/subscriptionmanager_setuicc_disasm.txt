@@ -1,0 +1,15 @@
+dex=classes3.dex
+setUiccApplicationsEnabled code_off=0x3a361c regs=4 ins=3 outs=3 tries=1
+0000: invoke-static          {}, method@38242 android.os.TelephonyServiceManager android.telephony.TelephonyFrameworkInitializer.getTelephonyServiceManager()
+0003: move-result-object     v0
+0004: invoke-virtual         {v0}, method@9263 android.os.TelephonyServiceManager$ServiceRegisterer android.os.TelephonyServiceManager.getSubscriptionServiceRegisterer()
+0007: move-result-object     v0
+0008: invoke-virtual         {v0}, method@9251 android.os.IBinder android.os.TelephonyServiceManager$ServiceRegisterer.get()
+000b: move-result-object     v0
+000c: invoke-static          {v0}, method@53814 com.android.internal.telephony.ISub com.android.internal.telephony.ISub$Stub.asInterface(android.os.IBinder)
+000f: move-result-object     v0
+0010: if-eqz                 v0, -> 0015
+0012: invoke-interface       {v0, v3, v2}, method@53867 int com.android.internal.telephony.ISub.setUiccApplicationsEnabled(boolean,int)
+0015: goto                   -> 0017
+0016: op_0d                  
+0017: return-void            

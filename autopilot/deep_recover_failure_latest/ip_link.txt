@@ -1,0 +1,47 @@
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: bond0: <BROADCAST,MULTICAST,MASTER> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether a2:84:de:e3:8b:96 brd ff:ff:ff:ff:ff:ff
+3: dummy0: <BROADCAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/ether 3a:34:18:e6:9b:b8 brd ff:ff:ff:ff:ff:ff
+4: ip_vti0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ipip 0.0.0.0 brd 0.0.0.0
+5: ip6_vti0@NONE: <NOARP> mtu 1364 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/tunnel6 :: brd ::
+6: sit0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/sit 0.0.0.0 brd 0.0.0.0
+7: ip6tnl0@NONE: <NOARP> mtu 1452 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/tunnel6 :: brd ::
+8: rmnet_ipa0: <> mtu 9216 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+10: rmnet_mhi0: <UP,LOWER_UP> mtu 65535 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+    alias rmnet_mhi_0306_02.01.00_0
+11: rmnet_data0@rmnet_mhi0: <UP,LOWER_UP> mtu 1500 qdisc mq state UNKNOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+12: rmnet_data1@rmnet_mhi0: <> mtu 1280 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+13: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DORMANT group default qlen 3000
+    link/ether be:d7:26:c8:36:d8 brd ff:ff:ff:ff:ff:ff
+14: p2p0: <BROADCAST,MULTICAST> mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 3000
+    link/ether e2:1f:88:b5:ba:6a brd ff:ff:ff:ff:ff:ff
+15: wifi-aware0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 3000
+    link/ether e2:1f:88:b6:ba:6a brd ff:ff:ff:ff:ff:ff
+16: rmnet_data2@rmnet_mhi0: <> mtu 1410 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+17: rmnet_data3@rmnet_mhi0: <> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+18: rmnet_data4@rmnet_mhi0: <> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+19: rmnet_data5@rmnet_mhi0: <> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+20: r_rmnet_data0@rmnet_mhi0: <UP,LOWER_UP> mtu 1500 qdisc mq state UNKNOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+21: r_rmnet_data1@rmnet_mhi0: <> mtu 1500 qdisc mq state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+22: r_rmnet_data2@rmnet_mhi0: <> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+23: r_rmnet_data3@rmnet_mhi0: <> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/[519] 
+26: tun0: <POINTOPOINT,UP,LOWER_UP> mtu 9000 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 500
+    link/none 
