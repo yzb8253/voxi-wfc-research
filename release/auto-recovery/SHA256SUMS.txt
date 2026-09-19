@@ -1,0 +1,1 @@
+03286cdb52848b5b4381fc4dbbc6e607d19541dfbe639acce4fe2e60918ae6e7  voxi_wfc_auto_recover-v0.1.0.zip

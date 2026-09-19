@@ -1,0 +1,10 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; }
+body { margin: 0; background: #0b1020; color: #edf2ff; }
+main { max-width: 760px; margin: auto; padding: 24px; }
+h1 { color: #8dd8ff; } section { background: #151c31; border-radius: 12px; padding: 14px; margin: 14px 0; }
+pre { white-space: pre-wrap; word-break: break-word; font-size: 13px; }
+.buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+button { border: 0; border-radius: 10px; padding: 12px 16px; background: #2478c7; color: white; font-weight: 700; }
+button.warn { background: #a65a17; } button:disabled { opacity: .45; }
+.muted { color: #aebbd4; font-size: 13px; }
+

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VOXI WFC Auto Recover</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>VOXI WFC Auto Recover</h1>
+    <p id="bridge" class="muted">正在连接 root 管理器…</p>
+    <section><h2>当前状态</h2><pre id="status">尚未刷新</pre></section>
+    <section><h2>最近记录</h2><pre id="logs">尚未刷新</pre></section>
+    <div class="buttons">
+      <button id="refresh">刷新（只读）</button>
+      <button id="recover" class="warn">手动安全恢复</button>
+    </div>
+    <p class="muted">恢复按钮只允许严格 F8 的固定 subId 11 true-only 恢复；健康、F1、未知或 slot0 安全门失败时均为零写。</p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
+
