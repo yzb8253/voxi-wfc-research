@@ -1,0 +1,25 @@
+# Nested Git metadata
+**/.git/
+**/.git/**
+
+# Android / generated binaries
+*.apk
+*.jar
+*.dex
+
+# Runtime / temp
+*.tmp
+*.cache
+__pycache__/
+*.pyc
+Thumbs.db
+.DS_Store
+
+# Large captures known from this project
+**/logcat_full_stream.txt
+**/logcat_all_buffers_threadtime.txt
+**/logcat_full_threadtime.txt
+**/m2_logcat_full.txt
+golden_state/60_logcat_all_d.txt
+golden_state/cleaned/60_logcat_all_d.txt
+phase3/private_jars_scan.json
