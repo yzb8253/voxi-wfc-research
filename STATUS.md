@@ -6,7 +6,9 @@ On 2026-09-19 the project moved from generic IMS process recovery to reproducing
 
 Read-only live inventory on serial `192.168.1.25:42319` confirmed root, both qcrild services, standard `IRadio/slot1` and `IRadio/slot2`, Qualcomm `IUim/Uim0` and `IUim/Uim1`, and current active/enabled F1. An L0 baseline successfully captured full before/after state and logcat without a phone write. Raw run data remains local and is Git-ignored.
 
-The preferred next candidate is a fixed slot1 `setSimPowerStateForSlot` power-down/up helper, but it is intentionally blocked until its current-ROM framework -> Radio HAL -> qcrild2 -> QMI UIM path, constants, callback and rollback are statically proven. No SIM/UICC/RIL/modem write was executed while building the matrix.
+L1.5 read-only discovery has now proven the current-ROM fixed slot1 route through `PhoneInterfaceManager`, `Phone[1]`, RIL request 140 and HIDL `IRadio/slot2.setSimCardPower_1_1`. It also proved the `MODIFY_PHONE_STATE` gate and confirmed that `RadioConfig` and Qualcomm `IUim/Uim1` do not export a SIM power method. See `experiments/sim_soft_reset/L1_5_voxi_power_cycle/L1_5_INTERFACE_REPORT.md`.
+
+The preferred next candidate remains a callback-capable, hard-coded slot1 power-down/up helper, but the write is intentionally blocked until an independent power-up rollback and final pre-write safety gate are implemented and audited. No SIM/UICC/RIL/modem write was executed during L1.5.
 
 Read-only slot mapping is now complete: VOXI is Android slot/phone 1, Radio HAL `IRadio/slot2`, Qualcomm `IUim/Uim1`, `vendor.qcrild2 -c 2`, modem stack 1. China Telecom is Android slot/phone 0, `IRadio/slot1`, `IUim/Uim0`, primary qcrild, stack 0. See `experiments/sim_soft_reset/SLOT_MAPPING/VOXI_SLOT_MAPPING.md`. SIM-power execution remains blocked.
 

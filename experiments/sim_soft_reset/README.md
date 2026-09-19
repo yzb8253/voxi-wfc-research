@@ -33,6 +33,10 @@ LAB_EXECUTE=YES ADB_BIN=../../../adb.exe SERIAL=192.168.1.25:42319 ./scripts/01_
 
 Results are created under `runs/<timestamp>-<experiment-id>/`. Raw captures can contain subscriber information and are intentionally ignored by Git.
 
+## L1.5 interface discovery
+
+The read-only L1.5 probe and current-ROM static trace are under [`L1_5_voxi_power_cycle/`](L1_5_voxi_power_cycle/). They prove the slot1 framework-to-`IRadio/slot2` route without issuing a power request. The real power cycle remains blocked until the callback helper and independent power-up rollback are audited.
+
 ## Result rule
 
 A test only recovers WFC when all four direct conditions are true:
