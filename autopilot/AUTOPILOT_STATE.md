@@ -1,5 +1,18 @@
 # Autopilot State
 
+## 2026-09-20 corrected absent-state soft-reboot retry
+
+- The corrected experiment executed exactly one fixed-slot1 POWER_DOWN; callback 0 and card-down/inactive/UICC-disabled state were confirmed.
+- Every fixed soft-stack target was signaled once. system_server did restart, but Telephony Binder was not ready before the orchestrator deadline, so its normal POWER_UP path failed before API invocation.
+- The independent watchdog fired exactly one fallback POWER_UP at 120 seconds; callback 0.
+- VOXI returned to subId11/slot1/phoneId1, ACTIVE, UICC enabled, SIM READY. China Telecom slot0/sub1 remained correctly mapped.
+- CarrierConfig ABSENT -> CLEAR_CONFIG -> no-SIM -> ESSENTIAL_LOADED -> LOADED and ImsResolver/MMTEL subId -1 -> 11 were confirmed.
+- More than eight minutes later, IWLAN/HOME and MMTEL READY were present, but IMS remained NOT_REGISTERED/UNKNOWN with VOICE/WFC unavailable and no qti.cne IMS request, UDP/4500, or XFRM.
+- Result: ABSENT_STATE_SOFT_REBOOT_RETRY=FAIL. The selected stack does not reproduce the full-reboot recovery effect.
+
+NEXT_ACTION: preserve the active/enabled F1 scene. Do not repeat this candidate unchanged. Continue read-only delta analysis unless the user explicitly authorizes a distinct write hypothesis.
+
+
 ## 2026-09-20 absent-state attempt safe-aborted
 
 - Dedicated 120-second watchdog and fixed-target device orchestrator were committed before execution.

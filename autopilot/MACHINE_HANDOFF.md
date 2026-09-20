@@ -68,13 +68,14 @@ The user's intended workflow is:
 ## Current checkpoint
 
 - Date: 2026-09-20
-- Branch: `voxi-wfc-auto-recovery`
-- Device endpoint at last check: `192.168.137.127:40027`; always rediscover after reconnect.
-- L1.5 helper SHA256 remains `be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31`.
-- The first absent-state launch safely aborted before POWER_DOWN because the dedicated and generic watchdog-ready paths did not match.
-- Actual POWER_DOWN: 0. Process TERM: 0. Soft-stack rebuild: not run.
-- One already-up POWER_UP returned callback 0; both SIM mappings and wlan0/tun0 remained intact.
-- Corrected scripts now bridge both ready markers and suppress POWER_UP after pre-marker rejection; syntax/static audit passes.
-- Result report: `experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/absent_soft_reboot/ABSENT_STATE_SOFT_REBOOT_RESULT.md`.
+- Branch: voxi-wfc-auto-recovery
+- Device endpoint at last check: 192.168.1.106:41701 with mDNS alias also available; always rediscover after reconnect.
+- L1.5 helper SHA256 remains be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31.
+- The corrected retry executed one real slot1 POWER_DOWN, confirmed ABSENT/inactive/UICC-disabled state, and signaled every fixed soft-stack process once.
+- system_server restarted, but Telephony Binder readiness missed the orchestrator deadline. The normal POWER_UP path therefore made no API call.
+- The independent watchdog issued the sole POWER_UP at 120 seconds; callback 0 restored ACTIVE/UICC-enabled subId11/slot1 mapping.
+- CarrierConfig CLEAR/no-SIM/load and ImsResolver -1 -> 11/MMTEL READY were confirmed, but qti.cne IMS demand, ePDG, IMS registration, VOICE/IWLAN, and WFC did not return.
+- Final state: VOXI active/enabled F1; China Telecom slot0 protected; wlan0/tun0 present.
+- Sanitized retry report: experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/absent_soft_reboot/ABSENT_STATE_SOFT_REBOOT_RETRY_RESULT.md.
 
-NEXT_ACTION: do not retry automatically. Require new explicit user authorization before one real corrected fixed-slot1 POWER_DOWN/soft-stack/POWER_UP attempt.
+NEXT_ACTION: preserve the active/enabled F1 scene. Do not repeat the absent-state soft-reboot candidate unchanged. Continue read-only reboot-delta analysis unless a distinct write hypothesis receives explicit authorization.

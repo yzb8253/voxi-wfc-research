@@ -1,5 +1,17 @@
 # Autopilot Findings
 
+## Corrected Absent-state Retry Finding (2026-09-20)
+
+- The corrected run substantively tested the hypothesis: one callback-successful slot1 POWER_DOWN produced an inactive, unmapped, UICC-disabled ABSENT state.
+- The selected qcrild/netmgr/IMS/CNE/phone/system_server stack was rebuilt. system_server returned, although Telephony Binder readiness missed the orchestrator''s normal-power-up deadline.
+- The independent watchdog''s only fallback POWER_UP returned callback 0 and restored slot1/subId11/UICC state.
+- CarrierConfig reproduced ABSENT -> CLEAR_CONFIG -> no-SIM -> ESSENTIAL_LOADED -> LOADED.
+- ImsResolver/MMTEL reproduced slot1 subId -1/UNAVAILABLE -> subId11/READY.
+- Despite those matches, no new qti.cne IMS request, IMS IWLAN NetworkAgent, UDP/4500, XFRM, REGISTERED/WLAN, VOICE/IWLAN, or WFC appeared.
+- The final state was active/enabled F1 with IWLAN/HOME and MMTEL READY. This strengthens the finding that framework lifecycle reconstruction alone is insufficient; the full reboot restores an additional native/modem demand condition not recreated by this stack.
+- Do not repeat this candidate unchanged.
+
+
 ## Absent-state Attempt Finding (2026-09-20)
 
 - A dedicated watchdog marker is not sufficient by itself: the audited Java helper independently gates POWER_DOWN on the exact generic `watchdog.ready` path.
