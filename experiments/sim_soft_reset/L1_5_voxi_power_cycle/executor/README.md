@@ -1,6 +1,6 @@
 # L1.5 executor preparation
 
-This directory contains an audited **execution preparation**, not an executed experiment. No helper or watchdog was deployed to the phone and no SIM-power request was sent while creating it.
+This directory contains the audited L1.5 executor. The helper and watchdog have now passed build, DEX audit, zero-write device DRY_RUN, and watchdog-ready validation. No SIM-power request has been sent.
 
 Contents:
 

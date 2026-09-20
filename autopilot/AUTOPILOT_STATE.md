@@ -1,5 +1,20 @@
 # Autopilot State
 
+## 2026-09-20 L1.5 pre-execution ready
+
+- Repository recovered from authoritative private remote branch on the new host.
+- Current live serial: `192.168.137.127:40027`; Xiaomi 14 Pro identity and Magisk UID 0 confirmed.
+- Official Android build-tools 37.0.0 and Temurin JDK 21.0.12.1 produced `slot1-sim-power-helper.jar`.
+- Artifact SHA256: `be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31`.
+- Source, shell, DEX, fixed-slot, dual-lock, and forbidden-path audits: PASS.
+- Device DRY_RUN: PASS. VOXI slot1/sub11 and protected China Telecom slot0/sub1 gates were both READY and strict gate passed.
+- Root-only deployment and independent watchdog-ready validation: PASS.
+- Watchdog was hardened to absolute wall-clock deadlines; no-down test exited exactly after 60 seconds with no POWER_DOWN or POWER_UP marker/call.
+- Real slot1 SIM power cycle executed: NO.
+- Current direct IMS/WFC observation remains F1; this was not modified.
+
+NEXT_ACTION: Wait for explicit authorization, then perform one fixed slot1 SIM power cycle using the audited executor and independent rollback watchdog. Do not accept runtime target identifiers and do not run any older IMS/CNE/qcrild/system_server/modem experiments.
+
 ## 2026-09-19 phase handoff
 
 - New active workstream: `experiments/sim_soft_reset/`.

@@ -1,5 +1,16 @@
 # Autopilot Findings
 
+## L1.5 Executor Pre-execution Findings (2026-09-20)
+
+- The generated DEX resolves only the callback overload of `TelephonyManager.setSimPowerStateForSlot`.
+- DEX disassembly proves the reflected invocation's slot argument is compile-time constant 1; state is restricted to 0 or 1.
+- Slot0 appears only in protected-state verification and has no power invocation path.
+- The helper accepts only closed command tokens and no numeric target or transaction arguments.
+- Device DRY_RUN validated VOXI sub11/slot1/phone1/carrier28/MCCMNC23415 and China Telecom sub1/slot0/carrier2237/MCCMNC46011, both SIM READY.
+- The independent watchdog successfully validated the same-boot rollback arm and emitted `watchdog.ready`.
+- With no POWER_DOWN marker, the watchdog exited at its absolute 60-second deadline and never invoked POWER_UP.
+- This checkpoint validates preparation only. No evidence about the effect of real slot1 SIM power cycling has been produced yet.
+
 ## Confirmed Good Fingerprint
 
 - VOXI is subId 11, slot 1, phoneId 1, carrierId 28, MCCMNC 23415.

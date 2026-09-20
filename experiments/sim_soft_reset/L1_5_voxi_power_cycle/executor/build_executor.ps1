@@ -45,7 +45,13 @@ try {
 & $D8 --min-api 26 --output $DexDir $Intermediate
 if ($LASTEXITCODE -ne 0) { throw "d8 failed: $LASTEXITCODE" }
 
-Compress-Archive -LiteralPath (Join-Path $DexDir "classes.dex") -DestinationPath $Output
+Push-Location $DexDir
+try {
+    & $Jar cf $Output "classes.dex"
+    if ($LASTEXITCODE -ne 0) { throw "final jar failed: $LASTEXITCODE" }
+} finally {
+    Pop-Location
+}
 $Hash = (Get-FileHash -LiteralPath $Output -Algorithm SHA256).Hash.ToLowerInvariant()
 Write-Host "Built: $Output"
 Write-Host "SHA256: $Hash"

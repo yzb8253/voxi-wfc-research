@@ -31,6 +31,8 @@ Require-Match $Java '"1"\.equals\(System\.getenv\("LAB_MODE"\)\)' 'helper requir
 Require-Match $Java '"YES"\.equals\(System\.getenv\("LAB_EXECUTE"\)\)' 'helper requires LAB_EXECUTE=YES'
 Require-Match $Java 'WATCHDOG_READY_FILE' 'POWER_DOWN requires watchdog readiness'
 Require-Match $Watchdog 'ROLLBACK_AFTER_DOWN=30' 'watchdog timeout is fixed at 30 seconds'
+Require-Match $Watchdog 'deadline=\$\(\( \$\(date \+%s\) \+ MAX_WAIT_FOR_DOWN \)\)' 'watchdog no-down wait uses a wall-clock deadline'
+Require-Match $Watchdog 'deadline=\$\(\( \$\(date \+%s\) \+ ROLLBACK_AFTER_DOWN \)\)' 'watchdog rollback wait uses a wall-clock deadline'
 Require-Match $Watchdog 'helper POWER_UP' 'watchdog owns an independent POWER_UP path'
 Require-Match $Watchdog 'mkdir "\$LOCK_DIR"' 'watchdog uses an atomic single-instance lock'
 Require-Match $Runner 'LAB_MODE=\$\{LAB_MODE:-0\}' 'runner defaults LAB_MODE to 0'

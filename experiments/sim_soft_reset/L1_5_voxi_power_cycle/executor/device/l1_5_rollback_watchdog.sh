@@ -36,10 +36,9 @@ helper CHECK_ROLLBACK || { log "REFUSED rollback arm invalid"; exit 14; }
 echo "ready=$(timestamp) pid=$$" > "$READY_FILE"
 log "READY fixed-slot1 watchdog"
 
-elapsed=0
-while [ ! -f "$DOWN_FILE" ] && [ "$elapsed" -lt "$MAX_WAIT_FOR_DOWN" ]; do
+deadline=$(( $(date +%s) + MAX_WAIT_FOR_DOWN ))
+while [ ! -f "$DOWN_FILE" ] && [ "$(date +%s)" -lt "$deadline" ]; do
   sleep 1
-  elapsed=$((elapsed + 1))
 done
 
 if [ ! -f "$DOWN_FILE" ]; then
@@ -48,14 +47,13 @@ if [ ! -f "$DOWN_FILE" ]; then
 fi
 
 log "POWER_DOWN marker observed; rollback deadline=${ROLLBACK_AFTER_DOWN}s"
-elapsed=0
-while [ "$elapsed" -lt "$ROLLBACK_AFTER_DOWN" ]; do
+deadline=$(( $(date +%s) + ROLLBACK_AFTER_DOWN ))
+while [ "$(date +%s)" -lt "$deadline" ]; do
   if [ -f "$UP_FILE" ]; then
     log "EXIT POWER_UP already callback-confirmed"
     exit 0
   fi
   sleep 1
-  elapsed=$((elapsed + 1))
 done
 
 if [ -f "$UP_FILE" ]; then
