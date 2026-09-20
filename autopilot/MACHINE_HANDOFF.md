@@ -79,3 +79,11 @@ The user's intended workflow is:
 - Sanitized report: experiments/sim_soft_reset/modem_only_restart/MODEM_ONLY_RECOVERY_RESULT.md.
 
 NEXT_ACTION: preserve F1 and do not bypass the user-build shell gate. If a direct fixed-target ITelephony.rebootModem experiment is desired, obtain separate explicit authorization and repeat the complete dual-SIM/modem-wide risk review.
+
+## Current checkpoint (2026-09-20T15:15:32+08:00)
+
+- Branch: voxi-wfc-auto-recovery.
+- Latest device endpoint: 192.168.1.106:41701; rediscover before use.
+- Prepared and audited experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/stabilized_absent_second_reinsert/.
+- No device write was used during preparation. Static audit and Android shell syntax checks pass.
+- NEXT_ACTION: run the explicitly authorized bounded executor. Do not exceed two POWER_DOWN, two normal POWER_UP, one soft-stack rebuild, and never issue a third POWER_DOWN.

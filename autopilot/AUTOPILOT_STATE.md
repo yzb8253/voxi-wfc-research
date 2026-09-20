@@ -153,3 +153,13 @@ PHASE 6 RESETIMS SLOT1 CONTROLLED TEST:
 - The follow-up registration query returned `General_Error17-Unable to connect` on IWLAN.
 - No new qti.cne IMS request, ePDG UDP/4500, XFRM, IMS registration, VOICE/IWLAN, or WFC appeared through 120 seconds.
 - Slot0 remained protected. Result: `RESETIMS_RECOVERY=FAIL`; no second write was executed.
+
+## 2026-09-20T15:15:32+08:00 stabilized absent + second reinsert pre-execution checkpoint
+
+- Current live state remains fixed-target ACTIVE + UICC ENABLED strict F1; no write was performed while preparing this checkpoint.
+- Added two fixed watchdogs: cycle1 rollback at 300 seconds from power_down.sent, cycle2 rollback at 90 seconds.
+- Added a device-side cycle1 orchestrator with one fixed POWER_DOWN, true-ABSENT confirmation, exact 10-second absent hold, one ordered soft-stack rebuild, continuous 15-second stability gate, extra 20-second recheck, and one normal POWER_UP targeted within 180 seconds.
+- Added a host executor that permits a second and final POWER_DOWN/POWER_UP only if the first reinsert restores complete mapping but remains strict F1 through 90 seconds.
+- Static write-count/forbidden-path audit, PowerShell parse, helper SHA256, and Android sh -n checks: PASS.
+
+NEXT_ACTION: execute the explicitly authorized stabilized absent-state experiment once. Maximum budget: two POWER_DOWN, two normal POWER_UP, one soft-stack rebuild; watchdog POWER_UP is fallback only. Stop immediately on any gate failure or after the second reinsert result.
