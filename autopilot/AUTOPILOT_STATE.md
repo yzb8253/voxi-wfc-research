@@ -103,8 +103,8 @@ FINAL_GOAL: ACHIEVED
 HARD_BLOCKER: NONE
 VALIDATION: 3/3 PASS
 
-CURRENT_DEVICE_SERIAL: 192.168.137.211:41111
-CURRENT_EXPECTED_STATE: ACTIVE_ENABLED_F1_PRESERVED
+CURRENT_DEVICE_SERIAL: fd0ff892
+CURRENT_EXPECTED_STATE: ACTIVE_ENABLED_F1_PS_WLAN_UNKNOWN
 CURRENT_FAILURE_CLASS: F1_IMS_NOT_REGISTERED
 
 PHASE 8A QCOM IMS PROCESS RESTART:
@@ -198,3 +198,13 @@ NEXT_ACTION: execute the explicitly authorized stabilized absent-state experimen
 - China Telecom slot0 and wlan0/tun0 remained protected. Current final state is ACTIVE + UICC ENABLED + F1.
 
 NEXT_ACTION: no further SIM power cycle or userspace restart. Preserve the active/enabled F1 scene. Any experiment below this proven boundary requires new explicit authorization and a separate safety review; otherwise recover only by the already known full reboot lifecycle.
+
+## 2026-09-20 single-SIM full userspace rebuild complete
+
+- Result: FAIL. Exactly one TERM was sent to each verified current PID in this order: imsdatadaemon, imsqmidaemon, cnd, qtidataservices, Qualcomm IMS.
+- All five targets restarted and stabilized; Qualcomm ImsService rebound. qcrild, qcrild2, netmgrd, phone, and system_server remained at their protected PIDs.
+- No native IMS demand, qti.cne/TNF/DNC IMS request, UDP/4500, XFRM, IMS registration, VOICE/IWLAN, or WFC appeared during the stabilization window.
+- cnd reconstruction cleared the residual slot1 IWLAN/HOME state; final PS/WLAN is UNKNOWN and IWLAN preferred is false.
+- slot0 remains ABSENT, VOXI remains ACTIVE/UICC ENABLED/F1, and wlan0/tun0 remain up.
+
+NEXT_ACTION: stop. Do not append phone, system_server, RIL, modem, SIM-power, or resetIms work to this failed run. Any new experiment requires a distinct hypothesis and explicit authorization.

@@ -23,13 +23,15 @@
 | L3-02 | 3 | `cmd phone restart-modem` | Reinitialize the whole baseband and both UIM clients | Both SIMs drop and rescan; cellular data interruption; not AP reboot | Current-ROM chain is HAL RELOAD with no AP-reboot fallback; shell entry is blocked on user builds | Blocked before write |
 | L4-01 | 4 | Reload `com.android.phone` | Rebuild UiccController, SubscriptionController, registry and telephony framework clients | Both slots; prior broader userspace reconstruction failed | Two live `com.android.phone` PIDs require ownership mapping | Blocked by script |
 | L4-02 | 4 | Coordinated RIL pair restart | Rebuild Radio HAL/QtiBus/QMI clients | Both SIMs and cellular data; prior M2 failed | Previously executed and failed | Quarantined; not a next candidate |
+| L4-03 | 4 | Single-SIM full IMS/data userspace rebuild | Restart imsdatadaemon, imsqmidaemon, cnd, qtidataservices, then Qualcomm IMS without SIM lifecycle or phone/RIL restart | Five verified processes; slot0 absent; cnd restart can clear residual IWLAN state | Fixed identity/order executor and static audit verified | Executed once: FAIL; no IMS demand/CNE/ePDG/WFC, and residual IWLAN/HOME became UNKNOWN. Do not repeat unchanged |
 
 ## Recommended route
 
 1. Preserve the current active/enabled F1 scene with L0-00.
 2. L2-01 is complete and failed despite confirmed ABSENT/READY/LOADED. Do not repeat it unchanged or automatically fall through to a process/soft-stack action.
 3. The earliest missing layer remains native Qualcomm IMS demand generation before qti.cne/TNF/DNC IMS request creation.
-4. Any experiment below this boundary requires a new hypothesis, explicit authorization, and separate safety review. Never guess raw HIDL/QMI transaction IDs.
+4. L4-03 is also complete and failed in the single-SIM scene. It did not recreate demand and cleared residual IWLAN/HOME state.
+5. Any experiment below this boundary requires a new hypothesis, explicit authorization, and separate safety review. Never guess raw HIDL/QMI transaction IDs.
 
 ## Per-test questions
 

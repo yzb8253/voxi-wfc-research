@@ -193,3 +193,10 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - A second clean remove/reinsert after the rebuilt stack is stable is also insufficient: subscription and IWLAN recover, but CNE IMS request, ePDG, IMS registration, and WFC remain absent.
 - This materially narrows the reboot delta. The successful full AP reboot depends on a boot-only initialization/order boundary below or outside the tested qcrild/netmgrd/native IMS/CNE/IWLAN/phone/system_server restart set.
 - Safety engineering finding: a watchdog deadline at 300 seconds is incompatible with the helper's five-minute rollback-arm lifetime when the arm precedes POWER_DOWN. Future tooling must make arm lifetime strictly longer than watchdog deadline plus launch margin.
+
+## Single-SIM full userspace rebuild finding (2026-09-20)
+
+- Rebuilding imsdatadaemon, imsqmidaemon, cnd, qtidataservices, and Qualcomm IMS in strict order does not recreate the missing native IMS demand even with slot0 physically absent.
+- Qualcomm ImsService and slot1 MMTEL rebind successfully, but the initial status update fails and no qti.cne/TNF/DNC IMS request follows.
+- Rebuilding cnd clears residual IWLAN/HOME and changes PS/WLAN to UNKNOWN without triggering network-request reevaluation.
+- This independently excludes dual-SIM contention and the tested AP userspace IMS/data subset as sufficient recovery boundaries.
