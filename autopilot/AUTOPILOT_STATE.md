@@ -1,5 +1,18 @@
 # Autopilot State
 
+## 2026-09-20 modem-only restart gate stopped before write
+
+- The purported fresh post-reboot baseline was not a new boot epoch: kernel uptime was about 48 hours and all relevant PIDs remained continuous with the preceding soft-stack experiment.
+- Current state remained active/enabled F1: IWLAN/HOME and MMTEL READY, but IMS NOT_REGISTERED/UNKNOWN, VOICE/WFC unavailable, and no qti.cne IMS request/ePDG.
+- Current-ROM static trace: shell -> TelephonyManager.rebootRadio -> ITelephony.rebootModem -> Phone.rebootModem -> RIL nvResetConfig(1) -> HAL ResetNvType.RELOAD.
+- RELOAD is distinct from HAL ERASE and FACTORY_RESET, and no AP-reboot/PDC/MBN/EFS/persist/flash fallback exists in the framework path.
+- The actual shell entry is unavailable: handleRestartModemCommand rejects every user build through TelephonyUtils.IS_USER even for UID0. This phone is user, non-debuggable, release-keys.
+- No controlled F1 injection, restart-modem command, direct Binder bypass, process signal, or phone write was executed.
+- Result: MODEM_ONLY_RECOVERY=NOT_TESTED.
+
+NEXT_ACTION: preserve the current F1 state. Do not bypass the user-build shell gate. A future direct fixed-target ITelephony.rebootModem helper requires separate explicit authorization and renewed dual-SIM review.
+
+
 ## 2026-09-20 corrected absent-state soft-reboot retry
 
 - The corrected experiment executed exactly one fixed-slot1 POWER_DOWN; callback 0 and card-down/inactive/UICC-disabled state were confirmed.

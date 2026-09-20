@@ -69,13 +69,13 @@ The user's intended workflow is:
 
 - Date: 2026-09-20
 - Branch: voxi-wfc-auto-recovery
-- Device endpoint at last check: 192.168.1.106:41701 with mDNS alias also available; always rediscover after reconnect.
-- L1.5 helper SHA256 remains be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31.
-- The corrected retry executed one real slot1 POWER_DOWN, confirmed ABSENT/inactive/UICC-disabled state, and signaled every fixed soft-stack process once.
-- system_server restarted, but Telephony Binder readiness missed the orchestrator deadline. The normal POWER_UP path therefore made no API call.
-- The independent watchdog issued the sole POWER_UP at 120 seconds; callback 0 restored ACTIVE/UICC-enabled subId11/slot1 mapping.
-- CarrierConfig CLEAR/no-SIM/load and ImsResolver -1 -> 11/MMTEL READY were confirmed, but qti.cne IMS demand, ePDG, IMS registration, VOICE/IWLAN, and WFC did not return.
-- Final state: VOXI active/enabled F1; China Telecom slot0 protected; wlan0/tun0 present.
-- Sanitized retry report: experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/absent_soft_reboot/ABSENT_STATE_SOFT_REBOOT_RETRY_RESULT.md.
+- Device endpoint at last check: 192.168.1.106:41701; always rediscover after reconnect.
+- Current kernel boot ID at last check: 8034952d-9ad8-4ccd-930a-c595cd7bcab4.
+- The attempted Golden Boot baseline was rejected as a fresh-boot claim because kernel uptime was about 48 hours and telephony/framework PIDs were continuous with the prior run.
+- Current state remains VOXI active/enabled F1; slot0 mapping is protected.
+- Current-ROM restart-modem chain terminates in Radio HAL ResetNvType.RELOAD, not ERASE or FACTORY_RESET.
+- The shell entry cannot execute on this production user build because TelephonyShellCommand requires UID0 and TelephonyUtils.IS_USER=false.
+- No modem restart, direct Binder bypass, SIM power cycle, process kill, radio toggle, or AP reboot was executed in this phase.
+- Sanitized report: experiments/sim_soft_reset/modem_only_restart/MODEM_ONLY_RECOVERY_RESULT.md.
 
-NEXT_ACTION: preserve the active/enabled F1 scene. Do not repeat the absent-state soft-reboot candidate unchanged. Continue read-only reboot-delta analysis unless a distinct write hypothesis receives explicit authorization.
+NEXT_ACTION: preserve F1 and do not bypass the user-build shell gate. If a direct fixed-target ITelephony.rebootModem experiment is desired, obtain separate explicit authorization and repeat the complete dual-SIM/modem-wide risk review.

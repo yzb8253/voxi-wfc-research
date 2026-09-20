@@ -31,3 +31,6 @@
 2026-09-20T13:53:42+08:00 NORMAL POWER_UP NOT INVOKED; Telephony Binder unavailable after system_server restart; helper exited before SIM-power API.
 2026-09-20T13:55:23.684+08:00 WATCHDOG FALLBACK WRITE; exactly one fixed-slot1 POWER_UP; callback=0; subId11/slot1/UICC state restored.
 2026-09-20T14:03:37.227+08:00 ABSENT-STATE RETRY COMPLETE; CarrierConfig and ImsResolver lifecycle matched, but final state remained F1 with no qti.cne IMS request/ePDG/XFRM; slot0 protected; wlan0/tun0 present; no further write.
+2026-09-20T14:50:06+08:00 MODEM-ONLY GATE STOP; kernel uptime ~48h, so fresh reboot epoch not established; current active/enabled F1 preserved.
+2026-09-20T14:50:06+08:00 STATIC AUDIT; restart-modem maps to HAL ResetNvType.RELOAD, while ERASE/FACTORY_RESET are distinct; no AP-reboot fallback found.
+2026-09-20T14:50:06+08:00 ZERO WRITE; production user-build TelephonyShellCommand gate blocks restart-modem even for UID0; command and direct Binder bypass NOT EXECUTED.

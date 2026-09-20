@@ -1,10 +1,20 @@
 # Autopilot Findings
 
+## Modem-only Restart Static Finding (2026-09-20)
+
+- The current-ROM restart-modem shell command is hard-disabled on production user builds, even for Magisk UID0.
+- Its underlying framework operation is not an AP reboot: it reaches RIL request 121 and HAL nvResetConfig with ResetNvType.RELOAD.
+- Current-ROM conversion proves Java value 1 maps to HAL value 0 (RELOAD); ERASE and FACTORY_RESET are separate values 1 and 2.
+- The framework route contains no PDC/MBN/EFS/persist/firmware/factory-reset call and no AP-reboot fallback. Vendor execution would nevertheless disrupt the shared modem and both SIMs.
+- The connected device had about 48 hours of kernel uptime, so the claimed fresh reboot could not be established from machine evidence. It remained the prior active/enabled F1 scene.
+- No restart-modem or other write was executed; recovery effectiveness remains NOT_TESTED.
+
+
 ## Corrected Absent-state Retry Finding (2026-09-20)
 
 - The corrected run substantively tested the hypothesis: one callback-successful slot1 POWER_DOWN produced an inactive, unmapped, UICC-disabled ABSENT state.
-- The selected qcrild/netmgr/IMS/CNE/phone/system_server stack was rebuilt. system_server returned, although Telephony Binder readiness missed the orchestrator''s normal-power-up deadline.
-- The independent watchdog''s only fallback POWER_UP returned callback 0 and restored slot1/subId11/UICC state.
+- The selected qcrild/netmgr/IMS/CNE/phone/system_server stack was rebuilt. system_server returned, although Telephony Binder readiness missed the orchestrator's normal-power-up deadline.
+- The independent watchdog's only fallback POWER_UP returned callback 0 and restored slot1/subId11/UICC state.
 - CarrierConfig reproduced ABSENT -> CLEAR_CONFIG -> no-SIM -> ESSENTIAL_LOADED -> LOADED.
 - ImsResolver/MMTEL reproduced slot1 subId -1/UNAVAILABLE -> subId11/READY.
 - Despite those matches, no new qti.cne IMS request, IMS IWLAN NetworkAgent, UDP/4500, XFRM, REGISTERED/WLAN, VOICE/IWLAN, or WFC appeared.
