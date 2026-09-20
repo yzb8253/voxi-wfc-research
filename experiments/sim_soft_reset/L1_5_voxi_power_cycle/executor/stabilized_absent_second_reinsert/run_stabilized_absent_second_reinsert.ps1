@@ -128,21 +128,13 @@ Assert-Slot0 $r1.State 'before_cycle2'
 
 Arm-Watchdog 2
 "cycle2WatchdogReady=$((Get-Date).ToString('o'))" | Add-Content $WriteAudit
-if ($script:PowerDownCount -ge 2) { throw 'POWER_DOWN budget exhausted before cycle2' }
+Deploy (Join-Path $PSScriptRoot 'device\stabilized_cycle2_orchestrator.sh') 'stabilized_cycle2_orchestrator.sh'
+if ($script:PowerDownCount -ge 2 -or $script:NormalPowerUpCount -ge 2) { throw 'Cycle2 write budget exhausted' }
 $script:PowerDownCount++
-"T12_second_POWER_DOWN_start=$((Get-Date).ToString('o')); downCount=$script:PowerDownCount" | Add-Content $WriteAudit
-$down2=Helper POWER_DOWN 2>&1
-$down2 | Add-Content $WriteAudit
-if ($LASTEXITCODE -ne 0) { throw 'Second and final POWER_DOWN failed; watchdog remains armed' }
-if (-not (Confirm-Absent 30 'cycle2')) { throw 'Second true absent not confirmed; watchdog remains armed' }
-"T13_second_absent=$((Get-Date).ToString('o'))" | Add-Content $WriteAudit
-Start-Sleep 10
-if ($script:NormalPowerUpCount -ge 2) { throw 'Normal POWER_UP budget exhausted before cycle2' }
 $script:NormalPowerUpCount++
-"T14_second_POWER_UP_start=$((Get-Date).ToString('o')); normalUpCount=$script:NormalPowerUpCount" | Add-Content $WriteAudit
-$up2=Helper POWER_UP 2>&1
-$up2 | Add-Content $WriteAudit
-if ($LASTEXITCODE -ne 0 -or ($up2 -join "`n") -notmatch 'result=COMMAND_COMPLETED') { throw 'Second normal POWER_UP failed; watchdog remains authoritative' }
+$cycle2Raw=Root "ABSENT_LAB_MODE=1 ABSENT_EXECUTE=YES /system/bin/sh $DeviceDir/stabilized_cycle2_orchestrator.sh" 2>&1
+$cycle2Raw | Add-Content $WriteAudit
+if ($LASTEXITCODE -ne 0) { throw 'Second fixed cycle failed; watchdog remains authoritative' }
 $cycle2Up=Get-Date
 $r2=Sample-Schedule 'cycle2_recover' $cycle2Up @(5,10,15,20,30,45,60,90,120,180)
 $result=if ($r2.Healthy) {'PASS_SECOND_REINSERT'} else {'FAIL_AFTER_SECOND_REINSERT'}
