@@ -67,6 +67,18 @@ The user's intended workflow is:
 
 ## Current checkpoint
 
+- Date: 2026-09-20, computer-B read-only recovery.
+- USB ADB currently resolves one target: `fd0ff892`, Xiaomi 14 Pro, Magisk UID 0.
+- VOXI remains subId11/slot1/phoneId1/carrierId28/MCCMNC23415, ACTIVE and UICC enabled.
+- China SIM slot0 is ABSENT; the two-slot SIM-state property is `ABSENT,LOADED`.
+- Current health is F1: IMS NOT_REGISTERED/UNKNOWN, VOICE-IWLAN unavailable, WFC unavailable; no qti.cne IMS request or ePDG tunnel.
+- single-SIM helper source and reports are present; static audit passes. `device/*.sh` is now pinned to LF to make Windows checkouts safe.
+- No device write was executed during this handoff.
+
+NEXT_ACTION: preserve F1. Do not execute the single-SIM cycle merely because the computer changed; the latest completed experiment boundary still applies.
+
+## Earlier checkpoint
+
 - Date: 2026-09-20
 - Branch: voxi-wfc-auto-recovery
 - Device endpoint at last check: 192.168.1.106:41701; always rediscover after reconnect.

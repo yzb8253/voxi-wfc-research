@@ -1,5 +1,17 @@
 # Autopilot State
 
+## 2026-09-20 computer-B read-only handoff
+
+- Authoritative branch was fast-forwarded to checkpoint `9c32fabbfbd322db74c1ee65ea6f241a616592cc` before inspection.
+- USB ADB resolved exactly one Xiaomi 14 Pro target, serial `fd0ff892`; Magisk root returned UID 0.
+- Current VOXI mapping is subId 11 / slot 1 / phoneId 1 / carrierId 28 / MCCMNC 23415, ACTIVE with UICC applications enabled.
+- China SIM slot0 is physically/logically absent: `gsm.sim.state=ABSENT,LOADED`, no active protected subscription row.
+- Direct health is F1: IMS NOT_REGISTERED, transport UNKNOWN, VOICE/IWLAN unavailable, and WFC unavailable. IWLAN/HOME and MMTEL READY alone do not change the classification.
+- The single-SIM source, audit, build report, watchdog, and simple cycle are present. Static audit passes after adding an LF checkout rule for device shell scripts on Windows.
+- No POWER_DOWN, POWER_UP, process action, deployment, or other phone write was executed.
+
+NEXT_ACTION: preserve the current single-SIM active/enabled F1 scene. Do not run the simple cycle or watchdog without a new explicit experiment authorization and review of the latest no-repeat boundary.
+
 ## 2026-09-20 modem-only restart gate stopped before write
 
 - The purported fresh post-reboot baseline was not a new boot epoch: kernel uptime was about 48 hours and all relevant PIDs remained continuous with the preceding soft-stack experiment.
