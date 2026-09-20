@@ -58,13 +58,13 @@ function NetworkGate { $x = Root "ip addr show wlan0; ip addr show tun0" 2>&1; r
 function Deploy([string]$Local,[string]$Name) {
     $stage = "/data/local/tmp/$Name.stage"
     ADB push $Local $stage | Out-Null
-    Root "cp $stage $DeviceDir/$Name && chmod 0700 $DeviceDir/$Name && rm -f $stage"
+    Root "cp $stage $DeviceDir/$Name && rm -f $stage"
     if ($LASTEXITCODE -ne 0) { throw "Deploy failed: $Name" }
 }
 function Arm-Watchdog([int]$Cycle) {
     $arm = Helper ARM_ROLLBACK 2>&1
     if ($LASTEXITCODE -ne 0 -or ($arm -join "`n") -notmatch 'result=ROLLBACK_ARMED') { throw "Cycle $Cycle rollback arm failed" }
-    Root "rm -f $DeviceDir/stabilized-watchdog-cycle$Cycle.ready $DeviceDir/stabilized-watchdog-cycle$Cycle.log; ABSENT_LAB_MODE=1 ABSENT_EXECUTE=YES $DeviceDir/stabilized_watchdog_cycle$Cycle.sh >/dev/null 2>&1 &"
+    Root "rm -f $DeviceDir/stabilized-watchdog-cycle$Cycle.ready $DeviceDir/stabilized-watchdog-cycle$Cycle.log; ABSENT_LAB_MODE=1 ABSENT_EXECUTE=YES /system/bin/sh $DeviceDir/stabilized_watchdog_cycle$Cycle.sh >/dev/null 2>&1 &"
     $end=(Get-Date).AddSeconds(20)
     do { Start-Sleep 1; $ready=Root "test -f $DeviceDir/stabilized-watchdog-cycle$Cycle.ready -a -f $DeviceDir/watchdog.ready; echo `$?" 2>$null; if (($ready | Select-Object -Last 1) -eq '0') { return } } while ((Get-Date) -lt $end)
     throw "Cycle $Cycle watchdog did not become ready"
@@ -109,7 +109,7 @@ $cycle1Start=Get-Date
 $script:PowerDownCount++
 $script:NormalPowerUpCount++
 "T0_cycle1_orchestrator_start=$($cycle1Start.ToString('o')); plannedDownCount=$script:PowerDownCount; plannedNormalUpCount=$script:NormalPowerUpCount" | Add-Content $WriteAudit
-$orchestrator=Root "ABSENT_LAB_MODE=1 ABSENT_EXECUTE=YES $DeviceDir/stabilized_cycle1_orchestrator.sh" 2>&1
+$orchestrator=Root "ABSENT_LAB_MODE=1 ABSENT_EXECUTE=YES /system/bin/sh $DeviceDir/stabilized_cycle1_orchestrator.sh" 2>&1
 $orchestrator | Set-Content (Join-Path $RunDir 'cycle1_orchestrator_stdout.txt')
 $orchestratorExit=$LASTEXITCODE
 Wait-Adb 90
