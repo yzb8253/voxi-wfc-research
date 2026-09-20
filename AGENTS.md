@@ -97,3 +97,39 @@ Continue autonomously until either `FINAL_GOAL=ACHIEVED` or a real HARD_BLOCKER:
 ## Resume Protocol
 
 At every resume, read this file, `autopilot/AUTOPILOT_STATE.md`, and `autopilot/AUTOPILOT_FINDINGS.md`, then continue from `NEXT_ACTION`.
+
+## Cross-Computer Handoff Protocol
+
+The user frequently changes Windows computers. Treat “I changed computers”, “换电脑了”, or an equivalent message as an instruction to resume the project automatically from GitHub rather than ask the user to reconstruct state manually.
+
+On a new computer:
+
+1. Locate `platform-tools\voxi_wfc_research`. If absent and Git is available, clone `yzb8253/voxi-wfc-research`.
+2. Use branch `voxi-wfc-auto-recovery`.
+3. Run `git fetch origin`, switch to that branch, and fast-forward with `git pull --ff-only origin voxi-wfc-auto-recovery`.
+4. Verify local HEAD equals the remote branch HEAD. The remote branch is authoritative; do not hard-code an old commit if a newer remote commit exists.
+5. Read `AGENTS.md`, `autopilot/AUTOPILOT_STATE.md`, `autopilot/AUTOPILOT_FINDINGS.md`, and `autopilot/MACHINE_HANDOFF.md`.
+6. Re-resolve the current ADB serial/address with `adb devices`; never reuse an old wireless ADB endpoint blindly.
+7. Confirm device identity and root before any device action.
+8. Resume from the latest recorded `NEXT_ACTION`; never repeat completed experiments merely because the computer changed.
+
+## Automatic Checkpoint and Push Policy
+
+After every meaningful completed unit of work, automatically checkpoint the project to GitHub on `voxi-wfc-auto-recovery` unless doing so would expose sensitive/raw subscriber data.
+
+A meaningful completed unit includes: a new experiment plan, source/script change, static audit, build result, execution result, root-cause report, safety finding, new checkpoint, or a revised next action.
+
+For each checkpoint:
+
+1. Update `autopilot/AUTOPILOT_STATE.md` with current phase, last completed action, result, blockers, and exact `NEXT_ACTION`.
+2. Update `autopilot/AUTOPILOT_FINDINGS.md` when conclusions materially change.
+3. Update `autopilot/MACHINE_HANDOFF.md` with the latest branch/commit context and concise resume instructions.
+4. Stage only appropriate project source, scripts, reports, audits, and sanitized summaries.
+5. Do not commit raw telephony dumps, run captures, subscriber identifiers, ICCID/IMSI/MSISDN, secrets, tokens, or other sensitive artifacts. Keep Git-ignored run evidence local unless it is explicitly sanitized first.
+6. Commit with a concise message describing the completed unit.
+7. Push to `origin/voxi-wfc-auto-recovery`.
+8. Verify the remote branch now contains the new commit and leave the worktree clean when practical.
+
+If push fails, record `GIT_PUSH_BLOCKED` and the exact reason in `autopilot/MACHINE_HANDOFF.md`; do not falsely report that work is uploaded.
+
+The user should not need to run Git commands manually after a computer change. Their normal handoff is: provide the last Codex output if available, say that the computer changed, and let the project resume protocol handle synchronization and continuation.
