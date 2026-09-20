@@ -34,3 +34,10 @@
 2026-09-20T14:50:06+08:00 MODEM-ONLY GATE STOP; kernel uptime ~48h, so fresh reboot epoch not established; current active/enabled F1 preserved.
 2026-09-20T14:50:06+08:00 STATIC AUDIT; restart-modem maps to HAL ResetNvType.RELOAD, while ERASE/FACTORY_RESET are distinct; no AP-reboot fallback found.
 2026-09-20T14:50:06+08:00 ZERO WRITE; production user-build TelephonyShellCommand gate blocks restart-modem even for UID0; command and direct Binder bypass NOT EXECUTED.
+2026-09-20T15:42:05.840+08:00 STABILIZED ABSENT WRITE 1/4; fixed slot1 POWER_DOWN callback=0; true ABSENT confirmed; slot0 protected.
+2026-09-20T15:42:17+08:00 SOFT STACK WRITE SET 1/1; exact-PID TERM sequence qcrild2, qcrild, netmgrd, imsqmidaemon, imsdatadaemon, cnd, qtidataservices, org.codeaurora.ims, com.android.phone, system_server.
+2026-09-20T15:47:05+08:00 WATCHDOG POWER_UP REJECTED PRE-API; five-minute rollback arm expired before 300-second deadline; no callback and no SIM-power API write.
+2026-09-20T15:53:50.190+08:00 STABILIZED ABSENT WRITE 2/4; authorized fixed slot1 rollback POWER_UP callback=0 after same-boot fixed-target arm renewal.
+2026-09-20T16:03:07.899+08:00 SECOND REINSERT WRITE 3/4; second and final fixed slot1 POWER_DOWN callback=0; true ABSENT confirmed; no process restart.
+2026-09-20T16:03:19.517+08:00 SECOND REINSERT WRITE 4/4; second and final fixed slot1 POWER_UP callback=0; watchdog exited on callback marker.
+2026-09-20T16:06:21.916+08:00 EXPERIMENT COMPLETE; final ACTIVE/UICC ENABLED/IWLAN HOME but strict F1; no IMS demand/CNE/ePDG/WFC; slot0 protected; no further write authorized.

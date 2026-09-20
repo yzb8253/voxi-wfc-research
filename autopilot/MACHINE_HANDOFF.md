@@ -87,3 +87,12 @@ NEXT_ACTION: preserve F1 and do not bypass the user-build shell gate. If a direc
 - Prepared and audited experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/stabilized_absent_second_reinsert/.
 - No device write was used during preparation. Static audit and Android shell syntax checks pass.
 - NEXT_ACTION: run the explicitly authorized bounded executor. Do not exceed two POWER_DOWN, two normal POWER_UP, one soft-stack rebuild, and never issue a third POWER_DOWN.
+
+## Current checkpoint (2026-09-20 stabilized absent experiment complete)
+
+- Branch: voxi-wfc-auto-recovery.
+- Latest known online ADB alias: adb-fd0ff892-wZRh7k._adb-tls-connect._tcp; last discovered numeric endpoint was 192.168.1.106:41615. Always rediscover.
+- Sanitized result: experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/stabilized_absent_second_reinsert/STABILIZED_ABSENT_SECOND_REINSERT_RESULT.md.
+- Actual write accounting: two fixed slot1 POWER_DOWN callbacks, two fixed slot1 POWER_UP callbacks, one soft-stack rebuild, no third down.
+- Final device state: VOXI ACTIVE + UICC ENABLED + IWLAN HOME + strict F1. China Telecom slot0 protected.
+- NEXT_ACTION: stop. Do not repeat this experiment. New below-boundary work requires explicit authorization; otherwise use the known full reboot lifecycle for recovery.

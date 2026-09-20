@@ -163,3 +163,14 @@ PHASE 6 RESETIMS SLOT1 CONTROLLED TEST:
 - Static write-count/forbidden-path audit, PowerShell parse, helper SHA256, and Android sh -n checks: PASS.
 
 NEXT_ACTION: execute the explicitly authorized stabilized absent-state experiment once. Maximum budget: two POWER_DOWN, two normal POWER_UP, one soft-stack rebuild; watchdog POWER_UP is fallback only. Stop immediately on any gate failure or after the second reinsert result.
+
+## 2026-09-20 stabilized absent + second reinsert complete
+
+- Result: FAIL. The complete bounded write budget was consumed: two fixed slot1 POWER_DOWN callbacks, two fixed slot1 POWER_UP callbacks, and one soft-stack rebuild. No third POWER_DOWN occurred.
+- First cycle reached true ABSENT and rebuilt the full userspace stack. The 15-second stability gate passed, but the extra 20-second check crossed the 180-second normal-up target.
+- The 300-second watchdog exposed a design incompatibility: the helper rollback arm lives only five minutes and expired before fallback. The rejected fallback did not reach the Telephony API. A same-boot fixed-target arm renewal safely completed the authorized first POWER_UP.
+- First insertion restored ACTIVE/UICC ENABLED/IWLAN HOME but remained strict F1.
+- The second and final remove/reinsert completed without process restarts. Through approximately 182 seconds it remained strict F1 with no native IMS demand, qti.cne IMS request, UDP/4500, XFRM, IMS registration, or WFC.
+- China Telecom slot0 and wlan0/tun0 remained protected. Current final state is ACTIVE + UICC ENABLED + F1.
+
+NEXT_ACTION: no further SIM power cycle or userspace restart. Preserve the active/enabled F1 scene. Any experiment below this proven boundary requires new explicit authorization and a separate safety review; otherwise recover only by the already known full reboot lifecycle.

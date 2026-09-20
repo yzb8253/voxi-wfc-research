@@ -177,3 +177,10 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - The prior absent-state soft reboot was inconclusive because normal POWER_UP ran before Telephony Binder and the rebuilt framework graph were stable.
 - The corrected hypothesis specifically tests whether preserving true ABSENT through the full stack rebuild, then requiring stable system_server/phone/isub/connectivity, stable exact process PIDs, rebound IWLAN services, network readiness, and no QtiBus serverDied event before insertion changes the result.
 - If the first insertion returns only to strict F1, one final remove/10-second absent/reinsert without another process restart tests whether a second UICC lifecycle is needed after the rebuilt stack is stable.
+
+## Stabilized absent and second reinsert finding (2026-09-20)
+
+- True ABSENT plus a full userspace stack rebuild and stable Binder/IWLAN service window is still insufficient to recreate the native IMS data demand.
+- A second clean remove/reinsert after the rebuilt stack is stable is also insufficient: subscription and IWLAN recover, but CNE IMS request, ePDG, IMS registration, and WFC remain absent.
+- This materially narrows the reboot delta. The successful full AP reboot depends on a boot-only initialization/order boundary below or outside the tested qcrild/netmgrd/native IMS/CNE/IWLAN/phone/system_server restart set.
+- Safety engineering finding: a watchdog deadline at 300 seconds is incompatible with the helper's five-minute rollback-arm lifetime when the arm precedes POWER_DOWN. Future tooling must make arm lifetime strictly longer than watchdog deadline plus launch margin.
