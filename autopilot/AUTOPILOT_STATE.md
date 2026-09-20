@@ -218,3 +218,15 @@ NEXT_ACTION: stop. Do not append phone, system_server, RIL, modem, SIM-power, or
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_SETDATAPROFILE_RACE_CONFIRMATION.md`.
 
 NEXT_ACTION: preserve the scene. Candidate only: statically audit a fixed-slot1, read-semantics `IIWlan.getAllQualifiedNetworks(serial)` cache query as a discriminator between stale native cache and missing callback replay. Do not execute it without a separate authorization and safety review.
+
+## 2026-09-20 QCRIL IIWLAN cache snapshot
+
+- Static audit confirmed that `getAllQualifiedNetworks` copies the native cache and returns it without a cache update or QMI write, but its response belongs to the already registered global `IWlanResponse`.
+- No zero-write shell/business-method client was available, so `getAllQualifiedNetworks` was not invoked and `setResponseFunctions` was never called.
+- One standard read-only `IBase::debug` call exposed the current native cache without changing callback ownership: IMS, DEFAULT, and EIMS entries are present, but all have `networks=[]`.
+- Native global preference is IWLAN, registration state is HOME, and DSD/WDS/Auth/IWLAN readiness flags are true. Framework still reports `mIsIwlanPreferred=true`, while IMS/WFC remains strict F1.
+- Verdict: `NATIVE_QNS_CACHE=STALE`; the fault is in DSD APN qualification/indication/cache synchronization, not merely Java provider replay.
+- Phone writes performed: 0.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_IIWLAN_CACHE_SNAPSHOT.md`.
+
+NEXT_ACTION: read-only/static trace of the DSD indication-to-NetworkAvailabilityHandler cache-update path. Do not replay setDataProfile or invoke a refresh/write API.

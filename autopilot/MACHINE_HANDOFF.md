@@ -101,6 +101,20 @@ NEXT_ACTION: preserve F1. Do not execute the single-SIM cycle merely because the
 
 NEXT_ACTION: no write. If continuing this hypothesis, first statically audit a fixed-slot1 `IIWlan.getAllQualifiedNetworks(serial)` read-semantics cache query. Treat it only as a cache/callback discriminator, not as a QMI or modem refresh.
 
+## Current checkpoint: QCRIL IIWLAN cache snapshot
+
+- Date: 2026-09-20.
+- Fixed target remained VOXI slot1/phoneId1/subId11; slot0 remains absent.
+- Static audit passed: `getAllQualifiedNetworks` is a cache read, but a second client cannot privately capture its result without callback ownership concerns.
+- No helper was uploaded and no HIDL response callback was registered or replaced. `getAllQualifiedNetworks` was not executed.
+- One read-only `lshal debug vendor.qti.hardware.data.iwlan@1.0::IIWlan/slot2` call exposed the built-in native cache dump.
+- Current IMS APN is present with `networks=[]`; DEFAULT and EIMS are also present with empty lists. Native global preference is IWLAN and DSD/WDS/IWLAN readiness is true.
+- Framework remains IWLAN-preferred, but IMS is NOT_REGISTERED and WFC unavailable. Verdict: `NATIVE_QNS_CACHE=STALE`.
+- Phone writes: 0.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_IIWLAN_CACHE_SNAPSHOT.md`.
+
+NEXT_ACTION: continue only with read-only/static DSD indication-to-cache analysis. Do not replay setDataProfile, replace IIWlan callbacks, or invoke a refresh API.
+
 ## Earlier checkpoint
 
 - Date: 2026-09-20

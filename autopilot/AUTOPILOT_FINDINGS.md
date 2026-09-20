@@ -210,3 +210,12 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - The visible Java QNS was already AP-assisted before both insertions. Internal QCRIL ProfileHandler/NetworkAvailabilityHandler and DSD registration branches are not logged, so those sub-branches remain unproven rather than assumed.
 - The leading missing component moves from framework profile dispatch to DSD APN availability/preferred-system indication or synchronization/replay of the native NetworkAvailability cache.
 - A future discriminator is the read-semantics slot1 `IIWlan.getAllQualifiedNetworks(serial)` cache query, after static scope/safety review. It reads cache; it is not a DSD refresh or modem re-evaluation API.
+
+## QCRIL IIWLAN cache snapshot finding (2026-09-20)
+
+- `NetworkAvailabilityHandler::getQualifiedNetworks` is a cache-copy operation; no QMI request or cache mutation was found in its call path.
+- Because a solicited HIDL result is sent to the single already registered `IWlanResponse`, no second-client callback was installed and the business method was not invoked.
+- The existing HAL `IBase::debug` path safely exposed `NetworkAvailabilityHandler::dumpCache`: IMS, DEFAULT, and EIMS APNs exist, but every qualified-network list is currently empty and `LastReportedNetworkAvailability` is empty.
+- This is not a missing-IMS-profile condition. It is a stale APN-level native qualified-network cache despite `globalPrefSys=IWLAN`, `DsdServiceReady=true`, `IWLANEnabled=true`, `RegistrationState=REG_HOME`, and framework `mIsIwlanPreferred=true`.
+- The same internal history proves that the successful second insertion previously populated IMS with `[IWLAN,UNKNOWN]`; that qualification is absent now.
+- Verdict: `NATIVE_QNS_CACHE=STALE`. Move the fault boundary to DSD APN preferred-system/availability indication or its synchronization into NetworkAvailabilityHandler.
