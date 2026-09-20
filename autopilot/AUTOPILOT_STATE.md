@@ -242,3 +242,15 @@ NEXT_ACTION: read-only/static trace of the DSD indication-to-NetworkAvailability
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/DSD_NETWORK_AVAILABILITY_GOLDEN_DIFF_PREPARATION.md`.
 
 NEXT_ACTION: wait for the user to create a real WFC Golden state, then run exactly the same capture script once and perform a field-level BAD-vs-GOLDEN diff. Do not attempt recovery in this phase.
+
+## 2026-09-20 GOLDEN DSD/QNS snapshot complete
+
+- A real-WFC GOLDEN state passed REGISTERED/WLAN, VOICE-IWLAN, WFC, CNE request, UDP/4500, and XFRM gates.
+- The exact audited BAD/GOLDEN script was used; phone writes remained 0.
+- GOLDEN hash: `602E81EA342A7185BDA3000CCCDF406C77354878D17DD7BF253B28361E371CB6`.
+- Result is CASE B: current native IMS/DEFAULT/EIMS vectors remain empty in both BAD and GOLDEN; `globalPrefSys=IWLAN` and `hasPendingIntent=false` are also unchanged.
+- The current native dump table cannot distinguish broken F1 from healthy WFC. A transient IMS/IWLAN update is visible in GOLDEN history, but it is not retained after the IMS path is established.
+- Root boundary remains unresolved between transient DSD/QNS qualification delivery and persistent CNE IMS demand; do not label the current empty cache as the root cause.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
+
+NEXT_ACTION: no write. Candidate only: a future timestamp-aligned read-only lifecycle capture around a real recovery, correlating NAH/DSD, ANM, CNE, ePDG/XFRM, and IMS registration.

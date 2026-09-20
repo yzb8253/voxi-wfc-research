@@ -205,3 +205,11 @@ Phone writes:
 NEXT_ACTION:
 Wait for user-provided real WFC Golden state, then run exactly the same snapshot and diff.
 ```
+
+## Golden follow-up completed
+
+The real-WFC GOLDEN snapshot was captured with this exact script and passed the complete health gate. Its SHA-256 is `602E81EA342A7185BDA3000CCCDF406C77354878D17DD7BF253B28361E371CB6`.
+
+Unexpectedly, the current GOLDEN `NetworkAvailabilityCache` is identical to BAD: IMS, DEFAULT, and EIMS all have empty network vectors, `hasPendingIntent=false`, and `globalPrefSys=IWLAN`. The GOLDEN history records a transient IMS `[IWLAN,UNKNOWN]` update before WFC establishment, but that value is no longer retained in the current table while WFC remains healthy.
+
+This is CASE B. The full analysis is in `BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`; the earlier `NATIVE_QNS_CACHE=STALE` conclusion must not be treated as a sufficient root-cause discriminator by itself.

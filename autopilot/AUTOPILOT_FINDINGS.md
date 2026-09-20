@@ -228,3 +228,16 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - `convertResultList` filters an empty vector or a vector beginning with UNKNOWN and cannot synthesize IWLAN from `globalPrefSys`.
 - Therefore the direct current cause is an empty IMS per-APN network vector. The earlier raw DSD cause remains UNKNOWN because current dumps do not expose whether the indication was absent, zero-length, unsupported/UNKNOWN, or lost upstream.
 - A fixed read-only BAD/GOLDEN capture script now records the native cache, framework health, CNE, ePDG/XFRM, and relevant logs with identical commands.
+
+## BAD vs GOLDEN native DSD/QNS diff (2026-09-20)
+
+- The exact same audited snapshot script captured a valid real-WFC GOLDEN state. Direct gates passed: REGISTERED(2), WLAN(2), VOICE/IWLAN available, WFC available, PS/WLAN HOME, IWLAN preferred, active qti.cne IMS request/NetworkAgent, UDP/4500, and XFRM.
+- BAD SHA-256: `31727FD5AAC506D429BB14DFD205280ED0B5A2D90BC411253A9982E1189B5687`; GOLDEN SHA-256: `602E81EA342A7185BDA3000CCCDF406C77354878D17DD7BF253B28361E371CB6`.
+- Current native cache fields are identical: IMS, DEFAULT, and EIMS all have `networks=[]`, all have `hasPendingIntent=false`, `LastReportedNetworkAvailability` is empty, and `globalPrefSys=IWLAN` in both captures.
+- GOLDEN history did transiently contain IMS `[IWLAN,UNKNOWN]` before WFC establishment, but the current table was later empty while the established IMS path remained healthy.
+- Verdict: CASE B. The current `dumpCache` table is a transient qualification/report cache, not a durable active-IMS decision state. `NATIVE_QNS_CACHE=STALE` is not a sufficient BAD/GOLDEN discriminator and the per-APN cache root boundary is not confirmed.
+- The first concrete live-state difference is downstream: GOLDEN has active CNE IMS demand/NetworkAgent and ePDG/XFRM; BAD does not. The precise minimum upstream lifecycle state remains unknown.
+- Phone writes: 0. No active IIWlan query, callback replacement, QMI request, SIM action, restart, or recovery action occurred.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
+
+NEXT_ACTION: candidate only—capture a future real insert/recovery as a timestamp-aligned, read-only lifecycle trace spanning native DSD/NAH updates, ANM delivery, CNE request creation, and IMS tunnel establishment. Do not invoke refresh/query/write APIs.

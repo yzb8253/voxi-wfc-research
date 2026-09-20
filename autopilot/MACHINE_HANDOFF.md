@@ -158,3 +158,15 @@ NEXT_ACTION: preserve F1 and do not bypass the user-build shell gate. If a direc
 - Actual write accounting: two fixed slot1 POWER_DOWN callbacks, two fixed slot1 POWER_UP callbacks, one soft-stack rebuild, no third down.
 - Final device state: VOXI ACTIVE + UICC ENABLED + IWLAN HOME + strict F1. China Telecom slot0 protected.
 - NEXT_ACTION: stop. Do not repeat this experiment. New below-boundary work requires explicit authorization; otherwise use the known full reboot lifecycle for recovery.
+
+## Current checkpoint: BAD vs GOLDEN DSD/QNS diff
+
+- Date: 2026-09-20.
+- The exact audited capture script was run once against a user-created real-WFC GOLDEN state; phone writes were 0.
+- GOLDEN passed REGISTERED(2)/WLAN(2), VOICE-IWLAN and WFC availability, active qti.cne IMS request/NetworkAgent, UDP/4500, and XFRM.
+- BAD hash: `31727FD5AAC506D429BB14DFD205280ED0B5A2D90BC411253A9982E1189B5687`; GOLDEN hash: `602E81EA342A7185BDA3000CCCDF406C77354878D17DD7BF253B28361E371CB6`.
+- CASE B result: the current native IMS, DEFAULT, and EIMS vectors are `[]` in both states; `globalPrefSys=IWLAN`, `hasPendingIntent=false`, and empty `LastReportedNetworkAvailability` are also identical.
+- GOLDEN internal history shows transient IMS qualification to `[IWLAN,UNKNOWN]`, but the current cache later returns empty without tearing down the established IMS path. The dump table is therefore not a durable active-network truth source.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
+
+NEXT_ACTION: remain read-only. Candidate only: on a future real recovery, collect a synchronized lifecycle trace of native DSD/NAH update, ANM callback, CNE request, ePDG/XFRM, and IMS registration. Do not call a refresh/query/write interface.
