@@ -1,5 +1,17 @@
 # Autopilot State
 
+## 2026-09-20 absent-state attempt safe-aborted
+
+- Dedicated 120-second watchdog and fixed-target device orchestrator were committed before execution.
+- Zero-write runtime preflight passed every helper hash, dual-SIM, network, and process identity gate.
+- POWER_DOWN was rejected by the Java helper before API invocation because the dedicated watchdog marker name did not match the helper's generic `watchdog.ready` requirement.
+- Actual POWER_DOWN count: 0. Process TERM count: 0. No absent state or soft-stack rebuild occurred.
+- The old failure branch issued one POWER_UP against an already-READY slot1; callback 0, with no mapping or state change.
+- Final VOXI and China Telecom strict gates passed; wlan0/tun0 remained UP. Live state remains the original F1.
+- Source is corrected to bridge both ready markers and to avoid POWER_UP on pre-marker POWER_DOWN rejection. Syntax/static audit passes.
+
+NEXT_ACTION: no automatic retry. Obtain new explicit authorization before one corrected real fixed-slot1 absent-state experiment.
+
 ## 2026-09-20 L1.5 pre-execution ready
 
 - Repository recovered from authoritative private remote branch on the new host.

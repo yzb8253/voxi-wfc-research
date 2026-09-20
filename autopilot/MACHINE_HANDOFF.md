@@ -69,13 +69,12 @@ The user's intended workflow is:
 
 - Date: 2026-09-20
 - Branch: `voxi-wfc-auto-recovery`
-- Current device endpoint: `192.168.137.127:40027` (always rediscover after reconnect/reboot).
-- L1.5 fixed-slot executor build: PASS.
-- JAR SHA256: `be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31`.
-- Source/shell/DEX audit: PASS.
-- Root device DRY_RUN and strict dual-SIM safety gate: PASS.
-- Independent watchdog arm/ready/no-down safe-exit validation: PASS.
-- Real POWER_DOWN/POWER_UP cycle: NOT EXECUTED.
-- Sanitized evidence: `experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/BUILD_REPORT.md`, `DEX_AUDIT_REPORT.md`, and `PRE_EXECUTION_READINESS.md`.
+- Device endpoint at last check: `192.168.137.127:40027`; always rediscover after reconnect.
+- L1.5 helper SHA256 remains `be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31`.
+- The first absent-state launch safely aborted before POWER_DOWN because the dedicated and generic watchdog-ready paths did not match.
+- Actual POWER_DOWN: 0. Process TERM: 0. Soft-stack rebuild: not run.
+- One already-up POWER_UP returned callback 0; both SIM mappings and wlan0/tun0 remained intact.
+- Corrected scripts now bridge both ready markers and suppress POWER_UP after pre-marker rejection; syntax/static audit passes.
+- Result report: `experiments/sim_soft_reset/L1_5_voxi_power_cycle/executor/absent_soft_reboot/ABSENT_STATE_SOFT_REBOOT_RESULT.md`.
 
-NEXT_ACTION: only after explicit user authorization, execute the one-shot fixed slot1 SIM power cycle. Re-run ADB identity, root, strict dual-SIM, UICC-enabled, SIM-READY, and watchdog gates immediately before the write. Never use an old endpoint and never accept a runtime slot/subId/phoneId/power-state value.
+NEXT_ACTION: do not retry automatically. Require new explicit user authorization before one real corrected fixed-slot1 POWER_DOWN/soft-stack/POWER_UP attempt.

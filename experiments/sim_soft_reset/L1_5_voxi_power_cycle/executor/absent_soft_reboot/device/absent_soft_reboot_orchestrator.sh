@@ -5,6 +5,7 @@ STATE_DIR=/data/local/tmp/voxi-l1_5-executor
 HELPER_JAR=$STATE_DIR/slot1-sim-power-helper.jar
 LOG_FILE=$STATE_DIR/absent-orchestrator.log
 READY_FILE=$STATE_DIR/absent-watchdog.ready
+DOWN_FILE=$STATE_DIR/power_down.sent
 EXPECTED_HELPER_SHA256=be877b6e9694b4100f2487dc892803de6399c89588f194a1e54d4c3ae3173a31
 HOST_SOFT_DEADLINE=75
 START_EPOCH=0
@@ -158,7 +159,11 @@ helper POWER_DOWN >> "$LOG_FILE" 2>&1
 DOWN_RC=$?
 log "POWER_DOWN_EXIT rc=$DOWN_RC"
 if [ "$DOWN_RC" -ne 0 ]; then
-  normal_power_up power_down_failed || true
+  if [ -f "$DOWN_FILE" ]; then
+    normal_power_up power_down_failed_after_marker || true
+  else
+    log "POWER_DOWN_REJECTED_BEFORE_MARKER; no POWER_UP needed"
+  fi
   exit 30
 fi
 

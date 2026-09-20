@@ -5,6 +5,7 @@ STATE_DIR=/data/local/tmp/voxi-l1_5-executor
 HELPER_JAR=$STATE_DIR/slot1-sim-power-helper.jar
 LOG_FILE=$STATE_DIR/absent-watchdog.log
 READY_FILE=$STATE_DIR/absent-watchdog.ready
+GENERIC_READY_FILE=$STATE_DIR/watchdog.ready
 DOWN_FILE=$STATE_DIR/power_down.sent
 UP_FILE=$STATE_DIR/power_up.confirmed
 LOCK_DIR=$STATE_DIR/absent-watchdog.lock
@@ -25,7 +26,7 @@ helper() {
 [ -f "$HELPER_JAR" ] || { log "REFUSED helper missing"; exit 14; }
 mkdir "$LOCK_DIR" 2>/dev/null || { log "REFUSED watchdog already running"; exit 15; }
 cleanup() {
-  rm -f "$READY_FILE"
+  rm -f "$READY_FILE" "$GENERIC_READY_FILE"
   rmdir "$LOCK_DIR" 2>/dev/null || true
 }
 trap cleanup EXIT
@@ -33,6 +34,7 @@ trap 'exit 129' HUP INT TERM
 
 helper CHECK_ROLLBACK || { log "REFUSED rollback arm invalid"; exit 16; }
 echo "ready=$(now) pid=$$ rollbackAfterDown=$ROLLBACK_AFTER_DOWN" > "$READY_FILE"
+echo "ready=$(now) pid=$$ owner=absent-state" > "$GENERIC_READY_FILE"
 log "READY absent-state watchdog fixed-slot1 rollback=${ROLLBACK_AFTER_DOWN}s"
 
 deadline=$(( $(date +%s) + MAX_WAIT_FOR_DOWN ))

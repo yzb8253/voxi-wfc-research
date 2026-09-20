@@ -1,5 +1,12 @@
 # Autopilot Findings
 
+## Absent-state Attempt Finding (2026-09-20)
+
+- A dedicated watchdog marker is not sufficient by itself: the audited Java helper independently gates POWER_DOWN on the exact generic `watchdog.ready` path.
+- The mismatch caused a safe pre-API rejection. No `power_down.sent` marker, card teardown, or process TERM occurred, so this run says nothing about whether absent-state soft reboot can restore WFC.
+- Failure handling must distinguish rejection before the helper's down marker from failure after marker creation. Only the latter needs immediate POWER_UP.
+- The corrected watchdog bridges and cleans both ready markers; the corrected orchestrator does not issue POWER_UP for a pre-marker rejection.
+
 ## L1.5 Executor Pre-execution Findings (2026-09-20)
 
 - The generated DEX resolves only the callback overload of `TelephonyManager.setSimPowerStateForSlot`.

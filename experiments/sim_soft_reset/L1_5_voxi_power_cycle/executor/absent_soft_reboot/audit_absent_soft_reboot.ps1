@@ -44,4 +44,7 @@ Require-Match $Orchestrator 'kill -TERM "\$old"' 'only exact resolved PIDs are s
 Reject-Match ($Watchdog + $Orchestrator) 'kill\s+-9|killall|pkill|restart-modem|resetIms|setRadioPower|setprop|settings\s+(put|delete)|\breboot\b|ctl\.restart|QMI.*transaction|setenforce' 'forbidden operations are absent'
 Reject-Match ($Watchdog + $Orchestrator) 'TARGET_SLOT_ID|slotId=|subId=.*\$|POWER_DOWN\s+[0-9]|POWER_UP\s+[0-9]' 'no runtime target argument is accepted'
 Require-Match $Orchestrator '(?s)ABSENT_PREFLIGHT_ONLY.*YES.*PREFLIGHT_ONLY_PASS.*exit 0.*watchdog.ready' 'zero-write runtime preflight exits before watchdog gate and POWER_DOWN'
+Require-Match $Watchdog 'GENERIC_READY_FILE=\$STATE_DIR/watchdog\.ready' 'dedicated watchdog bridges the helper generic ready marker'
+Require-Match $Watchdog 'rm -f "\$READY_FILE" "\$GENERIC_READY_FILE"' 'both ready markers are cleaned'
+Require-Match $Orchestrator 'POWER_DOWN_REJECTED_BEFORE_MARKER; no POWER_UP needed' 'pre-marker POWER_DOWN rejection does not issue POWER_UP'
 Write-Host "ABSENT-STATE STATIC AUDIT: PASS"
