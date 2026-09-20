@@ -219,3 +219,12 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - This is not a missing-IMS-profile condition. It is a stale APN-level native qualified-network cache despite `globalPrefSys=IWLAN`, `DsdServiceReady=true`, `IWLANEnabled=true`, `RegistrationState=REG_HOME`, and framework `mIsIwlanPreferred=true`.
 - The same internal history proves that the successful second insertion previously populated IMS with `[IWLAN,UNKNOWN]`; that qualification is absent now.
 - Verdict: `NATIVE_QNS_CACHE=STALE`. Move the fault boundary to DSD APN preferred-system/availability indication or its synchronization into NetworkAvailabilityHandler.
+
+## DSD/QNS cache-writer finding (2026-09-20)
+
+- `updateNetworkAvailabilityCache(message)` clears and rebuilds the APN-name map during setDataProfile processing. APN types are restored, but new per-APN network vectors begin empty.
+- `updateNetworkAvailabilityCache(dsd_apn_avail_sys_info...)` is the actual-system writer: it requires a non-empty APN name, maps the APN, requires at least one available system, converts supported DSD system enums (including IWLAN) and updates only when the vector changes.
+- `updateNetworkAvailabilityCache(dsd_apn_pref_sys...)` is the intent writer: it requires an existing APN entry, promotes the converted preferred RAT, and sets `hasPendingIntent=true`; a later matching actual-system indication completes and clears the pending intent.
+- `convertResultList` filters an empty vector or a vector beginning with UNKNOWN and cannot synthesize IWLAN from `globalPrefSys`.
+- Therefore the direct current cause is an empty IMS per-APN network vector. The earlier raw DSD cause remains UNKNOWN because current dumps do not expose whether the indication was absent, zero-length, unsupported/UNKNOWN, or lost upstream.
+- A fixed read-only BAD/GOLDEN capture script now records the native cache, framework health, CNE, ePDG/XFRM, and relevant logs with identical commands.

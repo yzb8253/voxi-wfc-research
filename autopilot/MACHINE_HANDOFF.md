@@ -115,6 +115,18 @@ NEXT_ACTION: no write. If continuing this hypothesis, first statically audit a f
 
 NEXT_ACTION: continue only with read-only/static DSD indication-to-cache analysis. Do not replay setDataProfile, replace IIWlan callbacks, or invoke a refresh API.
 
+## Current checkpoint: DSD/QNS golden-diff preparation
+
+- Date: 2026-09-20.
+- Current fixed-slot2 F1 BAD snapshot is complete: IMS, DEFAULT, and EIMS APNs exist but all native qualified-network vectors are empty.
+- Static cache-writer analysis is complete. Global IWLAN preference does not populate an APN vector; per-APN DSD available-system or intent-to-change indications do.
+- `convertResultList` skips empty/UNKNOWN vectors. Raw current DSD per-APN preferred/available values remain UNKNOWN because the dump does not expose them.
+- New script: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/capture_qns_native_snapshot.ps1`.
+- Script validation passed with 12/12 read-only sections. Captures are stored only under the ignored local `captures/` directory; no raw subscriber dump is committed.
+- Phone writes: 0. No `getAllQualifiedNetworks`, `setResponseFunctions`, QMI request, SIM operation, restart, or recovery action occurred.
+
+NEXT_ACTION: wait for the user to produce a real WFC Golden state. Then execute the same script once and field-diff the two ignored snapshots; do not change the capture command set between BAD and GOLDEN.
+
 ## Earlier checkpoint
 
 - Date: 2026-09-20

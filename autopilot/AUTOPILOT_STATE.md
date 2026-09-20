@@ -230,3 +230,15 @@ NEXT_ACTION: preserve the scene. Candidate only: statically audit a fixed-slot1,
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_IIWLAN_CACHE_SNAPSHOT.md`.
 
 NEXT_ACTION: read-only/static trace of the DSD indication-to-NetworkAvailabilityHandler cache-update path. Do not replay setDataProfile or invoke a refresh/write API.
+
+## 2026-09-20 DSD/QNS golden-diff preparation
+
+- Captured a complete current F1 BAD snapshot through the existing fixed-slot2 `IBase::debug` path and other read-only dumps; phone writes remained 0.
+- Current native APN entries: IMS, DEFAULT, and EIMS present, all with `hasPendingIntent=false` and `networks=[]`; `LastReportedNetworkAvailability` is empty.
+- Static analysis proves that setDataProfile handling clears/rebuilds the APN map with empty network vectors. Only per-APN DSD available-system or intent-to-change preferred-system indications populate those vectors.
+- `convertResultList` explicitly skips an empty network vector or one whose first value is UNKNOWN. `globalPrefSys=IWLAN` is a separate handler-level field and does not populate the IMS per-APN vector.
+- Raw current per-APN DSD preferred/available-system fields are not exposed by the dump and remain UNKNOWN.
+- Added and successfully executed `dsd_qns_golden_diff/capture_qns_native_snapshot.ps1`: 12/12 read-only sections completed, output is host-only and Git-ignored, and no IIWlan business method was called.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/DSD_NETWORK_AVAILABILITY_GOLDEN_DIFF_PREPARATION.md`.
+
+NEXT_ACTION: wait for the user to create a real WFC Golden state, then run exactly the same capture script once and perform a field-level BAD-vs-GOLDEN diff. Do not attempt recovery in this phase.
