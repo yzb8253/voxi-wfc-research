@@ -137,6 +137,8 @@ log "T2 SOFT_STACK_START after_exact_10s_absent_hold"
 
 restart_init_live vendor.qcrild2 main u:r:rild:s0 '-c 2' QCRILD2 || exit 41
 restart_init_live vendor.qcrild main u:r:rild:s0 '/vendor/bin/hw/qcrild' QCRILD || exit 42
+QCRILD2_PID=$(verify_init vendor.qcrild2 main u:r:rild:s0 '-c 2') || exit 421
+log "QCRILD_PAIR_FINAL qcrild=$QCRILD_PID qcrild2=$QCRILD2_PID"
 restart_init_live vendor.netmgrd netmgrd u:r:vendor_netmgrd:s0 '/vendor/bin/netmgrd' NETMGRD || exit 43
 restart_init_live vendor.imsqmidaemon imsqmidaemon u:r:vendor_ims:s0 '/vendor/bin/imsqmidaemon' IMSQMI || exit 44
 restart_init_live vendor.imsdatadaemon imsdatadaemon u:r:vendor_ims:s0 '/vendor/bin/imsdatadaemon' IMSDATA || exit 45
@@ -146,6 +148,18 @@ restart_app_live org.codeaurora.ims 10196 QCOMIMS || exit 48
 restart_app_live com.android.phone 1001 PHONE || exit 49
 restart_app_live system_server 1000 SYSTEM || exit 50
 log "T3 SYSTEM_SERVER_NEW pid=$SYSTEM_PID"
+# system_server recovery may recreate persistent Java clients again. Resolve final live PIDs.
+end=$(( $(date +%s) + 45 ))
+while [ "$(date +%s)" -lt "$end" ]; do
+  check_up_deadline
+  QTIDATA_PID=$(find_exact_app .qtidataservices 10104 2>/dev/null || true)
+  QCOMIMS_PID=$(find_exact_app org.codeaurora.ims 10196 2>/dev/null || true)
+  PHONE_PID=$(find_exact_app com.android.phone 1001 2>/dev/null || true)
+  [ -n "$QTIDATA_PID" ] && [ -n "$QCOMIMS_PID" ] && [ -n "$PHONE_PID" ] && break
+  sleep 1
+done
+[ -n "${QTIDATA_PID:-}" ] && [ -n "${QCOMIMS_PID:-}" ] && [ -n "${PHONE_PID:-}" ] || exit 501
+log "POST_SYSTEM_FINAL_PIDS qtidata=$QTIDATA_PID qcomims=$QCOMIMS_PID phone=$PHONE_PID system=$SYSTEM_PID"
 
 stable_count=0
 STABILITY_SINCE=$(date '+%m-%d %H:%M:%S.000')
