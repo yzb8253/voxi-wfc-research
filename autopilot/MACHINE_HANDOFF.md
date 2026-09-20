@@ -67,6 +67,17 @@ The user's intended workflow is:
 
 ## Current checkpoint
 
+- Date: 2026-09-20, single-SIM simple reinsert complete.
+- Exactly one fixed slot1 POWER_DOWN and one fixed slot1 POWER_UP returned callback 0. True ABSENT was confirmed and held 10 seconds; watchdog fallback count was zero.
+- SIM READY/LOADED, subId11 mapping, UICC enabled, CarrierConfig change, and MMTEL READY returned.
+- Final state through 120 seconds is ACTIVE + ENABLED + F1 with no native IMS demand, qti.cne/TNF/DNC IMS request, ePDG/XFRM, IMS registration, or WFC.
+- slot0 remains ABSENT; wlan0/tun0 remain up. No soft-stack, process, modem, airplane, or reboot action was executed.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/SINGLE_SIM_SIMPLE_REINSERT_RESULT.md`.
+
+NEXT_ACTION: stop. Do not repeat simple reinsert and do not automatically run soft-stack recovery. A distinct below-boundary hypothesis requires new explicit authorization and safety review.
+
+## Earlier checkpoint: computer-B recovery
+
 - Date: 2026-09-20, computer-B read-only recovery.
 - USB ADB currently resolves one target: `fd0ff892`, Xiaomi 14 Pro, Magisk UID 0.
 - VOXI remains subId11/slot1/phoneId1/carrierId28/MCCMNC23415, ACTIVE and UICC enabled.

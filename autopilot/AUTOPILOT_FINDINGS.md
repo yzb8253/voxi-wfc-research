@@ -1,5 +1,14 @@
 # Autopilot Findings
 
+## Single-SIM simple reinsert finding (2026-09-20)
+
+- A fixed slot1 Radio SIM-power cycle produced the intended physical-card lifecycle: callback-successful POWER_DOWN, true ABSENT with inactive subId11/UICC disabled/lost mapping, a 10-second absent hold, then callback-successful POWER_UP.
+- Reinsertion restored READY/LOADED, subId11, CarrierConfig change notification, and MMTEL READY without any process restart.
+- Qualcomm IMS then reported `General_Error17-Unable to connect`; no IMS-capability demand reached qti.cne, TelephonyNetworkFactory, or DNC.
+- No UDP/4500, XFRM, REGISTERED/WLAN, VOICE/IWLAN availability, or WFC appeared through 120 seconds.
+- This shows that a clean single-SIM hot-remove/hot-insert lifecycle alone is insufficient. The missing state remains below or before native IMS demand generation rather than subscription, CarrierConfig, or MMTEL reconstruction.
+- slot0 remained ABSENT and wlan0/tun0 remained intact. Do not repeat this candidate unchanged.
+
 ## Modem-only Restart Static Finding (2026-09-20)
 
 - The current-ROM restart-modem shell command is hard-disabled on production user builds, even for Magisk UID0.

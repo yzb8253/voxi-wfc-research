@@ -1,5 +1,17 @@
 # Autopilot State
 
+## 2026-09-20 single-SIM simple reinsert complete
+
+- Static, rebuilt-class, DEX write-surface, and fixed-target audits passed. slot0 was ABSENT and had no write path.
+- Exactly one fixed slot1 POWER_DOWN returned callback 0, produced true ABSENT/inactive/UICC-disabled/lost mapping, and held that state for 10 seconds.
+- Exactly one fixed slot1 POWER_UP returned callback 0. The independent 90-second watchdog saw `power_up.confirmed` and exited without firing its fallback.
+- SIM READY/LOADED, subId11 mapping, UICC enabled, CarrierConfig change, and MMTEL READY all returned.
+- Through 120 seconds there was no native IMS demand, qti.cne/TNF/DNC IMS request, UDP/4500, XFRM, IMS registration, VOICE/IWLAN, or WFC. Final state is ACTIVE + ENABLED + F1.
+- slot0 remained ABSENT; wlan0 and tun0 remained up. No soft-stack, process, modem, airplane, or reboot action occurred.
+- Sanitized result: `experiments/sim_soft_reset/single_sim_isolation/SINGLE_SIM_SIMPLE_REINSERT_RESULT.md`.
+
+NEXT_ACTION: stop and preserve F1. Do not repeat the simple reinsert or fall through to soft-stack recovery. Any new below-boundary candidate requires a distinct hypothesis and explicit authorization.
+
 ## 2026-09-20 computer-B read-only handoff
 
 - Authoritative branch was fast-forwarded to checkpoint `9c32fabbfbd322db74c1ee65ea6f241a616592cc` before inspection.
