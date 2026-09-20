@@ -4,6 +4,7 @@ $W1=Get-Content -Raw (Join-Path $Root 'device\stabilized_watchdog_cycle1.sh')
 $W2=Get-Content -Raw (Join-Path $Root 'device\stabilized_watchdog_cycle2.sh')
 $O=Get-Content -Raw (Join-Path $Root 'device\stabilized_cycle1_orchestrator.sh')
 $H=Get-Content -Raw (Join-Path $Root 'run_stabilized_absent_second_reinsert.ps1')
+foreach ($f in Get-ChildItem (Join-Path $Root 'device') -Filter '*.sh') { if ([IO.File]::ReadAllBytes($f.FullName) -contains 13) { throw "AUDIT FAIL: CR byte in device script $($f.Name)" }; Write-Host "PASS: LF-only $($f.Name)" }
 function Need($T,$P,$L){if($T-notmatch$P){throw "AUDIT FAIL: $L"};"PASS: $L"}
 function Reject($T,$P,$L){if($T-match$P){throw "AUDIT FAIL: $L"};"PASS: $L"}
 function Count($T,$P,$N,$L){$c=([regex]::Matches($T,$P)).Count;if($c-ne$N){throw "AUDIT FAIL: $L expected=$N actual=$c"};"PASS: $L"}
