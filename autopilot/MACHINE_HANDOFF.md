@@ -89,6 +89,18 @@ NEXT_ACTION: stop. Do not repeat this sequence or append phone/system_server/RIL
 
 NEXT_ACTION: preserve F1. Do not execute the single-SIM cycle merely because the computer changed; the latest completed experiment boundary still applies.
 
+## Current checkpoint: QCRIL setDataProfile race confirmation
+
+- Date: 2026-09-20.
+- Read-only analysis of the successful physical-insert lifecycle is complete.
+- Both insertions sent the same IMS-bearing profile array and received successful `SET_DATA_PROFILE` responses.
+- The successful `IMS -> IWLAN` QNS callback occurred 341 ms before the second insertion's first new `SET_DATA_PROFILE`; the proposed second-dispatch race is not confirmed and is materially weakened.
+- Earliest concrete divergence: DSD/QNS qualified-network indication or cache synchronization after IWLAN/HOME.
+- No device write or recovery action occurred.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_SETDATAPROFILE_RACE_CONFIRMATION.md`.
+
+NEXT_ACTION: no write. If continuing this hypothesis, first statically audit a fixed-slot1 `IIWlan.getAllQualifiedNetworks(serial)` read-semantics cache query. Treat it only as a cache/callback discriminator, not as a QMI or modem refresh.
+
 ## Earlier checkpoint
 
 - Date: 2026-09-20

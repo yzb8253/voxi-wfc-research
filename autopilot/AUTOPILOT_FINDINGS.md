@@ -200,3 +200,13 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - Qualcomm ImsService and slot1 MMTEL rebind successfully, but the initial status update fails and no qti.cne/TNF/DNC IMS request follows.
 - Rebuilding cnd clears residual IWLAN/HOME and changes PS/WLAN to UNKNOWN without triggering network-request reevaluation.
 - This independently excludes dual-SIM contention and the tested AP userspace IMS/data subset as sufficient recovery boundaries.
+
+## QCRIL setDataProfile race finding (2026-09-20)
+
+- Both physical insertion windows generated the same IMS-bearing three-profile list and completed multiple slot1 `SET_DATA_PROFILE` transactions successfully.
+- First insertion: IWLAN/HOME at 20:51:04.777, but no IMS qualified-network callback before removal.
+- Second insertion: IWLAN/HOME at 20:52:24.821 and `IMS -> IWLAN` qualified networks at 20:52:24.825.
+- The second insertion's first new `SET_DATA_PROFILE` was later, at 20:52:25.166. It cannot be the direct cause of the callback that preceded it by 341 ms.
+- The visible Java QNS was already AP-assisted before both insertions. Internal QCRIL ProfileHandler/NetworkAvailabilityHandler and DSD registration branches are not logged, so those sub-branches remain unproven rather than assumed.
+- The leading missing component moves from framework profile dispatch to DSD APN availability/preferred-system indication or synchronization/replay of the native NetworkAvailability cache.
+- A future discriminator is the read-semantics slot1 `IIWlan.getAllQualifiedNetworks(serial)` cache query, after static scope/safety review. It reads cache; it is not a DSD refresh or modem re-evaluation API.

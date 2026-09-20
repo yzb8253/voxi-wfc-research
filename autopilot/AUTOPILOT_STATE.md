@@ -208,3 +208,13 @@ NEXT_ACTION: no further SIM power cycle or userspace restart. Preserve the activ
 - slot0 remains ABSENT, VOXI remains ACTIVE/UICC ENABLED/F1, and wlan0/tun0 remain up.
 
 NEXT_ACTION: stop. Do not append phone, system_server, RIL, modem, SIM-power, or resetIms work to this failed run. Any new experiment requires a distinct hypothesis and explicit authorization.
+
+## 2026-09-20 QCRIL setDataProfile race confirmation
+
+- Read-only all-buffer log analysis confirmed that both physical insertions built the same Data/IMS/EIMS profile list, sent multiple slot1 `SET_DATA_PROFILE` requests, and received successful RIL responses.
+- The successful second-insertion `qualifiedNetworksChangeIndication(IMS,[IWLAN])` occurred at 20:52:24.825, 341 ms before that insertion's first `SET_DATA_PROFILE` request at 20:52:25.166.
+- The setDataProfile-to-QNS race is therefore not confirmed and materially weakened. The earliest concrete divergence is now DSD/QNS APN qualification/cache synchronization after IWLAN/HOME.
+- No phone write, SIM operation, process restart, Binder/HIDL write, or recovery action was executed.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/QCRIL_SETDATAPROFILE_RACE_CONFIRMATION.md`.
+
+NEXT_ACTION: preserve the scene. Candidate only: statically audit a fixed-slot1, read-semantics `IIWlan.getAllQualifiedNetworks(serial)` cache query as a discriminator between stale native cache and missing callback replay. Do not execute it without a separate authorization and safety review.
