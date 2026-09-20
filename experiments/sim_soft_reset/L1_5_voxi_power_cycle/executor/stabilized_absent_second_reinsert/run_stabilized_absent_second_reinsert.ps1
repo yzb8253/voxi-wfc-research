@@ -34,7 +34,7 @@ function Wait-Adb([int]$Seconds = 60) {
     } while ((Get-Date) -lt $end)
     throw 'ADB did not return before timeout; device watchdog remains authoritative'
 }
-function Root([string]$Command) { ADB shell su -c $Command }
+function Root([string]$Command) { if ($Command.Contains("'")) { throw "Root command contains unsupported quote" }; ADB shell "su -c '$Command'" }
 function Helper([string]$Command) { Root "LAB_MODE=1 LAB_EXECUTE=YES CLASSPATH=$Helper app_process /system/bin Slot1SimPowerHelper $Command" }
 function Probe([string]$Label) {
     Wait-Adb 45
