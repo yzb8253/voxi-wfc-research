@@ -79,7 +79,7 @@ restart_app_live() {
   log "RESTARTED $label old=$old new=$new"
 }
 service_found() { service check "$1" 2>/dev/null | grep -q 'found'; }
-network_ready() { ip link show wlan0 2>/dev/null | grep -q '<[^>]*UP' && ip link show tun0 2>/dev/null | grep -q '<[^>]*UP'; }
+network_ready() { ip addr show wlan0 2>/dev/null | grep -q '<[^>]*UP' && ip addr show tun0 2>/dev/null | grep -q '<[^>]*UP'; }
 app_is() { [ "$(find_exact_app "$1" "$2" 2>/dev/null || true)" = "$3" ]; }
 init_is() { [ "$(verify_init "$1" "$2" "$3" "$4" 2>/dev/null || true)" = "$5" ]; }
 stable_once() {

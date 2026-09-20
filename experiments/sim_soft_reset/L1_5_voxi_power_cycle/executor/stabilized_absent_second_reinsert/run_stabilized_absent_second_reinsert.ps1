@@ -54,7 +54,7 @@ function Assert-InitialF1($S) {
 }
 function DirectHealthy($S) { return $S.ims.registrationStateRaw -eq 2 -and $S.ims.registrationTransportRaw -eq 2 -and $S.mmtel.voiceIwlanAvailable -and $S.wfc.wifiCallingAvailable }
 function StrictF1($S) { return $S.safetyGate -and $S.target.mappingGate -and $S.subscription.active -and $S.subscription.areUiccApplicationsEnabled -and $S.failureClass -eq 'F1' -and $S.ims.registrationStateRaw -eq 0 -and -not $S.wfc.wifiCallingAvailable }
-function NetworkGate { $x = Root "ip link show wlan0; ip link show tun0" 2>&1; return ($LASTEXITCODE -eq 0 -and ($x -join "`n") -match 'wlan0.*UP' -and ($x -join "`n") -match 'tun0.*UP') }
+function NetworkGate { $x = Root "ip addr show wlan0; ip addr show tun0" 2>&1; return ($LASTEXITCODE -eq 0 -and ($x -join "`n") -match 'wlan0.*UP' -and ($x -join "`n") -match 'tun0.*UP') }
 function Deploy([string]$Local,[string]$Name) {
     $stage = "/data/local/tmp/$Name.stage"
     ADB push $Local $stage | Out-Null
