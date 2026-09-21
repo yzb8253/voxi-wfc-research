@@ -292,3 +292,13 @@ NEXT_ACTION: blocked before execution. Obtain an exact matching current-ROM libr
 - A safe solution therefore requires a new fixed vendor-side DataModule message/handler; no current external trigger is suitable for controlled testing.
 
 NEXT_ACTION: candidate design only. Specify a compile-time fixed, one-shot `IIWlan/slot2` diagnostic transaction in a matching vendor source build; do not implement it through a second callback client or runtime injection.
+
+## QCRIL patch feasibility finding (2026-09-21)
+
+- `IWlanImpl::debug()` is a valid existing HIDL path and does not replace `setResponseFunctions`; prior read-only `lshal debug` evidence confirms routing.
+- The four operations must run through a new fixed `SolicitedMessage` registered on DataModule's existing looper, never directly on the binder thread.
+- The hook can be source-designed fail-closed: exact token, RIL instance 1/slot2, boot-ID binding, atomic maximum one, timeout, no retry, and no caller-supplied target or QMI data.
+- Current ROM ELF metadata/symbols remain unavailable. The mirror matches HIDL generation and behavior but lacks exact Xiaomi sources, generated QMI inputs, proprietary archives, toolchain identity, and ABI reference.
+- Verdict: source-level hook YES; safe replacement build NO; deployment STOP. Phone writes: 0.
+
+NEXT_ACTION: no prototype or binary patch. Resume only with exact matching vendor source/build artifacts and a reproducible ABI baseline.

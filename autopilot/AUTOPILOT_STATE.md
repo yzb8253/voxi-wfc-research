@@ -305,3 +305,14 @@ NEXT_ACTION: execution remains blocked. Do not guess offsets or object pointers.
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_EXTERNAL_REINIT_TRIGGER_AUDIT.md`.
 
 NEXT_ACTION: no execution. The minimum alternative is vendor source instrumentation: one fixed `IIWlan/slot2` diagnostic method dispatching one dedicated message onto the existing DataModule looper. Do not pursue runtime injection, callback replacement, SELinux bypass, or SSR.
+
+## 2026-09-21 QCRIL patch deployment feasibility
+
+- Static implementation/deployment audit completed; phone writes: 0.
+- Existing `IBase::debug()` reaches current `IWlanImpl` and can carry one exact token without replacing production response callbacks.
+- A safe implementation must dispatch a dedicated message to the DataModule looper and hard-check process instance 1, `IIWlan/slot2`, boot ID, and atomic one-shot state.
+- The source mirror is behaviorally correlated but cannot produce a proven ABI-compatible current-ROM library: exact SONAME/build-id/DT_NEEDED/exports and Xiaomi build inputs remain unavailable.
+- Magisk bind-mount is mechanically possible and leaves `/vendor` unchanged, but activation requires AP reboot and an unverified library could break both qcrild instances.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_PATCH_DEPLOYMENT_FEASIBILITY.md`.
+
+NEXT_ACTION: STOP. Do not build, binary-patch, mount, or deploy until exact matching vendor build artifacts are available.

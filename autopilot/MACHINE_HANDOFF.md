@@ -225,3 +225,14 @@ NEXT_ACTION: STOP before execution. Do not guess offsets/pointers or attach an i
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_EXTERNAL_REINIT_TRIGGER_AUDIT.md`.
 
 NEXT_ACTION: no device experiment. The single minimum alternative is a matching vendor-source build adding one fixed `IIWlan/slot2` diagnostic request that dispatches one dedicated message on the existing DataModule looper.
+
+## Current checkpoint: QCRIL patch deployment feasibility
+
+- Date: 2026-09-21; static-only audit; phone writes: 0.
+- `IIWlan/slot2` inherited `IBase::debug()` is the narrow existing path. Correct implementation dispatches one fixed message on DataModule's looper with instance-1, slot2, boot-ID, atomic-one-shot, timeout, and no-retry guards.
+- Current `libril-qc-hal-qmi.so` is a large AArch64 library loaded by both qcrild processes. Exact SONAME/build ID/dependencies/exports remain unavailable; no SELinux bypass was attempted.
+- Source mirror `36fc163a534963a5b3af52186af5efcc63401ad2` is behaviorally close but is not the exact Xiaomi `V816.0.4.0.TJJCNXM` build tree.
+- ABI-compatible replacement is not currently supportable. Magisk bind-mount is only mechanical, requires AP reboot, and is unsafe without a verified artifact.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_PATCH_DEPLOYMENT_FEASIBILITY.md`.
+
+NEXT_ACTION: STOP. Do not build, patch, mount, or deploy until exact matching vendor build artifacts can reproduce the library ABI.
