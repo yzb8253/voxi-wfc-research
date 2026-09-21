@@ -211,3 +211,17 @@ NEXT_ACTION: no execution. Statically design a one-shot fixed-RIL-instance-1 int
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/ONE_SHOT_QCRIL_SLOT2_REINIT_PREPARATION.md`.
 
 NEXT_ACTION: STOP before execution. Do not guess offsets/pointers or attach an injector. Continue only with exact current-ROM binary/build-symbol access plus a statically verified DataModule-looper dispatch mechanism; otherwise retain `FAIL_SAFE`.
+
+
+## Current checkpoint: QCRIL external reinit trigger audit
+
+- Date: 2026-09-21.
+- Static analysis only; phone writes: 0.
+- Current-ROM inventories confirm `IQtiOemHook/oemhook0`, `oemhook1`, `IIWlan/slot1`, and `IIWlan/slot2`.
+- `IIWlan.setResponseFunctions()` is a partial looper-safe path: it recreates NAH but does not generate fresh DSD status and would replace production callbacks.
+- DSD endpoint recovery is the complementary partial path: it refreshes capability/registrations/status but does not recreate NAH in the post-SSR branch.
+- OEM Hook/QcRilHook, legacy socket, QtiBus, DIAG, and property/init tables contain no complete reinit command.
+- Verdict: `NO_EXISTING_EXTERNAL_TRIGGER`.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_EXTERNAL_REINIT_TRIGGER_AUDIT.md`.
+
+NEXT_ACTION: no device experiment. The single minimum alternative is a matching vendor-source build adding one fixed `IIWlan/slot2` diagnostic request that dispatches one dedicated message on the existing DataModule looper.

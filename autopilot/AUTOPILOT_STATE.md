@@ -292,3 +292,16 @@ NEXT_ACTION: no execution. Design and statically audit a one-shot fixed-RIL-inst
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/ONE_SHOT_QCRIL_SLOT2_REINIT_PREPARATION.md`.
 
 NEXT_ACTION: execution remains blocked. Do not guess offsets or object pointers. Resume only if an exact matching current-ROM library with symbols/verified build identity and a non-invasive DataModule-looper hook path become available; do not use a second IIWlan callback client, ptrace/debugger injection, or process restart.
+
+
+## 2026-09-21 QCRIL external reinit trigger audit
+
+- Static audit covered current/source-correlated OEM Hook/QcRilHook, IIWlan HIDL, local/OEM sockets, QtiBus, DIAG, and Android property/init control surfaces. Phone writes: 0.
+- No existing external command closes the required capability registration + system-status registration + NAH recreation + fresh DSD status chain.
+- `IIWlan/slot2.setResponseFunctions()` reaches the DataModule looper and recreates NAH, but replaces production callbacks and does not refresh DSD status.
+- A real DSD endpoint non-operational -> operational transition reaches the DataModule looper and refreshes DSD registration/status, but the post-SSR path does not recreate NAH; safely inducing the transition has no narrow external API.
+- OEM Hook event tables have no IWLAN/DSD/DataModule reinit command. QtiBus exposes only DDS-switch and IA-info DataModule messages. DIAG is logging-only for this path. No property/init reinit trigger exists.
+- Result: `NO_EXISTING_EXTERNAL_TRIGGER`.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_EXTERNAL_REINIT_TRIGGER_AUDIT.md`.
+
+NEXT_ACTION: no execution. The minimum alternative is vendor source instrumentation: one fixed `IIWlan/slot2` diagnostic method dispatching one dedicated message onto the existing DataModule looper. Do not pursue runtime injection, callback replacement, SELinux bypass, or SSR.

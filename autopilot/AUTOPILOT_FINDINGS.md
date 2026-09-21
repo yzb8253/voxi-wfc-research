@@ -281,3 +281,14 @@ NEXT_ACTION: candidate only. Build no executor until a fixed-instance in-process
 - The correct engineering result is fail-closed before build/deployment, not guessed offsets or a second HIDL callback client. Phone writes remained 0.
 
 NEXT_ACTION: blocked before execution. Obtain an exact matching current-ROM library/build artifact and a verified DataModule-looper integration point; otherwise do not attempt the one-shot call.
+
+
+## QCRIL external trigger finding (2026-09-21)
+
+- No existing OEM Hook, HIDL/AIDL, socket, QtiBus, DIAG, or property/init entry executes the complete four-step QCRIL reinitialization sequence.
+- The only externally reachable NAH recreation path is the side effect of `IIWlan.setResponseFunctions()`. It runs through DataModule's message handler but replaces live callbacks and lacks a fresh DSD query.
+- The DSD endpoint recovery path provides the complementary fresh status and registration replay, but retains the old NAH and is only entered on a real endpoint lifecycle transition.
+- OEM Hook and socket dispatchers accept only registered command/message IDs. There is no hidden generic MessageBus dispatch to the target internal messages in the audited code.
+- A safe solution therefore requires a new fixed vendor-side DataModule message/handler; no current external trigger is suitable for controlled testing.
+
+NEXT_ACTION: candidate design only. Specify a compile-time fixed, one-shot `IIWlan/slot2` diagnostic transaction in a matching vendor source build; do not implement it through a second callback client or runtime injection.
