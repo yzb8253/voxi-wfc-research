@@ -198,3 +198,16 @@ NEXT_ACTION: static analysis only. Find one fixed-slot2 lifecycle entry that rec
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/MINIMUM_QCRIL_REINIT_ENTRY_AUDIT.md`.
 
 NEXT_ACTION: no execution. Statically design a one-shot fixed-RIL-instance-1 internal diagnostic hook for exactly the four-step sequence, preserving slot0 gates and avoiding callback replacement by an external IIWlan client.
+
+## Current checkpoint: one-shot QCRIL slot2 reinit preparation
+
+- Date: 2026-09-21.
+- USB ADB target during the read-only dry run: `fd0ff892`; rediscover on resume.
+- Kernel boot ID during the dry run: `d5226877-9ac1-48b7-8ad3-2da783d6f6b0`.
+- Fixed qcrild2 target verified: PID 1919 at capture time, `/vendor/bin/hw/qcrild -c 2`, PPID 1, UID radio, SELinux `u:r:rild:s0`.
+- `/proc/1919/maps` and the current `libril-qc-hal-qmi.so` image are SELinux-protected. Module base, exact function addresses, current-ROM ABI, DataModule pointer, and DSD endpoint pointer remain unresolved.
+- A safe call must be dispatched on the existing DataModule looper. No exported complete-sequence message or non-invasive handler-installation route was found.
+- No hook was built or deployed. No ptrace/debugger/injection, second IIWlan callback registration, target call, process restart, or phone write occurred.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/ONE_SHOT_QCRIL_SLOT2_REINIT_PREPARATION.md`.
+
+NEXT_ACTION: STOP before execution. Do not guess offsets/pointers or attach an injector. Continue only with exact current-ROM binary/build-symbol access plus a statically verified DataModule-looper dispatch mechanism; otherwise retain `FAIL_SAFE`.

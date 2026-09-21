@@ -269,3 +269,15 @@ NEXT_ACTION: static-only audit of a fixed-slot2 DSD AP-assist indication-session
 - This sequence does not reset modem/radio/SIM or reboot AP, but it is state-changing QMI/datactl work and requires separate authorization.
 
 NEXT_ACTION: candidate only. Build no executor until a fixed-instance in-process hook can be statically proven to expose exactly the four calls and no broader data/radio action.
+
+## One-shot QCRIL slot2 reinit readiness finding (2026-09-21)
+
+- Fixed qcrild2 process selection is proven, but a safe callable hook is not.
+- SELinux blocks both the loaded-map read needed for the library base and reading the current library image. Exact current-ROM function addresses and ABI therefore cannot be verified.
+- Neither the live DataModule singleton address nor its live DSDModemEndPoint pointer is exported through a safe diagnostic interface. Creating equivalent objects in another process would not target the active qcrild2 lifecycle.
+- The four calls cannot safely run from an arbitrary injected thread. `initializeIWLAN()` mutates DataModule-owned state and belongs on the DataModule looper; no existing exported message runs the complete sequence.
+- A future hook must be a fixed one-shot DataModule message with no dynamic target parameters, but there is currently no non-invasive way to install or dispatch that handler.
+- The AP-side slot2 binding is HIGH confidence. Modem-side DSD isolation remains UNKNOWN because the QMI requests have no explicit slot field.
+- The correct engineering result is fail-closed before build/deployment, not guessed offsets or a second HIDL callback client. Phone writes remained 0.
+
+NEXT_ACTION: blocked before execution. Obtain an exact matching current-ROM library/build artifact and a verified DataModule-looper integration point; otherwise do not attempt the one-shot call.

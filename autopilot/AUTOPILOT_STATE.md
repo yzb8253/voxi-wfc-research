@@ -280,3 +280,15 @@ NEXT_ACTION: no execution. Statically locate and audit one fixed-slot2 lifecycle
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/MINIMUM_QCRIL_REINIT_ENTRY_AUDIT.md`.
 
 NEXT_ACTION: no execution. Design and statically audit a one-shot fixed-RIL-instance-1 diagnostic hook for only the four-step sequence; do not replace production IIWlan callbacks from a second client.
+
+## 2026-09-21 one-shot QCRIL slot2 reinit preparation
+
+- Fixed runtime target was verified read-only as `/vendor/bin/hw/qcrild -c 2`, PID 1919 at capture time, PPID 1, UID radio, SELinux `u:r:rild:s0`.
+- The runtime base of `libril-qc-hal-qmi.so` could not be read: `/proc/1919/maps` is denied even from the available Magisk context. The current library bytes are likewise protected.
+- Consequently, all four exact current-ROM function addresses remain unresolved. The live `DataModule` and `DSDModemEndPoint` pointers also have no safe exported source.
+- Direct calls from an arbitrary injected thread are unsafe. A valid implementation must post one custom fixed message onto the existing DataModule looper and obtain the endpoint from that live context.
+- No non-invasive in-process integration route was found. No hook binary was built or deployed, no debugger/injector was attached, and no target function was called.
+- Dry-run verdict: FAIL_SAFE. Phone writes: 0.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/ONE_SHOT_QCRIL_SLOT2_REINIT_PREPARATION.md`.
+
+NEXT_ACTION: execution remains blocked. Do not guess offsets or object pointers. Resume only if an exact matching current-ROM library with symbols/verified build identity and a non-invasive DataModule-looper hook path become available; do not use a second IIWlan callback client, ptrace/debugger injection, or process restart.
