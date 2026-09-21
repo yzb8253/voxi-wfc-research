@@ -256,3 +256,16 @@ NEXT_ACTION: candidate only—capture a future real insert/recovery as a timesta
 - Evidence for the failure boundary is HIGH; confidence that a targeted DSD/NAH session recreation is sufficient is MEDIUM.
 
 NEXT_ACTION: static-only audit of a fixed-slot2 DSD AP-assist indication-session and NetworkAvailabilityHandler lifecycle reinitialization entry point. Do not invoke it in the current phase.
+
+## Minimum QCRIL reinit entry finding (2026-09-21)
+
+- `NetworkAvailabilityHandler` has no reset API. `DataModule::initializeIWLAN()` replaces its unique_ptr, which clears per-APN and last-reported maps; `deinitializeIWLAN()` resets it but also disables IWLAN through datactl.
+- A fixed-slot2 IIWlan `setResponseFunctions()` dispatches `IWLANCapabilityHandshake(true)`, which reaches `initializeIWLAN()` after readiness gates. This recreates NAH and re-registers AP-assist indications.
+- That handshake path does not request a fresh DSD system-status snapshot. It immediately replays `mCachedSystemStatus`, so `[UNKNOWN,IWLAN]` can be restored into the new handler.
+- `generateDsdSystemStatusInd()` performs the missing fresh DSD GET and broadcasts both global and per-APN results, but it does not recreate NAH or register indications.
+- The minimum complete internal sequence is: reassert AP-assist capability, register system status, initialize IWLAN/recreate NAH, then generate a fresh DSD status indication.
+- `performDataModuleInitialization()` is not a suitable narrow entry: its cold branch is broad and one-shot, while its post-ready branch does not recreate NAH.
+- AP-side scope is fixed qcrild2/RIL instance 1. The QMI DSD capability and indication-registration requests contain no slot field, so modem-side isolation from slot0 is not source-proven.
+- This sequence does not reset modem/radio/SIM or reboot AP, but it is state-changing QMI/datactl work and requires separate authorization.
+
+NEXT_ACTION: candidate only. Build no executor until a fixed-instance in-process hook can be statically proven to expose exactly the four calls and no broader data/radio action.

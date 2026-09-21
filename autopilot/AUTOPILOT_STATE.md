@@ -267,3 +267,16 @@ NEXT_ACTION: no write. Candidate only: a future timestamp-aligned read-only life
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/R_C_P_AIRPLANE_BOUNDARY.md`.
 
 NEXT_ACTION: no execution. Statically locate and audit one fixed-slot2 lifecycle entry that recreates the QCRIL DataModule/IIWlan NetworkAvailabilityHandler DSD AP-assist indication session without changing SIM, radio, or modem state.
+
+## 2026-09-21 minimum QCRIL reinit entry audit complete
+
+- Current-ROM target library/process identity: `libril-qc-hal-qmi.so` in fixed `/vendor/bin/hw/qcrild -c 2`; current binary content was not bypass-read after SELinux denial.
+- Source-correlated audit found `DataModule` exclusively owns NetworkAvailabilityHandler as a unique_ptr. `initializeIWLAN()` replaces it; `deinitializeIWLAN()` destroys it.
+- No single runtime entry both recreates NAH, re-registers AP-assist/system-status indications, and obtains fresh per-APN DSD status.
+- Closest entry: fixed-slot2 `setResponseFunctions -> IWLANCapabilityHandshake(true) -> initializeIWLAN`. It recreates NAH and registers AP-assist indications but only replays cached status.
+- Minimum complete source-level sequence: `sendAPAssistIWLANSupportedSync -> registerForSystemStatusSync -> initializeIWLAN -> generateDsdSystemStatusInd`.
+- AP-side DataModule targeting is fixed slot2. Modem-side QMI DSD scope is UNKNOWN because these requests carry no explicit slot field.
+- No phone write or business method was executed.
+- Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/MINIMUM_QCRIL_REINIT_ENTRY_AUDIT.md`.
+
+NEXT_ACTION: no execution. Design and statically audit a one-shot fixed-RIL-instance-1 diagnostic hook for only the four-step sequence; do not replace production IIWlan callbacks from a second client.

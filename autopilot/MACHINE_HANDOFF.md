@@ -185,3 +185,16 @@ NEXT_ACTION: remain read-only. Candidate only: on a future real recovery, collec
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/R_C_P_AIRPLANE_BOUNDARY.md`. Raw captures are ignored and must not be committed.
 
 NEXT_ACTION: static analysis only. Find one fixed-slot2 lifecycle entry that recreates the QCRIL DataModule/IIWlan NetworkAvailabilityHandler modem-facing DSD AP-assist indication session. Do not execute a refresh, callback replacement, SIM/radio action, or process restart without separate authorization.
+
+## Current checkpoint: minimum QCRIL reinit entry audit
+
+- Date: 2026-09-21.
+- Static-only audit completed; Codex phone writes: 0.
+- `NetworkAvailabilityHandler` is owned by slot-local DataModule and recreated only by `initializeIWLAN()`; no standalone reset method exists.
+- Fixed `IIWlan/slot2 setResponseFunctions` reaches `IWLANCapabilityHandshake(true)` and `initializeIWLAN()`, but does not fetch fresh DSD status.
+- Minimum complete internal sequence identified: `sendAPAssistIWLANSupportedSync`, `registerForSystemStatusSync`, `initializeIWLAN`, `generateDsdSystemStatusInd`.
+- Source reference revision: `36fc163a534963a5b3af52186af5efcc63401ad2`; current ROM symbol/runtime correspondence is strong, but current binary was not read after SELinux denied access.
+- Modem-side DSD scope remains UNKNOWN because capability/registration QMI messages do not include a slot field.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/MINIMUM_QCRIL_REINIT_ENTRY_AUDIT.md`.
+
+NEXT_ACTION: no execution. Statically design a one-shot fixed-RIL-instance-1 internal diagnostic hook for exactly the four-step sequence, preserving slot0 gates and avoiding callback replacement by an external IIWlan client.
