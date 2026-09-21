@@ -241,3 +241,18 @@ Recovery is accepted only when direct IMS state, transport, MMTEL voice availabi
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
 
 NEXT_ACTION: candidate only—capture a future real insert/recovery as a timestamp-aligned, read-only lifecycle trace spanning native DSD/NAH updates, ANM delivery, CNE request creation, and IMS tunnel establishment. Do not invoke refresh/query/write APIs.
+
+
+## R/C/P airplane boundary finding (2026-09-21)
+
+- A same-boot, same-command-set R/C/P capture isolated the airplane-toggle failure without a SIM operation or any Codex phone write.
+- R's successful native history contains `IMS [IWLAN,UNKNOWN]`, followed by an outbound `type=IMS networks=[IWLAN,UNKNOWN]`, qti.cne request 267, DNC IWLAN setup, ePDG/XFRM, and IMS registration.
+- Airplane OFF tears down request 267 and completes the native IMS intent with `preferredRat=EUTRAN`; `LastReportedNetworkAvailability` records IMS=EUTRAN.
+- Airplane ON restores the native IMS cache only as `[UNKNOWN,IWLAN]`. Earlier static analysis proves `convertResultList` suppresses a list beginning with UNKNOWN, and no new outbound IMS/IWLAN report is observed.
+- Framework PS/WLAN still reaches IWLAN/HOME and `mIsIwlanPreferred=true`, proving those states are downstream-insufficient. The missing event is earlier than CNE demand creation.
+- DSD/WDS endpoint-ready flags, modem capability, IWLAN enablement, global IWLAN preference, and network-service HOME state are unchanged between R and P. Their boolean readiness is not the discriminator.
+- The strongest reboot boundary is now the slot2 QCRIL DataModule/IIWlan NetworkAvailabilityHandler DSD APN qualification ordering/replay session, specifically IWLAN-first publication for IMS.
+- `performDataModuleInitialization` and NetworkAvailabilityHandler construction occur only in boot history and do not rerun during R->C->P. The exact minimum reinitialization call remains inferred, not yet source-confirmed or tested.
+- Evidence for the failure boundary is HIGH; confidence that a targeted DSD/NAH session recreation is sufficient is MEDIUM.
+
+NEXT_ACTION: static-only audit of a fixed-slot2 DSD AP-assist indication-session and NetworkAvailabilityHandler lifecycle reinitialization entry point. Do not invoke it in the current phase.

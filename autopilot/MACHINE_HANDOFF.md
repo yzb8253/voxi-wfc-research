@@ -170,3 +170,18 @@ NEXT_ACTION: preserve F1 and do not bypass the user-build shell gate. If a direc
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
 
 NEXT_ACTION: remain read-only. Candidate only: on a future real recovery, collect a synchronized lifecycle trace of native DSD/NAH update, ANM callback, CNE request, ePDG/XFRM, and IMS registration. Do not call a refresh/query/write interface.
+
+
+## Current checkpoint: R/C/P airplane boundary
+
+- Date: 2026-09-21.
+- Branch baseline before this checkpoint: `50d2d63b48514cdb3e616dbd76d6a7c5983362ff`.
+- USB ADB target for this run: `fd0ff892`; always rediscover on the next machine/session.
+- The user manually performed airplane OFF and airplane ON. Codex executed read-only collection only; phone writes: 0.
+- R was true WFC F0 with IMS REGISTERED/WLAN, VOICE-IWLAN/WFC available, qti.cne request 267, IMS NetworkAgent 102, UDP/4500, and XFRM.
+- C released request 267 and changed the native IMS preferred report to EUTRAN.
+- P restored IWLAN/HOME and `mIsIwlanPreferred=true`, but native IMS qualification was ordered `[UNKNOWN,IWLAN]`; no fresh IMS/IWLAN report, CNE IMS request, ePDG, or IMS registration appeared.
+- The retained native last-reported IMS preference remained EUTRAN. DSD/WDS/IWLAN readiness flags remained true.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/R_C_P_AIRPLANE_BOUNDARY.md`. Raw captures are ignored and must not be committed.
+
+NEXT_ACTION: static analysis only. Find one fixed-slot2 lifecycle entry that recreates the QCRIL DataModule/IIWlan NetworkAvailabilityHandler modem-facing DSD AP-assist indication session. Do not execute a refresh, callback replacement, SIM/radio action, or process restart without separate authorization.

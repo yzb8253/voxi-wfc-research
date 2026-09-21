@@ -254,3 +254,16 @@ NEXT_ACTION: wait for the user to create a real WFC Golden state, then run exact
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/BAD_VS_GOLDEN_NATIVE_DSD_QNS_DIFF.md`.
 
 NEXT_ACTION: no write. Candidate only: a future timestamp-aligned read-only lifecycle capture around a real recovery, correlating NAH/DSD, ANM, CNE, ePDG/XFRM, and IMS registration.
+
+
+## 2026-09-21 R/C/P airplane boundary complete
+
+- Captured R (airplane-on WFC healthy), C (airplane off), and P (airplane on again) with the same audited read-only command set. Codex phone writes: 0.
+- R was F0: REGISTERED/WLAN, VOICE-IWLAN and WFC available, qti.cne request 267, IMS NetworkAgent 102, UDP/4500, and XFRM active.
+- R->C released request 267 and the IMS data path. Native NetworkAvailabilityHandler completed IMS preference as EUTRAN and retained IMS=EUTRAN in `LastReportedNetworkAvailability`.
+- P restored PS/WLAN IWLAN/HOME and `mIsIwlanPreferred=true`, but IMS remained NOT_REGISTERED/UNKNOWN with no qti.cne IMS request, NetworkAgent, UDP/4500, or XFRM.
+- The decisive P transition produced IMS `[UNKNOWN,IWLAN]`, not R's successful `[IWLAN,UNKNOWN]`. No outbound IMS/IWLAN availability report followed, and the last-reported IMS preference remained EUTRAN.
+- DSD/WDS readiness, IWLAN enablement, modem capability, global IWLAN preference, and HOME registration remained ready; basic service readiness is not the missing state.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/R_C_P_AIRPLANE_BOUNDARY.md`.
+
+NEXT_ACTION: no execution. Statically locate and audit one fixed-slot2 lifecycle entry that recreates the QCRIL DataModule/IIWlan NetworkAvailabilityHandler DSD AP-assist indication session without changing SIM, radio, or modem state.
