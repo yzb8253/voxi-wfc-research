@@ -302,3 +302,12 @@ NEXT_ACTION: candidate design only. Specify a compile-time fixed, one-shot `IIWl
 - Verdict: source-level hook YES; safe replacement build NO; deployment STOP. Phone writes: 0.
 
 NEXT_ACTION: no prototype or binary patch. Resume only with exact matching vendor source/build artifacts and a reproducible ABI baseline.
+
+## Fixed-slot2 qcrild2 cold-init finding (2026-09-21)
+
+- A one-shot native init restart changed only target qcrild2 PID 1919 -> 855; primary qcrild remained PID 1879 and the boot ID was unchanged.
+- The new slot2 process completed DataModule initialization, created a new NetworkAvailabilityHandler, reconnected IIWlan slot2, and reached ready DSD/WDS/IWLAN state.
+- Despite that genuinely cold process lifecycle, the first new IMS qualified list was again `[UNKNOWN,IWLAN]`, not the reboot-clean `[IWLAN,UNKNOWN]`.
+- The current qualified vectors later became empty; no IMS/IWLAN publication, qti.cne IMS request, ePDG/XFRM, registration, or WFC followed within 120 seconds.
+- This excludes the fixed-slot2 qcrild2 process lifetime by itself as the sufficient P-to-R recovery boundary. The decisive state/order is inherited from, or coordinated with, a component outside this process lifetime.
+- Result: `CASE_C`, not PARTIAL. A Magic SIM cycle is not the next automatic action because the required native publication prerequisite was never restored.

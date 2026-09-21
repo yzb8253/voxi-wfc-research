@@ -316,3 +316,15 @@ NEXT_ACTION: no execution. The minimum alternative is vendor source instrumentat
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_PATCH_DEPLOYMENT_FEASIBILITY.md`.
 
 NEXT_ACTION: STOP. Do not build, binary-patch, mount, or deploy until exact matching vendor build artifacts are available.
+
+## 2026-09-21 fixed-slot2 qcrild2 cold restart complete
+
+- P baseline passed: VOXI remained active/UICC-enabled on subId 11, slot 1, phoneId 1, carrierId 28, MCCMNC 23415; IMS/WFC was strict F1 and native IMS ordering was `[UNKNOWN,IWLAN]`.
+- Exactly one native init restart of `vendor.qcrild2` was performed. PID changed 1919 -> 855; primary qcrild stayed PID 1879, and the kernel boot ID did not change.
+- The new process performed DataModule cold initialization, constructed a new NetworkAvailabilityHandler, reconnected `IIWlan/slot2`, and re-established DSD/WDS/IWLAN readiness.
+- Its first fresh IMS qualified list was still `[UNKNOWN,IWLAN]`; `[IWLAN,UNKNOWN]` and outbound IMS/IWLAN publication never appeared.
+- No qti.cne IMS request, ePDG/XFRM, IMS registration, VOICE/IWLAN, or WFC appeared through 120 seconds.
+- Result: `CASE_C`, `P_TO_R=NO`. Slot2 qcrild2 cold initialization alone is below the AP-reboot recovery boundary.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/P_TO_R_QCRILD2_COLD_RESTART_RESULT.md`.
+
+NEXT_ACTION: stop. Do not repeat qcrild2 restart or execute a Magic SIM cycle; the native ordering/publication prerequisite was not restored. Any next experiment requires a new hypothesis and explicit authorization.

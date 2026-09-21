@@ -236,3 +236,15 @@ NEXT_ACTION: no device experiment. The single minimum alternative is a matching 
 - Report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/QCRIL_PATCH_DEPLOYMENT_FEASIBILITY.md`.
 
 NEXT_ACTION: STOP. Do not build, patch, mount, or deploy until exact matching vendor build artifacts can reproduce the library ABI.
+
+## Current checkpoint: fixed-slot2 qcrild2 cold restart
+
+- Date: 2026-09-21. USB ADB target during the run: `fd0ff892`; rediscover on resume.
+- Precondition was P/F1 with VOXI active and UICC-enabled, native IMS `[UNKNOWN,IWLAN]`, and no CNE/ePDG/WFC.
+- Exactly one `vendor.qcrild2` native init restart was executed. Target PID 1919 -> 855; primary qcrild remained PID 1879; boot ID unchanged.
+- New DataModule initialization and NetworkAvailabilityHandler construction were observed. DSD/WDS/IWLAN readiness returned and the process stayed stable for 120 seconds.
+- Fresh IMS qualified ordering remained `[UNKNOWN,IWLAN]`; it never became `[IWLAN,UNKNOWN]`. No IMS publication, qti.cne request, UDP/4500/XFRM, IMS registration, VOICE/IWLAN, or WFC followed.
+- Final result: `CASE_C`, `P_TO_R=NO`. Slot0 remained physically absent/inactive; VOXI identity stayed stable. No modem reset or AP reboot occurred.
+- Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/P_TO_R_QCRILD2_COLD_RESTART_RESULT.md`. Raw captures remain ignored and must not be committed.
+
+NEXT_ACTION: STOP. Do not repeat this restart or run Magic SIM cycle automatically. Continue only from a separately authorized, evidence-based hypothesis outside qcrild2 process lifetime.

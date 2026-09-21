@@ -41,3 +41,6 @@
 2026-09-20T16:03:07.899+08:00 SECOND REINSERT WRITE 3/4; second and final fixed slot1 POWER_DOWN callback=0; true ABSENT confirmed; no process restart.
 2026-09-20T16:03:19.517+08:00 SECOND REINSERT WRITE 4/4; second and final fixed slot1 POWER_UP callback=0; watchdog exited on callback marker.
 2026-09-20T16:06:21.916+08:00 EXPERIMENT COMPLETE; final ACTIVE/UICC ENABLED/IWLAN HOME but strict F1; no IMS demand/CNE/ePDG/WFC; slot0 protected; no further write authorized.
+
+2026-09-21T10:03:47+08:00 QCRILD2 COLD RESTART WRITE 1/1; native init restart of vendor.qcrild2; old PID 1919 -> new PID 855; primary qcrild PID 1879 unchanged; no retry or other phone write.
+2026-09-21T10:06:47+08:00 QCRILD2 COLD RESTART COMPLETE; CASE C/FAIL; fresh DataModule and NAH but IMS remained [UNKNOWN,IWLAN], with no publication/CNE/ePDG/WFC; no modem reset or AP reboot.
