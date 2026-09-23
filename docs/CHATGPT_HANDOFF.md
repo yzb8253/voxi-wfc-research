@@ -1,19 +1,19 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 16:25 Asia/Shanghai
+Updated: 2026-09-23 20:37 Asia/Shanghai
 
 ## Session identity
 
-- Computer: Computer A
+- Computer: Computer B
 - Account: Account A
 - Branch: `voxi-wfc-auto-recovery`
-- Synchronized baseline before the latest experiment: `56bd01aff49b79ba3bd751ad5939ce8d37c8a8e7`
+- Synchronized baseline before the latest experiment: `1949b6f90572e2b7eee60963cab8b18fc6b07591`
 - Current commit: resolve with `git rev-parse HEAD`; this file is authoritative from its containing commit.
 - GitHub is the only durable source of truth.
 
 ## Device / ADB
 
-- Windows; ADB `C:\Users\ZJH\Desktop\platform-tools\adb.exe`
+- Windows; ADB `C:\Users\TT\Desktop\platform-tools\adb.exe`
 - Last serial `fd0ff892`; rediscover every session.
 - Xiaomi 10 / `cas` / Android 13 / Magisk
 - Qualcomm SDX55M/X55
@@ -75,3 +75,15 @@ The 001B behavior is now classified as VERIFIED_NATIVE_REACQUIRE_AFTER_QCRILD2_R
 The new v2.7-alpha implementation restores native pm-service ownership before checking WFC and before any optional SIM2 cycle. It is dry-run by default, fail-closed on changed ownership behavior, and contains no automatic retry. Static audits pass. It has not been executed on a phone.
 
 Unique next action: wait for explicit user approval to run the controlled v2.7-alpha experiment.
+
+## v2.7-alpha first device launch
+
+- Baseline: `1949b6f90572e2b7eee60963cab8b18fc6b07591` from a fresh clean GitHub clone.
+- The independent read-only entry gate passed: serial/root/device/airplane/Wi-Fi/services/native owner/X55/crash count/no-holder/VOXI-UICC were valid; initial WFC was F1.
+- The repository launcher was executed exactly once with `execute`.
+- Result: `BLOCKED_PRE_WRITE`. Windows PowerShell 5.1 does not provide the `ProcessStartInfo.ArgumentList` property used by the script, so it failed before its first ADB call.
+- Script output: recovery NOT_RUN, native handoff NOT_RUN, final WFC NOT_CHECKED, cleanup NOT_RUN, phone writes 0.
+- Post-failure read-only verification found the scene unchanged: pm-service PID 31818 sole FD9 owner, qcrild2 PID 873, X55 ONLINE, crash_count 0, no holder, no SIM OFF/ON, WFC F1.
+- Sanitized result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FIRST_DEVICE_RUN_RESULT.md`.
+
+Unique next action: fix the host process-launch wrapper for Windows PowerShell 5.1 (or change the paired launcher/runtime explicitly), add a runtime dry-run test, and obtain fresh authorization before any second real execution.

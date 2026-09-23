@@ -102,3 +102,20 @@ qcrild2 restart is correlated with native reacquisition in this preserved scene,
 
 Impact:
 Use the predefined result `QCRILD2_RESTART_NO_VALID_REVOTE`; do not promote the re-vote hypothesis without direct evidence.
+
+## 2026-09-23 20:37 - static syntax audit did not prove launcher runtime compatibility
+
+Previous belief:
+The passing PowerShell parser/static policy audit was sufficient to establish that the paired Windows launcher could reach the device entry gate.
+
+Evidence:
+The first authorized launch used `Run-X55-WFC-v2.7-alpha-native-handoff.cmd execute`. Its `powershell.exe` process was Windows PowerShell 5.1, whose `ProcessStartInfo` lacks the `ArgumentList` property used by the state machine. Execution stopped before the first ADB call with phone writes 0.
+
+Correction:
+Separate language parsing/static safety from runtime API compatibility. A script can parse successfully yet fail under the exact runtime selected by its launcher.
+
+Current conclusion:
+v2.7-alpha remains untested on the phone. The first launch is `BLOCKED_PRE_WRITE`, not a recovery or native-handoff failure.
+
+Impact:
+The host wrapper must support Windows PowerShell 5.1 or the paired launcher must select a verified compatible runtime. The audit must execute at least a dry-run through the exact launcher/runtime before another authorized real run.

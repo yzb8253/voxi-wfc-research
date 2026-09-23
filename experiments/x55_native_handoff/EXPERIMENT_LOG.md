@@ -85,3 +85,16 @@ Observed result: PowerShell parse PASS; Android shell parse PASS; static write-s
 Interpretation: the approved native-owner-first design is implemented and ready only for a separately authorized controlled run.
 Conclusion: BUILD_STATIC_AUDIT_PASS / NOT_EXECUTED; phone writes 0.
 Next action: wait for explicit execution approval.
+
+## X55-V27-ALPHA-FIRST-DEVICE-001
+
+Date: 2026-09-23 20:37 Asia/Shanghai
+Environment: Computer B, Account A, fresh clean GitHub clone at `1949b6f90572e2b7eee60963cab8b18fc6b07591`, USB serial `fd0ff892`.
+Pre-state: independent read-only entry gate PASS; pm-service PID 31818 sole FD9 owner; X55 ONLINE; crash_count 0; no holder; qcrild2 PID 873; VOXI active/enabled; initial WFC F1.
+Commands/actions: executed the repository paired launcher exactly once with argument `execute`.
+Observed result: Windows PowerShell 5.1 raised `ProcessStartInfo.ArgumentList` missing before the first ADB call. State-machine results remained NOT_RUN/NOT_CHECKED and phone writes were 0.
+Post-state: pm-service PID 31818 remained sole owner; qcrild2 PID 873 unchanged; X55 ONLINE; crash_count 0; holder absent; SIM OFF 0; SIM ON 0; WFC unchanged F1.
+Logs: host-only complete log `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_203708/experiment.log`; sanitized result `v2.7-alpha-native-handoff/FIRST_DEVICE_RUN_RESULT.md`.
+Interpretation: host runtime compatibility blocker; no native experiment occurred.
+Conclusion: `BLOCKED_PRE_WRITE / NOT_RUN`; phone writes 0.
+Next action: fix and audit exact Windows PowerShell 5.1 launcher compatibility, then require fresh authorization before another execution.

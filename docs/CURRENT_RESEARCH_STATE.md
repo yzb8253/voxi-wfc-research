@@ -87,4 +87,8 @@ A new, non-replacing v2.7-alpha implementation now orders recovery as native own
 
 Build status: PowerShell syntax PASS, Android shell syntax PASS, static safety audit PASS, phone execution NOT RUN, phone writes 0.
 
-Next action: explicit approval is required before the first controlled v2.7-alpha device run.
+The first authorized device launch was attempted from Computer B at commit `1949b6f90572e2b7eee60963cab8b18fc6b07591`. The independent read-only entry gate passed, but the paired `.cmd` launcher selected Windows PowerShell 5.1 and the script failed before its first ADB call because `ProcessStartInfo.ArgumentList` is unavailable in that runtime.
+
+Result: `BLOCKED_PRE_WRITE`; phone writes 0. No holder, ownership transition, qcrild2 restart, or SIM cycle occurred. Post-check state remained pm-service PID 31818 sole FD9 owner, qcrild2 PID 873, X55 ONLINE, crash_count 0, and WFC F1.
+
+Next action: repair and audit Windows PowerShell 5.1 host compatibility, then obtain fresh authorization before another real execution. Do not treat the failed host launch as a native-handoff result.
