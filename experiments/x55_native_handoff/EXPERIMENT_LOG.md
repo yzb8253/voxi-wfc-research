@@ -1,0 +1,51 @@
+# X55 Native Handoff Experiment Log
+
+Append new entries. Never rewrite old records; append a correction when interpretation changes.
+
+## X55-PM-CLEAN-RESTART-001
+
+Date: 2026-09-23 handoff import; original run time not preserved in Git
+Environment: Xiaomi 10/cas, Android 13, Magisk, SDX55M, clean native clients, no holder.
+Pre-state: pm-service PID 1232 owned `/dev/subsys_esoc0`; X55 ONLINE.
+Commands/actions: one per_mgr stop, then one per_mgr start.
+Observed result: new pm-service PID 13288 reacquired the node before qcrild2 restart; X55 ONLINE.
+Logs: transferred ChatGPT handoff; raw source log pending import.
+Interpretation: ownership reacquisition works without AP boot when no holder contends.
+Conclusion: `VERIFIED` by transferred device evidence; raw provenance pending.
+Next action: keep separate from holder-contended behavior.
+
+## X55-QCRIL-VOTE-001
+
+Date: 2026-09-23 handoff import; original run time not preserved in Git
+Environment: fixed-slot2 `/vendor/bin/hw/qcrild -c 2`.
+Pre-state: SDX55M ONLINE in the transferred qcrild2 restart experiment.
+Commands/actions: restart fixed-slot2 qcrild2.
+Observed result: QCRIL was added and registered, successfully registered for SDX55M, voted, and voter count reached two.
+Logs: exact messages in `docs/CURRENT_RESEARCH_STATE.md`; raw source pending import.
+Interpretation: qcrild2 is a real Peripheral Manager client/voter.
+Conclusion: `VERIFIED` by transferred device logs; raw provenance pending.
+Next action: at most one qcrild2 re-registration as candidate trigger after holder release.
+
+## X55-V262-CLEANUP-001
+
+Date: 2026-09-23 handoff import; original run time not preserved in Git
+Environment: v2.6.2 X55 rebirth and one fixed SIM2 cycle.
+Pre-state: clean native baseline followed by polluted airplane OFF -> ON state.
+Commands/actions: X55 rebirth; one SIM2 OFF -> 3 seconds -> ON; cleanup attempted while holder stayed alive.
+Observed result: WFC HEALTHY after about 11 seconds; cleanup failed to restore native pm-service ownership because pm-service started while holder owned the node.
+Logs: transferred handoff; v2.6.2 source/raw logs missing from Git.
+Interpretation: recovery succeeded, cleanup ordering failed; post-release handoff remains unresolved.
+Conclusion: recovery `VERIFIED`; cleanup `FAILED`; ownership behavior `INCONCLUSIVE`.
+Next action: ownership-only test after exact artifacts return.
+
+## X55-OWNERSHIP-PRECHECK-20260923
+
+Date: 2026-09-23 15:06:53 Asia/Shanghai
+Environment: Computer A, Account A, serial `fd0ff892`, baseline `12ffbdf79d45b1b61ee67ae317a67b2608ffc5d9`.
+Pre-state: pm-service 13288, pm-proxy 1699, qcrild 1926, qcrild2 13706, mdm_helper 1297; VOXI active/enabled; no holder file.
+Commands/actions: read-only Git, process, init, node, status, and SELinux-access checks; no phone write.
+Observed result: SELinux denied pm-service FD and X55 state/crash_count reads; Git lacked holder/observer. Native owner, ONLINE, and zero crash count were unverified.
+Logs: `OWNERSHIP_HANDOFF_PRECHECK.md`, command audit, and experiments JSONL.
+Interpretation: safety gate incomplete; historical PID match is not current owner proof.
+Conclusion: `BLOCKED_PRE_WRITE / NOT_RUN`; phone writes 0.
+Next action: restore and audit holder/observer, then repeat read-only gate.

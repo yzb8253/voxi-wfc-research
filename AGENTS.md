@@ -133,3 +133,19 @@ For each checkpoint:
 If push fails, record `GIT_PUSH_BLOCKED` and the exact reason in `autopilot/MACHINE_HANDOFF.md`; do not falsely report that work is uploaded.
 
 The user should not need to run Git commands manually after a computer change. Their normal handoff is: provide the last Codex output if available, say that the computer changed, and let the project resume protocol handle synchronization and continuation.
+
+## ChatGPT to Codex Handoff Protocol
+
+GitHub is the only durable source of truth. Chat history is input to review and merge, never a dependency for later sessions.
+
+After syncing the authoritative branch, read:
+
+1. `docs/CHATGPT_HANDOFF.md`
+2. `docs/CURRENT_RESEARCH_STATE.md`
+3. `docs/DECISIONS_AND_CORRECTIONS.md`
+4. `experiments/x55_native_handoff/CURRENT_BLOCKERS.md`
+5. `experiments/x55_native_handoff/EXPERIMENT_LOG.md`
+
+For each new ChatGPT handoff, read old files first; merge only still-valid current state; append experiments and corrections without rewriting history; distinguish device-confirmed evidence, transferred conclusions with pending raw artifacts, inferences, and blockers; never promote a hypothesis to verified fact; remove stale current wording while preserving its correction history; checkpoint and push sanitized updates.
+
+At the end report commit, push result, phone-write count, current phone state, next action, and blockers.

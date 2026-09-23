@@ -1,0 +1,68 @@
+# Project Goal
+
+Develop a repeatable, fail-safe VOXI WFC recovery for Xiaomi 10/cas with Qualcomm SDX55M, with GitHub as the durable evidence source.
+
+# Device / Environment
+
+Windows; Xiaomi 10 (`cas`), Android 13, Magisk; SDX55M. VOXI uses physical slot2 / Android slot index 1 and phoneId 1, commonly subId 11, MCCMNC 23415, carrierId 28. Rediscover ADB serials and PIDs.
+
+# Verified Architecture
+
+Peripheral Manager uses Binder `vendor.qcom.PeripheralManager` / `vendor.qcom.IPeripheralManager`; `vendor.per_mgr` runs `/vendor/bin/pm-service`; `vendor.per_proxy` runs `/vendor/bin/pm-proxy`; external-modem node is `/dev/subsys_esoc0`. `libperipheral_client.so` exports client register, connect, disconnect, unregister, and event acknowledgement. Known loaders include pm-service, pm-proxy, qcrild/qcrild2, GNSS, CNSS, and xtra-daemon.
+
+# Verified Recovery Path
+
+Transferred experiments establish: stop per_mgr -> X55 OFFLINE -> holder opens `/dev/subsys_esoc0` -> X55 ONLINE/new PON_SUCCESS -> one fixed SIM2 OFF, 3-second wait, ON -> WFC HEALTHY. It succeeded in at least two key runs. Raw v2.6.2 artifacts are pending import.
+
+# Verified Peripheral Manager Behavior
+
+In clean native state without a holder, pm-service held the node (typically FD9) and X55 was ONLINE. After per_mgr stop/start, new pm-service PID 13288 reacquired it before qcrild2 restart; X55 was ONLINE. Ownership is not boot-only.
+
+# QCRIL / Peripheral Manager Relationship
+
+Primary RIL is `/vendor/bin/hw/qcrild`; fixed-slot2 RIL is `/vendor/bin/hw/qcrild -c 2`. Transferred logs showed:
+
+```text
+PerMgrSrv: SDX55M state: is on-line, add client QCRIL
+PerMgrSrv: QCRIL registered
+PerMgrLib: QCRIL successfully registered for SDX55M
+PerMgrLib: QCRIL voting for SDX55M
+PerMgrSrv: QCRIL voting for SDX55M
+PerMgrSrv: SDX55M num voters is 2
+```
+
+Thus `qcrild2 -> libperipheral_client -> register -> connect/vote -> Peripheral Manager` is verified behavior.
+
+# X55 State Model
+
+- Clean native: pm-service owner, no holder, X55 ONLINE.
+- Rebirth: native owner removed, X55 OFFLINE, holder opens node, X55 ONLINE/PON_SUCCESS.
+- Contended cleanup: holder owns node while pm-service starts; pm-service cannot acquire.
+- Desired handoff: holder exits, owner briefly empty, native client vote prompts pm-service acquisition.
+
+# WFC Recovery Results
+
+X55 rebirth plus one fixed SIM2 cycle restored WFC HEALTHY. qcrild2 restart can cause transient RADIO_NOT_AVAILABLE and DSD/IMS reconstruction. WFC is not an ownership-test success criterion.
+
+# Native Ownership Findings
+
+Clean stop/start reacquisition is verified by transferred evidence. Holder-contended reacquisition is unresolved. Automatic retry after holder release is unknown; a fresh qcrild2 QCRIL vote is the leading trigger hypothesis.
+
+# Current Open Questions
+
+1. Does pm-service automatically reacquire after holder exit?
+2. If not, does one qcrild2 restart/vote cause it?
+3. Can a smaller official client action trigger the vote?
+4. How can owner, ONLINE, and crash_count be observed under enforcing SELinux?
+
+# Current Best Hypothesis
+
+Starting pm-service while a holder owns the node misses acquisition. After release, a new fixed-slot2 QCRIL vote may cause retry. This remains a hypothesis.
+
+# Next Experiments
+
+Restore and audit the exact v2.6.2 holder and observer, repeat the entry gate, then run one ownership-only handoff from the experiment README.
+
+# Safety Constraints
+
+GitHub only; no guessed PID/raw transaction/unverified holder/SELinux bypass; no SIM cycle in this test, physical SIM action, radio/modem reset, unrelated restart ladder, or environment toggle. Every write needs PRE/POST evidence and fail-safe cleanup.
