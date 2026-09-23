@@ -146,3 +146,15 @@ Post-state: pm-service PID 31818 remained sole owner; X55 ONLINE; crash_count 0;
 Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_212413`; sanitized result `v2.7-alpha-native-handoff/THIRD_DEVICE_RUN_RESULT.md`.
 Conclusion: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER / NOT_RUN`; phone writes 0.
 Next action: static artifact rebuild/hash verification and packaging preflight correction; require fresh authorization before another device launch.
+
+## X55-V27-ALPHA-FOURTH-DEVICE-004
+
+Date: 2026-09-23 21:48:13 Asia/Shanghai
+Environment: Computer B, Account A; exact clean commit `12e59b9b78589657f3f62938b957ba73ff9ee183`; Windows PowerShell 5.1.19041.6456; USB serial `fd0ff892`.
+Pre-state: fresh external device/native gate PASS; pm-service PID 31818 sole FD9 owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 PID 873; VOXI active/enabled; WFC F1.
+Commands/actions: paired launcher executed exactly once with `execute`; no manual follow-up.
+Observed result: local `Assert-LocalArtifact` stopped because `Get-FileHash` was not resolved in the exact launcher runtime. No state-machine write began.
+Post-state: pm-service PID 31818 sole owner; X55 ONLINE; crash_count 0; qcrild2 PID 873; holder absent; SIM OFF/ON 0/0; WFC F1.
+Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_214813`; sanitized report `v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
+Conclusion: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION / NOT_RUN`; phone writes 0.
+Next action: exact-launcher PS5.1 hash repair and no-ADB artifact-gate coverage; require fresh authorization before another device launch.

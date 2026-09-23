@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 21:26 Asia/Shanghai
+Updated: 2026-09-23 21:51 Asia/Shanghai
 
 ## Session identity
 
@@ -130,3 +130,13 @@ Unique next action: stop and wait for explicit approval before any third device 
 - Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/THIRD_DEVICE_RUN_RESULT.md`.
 
 Unique next action: rebuild and hash-verify the exact helper and repair the host packaging/preflight path statically. Do not rerun the device experiment without explicit approval.
+
+## v2.7-alpha fourth device launch
+
+- Tested exact commit `12e59b9b78589657f3f62938b957ba73ff9ee183` once under Windows PowerShell `5.1.19041.6456`.
+- Fresh external entry gate passed; initial native scene was pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, no holder, qcrild2 PID 873, VOXI/UICC active/enabled, WFC F1.
+- The paired launcher stopped before any phone write because `Get-FileHash` was not resolved at the local `Assert-LocalArtifact` gate.
+- Classification: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; recovery/native-handoff NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
+- Post-check remained native-clean and unchanged. Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
+
+Unique next action: fix and test hashing in the exact PS5.1 no-ADB launcher path. Do not run another device experiment without explicit approval.

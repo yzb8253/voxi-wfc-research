@@ -117,6 +117,14 @@ Post-check remained pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count
 
 Next action: static helper rebuild/hash verification and packaging/preflight correction only. Another device execution requires new explicit approval.
 
+## v2.7-alpha Fourth Authorized Launch
+
+Commit `12e59b9b78589657f3f62938b957ba73ff9ee183` contained the exact tracked helper, and the fresh external device/native gate passed. The exact launcher nevertheless stopped pre-write because Windows PowerShell 5.1 did not resolve `Get-FileHash` inside `Assert-LocalArtifact`.
+
+Result: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; per_mgr/holder/qcrild2/SIM state machine NOT_RUN, SIM OFF/ON 0/0, phone writes 0. Post-state remained pm-service PID 31818 sole owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, holder absent, and WFC F1.
+
+Next action: repair the hash implementation and extend exact-launcher host-only coverage through the real artifact gate. Another device run requires new explicit approval.
+
 ## Single-SIM Helper Packaging Resolution
 
 Computer A supplied the exact previously audited helper at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`. It is 11534 bytes and hashes to `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`, exactly matching v2.7-alpha's fixed safety gate.

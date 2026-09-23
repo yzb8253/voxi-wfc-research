@@ -366,3 +366,11 @@ NEXT_ACTION: no automatic phone run. Wait for explicit authorization for any thi
 - Future authorization readiness must include a host-only reproducible build plus exact hash and file-availability verification for the topology-selected helper.
 
 NEXT_ACTION: fix artifact reproducibility/preflight statically; no automatic device rerun.
+
+## v2.7-alpha exact-launcher hash finding (2026-09-23)
+
+- A parent-shell hash check after a PS5.1 audit is not proof that the paired launcher can resolve and run its own hash command.
+- The exact launcher failed closed at `Get-FileHash` before every phone write.
+- Host-only acceptance must call the same `Assert-LocalArtifact` implementation under the same `powershell.exe` process selected by the `.cmd` launcher.
+
+NEXT_ACTION: repair the hash dependency and extend exact-launcher selftest; no automatic device rerun.

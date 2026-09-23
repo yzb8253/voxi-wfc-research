@@ -66,4 +66,8 @@ The third authorized launch passed current device/native checks but stopped pre-
 
 The packaging blocker is resolved: the exact Computer A audited artifact is force-tracked at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`, size 11534 bytes, SHA-256 `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`. The global `*.jar` ignore remains intact, and the runtime fixed-hash gate is unchanged.
 
+The fourth authorized launch used the tracked exact artifact but stopped before phone writes because `Get-FileHash` was not resolved inside the paired Windows PowerShell 5.1 launcher. Classification: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`. The recovery state machine remains unexecuted.
+
+Do not rerun. Repair and exercise the actual artifact assertion through the exact no-ADB launcher path first.
+
 Do not automatically rerun. A new device execution still requires fresh explicit authorization.

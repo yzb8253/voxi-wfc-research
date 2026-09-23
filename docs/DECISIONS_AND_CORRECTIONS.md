@@ -159,3 +159,20 @@ The third launch is `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`, not a
 
 Impact:
 Do not substitute or rebuild during the failed run and do not rerun automatically. Restore the exact audited artifact through a reproducible static build, verify its pinned SHA-256, then obtain fresh authorization.
+
+## 2026-09-23 21:48 - parent-shell artifact validation did not exercise launcher hash resolution
+
+Previous belief:
+The host-only artifact gate had proven that the exact Windows PowerShell 5.1 launcher could hash and accept the tracked helper.
+
+Evidence:
+The fourth launcher invocation stopped at script line 351 because `Get-FileHash` was not resolved. The previous artifact check ran in the parent shell after the PS5.1 audit/self-test rather than inside the paired launcher path.
+
+Correction:
+Artifact presence/hash verification must execute through the same Windows PowerShell 5.1 code path used by the real launcher.
+
+Current conclusion:
+The fourth launch is `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`, not a recovery failure. Phone writes remained 0.
+
+Impact:
+Add a PS5.1-compatible hashing implementation or explicit module import and exercise the actual `Assert-LocalArtifact` path in `selftest`. Do not rerun automatically.

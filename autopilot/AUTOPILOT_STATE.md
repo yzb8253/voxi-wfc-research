@@ -407,3 +407,12 @@ NEXT_ACTION: static helper rebuild/hash verification and packaging/preflight cor
 - Git-only work: ADB not used; phone writes 0; v2.7-alpha not run.
 
 NEXT_ACTION: wait for fresh explicit authorization before any additional v2.7-alpha device execution.
+
+## 2026-09-23 v2.7-alpha fourth launch blocked pre-write
+
+- Exact tracked artifact was present and the fresh external device/native gate passed.
+- The one launcher invocation stopped because `Get-FileHash` was not resolved by the exact Windows PowerShell 5.1 runtime at `Assert-LocalArtifact`.
+- No per_mgr stop, holder, qcrild2 restart, SIM action, or recovery action occurred. Post-state remained native-clean F1.
+- Result: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; phone writes 0.
+
+NEXT_ACTION: repair and host-only test the actual launcher artifact assertion. Do not rerun without explicit approval.

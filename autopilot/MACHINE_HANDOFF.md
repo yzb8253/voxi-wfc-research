@@ -333,3 +333,13 @@ NEXT_ACTION: rebuild and exact-hash verify the helper plus host-only packaging p
 - No ADB command, phone write, or v2.7-alpha execution occurred.
 
 NEXT_ACTION: sync the authoritative branch on other computers. A fresh device execution still requires explicit user approval.
+
+## Current checkpoint: fourth v2.7-alpha launch blocked at PS5.1 hash command
+
+- Date: 2026-09-23 21:48; Computer B; Account A; tested `12e59b9b78589657f3f62938b957ba73ff9ee183`.
+- Fresh external gate passed; initial native state was pm-service 31818 sole FD9 owner, X55 ONLINE, crash_count 0, qcrild2 873, holder absent, WFC F1.
+- One launcher invocation stopped pre-write because `Get-FileHash` was not resolved inside `Assert-LocalArtifact`.
+- Result: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; recovery/native-handoff NOT_RUN; SIM OFF/ON 0/0; phone writes 0.
+- Post-state was unchanged. Raw logs remain host-only in `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_214813`.
+
+NEXT_ACTION: exact-launcher PS5.1 hash repair plus no-ADB artifact assertion. Do not run another device experiment without explicit approval.
