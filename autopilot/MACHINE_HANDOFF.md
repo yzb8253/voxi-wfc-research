@@ -248,3 +248,15 @@ NEXT_ACTION: STOP. Do not build, patch, mount, or deploy until exact matching ve
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/P_TO_R_QCRILD2_COLD_RESTART_RESULT.md`. Raw captures remain ignored and must not be committed.
 
 NEXT_ACTION: STOP. Do not repeat this restart or run Magic SIM cycle automatically. Continue only from a separately authorized, evidence-based hypothesis outside qcrild2 process lifetime.
+
+## Current checkpoint: X55 ownership handoff blocked before write
+
+- Date: 2026-09-23; ADB serial during precheck: `fd0ff892` (rediscover on resume).
+- Branch was synchronized at `b513bd627da0c4476fc18012c318248b2c4d1d8c` before this checkpoint.
+- The user supplied a cross-account summary of v2.6.2 X55 rebirth and Peripheral Manager work, but the corresponding source/log/checkpoint does not exist in GitHub or on this computer.
+- Live process scene: pm-service 13288, pm-proxy 1699, primary qcrild 1926, qcrild2 13706 (`-c 2`), mdm_helper 1297; no holder file found; VOXI identity active/enabled and correct.
+- SELinux denied `/proc/13288/fd`, X55 sysfs state, and crash_count reads. The existing repository has no compatible ownership observer. Native owner, X55 ONLINE, and zero crash count therefore remain unverified.
+- No phone write occurred. The holder/pm-service/qcrild2 handoff experiment is `NOT_RUN`.
+- Sanitized report: `experiments/x55_native_handoff/OWNERSHIP_HANDOFF_PRECHECK.md`.
+
+NEXT_ACTION: import the exact missing v2.6.2/X55 artifacts into the authoritative branch, audit the holder and observer, then re-run only the read-only entry gate. Never infer ownership from PID equality.

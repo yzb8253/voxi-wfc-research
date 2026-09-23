@@ -328,3 +328,15 @@ NEXT_ACTION: STOP. Do not build, binary-patch, mount, or deploy until exact matc
 - Sanitized report: `experiments/sim_soft_reset/single_sim_isolation/dsd_qns_golden_diff/P_TO_R_QCRILD2_COLD_RESTART_RESULT.md`.
 
 NEXT_ACTION: stop. Do not repeat qcrild2 restart or execute a Magic SIM cycle; the native ordering/publication prerequisite was not restored. Any next experiment requires a new hypothesis and explicit authorization.
+
+## 2026-09-23 X55 ownership handoff precheck
+
+- GitHub and local `voxi-wfc-auto-recovery` were synchronized at `b513bd627da0c4476fc18012c318248b2c4d1d8c`; no remote branch or history contains the later v2.6.2/X55 holder work described in the cross-account handoff.
+- Device `fd0ff892` is online and rooted. Current processes include pm-service PID 13288, pm-proxy 1699, primary qcrild 1926, fixed-slot2 qcrild2 13706, and mdm_helper 1297. No holder file was found.
+- Init RC confirms the expected native Peripheral Manager service topology. VOXI remains active/enabled on subId 11, slot 1, phoneId 1, carrierId 28, MCCMNC 23415.
+- The available Magisk SELinux domain cannot read pm-service FDs or X55 state/crash_count. Therefore current native ownership, X55 ONLINE, and `crash_count=0` could not be directly verified.
+- The installed module is v2.0 and the authoritative repository lacks the previously audited v2.6.2 holder/observer implementation.
+- Result: `BLOCKED_PRE_WRITE / FAIL_SAFE`. The ownership handoff experiment was not run and phone writes were 0.
+- Report: `experiments/x55_native_handoff/OWNERSHIP_HANDOFF_PRECHECK.md`.
+
+NEXT_ACTION: recover the missing v2.6.2/X55 holder and read-only ownership observer into GitHub, audit them, and repeat the entry gate. Do not stop Peripheral Manager or create a live holder until owner, ONLINE state, and crash count are directly confirmed.

@@ -311,3 +311,10 @@ NEXT_ACTION: no prototype or binary patch. Resume only with exact matching vendo
 - The current qualified vectors later became empty; no IMS/IWLAN publication, qti.cne IMS request, ePDG/XFRM, registration, or WFC followed within 120 seconds.
 - This excludes the fixed-slot2 qcrild2 process lifetime by itself as the sufficient P-to-R recovery boundary. The decisive state/order is inherited from, or coordinated with, a component outside this process lifetime.
 - Result: `CASE_C`, not PARTIAL. A Magic SIM cycle is not the next automatic action because the required native publication prerequisite was never restored.
+
+## X55 ownership-handoff project-state finding (2026-09-23)
+
+- The cross-account handoff describes later v2.6.2/X55 experiments, but none of their source, holder implementation, ownership observer, or records exists in any authoritative remote branch or repository history.
+- The live process identities match the described clean Peripheral Manager scene, but PID similarity is insufficient for a destructive entry gate.
+- Current SELinux access prevents the Magisk client from reading pm-service FDs and X55 state/crash_count, so current native ownership and zero-crash status cannot be proven with the repository's available tools.
+- The correct classification is `BLOCKED_PRE_WRITE`, not ownership-handoff failure. No service, holder, qcrild, SIM, radio, or modem write was performed.

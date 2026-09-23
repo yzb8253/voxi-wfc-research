@@ -44,3 +44,4 @@
 
 2026-09-21T10:03:47+08:00 QCRILD2 COLD RESTART WRITE 1/1; native init restart of vendor.qcrild2; old PID 1919 -> new PID 855; primary qcrild PID 1879 unchanged; no retry or other phone write.
 2026-09-21T10:06:47+08:00 QCRILD2 COLD RESTART COMPLETE; CASE C/FAIL; fresh DataModule and NAH but IMS remained [UNKNOWN,IWLAN], with no publication/CNE/ePDG/WFC; no modem reset or AP reboot.
+2026-09-23T15:06:53+08:00 X55 OWNERSHIP HANDOFF PRECHECK; read-only device/Git inspection; required owner, ONLINE, and crash_count gates could not be directly verified due SELinux and missing v2.6.2 artifacts; phone writes=0; experiment NOT_RUN.
