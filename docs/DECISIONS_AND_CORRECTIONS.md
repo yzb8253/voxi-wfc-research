@@ -135,7 +135,10 @@ Correction:
 PowerShell safety audits must reject all collisions with automatic variables case-insensitively, not only `$PID`. Any multiline Android shell payload must normalize host newlines to LF before it reaches ADB, and the no-ADB test must verify the normalized byte/string form.
 
 Current conclusion:
-The second launch is `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`, not a native-handoff or recovery failure. The internal entry gate was not completed and phone writes were 0.
+The second launch is `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`, not a native-handoff or recovery failure. The internal entry gate was not completed and phone writes were 0.
 
 Impact:
 Do not rerun. Repair and audit both blockers first, preserve the state-machine ordering and safety gates, and require new explicit authorization for another device execution.
+
+Resolution:
+The custom collection is now `$resolvedProcesses`. A single `Normalize-AndroidShellText` helper normalizes every `Invoke-Root` payload and the direct holder command. The exact Windows PowerShell 5.1 host-only path reports parser PASS, automatic-variable audit PASS, Android LF normalization PASS, payload CR count 0, command-build PASS, and static no-ADB PASS. The state machine is unchanged and phone writes during repair were 0.

@@ -375,3 +375,13 @@ NEXT_ACTION: stop. Require a new explicit decision before any further phone writ
 - No ADB wait, no device execution, and phone writes 0.
 
 NEXT_ACTION: wait for explicit user approval before running v2.7-alpha on the device.
+
+## 2026-09-23 v2.7-alpha host compatibility repair after second launch
+
+- The second authorized launch stopped before any phone write and is classified `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`, not a recovery failure.
+- Exact blockers were a custom `$matches` collision with automatic `$Matches` and CRLF contamination of the multiline Android native-state probe.
+- The custom collection is now `$resolvedProcesses`. All `Invoke-Root` payloads and the direct holder payload use explicit LF normalization.
+- Windows PowerShell 5.1 parser, automatic-variable, Android payload CR, holder/qcrild2/SIM command-build, quoting, holder lifecycle, fail-safe, and state-machine-order audits pass.
+- `CUSTOM_MATCHES_VARIABLES=0`, `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, `STATE_MACHINE_UNCHANGED=YES`, phone writes 0.
+
+NEXT_ACTION: stop. Do not run a third device experiment without explicit user approval.

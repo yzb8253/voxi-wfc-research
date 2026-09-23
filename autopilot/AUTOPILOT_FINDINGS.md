@@ -347,3 +347,13 @@ NEXT_ACTION: preserve the scene and require a new explicit decision before any p
 - Static audit PASS; no phone execution occurred.
 
 NEXT_ACTION: controlled device run only after new explicit approval.
+
+## v2.7-alpha host compatibility finding (2026-09-23)
+
+- Windows PowerShell's automatic `$Matches` variable is case-insensitive; a custom `$matches` collection is overwritten by `-match` and cannot safely hold process objects.
+- Windows CRLF in a PowerShell here-string is preserved when passed as an Android `su -c` argument unless it is explicitly normalized. Git/editor line-ending assumptions are insufficient.
+- The only observed contaminated Android payload was the multiline native-state probe. A central boundary normalizer now protects every `Invoke-Root` payload, and the direct holder path is normalized separately.
+- The host-only Windows PowerShell 5.1 self-test now validates the parser, automatic-variable assignments, LF conversion, zero CR across representative final payloads, exact command construction, and argv round trips without ADB.
+- Recovery state-machine logic and safety limits did not change. Phone writes during repair: 0.
+
+NEXT_ACTION: no automatic phone run. Wait for explicit authorization for any third v2.7-alpha device launch.

@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 21:05 Asia/Shanghai
+Updated: 2026-09-23 21:19 Asia/Shanghai
 
 ## Session identity
 
@@ -107,7 +107,15 @@ Unique next action: stop and wait for explicit approval before a second real v2.
 - Exact exception: `A hash table can only be added to another hash table.` `Resolve-ExactProcess` line 155 used `$matches`, which aliases case-insensitive automatic `$Matches`; `-match` at lines 160-161 replaced it with a hashtable before `$matches += $item`.
 - The saved entry capture exposed a second blocker: the CRLF here-string at lines 179-200 reached Android `sh` unchanged, causing `id\r` and `2>&$'1\r'` errors.
 - Post-failure read-only state remained native and unchanged: pm-service PID 31818 sole FD9 owner, qcrild2 PID 873, X55 ONLINE, crash_count 0, no holder, SIM OFF/ON 0/0, WFC F1.
-- Classification: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`; recovery/native-handoff remain NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
+- Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`; recovery/native-handoff remain NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
 - Full result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SECOND_DEVICE_RUN_RESULT.md`.
 
-Unique next action: repair and statically audit both host blockers. Do not rerun the phone experiment without another explicit authorization.
+## v2.7-alpha second host compatibility repair
+
+- `$matches` was replaced by `$resolvedProcesses`; executable source now has zero custom `$matches`/`$Matches` variables.
+- `Normalize-AndroidShellText` now removes CR and converts CRLF to LF. Every `Invoke-Root` payload and the direct holder-launch payload passes through it.
+- The exact CRLF-affected payload was the multiline native entry/state probe. The holder payload was single-line but is now explicitly protected too.
+- Native Windows PowerShell 5.1 results: parser PASS, automatic-variable audit PASS, LF normalization PASS, Android payload CR count 0, holder/qcrild2/SIM command builds PASS, static no-ADB PASS.
+- State-machine order and all safety limits are unchanged. ADB was not invoked during this repair; phone writes 0.
+
+Unique next action: stop and wait for explicit approval before any third device launch.

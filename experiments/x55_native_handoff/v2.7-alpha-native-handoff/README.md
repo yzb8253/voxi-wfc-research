@@ -1,6 +1,6 @@
 # VOXI WFC v2.7-alpha Native Handoff
 
-This directory contains a build-only alpha implementation of the native X55 ownership handoff. It does not replace v2.6.2 and has not been executed on a phone.
+This directory contains an alpha implementation of the native X55 ownership handoff. It does not replace v2.6.2. Two authorized launches stopped in host-side entry handling before any phone write, so the recovery state machine remains unexecuted.
 
 ## Evidence basis
 
@@ -56,4 +56,10 @@ The first authorized launcher invocation was classified `BLOCKED_PRE_WRITE_PS51_
 
 The host wrapper is now Windows PowerShell 5.1 compatible. `Run-X55-WFC-v2.7-alpha-native-handoff.cmd selftest` provides a strict local-only validation path; it exits before ADB initialization and verifies the exact Windows argv quoting used for `adb shell` and the holder payload. Windows PowerShell 5.1 parser, self-test, command-wrapper, PID-variable, quoting, holder-lifecycle, fail-safe, and unchanged-state-machine audits pass.
 
-The repaired version has not been run against the phone. Do not automatically execute it; wait for explicit approval.
+The second authorized launch is classified `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`, not a recovery failure. It exposed a custom `$matches` collision with automatic `$Matches` and Windows CRLF contamination of the Android multiline state-probe payload. Phone writes, holder actions, process restarts, and SIM OFF/ON were all zero.
+
+Both blockers are now statically repaired. The process collection uses `$resolvedProcesses`; all `Invoke-Root` payloads and the direct holder launch pass through explicit LF normalization. The Windows PowerShell 5.1 host-only self-test now checks parser status, automatic-variable assignments, final Android payload CR count, holder/qcrild2/SIM command construction, and Windows argv round trips without initializing ADB.
+
+Current acceptance: `PS51_PARSE=PASS`, `AUTO_VARIABLE_AUDIT=PASS`, `CUSTOM_MATCHES_VARIABLES=0`, `ANDROID_LF_NORMALIZATION=PASS`, `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, `STATE_MACHINE_UNCHANGED=YES`, `PHONE_WRITES=0`.
+
+Do not automatically run a third phone experiment; wait for explicit approval.

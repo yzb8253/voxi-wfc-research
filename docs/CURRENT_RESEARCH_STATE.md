@@ -101,6 +101,8 @@ The exact repaired commit `cd222ea058dbb1f2b88905b99987885f3a9438ce` was tested 
 
 The script stopped before its internal entry gate and before any write. `Resolve-ExactProcess` used `$matches`, which is the case-insensitive automatic `$Matches` variable. Its `-match` condition converted the variable to a hashtable, and `$matches += $item` raised `A hash table can only be added to another hash table.` The saved entry artifact also showed CRLF characters from a PowerShell here-string reaching Android `sh`, invalidating commands such as `id` and `2>&1`.
 
-Result: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`; recovery and native handoff NOT_RUN, final WFC NOT_CHECKED, SIM OFF/ON 0/0, phone writes 0. A fresh read-only post-check confirmed the same native owner, X55, crash count, qcrild2 PID, absent holder, and F1 state. No retry or recovery action was performed.
+Result: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`; recovery and native handoff NOT_RUN, final WFC NOT_CHECKED, SIM OFF/ON 0/0, phone writes 0. A fresh read-only post-check confirmed the same native owner, X55, crash count, qcrild2 PID, absent holder, and F1 state. No retry or recovery action was performed.
 
-Next action: repair both host-side defects and re-run the exact Windows PowerShell 5.1 static/no-ADB acceptance. Any further real execution requires new explicit approval.
+Both host defects are now statically repaired. The process collection no longer collides with automatic `$Matches`; a central LF normalizer covers all `Invoke-Root` payloads and the direct holder launch. Windows PowerShell 5.1 parser, automatic-variable, payload-CR, command-construction, argv, holder, fail-safe, and unchanged-state-machine checks pass. `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, and phone writes during repair are 0.
+
+Next action: stop. Any third real execution requires new explicit approval.

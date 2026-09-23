@@ -299,3 +299,14 @@ NEXT_ACTION: stop and wait for a new explicit decision.
 - No ADB/device action occurred in this checkpoint; phone writes 0.
 
 NEXT_ACTION: sync the authoritative branch, review the v2.7-alpha audit, and wait for explicit user approval before any device run.
+
+## Current checkpoint: v2.7-alpha host compatibility accepted after second blocked launch
+
+- Date: 2026-09-23; Computer B; Account A.
+- Second launch at `cd222ea058dbb1f2b88905b99987885f3a9438ce` stopped pre-write on a `$matches`/automatic `$Matches` collision; its native-state payload also carried Windows CRLF into Android `sh`.
+- Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`, not recovery failure. Phone writes 0; holder/process/SIM actions 0.
+- Repair replaces the collection with `$resolvedProcesses` and normalizes all Android shell text to LF at the `Invoke-Root` boundary plus direct holder launch.
+- Windows PowerShell 5.1 parser and host-only self-test pass; automatic-variable audit PASS; Android payload CR count 0; holder/qcrild2/SIM command builds PASS; state machine unchanged.
+- No ADB command was issued during the repair and the third device experiment has not been run.
+
+NEXT_ACTION: sync the authoritative branch and stop. Wait for explicit user approval before any third v2.7-alpha device launch.

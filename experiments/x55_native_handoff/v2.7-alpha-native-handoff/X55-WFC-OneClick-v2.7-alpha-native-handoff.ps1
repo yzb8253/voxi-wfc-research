@@ -87,6 +87,10 @@ function Join-WindowsCommandLine([string[]]$Arguments) {
   (@($Arguments | ForEach-Object { ConvertTo-WindowsCommandLineArgument $_ }) -join ' ')
 }
 
+function Normalize-AndroidShellText([string]$Text) {
+  $Text.Replace("`r`n", "`n").Replace("`r", '')
+}
+
 function Stop-OwnedHostProcessTree([Diagnostics.Process]$Process) {
   if($null -eq $Process -or $Process.HasExited) { return }
   $taskkillInfo = [Diagnostics.ProcessStartInfo]::new()
@@ -136,7 +140,8 @@ function ConvertTo-ShSingleQuoted([string]$Value) {
 }
 
 function Invoke-Root([string]$Command, [int]$TimeoutMs = 30000) {
-  Invoke-Adb -Arguments @('shell', ('su -c ' + (ConvertTo-ShSingleQuoted $Command))) -TimeoutMs $TimeoutMs
+  $androidCommand = Normalize-AndroidShellText $Command
+  Invoke-Adb -Arguments @('shell', ('su -c ' + (ConvertTo-ShSingleQuoted $androidCommand))) -TimeoutMs $TimeoutMs
 }
 
 function Require([bool]$Condition, [string]$Message) {
@@ -152,16 +157,16 @@ function Get-Section([string]$Text, [string]$Name) {
 function Resolve-ExactProcess([ValidateSet('pm-service', 'qcrild2')] [string]$Kind) {
   $result = Invoke-Root 'ps -A -o PID,PPID,NAME,ARGS'
   Require ($result.ExitCode -eq 0) 'Unable to list root processes'
-  $matches = @()
+  $resolvedProcesses = @()
   foreach ($line in ($result.StdOut -split "\r?\n")) {
     $parts = $line.Trim() -split '\s+', 4
     if ($parts.Count -ne 4 -or $parts[0] -notmatch '^\d+$') { continue }
     $item = [pscustomobject]@{ ProcessId=[int]$parts[0]; ParentProcessId=[int]$parts[1]; Name=$parts[2]; Arguments=$parts[3] }
-    if ($Kind -eq 'pm-service' -and $item.Name -eq 'pm-service' -and $item.Arguments -match '^(?:/vendor/bin/)?pm-service$') { $matches += $item }
-    if ($Kind -eq 'qcrild2' -and $item.Name -eq 'qcrild' -and $item.Arguments -match '^(?:/vendor/bin/hw/)?qcrild -c 2$') { $matches += $item }
+    if ($Kind -eq 'pm-service' -and $item.Name -eq 'pm-service' -and $item.Arguments -match '^(?:/vendor/bin/)?pm-service$') { $resolvedProcesses += $item }
+    if ($Kind -eq 'qcrild2' -and $item.Name -eq 'qcrild' -and $item.Arguments -match '^(?:/vendor/bin/hw/)?qcrild -c 2$') { $resolvedProcesses += $item }
   }
-  if ($matches.Count -ne 1) { return $null }
-  $matches[0]
+  if ($resolvedProcesses.Count -ne 1) { return $null }
+  $resolvedProcesses[0]
 }
 
 function Resolve-OnlineSerial {
@@ -175,8 +180,8 @@ function Resolve-OnlineSerial {
   $rows[0]
 }
 
-function Capture-NativeState([string]$Label) {
-  $command = @"
+function New-NativeStateProbeCommand {
+  @"
 echo ====ROOT====
 id
 echo ====DEVICE====
@@ -198,6 +203,10 @@ test -e $HolderPidFile && echo PRESENT:$HolderPidFile || echo ABSENT:$HolderPidF
 test -e /data/local/tmp/x55_holder.pid && echo PRESENT:/data/local/tmp/x55_holder.pid || echo ABSENT:/data/local/tmp/x55_holder.pid
 test -e /data/local/tmp/x55_handoff_test.pid && echo PRESENT:/data/local/tmp/x55_handoff_test.pid || echo ABSENT:/data/local/tmp/x55_handoff_test.pid
 "@
+}
+
+function Capture-NativeState([string]$Label) {
+  $command = New-NativeStateProbeCommand
   $result = Invoke-Root $command
   Save-Text "native_$Label.txt" ("EXIT=$($result.ExitCode)" + [Environment]::NewLine + $result.StdOut + $result.StdErr)
   $ownerText = Get-Section $result.StdOut 'OWNER'
@@ -265,8 +274,12 @@ function Read-PonSuccess([string]$Label) {
   $lines[-1]
 }
 
+function New-HolderCommand {
+  'echo $$ > {0}; trap ''rm -f {0}'' EXIT; exec 9<{1} || exit 71; trap ''exit 0'' TERM INT HUP; while :; do sleep 60; done' -f $HolderPidFile,$DeviceNode
+}
+
 function Start-OwnedHolder {
-  $holderCommand=('echo $$ > {0}; trap ''rm -f {0}'' EXIT; exec 9<{1} || exit 71; trap ''exit 0'' TERM INT HUP; while :; do sleep 60; done' -f $HolderPidFile,$DeviceNode)
+  $holderCommand=Normalize-AndroidShellText (New-HolderCommand)
   $info=[Diagnostics.ProcessStartInfo]::new()
   $info.FileName=$Adb; $info.UseShellExecute=$false; $info.CreateNoWindow=$true
   $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
@@ -379,6 +392,44 @@ function Stop-LogcatCapture {
 function Invoke-StaticNoAdbSelfTest {
   Require (-not $Execute) 'StaticNoAdb cannot be combined with Execute'
   Require ($PSVersionTable.PSVersion.Major -eq 5) 'StaticNoAdb must run under Windows PowerShell 5.1'
+  $parseTokens=$null
+  $parseErrors=$null
+  [void][Management.Automation.Language.Parser]::ParseFile($PSCommandPath,[ref]$parseTokens,[ref]$parseErrors)
+  Require ($parseErrors.Count -eq 0) 'Windows PowerShell 5.1 parser errors found'
+
+  $sourceText=[IO.File]::ReadAllText($PSCommandPath)
+  $automaticAssignmentPattern='(?im)(?<![A-Za-z0-9_])\$(?:PID|Matches|Error|Args|Input|Home|Host|Null|True|False)(?![A-Za-z0-9_])\s*(?:\+\+|--|\+=|-=|=)'
+  $automaticAssignments=[regex]::Matches($sourceText,$automaticAssignmentPattern)
+  Require ($automaticAssignments.Count -eq 0) 'PowerShell automatic variable used as custom state'
+  $forbiddenMatchesToken=([string][char]36) + 'matches'
+  Require ($sourceText.IndexOf($forbiddenMatchesToken,[StringComparison]::OrdinalIgnoreCase) -lt 0) 'Custom Matches variable remains'
+
+  $androidPayloads=[ordered]@{
+    ReadOnlyStateProbe=(New-NativeStateProbeCommand)
+    HolderLaunch=(New-HolderCommand)
+    HolderPidRead="cat $HolderPidFile 2>/dev/null"
+    HolderIdentityProbe=('test -d /proc/{0} && test "$(cat {1} 2>/dev/null)" = "{0}" && lsof {2} 2>&1' -f 4242,$HolderPidFile,$DeviceNode)
+    HolderTermination='kill -TERM 4242'
+    OwnerProbe="lsof $DeviceNode 2>&1"
+    X55Probe="cat $X55StatePath 2>&1; cat $CrashCountPath 2>&1"
+    Qcrild2Restart='setprop ctl.restart vendor.qcrild2'
+    SimPowerHelper="LAB_MODE=1 LAB_EXECUTE=YES CLASSPATH=$DeviceWorkDir/single-sim-slot1-power-helper.jar app_process /system/bin SingleSimSlot1PowerHelper ARM_ROLLBACK"
+    SimCycleStart="X55_V27_MODE=1 X55_V27_EXECUTE=YES nohup /system/bin/sh $DeviceWorkDir/v27_sim_cycle_single.sh >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
+  }
+  $androidPayloadCrCount=0
+  foreach($payloadName in $androidPayloads.Keys) {
+    $normalizedPayload=Normalize-AndroidShellText ([string]$androidPayloads[$payloadName])
+    $androidPayloadCrCount += ([regex]::Matches($normalizedPayload,"`r")).Count
+    Require (-not $normalizedPayload.Contains("`r")) "Android payload contains CR after normalization: $payloadName"
+  }
+  Require ($androidPayloadCrCount -eq 0) 'Android payload CR count is not zero'
+  Require ((Normalize-AndroidShellText "alpha`r`nbeta`rgamma") -ceq "alpha`nbetagamma") 'Android LF normalization behavior mismatch'
+  Require ($androidPayloads.HolderLaunch.Contains('echo $$ >') -and $androidPayloads.HolderLaunch.Contains("exec 9<$DeviceNode") -and $androidPayloads.HolderLaunch.Contains('while :; do sleep 60; done')) 'Holder command construction mismatch'
+  Require ($androidPayloads.Qcrild2Restart -ceq 'setprop ctl.restart vendor.qcrild2') 'qcrild2 command construction mismatch'
+  Require ($androidPayloads.SimPowerHelper.Contains('SingleSimSlot1PowerHelper ARM_ROLLBACK') -and $androidPayloads.SimCycleStart.Contains('v27_sim_cycle_single.sh')) 'SIM command construction mismatch'
+  $exactCleanupArguments='/PID {0} /T /F' -f 4242
+  Require ($exactCleanupArguments -ceq '/PID 4242 /T /F') 'Exact process cleanup command construction mismatch'
+
   $childScript = Join-Path ([IO.Path]::GetTempPath()) ('v27-ps51-argv-' + [guid]::NewGuid().ToString('N') + '.ps1')
   $childSource = @'
 param([Parameter(ValueFromRemainingArguments=$true)][string[]]$Values)
@@ -392,7 +443,8 @@ foreach($value in $Values) {
     'single''quote',
     'double"quote',
     'trailing\',
-    'su -c ''echo $$ > /data/local/tmp/x55_v27_holder.pid; exec 9</dev/subsys_esoc0 || exit 71; trap "exit 0" TERM; while :; do sleep 60; done'''
+    ('su -c ' + (ConvertTo-ShSingleQuoted (Normalize-AndroidShellText (New-HolderCommand)))),
+    ('su -c ' + (ConvertTo-ShSingleQuoted (Normalize-AndroidShellText (New-NativeStateProbeCommand))))
   )
   try {
     [IO.File]::WriteAllText($childScript,$childSource,[Text.UTF8Encoding]::new($false))
@@ -407,6 +459,14 @@ foreach($value in $Values) {
     if(Test-Path -LiteralPath $childScript) { Remove-Item -LiteralPath $childScript -Force }
   }
   Write-Host "WINDOWS_POWERSHELL_VERSION=$($PSVersionTable.PSVersion.ToString())"
+  Write-Host 'PS51_PARSE=PASS'
+  Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
+  Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
+  Write-Host 'ANDROID_LF_NORMALIZATION=PASS'
+  Write-Host "ANDROID_PAYLOAD_CR_COUNT=$androidPayloadCrCount"
+  Write-Host 'HOLDER_COMMAND_BUILD=PASS'
+  Write-Host 'QCRILD2_COMMAND_BUILD=PASS'
+  Write-Host 'SIM_COMMAND_BUILD=PASS'
   Write-Host 'STATIC_NO_ADB=PASS'
   Write-Host 'WINDOWS_ARGUMENT_ROUNDTRIP=PASS'
   Write-Host 'PHONE_WRITES=0'

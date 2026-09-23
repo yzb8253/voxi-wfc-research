@@ -9,7 +9,7 @@
 
 ## Classification
 
-`BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`
+`BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`
 
 This is not an X55-rebirth, native-handoff, or WFC recovery result. The state machine did not pass its internal entry gate and performed zero phone writes.
 
@@ -89,4 +89,12 @@ SIM_ON_COUNT=0
 PHONE_WRITES=0
 ```
 
-Next action: repair and audit both blockers without changing the state machine, then require new explicit authorization before any further device execution.
+## Static repair disposition
+
+- Custom process collection renamed to `$resolvedProcesses`.
+- All Android commands sent through `Invoke-Root` are explicitly normalized to LF.
+- The direct holder payload is explicitly normalized before its ADB argument is built.
+- Windows PowerShell 5.1 parser, automatic-variable, Android payload, holder lifecycle, fail-safe, and state-machine-order audits pass.
+- `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, `STATE_MACHINE_UNCHANGED=YES`, `PHONE_WRITES=0`.
+
+Next action: stop and require new explicit authorization before a third device execution.

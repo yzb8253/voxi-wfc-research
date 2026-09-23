@@ -20,6 +20,10 @@ $tokens=$null; $errors=$null
 [void][Management.Automation.Language.Parser]::ParseFile($Main,[ref]$tokens,[ref]$errors)
 Check ($errors.Count -eq 0) 'PowerShell parser'
 Check (-not [regex]::IsMatch($mainText,'(?i)(?<![A-Za-z0-9_])\$pid(?![A-Za-z0-9_])')) 'no PID automatic-variable collision'
+$automaticAssignmentPattern='(?im)(?<![A-Za-z0-9_])\$(?:PID|Matches|Error|Args|Input|Home|Host|Null|True|False)(?![A-Za-z0-9_])\s*(?:\+\+|--|\+=|-=|=)'
+Check (-not [regex]::IsMatch($mainText,$automaticAssignmentPattern)) 'no automatic-variable custom assignments'
+$forbiddenMatchesToken=([string][char]36) + 'matches'
+Check ($mainText.IndexOf($forbiddenMatchesToken,[StringComparison]::OrdinalIgnoreCase) -lt 0) 'no custom Matches variable token'
 Check (-not $mainText.Contains('$info.ArgumentList')) 'no ProcessStartInfo.ArgumentList dependency'
 Check (-not $mainText.Contains('.Kill($true)')) 'no Process.Kill(bool) dependency'
 Check ($mainText.Contains('function Stop-OwnedHostProcessTree') -and $mainText.Contains("'/PID {0} /T /F' -f `$Process.Id")) 'PS5.1 exact host process-tree cleanup retained'
@@ -36,7 +40,7 @@ Check ($mainText.Contains('EXECUTE-V2.7-ALPHA-NATIVE-HANDOFF')) 'fixed confirmat
 Check ($launcherText -match '(?im)^\) else if /I "%~1"=="execute"') 'launcher requires explicit execute argument'
 Check ($launcherText -match '-Execute -Confirmation EXECUTE-V2\.7-ALPHA-NATIVE-HANDOFF') 'launcher forwards fixed confirmation'
 Check ((Count-Literal $mainText 'setprop ctl.stop vendor.per_mgr') -eq 1) 'one per_mgr stop call site'
-Check ((Count-Literal $mainText 'setprop ctl.restart vendor.qcrild2') -eq 1) 'one qcrild2 restart call site'
+Check ((Count-Literal $mainText "Invoke-Root 'setprop ctl.restart vendor.qcrild2'") -eq 1) 'one qcrild2 restart call site'
 Check ((Count-Literal $mainText "setprop ctl.restart vendor.qcrild'") -eq 0) 'no primary qcrild restart'
 Check ((Count-Literal $mainText 'kill -TERM $($script:HolderAndroidProcessId)') -eq 1) 'one fixed holder TERM call site'
 Check ($mainText.Contains('Test-OwnedHolder $script:HolderAndroidProcessId')) 'holder identity revalidated before TERM'
@@ -55,7 +59,10 @@ Check ($mainText.Contains('(Test-PmOwner $state $state.PmService.ProcessId)')) '
 Check ($mainText.Contains('ProcessId -eq $oldQcrild2ProcessId')) 'native reacquire requires changed qcrild2 PID'
 Check ($mainText.Contains('REVOTE_MECHANISM_LOG=') -and $mainText.Contains('UNPROVEN')) 're-vote evidence is reported separately'
 Check ($mainText.Contains("`$single + `$Value.Replace(`$single, `$escape) + `$single")) 'Android su command single-quote escaping retained'
-Check ($mainText.Contains("@('shell', ('su -c ' + (ConvertTo-ShSingleQuoted `$Command)))")) 'su -c payload remains one adb argument'
+Check ($mainText.Contains('function Normalize-AndroidShellText') -and $mainText.Contains('.Replace("`r`n", "`n").Replace("`r", '''')')) 'Android LF normalization helper exists'
+Check ($mainText.Contains('$androidCommand = Normalize-AndroidShellText $Command')) 'all Invoke-Root payloads normalized'
+Check ($mainText.Contains('$holderCommand=Normalize-AndroidShellText (New-HolderCommand)')) 'direct holder payload normalized'
+Check ($mainText.Contains("@('shell', ('su -c ' + (ConvertTo-ShSingleQuoted `$androidCommand)))")) 'normalized su -c payload remains one adb argument'
 Check ($mainText.Contains("exec 9<{1}") -and $mainText.Contains("echo `$$ > {0}") -and $mainText.Contains("while :; do sleep 60; done")) 'holder shell lifecycle and FD9 syntax retained'
 Check ($mainText.Contains("trap ''rm -f {0}'' EXIT") -and $mainText.Contains("trap ''exit 0'' TERM INT HUP")) 'holder PID-file and TERM traps retained'
 $stopPerMgrCall=[regex]::Match($mainText,'(?m)^  Stop-PerMgr\r?$').Index
@@ -82,5 +89,10 @@ foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
   Check (-not $text.Contains([string][char]13)) "$name LF-only"
 }
 if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
+Write-Host 'PS51_PARSE=PASS'
+Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
+Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
+Write-Host 'ADB_QUOTING_AUDIT=PASS'
+Write-Host 'STATE_MACHINE_UNCHANGED=YES'
 Write-Host 'STATIC_AUDIT=PASS'
 Write-Host 'PHONE_ACTIONS=0'

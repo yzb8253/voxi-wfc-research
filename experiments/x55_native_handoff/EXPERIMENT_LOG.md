@@ -121,5 +121,16 @@ Observed result: script exited before its internal entry gate with `A hash table
 Post-state: read-only confirmation found pm-service PID 31818 still sole owner, qcrild2 PID 873 unchanged, X55 ONLINE, crash_count 0, holder absent, SIM OFF 0, SIM ON 0, WFC F1.
 Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_210059`; durable result `v2.7-alpha-native-handoff/SECOND_DEVICE_RUN_RESULT.md`.
 Interpretation: a second host compatibility blocker prevented the native experiment; no state-machine write phase occurred.
-Conclusion: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF / NOT_RUN`; phone writes 0.
+Conclusion: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY / NOT_RUN`; phone writes 0.
 Next action: repair both host defects, rerun static/no-ADB acceptance, and require fresh authorization before any device execution.
+
+## X55-V27-ALPHA-HOST-COMPAT-002
+
+Date: 2026-09-23
+Environment: Computer B, Account A; host-only repair from commit `1da149f1629a103cb05ce30200ec727aa31f3a7c`; no ADB invocation.
+Pre-state: second device launch classified `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`; native phone scene preserved with phone writes 0.
+Commands/actions: renamed the custom process collection; added central Android LF normalization; expanded the Windows PowerShell 5.1 parser, automatic-variable, payload, and command-construction tests. No phone command was executed.
+Observed result: PS5.1 parser PASS; automatic-variable audit PASS; custom Matches variables 0; LF normalization PASS; Android payload CR count 0; holder/qcrild2/SIM command builds PASS; static no-ADB PASS.
+Safety result: native handoff ordering, hard gates, holder identity, fail-safe, qcrild2 limit, SIM OFF/ON limits, forbidden paths, and fixed target design remain unchanged.
+Conclusion: `HOST_SCRIPT_COMPATIBILITY_STATIC_ACCEPTANCE=PASS / PHONE_NOT_RERUN`; phone writes 0.
+Next action: stop and wait for explicit approval before any third real v2.7-alpha launch.
