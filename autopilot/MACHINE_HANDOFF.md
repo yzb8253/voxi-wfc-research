@@ -320,3 +320,16 @@ NEXT_ACTION: sync the authoritative branch and stop. Wait for explicit user appr
 - Post-state remained native-clean and unchanged. Raw logs are host-only under `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_212413`.
 
 NEXT_ACTION: rebuild and exact-hash verify the helper plus host-only packaging preflight. Do not run another device experiment without explicit approval.
+
+## Current checkpoint: audited single-SIM helper is repository-tracked
+
+- Date: 2026-09-23; Computer A.
+- Path: `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`.
+- Size: 11534 bytes.
+- SHA-256: `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`.
+- Provenance: existing audited artifact from Computer A, re-hashed before force-add.
+- Global `*.jar` ignore remains unchanged; only this exact helper is tracked.
+- Purpose: fixed single-SIM slot1 power helper used behind v2.7-alpha's fixed hash gate.
+- No ADB command, phone write, or v2.7-alpha execution occurred.
+
+NEXT_ACTION: sync the authoritative branch on other computers. A fresh device execution still requires explicit user approval.

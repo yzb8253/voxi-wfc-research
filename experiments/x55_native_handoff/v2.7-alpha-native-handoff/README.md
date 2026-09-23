@@ -64,4 +64,6 @@ Current acceptance: `PS51_PARSE=PASS`, `AUTO_VARIABLE_AUDIT=PASS`, `CUSTOM_MATCH
 
 The third authorized launch passed current device/native checks but stopped pre-write because the fixed single-SIM helper JAR was absent from its git-ignored build path. It is classified `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`, not a recovery failure. No per_mgr, holder, qcrild2, or SIM action occurred; phone writes were 0.
 
-Do not automatically rerun. Rebuild and hash-verify the exact helper and add host-only artifact availability preflight before requesting new device authorization.
+The packaging blocker is resolved: the exact Computer A audited artifact is force-tracked at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`, size 11534 bytes, SHA-256 `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`. The global `*.jar` ignore remains intact, and the runtime fixed-hash gate is unchanged.
+
+Do not automatically rerun. A new device execution still requires fresh explicit authorization.

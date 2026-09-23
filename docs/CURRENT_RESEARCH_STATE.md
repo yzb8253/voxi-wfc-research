@@ -116,3 +116,9 @@ No state-machine write occurred: per_mgr was not stopped, no holder was created,
 Post-check remained pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, holder absent, and WFC F1.
 
 Next action: static helper rebuild/hash verification and packaging/preflight correction only. Another device execution requires new explicit approval.
+
+## Single-SIM Helper Packaging Resolution
+
+Computer A supplied the exact previously audited helper at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`. It is 11534 bytes and hashes to `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`, exactly matching v2.7-alpha's fixed safety gate.
+
+The repository's global `*.jar` ignore remains unchanged. This one exact artifact is force-tracked so a fresh checkout has the required fixed single-SIM slot1 helper. This resolves the packaging blocker only; it does not authorize or perform another device run. ADB was not used and phone writes were 0.

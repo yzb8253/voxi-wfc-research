@@ -395,3 +395,15 @@ NEXT_ACTION: stop. Do not run a third device experiment without explicit user ap
 - Result: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`; phone writes 0.
 
 NEXT_ACTION: static helper rebuild/hash verification and packaging/preflight correction. Do not rerun the phone experiment without explicit approval.
+
+## 2026-09-23 single-SIM helper artifact checkpoint
+
+- Computer A artifact exists at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`.
+- Size: 11534 bytes.
+- SHA-256: `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`.
+- Provenance: existing Computer A audited artifact, re-verified before staging.
+- The repository-wide `*.jar` ignore remains unchanged; this one exact binary is force-tracked.
+- v2.7-alpha's fixed hash safety gate remains unchanged.
+- Git-only work: ADB not used; phone writes 0; v2.7-alpha not run.
+
+NEXT_ACTION: wait for fresh explicit authorization before any additional v2.7-alpha device execution.
