@@ -110,3 +110,16 @@ Safety result: PID-variable, ADB quoting, holder lifecycle, fail-safe, forbidden
 Phone writes: 0. No ADB command, holder, X55 transition, process restart, or SIM action occurred.
 Conclusion: `PS51_COMPATIBILITY_STATIC_ACCEPTANCE=PASS / PHONE_NOT_RERUN`.
 Next action: stop and wait for explicit approval before another real v2.7-alpha execution.
+
+## X55-V27-ALPHA-SECOND-DEVICE-002
+
+Date: 2026-09-23 21:00:59 Asia/Shanghai
+Environment: Computer B, Account A, clean branch `voxi-wfc-auto-recovery` at exact commit `cd222ea058dbb1f2b88905b99987885f3a9438ce`; Windows PowerShell 5.1.19041.6456; USB serial `fd0ff892`.
+Pre-state: fresh independent read-only entry gate PASS; pm-service PID 31818 sole FD9 owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 PID 873; VOXI active/enabled; WFC F1.
+Commands/actions: executed `Run-X55-WFC-v2.7-alpha-native-handoff.cmd execute` exactly once. No manual follow-up or recovery action.
+Observed result: script exited before its internal entry gate with `A hash table can only be added to another hash table.` `$matches` in `Resolve-ExactProcess` collided with automatic `$Matches`. The raw entry artifact also showed CRLF-contaminated Android shell tokens.
+Post-state: read-only confirmation found pm-service PID 31818 still sole owner, qcrild2 PID 873 unchanged, X55 ONLINE, crash_count 0, holder absent, SIM OFF 0, SIM ON 0, WFC F1.
+Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_210059`; durable result `v2.7-alpha-native-handoff/SECOND_DEVICE_RUN_RESULT.md`.
+Interpretation: a second host compatibility blocker prevented the native experiment; no state-machine write phase occurred.
+Conclusion: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF / NOT_RUN`; phone writes 0.
+Next action: repair both host defects, rerun static/no-ADB acceptance, and require fresh authorization before any device execution.

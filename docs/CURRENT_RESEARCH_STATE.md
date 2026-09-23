@@ -94,3 +94,13 @@ Result: `BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY`; phone writes 0. No holder, own
 Windows PowerShell 5.1 compatibility is now statically repaired and accepted: version 5.1.19041.6456, parser errors 0, exact launcher self-test PASS, Windows argv/holder payload round-trip PASS, and full static safety audit PASS. The phone state machine and safety logic are unchanged; phone writes during the repair were 0.
 
 Next action: stop and obtain fresh authorization before another real execution. Do not treat the failed host launch as a native-handoff result and do not automatically rerun the repaired script.
+
+## v2.7-alpha Second Authorized Launch
+
+The exact repaired commit `cd222ea058dbb1f2b88905b99987885f3a9438ce` was tested once on Computer B with Windows PowerShell 5.1.19041.6456. The fresh independent read-only gate passed and the phone began in native-clean F1: pm-service PID 31818 sole FD9 owner, qcrild2 PID 873, X55 ONLINE, crash_count 0, no holder, VOXI active/enabled.
+
+The script stopped before its internal entry gate and before any write. `Resolve-ExactProcess` used `$matches`, which is the case-insensitive automatic `$Matches` variable. Its `-match` condition converted the variable to a hashtable, and `$matches += $item` raised `A hash table can only be added to another hash table.` The saved entry artifact also showed CRLF characters from a PowerShell here-string reaching Android `sh`, invalidating commands such as `id` and `2>&1`.
+
+Result: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`; recovery and native handoff NOT_RUN, final WFC NOT_CHECKED, SIM OFF/ON 0/0, phone writes 0. A fresh read-only post-check confirmed the same native owner, X55, crash count, qcrild2 PID, absent holder, and F1 state. No retry or recovery action was performed.
+
+Next action: repair both host-side defects and re-run the exact Windows PowerShell 5.1 static/no-ADB acceptance. Any further real execution requires new explicit approval.

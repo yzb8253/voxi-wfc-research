@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 20:52 Asia/Shanghai
+Updated: 2026-09-23 21:05 Asia/Shanghai
 
 ## Session identity
 
@@ -98,3 +98,16 @@ Unique next action: fix the host process-launch wrapper for Windows PowerShell 5
 - No ADB command was issued during repair or validation. The repaired script has not been run against the phone.
 
 Unique next action: stop and wait for explicit approval before a second real v2.7-alpha execution.
+
+## v2.7-alpha second device launch
+
+- Tested the exact repaired commit `cd222ea058dbb1f2b88905b99987885f3a9438ce` from a clean worktree under Windows PowerShell `5.1.19041.6456`.
+- A fresh independent read-only entry gate passed: serial/root/airplane/native services/pm-service sole FD9 owner/X55 ONLINE/crash_count 0/no holder/qcrild2/VOXI-UICC were valid; WFC was F1.
+- The paired launcher was executed exactly once with `execute` and stopped before any phone write.
+- Exact exception: `A hash table can only be added to another hash table.` `Resolve-ExactProcess` line 155 used `$matches`, which aliases case-insensitive automatic `$Matches`; `-match` at lines 160-161 replaced it with a hashtable before `$matches += $item`.
+- The saved entry capture exposed a second blocker: the CRLF here-string at lines 179-200 reached Android `sh` unchanged, causing `id\r` and `2>&$'1\r'` errors.
+- Post-failure read-only state remained native and unchanged: pm-service PID 31818 sole FD9 owner, qcrild2 PID 873, X55 ONLINE, crash_count 0, no holder, SIM OFF/ON 0/0, WFC F1.
+- Classification: `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`; recovery/native-handoff remain NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
+- Full result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SECOND_DEVICE_RUN_RESULT.md`.
+
+Unique next action: repair and statically audit both host blockers. Do not rerun the phone experiment without another explicit authorization.

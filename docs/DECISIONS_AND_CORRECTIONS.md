@@ -122,3 +122,20 @@ The host wrapper must support Windows PowerShell 5.1 or the paired launcher must
 
 Resolution:
 Both `ProcessStartInfo.ArgumentList` uses were replaced by an audited `ProcessStartInfo.Arguments` encoder, both .NET Core-only `Process.Kill(bool)` uses were removed, and the exact `.cmd selftest` path passed under Windows PowerShell 5.1.19041.6456 without initializing ADB. Parser errors were 0, argument round-trip and static safety audits passed, and phone writes remained 0. No real rerun is authorized by this repair.
+
+## 2026-09-23 21:01 - PS5.1 parser and argv self-test did not cover automatic-variable or Android newline semantics
+
+Previous belief:
+The repaired launcher self-test was sufficient to establish that the script could complete its device entry gate under Windows PowerShell 5.1.
+
+Evidence:
+The second authorized launch reached its first read-only device capture, then stopped with `A hash table can only be added to another hash table.` Tested-script line 155 used `$matches`; case-insensitive PowerShell treated it as automatic `$Matches`, and the `-match` predicates at lines 160-161 replaced it with a hashtable before the script appended a process object. Independently, `native_entry.txt` showed CRLF from the multiline PowerShell here-string embedded in Android command tokens (`id\r`, `2>&$'1\r'`).
+
+Correction:
+PowerShell safety audits must reject all collisions with automatic variables case-insensitively, not only `$PID`. Any multiline Android shell payload must normalize host newlines to LF before it reaches ADB, and the no-ADB test must verify the normalized byte/string form.
+
+Current conclusion:
+The second launch is `BLOCKED_PRE_WRITE_PS51_MATCHES_COLLISION_AND_ANDROID_CRLF`, not a native-handoff or recovery failure. The internal entry gate was not completed and phone writes were 0.
+
+Impact:
+Do not rerun. Repair and audit both blockers first, preserve the state-machine ordering and safety gates, and require new explicit authorization for another device execution.
