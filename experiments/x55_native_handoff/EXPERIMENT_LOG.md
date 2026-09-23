@@ -73,3 +73,15 @@ Logs: `X55_OWNERSHIP_HANDOFF_001B.md`, `logs/20260923_162025/`; full raw logcat 
 Interpretation: native reacquisition occurred, but the experiment did not log-confirm a valid qcrild2 register/vote sequence.
 Conclusion: `QCRILD2_RESTART_NO_VALID_REVOTE`; phone writes 2.
 Next action: stop; do not execute an additional recovery action.
+
+
+## X55-V27-ALPHA-STATIC-001
+
+Date: 2026-09-23
+Environment: local repository only; phone disconnected/not required.
+Pre-state: 001B behavioral native reacquire confirmed; internal re-vote log mechanism unproven.
+Commands/actions: created v2.7-alpha host state machine, explicit launcher, fixed dual/single device orchestrators, and repeatable static policy audit. No ADB or phone action.
+Observed result: PowerShell parse PASS; Android shell parse PASS; static write-surface and safety audit PASS; v2.6.2 untouched.
+Interpretation: the approved native-owner-first design is implemented and ready only for a separately authorized controlled run.
+Conclusion: BUILD_STATIC_AUDIT_PASS / NOT_EXECUTED; phone writes 0.
+Next action: wait for explicit execution approval.

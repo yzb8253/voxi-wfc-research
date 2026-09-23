@@ -66,3 +66,12 @@ Dynamic PIDs only; PRE/POST evidence; fail safe on unknown gates; no unknown hol
 6. `experiments/x55_native_handoff/CURRENT_BLOCKERS.md`
 7. `experiments/x55_native_handoff/EXPERIMENT_LOG.md`
 8. `experiments/x55_native_handoff/OWNERSHIP_HANDOFF_PRECHECK.md`
+
+
+## v2.7-alpha native-handoff checkpoint
+
+The 001B behavior is now classified as VERIFIED_NATIVE_REACQUIRE_AFTER_QCRILD2_RESTART. The proposed internal re-vote mechanism remains REVOTE_MECHANISM_LOG_UNPROVEN because the expected PerMgr register/vote strings were absent.
+
+The new v2.7-alpha implementation restores native pm-service ownership before checking WFC and before any optional SIM2 cycle. It is dry-run by default, fail-closed on changed ownership behavior, and contains no automatic retry. Static audits pass. It has not been executed on a phone.
+
+Unique next action: wait for explicit user approval to run the controlled v2.7-alpha experiment.

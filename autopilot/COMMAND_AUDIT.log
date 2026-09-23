@@ -49,3 +49,5 @@
 2026-09-23T15:56:55+08:00 X55 OWNERSHIP HANDOFF 001; entry gate PASS; writes=5 (logcat clear, per_mgr stop, fixed holder start, owned holder TERM, per_mgr fail-safe start); holder PID31163 sole owner/X55 ONLINE; ABORTED before contended phase due PowerShell $Pid/$PID collision; final per_mgr PID31818 running, owner NONE, X55 OFFLINE, crash_count0, holder absent, qcrild2 PID13706 unchanged; no qcrild2 restart/re-vote; outcome INCONCLUSIVE.
 
 2026-09-23T16:20:25+08:00 X55 OWNERSHIP HANDOFF 001B; entry gate PASS; writes=2 (logcat clear, exactly one vendor.qcrild2 restart); qcrild2 13706->873; pm-service31818 reacquired FD9; X55 OFFLINE->ONLINE; crash_count0; holder absent; required QCRIL register/vote strings absent; outcome QCRILD2_RESTART_NO_VALID_REVOTE; no additional recovery.
+
+2026-09-23T00:00:00+08:00 PHASE=X55-V27-ALPHA-STATIC-001 SCOPE=LOCAL_ONLY ACTION=CREATE_AND_STATIC_AUDIT RESULT=PASS PHONE_WRITES=0 ADB=NOT_USED

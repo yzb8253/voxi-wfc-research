@@ -361,3 +361,17 @@ NEXT_ACTION: preserve the OFFLINE/no-owner scene. No automatic rerun, qcrild2 re
 - Result: `QCRILD2_RESTART_NO_VALID_REVOTE`. Phone writes: 2. No recovery action followed.
 
 NEXT_ACTION: stop. Require a new explicit decision before any further phone write.
+
+
+## 2026-09-23 v2.7-alpha native-handoff static build
+
+- Phase: static development and audit only.
+- 001B behavioral conclusion: VERIFIED_NATIVE_REACQUIRE_AFTER_QCRILD2_RESTART.
+- Mechanism qualification: REVOTE_MECHANISM_LOG_UNPROVEN.
+- Added a new v2.7-alpha state machine without replacing v2.6.2.
+- Flow: native entry gate -> controlled X55 rebirth -> contended per_mgr start -> owned-holder TERM -> one fixed qcrild2 restart -> native pm-service reacquire -> WFC check -> at most one fixed SIM2 cycle if still unhealthy.
+- Default is dry-run. Real execution requires an explicit switch and fixed confirmation token.
+- Static policy audit PASS; PowerShell and Android shell parsing PASS.
+- No ADB wait, no device execution, and phone writes 0.
+
+NEXT_ACTION: wait for explicit user approval before running v2.7-alpha on the device.

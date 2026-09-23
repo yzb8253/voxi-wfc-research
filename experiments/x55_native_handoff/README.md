@@ -41,3 +41,12 @@ Holder dead; no holder state; pm-service owns node; X55 ONLINE; crash_count zero
 ## Risks
 
 Stopping per_mgr can take X55 OFFLINE. A malformed/orphan holder can block ownership. qcrild2 restart can transiently cause RADIO_NOT_AVAILABLE and DSD/IMS rebuilding. Do not begin without audited holder, owner observer, and cleanup path. No SIGKILL unless separately authorized for evidence-backed manual recovery.
+
+
+## 2026-09-23 v2.7-alpha native-handoff implementation
+
+Experiment 001B is retained as behavioral success with mechanism uncertainty: pm-service reacquired /dev/subsys_esoc0 and X55 returned ONLINE after one fixed qcrild2 restart, while QCRIL register/vote logs were not captured. Use VERIFIED_NATIVE_REACQUIRE_AFTER_QCRILD2_RESTART and REVOTE_MECHANISM_LOG_UNPROVEN.
+
+A separate v2.7-alpha state machine now implements native ownership restoration before any optional fixed SIM2 cycle. It is dry-run by default, requires an explicit execution token, aborts if contended ownership behavior changes, and never retries qcrild2 or SIM power. Static audit and shell parsing pass. It has not been run on a phone.
+
+NEXT_ACTION: wait for explicit approval before any v2.7-alpha device execution.

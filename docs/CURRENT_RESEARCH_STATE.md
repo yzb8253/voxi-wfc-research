@@ -77,3 +77,14 @@ GitHub only; no guessed PID/raw transaction/unverified holder/SELinux bypass; no
 From the preserved no-owner/X55-OFFLINE scene, the read-only entry gate passed and exactly one fixed-slot2 qcrild2 restart changed PID 13706 to 873. pm-service PID 31818 then became sole FD9 owner and X55 became ONLINE with crash_count 0.
 
 The complete 15-second logcat captured qcrild2/RIL initialization but none of the four required PerMgrLib/PerMgrSrv QCRIL register/vote messages. Therefore native reacquisition is device-confirmed, while the proposed QCRIL re-vote mechanism is not log-confirmed. The predefined result is `QCRILD2_RESTART_NO_VALID_REVOTE`.
+
+
+# v2.7-alpha Engineering State
+
+001B proved the externally observable native reacquisition result: after one fixed-slot2 qcrild2 restart, the existing pm-service acquired /dev/subsys_esoc0 and X55 returned ONLINE with crash_count 0. The exact QCRIL re-vote mechanism was not directly logged and remains unproven.
+
+A new, non-replacing v2.7-alpha implementation now orders recovery as native owner -> controlled holder rebirth -> start per_mgr under contention -> release holder -> one qcrild2 restart -> native reacquire -> WFC check -> optional one fixed SIM2 cycle. Native reacquire failure forbids SIM power. Healthy WFC skips SIM power. No retry exists.
+
+Build status: PowerShell syntax PASS, Android shell syntax PASS, static safety audit PASS, phone execution NOT RUN, phone writes 0.
+
+Next action: explicit approval is required before the first controlled v2.7-alpha device run.

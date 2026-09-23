@@ -284,3 +284,18 @@ NEXT_ACTION: no automatic recovery or experiment. Preserve the current scene and
 - Sanitized report: `experiments/x55_native_handoff/X55_OWNERSHIP_HANDOFF_001B.md`. Raw logcat is host-only.
 
 NEXT_ACTION: stop and wait for a new explicit decision.
+
+
+## Current checkpoint: v2.7-alpha native-handoff ready for approval
+
+- Date: 2026-09-23.
+- Source directory: experiments/x55_native_handoff/v2.7-alpha-native-handoff/.
+- v2.6.2 is preserved and was not modified.
+- 001B classification: VERIFIED_NATIVE_REACQUIRE_AFTER_QCRILD2_RESTART; REVOTE_MECHANISM_LOG_UNPROVEN.
+- New implementation is dry-run by default and requires EXECUTE-V2.7-ALPHA-NATIVE-HANDOFF for a real run.
+- Native success requires holder absent, pm-service sole node owner, X55 ONLINE, crash_count 0, and changed qcrild2 PID. Vote logs are supporting evidence, not a hard gate.
+- WFC healthy after native handoff skips SIM power. Otherwise exactly one audited fixed-slot1 cycle is available; no retry.
+- Local PowerShell parse, Android shell parse, and static policy audit pass.
+- No ADB/device action occurred in this checkpoint; phone writes 0.
+
+NEXT_ACTION: sync the authoritative branch, review the v2.7-alpha audit, and wait for explicit user approval before any device run.

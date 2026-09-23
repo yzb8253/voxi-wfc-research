@@ -334,3 +334,16 @@ NEXT_ACTION: preserve the scene and require a new explicit decision before any p
 - A single fixed-slot2 qcrild2 restart from no-owner/X55-OFFLINE changed qcrild2 PID 13706 -> 873 and coincided with pm-service 31818 reacquiring FD9 and X55 returning ONLINE without a crash-count increment.
 - The complete captured logcat contained no required Peripheral Manager QCRIL register/vote strings.
 - Therefore native reacquisition is verified, but the mechanism cannot be promoted to verified qcrild2 re-vote. Classification: `QCRILD2_RESTART_NO_VALID_REVOTE`.
+
+
+## v2.7-alpha native-handoff engineering finding (2026-09-23)
+
+- 001B is a positive behavioral ownership result: one fixed qcrild2 restart was followed by native pm-service reacquisition and X55 ONLINE with zero crash-count increase.
+- The absence of the expected PerMgr register/vote strings means only the internal re-vote explanation is unproven; the observed native reacquire itself is verified.
+- v2.7-alpha moves qcrild2 restart before final WFC restoration. This avoids dismantling an already healthy IMS/WFC session.
+- Native reacquire is a hard gate. If it fails, no SIM cycle is permitted.
+- If WFC is already healthy after stabilization, SIM power remains untouched.
+- If needed, only one fixed, hash-pinned slot1 cycle is permitted, with no retry.
+- Static audit PASS; no phone execution occurred.
+
+NEXT_ACTION: controlled device run only after new explicit approval.
