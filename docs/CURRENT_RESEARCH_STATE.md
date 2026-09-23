@@ -106,3 +106,13 @@ Result: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`; recovery and native hando
 Both host defects are now statically repaired. The process collection no longer collides with automatic `$Matches`; a central LF normalizer covers all `Invoke-Root` payloads and the direct holder launch. Windows PowerShell 5.1 parser, automatic-variable, payload-CR, command-construction, argv, holder, fail-safe, and unchanged-state-machine checks pass. `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, and phone writes during repair are 0.
 
 Next action: stop. Any third real execution requires new explicit approval.
+
+## v2.7-alpha Third Authorized Launch
+
+The exact commit `e279af23770c7fd37562f3589095429380dd44eb` was launched once after a fresh device/native gate passed. It stopped at the local artifact gate because `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar` was absent. The JAR is ignored by the repository's `*.jar` rule.
+
+No state-machine write occurred: per_mgr was not stopped, no holder was created, qcrild2 was not restarted, and no SIM cycle ran. Result: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`; recovery/native-handoff NOT_RUN, final WFC NOT_CHECKED, SIM OFF/ON 0/0, phone writes 0.
+
+Post-check remained pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, holder absent, and WFC F1.
+
+Next action: static helper rebuild/hash verification and packaging/preflight correction only. Another device execution requires new explicit approval.

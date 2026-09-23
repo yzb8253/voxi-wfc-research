@@ -310,3 +310,13 @@ NEXT_ACTION: sync the authoritative branch, review the v2.7-alpha audit, and wai
 - No ADB command was issued during the repair and the third device experiment has not been run.
 
 NEXT_ACTION: sync the authoritative branch and stop. Wait for explicit user approval before any third v2.7-alpha device launch.
+
+## Current checkpoint: third v2.7-alpha launch blocked by missing helper
+
+- Date: 2026-09-23 21:24; Computer B; Account A; tested commit `e279af23770c7fd37562f3589095429380dd44eb`.
+- Fresh device/native gate passed; initial WFC F1; pm-service 31818 sole FD9 owner; X55 ONLINE; crash_count 0; qcrild2 873; holder absent.
+- One launcher invocation stopped at `Assert-LocalArtifact` because the ignored single-SIM helper JAR was absent.
+- Classification: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`; recovery/native-handoff NOT_RUN; SIM OFF/ON 0/0; phone writes 0.
+- Post-state remained native-clean and unchanged. Raw logs are host-only under `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_212413`.
+
+NEXT_ACTION: rebuild and exact-hash verify the helper plus host-only packaging preflight. Do not run another device experiment without explicit approval.

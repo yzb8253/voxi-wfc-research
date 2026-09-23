@@ -62,4 +62,6 @@ Both blockers are now statically repaired. The process collection uses `$resolve
 
 Current acceptance: `PS51_PARSE=PASS`, `AUTO_VARIABLE_AUDIT=PASS`, `CUSTOM_MATCHES_VARIABLES=0`, `ANDROID_LF_NORMALIZATION=PASS`, `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, `STATE_MACHINE_UNCHANGED=YES`, `PHONE_WRITES=0`.
 
-Do not automatically run a third phone experiment; wait for explicit approval.
+The third authorized launch passed current device/native checks but stopped pre-write because the fixed single-SIM helper JAR was absent from its git-ignored build path. It is classified `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`, not a recovery failure. No per_mgr, holder, qcrild2, or SIM action occurred; phone writes were 0.
+
+Do not automatically rerun. Rebuild and hash-verify the exact helper and add host-only artifact availability preflight before requesting new device authorization.

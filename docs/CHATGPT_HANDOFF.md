@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 21:19 Asia/Shanghai
+Updated: 2026-09-23 21:26 Asia/Shanghai
 
 ## Session identity
 
@@ -119,3 +119,14 @@ Unique next action: stop and wait for explicit approval before a second real v2.
 - State-machine order and all safety limits are unchanged. ADB was not invoked during this repair; phone writes 0.
 
 Unique next action: stop and wait for explicit approval before any third device launch.
+
+## v2.7-alpha third device launch
+
+- Tested exact commit `e279af23770c7fd37562f3589095429380dd44eb` once under Windows PowerShell `5.1.19041.6456`.
+- Fresh device/native checks passed: `fd0ff892`, root, airplane mode 1, per_mgr running, pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, no holder, qcrild2 PID 873, VOXI/UICC active/enabled; initial WFC F1.
+- The launcher stopped before any phone write because the fixed single-SIM helper JAR was absent from its git-ignored build path. The script rejected it at `Assert-LocalArtifact`, before logcat startup, stop-per_mgr, holder, qcrild2, or SIM stages.
+- Classification: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`; recovery/native-handoff NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
+- Fresh post-check remained native-clean and unchanged: pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, no holder, WFC F1.
+- Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/THIRD_DEVICE_RUN_RESULT.md`.
+
+Unique next action: rebuild and hash-verify the exact helper and repair the host packaging/preflight path statically. Do not rerun the device experiment without explicit approval.

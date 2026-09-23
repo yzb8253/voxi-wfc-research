@@ -385,3 +385,13 @@ NEXT_ACTION: wait for explicit user approval before running v2.7-alpha on the de
 - `CUSTOM_MATCHES_VARIABLES=0`, `ANDROID_PAYLOAD_CR_COUNT=0`, `STATIC_NO_ADB=PASS`, `STATE_MACHINE_UNCHANGED=YES`, phone writes 0.
 
 NEXT_ACTION: stop. Do not run a third device experiment without explicit user approval.
+
+## 2026-09-23 v2.7-alpha third launch blocked pre-write
+
+- Fresh device/native gate passed on `fd0ff892`; initial scene was native-clean F1.
+- The single authorized launcher invocation stopped on the missing hash-pinned single-SIM helper JAR before any phone write.
+- The artifact path is covered by repository `*.jar` ignore and was absent on Computer B.
+- No per_mgr stop, holder, qcrild2 restart, SIM action, or recovery action occurred. Post-state remained pm-service PID 31818 sole owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, holder absent, F1.
+- Result: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`; phone writes 0.
+
+NEXT_ACTION: static helper rebuild/hash verification and packaging/preflight correction. Do not rerun the phone experiment without explicit approval.

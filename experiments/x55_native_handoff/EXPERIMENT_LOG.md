@@ -134,3 +134,15 @@ Observed result: PS5.1 parser PASS; automatic-variable audit PASS; custom Matche
 Safety result: native handoff ordering, hard gates, holder identity, fail-safe, qcrild2 limit, SIM OFF/ON limits, forbidden paths, and fixed target design remain unchanged.
 Conclusion: `HOST_SCRIPT_COMPATIBILITY_STATIC_ACCEPTANCE=PASS / PHONE_NOT_RERUN`; phone writes 0.
 Next action: stop and wait for explicit approval before any third real v2.7-alpha launch.
+
+## X55-V27-ALPHA-THIRD-DEVICE-003
+
+Date: 2026-09-23 21:24:13 Asia/Shanghai
+Environment: Computer B, Account A; exact clean commit `e279af23770c7fd37562f3589095429380dd44eb`; Windows PowerShell 5.1.19041.6456; USB serial `fd0ff892`.
+Pre-state: fresh device/native gates PASS; pm-service PID 31818 sole FD9 owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 PID 873; VOXI active/enabled; WFC F1.
+Commands/actions: executed the repository launcher exactly once with `execute`; no manual follow-up.
+Observed result: fixed single-SIM helper JAR missing from its git-ignored build path. `Assert-LocalArtifact` stopped before `ENTRY_GATE=PASS` logging, logcat startup, or the first phone write.
+Post-state: pm-service PID 31818 remained sole owner; X55 ONLINE; crash_count 0; qcrild2 PID 873; holder absent; SIM OFF/ON 0/0; WFC F1.
+Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_212413`; sanitized result `v2.7-alpha-native-handoff/THIRD_DEVICE_RUN_RESULT.md`.
+Conclusion: `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER / NOT_RUN`; phone writes 0.
+Next action: static artifact rebuild/hash verification and packaging preflight correction; require fresh authorization before another device launch.

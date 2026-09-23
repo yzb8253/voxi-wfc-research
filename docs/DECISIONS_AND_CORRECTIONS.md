@@ -142,3 +142,20 @@ Do not rerun. Repair and audit both blockers first, preserve the state-machine o
 
 Resolution:
 The custom collection is now `$resolvedProcesses`. A single `Normalize-AndroidShellText` helper normalizes every `Invoke-Root` payload and the direct holder command. The exact Windows PowerShell 5.1 host-only path reports parser PASS, automatic-variable audit PASS, Android LF normalization PASS, payload CR count 0, command-build PASS, and static no-ADB PASS. The state machine is unchanged and phone writes during repair were 0.
+
+## 2026-09-23 21:24 - static source audit did not prove required ignored binary availability
+
+Previous belief:
+Hash-pinned helper references plus source/build reports were sufficient preparation for a fresh-computer device launch.
+
+Evidence:
+The third authorized launcher invocation passed current device/native checks but `Assert-LocalArtifact` rejected the absent single-SIM helper JAR. The expected `build/*.jar` is ignored by Git and was not present on Computer B.
+
+Correction:
+Runtime preflight must verify or reproducibly build every hash-pinned local binary before device execution authorization. Static string/hash checks alone do not prove artifact availability.
+
+Current conclusion:
+The third launch is `BLOCKED_PRE_WRITE_MISSING_AUDITED_SINGLE_SIM_HELPER`, not a recovery failure. The state machine did not perform a phone write.
+
+Impact:
+Do not substitute or rebuild during the failed run and do not rerun automatically. Restore the exact audited artifact through a reproducible static build, verify its pinned SHA-256, then obtain fresh authorization.

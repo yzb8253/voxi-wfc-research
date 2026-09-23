@@ -357,3 +357,12 @@ NEXT_ACTION: controlled device run only after new explicit approval.
 - Recovery state-machine logic and safety limits did not change. Phone writes during repair: 0.
 
 NEXT_ACTION: no automatic phone run. Wait for explicit authorization for any third v2.7-alpha device launch.
+
+## v2.7-alpha artifact-availability finding (2026-09-23)
+
+- A hash constant in source proves expected identity, not that the corresponding binary exists on a fresh checkout.
+- The required single-SIM helper JAR is excluded by the repository's `*.jar` rule and was absent on Computer B.
+- The fail-closed `Assert-LocalArtifact` gate worked correctly and prevented all phone writes.
+- Future authorization readiness must include a host-only reproducible build plus exact hash and file-availability verification for the topology-selected helper.
+
+NEXT_ACTION: fix artifact reproducibility/preflight statically; no automatic device rerun.
