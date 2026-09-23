@@ -1,0 +1,21 @@
+====TIME====
+2026-09-23T16:20:39,729987269+08:00
+====PER_MGR====
+running
+31818
+31818
+====OWNER====
+COMMAND     PID       USER   FD      TYPE             DEVICE  SIZE/OFF       NODE NAME
+pm-service 31818     system    9r      CHR             234,11       0t0      25563 /dev/subsys_esoc0
+====X55====
+ONLINE
+====CRASH_COUNT====
+0
+====QCRILD2====
+running
+873
+  873     1 qcrild                      qcrild -c 2
+ 1926     1 qcrild                      qcrild
+====HOLDER_FILES====
+ABSENT:/data/local/tmp/x55_holder.pid
+ABSENT:/data/local/tmp/x55_handoff_test.pid

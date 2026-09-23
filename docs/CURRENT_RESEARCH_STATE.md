@@ -66,8 +66,14 @@ The holder-alone phase succeeded: holder PID 31163 was the sole `/dev/subsys_eso
 
 # Next Experiments
 
-None is automatically authorized from the preserved OFFLINE/no-owner scene. Obtain a new explicit decision before any rerun, qcrild2 restart, or recovery write.
+001B is complete. No additional recovery or process action is automatically authorized; obtain a new explicit decision.
 
 # Safety Constraints
 
 GitHub only; no guessed PID/raw transaction/unverified holder/SELinux bypass; no SIM cycle in this test, physical SIM action, radio/modem reset, unrelated restart ladder, or environment toggle. Every write needs PRE/POST evidence and fail-safe cleanup.
+
+# Follow-up 001B
+
+From the preserved no-owner/X55-OFFLINE scene, the read-only entry gate passed and exactly one fixed-slot2 qcrild2 restart changed PID 13706 to 873. pm-service PID 31818 then became sole FD9 owner and X55 became ONLINE with crash_count 0.
+
+The complete 15-second logcat captured qcrild2/RIL initialization but none of the four required PerMgrLib/PerMgrSrv QCRIL register/vote messages. Therefore native reacquisition is device-confirmed, while the proposed QCRIL re-vote mechanism is not log-confirmed. The predefined result is `QCRILD2_RESTART_NO_VALID_REVOTE`.

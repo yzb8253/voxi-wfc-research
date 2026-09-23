@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 16:10 Asia/Shanghai
+Updated: 2026-09-23 16:25 Asia/Shanghai
 
 ## Session identity
 
@@ -41,16 +41,16 @@ The old boot-only ownership belief is rejected. Clean/native stop-start reacquis
 
 ## Current experiment / phone scene
 
-- `X55-OWNERSHIP-HANDOFF-001`: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`.
-- A new independent probe passed its direct entry gate under enforcing SELinux. Correctly quoted root reads verified pm-service PID 13288 as sole FD9 owner, X55 ONLINE, crash_count 0, no holder, and qcrild2 PID 13706.
-- per_mgr was stopped once and a fixed holder was started. Android holder PID 31163 became the sole node owner and X55 became ONLINE.
-- Before per_mgr could be started under holder contention, a PowerShell `$Pid`/`$PID` name collision aborted the run. The probe source is corrected but has not been rerun.
-- Fail-safe cleanup TERM'd only the owned holder and restarted per_mgr. Current preserved scene: per_mgr running as PID 31818, no `/dev/subsys_esoc0` owner, X55 OFFLINE, crash_count 0, holder absent, qcrild2 unchanged at PID 13706.
-- Holder-plus-pm-service contention and qcrild2 re-vote were not tested. Phone-write count: 5. Never reuse recorded PIDs.
+- `X55-OWNERSHIP-HANDOFF-001B`: `QCRILD2_RESTART_NO_VALID_REVOTE`.
+- Entry gate passed on the preserved scene: per_mgr running, pm-service PID 31818, owner none, X55 OFFLINE, crash_count 0, holder absent, qcrild2 PID 13706.
+- Exactly one qcrild2 restart changed PID 13706 -> 873.
+- pm-service PID 31818 became sole FD9 owner, X55 became ONLINE, and crash_count remained 0.
+- Complete logcat contained no required PerMgrLib/PerMgrSrv QCRIL register/vote lines. Native reacquisition is confirmed, but QCRIL re-vote is not.
+- Phone writes: 2 (one logcat clear and one qcrild2 restart). No additional recovery action was performed. Never reuse recorded PIDs.
 
 ## Unique next action
 
-Preserve the current per_mgr-running/no-owner/X55-OFFLINE scene. Do not rerun the probe or restart qcrild2 automatically. A new explicit recovery or experiment decision is required.
+Stop after 001B. Do not run another process action or recovery automatically; a new explicit decision is required.
 
 ## Safety / forbidden actions
 

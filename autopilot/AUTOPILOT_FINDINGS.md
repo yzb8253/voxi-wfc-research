@@ -328,3 +328,9 @@ NEXT_ACTION: no prototype or binary patch. Resume only with exact matching vendo
 - This run is inconclusive about native handoff. It is not evidence that contention handoff or qcrild2 re-vote succeeds or fails.
 
 NEXT_ACTION: preserve the scene and require a new explicit decision before any phone write.
+
+## X55 ownership follow-up 001B finding (2026-09-23)
+
+- A single fixed-slot2 qcrild2 restart from no-owner/X55-OFFLINE changed qcrild2 PID 13706 -> 873 and coincided with pm-service 31818 reacquiring FD9 and X55 returning ONLINE without a crash-count increment.
+- The complete captured logcat contained no required Peripheral Manager QCRIL register/vote strings.
+- Therefore native reacquisition is verified, but the mechanism cannot be promoted to verified qcrild2 re-vote. Classification: `QCRILD2_RESTART_NO_VALID_REVOTE`.

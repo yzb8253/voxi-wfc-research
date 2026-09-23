@@ -1,0 +1,7 @@
+Experiment=X55-OWNERSHIP-HANDOFF-001B
+T0=2026-09-23T16:20:25.8240583+08:00
+OldQcrild2Pid=13706
+ObservedNewQcrild2Pid=873
+ObservationSeconds=15
+RawLogcatHostOnly=C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_local_runs\x55_ownership_handoff_001b_20260923_162025\logcat_all.raw.txt
+PhoneWrites=2

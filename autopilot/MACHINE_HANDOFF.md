@@ -273,3 +273,14 @@ NEXT_ACTION: import the exact missing v2.6.2/X55 artifacts into the authoritativ
 - Raw logcat remains outside Git. Sanitized report and selected logs are under `experiments/x55_native_handoff/`.
 
 NEXT_ACTION: no automatic recovery or experiment. Preserve the current scene and wait for a new explicit user decision.
+
+## Current checkpoint: X55 ownership follow-up 001B
+
+- Entry gate PASS on preserved owner-NONE/X55-OFFLINE state.
+- Exactly one qcrild2 restart: PID 13706 -> 873.
+- Final native state: pm-service PID 31818 sole FD9 owner, X55 ONLINE, crash_count 0, holder absent.
+- Required QCRIL register/vote messages were absent from complete logcat.
+- Result: `QCRILD2_RESTART_NO_VALID_REVOTE`; phone writes 2; no additional recovery action.
+- Sanitized report: `experiments/x55_native_handoff/X55_OWNERSHIP_HANDOFF_001B.md`. Raw logcat is host-only.
+
+NEXT_ACTION: stop and wait for a new explicit decision.

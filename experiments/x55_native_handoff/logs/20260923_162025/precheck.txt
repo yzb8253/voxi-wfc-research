@@ -1,0 +1,12 @@
+Experiment=X55-OWNERSHIP-HANDOFF-001B
+Timestamp=2026-09-23T16:20:25.7096975+08:00
+ADB=fd0ff892
+per_mgr=running
+pm_service_pid=31818
+owner=NONE
+x55=OFFLINE
+crash_count=0
+qcrild2_pid=13706
+qcrild2_cmd=qcrild -c 2
+holder_files=ABSENT
+entry_gate=PASS

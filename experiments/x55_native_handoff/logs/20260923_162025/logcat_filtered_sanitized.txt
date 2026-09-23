@@ -1,0 +1,218 @@
+09-23 16:20:24.779   873   873 E RILQ    : log to /data/vendor/radio/ril_log for QCRIL logging is not enabled
+09-23 16:20:28.176  1030  1030 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:28.745  1081  1081 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:29.072  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:29.075  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=21
+09-23 16:20:29.081   873   931 E RILQ    : (1/873): RIL[1][(873,931)] qcril_data_get_dds_sub_info: DSD Client unavailable
+09-23 16:20:29.082  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:29.082  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1232] xiaomi_qcril_start_oem_thread: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1213] xiaomi_qcril_init_xiaomi_qmi: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1219] xiaomi_qcril_init_xiaomi_qmi: xiaomi_qmi will be only inited in primary rild
+09-23 16:20:29.089   873   931 E RILQ    : (1/873): RIL[1][(873,931)] qcril_data_get_dds_sub_info: DSD Client unavailable
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1227] xiaomi_qcril_init_xiaomi_qmi: function exit <-------------
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1056] xiaomi_qcril_start_cmn_thread: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:183] xiaomi_qcril_get_property_value: prop print is started
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1071] xiaomi_qcril_start_cmn_thread: oem_thread will be only done by primary rild
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1097] xiaomi_qcril_start_cmn_thread: function exit <-------------
+09-23 16:20:29.089  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4655] xiaomi_qcril_start_mbn_thread: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4670] xiaomi_qcril_start_mbn_thread: oem_thread will be only done by primary rild
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4695] xiaomi_qcril_start_mbn_thread: function exit <-------------
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1167] xiaomi_qcril_start_offline_log_auto_start_thread: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1182] xiaomi_qcril_start_offline_log_auto_start_thread: oem_thread will be only done by primary rild
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1208] xiaomi_qcril_start_offline_log_auto_start_thread: function exit <-------------
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:981] xiaomi_qcril_start_stats_thread: function entry ------------->
+09-23 16:20:29.089   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.090   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:996] xiaomi_qcril_start_stats_thread: oem_thread will be only done by primary rild
+09-23 16:20:29.090   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:1022] xiaomi_qcril_start_stats_thread: function exit <-------------
+09-23 16:20:29.090   873   875 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1242] xiaomi_qcril_start_oem_thread: function exit <-------------
+09-23 16:20:29.305  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=28
+09-23 16:20:29.316  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1232] xiaomi_qcril_start_oem_thread: function entry ------------->
+09-23 16:20:29.316  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1213] xiaomi_qcril_init_xiaomi_qmi: function entry ------------->
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1227] xiaomi_qcril_init_xiaomi_qmi: function exit <-------------
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1056] xiaomi_qcril_start_cmn_thread: function entry ------------->
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.cmn_init_num_max: -1
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1077] xiaomi_qcril_start_cmn_thread: g_cmn_init_num = 4, init_max_num = -1
+09-23 16:20:29.322  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1085] xiaomi_qcril_start_cmn_thread: cmn oem_thread will be created
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1093] xiaomi_qcril_start_cmn_thread: cmn oem_thread is created, res = 0
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1097] xiaomi_qcril_start_cmn_thread: function exit <-------------
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4655] xiaomi_qcril_start_mbn_thread: function entry ------------->
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4675] xiaomi_qcril_start_mbn_thread: g_mbn_init_num = 4
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.mbn_init_num_max: 2
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:2438] xiaomi_qcril_mbn_thread_init_num_max: The oem_thread init max value: 2
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4678] xiaomi_qcril_start_mbn_thread: oem_thread init num reach the max num, will do nothing
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4695] xiaomi_qcril_start_mbn_thread: function exit <-------------
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1167] xiaomi_qcril_start_offline_log_auto_start_thread: function entry ------------->
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.diag_init_num_max: 1
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1188] xiaomi_qcril_start_offline_log_auto_start_thread: g_offline_log_auto_start_init_num = 4, init_max_num = 1
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1191] xiaomi_qcril_start_offline_log_auto_start_thread: offline_log_auto_start oem_thread init num reach the max num, will do nothing
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1208] xiaomi_qcril_start_offline_log_auto_start_thread: function exit <-------------
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:981] xiaomi_qcril_start_stats_thread: function entry ------------->
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.stats_init_num_max: -1
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1002] xiaomi_qcril_start_stats_thread: g_stats_init_num = 4, init_max_num = -1
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1010] xiaomi_qcril_start_stats_thread: stats oem_thread will be created
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1018] xiaomi_qcril_start_stats_thread: stats_thread is created, res = 0
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1022] xiaomi_qcril_start_stats_thread: function exit <-------------
+09-23 16:20:29.323  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:936] xiaomi_qcril_stats_thread_proc: function entry ------------->
+09-23 16:20:29.323  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1242] xiaomi_qcril_start_oem_thread: function exit <-------------
+09-23 16:20:29.324  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.vendor.radio.print_stats: 2
+09-23 16:20:29.324  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:950] xiaomi_qcril_stats_thread_proc: stats print is stoped
+09-23 16:20:29.325  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.vendor.radio.stats_wait_s: 0
+09-23 16:20:29.325  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:918] xiaomi_qcril_stats_wait_s: stats wait_s = 0
+09-23 16:20:29.325  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:928] xiaomi_qcril_stats_wait_s: xiaomi qcril stats will not wait
+09-23 16:20:29.325  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:871] xiaomi_qcril_stats_init: function entry ------------->
+09-23 16:20:29.325  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:873] xiaomi_qcril_stats_init: old g_hydra_qmi_client_id = 0
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1015] xiaomi_qcril_oem_thread_proc: function entry ------------->
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.qril_wait_s: 0
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:519] xiaomi_qcril_wait_s: qcril wait_s_in = -1, wait_s = 0
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:529] xiaomi_qcril_wait_s: xiaomi qcril will not wait
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_ind.cc:364] xiaomi_qcril_ind_init: function entry ------------->
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_ind.cc:371] xiaomi_qcril_ind_init: function exit <-------------
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:519] xiaomi_qcril_wait_s: qcril wait_s_in = 3, wait_s = 3
+09-23 16:20:29.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:523] xiaomi_qcril_wait_s: xiaomi qcril start to wait 3s to init
+09-23 16:20:29.325  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=28
+09-23 16:20:29.333  1367  1367 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:29.335  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:885] xiaomi_qcril_stats_init: new g_hydra_qmi_client_id = 0
+09-23 16:20:29.335  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:887] xiaomi_qcril_stats_init: function exit <-------------
+09-23 16:20:29.335  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:918] xiaomi_qcril_stats_wait_s: stats wait_s = 3
+09-23 16:20:29.335  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:922] xiaomi_qcril_stats_wait_s: xiaomi qcril stats start to wait 3s to init
+09-23 16:20:29.342  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:396] xiaomi_efs_read: function entry ------------->
+09-23 16:20:29.342  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:400] xiaomi_efs_read: xiaomi_efs_read, sub_id 0, path_len: 43
+09-23 16:20:29.342  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:437] xiaomi_efs_read: buf_len: 1
+09-23 16:20:29.342  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:454] xiaomi_efs_read: path_value: /nv/item_files/mcfg/mcfg_autoselect_by_uim
+09-23 16:20:29.350  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:52] xiaomi_qmi_result_map: xiaomi_qmi_result_map, old_result 0, new_result 0
+09-23 16:20:29.350  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:475] xiaomi_efs_read: result = 0, rsp.result = 0
+09-23 16:20:29.350  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:493] xiaomi_efs_read: data_len_all = 1, data_len_send = 1, data_len_recv = 1, read_count = 1, data_len_cur = 0
+09-23 16:20:29.350  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:509] xiaomi_efs_read: abort, buf_len <= data_len_recv
+09-23 16:20:29.350  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:530] xiaomi_efs_read: function exit <-------------
+09-23 16:20:29.362  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:396] xiaomi_efs_read: function entry ------------->
+09-23 16:20:29.362  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:400] xiaomi_efs_read: xiaomi_efs_read, sub_id 0, path_len: 64
+09-23 16:20:29.362  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:437] xiaomi_efs_read: buf_len: 365
+09-23 16:20:29.362  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:454] xiaomi_efs_read: path_value: /nv/item_files/modem/uim/uimdrv/uim_extended_slot_mapping_config
+09-23 16:20:29.376  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:52] xiaomi_qmi_result_map: xiaomi_qmi_result_map, old_result 0, new_result 0
+09-23 16:20:29.376  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:475] xiaomi_efs_read: result = 0, rsp.result = 0
+09-23 16:20:29.376  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:493] xiaomi_efs_read: data_len_all = 70, data_len_send = 70, data_len_recv = 70, read_count = 1, data_len_cur = 0
+09-23 16:20:29.376  1926  2043 D XIAOMI_QCRIL: RIL[lib][xiaomi_extend_nvefs.c:530] xiaomi_efs_read: function exit <-------------
+09-23 16:20:29.430  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=20
+09-23 16:20:29.529  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=20
+09-23 16:20:29.596  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=21
+09-23 16:20:29.720  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=28
+09-23 16:20:29.743  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=21
+09-23 16:20:29.782   873   931 E RILQ    : (1/873): RIL[1][(873,931)] qcril_data_reg_sys_ind: failed to send qmi_dsd_reg_system_status_ind, err=-18
+09-23 16:20:29.782   873   931 E RILQ    : (1/873): RIL[1][(873,931)] qcril_data_reg_sys_ind: qcril_data_reg_sys_ind: EXIT with ERROR
+09-23 16:20:29.786  1926  2043 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 16:20:29.897  1418  1418 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:30.472  1465  1465 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:30.513  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=102
+09-23 16:20:30.514  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=102
+09-23 16:20:30.524  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=28
+09-23 16:20:30.525  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=28
+09-23 16:20:30.642  3495  3495 D RilRequest: [4128]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result={ when=-1h43m35s838ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 16:20:30.652  3495  3788 D RilRequest: [7854]< RADIO_POWER error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:30.660  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:20:30.668  3495  3788 D RilRequest: [6311]< CDMA_SET_SUBSCRIPTION_SOURCE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:30.672  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:30.703  3495  3788 D RilRequest: [3614]< CDMA_SET_SUBSCRIPTION_SOURCE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:30.703  3495  3788 D RilRequest: [3621]< CDMA_SET_SUBSCRIPTION_SOURCE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:30.729  3495  3495 E PhoneInterfaceManager: Exception retrieving CellInfo=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:20:30.729 13117 13117 W System.err: java.lang.RuntimeException: com.android.internal.telephony.CommandException: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:20:30.808   873   875 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 16:20:31.042  1747  1747 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:31.077  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=28
+09-23 16:20:31.106   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp1 .. useragent = Xiaomi
+09-23 16:20:31.106   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp2 .. useragent = Xiaomi_Xiaomi 14 Pro
+09-23 16:20:31.106   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp3 .. useragent = Xiaomi_Xiaomi 14 Pro_Miui_81.6,str = 81.6
+09-23 16:20:31.107   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp5 .. useragent = Xiaomi_Xiaomi 14 Pro_Miui_81.6 , is_stable_version= 1
+09-23 16:20:31.107   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp6 .. Set config useragent to: Xiaomi_Xiaomi 14 Pro_Miui_81.6
+09-23 16:20:31.109   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp7 .. set useragent qmi send async res 0
+09-23 16:20:31.123   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_imss_command_cb: Req ID: 0 not found
+09-23 16:20:31.238  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=21
+09-23 16:20:31.270  3495  4132 D RilRequest: [3613]< RADIO_POWER error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:31.270  3495  4132 D RilRequest: [3620]< RADIO_POWER error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:31.271  3495  4132 D RilRequest: [3720]< SIM_OPEN_CHANNEL error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result={ when=-1h43m36s467ms what=8 obj={ when=-1h43m36s467ms what=1 arg2=1 target=com.android.internal.telephony.uicc.UiccCarrierPrivilegeRules } target=com.android.internal.telephony.uicc.UiccProfile$4 }
+09-23 16:20:31.271  3495  4132 D RilRequest: [3746]< SET_DATA_PROFILE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result={ when=-1h43m36s467ms what=4 target=com.android.internal.telephony.data.CellularDataService$CellularDataServiceProvider$1 }
+09-23 16:20:31.300  3495  3788 D RilRequest: [9889]< CDMA_SET_SUBSCRIPTION_SOURCE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:31.344  3495  3495 D RilRequest: [9888]< RADIO_POWER error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:31.344  3495  3495 D RilRequest: [9891]< GET_CURRENT_CALLS error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result={ when=-1h43m36s540ms what=1 target=com.android.internal.telephony.GsmCdmaCallTracker }
+09-23 16:20:31.349  3495  3495 D UiccProfile: handleMessage: Error in SIM access with exception com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:20:31.356  3495  3788 D RilRequest: [1839]< CDMA_SET_SUBSCRIPTION_SOURCE error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 16:20:31.403   873   875 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 16:20:31.599   873   875 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 16:20:31.610  1788  1788 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:32.185  1857  1857 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:32.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:525] xiaomi_qcril_wait_s: xiaomi qcril end to wait 3s to init
+09-23 16:20:32.325  1926  1370 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1042] xiaomi_qcril_oem_thread_proc: function exit <-------------
+09-23 16:20:32.336  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:924] xiaomi_qcril_stats_wait_s: xiaomi qcril stats end to wait 3s to init
+09-23 16:20:32.336  1926  1371 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:967] xiaomi_qcril_stats_thread_proc: function exit <-------------
+09-23 16:20:32.375  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 3
+09-23 16:20:32.375  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1027 length=20
+09-23 16:20:32.392  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 3
+09-23 16:20:32.392  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1028 length=74
+09-23 16:20:32.393  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 3
+09-23 16:20:32.393  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1029 length=36
+09-23 16:20:32.394  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1028 error: 0length=0
+09-23 16:20:32.394  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 4
+09-23 16:20:32.394  3398  3398 D QcrilMsgTunnelIfaceManager: OEM_RIL_REQUEST_ASYNC_DONE requestAsync.sub :1
+09-23 16:20:32.395  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1029 error: 0length=0
+09-23 16:20:32.395  3495  3545 D QC_RIL_OEM_HOOK: QCRIL send apn info DONE!
+09-23 16:20:32.395  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 4
+09-23 16:20:32.395  3398  3398 D QcrilMsgTunnelIfaceManager: OEM_RIL_REQUEST_ASYNC_DONE requestAsync.sub :1
+09-23 16:20:32.396  3495  4110 D QC_RIL_OEM_HOOK: QCRIL send apn info DONE!
+09-23 16:20:32.406  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1027 error: 0length=0
+09-23 16:20:32.407  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 4
+09-23 16:20:32.407  3398  3398 D QcrilMsgTunnelIfaceManager: OEM_RIL_REQUEST_ASYNC_DONE requestAsync.sub :1
+09-23 16:20:32.408  3495  3545 D QC_RIL_OEM_HOOK: QCRIL send data roaming enable status DONE!
+09-23 16:20:32.411  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 3
+09-23 16:20:32.411  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1030 length=20
+09-23 16:20:32.413  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 3
+09-23 16:20:32.413  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1031 length=20
+09-23 16:20:32.428  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1030 error: 0length=0
+09-23 16:20:32.428  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 4
+09-23 16:20:32.428  3398  3398 D QcrilMsgTunnelIfaceManager: OEM_RIL_REQUEST_ASYNC_DONE requestAsync.sub :1
+09-23 16:20:32.429  3495  3562 D QC_RIL_OEM_HOOK: QCRIL send data enable status DONE!
+09-23 16:20:32.431  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1031 error: 0length=0
+09-23 16:20:32.432  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 4
+09-23 16:20:32.432  3398  3398 D QcrilMsgTunnelIfaceManager: OEM_RIL_REQUEST_ASYNC_DONE requestAsync.sub :1
+09-23 16:20:32.432  3495  4263 D QC_RIL_OEM_HOOK: QCRIL send data enable status DONE!
+09-23 16:20:32.558   873   875 I RILQ    : (1/873):RIL[1][(873,875)] qcril_qmi_imss_set_ims_service_enable_config_resp_hdlr: ril_err: 0, qmi res: 0
+09-23 16:20:32.560   873   875 I RILQ    : (1/873):RIL[1][(873,875)] qcril_qmi_imss_set_ims_service_enable_config_resp_ims_reg_change_hdlr: ril_err: 0, qmi res: 0
+09-23 16:20:32.756  1904  1904 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:33.022  3495  1919 D FiveGManager: set user SA switch mode to 2, qcRilHookReady: true
+09-23 16:20:33.022  3495  1920 D FiveGManager: set user SA switch mode to 0, qcRilHookReady: true
+09-23 16:20:33.023  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 1
+09-23 16:20:33.023  3398  3398 I QcrilOemhookMsgTunnel: [0]invokeOemRilRequestRaw: serial=1032 length=20
+09-23 16:20:33.029  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 1
+09-23 16:20:33.029  3398  3398 I QcrilOemhookMsgTunnel: [1]invokeOemRilRequestRaw: serial=1033 length=20
+09-23 16:20:33.047  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookResponse serial no: 1032 error: 2length=0
+09-23 16:20:33.048  3398  3706 E QcRilRequest: [1032] < OEM_HOOK_RAW error: org.codeaurora.telephony.utils.CommandException: GENERIC_FAILURE
+09-23 16:20:33.049  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 2
+09-23 16:20:33.049  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookResponse serial no: 1033 error: 2length=0
+09-23 16:20:33.050  3398  3706 E QcRilRequest: [1033] < OEM_HOOK_RAW error: org.codeaurora.telephony.utils.CommandException: GENERIC_FAILURE
+09-23 16:20:33.050  3398  3398 D QcrilMsgTunnelIfaceManager: handleMessage what = 2
+09-23 16:20:33.314  1951  1951 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:33.876  1994  1994 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:34.442  2003  2003 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:35.012  2018  2018 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:35.565  2045  2045 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:35.838   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp1 .. useragent = Xiaomi
+09-23 16:20:35.838   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp2 .. useragent = Xiaomi_Xiaomi 14 Pro
+09-23 16:20:35.838   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp3 .. useragent = Xiaomi_Xiaomi 14 Pro_Miui_81.6,str = 81.6
+09-23 16:20:35.838   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp5 .. useragent = Xiaomi_Xiaomi 14 Pro_Miui_81.6 , is_stable_version= 1
+09-23 16:20:35.838   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp6 .. Set config useragent to: Xiaomi_Xiaomi 14 Pro_Miui_81.6
+09-23 16:20:35.842   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_radio_config_imss_set_ims_new_config: .. setp7 .. set useragent qmi send async res 0
+09-23 16:20:35.850   873   875 E RILQ    : (1/873): RIL[1][(873,875)] qcril_qmi_imss_command_cb: Req ID: 0 not found
+09-23 16:20:36.191  2098  2098 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:36.763  2112  2112 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:37.344  2127  2127 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:37.920  2153  2153 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:38.483  2162  2162 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:39.051  2168  2168 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"
+09-23 16:20:39.628  2170  2170 W libc    : Access denied finding property "init.svc_debug_pid.vendor.qcrild2"

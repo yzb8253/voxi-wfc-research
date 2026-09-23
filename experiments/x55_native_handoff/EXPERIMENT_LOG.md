@@ -61,3 +61,15 @@ Logs: `X55_OWNERSHIP_HANDOFF_001_ABORTED.md`, `logs/20260923_155633/`, and `logs
 Interpretation: holder power-up worked, but holder+pm-service contention and QCRIL re-vote were not tested.
 Conclusion: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`; phone-write count 5.
 Next action: preserve OFFLINE/no-owner scene; no automatic rerun or qcrild2 restart without a new explicit decision.
+
+## X55-OWNERSHIP-HANDOFF-001B
+
+Date: 2026-09-23 16:20:25 Asia/Shanghai
+Environment: preserved no-owner/X55-OFFLINE scene from 001; serial `fd0ff892`; enforcing SELinux.
+Pre-state: entry gate PASS; per_mgr running; pm-service PID 31818; owner none; X55 OFFLINE; crash_count 0; holder absent; fixed-slot2 qcrild2 PID 13706.
+Commands/actions: one logcat clear and exactly one `ctl.restart vendor.qcrild2`; no other phone write.
+Observed result: qcrild2 PID 13706 -> 873; pm-service PID 31818 became sole FD9 owner; X55 ONLINE; crash_count 0. Complete logcat contained no required PerMgrLib/PerMgrSrv QCRIL register/vote lines.
+Logs: `X55_OWNERSHIP_HANDOFF_001B.md`, `logs/20260923_162025/`; full raw logcat retained host-only.
+Interpretation: native reacquisition occurred, but the experiment did not log-confirm a valid qcrild2 register/vote sequence.
+Conclusion: `QCRILD2_RESTART_NO_VALID_REVOTE`; phone writes 2.
+Next action: stop; do not execute an additional recovery action.

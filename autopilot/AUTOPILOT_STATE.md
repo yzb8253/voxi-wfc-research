@@ -351,3 +351,13 @@ NEXT_ACTION: recover the missing v2.6.2/X55 holder and read-only ownership obser
 - Full raw logcat remains host-only; only sanitized evidence is checkpointed.
 
 NEXT_ACTION: preserve the OFFLINE/no-owner scene. No automatic rerun, qcrild2 restart, or recovery write; obtain a new explicit user decision.
+
+## 2026-09-23 X55 ownership follow-up 001B
+
+- Preserved-scene entry gate PASS: pm-service 31818, owner NONE, X55 OFFLINE, crash_count 0, holder absent, qcrild2 13706.
+- Exactly one `vendor.qcrild2` restart changed PID 13706 -> 873.
+- pm-service 31818 became sole FD9 owner; X55 became ONLINE; crash_count stayed 0.
+- Complete logcat had no required PerMgrLib/PerMgrSrv QCRIL registration/voting strings.
+- Result: `QCRILD2_RESTART_NO_VALID_REVOTE`. Phone writes: 2. No recovery action followed.
+
+NEXT_ACTION: stop. Require a new explicit decision before any further phone write.

@@ -85,3 +85,20 @@ The independent probe can enforce the native owner, ONLINE, crash-count, no-hold
 
 Impact:
 The missing historical observer is no longer an execution blocker. Probe correctness and fail-safe behavior remain mandatory; `X55-OWNERSHIP-HANDOFF-001` was aborted before its contended phase and remains inconclusive.
+
+## 2026-09-23 16:25 - native reacquisition is not proof of a logged QCRIL re-vote
+
+Previous belief:
+A fresh fixed-slot2 qcrild2 registration/vote was the leading trigger for pm-service to retry native node acquisition.
+
+Evidence:
+In 001B, exactly one qcrild2 restart changed PID 13706 -> 873 and pm-service reacquired FD9 while X55 returned ONLINE. However, the complete captured logcat contained none of the required PerMgrLib/PerMgrSrv QCRIL register/vote messages.
+
+Correction:
+Do not label the ownership transition as a verified QCRIL re-vote.
+
+Current conclusion:
+qcrild2 restart is correlated with native reacquisition in this preserved scene, but the precise trigger is unverified.
+
+Impact:
+Use the predefined result `QCRILD2_RESTART_NO_VALID_REVOTE`; do not promote the re-vote hypothesis without direct evidence.
