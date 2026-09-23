@@ -1,11 +1,11 @@
 # v2.7-alpha Second Device Run Result
 
-Date: 2026-09-23 21:00:59 Asia/Shanghai  
-Computer: B  
-Account: A  
-Branch: `voxi-wfc-auto-recovery`  
-Commit tested: `cd222ea058dbb1f2b88905b99987885f3a9438ce`  
-Windows PowerShell: `5.1.19041.6456`
+- Date: 2026-09-23 21:00:59 Asia/Shanghai
+- Computer: B
+- Account: A
+- Branch: `voxi-wfc-auto-recovery`
+- Commit tested: `cd222ea058dbb1f2b88905b99987885f3a9438ce`
+- Windows PowerShell: `5.1.19041.6456`
 
 ## Classification
 
