@@ -340,3 +340,14 @@ NEXT_ACTION: stop. Do not repeat qcrild2 restart or execute a Magic SIM cycle; t
 - Report: `experiments/x55_native_handoff/OWNERSHIP_HANDOFF_PRECHECK.md`.
 
 NEXT_ACTION: recover the missing v2.6.2/X55 holder and read-only ownership observer into GitHub, audit them, and repeat the entry gate. Do not stop Peripheral Manager or create a live holder until owner, ONLINE state, and crash count are directly confirmed.
+
+## 2026-09-23 X55 ownership handoff attempt
+
+- Experiment `X55-OWNERSHIP-HANDOFF-001` passed the direct root/native entry gate: pm-service PID 13288 sole FD9 owner, X55 ONLINE, crash_count 0, no holder, qcrild2 PID 13706.
+- per_mgr stop and holder startup succeeded. Holder PID 31163 became sole owner and powered X55 ONLINE.
+- The host probe aborted before the contended per_mgr start because `$Pid` collided with PowerShell's automatic `$PID`. The parameter is corrected to `$ProcessId`, syntax/write-surface audited, and not rerun.
+- Fail-safe cleanup TERM'd only the owned holder and started per_mgr. Final preserved state: pm-service PID 31818 running, owner NONE, X55 OFFLINE, crash_count 0, holder absent, qcrild2 unchanged PID 13706.
+- Holder contention and qcrild2 re-vote remain untested. Result: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`. Phone writes: 5.
+- Full raw logcat remains host-only; only sanitized evidence is checkpointed.
+
+NEXT_ACTION: preserve the OFFLINE/no-owner scene. No automatic rerun, qcrild2 restart, or recovery write; obtain a new explicit user decision.

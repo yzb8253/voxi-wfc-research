@@ -318,3 +318,13 @@ NEXT_ACTION: no prototype or binary patch. Resume only with exact matching vendo
 - The live process identities match the described clean Peripheral Manager scene, but PID similarity is insufficient for a destructive entry gate.
 - Current SELinux access prevents the Magisk client from reading pm-service FDs and X55 state/crash_count, so current native ownership and zero-crash status cannot be proven with the repository's available tools.
 - The correct classification is `BLOCKED_PRE_WRITE`, not ownership-handoff failure. No service, holder, qcrild, SIM, radio, or modem write was performed.
+
+## X55 ownership handoff attempt finding (2026-09-23)
+
+- Correctly quoted root ADB reads can directly verify pm-service node ownership, X55 state, and crash_count under enforcing SELinux. The earlier read denial was a host quoting/context error.
+- Holder PID 31163 alone acquired `/dev/subsys_esoc0` and brought X55 ONLINE without raising crash_count.
+- The defining holder-plus-pm-service phase and qcrild2 re-vote phase were not reached because the host probe hit a PowerShell `$Pid`/`$PID` collision.
+- Fail-safe cleanup was bounded to the owned holder and per_mgr. It left per_mgr running without a node owner and X55 OFFLINE, with crash_count 0 and qcrild2 unchanged.
+- This run is inconclusive about native handoff. It is not evidence that contention handoff or qcrild2 re-vote succeeds or fails.
+
+NEXT_ACTION: preserve the scene and require a new explicit decision before any phone write.

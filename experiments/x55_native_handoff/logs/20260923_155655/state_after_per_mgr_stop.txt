@@ -1,0 +1,35 @@
+EXIT=0
+--- STDOUT ---
+====ROOT====
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+====SELINUX====
+Enforcing
+====PER_MGR====
+stopped
+
+====PER_PROXY====
+running
+1699
+1699
+====QCRILD====
+running
+1926
+====QCRILD2====
+running
+13706
+====MDM_HELPER====
+running
+1297
+1297
+====OWNER====
+====X55====
+OFFLINE
+====CRASH_COUNT====
+0
+====HOLDER_FILES====
+ABSENT:/data/local/tmp/x55_holder.pid
+ABSENT:/data/local/tmp/x55_handoff_test.pid
+====BOOT_ID====
+58689b83-ced0-4c6b-a13e-a4c1a4149fc3
+
+--- STDERR ---

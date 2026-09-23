@@ -53,15 +53,20 @@ Clean stop/start reacquisition is verified by transferred evidence. Holder-conte
 1. Does pm-service automatically reacquire after holder exit?
 2. If not, does one qcrild2 restart/vote cause it?
 3. Can a smaller official client action trigger the vote?
-4. How can owner, ONLINE, and crash_count be observed under enforcing SELinux?
 
 # Current Best Hypothesis
 
 Starting pm-service while a holder owns the node misses acquisition. After release, a new fixed-slot2 QCRIL vote may cause retry. This remains a hypothesis.
 
+# Latest Ownership Experiment
+
+`X55-OWNERSHIP-HANDOFF-001` passed its direct entry gate and proved that correctly quoted root reads can observe the native owner, X55 state, and crash count under enforcing SELinux. The run stopped before holder-plus-pm-service contention because a PowerShell parameter named `$Pid` collided with the automatic `$PID` variable.
+
+The holder-alone phase succeeded: holder PID 31163 was the sole `/dev/subsys_esoc0` owner and X55 was ONLINE with crash_count 0. Fail-safe cleanup removed the holder and restarted per_mgr, but the final preserved scene is pm-service PID 31818 running with no node owner, X55 OFFLINE, crash_count 0, and qcrild2 unchanged at PID 13706. No qcrild2 re-vote occurred, so the handoff hypothesis remains untested.
+
 # Next Experiments
 
-Restore and audit the exact v2.6.2 holder and observer, repeat the entry gate, then run one ownership-only handoff from the experiment README.
+None is automatically authorized from the preserved OFFLINE/no-owner scene. Obtain a new explicit decision before any rerun, qcrild2 restart, or recovery write.
 
 # Safety Constraints
 

@@ -1,0 +1,7 @@
+2026-09-23T15:56:33.930+08:00 EXPERIMENT=X55-OWNERSHIP-HANDOFF-001 execute=False serial=fd0ff892
+2026-09-23T15:56:34.076+08:00 adb_devices.txt exit=0
+2026-09-23T15:56:35.460+08:00 state_entry.txt exit=0
+2026-09-23T15:56:38.165+08:00 wfc_status_entry.txt exit=30
+2026-09-23T15:56:38.714+08:00 ENTRY root=True per_mgr_running=True owner=True x55=True crash0=True no_holder=True qcrild2=True denied=False
+2026-09-23T15:56:38.719+08:00 RESULT=ENTRY_GATE_PASS_DRY_RUN phone_writes=0
+2026-09-23T15:56:38.722+08:00 FINAL_RESULT=ENTRY_GATE_PASS_DRY_RUN PHONE_WRITES=0 LOG_DIR=C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\experiments\x55_native_handoff\logs\20260923_155633

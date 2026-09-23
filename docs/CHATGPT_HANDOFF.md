@@ -1,13 +1,13 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 15:30 Asia/Shanghai
+Updated: 2026-09-23 16:10 Asia/Shanghai
 
 ## Session identity
 
 - Computer: Computer A
 - Account: Account A
 - Branch: `voxi-wfc-auto-recovery`
-- Synchronized baseline: `12ffbdf79d45b1b61ee67ae317a67b2608ffc5d9`
+- Synchronized baseline before the latest experiment: `56bd01aff49b79ba3bd751ad5939ce8d37c8a8e7`
 - Current commit: resolve with `git rev-parse HEAD`; this file is authoritative from its containing commit.
 - GitHub is the only durable source of truth.
 
@@ -41,17 +41,16 @@ The old boot-only ownership belief is rejected. Clean/native stop-start reacquis
 
 ## Current experiment / phone scene
 
-- Ownership handoff: `BLOCKED_PRE_WRITE / NOT_RUN`; latest precheck phone writes: 0.
-- GitHub lacks the v2.5/v2.6.1/v2.6.2 source, holder, and owner observer.
-- SELinux blocks direct pm-service FD and X55 state/crash_count reads.
-- Last check 2026-09-23 15:06:53: pm-service 13288, pm-proxy 1699, qcrild 1926, qcrild2 13706, mdm_helper 1297; no holder PID file.
-- VOXI identity correct, active, UICC apps enabled; IMS NOT_REGISTERED, transport UNKNOWN, VOICE/IWLAN and WFC unavailable (F1).
-- China Telecom SIM absent; the installed v2.0 dual-SIM gate therefore reports UNSAFE.
-- Native owner, X55 ONLINE, and crash_count are unverified. Never reuse recorded PIDs.
+- `X55-OWNERSHIP-HANDOFF-001`: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`.
+- A new independent probe passed its direct entry gate under enforcing SELinux. Correctly quoted root reads verified pm-service PID 13288 as sole FD9 owner, X55 ONLINE, crash_count 0, no holder, and qcrild2 PID 13706.
+- per_mgr was stopped once and a fixed holder was started. Android holder PID 31163 became the sole node owner and X55 became ONLINE.
+- Before per_mgr could be started under holder contention, a PowerShell `$Pid`/`$PID` name collision aborted the run. The probe source is corrected but has not been rerun.
+- Fail-safe cleanup TERM'd only the owned holder and restarted per_mgr. Current preserved scene: per_mgr running as PID 31818, no `/dev/subsys_esoc0` owner, X55 OFFLINE, crash_count 0, holder absent, qcrild2 unchanged at PID 13706.
+- Holder-plus-pm-service contention and qcrild2 re-vote were not tested. Phone-write count: 5. Never reuse recorded PIDs.
 
 ## Unique next action
 
-Restore the exact v2.6.2 holder and read-only owner observer to GitHub, audit them, and repeat the read-only entry gate. Run the handoff only after owner, X55 ONLINE, no-holder, and `crash_count=0` all pass.
+Preserve the current per_mgr-running/no-owner/X55-OFFLINE scene. Do not rerun the probe or restart qcrild2 automatically. A new explicit recovery or experiment decision is required.
 
 ## Safety / forbidden actions
 

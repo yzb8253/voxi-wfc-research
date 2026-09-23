@@ -49,3 +49,15 @@ Logs: `OWNERSHIP_HANDOFF_PRECHECK.md`, command audit, and experiments JSONL.
 Interpretation: safety gate incomplete; historical PID match is not current owner proof.
 Conclusion: `BLOCKED_PRE_WRITE / NOT_RUN`; phone writes 0.
 Next action: restore and audit holder/observer, then repeat read-only gate.
+
+## X55-OWNERSHIP-HANDOFF-001
+
+Date: 2026-09-23 15:56:55 Asia/Shanghai
+Environment: Computer A, Account A, serial `fd0ff892`; enforcing SELinux; new independent PowerShell probe.
+Pre-state: entry gate PASS; pm-service PID 13288 sole FD9 owner; X55 ONLINE; crash_count 0; no holder; qcrild2 PID 13706.
+Commands/actions: logcat clear; per_mgr stop; one fixed holder start; after host-script failure, TERM own holder and start per_mgr for fail-safe cleanup. No qcrild2 restart.
+Observed result: holder PID 31163 became sole owner and X55 ONLINE, but a PowerShell `$Pid`/`$PID` collision aborted before per_mgr was started under contention. Cleanup left per_mgr running as PID 31818, no node owner, X55 OFFLINE, crash_count 0, holder absent, qcrild2 unchanged.
+Logs: `X55_OWNERSHIP_HANDOFF_001_ABORTED.md`, `logs/20260923_155633/`, and `logs/20260923_155655/`; full raw logcat retained host-only.
+Interpretation: holder power-up worked, but holder+pm-service contention and QCRIL re-vote were not tested.
+Conclusion: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`; phone-write count 5.
+Next action: preserve OFFLINE/no-owner scene; no automatic rerun or qcrild2 restart without a new explicit decision.

@@ -69,3 +69,19 @@ The experiment is `BLOCKED_PRE_WRITE / NOT_RUN` until exact artifacts return and
 
 Impact:
 Phone writes stayed zero; restore provenance and observation tooling first.
+## 2026-09-23 16:10 - direct ownership reads work with correct ADB quoting
+
+Previous belief:
+Enforcing SELinux prevented the available Magisk root client from reading pm-service FDs, X55 state, and crash_count.
+
+Evidence:
+The independent probe sent the complete escaped `su -c` command as one remote shell string. It read UID 0, pm-service FD9 ownership of `/dev/subsys_esoc0`, X55 ONLINE, and crash_count 0 while SELinux remained enforcing.
+
+Correction:
+The earlier denials were caused by host-to-ADB command quoting/context, not an inherent read prohibition for this root path.
+
+Current conclusion:
+The independent probe can enforce the native owner, ONLINE, crash-count, no-holder, and qcrild2 entry gates directly.
+
+Impact:
+The missing historical observer is no longer an execution blocker. Probe correctness and fail-safe behavior remain mandatory; `X55-OWNERSHIP-HANDOFF-001` was aborted before its contended phase and remains inconclusive.

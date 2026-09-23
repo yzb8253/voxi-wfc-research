@@ -4,35 +4,27 @@ Updated: 2026-09-23
 
 Only active blockers belong here. Historical blockers belong in the experiment log or decisions file.
 
-## 1. Missing authoritative v2.6.2 artifacts
+## 1. Preserved device scene requires a new decision
 
-The handoff describes v2.5/v2.6.1/v2.6.2, a holder, and an owner observer, but none is in any current GitHub branch/history. Installed module is v2.0.
+Fail-safe cleanup left per_mgr running as PID 31818 with no `/dev/subsys_esoc0` owner, X55 OFFLINE, crash_count 0, holder absent, and qcrild2 unchanged at PID 13706. No further phone write is authorized from this scene.
 
-Resolution: import exact source, scripts, sanitized reports, and observer method. Do not create an ad hoc live holder.
+Resolution: obtain an explicit recovery or experiment decision. Do not automatically rerun the probe or restart qcrild2.
 
-## 2. Native owner cannot be verified
+## 2. Defining experiment phases were not reached
 
-Magisk SELinux cannot read `/proc/<pm-service-pid>/fd`; lsof exposed no owner.
+The holder-alone phase succeeded, but a PowerShell `$Pid`/`$PID` collision aborted before per_mgr was started under contention. The qcrild2 re-vote phase was therefore also not run.
 
-Resolution: restore the proven read-only observer or another enforcing-compatible, non-mutating path. Do not bypass SELinux.
+Resolution: treat the result as inconclusive. The source bug is fixed and audited, but the experiment must not be rerun without fresh authorization and a new entry scene.
 
-## 3. X55 ONLINE and crash_count cannot be verified
+## 3. Historical artifact provenance remains incomplete
 
-Reads of subsystem state and crash_count were denied, yet both are mandatory gates.
-
-Resolution: restore the prior observer or an equivalent existing read-only vendor interface.
-
-## 4. Installed gate is v2.0 dual-SIM logic
-
-With China Telecom physically absent, the old status tool reports UNSAFE despite correct VOXI mapping.
-
-Resolution: do not weaken production gates; use a separately audited single-SIM/read-only ownership precheck.
+The exact historical v2.6.2 source and raw evidence are still absent from GitHub. This is a provenance gap, not a blocker for the new independent probe, whose direct read gates and sanitized run evidence are now preserved.
 
 ## Current disposition
 
-- `BLOCKED_PRE_WRITE / FAIL_SAFE`
-- Experiment `NOT_RUN`
-- Latest precheck phone writes: 0
-- Detailed evidence: `OWNERSHIP_HANDOFF_PRECHECK.md`
+- `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`
+- Entry gate: `PASS`
+- Phone writes: 5
+- Detailed evidence: `X55_OWNERSHIP_HANDOFF_001_ABORTED.md`
 
-NEXT_ACTION: restore exact v2.6.2 holder and observer artifacts, audit them, and rerun the read-only entry gate.
+NEXT_ACTION: preserve the OFFLINE/no-owner scene and wait for a new explicit decision.

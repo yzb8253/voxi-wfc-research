@@ -1,0 +1,38 @@
+EXIT=0
+--- STDOUT ---
+====ROOT====
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+====SELINUX====
+Enforcing
+====PER_MGR====
+running
+13288
+13288
+====PER_PROXY====
+running
+1699
+1699
+====QCRILD====
+running
+1926
+====QCRILD2====
+running
+13706
+====MDM_HELPER====
+running
+1297
+1297
+====OWNER====
+COMMAND     PID       USER   FD      TYPE             DEVICE  SIZE/OFF       NODE NAME
+pm-service 13288     system    9r      CHR             234,11       0t0      25563 /dev/subsys_esoc0
+====X55====
+ONLINE
+====CRASH_COUNT====
+0
+====HOLDER_FILES====
+ABSENT:/data/local/tmp/x55_holder.pid
+ABSENT:/data/local/tmp/x55_handoff_test.pid
+====BOOT_ID====
+58689b83-ced0-4c6b-a13e-a4c1a4149fc3
+
+--- STDERR ---

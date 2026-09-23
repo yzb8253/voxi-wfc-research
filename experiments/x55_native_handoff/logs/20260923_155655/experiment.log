@@ -1,0 +1,14 @@
+2026-09-23T15:56:55.506+08:00 EXPERIMENT=X55-OWNERSHIP-HANDOFF-001 execute=True serial=fd0ff892
+2026-09-23T15:56:55.637+08:00 adb_devices.txt exit=0
+2026-09-23T15:56:56.963+08:00 state_entry.txt exit=0
+2026-09-23T15:56:59.664+08:00 wfc_status_entry.txt exit=30
+2026-09-23T15:57:00.118+08:00 ENTRY root=True per_mgr_running=True owner=True x55=True crash0=True no_holder=True qcrild2=True denied=False
+2026-09-23T15:57:00.253+08:00 logcat_clear.txt exit=0
+2026-09-23T15:57:00.410+08:00 per_mgr_stop.txt exit=0
+2026-09-23T15:57:00.592+08:00 WAIT PASS per_mgr stopped
+2026-09-23T15:57:02.023+08:00 state_after_per_mgr_stop.txt exit=0
+2026-09-23T15:57:02.041+08:00 HOLDER host_pid=14044 started
+2026-09-23T15:57:02.278+08:00 ERROR=Cannot overwrite variable Pid because it is read-only or constant. STACK=at <ScriptBlock>, C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\experiments\x55_native_handoff\ownership_handoff_probe.ps1: line 213
+at Wait-Until, C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\experiments\x55_native_handoff\ownership_handoff_probe.ps1: line 151
+at <ScriptBlock>, C:\Users\ZJH\Desktop\platform-tools\voxi_wfc_research\experiments\x55_native_handoff\ownership_handoff_probe.ps1: line 213
+at <ScriptBlock>, <No file>: line 2

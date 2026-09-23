@@ -260,3 +260,16 @@ NEXT_ACTION: STOP. Do not repeat this restart or run Magic SIM cycle automatical
 - Sanitized report: `experiments/x55_native_handoff/OWNERSHIP_HANDOFF_PRECHECK.md`.
 
 NEXT_ACTION: import the exact missing v2.6.2/X55 artifacts into the authoritative branch, audit the holder and observer, then re-run only the read-only entry gate. Never infer ownership from PID equality.
+
+## Current checkpoint: X55 ownership handoff aborted before contention
+
+- Date: 2026-09-23; branch baseline before this checkpoint: `56bd01aff49b79ba3bd751ad5939ce8d37c8a8e7`.
+- Experiment ID: `X55-OWNERSHIP-HANDOFF-001`.
+- Entry gate PASS: pm-service 13288 sole FD9 owner, X55 ONLINE, crash_count 0, no holder, qcrild2 13706.
+- Holder-alone phase PASS: holder PID 31163 sole owner, X55 ONLINE, crash_count 0.
+- Host probe aborted on a PowerShell `$Pid`/`$PID` collision before contended per_mgr start. Source is fixed but was not rerun.
+- Fail-safe final state: per_mgr running PID 31818, owner NONE, X55 OFFLINE, crash_count 0, holder absent, qcrild2 unchanged PID 13706.
+- qcrild2 restart/re-vote was NOT RUN. Result is `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`; phone writes 5.
+- Raw logcat remains outside Git. Sanitized report and selected logs are under `experiments/x55_native_handoff/`.
+
+NEXT_ACTION: no automatic recovery or experiment. Preserve the current scene and wait for a new explicit user decision.

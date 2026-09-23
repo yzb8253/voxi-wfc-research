@@ -1,0 +1,377 @@
+09-23 15:56:59.574 13706 13884 E RILQ    : =RILM= qcril_uim_process_modem_restart_start
+09-23 15:56:59.577  1926  2081 E RILQ    : =RILM= qcril_uim_process_modem_restart_start
+09-23 15:56:59.583  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] qcril_data_qmi_wds_release_qmi_client: qcril_data_qmi_wds_release_qmi_client(): failed to release clnt_hndl=0x6c rc=-18!
+09-23 15:56:59.593 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] qcril_data_qmi_wds_release_qmi_client: qcril_data_qmi_wds_release_qmi_client(): failed to release clnt_hndl=0x23 rc=-18!
+09-23 15:56:59.593  3495  3788 D RILJ    :  [0][UNSL]< UNSOL_MODEM_RESTART Modem Restart [SUB0]
+09-23 15:56:59.594  3495  3788 D ModemRestartStats: Modem restart (carrier=28): Modem Restart
+09-23 15:56:59.595  3495  3495 D QtiGsmCdmaPhone: Event EVENT_MODEM_RESET Received
+09-23 15:56:59.595  3495  3495 D GsmCdmaPhone: [0] Event EVENT_MODEM_RESET Received isInEcm = false
+09-23 15:56:59.595  3495  3495 D MiuiNetworkControllerImpl[0]: Modem reset handle: restart event
+09-23 15:56:59.595  3495  3495 D DRM-0   : Remove all retry and throttling entries, reason=MODEM_RESTART
+09-23 15:56:59.595  3495  3495 D DefaultSimManager: Event EVENT_MODEM_RESET Received
+09-23 15:56:59.598  3495  3788 D RILJ    :  [1][UNSL]< UNSOL_MODEM_RESTART Modem Restart [SUB1]
+09-23 15:56:59.599  3495  3495 D QtiGsmCdmaPhone: Event EVENT_MODEM_RESET Received
+09-23 15:56:59.599  3495  3495 D GsmCdmaPhone: [1] Event EVENT_MODEM_RESET Received isInEcm = false
+09-23 15:56:59.599  3495  3495 D MiuiNetworkControllerImpl[1]: Modem reset handle: restart event
+09-23 15:56:59.599  3495  3495 D DRM-1   : Remove all retry and throttling entries, reason=MODEM_RESTART
+09-23 15:56:59.685  3495  3495 D SST     : [1] pollState: modemTriggered=true, radioState=2
+09-23 15:56:59.703  3495  3495 D SST     : [1] pollState: modemTriggered=true, radioState=2
+09-23 15:56:59.743  3495  3495 D SST     : [0] pollState: modemTriggered=true, radioState=2
+09-23 15:56:59.744  3495  3788 D RilRequest: [8707]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h20m4s940ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:56:59.760  3495  3495 D SST     : [0] pollState: modemTriggered=true, radioState=2
+09-23 15:56:59.765  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:56:59.794  3495  3788 D RilRequest: [8710]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h20m4s990ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:56:59.796  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:56:59.938  3495  3788 D RILJ    :  [1]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=1, status=1, rcRil.raf=1130824 [SUB1]
+09-23 15:56:59.938  3495  3788 D RILJ    :  [1][8712]< GET_RADIO_CAPABILITY {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1} [SUB1]
+09-23 15:56:59.945  3495  3788 D RilRequest: [8713]< SET_SIGNAL_STRENGTH_REPORTING_CRITERIA error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 15:56:59.953  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=2
+09-23 15:56:59.981  3495  3788 D RILJ    :  [0]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=0, status=1, rcRil.raf=1130824 [SUB0]
+09-23 15:56:59.981  3495  3788 D RILJ    :  [0][8715]< GET_RADIO_CAPABILITY {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1} [SUB0]
+09-23 15:56:59.988  3495  3788 D RilRequest: [8716]< SET_SIGNAL_STRENGTH_REPORTING_CRITERIA error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 15:56:59.996  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=2
+09-23 15:57:00.009  3495  3495 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:57:00.010  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1}
+09-23 15:57:00.010  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=2
+09-23 15:57:00.027  3495  3495 D DPM-1   : updateDataProfilesAtModem: set 2 data profiles.
+09-23 15:57:00.028  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1}
+09-23 15:57:00.028  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=2
+09-23 15:57:00.030  3495  3495 D DPM-0   : updateDataProfilesAtModem: set 2 data profiles.
+09-23 15:57:00.587  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1232] xiaomi_qcril_start_oem_thread: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1213] xiaomi_qcril_init_xiaomi_qmi: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1219] xiaomi_qcril_init_xiaomi_qmi: xiaomi_qmi will be only inited in primary rild
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1227] xiaomi_qcril_init_xiaomi_qmi: function exit <-------------
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1056] xiaomi_qcril_start_cmn_thread: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1071] xiaomi_qcril_start_cmn_thread: oem_thread will be only done by primary rild
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1097] xiaomi_qcril_start_cmn_thread: function exit <-------------
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4655] xiaomi_qcril_start_mbn_thread: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4670] xiaomi_qcril_start_mbn_thread: oem_thread will be only done by primary rild
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_mbn.cc:4695] xiaomi_qcril_start_mbn_thread: function exit <-------------
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1167] xiaomi_qcril_start_offline_log_auto_start_thread: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1182] xiaomi_qcril_start_offline_log_auto_start_thread: oem_thread will be only done by primary rild
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1208] xiaomi_qcril_start_offline_log_auto_start_thread: function exit <-------------
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:981] xiaomi_qcril_start_stats_thread: function entry ------------->
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:996] xiaomi_qcril_start_stats_thread: oem_thread will be only done by primary rild
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_stats.cc:1022] xiaomi_qcril_start_stats_thread: function exit <-------------
+09-23 15:57:05.338 13706 13822 W XIAOMI_QCRIL: RIL[1][xiaomi_qcril_cmn.cc:1242] xiaomi_qcril_start_oem_thread: function exit <-------------
+09-23 15:57:05.486  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1232] xiaomi_qcril_start_oem_thread: function entry ------------->
+09-23 15:57:05.486  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1213] xiaomi_qcril_init_xiaomi_qmi: function entry ------------->
+09-23 15:57:05.488  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1227] xiaomi_qcril_init_xiaomi_qmi: function exit <-------------
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1056] xiaomi_qcril_start_cmn_thread: function entry ------------->
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.cmn_init_num_max: -1
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1077] xiaomi_qcril_start_cmn_thread: g_cmn_init_num = 3, init_max_num = -1
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1085] xiaomi_qcril_start_cmn_thread: cmn oem_thread will be created
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1093] xiaomi_qcril_start_cmn_thread: cmn oem_thread is created, res = 0
+09-23 15:57:05.489  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1097] xiaomi_qcril_start_cmn_thread: function exit <-------------
+09-23 15:57:05.489  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1015] xiaomi_qcril_oem_thread_proc: function entry ------------->
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4655] xiaomi_qcril_start_mbn_thread: function entry ------------->
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.qril_wait_s: 0
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4675] xiaomi_qcril_start_mbn_thread: g_mbn_init_num = 3
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.mbn_init_num_max: 2
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:2438] xiaomi_qcril_mbn_thread_init_num_max: The oem_thread init max value: 2
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4678] xiaomi_qcril_start_mbn_thread: oem_thread init num reach the max num, will do nothing
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:519] xiaomi_qcril_wait_s: qcril wait_s_in = -1, wait_s = 0
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_mbn.cc:4695] xiaomi_qcril_start_mbn_thread: function exit <-------------
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:529] xiaomi_qcril_wait_s: xiaomi qcril will not wait
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1167] xiaomi_qcril_start_offline_log_auto_start_thread: function entry ------------->
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_ind.cc:364] xiaomi_qcril_ind_init: function entry ------------->
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_ind.cc:371] xiaomi_qcril_ind_init: function exit <-------------
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:519] xiaomi_qcril_wait_s: qcril wait_s_in = 3, wait_s = 3
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.diag_init_num_max: 1
+09-23 15:57:05.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:523] xiaomi_qcril_wait_s: xiaomi qcril start to wait 3s to init
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1188] xiaomi_qcril_start_offline_log_auto_start_thread: g_offline_log_auto_start_init_num = 3, init_max_num = 1
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1191] xiaomi_qcril_start_offline_log_auto_start_thread: offline_log_auto_start oem_thread init num reach the max num, will do nothing
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1208] xiaomi_qcril_start_offline_log_auto_start_thread: function exit <-------------
+09-23 15:57:05.490  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:981] xiaomi_qcril_start_stats_thread: function entry ------------->
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: ro.product.vendor.device: cas
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.radio.stats_init_num_max: -1
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1002] xiaomi_qcril_start_stats_thread: g_stats_init_num = 3, init_max_num = -1
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1010] xiaomi_qcril_start_stats_thread: stats oem_thread will be created
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1018] xiaomi_qcril_start_stats_thread: stats_thread is created, res = 0
+09-23 15:57:05.491  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:1022] xiaomi_qcril_start_stats_thread: function exit <-------------
+09-23 15:57:05.491  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:936] xiaomi_qcril_stats_thread_proc: function entry ------------->
+09-23 15:57:05.491  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.vendor.radio.print_stats: 2
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:950] xiaomi_qcril_stats_thread_proc: stats print is stoped
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:231] xiaomi_qcril_get_property_value: persist.vendor.radio.stats_wait_s: 0
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:918] xiaomi_qcril_stats_wait_s: stats wait_s = 0
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:928] xiaomi_qcril_stats_wait_s: xiaomi qcril stats will not wait
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:871] xiaomi_qcril_stats_init: function entry ------------->
+09-23 15:57:05.492  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:873] xiaomi_qcril_stats_init: old g_hydra_qmi_client_id = 0
+09-23 15:57:05.492  1926  2043 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1242] xiaomi_qcril_start_oem_thread: function exit <-------------
+09-23 15:57:05.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:885] xiaomi_qcril_stats_init: new g_hydra_qmi_client_id = 0
+09-23 15:57:05.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:887] xiaomi_qcril_stats_init: function exit <-------------
+09-23 15:57:05.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:918] xiaomi_qcril_stats_wait_s: stats wait_s = 3
+09-23 15:57:05.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:922] xiaomi_qcril_stats_wait_s: xiaomi qcril stats start to wait 3s to init
+09-23 15:57:05.572 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:05.595  3495  3495 D MiuiNetworkControllerImpl[0]: EVENT_MODEM_RESET_DONE
+09-23 15:57:05.599  3495  3495 D MiuiNetworkControllerImpl[1]: EVENT_MODEM_RESET_DONE
+09-23 15:57:05.601 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:05.716  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=0
+09-23 15:57:05.746  3495  3495 D RILJ    :  [1][8737]> GET_MODEM_STATUS [SUB1]
+09-23 15:57:05.756 13706 13822 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 15:57:05.775  3495  3788 D RILJ    :  [1]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=1, status=1, rcRil.raf=1130824 [SUB1]
+09-23 15:57:05.775  3495  3788 D RILJ    :  [1][8724]< GET_RADIO_CAPABILITY {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1} [SUB1]
+09-23 15:57:05.780  3495  3495 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:57:05.781  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1}
+09-23 15:57:05.823  3495  3788 D RILJ    :  [1][8737]< GET_MODEM_STATUS true [SUB1]
+09-23 15:57:05.862  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] get_ecc_property_name: ecc list name : ril.ecclist.
+09-23 15:57:05.869 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:05.880  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] get_ecc_property_name: ecc list name : ril.ecclist.
+09-23 15:57:06.002  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=0
+09-23 15:57:06.038  3495  3495 D RILJ    :  [0][8758]> GET_MODEM_STATUS [SUB0]
+09-23 15:57:06.060 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:06.062  3495  3495 D SST     : [1] pollState: modemTriggered=true, radioState=0
+09-23 15:57:06.072  3495  3495 D SST     : [0] pollState: modemTriggered=true, radioState=0
+09-23 15:57:06.077  1926  2043 E Diag_Lib: xiaomi_qcril_j11_global: 0
+09-23 15:57:06.107  3495  3788 D RILJ    :  [0]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=0, status=1, rcRil.raf=1130824 [SUB0]
+09-23 15:57:06.108  3495  3788 D RILJ    :  [0][8745]< GET_RADIO_CAPABILITY {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1} [SUB0]
+09-23 15:57:06.138  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1}
+09-23 15:57:06.153  3495  3788 D RILJ    :  [0][8758]< GET_MODEM_STATUS false [SUB0]
+09-23 15:57:06.154  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] get_ecc_property_name: ecc list name : ril.ecclist.
+09-23 15:57:06.697 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:06.697  1926  2081 E RILQ    : =RILM= card[0] state:card_state:2 upin_state:0 card_error:3 upin_num_retries:0 upuk_num_retries:0 num_app:0
+09-23 15:57:06.733 13706 13884 E RILQ    : =RILM= card[1] state:card_state:1 upin_state:0 card_error:0 upin_num_retries:0 upuk_num_retries:0 num_app:3
+09-23 15:57:06.733 13706 13884 E RILQ    : =RILM= card[1].application[0]:app_type:2 app_state:7 perso_state:2 perso_feature:11 pin1_state:3 pin2_state:1
+09-23 15:57:06.733 13706 13884 E RILQ    : =RILM= card[1].application[1]:app_type:5 app_state:1 perso_state:0 perso_feature:11 pin1_state:3 pin2_state:0
+09-23 15:57:06.733 13706 13884 E RILQ    : =RILM= card[1].application[2]:app_type:0 app_state:1 perso_state:0 perso_feature:11 pin1_state:0 pin2_state:0
+09-23 15:57:06.737  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] get_ecc_property_name: ecc list name : ril.ecclist.
+09-23 15:57:06.742  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] get_ecc_property_name: ecc list name : ril.ecclist.
+09-23 15:57:06.748  1926  2081 E RILQ    : =RILM= card[0] state:card_state:2 upin_state:0 card_error:3 upin_num_retries:0 upuk_num_retries:0 num_app:0
+09-23 15:57:06.776 13706 13884 E RILQ    : =RILM= card[1] state:card_state:1 upin_state:0 card_error:0 upin_num_retries:0 upuk_num_retries:0 num_app:3
+09-23 15:57:06.776 13706 13884 E RILQ    : =RILM= card[1].application[0]:app_type:2 app_state:7 perso_state:2 perso_feature:11 pin1_state:3 pin2_state:1
+09-23 15:57:06.776 13706 13884 E RILQ    : =RILM= card[1].application[1]:app_type:5 app_state:1 perso_state:0 perso_feature:11 pin1_state:3 pin2_state:1
+09-23 15:57:06.776 13706 13884 E RILQ    : =RILM= card[1].application[2]:app_type:0 app_state:1 perso_state:0 perso_feature:11 pin1_state:0 pin2_state:0
+09-23 15:57:06.812  3495  3788 D RILJ    :  [0]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=0, status=1, rcRil.raf=1130824 [SUB0]
+09-23 15:57:06.812  3495  3788 D RILJ    :  [0][8777]< GET_RADIO_CAPABILITY {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1} [SUB0]
+09-23 15:57:06.837 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:06.844 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] get_ecc_property_name: ecc list name : ril.ecclist1.
+09-23 15:57:06.848  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=0
+09-23 15:57:06.849  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1}
+09-23 15:57:06.868  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=0
+09-23 15:57:06.872  3495  3495 D DPM-0   : updateDataProfilesAtModem: set 2 data profiles.
+09-23 15:57:07.038  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=0
+09-23 15:57:07.271  3495  3495 D DPM-1   : updateDataProfilesAtModem: set 3 data profiles.
+09-23 15:57:08.490  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:525] xiaomi_qcril_wait_s: xiaomi qcril end to wait 3s to init
+09-23 15:57:08.491  1926 31325 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_cmn.cc:1042] xiaomi_qcril_oem_thread_proc: function exit <-------------
+09-23 15:57:08.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:924] xiaomi_qcril_stats_wait_s: xiaomi qcril stats end to wait 3s to init
+09-23 15:57:08.510  1926 31326 W XIAOMI_QCRIL: RIL[0][xiaomi_qcril_stats.cc:967] xiaomi_qcril_stats_thread_proc: function exit <-------------
+09-23 15:57:08.534  3495  3495 I NetworkModeManager: isGoogleEsimEnableNoActive=false
+09-23 15:57:08.543  3495  3495 I NetworkModeManager: updateNetworkTypeIfNeeded defaultSlotId=1 isUpdate=false (old=1) virtualSimIccId= (old=) slot=0 dbMode=20 newDbMode=20 supportModes=[20, 18, 1] slot=1 dbMode=32 newDbMode=32 supportModes=[32, 20, 18, 1]
+09-23 15:57:08.543  3495  3495 I NetworkModeManager: setAllowedNetworkTypes SettingArgs: currentSlot=1 mode=32 dataSlot=1 index=1 times=0
+09-23 15:57:08.547  3495  3495 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:57:08.550  3495  3495 I NetworkModeManager: setAllowedNetworkTypes SettingArgs: currentSlot=0 mode=20 dataSlot=1 index=2 times=0
+09-23 15:57:09.908  3495  4600 D DPM-1   : updateDataProfilesAtModem: set 3 data profiles.
+09-23 15:57:10.040 13706 13822 I RILQ    : (1/13706):RIL[1][(13706,13822)] qcril_qmi_imss_set_ims_service_enable_config_resp_hdlr: ril_err: 0, qmi res: 0
+09-23 15:57:10.041 13706 13822 I RILQ    : (1/13706):RIL[1][(13706,13822)] qcril_qmi_imss_set_ims_service_enable_config_resp_ims_reg_change_hdlr: ril_err: 0, qmi res: 0
+09-23 15:57:10.065  3495  3788 D RILJ    :  [1]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=1, status=1, rcRil.raf=1130824 [SUB1]
+09-23 15:57:10.065  3495  3788 D RILJ    :  [1][8899]< GET_RADIO_CAPABILITY {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1} [SUB1]
+09-23 15:57:10.076  3495  4074 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:57:10.085  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=0
+09-23 15:57:10.127  3495  3495 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:57:10.128  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1}
+09-23 15:57:10.134  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=0
+09-23 15:57:10.166  3495  3495 D DPM-1   : updateDataProfilesAtModem: set 3 data profiles.
+09-23 15:57:10.551  3495  3495 I NetworkModeManager: handleSetNetworkTypeRetry SettingArgs: currentSlot=0 mode=20 dataSlot=1 index=2 times=0
+09-23 15:57:12.553  3495  3495 I NetworkModeManager: handleSetNetworkTypeRetry SettingArgs: currentSlot=0 mode=20 dataSlot=1 index=2 times=1
+09-23 15:57:14.556  3495  3495 I NetworkModeManager: handleSetNetworkTypeRetry SettingArgs: currentSlot=0 mode=20 dataSlot=1 index=2 times=2
+09-23 15:57:16.559  3495  3495 I NetworkModeManager: handleSetNetworkTypeRetry SettingArgs: currentSlot=0 mode=20 dataSlot=1 index=2 times=3
+09-23 15:57:24.534  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 15:57:27.165  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.266  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.266 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.367 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.368  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.468  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.469 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.570 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.570  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.670  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.671 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.771 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.772  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.873  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.873 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.974 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:27.974  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.075  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.075 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.177 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.177  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.279  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.280 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.380  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.381 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.484 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.484  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.587  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.587 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.689 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.689  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.790  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.790 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.892 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.893  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.995 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:28.996  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.099  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.099 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.202 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.202  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.305  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.306 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.407 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.408  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.510  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.511 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.612 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.612  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.713  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.713 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.814 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.814  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.915 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:29.915  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:30.016  1926  2329 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:30.016 13706 13842 I ServiceManager: Waiting for service 'vendor.qcom.PeripheralManager' on '/dev/vndbinder'...
+09-23 15:57:30.117 13706 13842 W ServiceManager: Service vendor.qcom.PeripheralManager didn't start. Returning NULL
+09-23 15:57:30.117 13706 13842 E PerMgrLib: SDX55M get service fail
+09-23 15:57:30.117  1926  2329 W ServiceManager: Service vendor.qcom.PeripheralManager didn't start. Returning NULL
+09-23 15:57:30.117  1926  2329 E PerMgrLib: SDX55M get service fail
+09-23 15:57:33.356  3474  5477 E XiaomiModemDump: x55dump_daemon enter
+09-23 15:57:38.104  1988  1988 I QTI_SDM_INFO: [qti_rmnet_modem.c:1220] qti_rmnet_modem_recv_msg():Read 12 data from modem device file
+09-23 15:57:38.104  1988  1988 I QTI_SDM_INFO: [qti_rmnet_qmi.c:652] qti_rmnet_process_qmi_rx_from_modem():Received QMI message of service type 0
+09-23 15:58:00.588  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 15:58:04.204  1988  1988 I QTI_SDM_INFO: [qti_rmnet_modem.c:1220] qti_rmnet_modem_recv_msg():Read -1 data from modem device file
+09-23 15:58:04.204  1988  1988 E QTI_SDM_INFO: [qti_rmnet_modem.c:1225] qti_rmnet_modem_recv_msg():Failed to read from the dev file. Errno 512 error msg=Unknown error 512
+09-23 15:58:04.204  1988  1988 I QTI_SDM_INFO: [qti_rmnet_modem.c:1075] qti_rmnet_modem_reset():Closing the modem fd
+09-23 15:58:04.229  1926 31329 I HYDRA   : modem_api_operational_status_cb: function entry
+09-23 15:58:04.229  1926 31329 D HYDRA   : modem_api_operational_status_cb: client type 0, client id 0, operational_status 4
+09-23 15:58:04.230  1926 31658 I HYDRA   : modem_api_operational_status_cb: function entry
+09-23 15:58:04.230  1926 31658 D HYDRA   : modem_api_operational_status_cb: client type 0, client id 0, operational_status 5
+09-23 15:58:04.239 13706 13884 E RILQ    : =RILM= qcril_uim_process_modem_restart_start
+09-23 15:58:04.241  1926  2081 E RILQ    : =RILM= qcril_uim_process_modem_restart_start
+09-23 15:58:04.247  1988  4124 E QTI_SDM_INFO: [qti_rmnet_dpm.c:592] dpm_service_available_cb():DPM_MODEM_NOT_IN_SERVICE
+09-23 15:58:04.247  1988  4124 I QTI_SDM_INFO: [qti_rmnet_dpm.c:538] qti_rmnet_dpm_process_msg():Sending QTI_RMNET_DPM_MODEM_NOT_IN_SERVICE_EVENT event to main context
+09-23 15:58:04.247  1988  1988 I QTI_SDM_INFO: [qti_rmnet_modem.c:267] qti_rmnet_fusion_modem_handle():Received QMUXD cb event id 0
+09-23 15:58:04.247  1988  1988 I QTI_SDM_INFO: [qti_rmnet_peripheral.c:1246] qti_rmnet_ph_set_modem_state():Received set modem state to 0
+09-23 15:58:04.247  1988  1988 E QTI_SDM_INFO: [qti_rmnet_peripheral.c:1258] qti_rmnet_ph_set_modem_state():Couldn't set ph_iface_fd
+09-23 15:58:04.247  1988  1988 E QTI_SDM_INFO: [qti_rmnet_modem.c:283] qti_rmnet_fusion_modem_handle():Failed to set modem state on peripheral driver file
+09-23 15:58:04.247  1988  1988 E QTI_SDM_INFO: [qti_rmnet_modem.c:296] qti_rmnet_fusion_modem_handle():No peripheral is enabled
+09-23 15:58:04.304  1926  2043 E RILQ    : (0/1926): RIL[0][(1926,2043)] qcril_data_qmi_wds_release_qmi_client: qcril_data_qmi_wds_release_qmi_client(): failed to release clnt_hndl=0xa3 rc=-18!
+09-23 15:58:04.304  3495  3788 D RILJ    :  [0][UNSL]< UNSOL_MODEM_RESTART Modem Restart [SUB0]
+09-23 15:58:04.305  3495  3788 D ModemRestartStats: Modem restart (carrier=28): Modem Restart
+09-23 15:58:04.305 13706 13822 E RILQ    : (1/13706): RIL[1][(13706,13822)] qcril_data_qmi_wds_release_qmi_client: qcril_data_qmi_wds_release_qmi_client(): failed to release clnt_hndl=0x3e rc=-18!
+09-23 15:58:04.305  3495  3495 D QtiGsmCdmaPhone: Event EVENT_MODEM_RESET Received
+09-23 15:58:04.305  3495  3495 D GsmCdmaPhone: [0] Event EVENT_MODEM_RESET Received isInEcm = false
+09-23 15:58:04.306  3495  3495 D MiuiNetworkControllerImpl[0]: Modem reset handle: restart event
+09-23 15:58:04.306  3495  4076 D FiveGPowerController: Modem ssr, 5G switch status is: true, ssr endc disabled: false
+09-23 15:58:04.306  3495  4076 D FiveGPowerController: Modem ssr, ssr count: 3
+09-23 15:58:04.306  3495  4076 D FiveGPowerController: Modem ssr, cannot disableEndc, mSsrTimeList : [[REDACTED], [REDACTED], [REDACTED]], toBeRemovedElements : [0]
+09-23 15:58:04.306  3495  3495 D DRM-0   : Remove all retry and throttling entries, reason=MODEM_RESTART
+09-23 15:58:04.306  3495  3495 D DefaultSimManager: Event EVENT_MODEM_RESET Received
+09-23 15:58:04.308  3495  3788 D RILJ    :  [1][UNSL]< UNSOL_MODEM_RESTART Modem Restart [SUB1]
+09-23 15:58:04.308  3495  3495 D QtiGsmCdmaPhone: Event EVENT_MODEM_RESET Received
+09-23 15:58:04.308  3495  3495 D GsmCdmaPhone: [1] Event EVENT_MODEM_RESET Received isInEcm = false
+09-23 15:58:04.308  3495  3495 D MiuiNetworkControllerImpl[1]: Modem reset handle: restart event
+09-23 15:58:04.308  3495  3495 D DRM-1   : Remove all retry and throttling entries, reason=MODEM_RESTART
+09-23 15:58:04.335  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=47
+09-23 15:58:04.340  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=47
+09-23 15:58:04.342  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=47
+09-23 15:58:04.345  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=47
+09-23 15:58:04.351  3412  3412 I QImsService: ImsSubControllerHandler : Received EVENT_RADIO_NOT_AVAILABLE phoneId = 0
+09-23 15:58:04.352  3398  3706 I QcrilOemhookMsgTunnel: [0]processOemHookIndication length=47
+09-23 15:58:04.352  3495  3495 D SST     : [0] pollState: modemTriggered=true, radioState=2
+09-23 15:58:04.356  3398  3706 I QcrilOemhookMsgTunnel: [1]processOemHookIndication length=47
+09-23 15:58:04.358  3412  3412 I QImsService: ImsSubControllerHandler : Received EVENT_RADIO_NOT_AVAILABLE phoneId = 1
+09-23 15:58:04.372  3495  3495 D SST     : [0] pollState: modemTriggered=true, radioState=2
+09-23 15:58:04.379  3495  3495 D SST     : [1] pollState: modemTriggered=true, radioState=2
+09-23 15:58:04.402  3495  3495 D SST     : [1] pollState: modemTriggered=true, radioState=2
+09-23 15:58:04.458  3495  3788 D RilRequest: [8928]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m9s654ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:04.462  3495  3788 D RilRequest: [8929]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m9s658ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:04.466  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:58:04.479  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:58:04.559  3495  3788 D RILJ    :  [0]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=0, status=1, rcRil.raf=1130824 [SUB0]
+09-23 15:58:04.559  3495  3788 D RILJ    :  [0][8931]< GET_RADIO_CAPABILITY {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1} [SUB0]
+09-23 15:58:04.578  3495  3788 D RilRequest: [8932]< SET_SIGNAL_STRENGTH_REPORTING_CRITERIA error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 15:58:04.583  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=2
+09-23 15:58:04.594  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 0 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=0 mStatus=1}
+09-23 15:58:04.609  3495  3788 D RILJ    :  [1]convertHalRadioCapability: session=0, phase=0, rat=561252, logicModemUuid=1, status=1, rcRil.raf=1130824 [SUB1]
+09-23 15:58:04.609  3495  3788 D RILJ    :  [1][8934]< GET_RADIO_CAPABILITY {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1} [SUB1]
+09-23 15:58:04.614  3495  3788 D RilRequest: [8935]< SET_SIGNAL_STRENGTH_REPORTING_CRITERIA error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret= result=null
+09-23 15:58:04.625  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=2
+09-23 15:58:04.634  3495  3495 D SST     : [0] pollState: modemTriggered=false, radioState=2
+09-23 15:58:04.643  3495  3495 D DPM-0   : updateDataProfilesAtModem: set 2 data profiles.
+09-23 15:58:04.653  3495  3495 D Phone[0][1][2147483647][2147483647]: [1] setAllowedNetworkTypes: modemRafBitMask = 561252 ,modemRaf = UMTS|CDMA - EvDo rev. A|CDMA - 1xRTT|LTE|GSM|NR ,filteredRafBitMask = 561156 ,filteredRaf = UMTS|LTE|GSM|NR
+09-23 15:58:04.654  3495  3495 D GsmCdmaPhone: EVENT_GET_RADIO_CAPABILITY: phone rc: {mPhoneId = 1 mVersion=1 mSession=0 mPhase=0 mRadioAccessFamily=561252 mLogicModemId=1 mStatus=1}
+09-23 15:58:04.654  3495  3495 D SST     : [1] pollState: modemTriggered=false, radioState=2
+09-23 15:58:04.665  3495  3495 D DPM-1   : updateDataProfilesAtModem: set 2 data profiles.
+09-23 15:58:10.307  3495  3495 D MiuiNetworkControllerImpl[0]: EVENT_MODEM_RESET_DONE
+09-23 15:58:10.308  3495  3495 D MiuiNetworkControllerImpl[1]: EVENT_MODEM_RESET_DONE
+09-23 15:58:18.501  3495  3788 D RilRequest: [8939]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m23s698ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:18.503  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:58:18.504  3495  3788 D RilRequest: [8940]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m23s700ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:18.504  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:58:30.771 31818 31818 I PerMgrSrv: Adding entry for SDX55M : offTimeout : 500 ackTimeout : 200
+09-23 15:58:30.773 31818 31818 I PerMgrSrv: Adding entry for slpi : offTimeout : 5000 ackTimeout : 200
+09-23 15:58:30.774 31818 31818 I PerMgrSrv: Adding entry for spss : offTimeout : 5000 ackTimeout : 200
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: Peripheral Mananager service start
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: power-off timeout 500,ms; event-ack timeout 200,ms; debug-mode false
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: Statistics for : SDX55M
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: SDX55M: Current State : is off-line
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: SDX55M: Voter/Listener count : 0/0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: SDX55M: Power on count : 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: SDX55M: Power off count: 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: SDX55M: Client list:
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: Statistics for : slpi
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: slpi: Current State : is off-line
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: slpi: Voter/Listener count : 0/0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: slpi: Power on count : 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: slpi: Power off count: 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: slpi: Client list:
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: Statistics for : spss
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: spss: Current State : is off-line
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: spss: Voter/Listener count : 0/0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: spss: Power on count : 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: spss: Power off count: 0
+09-23 15:58:30.776 31818 31818 I PerMgrSrv: spss: Client list:
+09-23 15:58:30.777 31818 31822 I PerMgrSrv: QMI service start
+09-23 15:58:34.518  3495  3788 D RilRequest: [8941]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m39s714ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:34.520  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:58:34.520  3495  3788 D RilRequest: [8942]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h21m39s716ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:58:34.520  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:59:00.591  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 15:59:06.528  3495  3788 D RilRequest: [8943]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h22m11s724ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:59:06.530  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:59:06.530  3495  3788 D RilRequest: [8944]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h22m11s727ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:59:06.531  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:59:59.869  3495  3788 D RilRequest: [8945]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h23m5s65ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 15:59:59.869  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:59:59.869  3495  3495 E PhoneInterfaceManager: Exception retrieving CellInfo=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 15:59:59.872 13117 13117 W System.err: java.lang.RuntimeException: com.android.internal.telephony.CommandException: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:00.593  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:03.244  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:10.539  3495  3788 D RilRequest: [8946]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h23m15s735ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 16:00:10.540  3495  3495 D SST     : [0] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:10.541  3495  3788 D RilRequest: [8947]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h23m15s737ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 16:00:10.541  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:13.486  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:15.945  3495  3788 D RILJ    :  [1][8948]< GET_ACTIVITY_INFO ModemActivityInfo{ mTimestamp=0 mSleepTimeMs=0 mIdleTimeMs=0 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[0, 0, 0, 0, 0],mRxTimeMs=0}]} [SUB1]
+09-23 16:00:15.945  1629  1834 D TelephonyManager: requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=4193331 mSleepTimeMs=3996470 mIdleTimeMs=15946 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[659, 461, 1387, 79, 32],mRxTimeMs=16305}]}
+09-23 16:00:18.608  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:23.723  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:28.851  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:44.212  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:00:46.797  3495  3788 D RilRequest: [8949]< GET_CELL_INFO_LIST error: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE ret=[] result={ when=-1h23m51s993ms what=43 target=com.qualcomm.qti.internal.telephony.QtiServiceStateTracker }
+09-23 16:00:46.797  3495  3495 D SST     : [1] EVENT_GET_CELL_INFO_LIST: error ret null, e=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:46.797  3495  3495 E PhoneInterfaceManager: Exception retrieving CellInfo=com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:46.798 13117 13117 W System.err: java.lang.RuntimeException: com.android.internal.telephony.CommandException: com.android.internal.telephony.CommandException: RADIO_NOT_AVAILABLE
+09-23 16:00:49.321  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17
+09-23 16:01:00.593  1629  1629 D UiModeManager: updateConfigurationLocked: mDockState=0; mCarMode=false; mCar=false; mPowerSave=false; mComputedNightMode=false; mNightMode=1; uiMode=17

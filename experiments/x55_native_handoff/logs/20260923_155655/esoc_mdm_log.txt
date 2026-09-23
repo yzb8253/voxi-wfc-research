@@ -1,0 +1,102 @@
+[    11.149531335/        0x116a3852] [mdm_notify]: Notification: 2
+[    11.149532377/        0x116a3866] [mdm_notify]: ESOC_BOOT_DONE: Sending the notification: ESOC_RUN_STATE
+[    11.149535085/        0x116a389a] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[    11.149662221/        0x116a4223] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  1070.088140921/       0x4cd4623cd] [mdm_subsys_shutdown]: Shutdown request from SSR
+[  1070.088143108/       0x4cd4623f6] [mdm_subsys_shutdown]: Graceful shutdown mode
+[  1070.088143942/       0x4cd462406] [mdm_subsys_shutdown]: Executing the ESOC_PWR_OFF command
+[  1070.088145296/       0x4cd462420] [mdm_disable_irqs]: Disabling the interrupts
+[  1070.088156129/       0x4cd4624f0] [mdm_cmd_exe]: ESOC_PWR_OFF: sending sysmon-shutdown to modem
+[  1070.455109568/       0x4cdb1a676] [esoc_client_link_power_off]: Calling power_off hooks with flags: 0x2
+[  1070.640549516/       0x4cde7fa72] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: setting AP2MDM_STATUS = 0
+[  1070.640554152/       0x4cde7faca] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: Queueing request: ESOC_REQ_SHUTDOWN
+[  1070.640576912/       0x4cde7fc7f] [sdx55m_power_down]: Performing warm reset as cold reset is not supported
+[  1070.640578006/       0x4cde7fc94] [sdx55m_toggle_soft_reset]: Doing a Warm reset using SPMI
+[  1070.640598370/       0x4cde7fe1e] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Event arrived: 3
+[  1070.641693631/       0x4cde85040] [sdx55m_toggle_soft_reset]: Warm reset done using SPMI
+[  1070.641694308/       0x4cde8504d] [mdm_subsys_shutdown]: Shutdown completed
+[  1070.642967902/       0x4cde8afd3] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  1073.378570827/       0x4d10a2210] [mdm_subsys_powerup]: Powerup request from SSR
+[  1073.378576608/       0x4d10a227d] [mdm_subsys_powerup]: Boot trial: 0
+[  1073.378580150/       0x4d10a22bf] [mdm_subsys_powerup]: Req eng available
+[  1073.378582962/       0x4d10a22f5] [mdm_subsys_powerup]: In normal power-on mode
+[  1073.378585931/       0x4d10a232f] [mdm_subsys_powerup]: Executing the ESOC_PWR_ON command
+[  1073.378589785/       0x4d10a2378] [mdm_cmd_exe]: ESOC_PWR_ON: Setting AP2MDM_ERRFATAL = 0
+[  1073.378605150/       0x4d10a24a0] [mdm4x_do_first_power_on]: Powering on modem for the first time
+[  1073.378608900/       0x4d10a24e8] [sdx55m_toggle_soft_reset]: Doing a Warm reset using SPMI
+[  1073.379731035/       0x4d10a7911] [sdx55m_toggle_soft_reset]: Warm reset done using SPMI
+[  1073.532132233/       0x4d1371f27] [mdm4x_do_first_power_on]: Setting AP2MDM_STATUS = 1
+[  1073.532147963/       0x4d1372055] [mdm4x_do_first_power_on]: Queueing the request: ESOC_REQ_IMG
+[  1073.532189786/       0x4d1372378] [mdm_enable_irqs]: Enabling the interrupts
+[  1073.532213483/       0x4d137253e] [esoc_client_link_power_on]: Calling power_on hooks with flags: 0x0
+[  1073.532271713/       0x4d137299e] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Event arrived: 1
+[  1073.571166400/       0x4d1428eb6] [mdm_subsys_powerup]: Modem turned-on. Waiting for pon_done notification..
+[  1075.262729426/       0x4d33221f2] [mdm_status_change]: MDM2AP_STATUS IRQ received!
+[  1075.262749062/       0x4d332236c] [mdm_status_change]: Modem ready. Cancelling the the status_check work
+[  1075.262765416/       0x4d33224a4] [mdm_handle_clink_evt]: ESOC_BOOT_STATE: Observed status high from modem.
+[  1075.588775521/       0x4d391a766] [esoc_dev_ioctl]: ESOC_NOTIFY: Notifying esoc about cmd: 1
+[  1075.588781875/       0x4d391a7de] [mdm_notify]: Notification: 1
+[  1075.588793959/       0x4d391a8c6] [esoc_dev_ioctl]: ESOC_GET_STATUS: Sending the status from esoc: 1
+[  1076.093205731/       0x4d4256fad] [esoc_dev_ioctl]: ESOC_NOTIFY: Notifying esoc about cmd: 2
+[  1076.093216668/       0x4d425707f] [mdm_notify]: Notification: 2
+[  1076.093222450/       0x4d42570ec] [mdm_notify]: ESOC_BOOT_DONE: Sending the notification: ESOC_RUN_STATE
+[  1076.093231095/       0x4d4257192] [esoc_udev_handle_clink_evt]: Unable to queue event 1; err: 0
+[  1076.093269168/       0x4d425746d] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[  1076.093791877/       0x4d4259ba2] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  4804.351836587/      0x157eccb421] [mdm_subsys_shutdown]: Shutdown request from SSR
+[  4804.351840754/      0x157eccb46f] [mdm_subsys_shutdown]: Graceful shutdown mode
+[  4804.351842733/      0x157eccb494] [mdm_subsys_shutdown]: Executing the ESOC_PWR_OFF command
+[  4804.351845546/      0x157eccb4cb] [mdm_disable_irqs]: Disabling the interrupts
+[  4804.351867577/      0x157eccb672] [mdm_cmd_exe]: ESOC_PWR_OFF: sending sysmon-shutdown to modem
+[  4804.713629609/      0x157f36b29b] [esoc_client_link_power_off]: Calling power_off hooks with flags: 0x2
+[  4804.910938881/      0x157f7080cb] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: setting AP2MDM_STATUS = 0
+[  4804.910947579/      0x157f708172] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: Queueing request: ESOC_REQ_SHUTDOWN
+[  4804.910972422/      0x157f70834e] [sdx55m_power_down]: Performing warm reset as cold reset is not supported
+[  4804.910974818/      0x157f70837c] [sdx55m_toggle_soft_reset]: Doing a Warm reset using SPMI
+[  4804.911602683/      0x157f70b295] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Event arrived: 3
+[  4804.911780704/      0x157f70bfef] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  4804.914034714/      0x157f716902] [sdx55m_toggle_soft_reset]: Warm reset done using SPMI
+[  4804.914039974/      0x157f716960] [mdm_subsys_shutdown]: Shutdown completed
+[  4806.145239041/      0x1580da1d4d] [mdm_subsys_powerup]: Powerup request from SSR
+[  4806.145240916/      0x1580da1d71] [mdm_subsys_powerup]: Boot trial: 0
+[  4806.145241905/      0x1580da1d84] [mdm_subsys_powerup]: Req eng available
+[  4806.145242582/      0x1580da1d91] [mdm_subsys_powerup]: In normal power-on mode
+[  4806.145243103/      0x1580da1d9b] [mdm_subsys_powerup]: Executing the ESOC_PWR_ON command
+[  4806.145244405/      0x1580da1db4] [mdm_cmd_exe]: ESOC_PWR_ON: Setting AP2MDM_ERRFATAL = 0
+[  4806.145250239/      0x1580da1e24] [mdm4x_do_first_power_on]: Powering on modem for the first time
+[  4806.145251541/      0x1580da1e3d] [sdx55m_toggle_soft_reset]: Doing a Warm reset using SPMI
+[  4806.146344197/      0x1580da702f] [sdx55m_toggle_soft_reset]: Warm reset done using SPMI
+[  4806.300111281/      0x1581077cc4] [mdm4x_do_first_power_on]: Setting AP2MDM_STATUS = 1
+[  4806.300128052/      0x1581077dfe] [mdm4x_do_first_power_on]: Queueing the request: ESOC_REQ_IMG
+[  4806.300168885/      0x158107810e] [mdm_enable_irqs]: Enabling the interrupts
+[  4806.300243468/      0x15810786a4] [mdm_status_change]: MDM2AP_STATUS IRQ received!
+[  4806.300265135/      0x1581078843] [esoc_client_link_power_on]: Calling power_on hooks with flags: 0x0
+[  4806.300452843/      0x1581079657] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Event arrived: 1
+[  4806.336580552/      0x1581122beb] [mdm_subsys_powerup]: Modem turned-on. Waiting for pon_done notification..
+[  4808.058741911/      0x15830ab608] [mdm_status_change]: MDM2AP_STATUS IRQ received!
+[  4808.058763526/      0x15830ab7a5] [mdm_status_change]: Modem ready. Cancelling the the status_check work
+[  4808.058775245/      0x15830ab886] [esoc_udev_handle_clink_evt]: Unable to queue event 11; err: 0
+[  4808.058817901/      0x15830abbb8] [mdm_handle_clink_evt]: ESOC_BOOT_STATE: Observed status high from modem.
+[  4808.385560141/      0x15836a7565] [esoc_dev_ioctl]: ESOC_NOTIFY: Notifying esoc about cmd: 1
+[  4808.385566183/      0x15836a75d7] [mdm_notify]: Notification: 1
+[  4808.385578839/      0x15836a76c9] [esoc_dev_ioctl]: ESOC_GET_STATUS: Sending the status from esoc: 1
+[  4808.888555716/      0x1583fdd213] [esoc_dev_ioctl]: ESOC_NOTIFY: Notifying esoc about cmd: 2
+[  4808.888568060/      0x1583fdd2ff] [mdm_notify]: Notification: 2
+[  4808.888572643/      0x1583fdd354] [mdm_notify]: ESOC_BOOT_DONE: Sending the notification: ESOC_RUN_STATE
+[  4808.888582070/      0x1583fdd40a] [esoc_udev_handle_clink_evt]: Unable to queue event 1; err: 0
+[  4808.888615924/      0x1583fdd695] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[  4808.889039414/      0x1583fdf659] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  4868.954819545/      0x15c8bb5bd7] [mdm_subsys_shutdown]: Shutdown request from SSR
+[  4868.954825639/      0x15c8bb5c4a] [mdm_subsys_shutdown]: Graceful shutdown mode
+[  4868.954829337/      0x15c8bb5c91] [mdm_subsys_shutdown]: Executing the ESOC_PWR_OFF command
+[  4868.954833868/      0x15c8bb5ce9] [mdm_disable_irqs]: Disabling the interrupts
+[  4868.954861212/      0x15c8bb5ef5] [mdm_cmd_exe]: ESOC_PWR_OFF: sending sysmon-shutdown to modem
+[  4869.361286734/      0x15c93270e2] [esoc_client_link_power_off]: Calling power_off hooks with flags: 0x2
+[  4869.563326734/      0x15c96da1de] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: setting AP2MDM_STATUS = 0
+[  4869.563336734/      0x15c96da29e] [mdm_cmd_exe]: ESOC_FORCE_PWR_OFF: Queueing request: ESOC_REQ_SHUTDOWN
+[  4869.563382255/      0x15c96da608] [sdx55m_power_down]: Performing warm reset as cold reset is not supported
+[  4869.563384859/      0x15c96da639] [sdx55m_toggle_soft_reset]: Doing a Warm reset using SPMI
+[  4869.563384651/      0x15c96da637] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Event arrived: 3
+[  4869.563547568/      0x15c96db26e] [esoc_dev_ioctl]: ESOC_WAIT_FOR_REQ: Waiting for req event to arrive.
+[  4869.564446422/      0x15c96df5d8] [sdx55m_toggle_soft_reset]: Warm reset done using SPMI
+[  4869.564448141/      0x15c96df5f8] [mdm_subsys_shutdown]: Shutdown completed
