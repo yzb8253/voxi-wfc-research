@@ -52,4 +52,8 @@ The expected PerMgrLib/PerMgrSrv register/vote strings were not captured, so the
 
 ## Current status
 
-Static development only. No v2.7-alpha phone run has occurred. A future controlled execution requires separate explicit user approval.
+The first authorized launcher invocation was classified `BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY`: Windows PowerShell 5.1 stopped on `ProcessStartInfo.ArgumentList` before the first ADB call, with phone writes 0. It is not a recovery failure because the state machine never started.
+
+The host wrapper is now Windows PowerShell 5.1 compatible. `Run-X55-WFC-v2.7-alpha-native-handoff.cmd selftest` provides a strict local-only validation path; it exits before ADB initialization and verifies the exact Windows argv quoting used for `adb shell` and the holder payload. Windows PowerShell 5.1 parser, self-test, command-wrapper, PID-variable, quoting, holder-lifecycle, fail-safe, and unchanged-state-machine audits pass.
+
+The repaired version has not been run against the phone. Do not automatically execute it; wait for explicit approval.

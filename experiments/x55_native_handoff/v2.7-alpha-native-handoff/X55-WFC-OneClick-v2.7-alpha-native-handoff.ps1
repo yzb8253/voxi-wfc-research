@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
   [switch]$Execute,
+  [switch]$StaticNoAdb,
   [ValidateSet('', 'EXECUTE-V2.7-ALPHA-NATIVE-HANDOFF')]
   [string]$Confirmation = '',
   [string]$Serial = ''
@@ -54,6 +55,54 @@ function Save-Text([string]$Name, [string]$Text) {
   [IO.File]::WriteAllText((Join-Path $RunDir $Name), $Text.TrimEnd() + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))
 }
 
+function ConvertTo-WindowsCommandLineArgument([AllowEmptyString()][string]$Value) {
+  if ($Value.Length -eq 0) { return '""' }
+  if ($Value -notmatch '[\s"]') { return $Value }
+  $builder = [Text.StringBuilder]::new()
+  [void]$builder.Append('"')
+  $backslashes = 0
+  foreach ($character in $Value.ToCharArray()) {
+    if ($character -eq '\') {
+      $backslashes++
+      continue
+    }
+    if ($character -eq '"') {
+      [void]$builder.Append(('\' * (($backslashes * 2) + 1)))
+      [void]$builder.Append('"')
+      $backslashes = 0
+      continue
+    }
+    if ($backslashes -gt 0) {
+      [void]$builder.Append(('\' * $backslashes))
+      $backslashes = 0
+    }
+    [void]$builder.Append($character)
+  }
+  if ($backslashes -gt 0) { [void]$builder.Append(('\' * ($backslashes * 2))) }
+  [void]$builder.Append('"')
+  $builder.ToString()
+}
+
+function Join-WindowsCommandLine([string[]]$Arguments) {
+  (@($Arguments | ForEach-Object { ConvertTo-WindowsCommandLineArgument $_ }) -join ' ')
+}
+
+function Stop-OwnedHostProcessTree([Diagnostics.Process]$Process) {
+  if($null -eq $Process -or $Process.HasExited) { return }
+  $taskkillInfo = [Diagnostics.ProcessStartInfo]::new()
+  $taskkillInfo.FileName = Join-Path $env:SystemRoot 'System32\taskkill.exe'
+  $taskkillInfo.UseShellExecute = $false
+  $taskkillInfo.CreateNoWindow = $true
+  $taskkillInfo.Arguments = '/PID {0} /T /F' -f $Process.Id
+  try {
+    $taskkillProcess = [Diagnostics.Process]::new()
+    $taskkillProcess.StartInfo = $taskkillInfo
+    if($taskkillProcess.Start()) { [void]$taskkillProcess.WaitForExit(5000) }
+  } catch {}
+  if(-not $Process.HasExited) { try { $Process.Kill() } catch {} }
+  try { [void]$Process.WaitForExit(5000) } catch {}
+}
+
 function Invoke-ProcessCapture {
   param([string]$FileName, [string[]]$Arguments, [int]$TimeoutMs = 30000)
   $info = [Diagnostics.ProcessStartInfo]::new()
@@ -62,14 +111,14 @@ function Invoke-ProcessCapture {
   $info.CreateNoWindow = $true
   $info.RedirectStandardOutput = $true
   $info.RedirectStandardError = $true
-  foreach ($argument in $Arguments) { [void]$info.ArgumentList.Add($argument) }
+  $info.Arguments = Join-WindowsCommandLine $Arguments
   $process = [Diagnostics.Process]::new()
   $process.StartInfo = $info
   if (-not $process.Start()) { throw "Unable to start $FileName" }
   $stdout = $process.StandardOutput.ReadToEndAsync()
   $stderr = $process.StandardError.ReadToEndAsync()
   if (-not $process.WaitForExit($TimeoutMs)) {
-    try { $process.Kill($true) } catch {}
+    Stop-OwnedHostProcessTree $process
     throw "Host command timeout: $FileName"
   }
   [pscustomobject]@{ ExitCode=$process.ExitCode; StdOut=$stdout.GetAwaiter().GetResult(); StdErr=$stderr.GetAwaiter().GetResult() }
@@ -221,7 +270,7 @@ function Start-OwnedHolder {
   $info=[Diagnostics.ProcessStartInfo]::new()
   $info.FileName=$Adb; $info.UseShellExecute=$false; $info.CreateNoWindow=$true
   $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true
-  foreach($argument in @('-s',$Serial,'shell',('su -c '+(ConvertTo-ShSingleQuoted $holderCommand)))) { [void]$info.ArgumentList.Add($argument) }
+  $info.Arguments=Join-WindowsCommandLine @('-s',$Serial,'shell',('su -c '+(ConvertTo-ShSingleQuoted $holderCommand)))
   $process=[Diagnostics.Process]::new(); $process.StartInfo=$info
   Require ($process.Start()) 'Unable to start holder ADB process'
   Write-Log "holder host process=$($process.Id)"
@@ -318,13 +367,54 @@ function Start-LogcatCapture {
 }
 function Stop-LogcatCapture {
   if($null -ne $script:LogcatProcess -and -not $script:LogcatProcess.HasExited) {
-    try { $script:LogcatProcess.Kill($true); [void]$script:LogcatProcess.WaitForExit(5000) } catch {}
+    try { Stop-OwnedHostProcessTree $script:LogcatProcess } catch {}
   }
   if(Test-Path -LiteralPath $RawLogcat) {
     $pattern='PerMgrLib|PerMgrSrv|QCRIL|qcrild|SDX55M|vote|PeripheralManager|PON_SUCCESS|RADIO_NOT_AVAILABLE|IMS|IWLAN|ePDG|XFRM'
     $filtered=Get-Content -LiteralPath $RawLogcat | Where-Object { $_ -match $pattern } | ForEach-Object { [regex]::Replace($_.TrimEnd(),'[0-9]{12,}','[REDACTED]') }
     [IO.File]::WriteAllLines($FilteredLogcat,@($filtered),[Text.UTF8Encoding]::new($false))
   }
+}
+
+function Invoke-StaticNoAdbSelfTest {
+  Require (-not $Execute) 'StaticNoAdb cannot be combined with Execute'
+  Require ($PSVersionTable.PSVersion.Major -eq 5) 'StaticNoAdb must run under Windows PowerShell 5.1'
+  $childScript = Join-Path ([IO.Path]::GetTempPath()) ('v27-ps51-argv-' + [guid]::NewGuid().ToString('N') + '.ps1')
+  $childSource = @'
+param([Parameter(ValueFromRemainingArguments=$true)][string[]]$Values)
+foreach($value in $Values) {
+  [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($value))
+}
+'@
+  $expected = @(
+    'plain',
+    'space value',
+    'single''quote',
+    'double"quote',
+    'trailing\',
+    'su -c ''echo $$ > /data/local/tmp/x55_v27_holder.pid; exec 9</dev/subsys_esoc0 || exit 71; trap "exit 0" TERM; while :; do sleep 60; done'''
+  )
+  try {
+    [IO.File]::WriteAllText($childScript,$childSource,[Text.UTF8Encoding]::new($false))
+    $child = Invoke-ProcessCapture -FileName (Join-Path $PSHOME 'powershell.exe') -Arguments (@('-NoProfile','-ExecutionPolicy','Bypass','-File',$childScript) + $expected)
+    Require ($child.ExitCode -eq 0) "PS5.1 argv child failed: $($child.StdErr)"
+    $actual = @($child.StdOut -split "\r?\n" | Where-Object { $_ -ne '' } | ForEach-Object { [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) })
+    Require ($actual.Count -eq $expected.Count) 'PS5.1 argv round-trip count mismatch'
+    for($index=0; $index -lt $expected.Count; $index++) {
+      Require ($actual[$index] -ceq $expected[$index]) "PS5.1 argv round-trip mismatch at index $index"
+    }
+  } finally {
+    if(Test-Path -LiteralPath $childScript) { Remove-Item -LiteralPath $childScript -Force }
+  }
+  Write-Host "WINDOWS_POWERSHELL_VERSION=$($PSVersionTable.PSVersion.ToString())"
+  Write-Host 'STATIC_NO_ADB=PASS'
+  Write-Host 'WINDOWS_ARGUMENT_ROUNDTRIP=PASS'
+  Write-Host 'PHONE_WRITES=0'
+}
+
+if($StaticNoAdb) {
+  Invoke-StaticNoAdbSelfTest
+  return
 }
 
 [IO.Directory]::CreateDirectory($RunDir)|Out-Null
@@ -459,7 +549,7 @@ try {
     try { Stop-OwnedHolder } catch { Write-Log "FAILSAFE_HOLDER_ERROR=$($_.Exception.Message)" }
   }
   if($null -ne $script:HolderHostProcess -and -not $script:HolderHostProcess.HasExited) {
-    try { $script:HolderHostProcess.Kill($true); [void]$script:HolderHostProcess.WaitForExit(5000) } catch {}
+    try { Stop-OwnedHostProcessTree $script:HolderHostProcess } catch {}
   }
   if($script:PerMgrWasStopped) {
     try { Ensure-PerMgrRunning } catch { Write-Log "FAILSAFE_PER_MGR_ERROR=$($_.Exception.Message)" }

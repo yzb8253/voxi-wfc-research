@@ -8,6 +8,8 @@ $Single = Join-Path $Root 'device\v27_sim_cycle_single.sh'
 $Failures = [Collections.Generic.List[string]]::new()
 function Check([bool]$Condition,[string]$Name) { if($Condition){ Write-Host "PASS $Name" } else { Write-Host "FAIL $Name"; $Failures.Add($Name) } }
 function Count-Literal([string]$Text,[string]$Needle) { ([regex]::Matches($Text,[regex]::Escape($Needle))).Count }
+Write-Host "WINDOWS_POWERSHELL_VERSION=$($PSVersionTable.PSVersion.ToString())"
+Check ($PSVersionTable.PSVersion.Major -eq 5) 'Windows PowerShell major version 5'
 foreach($path in @($Main,$Launcher,$Dual,$Single)){ Check (Test-Path -LiteralPath $path) "exists: $(Split-Path $path -Leaf)" }
 if($Failures.Count){ throw "Missing required files: $($Failures -join ', ')" }
 $mainText=[IO.File]::ReadAllText($Main)
@@ -18,9 +20,20 @@ $tokens=$null; $errors=$null
 [void][Management.Automation.Language.Parser]::ParseFile($Main,[ref]$tokens,[ref]$errors)
 Check ($errors.Count -eq 0) 'PowerShell parser'
 Check (-not [regex]::IsMatch($mainText,'(?i)(?<![A-Za-z0-9_])\$pid(?![A-Za-z0-9_])')) 'no PID automatic-variable collision'
+Check (-not $mainText.Contains('$info.ArgumentList')) 'no ProcessStartInfo.ArgumentList dependency'
+Check (-not $mainText.Contains('.Kill($true)')) 'no Process.Kill(bool) dependency'
+Check ($mainText.Contains('function Stop-OwnedHostProcessTree') -and $mainText.Contains("'/PID {0} /T /F' -f `$Process.Id")) 'PS5.1 exact host process-tree cleanup retained'
+Check ($mainText.Contains('Join-WindowsCommandLine $Arguments')) 'PS5.1 process argv builder used'
+Check ($mainText.Contains("Join-WindowsCommandLine @('-s',`$Serial,'shell'")) 'holder argv uses PS5.1 builder'
+Check ($mainText.Contains('[switch]$StaticNoAdb')) 'explicit static no-ADB mode'
+Check ($mainText.IndexOf('if($StaticNoAdb)') -lt $mainText.IndexOf('[IO.Directory]::CreateDirectory($RunDir)')) 'static mode exits before run/ADB initialization'
+Check ($mainText.Contains("Require (`$PSVersionTable.PSVersion.Major -eq 5)")) 'static mode requires Windows PowerShell 5.1'
+Check ($launcherText -match '(?im)^if /I "%~1"=="selftest"') 'launcher exposes selftest mode'
+Check ($launcherText -match '-StaticNoAdb') 'launcher selftest is no-ADB'
+Check (-not [regex]::IsMatch($mainText,'(?i)ForEach-Object\s+-Parallel|\bJoin-String\b|\bGet-Error\b|\bTest-Json\b|\$IsWindows\b')) 'no known PS7-only cmdlets or variables'
 Check ($mainText.Contains('[switch]$Execute')) 'execution requires explicit switch'
 Check ($mainText.Contains('EXECUTE-V2.7-ALPHA-NATIVE-HANDOFF')) 'fixed confirmation token'
-Check ($launcherText -match '(?im)^if /I "%~1"=="execute"') 'launcher requires explicit execute argument'
+Check ($launcherText -match '(?im)^\) else if /I "%~1"=="execute"') 'launcher requires explicit execute argument'
 Check ($launcherText -match '-Execute -Confirmation EXECUTE-V2\.7-ALPHA-NATIVE-HANDOFF') 'launcher forwards fixed confirmation'
 Check ((Count-Literal $mainText 'setprop ctl.stop vendor.per_mgr') -eq 1) 'one per_mgr stop call site'
 Check ((Count-Literal $mainText 'setprop ctl.restart vendor.qcrild2') -eq 1) 'one qcrild2 restart call site'
@@ -41,6 +54,20 @@ Check ($mainText.Contains("$" + "state.X55 -eq 'ONLINE' -and $" + "state.CrashCo
 Check ($mainText.Contains('(Test-PmOwner $state $state.PmService.ProcessId)')) 'native reacquire requires pm-service ownership'
 Check ($mainText.Contains('ProcessId -eq $oldQcrild2ProcessId')) 'native reacquire requires changed qcrild2 PID'
 Check ($mainText.Contains('REVOTE_MECHANISM_LOG=') -and $mainText.Contains('UNPROVEN')) 're-vote evidence is reported separately'
+Check ($mainText.Contains("`$single + `$Value.Replace(`$single, `$escape) + `$single")) 'Android su command single-quote escaping retained'
+Check ($mainText.Contains("@('shell', ('su -c ' + (ConvertTo-ShSingleQuoted `$Command)))")) 'su -c payload remains one adb argument'
+Check ($mainText.Contains("exec 9<{1}") -and $mainText.Contains("echo `$$ > {0}") -and $mainText.Contains("while :; do sleep 60; done")) 'holder shell lifecycle and FD9 syntax retained'
+Check ($mainText.Contains("trap ''rm -f {0}'' EXIT") -and $mainText.Contains("trap ''exit 0'' TERM INT HUP")) 'holder PID-file and TERM traps retained'
+$stopPerMgrCall=[regex]::Match($mainText,'(?m)^  Stop-PerMgr\r?$').Index
+$holderStartCall=[regex]::Match($mainText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?$').Index
+$startPerMgrCall=[regex]::Match($mainText,'(?m)^  Start-PerMgr\r?$').Index
+$holderStopCall=[regex]::Match($mainText,'(?m)^  Stop-OwnedHolder\r?$').Index
+$qcrild2RestartCall=[regex]::Match($mainText,'(?m)^  Restart-FixedQcrild2\r?$').Index
+$nativeReadyMark=$mainText.IndexOf("`$script:NativeHandoffResult='PM_SERVICE_REACQUIRED'")
+$simCycleCall=[regex]::Match($mainText,'(?m)^    Start-OneShotSimCycle \$orchestratorRemote\r?$').Index
+Check ($stopPerMgrCall -gt 0 -and $stopPerMgrCall -lt $holderStartCall -and $holderStartCall -lt $startPerMgrCall -and
+       $startPerMgrCall -lt $holderStopCall -and $holderStopCall -lt $qcrild2RestartCall -and
+       $qcrild2RestartCall -lt $nativeReadyMark -and $nativeReadyMark -lt $simCycleCall) 'native handoff state-machine order unchanged'
 $forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
 foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
 foreach($pair in @(@('dual',$dualText),@('single',$singleText))){

@@ -23,11 +23,3 @@ The exact historical v2.6.2 source and raw evidence remain absent from GitHub. T
 - Detailed evidence: `X55_OWNERSHIP_HANDOFF_001B.md`
 
 NEXT_ACTION: stop. Wait for a new explicit decision; do not perform an additional recovery or process action.
-
-## 3. v2.7-alpha paired launcher is incompatible with Windows PowerShell 5.1
-
-The first authorized launch stopped before its first ADB call because `Run-X55-WFC-v2.7-alpha-native-handoff.cmd` invokes `powershell.exe`, while the state machine uses `ProcessStartInfo.ArgumentList`, which is not available in Windows PowerShell 5.1.
-
-Disposition: `BLOCKED_PRE_WRITE / NOT_RUN`; phone writes 0. No holder, qcrild2 restart, ownership transition, or SIM cycle occurred.
-
-Resolution required: make the process wrapper compatible with Windows PowerShell 5.1 or explicitly select a verified compatible runtime, then extend the audit to execute a dry-run through the exact paired launcher. A second real run requires fresh authorization.

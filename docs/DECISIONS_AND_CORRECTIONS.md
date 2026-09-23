@@ -119,3 +119,6 @@ v2.7-alpha remains untested on the phone. The first launch is `BLOCKED_PRE_WRITE
 
 Impact:
 The host wrapper must support Windows PowerShell 5.1 or the paired launcher must select a verified compatible runtime. The audit must execute at least a dry-run through the exact launcher/runtime before another authorized real run.
+
+Resolution:
+Both `ProcessStartInfo.ArgumentList` uses were replaced by an audited `ProcessStartInfo.Arguments` encoder, both .NET Core-only `Process.Kill(bool)` uses were removed, and the exact `.cmd selftest` path passed under Windows PowerShell 5.1.19041.6456 without initializing ADB. Parser errors were 0, argument round-trip and static safety audits passed, and phone writes remained 0. No real rerun is authorized by this repair.

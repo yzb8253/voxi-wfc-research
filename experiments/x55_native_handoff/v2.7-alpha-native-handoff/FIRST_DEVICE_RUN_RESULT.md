@@ -10,7 +10,7 @@ Baseline commit: `1949b6f90572e2b7eee60963cab8b18fc6b07591`
 
 ## Result
 
-`BLOCKED_PRE_WRITE`
+`BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY`
 
 The first authorized launch used the repository-provided entry point exactly once:
 
@@ -71,6 +71,7 @@ The script's internal entry gate was not reached because the host-process wrappe
 
 ```text
 ENTRY_GATE_RESULT=PASS_INDEPENDENT_PRECHECK_SCRIPT_GATE_NOT_REACHED
+RUN_CLASSIFICATION=BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY
 RECOVERY_RESULT=NOT_RUN
 NATIVE_HANDOFF_RESULT=NOT_RUN
 FINAL_WFC_RESULT=NOT_CHECKED
@@ -78,4 +79,4 @@ CLEANUP_RESULT=NATIVE_UNCHANGED
 PHONE_WRITES=0
 ```
 
-No retry was performed. The next implementation step is to replace or avoid `ProcessStartInfo.ArgumentList` for the repository launcher's Windows PowerShell 5.1 runtime, extend the static audit with a real Windows PowerShell 5.1 dry-run compatibility check, and obtain fresh authorization before another real execution.
+No retry was performed. The host compatibility defect was subsequently repaired and accepted through a Windows PowerShell 5.1 local-only self-test, with phone writes 0. The repaired state machine has not been run against the phone and requires fresh authorization.

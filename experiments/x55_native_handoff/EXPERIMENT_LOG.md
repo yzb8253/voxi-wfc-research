@@ -96,5 +96,17 @@ Observed result: Windows PowerShell 5.1 raised `ProcessStartInfo.ArgumentList` m
 Post-state: pm-service PID 31818 remained sole owner; qcrild2 PID 873 unchanged; X55 ONLINE; crash_count 0; holder absent; SIM OFF 0; SIM ON 0; WFC unchanged F1.
 Logs: host-only complete log `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_203708/experiment.log`; sanitized result `v2.7-alpha-native-handoff/FIRST_DEVICE_RUN_RESULT.md`.
 Interpretation: host runtime compatibility blocker; no native experiment occurred.
-Conclusion: `BLOCKED_PRE_WRITE / NOT_RUN`; phone writes 0.
+Conclusion: `BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY / NOT_RUN`; phone writes 0.
 Next action: fix and audit exact Windows PowerShell 5.1 launcher compatibility, then require fresh authorization before another execution.
+
+## X55-V27-ALPHA-PS51-COMPAT-001
+
+Date: 2026-09-23 20:52 Asia/Shanghai
+Environment: Computer B, Account A; host-only development at baseline `54d38cdfe72e8bd5d6e60e1be19fc5c051c11d22`; no ADB invocation.
+Pre-state: first launcher run classified `BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY`; phone remained clean/native F1 with phone writes 0.
+Commands/actions: replaced .NET Core-only process argument/kill APIs with Windows PowerShell 5.1-compatible equivalents; added a local-only launcher self-test; expanded the static audit.
+Observed result: Windows PowerShell `5.1.19041.6456`; parser errors 0; static audit PASS; `.cmd selftest` PASS; complex Windows argv/Android holder payload round-trip PASS.
+Safety result: PID-variable, ADB quoting, holder lifecycle, fail-safe, forbidden paths, helper hashes, fixed target gates, and native handoff state-machine ordering all PASS. State machine unchanged.
+Phone writes: 0. No ADB command, holder, X55 transition, process restart, or SIM action occurred.
+Conclusion: `PS51_COMPATIBILITY_STATIC_ACCEPTANCE=PASS / PHONE_NOT_RERUN`.
+Next action: stop and wait for explicit approval before another real v2.7-alpha execution.

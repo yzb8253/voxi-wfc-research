@@ -1,6 +1,6 @@
 # ChatGPT to Codex Handoff
 
-Updated: 2026-09-23 20:37 Asia/Shanghai
+Updated: 2026-09-23 20:52 Asia/Shanghai
 
 ## Session identity
 
@@ -87,3 +87,14 @@ Unique next action: wait for explicit user approval to run the controlled v2.7-a
 - Sanitized result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FIRST_DEVICE_RUN_RESULT.md`.
 
 Unique next action: fix the host process-launch wrapper for Windows PowerShell 5.1 (or change the paired launcher/runtime explicitly), add a runtime dry-run test, and obtain fresh authorization before any second real execution.
+
+## v2.7-alpha PowerShell 5.1 compatibility repair
+
+- First launch classification is now explicitly `BLOCKED_PRE_WRITE_PS51_INCOMPATIBILITY`, not a recovery failure.
+- Exact baseline fault: `ProcessStartInfo.ArgumentList` at original line 65; original line 224 contained a second latent use. Windows PowerShell 5.1 uses .NET Framework and lacks this .NET Core collection. The .NET Core-only `Process.Kill(bool)` calls now use exact script-owned PID `taskkill /T /F` with fallback, preserving host process-tree cleanup.
+- Both process launch paths now use a reviewed Windows command-line encoder with `ProcessStartInfo.Arguments`; no phone state-machine branch or safety gate changed.
+- The paired launcher now supports `selftest`, which selects `-StaticNoAdb`, refuses `-Execute`, exits before ADB initialization, and round-trips the real quoting metacharacters/holder payload through a local child process.
+- Native Windows PowerShell result: version `5.1.19041.6456`, parser errors 0, static audit PASS, launcher self-test PASS, argv round-trip PASS, phone writes 0.
+- No ADB command was issued during repair or validation. The repaired script has not been run against the phone.
+
+Unique next action: stop and wait for explicit approval before a second real v2.7-alpha execution.
