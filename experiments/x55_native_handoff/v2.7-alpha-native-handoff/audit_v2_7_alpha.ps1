@@ -62,12 +62,9 @@ Check ($mainText.Contains("`$script:NativeHandoffResult='POST_BREAK_NATIVE_OWNER
 Check ($mainText.Contains("`$script:NativeHandoffResult='POST_BREAK_X55_REGRESSION'")) 'post-break X55 regression result is explicit'
 Check ($mainText.Contains("`$script:NativeHandoffResult='MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS'")) 'make-before-break success result is explicit'
 Check ($mainText.Contains('SIM cycle forbidden')) 'native handoff failure forbids SIM cycle'
-Check ($mainText.IndexOf('Start-OneShotSimCycle $orchestratorRemote') -lt $mainText.IndexOf('Invoke-MakeBeforeBreakCleanup')) 'SIM recovery occurs before native cleanup'
-Check ($mainText.Contains('if(Test-Healthy $postRebirth)')) 'healthy post-rebirth skips cycle branch'
+Check ($mainText.IndexOf("$" + "script:NativeHandoffResult='MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS'") -lt $mainText.IndexOf('Start-OneShotSimCycle $orchestratorRemote')) 'SIM cycle occurs only after native handoff success'
+Check ($mainText.Contains('if(Test-Healthy $postHandoff)')) 'healthy post-handoff skips cycle branch'
 Check ($mainText.Contains('0,3,6,9,12,15,18,21,24,27,30')) 'post-cycle observation bounded to 30 seconds'
-Check ($mainText.Contains("`$cycleNative.PerMgr -eq 'stopped'") -and $mainText.Contains('Test-HolderSoleOwner $cycleNative')) 'SIM cycle is gated to holder-sole/per_mgr-stopped context'
-Check ($mainText.Contains('PRE_CLEANUP_WFC_RESULT=')) 'pre-cleanup WFC result is emitted'
-Check ($mainText.Contains("`$script:FinalWfcResult='LOST_AFTER_NATIVE_CLEANUP'")) 'post-cleanup WFC loss is explicit'
 Check ($mainText.Contains('$script:RecoveryResult') -and $mainText.Contains('$script:NativeHandoffResult') -and $mainText.Contains('$script:FinalWfcResult') -and $mainText.Contains('$script:CleanupResult')) 'separate result dimensions'
 Check ($mainText.Contains('BE877B6E9694B4100F2487DC892803DE6399C89588F194A1E54D4C3AE3173A31') -and $mainText.Contains('90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39')) 'fixed audited helper hashes'
 Check ($mainText.Contains("$" + "helperClass='Slot1SimPowerHelper'") -and $mainText.Contains("$" + "helperClass='SingleSimSlot1PowerHelper'")) 'fixed helper classes'
@@ -81,191 +78,20 @@ Check ($mainText.Contains('function Normalize-AndroidShellText') -and $mainText.
 Check ($mainText.Contains('$androidCommand = Normalize-AndroidShellText $Command')) 'all Invoke-Root payloads normalized'
 Check ($mainText.Contains('$holderCommand=Normalize-AndroidShellText (New-HolderCommand)')) 'direct holder payload normalized'
 Check ($mainText.Contains("@('shell', ('su -c ' + (ConvertTo-ShSingleQuoted `$androidCommand)))")) 'normalized su -c payload remains one adb argument'
-Check ($mainText.Contains("exec 9<{1}") -and $mainText.Contains("echo `$$ > {0}") -and $mainText.Contains("while :; do sleep 1; done")) 'holder shell lifecycle and FD9 syntax retained'
+Check ($mainText.Contains("exec 9<{1}") -and $mainText.Contains("echo `$$ > {0}") -and $mainText.Contains("while :; do sleep 60; done")) 'holder shell lifecycle and FD9 syntax retained'
 Check ($mainText.Contains("trap ''rm -f {0}'' EXIT") -and $mainText.Contains("trap ''exit 0'' TERM INT HUP")) 'holder PID-file and TERM traps retained'
-$stopPerMgrCall=[regex]::Match($mainText,'(?m)^  Stop-PerMgr\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-$holderStartCall=[regex]::Match($mainText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-$postRebirthWfcCall=[regex]::Match($mainText,'(?m)^  \$postRebirth=Get-WfcJson ''post_rebirth_10s''\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-$simCycleCall=[regex]::Match($mainText,'(?m)^    Start-OneShotSimCycle \$orchestratorRemote\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-$cleanupCall=[regex]::Match($mainText,'(?m)^  Invoke-MakeBeforeBreakCleanup\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-$postCleanupWfcCall=[regex]::Match($mainText,'(?m)^    \$postCleanup=Get-WfcJson ''post_cleanup_5s''\r?
-$forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
-foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
-foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
-  $name=$pair[0]; $text=$pair[1]
-  Check ($text.Contains('[ "$#" -eq 0 ]')) "$name accepts no arguments"
-  Check ($text.Contains('[ "$X55_V27_MODE" = 1 ]') -and $text.Contains('[ "$X55_V27_EXECUTE" = YES ]')) "$name environment locks"
-  Check ((Count-Literal $text 'helper POWER_DOWN') -eq 1) "$name one POWER_DOWN call site"
-  Check ((Count-Literal $text 'helper POWER_UP') -eq 1) "$name one POWER_UP call site"
-  Check ($text.Contains('UP_STARTED=1') -and $text.Contains('[ "$UP_STARTED" -eq 0 ]')) "$name POWER_UP one-shot guard"
-  Check ($text.Contains('sleep 3')) "$name fixed three-second hold"
-  Check ($text.Contains('up_rc=$?') -and $text.Contains('[ "$up_rc" -eq 0 ]')) "$name preserves POWER_UP status"
-  Check (-not $text.Contains([string][char]13)) "$name LF-only"
-}
-if($Failures.Count){ Write-Host "STATIC_AUDIT=FAIL count=$($Failures.Count)"; throw ($Failures -join [Environment]::NewLine) }
-Write-Host 'PS51_PARSE=PASS'
-Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
-Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
-Write-Host 'ADB_QUOTING_AUDIT=PASS'
-Write-Host 'HOLDER_IDENTITY_REDESIGNED=PASS'
-Write-Host 'HOST_PROCESS_DEPENDENCY_REMOVED=PASS'
-Write-Host 'DUAL_OWNER_GATE=PASS'
-Write-Host 'EXACT_TERM_GATE=PASS'
-Write-Host 'PM_SOLE_POST_BREAK_GATE=PASS'
-Write-Host 'QCRILD2_RESTART_REMOVED_FROM_PRODUCTION_PATH=PASS'
-Write-Host 'QCRILD2_RESTARTS_IN_NEW_PATH=0'
-Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
-Write-Host 'STATIC_AUDIT=PASS'
-Write-Host 'PHONE_ACTIONS=0'
-).Index
-Check ($stopPerMgrCall -gt 0 -and $stopPerMgrCall -lt $holderStartCall -and
-       $holderStartCall -lt $postRebirthWfcCall -and $postRebirthWfcCall -lt $simCycleCall -and
-       $simCycleCall -lt $cleanupCall -and $cleanupCall -lt $postCleanupWfcCall) 'recovery-before-cleanup state-machine order'
+$stopPerMgrCall=[regex]::Match($mainText,'(?m)^  Stop-PerMgr\r?$').Index
+$holderStartCall=[regex]::Match($mainText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?$').Index
+$startPerMgrCall=[regex]::Match($mainText,'(?m)^  Start-PerMgr\r?$').Index
+$dualGateCall=[regex]::Match($mainText,'(?m)^  \$dualOwnerReady=Wait-Until \{\r?$').Index
+$holderStopCall=[regex]::Match($mainText,'(?m)^  Stop-OwnedHolder\r?$').Index
+$pmSoleGateCall=[regex]::Match($mainText,'(?m)^  \$pmSoleReady=Wait-Until \{\r?$').Index
+$nativeReadyMark=[regex]::Match($mainText,'(?m)^  \$script:NativeHandoffResult=''MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS''\r?$').Index
+$simCycleCall=[regex]::Match($mainText,'(?m)^    Start-OneShotSimCycle \$orchestratorRemote\r?$').Index
+Check ($stopPerMgrCall -gt 0 -and $stopPerMgrCall -lt $holderStartCall -and $holderStartCall -lt $startPerMgrCall -and
+       $startPerMgrCall -lt $dualGateCall -and $dualGateCall -lt $holderStopCall -and
+       $holderStopCall -lt $pmSoleGateCall -and $pmSoleGateCall -lt $nativeReadyMark -and
+       $nativeReadyMark -lt $simCycleCall) 'make-before-break state-machine order'
 $forbidden=@('restart-modem','ctl.restart vendor.cnd','ctl.restart .qtidataservices','ctl.restart org.codeaurora.ims','resetIms','setenforce','kill -9','killall','pkill','settings put','settings delete','reboot')
 foreach($item in $forbidden){ Check (-not $mainText.Contains($item)) "forbidden path absent: $item" }
 foreach($pair in @(@('dual',$dualText),@('single',$singleText))){
