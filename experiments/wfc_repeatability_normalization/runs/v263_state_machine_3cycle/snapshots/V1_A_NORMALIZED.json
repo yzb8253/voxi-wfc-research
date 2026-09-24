@@ -1,7 +1,7 @@
 {
     "schema":  "wfc-repeatability-snapshot-v1",
-    "label":  "V1_A_RAW",
-    "timestamp":  "2026-09-24T16:35:36.2668121+08:00",
+    "label":  "V1_A_NORMALIZED",
+    "timestamp":  "2026-09-24T16:37:46.0708322+08:00",
     "gitHead":  "87f3de2b20e6e744c1c22a83449c32d7e8c13ae9",
     "serial":  "fd0ff892",
     "device":  {
@@ -38,7 +38,7 @@
                                      "cmdline":  "qcrild"
                                  },
                       "qcrild2":  {
-                                      "pid":  27223,
+                                      "pid":  16258,
                                       "ppid":  1,
                                       "name":  "qcrild",
                                       "cmdline":  "qcrild -c 2"
@@ -61,23 +61,18 @@
                                         "name":  "mdm_helper",
                                         "cmdline":  "mdm_helper"
                                     },
-                      "holder":  {
-                                     "pid":  31050,
-                                     "ppid":  870,
-                                     "name":  "sh",
-                                     "cmdline":  "sh -c echo $$ \u003e/data/local/tmp/x55_holder.pid; exec 9\u003c/dev/subsys_esoc0 || exit 91; echo ===X55_HOLDER_OPEN===; while true; do sleep 60; done"
-                                 }
+                      "holder":  null
                   },
     "native":  {
                    "perMgrState":  "running",
                    "ownerLines":  [
-                                      "sh        31050       root    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0",
+                                      "pm-service 11529     system    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0",
                                       "mdm_helper  1338       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0",
-                                      "ks        31176       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"
+                                      "ks        16465       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"
                                   ],
-                   "vendorPeripheralState":  "OFFLINE",
+                   "vendorPeripheralState":  "ONLINE",
                    "x55State":  "ONLINE",
-                   "x55Online":  false,
+                   "x55Online":  true,
                    "crashCount":  0,
                    "pmSupported":  "",
                    "esocSupported":  "",
@@ -108,10 +103,9 @@
                  "xfrm":  false
              },
     "residues":  {
-                     "holderPidFile":  true,
+                     "holderPidFile":  false,
                      "moduleLock":  false,
                      "moduleStateFiles":  [
-                                              "-rw-r--r-- 1 root root 6 2026-09-24 15:43 /data/local/tmp/x55_holder.pid",
                                               "-rw-rw-rw- 1 shell shell 54304 2026-09-21 16:20 /data/local/tmp/x55_ssr.ko",
                                               "-rw-rw-rw- 1 shell shell 30152 2026-09-21 16:14 /data/local/tmp/x55_test.ko",
                                               "drwx------ 2 root root 3488 2026-09-20 16:03 /data/local/tmp/voxi-l1_5-executor",

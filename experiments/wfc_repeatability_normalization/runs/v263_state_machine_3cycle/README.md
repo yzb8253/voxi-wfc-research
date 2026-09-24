@@ -6,4 +6,4 @@ Raw capture output and timelines remain under the Git-ignored host-only `voxi_wf
 
 ## Current execution
 
-The first authorized execution stopped during V1 A normalization because the host wrapper promoted the expected nonzero result from the make-before-break helper to a terminating PowerShell error. The exact holder was not touched and the qcrild2 fallback did not run. See `RESULT.md`.
+The first authorized execution stopped during V1 A normalization because the host wrapper promoted the expected nonzero result from the make-before-break helper to a terminating PowerShell error. After an explicit resume, the corrected wrapper completed A normalization and canonical P creation, but the unchanged v2.6.2 recovery produced no CNE request or WFC within thirty seconds. Cycles 2 and 3 were not run. See `RESULT.md`.

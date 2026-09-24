@@ -1,7 +1,7 @@
 {
     "schema":  "wfc-repeatability-snapshot-v1",
-    "label":  "V1_A_RAW",
-    "timestamp":  "2026-09-24T16:35:36.2668121+08:00",
+    "label":  "V1_FAILURE",
+    "timestamp":  "2026-09-24T16:43:40.1472987+08:00",
     "gitHead":  "87f3de2b20e6e744c1c22a83449c32d7e8c13ae9",
     "serial":  "fd0ff892",
     "device":  {
@@ -9,8 +9,8 @@
                    "product":  "cas"
                },
     "environment":  {
-                        "airplaneMode":  0,
-                        "wifiSetting":  "1",
+                        "airplaneMode":  1,
+                        "wifiSetting":  "2",
                         "wlan0Up":  true,
                         "tunPresent":  false,
                         "vpnNetwork":  true
@@ -38,13 +38,13 @@
                                      "cmdline":  "qcrild"
                                  },
                       "qcrild2":  {
-                                      "pid":  27223,
+                                      "pid":  16258,
                                       "ppid":  1,
                                       "name":  "qcrild",
                                       "cmdline":  "qcrild -c 2"
                                   },
                       "pmService":  {
-                                        "pid":  11529,
+                                        "pid":  28375,
                                         "ppid":  1,
                                         "name":  "pm-service",
                                         "cmdline":  "pm-service"
@@ -62,7 +62,7 @@
                                         "cmdline":  "mdm_helper"
                                     },
                       "holder":  {
-                                     "pid":  31050,
+                                     "pid":  19581,
                                      "ppid":  870,
                                      "name":  "sh",
                                      "cmdline":  "sh -c echo $$ \u003e/data/local/tmp/x55_holder.pid; exec 9\u003c/dev/subsys_esoc0 || exit 91; echo ===X55_HOLDER_OPEN===; while true; do sleep 60; done"
@@ -71,9 +71,9 @@
     "native":  {
                    "perMgrState":  "running",
                    "ownerLines":  [
-                                      "sh        31050       root    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0",
+                                      "sh        19581       root    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0",
                                       "mdm_helper  1338       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0",
-                                      "ks        31176       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"
+                                      "ks        19709       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"
                                   ],
                    "vendorPeripheralState":  "OFFLINE",
                    "x55State":  "ONLINE",
@@ -94,15 +94,15 @@
                 "voiceIwlan":  false
             },
     "iwlan":  {
-                  "rilTechnology":  "LTE",
-                  "psWlan":  "HOME",
-                  "accessNetwork":  "IWLAN",
+                  "rilTechnology":  "Unknown",
+                  "psWlan":  "UNKNOWN",
+                  "accessNetwork":  "UNKNOWN",
                   "preferred":  false
               },
     "data":  {
                  "wfcAvailable":  false,
                  "qtiCneRequest":  false,
-                 "qtiCneProbeReported":  true,
+                 "qtiCneProbeReported":  false,
                  "imsNetworkAgent":  false,
                  "udp4500":  false,
                  "xfrm":  false
@@ -111,7 +111,7 @@
                      "holderPidFile":  true,
                      "moduleLock":  false,
                      "moduleStateFiles":  [
-                                              "-rw-r--r-- 1 root root 6 2026-09-24 15:43 /data/local/tmp/x55_holder.pid",
+                                              "-rw-r--r-- 1 root root 6 2026-09-24 16:39 /data/local/tmp/x55_holder.pid",
                                               "-rw-rw-rw- 1 shell shell 54304 2026-09-21 16:20 /data/local/tmp/x55_ssr.ko",
                                               "-rw-rw-rw- 1 shell shell 30152 2026-09-21 16:14 /data/local/tmp/x55_test.ko",
                                               "drwx------ 2 root root 3488 2026-09-20 16:03 /data/local/tmp/voxi-l1_5-executor",

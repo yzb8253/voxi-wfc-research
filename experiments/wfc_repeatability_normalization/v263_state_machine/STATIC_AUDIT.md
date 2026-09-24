@@ -1,6 +1,6 @@
 # v2.6.3 state-machine static audit
 
-Status: `PASS_WITH_HOST_WRAPPER_CORRECTION_PENDING_DEVICE_VALIDATION`
+Status: `HOST_WRAPPER_CORRECTION_DEVICE_VALIDATED_STATE_MACHINE_RECOVERY_FAILED`
 
 Base commit: `89f2c86d48c91a974988d9bf67415f592da6f50d`
 
@@ -48,3 +48,5 @@ Any gate, child script, or post-recovery health failure aborts the driver and pr
 The first device execution exposed a host-only child stderr handling defect before the qcrild2 fallback. `Invoke-ChildScript` now captures child output and exit status under a temporary non-terminating preference, restores fail-closed behavior immediately afterward, and lets the caller explicitly select the already audited transition. This correction is statically parsed but not yet device-validated.
 
 Before resume, a local child intentionally wrote to stderr and exited 23. The state machine captured exit 23, restored fail-closed behavior, and continued to a read-only device snapshot. That snapshot recognized the preserved qcrild2 fallback precondition and stopped at the expected dry-run write boundary.
+
+The resumed device run confirmed the corrected boundary also works through the real fallback: qcrild2 native reacquire completed and canonical A/P passed. The later unchanged v2.6.2 recovery failed its WFC health window, so the driver stopped before cycles 2/3 as designed.

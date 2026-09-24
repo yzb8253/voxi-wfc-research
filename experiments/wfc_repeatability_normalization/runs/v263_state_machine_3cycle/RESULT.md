@@ -2,7 +2,7 @@
 
 Date: 2026-09-24
 
-Result: `STOPPED_V1_A_NORMALIZATION_HOST_WRAPPER`
+Result: `STOPPED_V1_WFC_RECOVERY_FAILED_AFTER_ORCHESTRATOR_RESUME`
 
 ## Scope reached
 
@@ -54,4 +54,50 @@ Phone writes in this stopped run: vendor.per_mgr start once and vendor.per_mgr r
 
 The candidate now invokes child PowerShell scripts through an explicit result wrapper that temporarily allows stderr capture, records the real exit code, restores the parent's fail-closed preference, and then performs the intended state transition. The correction has passed static parsing but has not been executed on the phone.
 
-Fresh authorization is required before resuming from the preserved known fallback-precondition scene.
+Fresh authorization was received and the run resumed from this preserved fallback-precondition scene. The original stop remains classified `ORCHESTRATOR_FAILURE`, not `WFC_RECOVERY_FAILURE`.
+
+## Resumed V1 execution
+
+The corrected child boundary self-test captured intentional stderr and exit code 23 without suppressing real failures. The resumed device sequence then completed:
+
+1. recognized the exact qcrild2 fallback precondition;
+2. TERM'd exact holder PID 31050 once;
+3. proved owner NONE, vendor/kernel X55 OFFLINE, crash count zero;
+4. restarted only vendor.qcrild2 once, PID 27223 -> 16258;
+5. pm-service PID 11529 became sole native owner;
+6. X55 returned ONLINE, crash count zero;
+7. after 60 seconds, `V1_A_NORMALIZED` passed the canonical A gate;
+8. airplane ON and Wi-Fi ensure were applied;
+9. after 60 seconds, `V1_P_RAW` matched canonical P on its first check;
+10. the hash-locked v2.6.2 freeze-on-success recovery ran unchanged.
+
+Recovery reached clean X55 OFFLINE, holder PID 19581, X55 ONLINE, crash count zero, a new PON_SUCCESS, the fixed ten-second settle, and exactly one SIM2 OFF/ON cycle with a three-second OFF hold.
+
+It did not produce a current qti.cne IMS request. IMS remained NOT_REGISTERED/UNKNOWN, VOICE/IWLAN unavailable, UDP/4500 and XFRM absent, and WFC unavailable through the full thirty-second window. The recovery returned `AUTO_RECOVERY_FAILED`.
+
+The original v2.6.2 failure cleanup started and restarted vendor.per_mgr while preserving the holder, but pm-service did not acquire esoc0. No qcrild2 recovery workaround, CND fallback, qtidataservices restart, second SIM cycle, IMS reset, or later validation cycle ran.
+
+## Validation table
+
+| Cycle | A normalization | P match | X55 rebirth | New PON_SUCCESS | SIM cycles | WFC elapsed | Freeze | Result |
+|---|---|---|---|---|---:|---|---|---|
+| 1 | PASS: exact holder TERM + one qcrild2 restart | PASS first check | PASS | PASS | 1 | no health by 30s | NO | FAIL |
+| 2 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | 0 | n/a | NO | STOPPED |
+| 3 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | 0 | n/a | NO | STOPPED |
+
+## Final preserved scene
+
+`V1_FAILURE.json` records:
+
+- airplane ON, Wi-Fi/VPN environment retained;
+- VOXI identity, active subscription, and UICC enabled;
+- vendor.per_mgr running, pm-service PID 28375 present but not owner;
+- exact holder PID 19581 sole owner of `/dev/subsys_esoc0`;
+- vendor X55 OFFLINE, kernel X55 ONLINE, crash count zero;
+- primary qcrild PID 1958, qcrild2 PID 16258;
+- IMS NOT_REGISTERED, transport UNKNOWN, VOICE/IWLAN unavailable, WFC unavailable;
+- no current qti.cne request, UDP/4500, or XFRM.
+
+This is the same known ownership-residue family, not a new residue type. It is deliberately preserved without further phone operations.
+
+Host-only v2.6.2 recovery log SHA-256: `2D7BE2A4EA5C1A7751BDCDFCCD6CEC5B1754F6E81E1492FD14BC714434AB0A2F`.

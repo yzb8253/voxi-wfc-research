@@ -246,3 +246,5 @@ Correction: the run above used the wrong v2.5 source and is classified `WRONG_RE
 - Preserved scene: airplane OFF, per_mgr running, pm-service PID 11529 non-owner, exact holder PID 31050 sole owner, vendor X55 OFFLINE/kernel ONLINE/crash 0, qcrild 1958/qcrild2 27223 unchanged.
 - No holder TERM, airplane toggle, SIM cycle, recovery, CND action, or later validation cycle occurred.
 - The child-result wrapper has been corrected and statically parsed. Do not resume without fresh user authorization.
+
+Resume was authorized. The wrapper self-test and real qcrild2 fallback both passed; qcrild2 changed 27223 -> 16258, pm-service reacquired, and canonical A/P passed. The unchanged v2.6.2 recovery completed new PON_SUCCESS and one SIM cycle but did not create a qti.cne request or WFC within thirty seconds. Cycles 2/3 were not run. Final preserved scene: airplane ON, per_mgr running, pm-service 28375 non-owner, exact holder 19581 sole owner, vendor X55 OFFLINE/kernel ONLINE/crash 0, qcrild 1958/qcrild2 16258, F1. Do not add a workaround or continue without new authorization.
