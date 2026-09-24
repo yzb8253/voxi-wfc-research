@@ -185,3 +185,14 @@ The live holder scene is now clean.
 - This is not a WFC recovery validation. Cleanup 006 left WFC F1.
 
 Unique next action: wait for explicit authorization before any phone execution of the redesigned v2.7-alpha path.
+
+## v2.7-alpha make-before-break device run 007
+
+- Exact commit `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4` was executed once after a fresh gate and paired selftest PASS.
+- Holder 27125 became sole owner, X55 rebirth and new PON_SUCCESS passed, and starting per_mgr formed exact dual ownership with new pm-service 28220.
+- One exact-holder TERM was sent. The holder did not exit within the 10-second deadline; no retry or manual cleanup followed.
+- Preserved scene: holder 27125 and pm-service 28220 dual owners, holder PID file present, X55 ONLINE, crash_count 0, qcrild2 873 unchanged, WFC F1, SIM OFF/ON 0/0.
+- Live process evidence showed holder 27125 waiting on child `sleep 60`, making deferred TERM-trap handling the leading explanation.
+- Full sanitized report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`.
+
+Unique next action: preserve the scene and perform static-only redesign of deterministic holder TERM completion. No phone cleanup or rerun without explicit authorization.

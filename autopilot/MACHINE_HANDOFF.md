@@ -356,3 +356,14 @@ NEXT_ACTION: exact-launcher PS5.1 hash repair plus no-ADB artifact assertion. Do
 - D: originals were not changed; ADB not used; phone writes 0.
 
 NEXT_ACTION: sync this checkpoint on other computers. Do not run any historical tool or phone experiment without separate explicit authorization.
+
+## Current checkpoint: v2.7-alpha run 007 preserved dual-owner timeout
+
+- Date: 2026-09-24 09:20; Computer A; Account A; exact commit tested `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4`.
+- Fresh gate and paired PS5.1 selftest passed. Initial native state was pm-service 22536 sole owner, X55 ONLINE, crash_count 0, holder absent, qcrild2 873, single-SIM VOXI F1.
+- Production reached holder 27125 sole owner, X55 rebirth/new PON_SUCCESS, and exact dual ownership with new pm-service 28220.
+- One exact TERM was sent, but holder 27125 did not exit within 10 seconds. Its child `sleep 60` remained live. No retry, manual cleanup, qcrild2 restart, or SIM cycle occurred.
+- Current preserved scene at last read: holder 27125 + pm-service 28220 dual owners; holder PID file present; per_mgr running; X55 ONLINE; crash_count 0; qcrild2 873 unchanged; WFC F1.
+- Sanitized report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`. Raw logs remain host-only.
+
+NEXT_ACTION: preserve the scene. Static-only holder-loop redesign is required before any separately authorized cleanup or rerun.

@@ -199,3 +199,14 @@ Evidence basis: experiment 005 established the exact holder + pm-service dual-ow
 Changes: separated exact Android holder identity from owner topology; modeled holder sole, exact two-owner holder+pm-service, and pm-service sole states; removed host-process lifetime from holder identity; preserved stale PID files; removed qcrild2 restart from the production path; required unchanged qcrild2 identity; retained at most one optional SIM OFF/ON cycle after native handoff success.
 Validation: Windows PowerShell 5.1 parse PASS; paired `.cmd selftest` PASS; artifact hash gate PASS; A-G ownership models PASS; unknown third owner rejected; make-before-break order PASS; production qcrild2 restart count 0; static audit PASS.
 Conclusion: `MAKE_BEFORE_BREAK_STATIC_REDESIGN=PASS / PHONE_NOT_RUN`. This validates the implementation model only. It does not promote cleanup 006 into WFC recovery proof.
+
+## X55-V27-ALPHA-MAKE-BEFORE-BREAK-007
+
+Date: 2026-09-24 09:20 Asia/Shanghai
+Commit: exact clean `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4`; paired PS5.1 selftest PASS.
+Pre-state: native-clean single-SIM F1; pm-service 22536 sole owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 873.
+Observed path: per_mgr stop PASS; holder 27125 sole owner PASS; X55 rebirth/new PON_SUCCESS PASS; per_mgr start formed exact holder 27125 + pm-service 28220 dual ownership PASS.
+Stop point: one identity-gated TERM was sent to holder 27125, but it did not exit within 10 seconds. The script stopped without retry. Immediate read-only state showed the holder waiting on child `sleep 60`, PID file present, dual ownership preserved, X55 ONLINE, crash_count 0, and qcrild2 unchanged at 873.
+SIM/WFC: SIM OFF/ON 0/0; WFC remained F1; no qti.cne/ePDG/XFRM.
+Conclusion: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; production results `X55_REBIRTH_SUCCESS / NOT_RUN / NOT_CHECKED / NOT_RUN`; phone write actions 4.
+Evidence: `v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`; raw logs remain host-only.

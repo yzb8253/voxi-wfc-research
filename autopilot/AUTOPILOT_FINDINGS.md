@@ -382,3 +382,13 @@ NEXT_ACTION: repair the hash dependency and extend exact-launcher selftest; no a
 - PassiveMonitor v1.2 is the current canonical read-only detector, but its state labels remain research heuristics.
 - StateSearcher v3.4 and v3.5 compact histories confirm their negative all-P0 runs; they are not successful recovery tools.
 - No phone state was read or changed during this audit.
+
+## v2.7-alpha holder termination finding (2026-09-24)
+
+- Run 007 validated the redesigned gates through exact dual ownership.
+- A successful TERM send did not produce holder exit within 10 seconds because the shell was still waiting on its foreground `sleep 60` child.
+- Exact identity and topology checks were not the blocker; deterministic signal/trap completion was.
+- The preserved dual-owner scene retained X55 ONLINE with crash_count 0 and unchanged qcrild2. No SIM cycle occurred.
+- This is `HOLDER_TERM_DEFERRED_TIMEOUT`, not a native-handoff or WFC recovery result.
+
+NEXT_ACTION: statically redesign the holder loop/TERM behavior first. No timeout extension, retry, SIGKILL, or phone cleanup is authorized.

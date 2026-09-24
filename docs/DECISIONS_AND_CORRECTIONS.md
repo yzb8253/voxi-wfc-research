@@ -230,3 +230,14 @@ The qcrild2 restart is no longer part of the production handoff. Experiment 006 
 
 Evidence boundary:
 Experiments 005 and 006 validate the native ownership transition. WFC remained F1 after cleanup 006; final WFC recovery through the redesigned end-to-end path remains untested.
+
+## 2026-09-24 - exact holder identity was correct but TERM completion was not deterministic
+
+Evidence:
+Run 007 reached the exact dual-owner gate and sent one TERM to the exact holder PID 27125. The process remained alive for the entire 10-second deadline with a foreground `sleep 60` child. The PID file and dual-owner topology remained; X55 stayed ONLINE and qcrild2 stayed unchanged.
+
+Correction:
+The static identity and topology redesign did not guarantee timely shell trap execution. A successful `kill -TERM` return is not equivalent to holder exit when the shell is waiting for a foreground child.
+
+Impact:
+Do not extend the timeout or retry TERM on the preserved phone scene. First redesign the holder loop statically so one TERM can complete deterministically while retaining exact PID/cmdline/FD9 identity, no SIGKILL, and no broad process kill. Run 007 is not a native-handoff or WFC recovery success.

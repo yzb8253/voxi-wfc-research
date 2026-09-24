@@ -164,3 +164,11 @@ The production path now models the experimentally observed sequence directly: na
 Holder identity is independent of the Windows-side ADB process and requires the exact PID file value, live Android PID, exact shell command, and FD9 target. The dual-owner gate accepts exactly those two verified processes and rejects unknown third owners. The old qcrild2 restart has been removed from the production path; its PID must remain unchanged. PS5.1 parse, paired no-ADB selftest, A-G ownership models, artifact gate, and static audit all pass. No phone was accessed or modified.
 
 This redesign is supported by 005 and cleanup 006 for native ownership mechanics only. It has not yet proven final WFC recovery.
+
+## v2.7-alpha Make-Before-Break Device Run 007
+
+Exact commit `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4` passed the fresh entry gate and paired PS5.1 selftest. The production path reached holder sole ownership, X55 rebirth, a new PON_SUCCESS, and exact holder+pm-service dual ownership.
+
+One exact-holder TERM was sent, but holder PID 27125 did not exit within 10 seconds. The script stopped before pm-service-sole validation, WFC check, deployment, or SIM cycle. Immediate read-only state preserved holder 27125 plus pm-service 28220 as dual owners, X55 ONLINE, crash_count 0, qcrild2 PID 873 unchanged, and WFC F1. The holder had a live `sleep 60` child, supporting a deferred shell-trap timeout explanation.
+
+Result: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; SIM OFF/ON 0/0. Do not claim native handoff or WFC recovery success.

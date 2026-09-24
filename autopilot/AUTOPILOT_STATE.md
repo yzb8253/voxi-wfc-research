@@ -427,3 +427,14 @@ NEXT_ACTION: repair and host-only test the actual launcher artifact assertion. D
 - Source hash match PASS; no D: source modified; ADB not used; phone writes 0.
 
 NEXT_ACTION: no phone experiment is authorized by this recovery. Continue only from a new explicit user decision.
+
+## 2026-09-24 v2.7-alpha make-before-break run 007
+
+- Tested exact commit `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4` once after fresh gate and paired PS5.1 selftest PASS.
+- Initial scene: single-SIM F1; pm-service 22536 sole owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 873.
+- Holder 27125 sole ownership, X55 rebirth, new PON_SUCCESS, and exact holder+new pm-service 28220 dual ownership all passed.
+- One exact TERM was sent. Holder 27125 remained alive beyond 10 seconds while waiting on child `sleep 60`; no retry followed.
+- Preserved scene: holder+pm-service dual ownership, holder PID file present, X55 ONLINE, crash_count 0, qcrild2 873 unchanged, WFC F1.
+- SIM OFF/ON 0/0. Production result: `X55_REBIRTH_SUCCESS / NOT_RUN / NOT_CHECKED / NOT_RUN`; phone write actions 4.
+
+NEXT_ACTION: preserve the dual-owner scene. Perform static-only redesign of deterministic holder TERM completion; no cleanup or rerun without explicit authorization.

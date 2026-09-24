@@ -32,6 +32,12 @@ The live cleanup blocker and static production-design blocker are resolved. v2.7
 
 This is static acceptance only. Cleanup 006 proved the native handoff mechanics, not WFC recovery. A future phone run requires explicit authorization.
 
+## 5. Holder TERM trap is deferred by the sleep child
+
+Authorized run 007 reached the exact dual-owner gate, then sent one TERM to the exact holder. The holder remained alive beyond the production 10-second deadline while its process tree showed a `sleep 60` child. The PID file and dual-owner state remained present; X55 stayed ONLINE and qcrild2 did not change.
+
+The likely cause is deferred shell trap handling while waiting for the foreground sleep child. No retry or cleanup was performed. A future change must be static-only first and must make exact-holder TERM completion deterministic without broad kill, SIGKILL, or weakening identity checks.
+
 ## Current disposition
 
 - 001: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`
@@ -51,5 +57,7 @@ This is static acceptance only. Cleanup 006 proved the native handoff mechanics,
 - Detailed fifth-launch evidence: `v2.7-alpha-native-handoff/FIFTH_DEVICE_RUN_RESULT.md`
 - Cleanup 006: exact-holder TERM once; `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`; phone write actions 1; qcrild2/SIM/service restart 0.
 - Detailed cleanup evidence: `X55_DUAL_OWNER_CLEANUP_006.md`
+- Seventh run: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; exact TERM once; SIM OFF/ON 0/0; X55 ONLINE; qcrild2 unchanged.
+- Detailed seventh-run evidence: `v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`
 
-NEXT_ACTION: wait for explicit authorization before any device execution of the redesigned v2.7-alpha path.
+NEXT_ACTION: preserve the current dual-owner scene. Statically redesign the holder loop/TERM completion behavior; do not rerun or clean up the phone without explicit authorization.
