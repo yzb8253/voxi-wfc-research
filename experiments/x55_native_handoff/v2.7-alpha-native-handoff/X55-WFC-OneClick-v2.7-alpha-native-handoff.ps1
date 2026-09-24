@@ -356,7 +356,7 @@ function Read-PonSuccess([string]$Label) {
 }
 
 function New-HolderCommand {
-  'echo $$ > {0}; trap ''rm -f {0}'' EXIT; exec 9<{1} || exit 71; trap ''exit 0'' TERM INT HUP; while :; do sleep 60; done' -f $HolderPidFile,$DeviceNode
+  'echo $$ > {0}; trap ''rm -f {0}'' EXIT; exec 9<{1} || exit 71; trap ''exit 0'' TERM INT HUP; while :; do sleep 1; done' -f $HolderPidFile,$DeviceNode
 }
 
 function Start-OwnedHolder {
@@ -527,7 +527,7 @@ function Invoke-StaticNoAdbSelfTest {
   }
   Require ($androidPayloadCrCount -eq 0) 'Android payload CR count is not zero'
   Require ((Normalize-AndroidShellText "alpha`r`nbeta`rgamma") -ceq "alpha`nbetagamma") 'Android LF normalization behavior mismatch'
-  Require ($androidPayloads.HolderLaunch.Contains('echo $$ >') -and $androidPayloads.HolderLaunch.Contains("exec 9<$DeviceNode") -and $androidPayloads.HolderLaunch.Contains('while :; do sleep 60; done')) 'Holder command construction mismatch'
+  Require ($androidPayloads.HolderLaunch.Contains('echo $$ >') -and $androidPayloads.HolderLaunch.Contains("exec 9<$DeviceNode") -and $androidPayloads.HolderLaunch.Contains('while :; do sleep 1; done')) 'Holder command construction mismatch'
   Require ($androidPayloads.SimPowerHelper.Contains('SingleSimSlot1PowerHelper ARM_ROLLBACK') -and $androidPayloads.SimCycleStart.Contains('v27_sim_cycle_single.sh')) 'SIM command construction mismatch'
   $exactCleanupArguments='/PID {0} /T /F' -f 4242
   Require ($exactCleanupArguments -ceq '/PID 4242 /T /F') 'Exact process cleanup command construction mismatch'
