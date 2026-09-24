@@ -1,0 +1,430 @@
+[18:51:05.812] ============================================================
+[18:51:05.863] X55 + VOXI WFC one-click recovery started v2.6.2-freeze-on-success
+[18:51:05.867] Serial=fd0ff892
+[18:51:05.869] ============================================================
+[18:51:06.997] CMD: adb -s fd0ff892 get-state
+device
+[18:51:07.289] CMD: adb -s fd0ff892 shell su -c 'id'
+uid=0(root) gid=0(root) groups=0(root) context=u:r:magisk:s0
+[18:51:07.462] STEP1 PASS: ADB connected; root confirmed
+[18:51:07.469] CMD: adb -s fd0ff892 shell getprop ro.product.device
+cas
+[18:51:07.573] CMD: adb -s fd0ff892 shell getprop ro.build.version.release
+13
+[18:51:07.678] CMD: adb -s fd0ff892 shell getprop ro.build.version.incremental
+V816.0.4.0.TJJCNXM
+[18:51:07.787] CMD: adb -s fd0ff892 shell getprop ro.build.fingerprint
+Xiaomi/cas/cas:13/TKQ1.221114.001/V816.0.4.0.TJJCNXM:user/release-keys
+[18:51:07.913] DEVICE=cas ANDROID=13 BUILD=V816.0.4.0.TJJCNXM
+[18:51:07.916] FINGERPRINT=Xiaomi/cas/cas:13/TKQ1.221114.001/V816.0.4.0.TJJCNXM:user/release-keys
+[18:51:07.920] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/name'
+esoc0
+[18:51:08.075] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/esoc/devices/esoc0/esoc_name'
+SDX55M
+[18:51:08.273] SUBSYS=esoc0 MODEM=SDX55M
+[18:51:08.282] CMD: adb -s fd0ff892 shell su -c 'settings get global airplane_mode_on'
+1
+[18:51:08.465] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh ]; then echo FOUND; else echo MISSING; fi'
+FOUND
+[18:51:08.635] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc.vendor.per_mgr'
+running
+[18:51:08.772] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+[18:51:08.910] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:09.068] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:09.233] CMD: adb -s fd0ff892 shell su -c 'readlink /proc/1276/exe 2>/dev/null'
+/vendor/bin/pm-service
+[18:51:09.432] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:09.576] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:09.713] CMD: adb -s fd0ff892 shell su -c 'readlink /proc/1276/exe 2>/dev/null'
+/vendor/bin/pm-service
+[18:51:09.880] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:10.039] CMD: adb -s fd0ff892 shell su -c 'ls -l /proc/1276/fd 2>/dev/null | grep '/dev/subsys_esoc0' | head -n 1'
+lr-x------ 1 root root 64 2026-09-24 18:44 9 -> /dev/subsys_esoc0
+[18:51:10.238] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc_debug_pid.vendor.per_mgr'
+1276
+[18:51:10.407] CMD: adb -s fd0ff892 shell su -c 'ls -l /proc/1276/fd 2>/dev/null | grep '/dev/subsys_esoc0' | head -n 1'
+lr-x------ 1 root root 64 2026-09-24 18:44 9 -> /dev/subsys_esoc0
+[18:51:10.583] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/state'
+ONLINE
+[18:51:10.756] ENTRY_BASELINE per_mgr=running pid=1276 exe=/vendor/bin/pm-service ownsEsoc=True x55=ONLINE savedHolder=NONE
+[18:51:10.765] ENTRY_BASELINE PASS: native pm-service owner present, X55=ONLINE, no active script holder
+[18:51:10.782] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:51:13.673] HEALTH initial: ims=False transportWlan=False voiceIwlan=False wfc=False
+[18:51:13.687] CMD: adb -s fd0ff892 shell su -c 'cat /sys/kernel/debug/ipc_logging/esoc-mdm/log 2>/dev/null | grep PON_SUCCESS | tail -n 1'
+[    12.625382381/        0x131e2492] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[18:51:13.884] Previous PON_SUCCESS line: [    12.625382381/        0x131e2492] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[18:51:13.886] CMD: adb -s fd0ff892 shell su -c 'setprop ctl.stop vendor.per_mgr'
+[18:51:16.297] CMD: adb -s fd0ff892 shell su -c 'getprop init.svc.vendor.per_mgr'
+stopped
+[18:51:16.498] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+[18:51:16.672] CMD: adb -s fd0ff892 shell su -c 'lsof /dev/subsys_esoc0 2>/dev/null'
+[18:51:18.080] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/state'
+OFFLINE
+[18:51:18.278] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count'
+0
+[18:51:18.459] X55 OFFLINE; CRASH_COUNT=0
+[18:51:18.467] Starting dedicated temporary X55 holder PowerShell window
+[18:51:18.627] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+[18:51:19.781] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+21676
+[18:51:19.963] CMD: adb -s fd0ff892 shell su -c 'readlink /proc/21676/fd/9 2>/dev/null'
+[18:51:21.132] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+21676
+[18:51:21.334] CMD: adb -s fd0ff892 shell su -c 'readlink /proc/21676/fd/9 2>/dev/null'
+[18:51:22.539] CMD: adb -s fd0ff892 shell su -c 'if [ -f /data/local/tmp/x55_holder.pid ]; then cat /data/local/tmp/x55_holder.pid; fi'
+21676
+[18:51:22.742] CMD: adb -s fd0ff892 shell su -c 'readlink /proc/21676/fd/9 2>/dev/null'
+/dev/subsys_esoc0
+[18:51:22.921] Temporary holder confirmed PID=21676
+[18:51:22.929] TEMP_HOLDER_PID=21676
+[18:51:22.932] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/state'
+ONLINE
+[18:51:23.097] CMD: adb -s fd0ff892 shell su -c 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count'
+0
+[18:51:23.279] CMD: adb -s fd0ff892 shell su -c 'lsof /dev/subsys_esoc0 2>/dev/null'
+COMMAND     PID       USER   FD      TYPE             DEVICE  SIZE/OFF       NODE NAME
+sh        21676       root    9r      CHR             234,11       0t0       8699 /dev/subsys_esoc0
+[18:51:24.754] X55 ONLINE; CRASH_COUNT=0; temporary holder active
+[18:51:24.765] CMD: adb -s fd0ff892 shell su -c 'cat /sys/kernel/debug/ipc_logging/esoc-mdm/log 2>/dev/null | grep PON_SUCCESS | tail -n 1'
+[   667.706612506/       0x300cc790b] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[18:51:24.961] New PON_SUCCESS: [   667.706612506/       0x300cc790b] [mdm_handle_clink_evt]: ESOC_RUN_STATE: Calling complete with state: PON_SUCCESS
+[18:51:24.964] CMD: adb -s fd0ff892 shell su -c 'cat /sys/kernel/debug/ipc_logging/esoc-mdm/log 2>/dev/null | tail -n 50'
+[18:51:25.153] Post-PON stabilization wait: 10s
+[18:51:38.197] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:51:41.078] HEALTH after_x55_only_1: ims=False transportWlan=False voiceIwlan=False wfc=False
+[18:51:43.109] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:51:45.931] HEALTH after_x55_only_2: ims=False transportWlan=False voiceIwlan=False wfc=False
+[18:51:45.941] WFC NOT HEALTHY tag=after_x55_only after 5s
+[18:51:45.952] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:51:48.800] CNE_BASELINE registered=NO active=NO request=null satisfied=null
+[18:51:48.823] SIM cycle 1: POWER OFF -> hold 3s -> POWER ON once; transaction 182
+[18:51:48.831] SIM2 lifecycle snapshot: before_cycle_1
+[18:51:48.834] CMD: adb -s fd0ff892 shell su -c 'echo ===SIM_STATE===; getprop gsm.sim.state'
+===SIM_STATE===
+ABSENT,LOADED
+===SIM_STATE===
+ABSENT,LOADED
+[18:51:49.002] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_ID11===; dumpsys isub | grep id=11 | head -n 10'
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@9d0f63a mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@9d0f63a mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+[18:51:49.196] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_SLOTMAP===; dumpsys isub | grep sSlotIndexToSubId | head -n 10'
+===ISUB_SLOTMAP===
+ sSlotIndexToSubId[1]: subIds=1=[11]
+===ISUB_SLOTMAP===
+ sSlotIndexToSubId[1]: subIds=1=[11]
+[18:51:49.390] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_ID1===; dumpsys phone | grep phoneId=1 | head -n 20'
+===PHONE_ID1===
+===PHONE_ID1===
+[18:51:49.588] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_SUB11===; dumpsys phone | grep subId=11 | head -n 20'
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      Listener={slotId=1, subId=11, state=READY, reason=READY, hasConfig=true}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+[18:51:49.786] CMD: adb -s fd0ff892 shell su -c 'service call phone 182 i32 1 i32 0'
+Result: Parcel(00000000    '....')
+[18:51:49.941] SIM cycle 1: POWER OFF accepted
+[18:51:50.955] SIM2 lifecycle snapshot: after_power_off_1
+[18:51:50.959] CMD: adb -s fd0ff892 shell su -c 'echo ===SIM_STATE===; getprop gsm.sim.state'
+===SIM_STATE===
+ABSENT,ABSENT
+===SIM_STATE===
+ABSENT,ABSENT
+[18:51:51.146] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_ID11===; dumpsys isub | grep id=11 | head -n 10'
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=-1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=-1 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=-1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=-1 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+[18:51:51.373] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_SLOTMAP===; dumpsys isub | grep sSlotIndexToSubId | head -n 10'
+===ISUB_SLOTMAP===
+===ISUB_SLOTMAP===
+[18:51:51.578] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_ID1===; dumpsys phone | grep phoneId=1 | head -n 20'
+===PHONE_ID1===
+===PHONE_ID1===
+[18:51:51.778] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_SUB11===; dumpsys phone | grep subId=11 | head -n 20'
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+[18:51:53.991] CMD: adb -s fd0ff892 shell su -c 'service call phone 182 i32 1 i32 1'
+Result: Parcel(00000000    '....')
+[18:51:54.206] SIM cycle 1: single POWER ON sent; duplicate POWER ON disabled
+[18:51:56.219] SIM2 lifecycle snapshot: after_power_on_1
+[18:51:56.224] CMD: adb -s fd0ff892 shell su -c 'echo ===SIM_STATE===; getprop gsm.sim.state'
+===SIM_STATE===
+ABSENT,READY
+===SIM_STATE===
+ABSENT,READY
+[18:51:56.394] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_ID11===; dumpsys isub | grep id=11 | head -n 10'
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@fe492fb mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:53.802857 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+===ISUB_ID11===
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@fe492fb mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+  {id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}
+2026-09-24T18:45:54.017194 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.622704 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=无服务 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@bbfa40b mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:54.993438 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=只能拨打紧急呼救电话 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@3b6d2ab mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:45:56.752323 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=中国移动 nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@b5c0a64 mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:46:47.948801 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=android.graphics.Bitmap@568427c mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:24.913264 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+2026-09-24T18:51:53.802857 - Active subscription info list changed. [{id=11 iccId=894410004[****] simSlotIndex=1 carrierId=28 displayName=voxi carrierName=null nameSource=2 iconTint=-16746133 mNumber=[****] dataRoaming=0 iconBitmap=null mcc=234 mnc=15 countryIso=gb isEmbedded=false nativeAccessRules=null cardString=894410004[****] cardId=0 portIndex=0 isOpportunistic=false groupUUID=null isGroupDisabled=false profileClass=-1 ehplmns=[] hplmns=[23415] subscriptionType=0 groupOwner=null carrierConfigAccessRules=null areUiccApplicationsEnabled=true usageSetting=0}]
+[18:51:56.590] CMD: adb -s fd0ff892 shell su -c 'echo ===ISUB_SLOTMAP===; dumpsys isub | grep sSlotIndexToSubId | head -n 10'
+===ISUB_SLOTMAP===
+ sSlotIndexToSubId[1]: subIds=1=[11]
+===ISUB_SLOTMAP===
+ sSlotIndexToSubId[1]: subIds=1=[11]
+[18:51:56.775] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_ID1===; dumpsys phone | grep phoneId=1 | head -n 20'
+===PHONE_ID1===
+===PHONE_ID1===
+[18:51:56.948] CMD: adb -s fd0ff892 shell su -c 'echo ===PHONE_SUB11===; dumpsys phone | grep subId=11 | head -n 20'
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:51:53.901552 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:51:53.901639 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:51:54.319384 - [1, MMTEL] setSubId changed subId=11
+===PHONE_SUB11===
+        2026-09-24T18:45:56.027997 - [1] addConnection, subId=11, type=MMTEL, conn=FeatureContainer{imsFeature=android.os.BinderProxy@c67e1c3, imsConfig=android.telephony.ims.aidl.IImsConfig$Stub$Proxy@2672dd4, imsRegistration=android.telephony.ims.aidl.IImsRegistration$Stub$Proxy@bdd4b7d, sipTransport=null, state=UNAVAILABLE, capabilities = capabilities={ EMERGENCY_OVER_MMTEL }}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true}
+      Listener={slotId=1, subId=11, state=UNAVAILABLE, reason=IMS_SERVICE_DISCONNECTED, hasConfig=true, isReady=false, hasFeatures=false}
+      2026-09-24T18:45:54.614355 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:45:54.614483 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:45:54.895115 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:51:53.901552 - [1, MMTEL] setSubId changed subId=11
+      2026-09-24T18:51:53.901639 - [1, RCS] setSubId changed subId=11
+      2026-09-24T18:51:54.319384 - [1, MMTEL] setSubId changed subId=11
+[18:52:02.161] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:52:04.911] HEALTH after_sim_cycle_1_1: ims=False transportWlan=False voiceIwlan=False wfc=False
+[18:52:07.925] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: NOT_REGISTERED (raw 0)
+Transport: UNKNOWN_-1 (raw -1)
+VOICE/IWLAN: UNAVAILABLE
+WFC: UNAVAILABLE
+Result: UNSAFE
+Failure class: F1
+
+Supporting:
+IMS NetworkAgent: MISSING (id null)
+qti.cne: registered=NO active=NO request=null satisfied=null
+ePDG UDP/4500: MISSING
+XFRM: MISSING
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:52:10.814] HEALTH after_sim_cycle_1_2: ims=False transportWlan=False voiceIwlan=False wfc=False
+[18:52:13.823] CMD: adb -s fd0ff892 shell su -c '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status'
+==============================
+VOXI WFC Recovery v2.0
+==============================
+
+VOXI: slot=1 phoneId=1 subId=11 MCCMNC=23415 carrierId=28
+Subscription: ACTIVE
+UICC Apps: ENABLED
+
+CORE HEALTH:
+IMS: REGISTERED (raw 2)
+Transport: WLAN (raw 2)
+VOICE/IWLAN: AVAILABLE
+WFC: AVAILABLE
+Result: UNSAFE
+Failure class: F0
+
+Supporting:
+IMS NetworkAgent: PRESENT (id 103)
+qti.cne: registered=YES active=YES request=262 satisfied=262
+ePDG UDP/4500: PRESENT
+XFRM: PRESENT
+MMTEL: READY
+Protected slot0: subId=1 slot=null carrierId=null MCCMNC=nullnull gate=FAIL
+[18:52:16.593] HEALTH after_sim_cycle_1_3: ims=True transportWlan=True voiceIwlan=True wfc=True
+[18:52:16.603] WFC HEALTHY tag=after_sim_cycle_1 elapsed=11s check=3
+[18:52:16.608] FREEZE_ON_HEALTHY=TRUE reason=SIM_CYCLE_1_SUCCESS
+[18:52:16.635] CLEANUP_RESULT=SKIPPED_FREEZE_ON_HEALTHY
+[18:52:16.669] FINAL_RESULT recovery=SIM_CYCLE_1_SUCCESS cleanup=SKIPPED_FREEZE_ON_HEALTHY postCleanupWfc=HEALTHY

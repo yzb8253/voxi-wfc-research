@@ -1,0 +1,37 @@
+﻿2026-09-24T18:56:51.8880721+08:00 R3_PREPARE_BEGIN cycle=2 execute=True
+2026-09-24T18:56:52.0065384+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T18:57:06.7550921+08:00 CAPTURE=SNAPSHOT=R3_C2_A_RAW
+2026-09-24T18:57:06.7585989+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\R3_C2_A_RAW.json
+2026-09-24T18:57:06.7630077+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle\R3_C2_A_RAW
+2026-09-24T18:57:06.7667850+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T18:57:06.7715477+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T18:57:06.7757881+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T18:59:00.6437517+08:00 R0_NATIVE=ENTRY_GATE=PASS
+2026-09-24T18:59:00.6477052+08:00 R0_NATIVE=HOLDER_PID=21676
+2026-09-24T18:59:00.6514213+08:00 R0_NATIVE=PRE_OWNER=sh        21676       root    9r      CHR             234,11       0t0       8699 /dev/subsys_esoc0
+2026-09-24T18:59:00.6557396+08:00 R0_NATIVE=PRE_QCRILD=1963     1 qcrild                      qcrild
+2026-09-24T18:59:00.6599753+08:00 R0_NATIVE=PRE_QCRILD2=2010     1 qcrild                      qcrild -c 2
+2026-09-24T18:59:00.6834262+08:00 R0_NATIVE=GATE_FAIL: pm-service did not form exact dual ownership; holder was not touched
+2026-09-24T18:59:00.6864261+08:00 R0_NATIVE=At C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_fre
+2026-09-24T18:59:00.6904266+08:00 R0_NATIVE=eze_run\normalize_a1_native_owner.ps1:29 char:75
+2026-09-24T18:59:00.6937387+08:00 R0_NATIVE=+ ... string]$Message) { if(-not $Condition){throw "GATE_FAIL: $Message"} }
+2026-09-24T18:59:00.6974207+08:00 R0_NATIVE=+                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-09-24T18:59:00.7006353+08:00 R0_NATIVE=    + CategoryInfo          : OperationStopped: (GATE_FAIL: pm-s...was not touched:String) [], RuntimeException
+2026-09-24T18:59:00.7032723+08:00 R0_NATIVE=    + FullyQualifiedErrorId : GATE_FAIL: pm-service did not form exact dual ownership; holder was not touched
+2026-09-24T18:59:00.7067238+08:00 R0_NATIVE= 
+2026-09-24T18:59:33.6785192+08:00 R0_QCRILD=ENTRY_GATE=PASS HOLDER=21676 PM=27719 QCRILD2=2010
+2026-09-24T18:59:33.6821874+08:00 R0_QCRILD=HOLDER_TERM_COUNT=1
+2026-09-24T18:59:33.6852382+08:00 R0_QCRILD=PRE_REACQUIRE_FINGERPRINT=PASS
+2026-09-24T18:59:33.6892382+08:00 R0_QCRILD=QCRILD2_RESTART_COUNT=1
+2026-09-24T18:59:33.6922399+08:00 R0_QCRILD=NORMALIZATION=PASS
+2026-09-24T18:59:33.6952385+08:00 R0_QCRILD=QCRILD2_OLD_PID=2010
+2026-09-24T18:59:33.6995240+08:00 R0_QCRILD=QCRILD2_NEW_PID=29967
+2026-09-24T18:59:33.7033747+08:00 R0_QCRILD=PM_SERVICE_PID=27719
+2026-09-24T18:59:33.7068717+08:00 R0_QCRILD=POST_OWNER=pm-service 27719     system    9r      CHR             234,11       0t0       8699 /dev/subsys_esoc0
+2026-09-24T18:59:33.7105756+08:00 R0_QCRILD=X55=ONLINE CRASH_COUNT=0
+2026-09-24T19:00:50.9883261+08:00 CAPTURE=SNAPSHOT=R3_C2_R0_NORMALIZED
+2026-09-24T19:00:50.9923239+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\R3_C2_R0_NORMALIZED.json
+2026-09-24T19:00:50.9996728+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle\R3_C2_R0_NORMALIZED
+2026-09-24T19:00:51.0034025+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T19:00:51.0072175+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T19:00:51.0115723+08:00 CAPTURE=FAILURE_CLASS=F1

@@ -471,3 +471,12 @@ NEXT_ACTION: separately audit an R3 executor and run only after explicit authori
 - PS5.1 parser and STATIC_NO_ADB checks pass. Audit phone writes 0.
 
 NEXT_ACTION: commit/push the audited runner, then use the one authorized reboot to establish CONTROL_A0 before any R3 process signal.
+
+## 2026-09-24 R3 controlled run stopped at Cycle 2 pre-R3
+
+- Cycle 1: valid PASS; phone 3472 -> 17402; R3_READY PASS; SIM OFF/ON 1/1; M1-M7 complete; WFC healthy.
+- Cycle 2: fixed R0 restored native clean ownership, but the runner rejected retained IWLAN/preferred framework fields before executing the phone restart.
+- No Cycle-2 phone TERM, P, SIM cycle or recovery ran. Cycle 3 was not run.
+- Classification: `ABORTED_PRE_R3_INVALID_INTERMEDIATE_GATE_CYCLE_2`; R3 sufficiency remains inconclusive.
+
+NEXT_ACTION: preserve the current clean-native/F1 scene. Do not patch and resume this series. A separately approved new series must correct the pre-R3 gate definition first.

@@ -1,0 +1,130 @@
+{
+    "schema":  "wfc-repeatability-snapshot-v1",
+    "label":  "R3_C1_R0_NORMALIZED",
+    "timestamp":  "2026-09-24T18:45:37.8352430+08:00",
+    "gitHead":  "f5391cdc3633aa520e25c4a339eecab823753868",
+    "serial":  "fd0ff892",
+    "device":  {
+                   "root":  true,
+                   "product":  "cas"
+               },
+    "environment":  {
+                        "airplaneMode":  0,
+                        "wifiSetting":  "1",
+                        "wlan0Up":  true,
+                        "tunPresent":  false,
+                        "vpnNetwork":  true
+                    },
+    "target":  {
+                   "subId":  11,
+                   "slotId":  1,
+                   "phoneId":  1,
+                   "carrierId":  28,
+                   "mcc":  234,
+                   "mnc":  15,
+                   "mappingGate":  true
+               },
+    "subscription":  {
+                         "active":  true,
+                         "uiccAppsEnabled":  true,
+                         "defaultDataSubId":  11,
+                         "activeDataSubId":  11
+                     },
+    "processes":  {
+                      "qcrild":  {
+                                     "pid":  1963,
+                                     "ppid":  1,
+                                     "name":  "qcrild",
+                                     "cmdline":  "qcrild"
+                                 },
+                      "qcrild2":  {
+                                      "pid":  2010,
+                                      "ppid":  1,
+                                      "name":  "qcrild",
+                                      "cmdline":  "qcrild -c 2"
+                                  },
+                      "pmService":  {
+                                        "pid":  1276,
+                                        "ppid":  1,
+                                        "name":  "pm-service",
+                                        "cmdline":  "pm-service"
+                                    },
+                      "pmProxy":  {
+                                      "pid":  1715,
+                                      "ppid":  1,
+                                      "name":  "pm-proxy",
+                                      "cmdline":  "pm-proxy"
+                                  },
+                      "mdmHelper":  {
+                                        "pid":  1360,
+                                        "ppid":  1,
+                                        "name":  "mdm_helper",
+                                        "cmdline":  "mdm_helper"
+                                    },
+                      "holder":  null
+                  },
+    "native":  {
+                   "perMgrState":  "running",
+                   "ownerLines":  [
+                                      "pm-service  1276     system    9r      CHR             234,11       0t0       8699 /dev/subsys_esoc0",
+                                      "mdm_helper  1360       root    5r      CHR              485,0       0t0      32939 /dev/esoc-0",
+                                      "ks         2294       root    5r      CHR              485,0       0t0      32939 /dev/esoc-0"
+                                  ],
+                   "vendorPeripheralState":  "ONLINE",
+                   "x55State":  "ONLINE",
+                   "x55Online":  true,
+                   "crashCount":  0,
+                   "pmSupported":  "",
+                   "esocSupported":  "",
+                   "esocFd":  "",
+                   "votingState":  "",
+                   "powerNode":  ""
+               },
+    "ims":  {
+                "stateRaw":  0,
+                "state":  "NOT_REGISTERED",
+                "transportRaw":  -1,
+                "transport":  "UNKNOWN_-1",
+                "feature":  "READY",
+                "voiceIwlan":  false
+            },
+    "iwlan":  {
+                  "rilTechnology":  "LTE",
+                  "psWlan":  "HOME",
+                  "accessNetwork":  "IWLAN",
+                  "preferred":  false
+              },
+    "data":  {
+                 "wfcAvailable":  false,
+                 "qtiCneRequest":  false,
+                 "qtiCneProbeReported":  false,
+                 "imsNetworkAgent":  false,
+                 "udp4500":  false,
+                 "xfrm":  false
+             },
+    "residues":  {
+                     "holderPidFile":  false,
+                     "moduleLock":  false,
+                     "moduleStateFiles":  [
+                                              "-rw-rw-rw- 1 shell shell 54304 2026-09-21 16:20 /data/local/tmp/x55_ssr.ko",
+                                              "-rw-rw-rw- 1 shell shell 30152 2026-09-21 16:14 /data/local/tmp/x55_test.ko",
+                                              "drwx------ 2 root root 3488 2026-09-20 16:03 /data/local/tmp/voxi-l1_5-executor",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-21 11:38 /data/local/tmp/voxi-logical-modem-cycle",
+                                              "drwxrwxrwx 2 shell shell 3488 2026-09-21 12:03 /data/local/tmp/voxi-logical-modem-cycle-v4",
+                                              "drwxrwxrwx 2 shell shell 3488 2026-09-21 12:22 /data/local/tmp/voxi-logical-modem-radio-on-v1",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-21 10:50 /data/local/tmp/voxi-modem-reload-once",
+                                              "-rw-rw-rw- 1 shell shell 9770 2026-09-21 10:48 /data/local/tmp/voxi-modem-reload-once.jar",
+                                              "drwx------ 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-single-sim",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-15 10:32 /data/local/tmp/voxi-wfc",
+                                              "drwxrwxr-x 4 shell shell 3488 2026-09-17 22:03 /data/local/tmp/voxi-wfc-v1.2-buildtest",
+                                              "drwxrwxr-x 4 shell shell 3488 2026-09-17 22:04 /data/local/tmp/voxi-wfc-v1.2-zipverify",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-x55-v27-alpha",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-15 13:17 /data/local/tmp/voxi_ims",
+                                              "drwxr-xr-x 2 root root 3488 2026-09-24 13:15 /data/local/tmp/voxi_pm_reverse2"
+                                          ]
+                 },
+    "health":  {
+                   "goldenStrong":  false,
+                   "failureClass":  "F1"
+               }
+}

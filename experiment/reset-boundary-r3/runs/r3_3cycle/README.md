@@ -1,6 +1,6 @@
 # R3 three-cycle run record
 
-No production run has started at this checkpoint.
+The authorized run started on 2026-09-24. Cycle 1 is a valid PASS. Cycle 2 stopped before R3 because an invalid intermediate post-R0 gate required framework canonicality before the framework reset. Cycle 3 was not run. See `RESULT.md`.
 
 Required retained fields per cycle:
 
@@ -13,3 +13,5 @@ Required retained fields per cycle:
 - v2.6.2 SHA-256;
 - SIM OFF/ON count;
 - WFC elapsed time and final classification.
+
+Current classification: `ABORTED_PRE_R3_INVALID_INTERMEDIATE_GATE_CYCLE_2`. This is neither `R3_FALSIFIED_AT_CYCLE=2` nor `R3_NOT_FALSIFIED_3_CYCLES`.

@@ -401,3 +401,13 @@ NEXT_ACTION: no device action is authorized by this checkpoint. Build an R3 safe
 - Audit scripts parse under PS5.1 and pass STATIC_NO_ADB. Phone writes 0 so far.
 
 NEXT_ACTION: after this audit is committed/pushed, run the separately authorized one-time reboot baseline, then fixed R3/P/v2.6.2 cycles. Stop at the first valid failure.
+
+## Current checkpoint: R3 run stopped at Cycle 2 pre-R3
+
+- Full result: `experiment/reset-boundary-r3/runs/r3_3cycle/RESULT.md`.
+- Cycle 1 passed: exact main phone PID 3472 -> 17402, R3_READY PASS, fixed P, exact v2.6.2, one SIM cycle, WFC healthy in 11 seconds, M1-M7 complete.
+- Cycle 2 fixed R0 ended native-clean (pm-service 27719 sole owner, qcrild2 29967, X55 ONLINE/crash zero) but the runner stopped at `R0_NOT_CANONICAL` because framework IWLAN/preferred residue was tested before R3.
+- Cycle 2 never executed phone TERM/P/SIM/recovery. Cycle 3 was not run. Do not treat this as R3 falsification or 3-cycle support.
+- Current scene: airplane OFF, holder absent, per_mgr running, native clean, VOXI active/UICC enabled, F1.
+
+NEXT_ACTION: no continuation or phone workaround. Redefine the post-R0 intermediate gate in a new, separately authorized series.

@@ -1,0 +1,34 @@
+﻿2026-09-24T18:38:43.9856522+08:00 R3_PREPARE_BEGIN cycle=1 execute=False
+2026-09-24T18:38:44.1734475+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T18:39:51.9838321+08:00 R3_PREPARE_BEGIN cycle=1 execute=False
+2026-09-24T18:39:52.1226411+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T18:44:09.6452844+08:00 R3_PREPARE_BEGIN cycle=1 execute=False
+2026-09-24T18:44:09.8455643+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T18:44:22.9984041+08:00 R3_PREPARE_BEGIN cycle=1 execute=True
+2026-09-24T18:44:23.1748296+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T18:44:36.5363003+08:00 CAPTURE=SNAPSHOT=R3_C1_A_RAW
+2026-09-24T18:44:36.5425236+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\R3_C1_A_RAW.json
+2026-09-24T18:44:36.5468318+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle\R3_C1_A_RAW
+2026-09-24T18:44:36.5500486+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T18:44:36.5530805+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T18:44:36.5748107+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T18:44:37.0208025+08:00 PHONE_WRITE=rm -f /data/local/tmp/x55_holder.pid
+2026-09-24T18:44:37.1956664+08:00 R0=REMOVED_VERIFIED_STALE_DEAD_HOLDER_PID_FILE
+2026-09-24T18:45:50.4728306+08:00 CAPTURE=SNAPSHOT=R3_C1_R0_NORMALIZED
+2026-09-24T18:45:50.4798289+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\R3_C1_R0_NORMALIZED.json
+2026-09-24T18:45:50.4847132+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle\R3_C1_R0_NORMALIZED
+2026-09-24T18:45:50.5261331+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T18:45:50.5321352+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T18:45:50.5361386+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T18:45:50.5711114+08:00 R0=PASS
+2026-09-24T18:45:51.7956645+08:00 R3_SCOPE_BEFORE phone=3472 qcrild=1963 qcrild2=2010 qtidata=3397 qcomims=3458
+2026-09-24T18:45:51.9570511+08:00 PHONE_WRITE=kill -TERM 3472
+2026-09-24T18:45:56.0183260+08:00 R3_READY_PROGRESS newPhone=17402 missing=carrierLoaded,mmtel11
+2026-09-24T18:46:00.2082352+08:00 R3_READY_PROGRESS newPhone=17402 missing=
+2026-09-24T18:46:23.8682916+08:00 CAPTURE=SNAPSHOT=R3_C1_A_READY
+2026-09-24T18:46:23.8747310+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\R3_C1_A_READY.json
+2026-09-24T18:46:23.8805498+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle\R3_C1_A_READY
+2026-09-24T18:46:23.8870702+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T18:46:23.8960667+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T18:46:23.9013383+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T18:46:24.2323299+08:00 R3_READY=PASS oldPhone=3472 newPhone=17402

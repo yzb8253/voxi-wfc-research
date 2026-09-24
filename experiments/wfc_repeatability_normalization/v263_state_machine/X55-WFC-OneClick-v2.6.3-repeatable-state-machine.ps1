@@ -8,7 +8,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $Serial = 'fd0ff892'
-$RunName = 'v263_state_machine_3cycle'
+$RunName = 'r3_3cycle'
 $SettleSeconds = 60
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Repo = (Resolve-Path (Join-Path $Root '..\..')).Path

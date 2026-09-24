@@ -422,3 +422,12 @@ NEXT_ACTION: design and statically audit the exact-PID R3 executor; do not run i
 - A path-specific LF checkout rule is required so Windows preserves the audited v2.6.2 SHA-256 without changing its logic.
 
 NEXT_ACTION: execute only through the audited CONTROL_A0 and R3 cycle scripts; fail closed on any scope change or missing readiness marker.
+
+## R3 controlled-run finding (2026-09-24)
+
+- Cycle 1 validly passed exact-PID R3, fixed P and hash-locked v2.6.2. Phone PID changed 3472 -> 17402, R3_READY passed, one SIM OFF/ON recovered WFC in 11 seconds, and M1 through M7 were observed.
+- Cycle 2 restored native ownership through the fixed R0 fallback (qcrild2 2010 -> 29967; pm-service 27719 sole owner; X55 ONLINE/crash zero) but stopped before R3 at `R0_NOT_CANONICAL`.
+- The rejected field was framework residue (`IWLAN`, preferred=true with airplane OFF). Requiring that field to be canonical before the framework reset is an invalid intermediate gate because R3 exists to rebuild that lifecycle.
+- The run is `ABORTED_PRE_R3_INVALID_INTERMEDIATE_GATE_CYCLE_2`, not an R3 counterexample and not a 3-cycle success. No Cycle 3 or adaptive phone action ran.
+
+NEXT_ACTION: only under new authorization, revise the experimental definition so post-R0 requires native-clean/identity/environment while framework canonicality is checked after R3. Restart the falsification series from a fresh authorized baseline; do not continue this interrupted series.
