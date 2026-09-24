@@ -546,3 +546,13 @@ NEXT_ACTION: statically trace the target native IIWlan GET response construction
 - Five reports are in `experiment/native-qualified-network-boundary/`; raw logs/binaries remain host-only. Phone writes 0.
 
 NEXT_ACTION: preserve the scene. If separately authorized, test only a corrected fail-closed readiness predicate tied to the latest NAH generation and non-empty live GET. Do not run R4c.
+
+## Current checkpoint: R4b publication-gated v3 ready
+
+- Starting commit: `de8057987b30359c739109efc7de6cc9e7754715`.
+- Series: `experiment/reset-boundary-r4b/runs/r4b_3cycle_v3/`.
+- Only readiness evidence changed. Reset primitives/order, 120-second limits, P, frozen v2.6.2 and recovery budgets are unchanged.
+- Pre-R3 gate uses current live NAH sections and latest generation only; post-R3 gate observes the natural fresh-provider GET and generation invariant. Neither gate has a phone-write path or active GET call.
+- Static audit passes under Windows PowerShell 5.1. Phone writes 0 so far.
+
+NEXT_ACTION: run the authorized new reboot baseline and v3 series once, fail closed with no adaptive action.

@@ -615,3 +615,13 @@ NEXT_ACTION: static/read-only trace of native `IIWlan::getAllQualifiedNetworks` 
 - Reports: `experiment/native-qualified-network-boundary/`. Phone writes 0.
 
 NEXT_ACTION: no reset. Design a separately authorized gate-only validation requiring current-generation live IMS cache, non-empty LastReported state and matching non-empty GET before R3/P. Do not execute R4c.
+
+## 2026-09-24 R4b publication-gated v3 implementation
+
+- User authorized a new independent `r4b_3cycle_v3` series and one reboot baseline.
+- Reset order, reset counts, 120-second timeouts, fixed P, v2.6.2 hash, SIM cycle and health predicate remain unchanged.
+- New pre-R3 gate binds to the latest post-qtidataservices NAH constructor and requires ten stable live samples with working IMS/EUTRAN plus LastReported IMS/EUTRAN. Old LocalLog history is rejected and no GET is injected.
+- New post-R3 gate requires the same NAH generation, a natural fresh-provider serial newer than R3, a matched non-empty IMS response and normal QNS processing.
+- PS5.1 parser/order/hash/no-write static audit passes. Static-phase phone writes 0.
+
+NEXT_ACTION: establish the one authorized `CONTROL_A0_R4B_V3` reboot baseline, then execute the frozen v3 runner once and stop at the first valid failure.

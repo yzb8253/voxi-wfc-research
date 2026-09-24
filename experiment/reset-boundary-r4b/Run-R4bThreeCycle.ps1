@@ -20,5 +20,4 @@ for($cycle=1;$cycle -le 3;$cycle++){
   Run-Cycle $cycle
   if($cycle -lt 3){Phone-Write 'cmd connectivity airplane-mode disable';Log "C${cycle}_TO_C$($cycle+1)_AIRPLANE_OFF_COUNT=1";Start-Sleep -Seconds 10}
 }
-Write-Host 'R4B_NOT_FALSIFIED_3_CYCLES'
-
+Write-Host 'R4B_PUBLICATION_GATED_NOT_FALSIFIED_3_CYCLES'
