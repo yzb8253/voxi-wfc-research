@@ -451,3 +451,14 @@ NEXT_ACTION: establish the separately authorized one-reboot CONTROL_A0_V2 baseli
 - Classification: `R3_FALSIFIED_AT_CYCLE=1`, `FIRST_MISSING_MILESTONE=M1`.
 
 NEXT_ACTION: preserve the clean-native airplane-ON F1 scene. Do not patch SST/QNS or enlarge the reset in this run. Design any next boundary as a new candidate under separate approval.
+
+## Boot versus R3 provider-generation finding (2026-09-24)
+
+- R3's phone PID changed and Phone/ANM/NRM/SST/DNC were fresh, while qcrild2, qtidataservices and Qualcomm IMS PIDs stayed unchanged.
+- The R3 log proves ANM/NRM/DNC rebound successfully. It also records QualifiedNetworksService and NetworkService creation inside the unchanged qtidataservices PID, so the failure cannot be simplified to “the Java provider was never recreated.”
+- The still-old boundary begins lower: qcrild2 DataModule/DSD/WDS/NetworkAvailabilityHandler and the qtidataservices process/static IIWlan callback relationship were not given a boot-equivalent joint epoch.
+- NRM's new explicit query reached IWlanNetworkService and returned `NOT_REG_OR_SEARCHING`; QNS never published IMS->IWLAN. This is functional evidence of an old producer/new consumer combination, not proof of a specific stale callback or cache field.
+- Reboot recreates native producer, Java bridge/provider and framework consumer epochs together. R4a tests the minimum provider-first subset: qcrild2 cold epoch followed by exact R3.
+- Isolated qcrild2 and isolated/coordinated qtidataservices tests previously failed, so success probability is not assumed. Their different ordering and missing consumer reset make R4a a distinct, falsifiable hypothesis.
+
+NEXT_ACTION: R4a is design-only. Do not execute until its exact one-shot runner and readiness gates receive separate approval.

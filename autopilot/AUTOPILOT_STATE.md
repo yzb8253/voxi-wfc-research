@@ -499,3 +499,15 @@ NEXT_ACTION: use the one authorized reboot for CONTROL_A0_V2, then execute three
 - Result: `R3_FALSIFIED_AT_CYCLE=1`, first missing milestone M1.
 
 NEXT_ACTION: no further phone action in this scene. A new reset boundary requires a new design and explicit authorization.
+
+## 2026-09-24 boot-equivalent reset-boundary analysis
+
+- Preserved the valid result `R3_FALSIFIED_AT_CYCLE=1` without reclassification.
+- Built the current-ROM dependency graph from X55/PM and qcrild2 DataModule/IIWlan through qtidataservices QNS/IWLAN/CNE to Phone/ANM/NRM/SST/DNC and IMS.
+- R3 recreated the framework consumer epoch and even caused QNS/NetworkService bound-Service creation in the unchanged qtidataservices PID, but did not recreate qcrild2 DataModule/DSD/NAH, qtidataservices process/static HIDL state, cnd, or vendor IMS epochs.
+- H2 is supported only as a falsifiable generation/order hypothesis. There is no proof of a stale callback ID or failed Binder cleanup.
+- The earliest preserved producer boundary is qcrild2 `IIWlan/slot2` / DataModule / DSD / NAH. Recommended R4a order is fixed R0 -> one verified qcrild2 restart -> native-provider readiness -> exact R3 -> A_READY -> unchanged P/v2.6.2.
+- R4b additionally recreates qtidataservices; R4c recreates the broader boot-like telephony userspace producer stack. Neither is authorized for execution by this checkpoint.
+- Reports: `experiment/reset-boundary-r4-analysis/`. Host-only analysis; ADB not used; phone writes 0.
+
+NEXT_ACTION: separately audit and authorize R4a before any phone action. Freeze provider-first order and fail closed; a valid failed cycle falsifies R4a with no adaptive enlargement.

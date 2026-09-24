@@ -431,3 +431,18 @@ NEXT_ACTION: run the newly authorized CONTROL_A0_V2 reboot baseline, then fixed 
 - Preserved state: airplane ON, native pm-service ownership clean, X55 ONLINE/crash zero, holder absent, VOXI active/UICC enabled, F1.
 
 NEXT_ACTION: stop. Do not add an SST/QNS workaround or another reset to this run.
+
+## Current checkpoint: R4 boot-equivalent boundary design
+
+- Date: 2026-09-24; branch `experiment/v263-repeatable-state-machine`; starting commit `73735fe1356276b64614f925dd7917073da3c0ee`.
+- R3 remains validly falsified at Cycle 1. No phone experiment was run during this phase.
+- Reports:
+  - `experiment/reset-boundary-r4-analysis/BOOT_RESET_DEPENDENCY_GRAPH.md`
+  - `experiment/reset-boundary-r4-analysis/R3_VS_BOOT_LIFECYCLE_DIFF.md`
+  - `experiment/reset-boundary-r4-analysis/R4_CANDIDATES.md`
+- Refined H2: the old epoch is not necessarily the rebound Java Service object. The directly preserved epoch begins at qcrild2 DataModule/DSD/NAH and qtidataservices process/static IIWlan ownership, while the framework consumer graph is new.
+- Recommended first falsifiable boundary: R4a = fixed R0 -> exact qcrild2 restart -> native provider readiness -> exact R3 -> A_READY -> fixed P -> unchanged v2.6.2.
+- R4b adds qtidataservices recreation; R4c adds the broader RIL/CNE/vendor-IMS userspace producer stack. They are separate future series, not fallbacks.
+- ADB not used; phone writes 0.
+
+NEXT_ACTION: no phone action. If authorized later, statically audit R4a and begin a new one-reboot three-cycle series. Stop at the first valid failure.
