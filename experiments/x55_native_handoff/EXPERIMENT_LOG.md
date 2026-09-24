@@ -241,3 +241,34 @@ Critical timing: qcrild2 logged PeripheralManager server death at 10:21:25.263 a
 Result: recovery success before cleanup; cleanup blocked as `EXPECTED_DUAL_OWNER_NOT_FORMED`; live scene intentionally preserved with WFC healthy, holder sole, pm-service running without esoc0 ownership, X55 ONLINE/crash_count 0, qcrild2 unchanged.
 Evidence: `v2.7-alpha-native-handoff/RECOVERY_BEFORE_CLEANUP_102120_RESULT.md`.
 Next design: pre-stage slow artifacts before per_mgr stop and request per_mgr start immediately after successful SIM POWER_UP while keeping the holder alive until WFC observation completes.
+
+
+## X55-V27-TIMING-OPTIMIZED-SELFTEST-011
+
+Date: 2026-09-24 11:xx Asia/Shanghai
+Commit: `355436b8a74fe883f16829bbcb52af22f7df4b5c`
+Environment: Windows PowerShell 5.1.19041.6456.
+
+Paired launcher `selftest` passed with zero phone writes. Key results:
+
+```text
+PS51_PARSE=PASS
+ARTIFACT_GATE=PASS
+HOLDER_IDENTITY_MODEL=PASS
+HOLDER_SOLE_MODEL=PASS
+DUAL_OWNER_MODEL=PASS
+PM_SOLE_MODEL=PASS
+MAKE_BEFORE_BREAK_STATE_MACHINE=PASS
+RECOVERY_BEFORE_CLEANUP_STATE_MACHINE=PASS
+TIMING_OPTIMIZED_RECONNECT_WINDOW=PASS
+PRESTAGE_BEFORE_PER_MGR_STOP=PASS
+EARLY_PER_MGR_START_AFTER_POWER_UP=PASS
+QCRILD2_RESTARTS_IN_NEW_PATH=0
+SIM_OFF_MAX=1
+SIM_ON_MAX=1
+STATIC_NO_ADB=PASS
+WINDOWS_ARGUMENT_ROUNDTRIP=PASS
+PHONE_WRITES=0
+```
+
+The current live phone scene from the previous recovery run is intentionally not a valid entry state for device execution: WFC is healthy, the exact holder remains sole owner of `/dev/subsys_esoc0`, and pm-service is running without esoc0 ownership. Do not execute the timing-optimized path against that preserved scene. Establish a fresh native-clean baseline first.
