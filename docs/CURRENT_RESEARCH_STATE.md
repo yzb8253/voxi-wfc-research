@@ -189,3 +189,11 @@ The production path is now reordered so recovery is attempted before native clea
 `native entry -> stop per_mgr -> holder sole -> X55 rebirth/new PON_SUCCESS -> WFC check -> at most one SIM cycle while holder sole/per_mgr stopped -> make-before-break native cleanup -> post-cleanup WFC check`.
 
 Native cleanup mechanics remain the already validated 005/006 model. qcrild2 restart count remains zero. The script now emits `PRE_CLEANUP_WFC_RESULT` to distinguish pre-cleanup recovery from WFC loss after cleanup. This source change has not yet been phone-executed; the exact paired PS5.1 selftest must pass first.
+
+## WFC Repeatability / Canonical-State Run 2026-09-24
+
+A new-boot A0 and first-airplane P0 were captured with one uniform collector. P0 differed from A0 only in the expected airplane/Wi-Fi enumeration and IWLAN transport-preference fields; VOXI identity, active/enabled subscription, QCRIL processes, native pm-service ownership, and X55 ONLINE/crash-count state matched.
+
+The unchanged archived `v2.5-single-on` source then completed X55 rebirth/new PON_SUCCESS and exactly one fixed slot1 SIM cycle, but produced no qti.cne IMS request and no WFC. Its historical one-time vendor.cnd fallback also produced no request. IMS remained NOT_REGISTERED/UNKNOWN and the run stopped before W0, A1, P1, or W1. No residue normalization or second recovery was attempted. See `experiments/wfc_repeatability_normalization/RUN_20260924_RESULT.md`.
+
+This run does not test post-success residue because it never reached a success state. It shows that a fresh reboot and A0-equivalent first P0 were not sufficient for this historical source on this attempt.

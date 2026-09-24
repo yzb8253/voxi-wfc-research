@@ -1,0 +1,16 @@
+LEFT=.\experiments\wfc_repeatability_normalization\snapshots\snapshot_A0_clean_boot_offline_airplane.json
+RIGHT=.\experiments\wfc_repeatability_normalization\snapshots\snapshot_P0_first_airplane_polluted.json
+DIFF_COUNT=4
+
+environment.airplaneMode
+  LEFT: 0
+  RIGHT: 1
+environment.wifiSetting
+  LEFT: 1
+  RIGHT: 2
+iwlan.preferred
+  LEFT: False
+  RIGHT: True
+iwlan.rilTechnology
+  LEFT: LTE
+  RIGHT: IWLAN

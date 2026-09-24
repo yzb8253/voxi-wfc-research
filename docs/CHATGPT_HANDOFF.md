@@ -215,3 +215,12 @@ Production source has been reordered to:
 `ENTRY -> STOP_PER_MGR -> HOLDER_SOLE -> X55_REBIRTH -> WFC_CHECK -> OPTIONAL_ONE_SIM_CYCLE -> START_PER_MGR -> DUAL_OWNER -> EXACT_TERM -> PM_SOLE -> POST_CLEANUP_WFC_CHECK`.
 
 The script emits `PRE_CLEANUP_WFC_RESULT` so a future run can distinguish whether recovery succeeded before cleanup and whether cleanup preserved it. This source change has not yet been phone-executed. Exact paired PS5.1 selftest is the next action.
+
+## Canonical A0/P0 repeatability checkpoint
+
+- Fresh boot A0 and first-airplane P0 are saved under `experiments/wfc_repeatability_normalization/`.
+- A0 -> P0 had only four expected deltas: airplane mode, Wi-Fi enumeration, LTE -> IWLAN, and IWLAN preferred false -> true.
+- The unchanged archived `v2.5-single-on` recovery completed X55 rebirth and one SIM cycle but did not create an IMS/CNE request or WFC; its single CND fallback also failed.
+- W0 was not established. A1/P1/W1 and all normalization work were deliberately skipped.
+- Current preserved phone scene at capture time: airplane ON, vendor.per_mgr stopped, exact holder owns `/dev/subsys_esoc0`, X55 ONLINE/crash count 0, VOXI active/UICC enabled, WFC F1.
+- Do not infer a post-success residue cause from this run. It had no success boundary.

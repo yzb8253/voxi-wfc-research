@@ -23,3 +23,6 @@ Thumbs.db
 golden_state/60_logcat_all_d.txt
 golden_state/cleaned/60_logcat_all_d.txt
 phase3/private_jars_scan.json
+
+# Host-only recovery logs may contain raw telephony state.
+archive/computer_a_legacy/x55_wfc_oneclick/unnamed_root_variants/X55-Logs/
