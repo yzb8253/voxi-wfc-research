@@ -635,7 +635,7 @@ function Invoke-StaticNoAdbSelfTest {
   $qcrild2RestartToken='setprop ctl.'+'restart vendor.qcrild2'
   $qcrild2RestartCount=([regex]::Matches($sourceText,[regex]::Escape($qcrild2RestartToken))).Count
   Require ($qcrild2RestartCount -eq 0) 'qcrild2 restart remains in production path'
-  $prestageIndex=[regex]::Match($sourceText,'(?m)^  Write-Log "RECOVERY_PRESTAGE=PASS.*"\r?
+  $prestageIndex=[regex]::Match($sourceText,'(?m)^  Write-Log "RECOVERY_PRESTAGE=PASS.*"\r?$').Index
   $stopPerMgrIndex=[regex]::Match($sourceText,'(?m)^  Stop-PerMgr\r?$').Index
   $holderStartIndex=[regex]::Match($sourceText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?$').Index
   $postRebirthWfcIndex=[regex]::Match($sourceText,'(?m)^  \$postRebirth=Get-WfcJson ''post_rebirth_10s''\r?$').Index
