@@ -71,3 +71,16 @@ This is a source-level redesign only. Exact paired PS5.1 selftest must pass agai
 - Detailed eighth-run evidence: `v2.7-alpha-native-handoff/EIGHTH_DEVICE_RUN_RESULT.md`
 
 NEXT_ACTION: pull the recovery-before-cleanup source redesign to Computer A and run the exact paired PS5.1 `selftest` only. Do not execute the phone path until that selftest is reviewed.
+
+
+## 7. PeripheralManager reconnect-window timing is the active blocker
+
+The 10:21 recovery-before-cleanup device run restored full WFC while the fresh X55 remained under the exact holder and vendor.per_mgr remained stopped. Cleanup then failed because pm-service did not acquire `/dev/subsys_esoc0`.
+
+Captured logs show qcrild2 PID 873 detected the PeripheralManager server death at 10:21:25.263 and retried until 10:21:55.556. vendor.per_mgr was not restarted until 10:25:12.954, when the new pm-service reported SDX55M voter/listener count 0/0 and no client. This supports a finite reconnect/retry window as the current cleanup blocker.
+
+The production source now pre-stages helper/orchestrator work before stopping vendor.per_mgr and the device-side SIM orchestrator requests vendor.per_mgr start immediately after a successful POWER_UP. The holder is retained while exact dual ownership forms and while WFC is observed; only afterward may exact-holder TERM complete native cleanup.
+
+This source change is not yet device-validated. The current live phone scene after the 10:21 run is valuable evidence and must not be manually cleaned or rerun while WFC remains healthy.
+
+NEXT_ACTION: pull the timing-optimized source and run the paired PS5.1 `selftest` only. Do not execute the phone path against the preserved live holder scene.
