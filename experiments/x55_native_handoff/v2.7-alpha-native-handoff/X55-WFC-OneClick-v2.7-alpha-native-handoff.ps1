@@ -876,6 +876,7 @@ try {
       $script:FinalWfcResult='FAILED_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
       Write-Log 'PRE_CLEANUP_WFC=FAILED_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
     }
+  }
 
   if($preCleanupHealthy) {
     Ensure-PerMgrRunning
@@ -889,6 +890,7 @@ try {
     Require ((Test-ExactQcrild2Process $postRestoreNative.Qcrild2) -and $postRestoreNative.Qcrild2.ProcessId -eq $entryQcrild2ProcessId) 'qcrild2 changed after per_mgr restore'
     if(Test-Healthy $postRestore) {
       $script:FinalWfcResult='HEALTHY_HOLDER_SOLE_PER_MGR_RUNNING'
+      $script:NativeHandoffResult='DEFERRED_HOLDER_PRESERVED'
       $script:CleanupResult='HOLDER_PRESERVED_FOR_EVIDENCE'
       $script:PreserveHolderForEvidence=$true
       Write-Log 'POST_PER_MGR_RESTORE_WFC=HEALTHY holder preserved for evidence'
