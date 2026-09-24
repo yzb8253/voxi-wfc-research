@@ -172,3 +172,20 @@ Exact commit `9ccf2eeeac9b4f14b5b662e4a8b076a1552695d4` passed the fresh entry g
 One exact-holder TERM was sent, but holder PID 27125 did not exit within 10 seconds. The script stopped before pm-service-sole validation, WFC check, deployment, or SIM cycle. Immediate read-only state preserved holder 27125 plus pm-service 28220 as dual owners, X55 ONLINE, crash_count 0, qcrild2 PID 873 unchanged, and WFC F1. The holder had a live `sleep 60` child, supporting a deferred shell-trap timeout explanation.
 
 Result: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; SIM OFF/ON 0/0. Do not claim native handoff or WFC recovery success.
+
+
+## v2.7-alpha Eighth Device Run
+
+Exact commit `81b5de257941f7bad9183cc4e9ec7b241de7b63e` completed the redesigned native handoff end to end: holder rebirth, exact dual ownership, exact holder TERM, pm-service sole ownership, X55 ONLINE/crash_count 0, and native cleanup all passed with qcrild2 unchanged. Exactly one software SIM OFF/ON cycle then completed successfully at the helper/API level, but WFC remained F1 through the bounded observation window.
+
+Result: `RECOVERY_RESULT=X55_REBIRTH_SUCCESS`, `NATIVE_HANDOFF_RESULT=MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`, `FINAL_WFC_RESULT=FAILED_AFTER_ONE_SIM_CYCLE`, `CLEANUP_RESULT=NATIVE_CLEAN`.
+
+The remaining active hypothesis is ordering. Successful historical v2.5/v2.6.2 recovery performed the SIM cycle while the fresh X55 remained held by the temporary holder with vendor.per_mgr stopped. Run 008 restored native pm-service ownership before the SIM cycle.
+
+## Recovery-Before-Cleanup Source Redesign
+
+The production path is now reordered so recovery is attempted before native cleanup:
+
+`native entry -> stop per_mgr -> holder sole -> X55 rebirth/new PON_SUCCESS -> WFC check -> at most one SIM cycle while holder sole/per_mgr stopped -> make-before-break native cleanup -> post-cleanup WFC check`.
+
+Native cleanup mechanics remain the already validated 005/006 model. qcrild2 restart count remains zero. The script now emits `PRE_CLEANUP_WFC_RESULT` to distinguish pre-cleanup recovery from WFC loss after cleanup. This source change has not yet been phone-executed; the exact paired PS5.1 selftest must pass first.
