@@ -1,0 +1,25 @@
+LEFT=experiments\wfc_repeatability_normalization\runs\v262_freeze_run\snapshots\snapshot_A1_NORMALIZED.json
+RIGHT=experiments\wfc_repeatability_normalization\runs\v262_freeze_run\snapshots\snapshot_A0.json
+DIFF_COUNT=7
+
+data.qtiCneProbeReported
+  LEFT: True
+  RIGHT: False
+iwlan.rilTechnology
+  LEFT: IWLAN
+  RIGHT: LTE
+native.ownerLines
+  LEFT: ["pm-service 23598     system    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0","mdm_helper  1338       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0","ks        27438       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"]
+  RIGHT: ["pm-service  1289     system    9r      CHR             234,11       0t0      31879 /dev/subsys_esoc0","mdm_helper  1338       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0","ks         2282       root    5r      CHR              485,0       0t0      31946 /dev/esoc-0"]
+processes.pmService.pid
+  LEFT: 23598
+  RIGHT: 1289
+processes.qcrild2.pid
+  LEFT: 27223
+  RIGHT: 1994
+residues.holderPidFile
+  LEFT: False
+  RIGHT: True
+residues.moduleStateFiles
+  LEFT: ["-rw-rw-rw- 1 shell shell 54304 2026-09-21 16:20 /data/local/tmp/x55_ssr.ko","-rw-rw-rw- 1 shell shell 30152 2026-09-21 16:14 /data/local/tmp/x55_test.ko","drwx------ 2 root root 3488 2026-09-20 16:03 /data/local/tmp/voxi-l1_5-executor","drwxr-xr-x 2 root root 3488 2026-09-21 11:38 /data/local/tmp/voxi-logical-modem-cycle","drwxrwxrwx 2 shell shell 3488 2026-09-21 12:03 /data/local/tmp/voxi-logical-modem-cycle-v4","drwxrwxrwx 2 shell shell 3488 2026-09-21 12:22 /data/local/tmp/voxi-logical-modem-radio-on-v1","drwxr-xr-x 2 root root 3488 2026-09-21 10:50 /data/local/tmp/voxi-modem-reload-once","-rw-rw-rw- 1 shell shell 9770 2026-09-21 10:48 /data/local/tmp/voxi-modem-reload-once.jar","drwx------ 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-single-sim","drwxr-xr-x 2 root root 3488 2026-09-15 10:32 /data/local/tmp/voxi-wfc","drwxrwxr-x 4 shell shell 3488 2026-09-17 22:03 /data/local/tmp/voxi-wfc-v1.2-buildtest","drwxrwxr-x 4 shell shell 3488 2026-09-17 22:04 /data/local/tmp/voxi-wfc-v1.2-zipverify","drwxr-xr-x 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-x55-v27-alpha","drwxr-xr-x 2 root root 3488 2026-09-15 13:17 /data/local/tmp/voxi_ims","drwxr-xr-x 2 root root 3488 2026-09-24 13:15 /data/local/tmp/voxi_pm_reverse2"]
+  RIGHT: ["-rw-r--r-- 1 root root 6 2026-09-24 14:56 /data/local/tmp/x55_holder.pid","-rw-rw-rw- 1 shell shell 54304 2026-09-21 16:20 /data/local/tmp/x55_ssr.ko","-rw-rw-rw- 1 shell shell 30152 2026-09-21 16:14 /data/local/tmp/x55_test.ko","drwx------ 2 root root 3488 2026-09-20 16:03 /data/local/tmp/voxi-l1_5-executor","drwxr-xr-x 2 root root 3488 2026-09-21 11:38 /data/local/tmp/voxi-logical-modem-cycle","drwxrwxrwx 2 shell shell 3488 2026-09-21 12:03 /data/local/tmp/voxi-logical-modem-cycle-v4","drwxrwxrwx 2 shell shell 3488 2026-09-21 12:22 /data/local/tmp/voxi-logical-modem-radio-on-v1","drwxr-xr-x 2 root root 3488 2026-09-21 10:50 /data/local/tmp/voxi-modem-reload-once","-rw-rw-rw- 1 shell shell 9770 2026-09-21 10:48 /data/local/tmp/voxi-modem-reload-once.jar","drwx------ 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-single-sim","drwxr-xr-x 2 root root 3488 2026-09-15 10:32 /data/local/tmp/voxi-wfc","drwxrwxr-x 4 shell shell 3488 2026-09-17 22:03 /data/local/tmp/voxi-wfc-v1.2-buildtest","drwxrwxr-x 4 shell shell 3488 2026-09-17 22:04 /data/local/tmp/voxi-wfc-v1.2-zipverify","drwxr-xr-x 2 root root 3488 2026-09-24 12:33 /data/local/tmp/voxi-x55-v27-alpha","drwxr-xr-x 2 root root 3488 2026-09-15 13:17 /data/local/tmp/voxi_ims","drwxr-xr-x 2 root root 3488 2026-09-24 13:15 /data/local/tmp/voxi_pm_reverse2"]

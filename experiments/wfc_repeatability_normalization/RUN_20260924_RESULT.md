@@ -2,7 +2,9 @@
 
 Date: 2026-09-24
 
-Status: `STOPPED_BEFORE_W0`
+Status: `WRONG_RECOVERY_SEQUENCE_CND_FALLBACK`
+
+This run is retained as a failure sample only. It used the wrong historical source (`v2.5-single-on`) rather than the verified `v2.6.2-native-owner-restore` sequence. Its CND fallback proves it is not a valid known-good repeatability run. Do not use this run to judge v2.6.2 recovery or post-success residue.
 
 ## Source and boundaries
 

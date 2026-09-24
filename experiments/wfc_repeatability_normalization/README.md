@@ -14,4 +14,6 @@ Complete raw captures remain under the host-only `voxi_wfc_local_runs` directory
 
 ## Current run status
 
-The fresh-boot run on 2026-09-24 established A0 and P0, but the frozen historical recovery did not establish W0. The experiment stopped at that boundary. A1, P1, and W1 were not attempted, and no residue normalization was performed. See `RUN_20260924_RESULT.md`.
+The first 2026-09-24 attempt used the wrong v2.5 source and is retained as `WRONG_RECOVERY_SEQUENCE_CND_FALLBACK`; see `RUN_20260924_RESULT.md`.
+
+The corrected v2.6.2 freeze-on-success run completed two full cycles: A0 -> P0 -> W0, native residue normalization, P1 equivalent to P0, and W1 equivalent to W0. See `runs/v262_freeze_run/RESULT.md`.

@@ -224,3 +224,16 @@ The script emits `PRE_CLEANUP_WFC_RESULT` so a future run can distinguish whethe
 - W0 was not established. A1/P1/W1 and all normalization work were deliberately skipped.
 - Current preserved phone scene at capture time: airplane ON, vendor.per_mgr stopped, exact holder owns `/dev/subsys_esoc0`, X55 ONLINE/crash count 0, VOXI active/UICC enabled, WFC F1.
 - Do not infer a post-success residue cause from this run. It had no success boundary.
+
+Correction: the run above used the wrong v2.5 source and is classified `WRONG_RECOVERY_SEQUENCE_CND_FALLBACK`.
+
+## v2.6.2 repeatability result
+
+- A corrected freeze-on-success copy of the archived v2.6.2 source completed W0 and W1 successfully.
+- Both cycles used one SIM OFF/ON and reached REGISTERED/WLAN, VOICE/IWLAN, WFC, CNE, UDP/4500, and XFRM health at about 11 seconds.
+- Success cleanup was skipped; each W state remains intentionally frozen with holder sole ownership and per_mgr stopped.
+- A1 residue was native ownership, not a new WFC recovery requirement.
+- per_mgr start/restart did not acquire esoc0 while the holder lived. Exact-holder TERM followed by the already verified owner-NONE/X55-OFFLINE gate and one qcrild2 restart restored pm-service native ownership. Primary qcrild stayed unchanged.
+- A1 normalized to A0 on critical fields; P1 matched P0; W1 matched W0 on all functional fields.
+- Current phone scene after the last snapshot: W1 HEALTHY, airplane ON, Wi-Fi ON, per_mgr stopped, exact holder PID 31050 sole owner, X55 ONLINE/crash count 0. Do not clean it now.
+- Full report: `experiments/wfc_repeatability_normalization/runs/v262_freeze_run/RESULT.md`.

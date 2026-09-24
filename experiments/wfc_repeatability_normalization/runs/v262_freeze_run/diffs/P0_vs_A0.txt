@@ -1,0 +1,16 @@
+LEFT=experiments\wfc_repeatability_normalization\runs\v262_freeze_run\snapshots\snapshot_P0.json
+RIGHT=experiments\wfc_repeatability_normalization\runs\v262_freeze_run\snapshots\snapshot_A0.json
+DIFF_COUNT=4
+
+environment.airplaneMode
+  LEFT: 1
+  RIGHT: 0
+environment.wifiSetting
+  LEFT: 2
+  RIGHT: 1
+iwlan.preferred
+  LEFT: True
+  RIGHT: False
+iwlan.rilTechnology
+  LEFT: IWLAN
+  RIGHT: LTE

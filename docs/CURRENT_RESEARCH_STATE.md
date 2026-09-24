@@ -197,3 +197,15 @@ A new-boot A0 and first-airplane P0 were captured with one uniform collector. P0
 The unchanged archived `v2.5-single-on` source then completed X55 rebirth/new PON_SUCCESS and exactly one fixed slot1 SIM cycle, but produced no qti.cne IMS request and no WFC. Its historical one-time vendor.cnd fallback also produced no request. IMS remained NOT_REGISTERED/UNKNOWN and the run stopped before W0, A1, P1, or W1. No residue normalization or second recovery was attempted. See `experiments/wfc_repeatability_normalization/RUN_20260924_RESULT.md`.
 
 This run does not test post-success residue because it never reached a success state. It shows that a fresh reboot and A0-equivalent first P0 were not sufficient for this historical source on this attempt.
+
+Correction: that attempt used the wrong v2.5 source and is now classified `WRONG_RECOVERY_SEQUENCE_CND_FALLBACK`. It must not be used to judge the verified v2.6.2 path.
+
+## v2.6.2 Freeze-on-Success Two-Cycle Validation
+
+The corrected experiment used `X55-WFC-OneClick-v2.6.2-native-owner-restore.ps1` as the sole recovery basis and changed only its post-success cleanup branch. Both W0 and W1 reached direct WFC health about 11 seconds after one SIM cycle. Each success froze per_mgr stopped, an exact holder as sole esoc0 owner, and X55 ONLINE/crash count 0. No post-success cleanup, CND fallback, or extra SIM cycle ran.
+
+After W0, airplane OFF exposed the expected native residue. Starting and then restarting per_mgr while the holder remained active did not produce native takeover. A strict fallback TERM'd only the exact holder, required owner NONE/X55 OFFLINE/crash 0, then restarted qcrild2 once. qcrild2 changed 1994 -> 27223; pm-service 23598 reacquired esoc0; X55 returned ONLINE/crash 0; primary qcrild was unchanged. The resulting A1 was A0-equivalent on critical fields. P1 was P0-equivalent, and the same recovery produced W1 equivalent to W0.
+
+The previous qti.cne active flag was also corrected: the old probe treated Connectivity request-history entries as current. The uniform collector now parses only the current request table and keeps the old result as `qtiCneProbeReported`.
+
+Full report: `experiments/wfc_repeatability_normalization/runs/v262_freeze_run/RESULT.md`.

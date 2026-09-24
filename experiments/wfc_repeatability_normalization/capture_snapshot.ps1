@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
   [Parameter(Mandatory=$true)][string]$Label,
-  [string]$Serial='fd0ff892'
+  [string]$Serial='fd0ff892',
+  [string]$RunName=''
 )
 
 Set-StrictMode -Version Latest
@@ -9,8 +10,13 @@ $ErrorActionPreference='Stop'
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $Adb=Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $RunRoot=Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\repeatability_normalization'
+$SummaryRoot=$PSScriptRoot
+if($RunName) {
+  $RunRoot=Join-Path $RunRoot $RunName
+  $SummaryRoot=Join-Path (Join-Path $PSScriptRoot 'runs') $RunName
+}
 $RunDir=Join-Path $RunRoot $Label
-$SummaryDir=Join-Path $PSScriptRoot 'snapshots'
+$SummaryDir=Join-Path $SummaryRoot 'snapshots'
 $SummaryPath=Join-Path $SummaryDir ($Label + '.json')
 [IO.Directory]::CreateDirectory($RunDir)|Out-Null
 [IO.Directory]::CreateDirectory($SummaryDir)|Out-Null
@@ -82,6 +88,10 @@ $ownerLines=@($native -split "\r?\n" | Where-Object {$_ -match '/dev/(subsys_eso
 $nativeValues=@($native -split "\r?\n" | ForEach-Object {$_.Trim()} | Where-Object {$_ -ne ''})
 $safeEvidence=[regex]::Replace($qcrilEvidence,'\b\d{12,}\b','[REDACTED]')
 [IO.File]::WriteAllText((Join-Path $RunDir 'qcril_x55_evidence_sanitized.txt'),$safeEvidence,[Text.UTF8Encoding]::new($false))
+$requestLogIndex=$network.IndexOf('mNetworkRequestInfoLogs')
+$currentConnectivity=if($requestLogIndex -ge 0){$network.Substring(0,$requestLogIndex)}else{$network}
+$currentQtiImsPattern='(?m)^\s*uid/pid:[^\r\n]*activeRequest:\s*\d+[^\r\n]*Capabilities:\s*IMS[^\r\n]*mSubId = 11[^\r\n]*RequestorPkg: com\.qualcomm\.qti\.cne'
+$currentQtiImsRequest=[bool]($currentConnectivity -match $currentQtiImsPattern)
 
 $summary=[ordered]@{
   schema='wfc-repeatability-snapshot-v1'; label=$Label; timestamp=$timestamp; gitHead=$gitHead; serial=$Serial
@@ -108,7 +118,7 @@ $summary=[ordered]@{
   }
   ims=[ordered]@{stateRaw=$status.ims.registrationStateRaw;state=$status.ims.registrationStateName;transportRaw=$status.ims.registrationTransportRaw;transport=$status.ims.registrationTransportName;feature=$status.mmtel.featureState;voiceIwlan=$status.mmtel.voiceIwlanAvailable}
   iwlan=[ordered]@{rilTechnology=$status.iwlan.rilDataTechnology;psWlan=$status.iwlan.psWlanState;accessNetwork=$status.iwlan.accessNetworkTechnology;preferred=$status.iwlan.iwlanPreferred}
-  data=[ordered]@{wfcAvailable=$status.wfc.wifiCallingAvailable;qtiCneRequest=$status.connectivity.qtiCneRequestActive;imsNetworkAgent=$status.connectivity.imsIwlanNetworkAgent;udp4500=$status.epdg.udp4500Keepalive;xfrm=$status.epdg.xfrmTunnel}
+  data=[ordered]@{wfcAvailable=$status.wfc.wifiCallingAvailable;qtiCneRequest=$currentQtiImsRequest;qtiCneProbeReported=$status.connectivity.qtiCneRequestActive;imsNetworkAgent=$status.connectivity.imsIwlanNetworkAgent;udp4500=$status.epdg.udp4500Keepalive;xfrm=$status.epdg.xfrmTunnel}
   residues=[ordered]@{holderPidFile=Bool-Text $temp 'x55(?:_v27)?_holder\.pid';moduleLock=Bool-Text $temp '\.lock';moduleStateFiles=@($temp -split "\r?\n" | Where-Object {$_})}
   health=[ordered]@{goldenStrong=$status.goldenStrong;failureClass=$status.failureClass}
 }
