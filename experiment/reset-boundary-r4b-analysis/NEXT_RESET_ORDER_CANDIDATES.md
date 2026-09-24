@@ -5,6 +5,8 @@ Date: 2026-09-24
 Status: design-only; no device action authorized.
 Phone writes: **0**
 
+> **Superseding correction (2026-09-24):** the IMS `[EUTRAN,IWLAN]` text was an old-generation LocalLogBuffer entry. The live replacement NAH caches and GET responses were both empty. The next candidate is therefore a current-generation native-publication readiness gate, not another reset order. See `experiment/native-qualified-network-boundary/`.
+
 ## Fixed constraints
 
 - Keep `R4B_FALSIFIED_AT_P`, Cycle 1, M1 frozen.
@@ -19,7 +21,7 @@ R0 -> qcrild2 cold producer -> qtidataservices cold process/provider while old p
    -> R3 new phone consumer -> fixed P
 ```
 
-Result: **falsified at Cycle 1 P/M1**. First provider query serial 0 and new-phone fresh provider query serial 6 both had empty responses, while the native NAH debug cache exposed IMS `[EUTRAN,IWLAN]`. ORDER-A must not be rerun unchanged.
+Result: **falsified at Cycle 1 P/M1**. First provider query serial 0 and new-phone fresh provider query serial 6 both had empty responses. The replacement NAH's current caches were also empty; the apparent IMS value was stale history from the prior generation. ORDER-A must not be rerun unchanged.
 
 ## ORDER-B: consumer-driven, boot-shaped coordinated epochs
 
@@ -51,11 +53,11 @@ Required proof before any ORDER-B run: both old PIDs gone; no old QNS relationsh
 
 This is the recommended next step and performs no reset:
 
-1. statically trace `IIWlan::getAllQualifiedNetworks` in `libril-qc-hal-qmi.so` from HIDL request to response construction;
-2. identify the exact response cache and compare it with `NetworkAvailabilityHandler::dumpCache`;
-3. locate filters, readiness, slot and client conditions that can turn a populated NAH dump into a zero-entry response;
-4. determine whether serial 0/6 emptiness is expected pre-P, stale client state, or a producer projection failure;
-5. only then freeze ORDER-B or a justified larger boundary.
+1. treat the latest post-reconnect NAH constructor as a new generation boundary;
+2. require live current-generation working and last-reported caches, not matching history text;
+3. require a non-empty initial GET response from that generation;
+4. fail closed under the existing timeout if native publication never becomes ready;
+5. only after a valid non-empty GET may another downstream order be considered.
 
 ## R4c decision
 

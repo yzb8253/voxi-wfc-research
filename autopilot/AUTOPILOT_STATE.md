@@ -585,10 +585,10 @@ NEXT_ACTION: stop and preserve. A corrected device series needs a separate expli
 
 - A new one-reboot `CONTROL_A0_R4B_V2` baseline passed; v1 was not resumed.
 - Cycle 1 producer qcrild2 `1961 -> 14682`, provider qtidataservices `3385 -> 23859`, and phone consumer `3448 -> 27795` all passed their frozen readiness gates.
-- Provider response serial 0 was processed; the contemporaneous native IMS cache contained EUTRAN/IWLAN. Request serial and exact Java response/update payload were unobservable.
+- Provider response serial 0 was processed; at the time this checkpoint was written, a retained IMS EUTRAN/IWLAN history line was misclassified as contemporaneous cache state. Later target-native analysis proves the replacement handler's current caches were empty.
 - Fixed P ended Unknown/UNKNOWN/UNKNOWN/preferred=false with no M1. v2.6.2 and SIM cycle did not run; Cycles 2/3 did not run.
 - Classification: `R4B_FALSIFIED_AT_P`, `R4B_FALSIFIED_AT_CYCLE=1`, `FIRST_MISSING_MILESTONE=M1`.
-- Earliest unclosed internal interval is response serial 0 -> unobservable QNS update -> missing new-consumer ANM publication. No workaround or adaptive action followed.
+- At this checkpoint the earliest interval was placed after serial 0; later native analysis moves it earlier to replacement-NAH population/publication. No workaround or adaptive action followed.
 
 NEXT_ACTION: stop and preserve the P-failure scene. Do not add periodic QNS re-report, forced IMS/IWLAN, callback injection or another reset to this run.
 
@@ -598,9 +598,20 @@ NEXT_ACTION: stop and preserve the P-failure scene. Do not add periodic QNS re-r
 - Target `framework.jar` confirms slot-keyed providers, existing-provider early return, callback-local cache replay, and remove-all-on-unbind.
 - R4b's old phone owned the first callback, but new phone PID 27795 caused a fresh QNS Service, fresh slot1 provider, fresh callback and query serial 6. No `already existed` branch blocked it.
 - Retained QNS debug history proves both serial 0 and serial 6 responses had zero QualifiedNetworks entries. The former `QUERY_RESPONSE_VALID` label meant response completion, not a non-empty payload.
-- First concrete mismatch is native NAH dump IMS `[EUTRAN,IWLAN]` versus zero-entry IIWlan GET response. Specific `STALE_PROVIDER_CALLBACK_EPOCH` is not supported; broad lifecycle residue remains unproven.
+- This checkpoint's claimed native-cache/GET mismatch is superseded: the IMS line was old-generation history, while current NAH state and GET were both empty. Specific `STALE_PROVIDER_CALLBACK_EPOCH` remains unsupported.
 - Boot is consumer-driven provider construction: qtidataservices host starts first, then phone/ANM bind causes per-slot provider creation.
 - Reports: `experiment/reset-boundary-r4b-analysis/{R4B_ORDER_COUNTEREXAMPLE_ANALYSIS,QNS_PROVIDER_CALLBACK_LIFECYCLE,BOOT_PROVIDER_CONSUMER_ORDER,NEXT_RESET_ORDER_CANDIDATES}.md`.
 - Phone writes: 0.
 
 NEXT_ACTION: static/read-only trace of native `IIWlan::getAllQualifiedNetworks` response construction versus `NetworkAvailabilityHandler::dumpCache`. Do not execute ORDER-B or R4c yet.
+
+## 2026-09-24 native qualified-network boundary correction
+
+- Target `/vendor/lib64/libril-qc-hal-qmi.so` proves `getAllQualifiedNetworks` directly copies `NetworkAvailabilityHandler`'s `LastReportedNetworkAvailability` container. Current dump and GET use the same data structure; there is no second query cache or GET filtering pass.
+- R4b's retained IMS `[EUTRAN,IWLAN]` line belonged to the prior NAH generation in a process-level history buffer. After the new qtidataservices callback connected, `initializeIWLAN()` constructed a replacement NAH whose live working and last-reported caches were empty.
+- Serial 0 was accepted before the replacement constructor and handled 24 ms after it. Its zero-entry response was correct. Serial 6 was also zero because no later current-generation publication was observed.
+- Callback death clears response functions but does not call `iwlanDisabled`; explicit disable was not observed. The new enable handshake itself replaced the NAH.
+- Frozen result remains `R4B_FALSIFIED_AT_P`, Cycle 1, first missing M1. H5 separate-cache mismatch is falsified; the surviving boundary is current-generation DSD/profile/NAH population and publication readiness.
+- Reports: `experiment/native-qualified-network-boundary/`. Phone writes 0.
+
+NEXT_ACTION: no reset. Design a separately authorized gate-only validation requiring current-generation live IMS cache, non-empty LastReported state and matching non-empty GET before R3/P. Do not execute R4c.

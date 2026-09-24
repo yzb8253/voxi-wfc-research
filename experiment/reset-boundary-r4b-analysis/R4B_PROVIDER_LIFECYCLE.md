@@ -1,6 +1,6 @@
 # R4b qtidataservices provider lifecycle
 
-> **Post-run correction (2026-09-24):** the target framework does replay values cached inside a provider when registering its callback, and the new phone did cause a fresh Service/provider/query. Retained QNS debug history proves both serial 0 and serial 6 responses were zero-entry lists despite a separate native NAH dump showing IMS `[EUTRAN,IWLAN]`. The specific stale-existing-provider/callback explanation is therefore not supported for R4b Cycle 1. See `R4B_ORDER_COUNTEREXAMPLE_ANALYSIS.md` and `QNS_PROVIDER_CALLBACK_LIFECYCLE.md`.
+> **Post-run corrections (2026-09-24):** the target framework does replay values cached inside a provider when registering its callback, and the new phone did cause a fresh Service/provider/query. Both serial 0 and serial 6 responses were zero-entry lists. Later target-native inspection proves the IMS `[EUTRAN,IWLAN]` text was old-generation history; the replacement handler's current caches were empty. The specific stale-existing-provider/callback explanation is therefore not supported for R4b Cycle 1. See `R4B_ORDER_COUNTEREXAMPLE_ANALYSIS.md`, `QNS_PROVIDER_CALLBACK_LIFECYCLE.md`, and `experiment/native-qualified-network-boundary/`.
 
 Date: 2026-09-24
 

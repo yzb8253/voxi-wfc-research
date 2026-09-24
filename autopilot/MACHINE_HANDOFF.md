@@ -534,3 +534,15 @@ NEXT_ACTION: preserve the airplane-ON P failure scene. R4b is falsified; do not 
 - Current phase performed read-only inspection only; phone writes 0. No reboot, restart, cleanup, R4c or recovery occurred.
 
 NEXT_ACTION: statically trace the target native IIWlan GET response construction and reconcile it with NAH dump state. Do not execute another reset until that mismatch is understood and a separate experiment is authorized.
+
+## Current checkpoint: native qualified-network boundary resolved
+
+- Branch: `experiment/v263-repeatable-state-machine`; analysis started from `f091a094fbf991e7a4c4e7ce9fc390fa17257c01`.
+- Exact target binary: `/vendor/lib64/libril-qc-hal-qmi.so`, SHA-256 `33A36EBCE79435B06A1BEDDC09B9B6D8A3B6D082D9ACF7624A883FBAEC8EDE77`.
+- GET and current NAH dump read the same `LastReportedNetworkAvailability` container. H5 separate-query-cache mismatch is falsified.
+- The prior IMS value was old-generation history. New qtidataservices callback registration invoked native `initializeIWLAN`, replaced NAH, and serial 0 queried the new empty handler 24 ms after construction. Serial 6 was still empty.
+- Explicit `iwlanDisabled` was not observed; callback death only cleared HIDL response functions. The enable handshake replacement is sufficient to explain cache loss.
+- R4b remains falsified at Cycle 1 P/M1. The corrected earliest boundary is replacement-NAH population/publication after IWLAN enable, not IIWlan response filtering.
+- Five reports are in `experiment/native-qualified-network-boundary/`; raw logs/binaries remain host-only. Phone writes 0.
+
+NEXT_ACTION: preserve the scene. If separately authorized, test only a corrected fail-closed readiness predicate tied to the latest NAH generation and non-empty live GET. Do not run R4c.

@@ -7,6 +7,8 @@ Baseline commit: `896536fc80546234df51ad90dbda0e03e7019b9f`
 Method: target-ROM static inspection plus existing R4b Cycle 1 evidence; device access in this phase was read-only.
 Phone writes: **0**
 
+> **Superseding native-cache correction (2026-09-24):** target-ROM disassembly now proves that GET reads the same container printed as current `LastReportedNetworkAvailability`. The IMS `[EUTRAN,IWLAN]` line cited below was from the prior NAH generation retained in the process-level history buffer, not the replacement handler's current cache. The replacement handler's current working and last-reported containers were both empty. See `experiment/native-qualified-network-boundary/`. The frozen R4b/P/M1 classification is unchanged.
+
 ## Frozen causal result
 
 The following result is not weakened by this analysis:
@@ -56,18 +58,22 @@ Consequently:
 - serial 0: completed, **empty payload**;
 - serial 6: completed, **empty payload**;
 - the previous `QUERY_RESPONSE_VALID` label meant only “response completed” and was too strong;
-- the contemporaneous native `NetworkAvailabilityHandler` debug cache showing IMS `[EUTRAN,IWLAN]` cannot substitute for the actual IIWlan response payload.
+- the historical `NetworkAvailabilityHandler` IMS `[EUTRAN,IWLAN]` line cannot substitute for the replacement handler's current cache or actual IIWlan response payload.
 
 ## First concrete internal divergence
 
 ```text
-qcrild2 NetworkAvailabilityHandler debug cache
+old NetworkAvailabilityHandler generation/history
   IMS -> [EUTRAN, IWLAN]
         |
-        | expected IIWlan GET projection
+        | qtidataservices reconnect causes initializeIWLAN
+        v
+replacement NetworkAvailabilityHandler
+  current working cache = empty
+  current LastReportedNetworkAvailability = empty
         v
 IIWlan getAllQualifiedNetworks response
-  zero QualifiedNetworks entries            <-- first concrete mismatch
+  zero QualifiedNetworks entries             <-- expected projection
         v
 vendor provider cache has nothing to publish/replay
         v
@@ -76,7 +82,7 @@ new ANM receives no M1
 
 This boundary is earlier and more specific than a stale callback-only explanation:
 
-`qcrild2 native cache -> IIWlan getAllQualifiedNetworks response -> vendor QNS provider`.
+`qtidataservices reconnect -> native initializeIWLAN replacement NAH -> missing current-generation publication -> IIWlan GET returns empty -> vendor QNS provider`.
 
 ## H4 verdict
 
@@ -87,9 +93,9 @@ Two distinct claims must be separated:
 
 ## Why R4c is not yet justified
 
-The evidence does not yet require a larger reset set. Expanding to R4c before explaining why a fresh IIWlan query returns zero entries while NAH's dump exposes IMS/IWLAN would mix a new primitive into an unresolved interface mismatch.
+The evidence does not require a larger reset set. The apparent interface mismatch is resolved: current dump and GET agree. Expanding to R4c before testing a current-generation native-publication readiness gate would mix a new primitive into an unresolved lifecycle-generation boundary.
 
-The next safe step is static/read-only analysis of the native `getAllQualifiedNetworks` request handler and its response source. It must determine whether the HIDL response is built from a different cache, a filtered cache, a per-client registration state, or a readiness/sequence condition. No recovery action is authorized by this report.
+That static/read-only analysis is now complete in `experiment/native-qualified-network-boundary/`. The next safe candidate is a fail-closed readiness predicate tied to the latest NAH generation, its live current containers and a matching non-empty GET response. No recovery action is authorized by this report.
 
 ## Evidence anchors
 

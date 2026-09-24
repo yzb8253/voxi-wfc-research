@@ -1,6 +1,6 @@
 # R4b three-cycle v2 result
 
-> **2026-09-24 evidence correction:** subsequent target-APK inspection plus the retained live QNS internal dump proves that response serials 0 and 6 completed with **zero QualifiedNetworks entries**. The earlier `QUERY_RESPONSE_VALID` label established response completion, not a valid non-empty payload; `PROVIDER_IMS_CONTENT` came from the separate native NAH debug cache and was not the response body. This correction does not weaken the frozen result: `R4B_FALSIFIED_AT_P`, Cycle 1, first missing M1. See `experiment/reset-boundary-r4b-analysis/R4B_ORDER_COUNTEREXAMPLE_ANALYSIS.md`.
+> **2026-09-24 evidence corrections:** response serials 0 and 6 completed with **zero QualifiedNetworks entries**. The earlier `QUERY_RESPONSE_VALID` label established response completion, not a valid non-empty payload. Later target-native inspection proves `PROVIDER_IMS_CONTENT` was derived from an old-generation NAH history line, not a separate current cache; the replacement handler's current caches were empty and agreed with GET. These corrections do not weaken the frozen result: `R4B_FALSIFIED_AT_P`, Cycle 1, first missing M1. See `experiment/native-qualified-network-boundary/`.
 
 ## Verdict
 

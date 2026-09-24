@@ -523,7 +523,7 @@ NEXT_ACTION: no phone action. Do not infer H3 from this aborted series and do no
 ## R4b v2 causal result (2026-09-24)
 
 - Full producer + provider + consumer lifecycle reconstruction did not restore deterministic M1 at fixed P.
-- Provider creation, slot1 IWlanProxy, IIWlan/slot2 connection and response serial 0 were observed. Native NAH's current IMS cache contained EUTRAN/IWLAN.
+- Provider creation, slot1 IWlanProxy, IIWlan/slot2 connection and response serial 0 were observed. The then-reported native IMS value is now known to be old-generation history, not the replacement handler's current cache.
 - Exact request serial, response payload, `updateQualifiedNetworks`, `updateQualifiedNetworkTypes` and runtime callback registration were not observable; native cache content is supporting evidence, not proof of the Java response payload.
 - New phone ANM bound to vendor QNS but received no IMS-to-IWLAN publication. P remained unknown/preferred=false.
 - R4b is falsified at P/M1. The narrowest remaining evidence gap spans QNS response-to-update and provider-to-new-consumer replay; it cannot yet be assigned strictly to CASE A or CASE B.
@@ -535,10 +535,22 @@ NEXT_ACTION: no phone action. Preserve this counterexample; any larger reset bou
 - Target-ROM framework bytecode confirms `NetworkAvailabilityProvider` stores one callback and a provider-local qualified-network cache. Fresh callback registration replays that cache, while a duplicate create request for an existing slot returns without callback replacement.
 - In the actual run the duplicate-existing path was not taken after R3. New phone PID 27795 drove a fresh QNS Service/provider and query serial 6.
 - No old-provider `close()`/unregister was captured, and IWlanProxy reference counts suggest residue, but fresh provider construction was not prevented.
-- Both provider query responses (serial 0 before R3 and serial 6 after R3) were zero-entry payloads. The native NAH debug cache's IMS `[EUTRAN,IWLAN]` value was a distinct source and must not be labeled as the response payload.
-- The earliest concrete divergence is now `native NAH cache -> IIWlan getAllQualifiedNetworks response`, upstream of provider replay and ANM M1.
+- Both provider query responses (serial 0 before R3 and serial 6 after R3) were zero-entry payloads. The IMS `[EUTRAN,IWLAN]` text was a prior-generation history entry and must not be labeled as current native cache or response payload.
+- The then-claimed `native NAH cache -> IIWlan response` divergence is superseded by target-native analysis: current NAH and GET were both empty; the actual divergence is replacement-NAH population/publication.
 - Specific stale-provider/callback H4 is rejected for this counterexample. A broader ordering-residue theory is inconclusive, not proven.
 - Reboot order is consumer-driven: phone/ANM bind creates providers inside the already-running qtidataservices host.
 - R4c is not yet justified. First explain the zero-entry IIWlan response with static/read-only native tracing.
 
 NEXT_ACTION: no device write. Audit the IIWlan GET handler, response cache, filters and readiness/sequence conditions before freezing any new reset order.
+
+## Native GET/cache finding (2026-09-24)
+
+- Target-ROM symbols close the HIDL path: `IWlanImpl::getAllQualifiedNetworks` -> `GetAllQualifiedNetworkRequestMessage` -> `DataModule::handleGetAllQualifiedNetworksMessage` -> `NetworkAvailabilityHandler::getQualifiedNetworks` -> `QualifiedNetworkResult_t` -> HIDL response.
+- NAH object `+0x38` is the working `NetworkAvailabilityCache`; `+0x60` is `LastReportedNetworkAvailability`. GET reads and copies `+0x60`, exactly the container printed by the current dump.
+- The GET path has readiness gates before lookup but no slot/sub/APN/network-state filter after lookup. HAL conversion preserves input cardinality and content.
+- R4b current state had both containers empty. The earlier IMS `[EUTRAN,IWLAN]` evidence came from the old NAH generation's retained history. There was no populated-current-cache/empty-response mismatch.
+- New qtidataservices `setResponseFunctions` dispatches enable handshake; `initializeIWLAN()` registers AP-assist indications and replaces NAH. It replays cached DSD status only when valid and does not request a fresh status itself.
+- Serial 0 is a strong query-too-early observation relative to replacement-NAH publication. Serial 6 proves the generation remained unpopulated/unpublished during the later query.
+- Successful R4a Cycle 1 differs earlier: its live current last-reported cache already contained IMS/EUTRAN before the fresh framework consumer received ANM publication.
+
+NEXT_ACTION: redefine native/provider readiness around the latest NAH generation and live current cache/query content; no sleep, re-report, injection, reset enlargement or R4c.
