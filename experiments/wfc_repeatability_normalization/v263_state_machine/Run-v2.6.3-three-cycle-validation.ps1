@@ -1,5 +1,8 @@
 [CmdletBinding()]
-param([switch]$Execute)
+param(
+  [switch]$Execute,
+  [ValidateRange(1,3)][int]$StartCycle=1
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -38,8 +41,8 @@ function Root-Write([string]$Command) {
   if($result.ExitCode -ne 0){throw "PHONE_WRITE_FAILED: $Command`n$($result.Text)"}
 }
 
-Log "THREE_CYCLE_BEGIN execute=$Execute"
-for($cycle=1;$cycle -le 3;$cycle++) {
+Log "THREE_CYCLE_BEGIN execute=$Execute startCycle=$StartCycle"
+for($cycle=$StartCycle;$cycle -le 3;$cycle++) {
   Log "CYCLE_${cycle}_BEGIN"
   $arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File',$CycleScript,'-Cycle',[string]$cycle)
   if($Execute){$arguments+='-Execute'}
@@ -58,4 +61,3 @@ Write-Host 'VALIDATION_1=PASS'
 Write-Host 'VALIDATION_2=PASS'
 Write-Host 'VALIDATION_3=PASS'
 Write-Host 'FINAL_STATE=W3_HEALTHY_FROZEN'
-

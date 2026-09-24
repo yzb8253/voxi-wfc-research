@@ -17,6 +17,7 @@ $CaptureScript = Join-Path $Root 'capture_snapshot.ps1'
 $KnownGoodRecovery = Join-Path $Root 'v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
 $NativeNormalize = Join-Path $Root 'v262_freeze_run\normalize_a1_native_owner.ps1'
 $QcrildNormalize = Join-Path $Root 'v262_freeze_run\normalize_a1_qcrild2_reacquire.ps1'
+$ExpectedNonzeroProbe = Join-Path $PSScriptRoot 'expected-nonzero-probe.ps1'
 $RunRoot = Join-Path (Join-Path $Root 'runs') $RunName
 $SnapshotRoot = Join-Path $RunRoot 'snapshots'
 $HostLogRoot = Join-Path (Split-Path $Repo -Parent) "voxi_wfc_local_runs\repeatability_normalization\$RunName"
@@ -125,6 +126,13 @@ function Frozen-Residue($State) {
   $State.native.crashCount -eq 0
 }
 
+function Qcrild-Fallback-Precondition($State) {
+  $State.environment.airplaneMode -eq 0 -and $State.native.perMgrState -eq 'running' -and
+  $null -ne $State.processes.pmService -and -not (Pm-Owns $State) -and (Holder-Owns $State) -and
+  $State.native.vendorPeripheralState -eq 'OFFLINE' -and $State.native.x55State -eq 'ONLINE' -and
+  $State.native.crashCount -eq 0
+}
+
 function A-Canonical($State) {
   (Target-Gate $State) -and (Process-Gate $State) -and (Native-Clean $State) -and
   $State.environment.airplaneMode -eq 0 -and $State.environment.wlan0Up -and $State.environment.vpnNetwork -and
@@ -147,19 +155,30 @@ function W-Healthy($State) {
 
 function Normalize-A([int]$Number,$State) {
   if(A-Canonical $State){Log "V${Number}_A_RESULT=A_PASS_NO_WRITE";return $State}
-  if(-not (Frozen-Residue $State)){throw "UNKNOWN_A_FINGERPRINT V$Number"}
+  $initialResidue=Frozen-Residue $State
+  $fallbackReady=Qcrild-Fallback-Precondition $State
+  if(-not $initialResidue -and -not $fallbackReady){throw "UNKNOWN_A_FINGERPRINT V$Number"}
   if(-not $Execute){throw "V${Number}_A_RESIDUE_DETECTED_EXECUTE_REQUIRED"}
 
-  Log "V${Number}_A_RESIDUE=FROZEN_WFC_RESIDUE"
-  $nativeResult=Invoke-ChildScript $NativeNormalize @('-Serial',$Serial)
-  foreach($line in $nativeResult.Output){Log "NATIVE_NORMALIZER_OUTPUT=$line"}
-  $nativeExit=$nativeResult.ExitCode
-  Log "V${Number}_NATIVE_NORMALIZER_EXIT=$nativeExit"
-  if($nativeExit -ne 0) {
+  if($fallbackReady) {
+    Log "V${Number}_A_RESIDUE=QCRILD2_FALLBACK_PRECONDITION_RESUME"
     $qcrildResult=Invoke-ChildScript $QcrildNormalize @('-Serial',$Serial)
     foreach($line in $qcrildResult.Output){Log "QCRILD_NORMALIZER_OUTPUT=$line"}
     if($qcrildResult.ExitCode -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
     Log "V${Number}_QCRILD2_REACQUIRE=PASS"
+  }
+  else {
+    Log "V${Number}_A_RESIDUE=FROZEN_WFC_RESIDUE"
+    $nativeResult=Invoke-ChildScript $NativeNormalize @('-Serial',$Serial)
+    foreach($line in $nativeResult.Output){Log "NATIVE_NORMALIZER_OUTPUT=$line"}
+    $nativeExit=$nativeResult.ExitCode
+    Log "V${Number}_NATIVE_NORMALIZER_EXIT=$nativeExit"
+    if($nativeExit -ne 0) {
+      $qcrildResult=Invoke-ChildScript $QcrildNormalize @('-Serial',$Serial)
+      foreach($line in $qcrildResult.Output){Log "QCRILD_NORMALIZER_OUTPUT=$line"}
+      if($qcrildResult.ExitCode -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
+      Log "V${Number}_QCRILD2_REACQUIRE=PASS"
+    }
   }
   Start-Sleep -Seconds 60
   $normalized=Capture ("V{0}_A_NORMALIZED" -f $Number)
@@ -172,6 +191,9 @@ Log "STATE_MACHINE_BEGIN cycle=$Cycle execute=$Execute base_commit=89f2c86d48c91
 if(-not (Test-Path $KnownGoodRecovery)){throw 'Verified v2.6.2 freeze-on-success script missing'}
 $knownHash=(Get-FileHash $KnownGoodRecovery -Algorithm SHA256).Hash
 if($knownHash -ne '445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75'){throw "Known-good recovery hash mismatch: $knownHash"}
+$exitProbe=Invoke-ChildScript $ExpectedNonzeroProbe
+if($exitProbe.ExitCode -ne 23){throw "EXPECTED_NONZERO_CAPTURE_SELFTEST_FAILED exit=$($exitProbe.ExitCode)"}
+Log 'EXPECTED_NONZERO_CAPTURE_SELFTEST=PASS exit=23'
 
 $aRaw=Capture ("V{0}_A_RAW" -f $Cycle)
 if($aRaw.environment.airplaneMode -ne 0){throw "V${Cycle}_ENTRY_REQUIRES_AIRPLANE_OFF"}

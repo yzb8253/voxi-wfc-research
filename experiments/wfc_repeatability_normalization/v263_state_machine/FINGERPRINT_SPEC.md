@@ -52,6 +52,8 @@ Normalization reuses the two helpers validated in the v2.6.2 repeatability run. 
 
 All other A and P fingerprints fail closed.
 
+The exact intermediate state produced when the make-before-break helper cannot form dual ownership is also recognized for crash-safe resume: per_mgr running, pm-service present but not owner, exact holder sole owner, vendor X55 OFFLINE, kernel X55 ONLINE, and crash count zero. This state skips the already completed make-before-break attempt and enters only the verified qcrild2 reacquire helper.
+
 ## W health predicate
 
 W is not normalized. Success requires:
@@ -63,4 +65,3 @@ W is not normalized. Success requires:
 - existing `goldenStrong=true`.
 
 Once true, the state is frozen. W diffs are audit-only and never trigger cleanup.
-

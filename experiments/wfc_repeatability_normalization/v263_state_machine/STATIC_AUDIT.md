@@ -46,3 +46,5 @@ No CND fallback, qtidataservices restart, second SIM cycle, IMS reset, radio res
 Any gate, child script, or post-recovery health failure aborts the driver and prevents later cycles. There is no retry loop or alternate recovery path. Raw logs remain host-only.
 
 The first device execution exposed a host-only child stderr handling defect before the qcrild2 fallback. `Invoke-ChildScript` now captures child output and exit status under a temporary non-terminating preference, restores fail-closed behavior immediately afterward, and lets the caller explicitly select the already audited transition. This correction is statically parsed but not yet device-validated.
+
+Before resume, a local child intentionally wrote to stderr and exited 23. The state machine captured exit 23, restored fail-closed behavior, and continued to a read-only device snapshot. That snapshot recognized the preserved qcrild2 fallback precondition and stopped at the expected dry-run write boundary.
