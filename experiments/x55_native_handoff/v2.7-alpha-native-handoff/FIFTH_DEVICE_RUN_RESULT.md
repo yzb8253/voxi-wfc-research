@@ -2,9 +2,9 @@
 
 Experiment ID: `X55-V27-ALPHA-FIFTH-DEVICE-005`
 
-Date: 2026-09-24 08:49 Asia/Shanghai  
-Computer/account: Computer A / Account A  
-Tested commit: `13d2969acbfe6e43171929583f40b18ed4ceb361`  
+Date: 2026-09-24 08:49 Asia/Shanghai
+Computer/account: Computer A / Account A
+Tested commit: `13d2969acbfe6e43171929583f40b18ed4ceb361`
 PowerShell: `5.1.19041.6456`
 
 ## Authorization and preflight
