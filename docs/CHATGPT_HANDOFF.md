@@ -147,7 +147,8 @@ Unique next action: fix and test hashing in the exact PS5.1 no-ADB launcher path
 - PassiveMonitor v1.2 is canonical under `tools/x55_voxi_passive_monitor/`; original logic is unchanged.
 - StateSearcher v3.0-v3.5 and launchers are preserved; v3.5 is only the latest historical timing sweeper, not a proven recovery.
 - The SSR read-only topology audit source and small captures are under `tools/voxi_modem_ssr_readonly_audit_v3/`.
-- Large raw evidence and binaries remain host-only and hash-indexed in `docs/COMPUTER_A_RAW_EVIDENCE_MANIFEST.csv`.
+- The two unique source-less kernel modules are isolated under `archive/computer_a_legacy/unique_binaries/` as historical binaries with explicit do-not-load warnings.
+- Large raw evidence and other binaries remain host-only and hash-indexed in `docs/COMPUTER_A_RAW_EVIDENCE_MANIFEST.csv`.
 - No ADB or phone operation occurred during recovery.
 
 Read `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md` before claiming that a historical source artifact is still missing.

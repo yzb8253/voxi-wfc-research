@@ -50,12 +50,12 @@ The audit script, original README, and small topology captures are under `tools/
 
 Large logcat and raw captures were not added to ordinary Git. System/vendor APK, SO, kernel-header packages, and similar reproducible binaries are hash-indexed only.
 
-Two local kernel modules have no matching source in the scanned Computer A assets and require a future retention decision:
+Two local kernel modules have no matching source in the scanned Computer A assets. On 2026-09-24, exact copies were placed in the isolated historical binary archive at `archive/computer_a_legacy/unique_binaries/` to prevent loss of the only known local artifacts:
 
 - `D:\x55_ssr.ko`: 54304 bytes, SHA-256 `8835F714725205C63201D9A88152EEF638B05F4BAA9CCFFFBA810A4C1A86145D`
 - `D:\x55_test.ko`: 30152 bytes, SHA-256 `8565282386B0C0CF9F0A767525FB8E779828FB0C84AAA051AF9D3E0DA5FD1642`
 
-They remain unchanged on Computer A and were not committed.
+The original Computer A files remain unchanged. Source code was not recovered, their exact purpose/history is not fully proven, and the archive explicitly prohibits loading or automatic execution.
 
 ## Validation
 
@@ -71,7 +71,7 @@ They remain unchanged on Computer A and were not committed.
 
 - Historical raw logs are not complete in Git and remain host-only by design.
 - Precise-location evidence from one ZIP entry remains host-only for privacy.
-- The two unique kernel modules lack matching source and need a separate decision.
+- The two unique kernel modules are isolated in the historical binary archive; matching source code remains unavailable.
 - No recovered historical script is authorized for execution by this audit.
 
 Per-file parser results are recorded in `COMPUTER_A_LEGACY_POWERSHELL_VALIDATION.csv`. The two original failures are StateSearcher v3.0 and one older OneClick script extracted from `X55-WFC-OneClick.zip`.

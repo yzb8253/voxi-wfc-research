@@ -135,4 +135,4 @@ The repository's global `*.jar` ignore remains unchanged. This one exact artifac
 
 On 2026-09-24, 465 Computer A candidates under `D:\` were hashed and classified. Exact v2.6.2 source, PassiveMonitor v1.0-v1.2, StateSearcher v3.0-v3.5, the SSR read-only topology audit, selected compact negative-result histories, and historical source variants were preserved without changing original bytes.
 
-Large raw evidence (353 files, 416795027 bytes), system/vendor binaries, ZIP containers, and two source-less kernel modules remain host-only and hash-indexed. The comprehensive report is `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md`.
+Large raw evidence (353 files, 416795027 bytes), system/vendor binaries, and ZIP containers remain host-only and hash-indexed. The two unique source-less kernel modules are now isolated under `archive/computer_a_legacy/unique_binaries/` as historical do-not-load artifacts. The comprehensive report is `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md`.
