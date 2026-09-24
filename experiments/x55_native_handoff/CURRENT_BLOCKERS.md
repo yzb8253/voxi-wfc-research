@@ -84,3 +84,12 @@ The production source now pre-stages helper/orchestrator work before stopping ve
 This source change is not yet device-validated. The current live phone scene after the 10:21 run is valuable evidence and must not be manually cleaned or rerun while WFC remains healthy.
 
 NEXT_ACTION: pull the timing-optimized source and run the paired PS5.1 `selftest` only. Do not execute the phone path against the preserved live holder scene.
+
+
+## 8. Windows CRLF conversion of device orchestrator
+
+The first timing-optimized device execution did not reach SIM POWER_DOWN. `cycle.stdout` showed an Android shell parse failure on line 2 (`set -u\r`), while `cycle.log`, `cycle.result`, and `cycle.done` were never created. The holder/X55 path itself remained valid.
+
+This blocker is addressed in production by normalizing the selected orchestrator to LF-only UTF-8/no-BOM before hashing and ADB deployment. A matching device SHA-256 then proves the exact normalized bytes were installed. Selftest now validates the normalized shell header. `.gitattributes` also forces `*.sh text eol=lf`.
+
+NEXT_ACTION: pull the LF-normalization fix, run paired selftest only, then restore a fresh native-clean F1 entry state before another timing-optimized device execute.
