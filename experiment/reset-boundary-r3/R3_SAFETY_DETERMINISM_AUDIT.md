@@ -123,6 +123,8 @@ The proven v2.6.2 Git content is unchanged, but Computer B had `core.autocrlf=tr
 
 A path-specific `.gitattributes` rule now requires LF for this one frozen artifact. The experiment must verify the exact hash before the baseline reboot and again before every delegated recovery. This is a checkout integrity repair, not a v2.6.2 logic change.
 
+The frozen source also contains one Computer-A-specific absolute ADB path. Account B cannot create the old user-profile path because Windows denies access. `Invoke-FrozenV262Portable.ps1` therefore verifies the canonical hash, changes exactly that one host binding in memory, proves reversing that one substitution reproduces the exact canonical text, and writes the derived launcher only to host-local logs. No recovery statement, timing, safety gate, SIM rule or phone command is changed. Both the canonical and derived hashes are recorded. An attempt that stops at the missing old ADB path is pre-recovery invalid and is not a WFC/R3 failure.
+
 ## Safety invariants
 
 - one authorized AP reboot only, before CONTROL_A0;

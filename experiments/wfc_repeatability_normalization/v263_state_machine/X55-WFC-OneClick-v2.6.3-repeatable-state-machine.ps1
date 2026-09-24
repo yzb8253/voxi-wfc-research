@@ -15,6 +15,7 @@ $Repo = (Resolve-Path (Join-Path $Root '..\..')).Path
 $Adb = Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $CaptureScript = Join-Path $Root 'capture_snapshot.ps1'
 $KnownGoodRecovery = Join-Path $Root 'v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
+$PortableRecovery = Join-Path $Repo 'experiment\reset-boundary-r3\Invoke-FrozenV262Portable.ps1'
 $NativeNormalize = Join-Path $Root 'v262_freeze_run\normalize_a1_native_owner.ps1'
 $QcrildNormalize = Join-Path $Root 'v262_freeze_run\normalize_a1_qcrild2_reacquire.ps1'
 $ExpectedNonzeroProbe = Join-Path $PSScriptRoot 'expected-nonzero-probe.ps1'
@@ -189,6 +190,7 @@ function Normalize-A([int]$Number,$State) {
 
 Log "STATE_MACHINE_BEGIN cycle=$Cycle execute=$Execute base_commit=89f2c86d48c91a974988d9bf67415f592da6f50d"
 if(-not (Test-Path $KnownGoodRecovery)){throw 'Verified v2.6.2 freeze-on-success script missing'}
+if(-not (Test-Path $PortableRecovery)){throw 'Verified v2.6.2 host-binding adapter missing'}
 $knownHash=(Get-FileHash $KnownGoodRecovery -Algorithm SHA256).Hash
 if($knownHash -ne '445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75'){throw "Known-good recovery hash mismatch: $knownHash"}
 $exitProbe=Invoke-ChildScript $ExpectedNonzeroProbe
@@ -211,7 +213,7 @@ Log "V${Cycle}_P_RESULT=P_PASS"
 
 if(-not $Execute){throw 'DRY_RUN_COMPLETE_BEFORE_RECOVERY'}
 Log "V${Cycle}_RECOVERY_BEGIN=VERIFIED_V262_FREEZE"
-$recoveryResult=Invoke-ChildScript $KnownGoodRecovery
+$recoveryResult=Invoke-ChildScript $PortableRecovery
 foreach($line in $recoveryResult.Output){Log "RECOVERY_OUTPUT=$line"}
 $recoveryExit=$recoveryResult.ExitCode
 Log "V${Cycle}_RECOVERY_EXIT=$recoveryExit"
