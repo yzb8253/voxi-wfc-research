@@ -568,3 +568,14 @@ NEXT_ACTION: run the authorized new reboot baseline and v3 series once, fail clo
 - Phone actions: 5. Raw logs remain host-only.
 
 NEXT_ACTION: stop. Do not resume v3 or repeat any reset. A corrected run requires separate authorization and a new baseline.
+
+## Current checkpoint: R4b v4 formally fails native publication
+
+- Test code commit: `8f97783` (full SHA in Git history).
+- Series result: `NATIVE_PUBLICATION_NOT_READY`, fail stage `INITIALIZE_IWLAN_TO_NAH_PUBLICATION`.
+- Cycle 1 PIDs: qcrild2 `1902 -> 14900`, qtidataservices `3303 -> 23716`, phone `3437` unchanged.
+- Replacement NAH G=`2026-09-24 23:17:41.938`; 39 current-generation samples through G+120 had working IMS absent and LastReported IMS absent. Native PM/X55 remained clean.
+- R3/P/v2.6.2/SIM and Cycles 2/3 were not run. Five phone actions total; no cleanup/retry followed.
+- Sanitized result: `experiment/reset-boundary-r4b/runs/r4b_3cycle_v4/RESULT.md`; raw timeline/debug/logcat remain host-only.
+
+NEXT_ACTION: read-only investigation of why initializeIWLAN's replacement NAH receives no usable DSD/profile qualification input. Do not execute R4c.

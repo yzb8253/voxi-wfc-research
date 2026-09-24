@@ -649,3 +649,15 @@ NEXT_ACTION: stop and preserve. Do not resume v3, repeat a reset, or claim `NATI
 - Static audit passes; phone writes for v4 remain 0 before baseline.
 
 NEXT_ACTION: establish `CONTROL_A0_R4B_V4`, then run the v4 series once and stop at the first legal terminal classification.
+
+## 2026-09-24 R4b v4 valid native-publication counterexample
+
+- The independent v4 baseline used its one authorized reboot and captured airplane-OFF F1.
+- Cycle 1 R0 passed; qcrild2 `1902 -> 14900` and qtidataservices `3303 -> 23716` each used exactly one frozen reset.
+- Dedicated gate bound to replacement NAH generation `23:17:41.938` and its exact G+120 deadline.
+- Across 39 samples, live current working IMS and LastReported IMS were absent 39/39; `globalPrefSys=UNKNOWN`; qcrild2/provider PIDs and X55/crash/PM ownership remained stable and clean.
+- DSD/WDS/IWLAN/modem capability flags were ready, and framework NRM reported slot1 PS/WLAN HOME, but no current-generation NAH cache update or IMS publication occurred.
+- Legal classification: `NATIVE_PUBLICATION_NOT_READY`; `FAIL_STAGE=INITIALIZE_IWLAN_TO_NAH_PUBLICATION`.
+- R3, P, v2.6.2, SIM cycle and Cycles 2/3 did not run. Phone actions total 5; no adaptive action followed.
+
+NEXT_ACTION: preserve the F1 scene. Perform read-only analysis of initializeIWLAN -> DSD/NAH input subscription/replay -> first working qualification -> LastReported publication. Do not expand to R4c.

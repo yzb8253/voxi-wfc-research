@@ -564,3 +564,13 @@ NEXT_ACTION: redefine native/provider readiness around the latest NAH generation
 - Future code statically separates qtidataservices epoch readiness from native publication readiness. The correction remains unexecuted.
 
 NEXT_ACTION: no phone action. A new independently authorized series is needed to test the corrected gate; v3 must not be resumed.
+
+## R4b v4 native-publication finding (2026-09-24)
+
+- v4 formally confirms CASE 1. The new qtidataservices process caused a replacement NAH, but that generation produced neither a current IMS working entry nor a LastReported IMS entry within 120 seconds.
+- This is not a query-cache contradiction: GET correctly observes the empty LastReported container.
+- DsdServiceReady, WdsServiceReady, IWLANEnabled and ModemCapability were all true. Framework PS/WLAN HOME also returned, so those global readiness signals are insufficient to populate the replacement NAH.
+- The first valid missing native event is a current-generation working-cache IMS qualification/update after the constructor. Consequently no `type=IMS` LastReported publication can follow.
+- The causal boundary is now upstream of QNS/provider/ANM: `initializeIWLAN -> replacement NAH -> DSD/profile input replay or fresh indication -> working cache -> LastReported`.
+
+NEXT_ACTION: static/read-only diff boot-generation versus qtidataservices replacement-generation input subscription, cached DSD-valid replay, profile arrival and first APN-level indication. Do not run R4c or add a QNS workaround.
