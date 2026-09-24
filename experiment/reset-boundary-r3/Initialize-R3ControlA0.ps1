@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([switch]$Execute,[switch]$StaticAudit)
+param([switch]$Execute,[switch]$StaticAudit,[switch]$ResumeAfterReboot)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -24,26 +24,31 @@ function Write-Phone([string]$Command){if(-not $Execute){throw "DRY_RUN_BLOCKED_
 $hash=(Get-FileHash -LiteralPath $Recovery -Algorithm SHA256).Hash
 if($hash -ne '445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75'){throw "V262_HASH_MISMATCH=$hash"}
 if($StaticAudit){Write-Host 'STATIC_NO_ADB=PASS';Write-Host "V262_SHA256=$hash";exit 0}
-if(Test-Path -LiteralPath $Marker){throw 'CONTROL_A0_REBOOT_ALREADY_USED'}
 $devices=Invoke-Adb @('devices');if($devices.Text -notmatch "(?m)^$Serial\s+device\s*$"){throw 'TARGET_NOT_ONLINE'}
 if((Root 'id') -notmatch 'uid=0\(root\)'){throw 'ROOT_REQUIRED'}
 if(-not $Execute){throw 'EXECUTE_REQUIRED'}
 
-[IO.File]::WriteAllText($Marker,(Get-Date -Format o),[Text.UTF8Encoding]::new($false))
-Write-Host 'PHONE_WRITE=adb reboot (authorized baseline reboot 1/1)'
-$reboot=Invoke-Adb @('-s',$Serial,'reboot');if($reboot.ExitCode -ne 0){throw $reboot.Text}
-[void](Invoke-Adb @('wait-for-device'))
-$bootDeadline=(Get-Date).AddMinutes(5)
-do {Start-Sleep -Seconds 2;try{$boot=(Root 'getprop sys.boot_completed').Trim()}catch{$boot=''}} while($boot -ne '1' -and (Get-Date)-lt $bootDeadline)
-if($boot -ne '1'){throw 'BOOT_COMPLETED_TIMEOUT'}
-[void](Write-Phone 'cmd connectivity airplane-mode disable')
-[void](Write-Phone 'svc wifi enable')
+if($ResumeAfterReboot) {
+  if(-not (Test-Path -LiteralPath $Marker)){throw 'CONTROL_A0_REBOOT_MARKER_MISSING'}
+  Write-Host 'BASELINE_RESUME=AFTER_EXISTING_REBOOT; PHONE_WRITES=0'
+} else {
+  if(Test-Path -LiteralPath $Marker){throw 'CONTROL_A0_REBOOT_ALREADY_USED'}
+  [IO.File]::WriteAllText($Marker,(Get-Date -Format o),[Text.UTF8Encoding]::new($false))
+  Write-Host 'PHONE_WRITE=adb reboot (authorized baseline reboot 1/1)'
+  $reboot=Invoke-Adb @('-s',$Serial,'reboot');if($reboot.ExitCode -ne 0){throw $reboot.Text}
+  [void](Invoke-Adb @('wait-for-device'))
+  $bootDeadline=(Get-Date).AddMinutes(5)
+  do {Start-Sleep -Seconds 2;try{$boot=(Root 'getprop sys.boot_completed').Trim()}catch{$boot=''}} while($boot -ne '1' -and (Get-Date)-lt $bootDeadline)
+  if($boot -ne '1'){throw 'BOOT_COMPLETED_TIMEOUT'}
+  [void](Write-Phone 'cmd connectivity airplane-mode disable')
+  [void](Write-Phone 'svc wifi enable')
+}
 
 $envDeadline=(Get-Date).AddMinutes(10)
 $ready=$false
 do {
   Start-Sleep -Seconds 3
-  $e=Root "settings get global airplane_mode_on; ip -br link show wlan0; dumpsys connectivity | grep -m1 'VPN CONNECTED'; cmd location is-location-enabled; pidof com.cxorz.anywhere; dumpsys location | grep -E -i -m1 'last mock location'"
+  $e=Root "settings get global airplane_mode_on; ip -br link show wlan0; dumpsys connectivity | grep -m1 'VPN CONNECTED' || true; cmd location is-location-enabled; pidof com.cxorz.anywhere || true; dumpsys location | grep -E -i -m1 'last mock location' || true"
   $ready=($e -match '(?m)^0\s*$' -and $e -match '(?m)^wlan0\s+UP' -and $e -match 'VPN CONNECTED' -and $e -match '(?m)^true\s*$' -and $e -match 'mock')
 } while(-not $ready -and (Get-Date)-lt $envDeadline)
 if(-not $ready){throw 'CONTROL_A0_ENVIRONMENT_TIMEOUT'}
