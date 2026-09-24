@@ -210,3 +210,22 @@ Stop point: one identity-gated TERM was sent to holder 27125, but it did not exi
 SIM/WFC: SIM OFF/ON 0/0; WFC remained F1; no qti.cne/ePDG/XFRM.
 Conclusion: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; production results `X55_REBIRTH_SUCCESS / NOT_RUN / NOT_CHECKED / NOT_RUN`; phone write actions 4.
 Evidence: `v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`; raw logs remain host-only.
+
+
+## X55-V27-ALPHA-EIGHTH-DEVICE-008
+
+Date: 2026-09-24 09:40-09:43 Asia/Shanghai
+Commit: exact clean `81b5de257941f7bad9183cc4e9ec7b241de7b63e`; paired PS5.1 selftest PASS.
+Pre-state: native-clean single-SIM F1; pm-service 28220 sole owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 873.
+Observed path: per_mgr stop PASS; holder sole PASS; X55 rebirth/new PON_SUCCESS PASS; per_mgr contended start PASS; exact dual ownership PASS; exact holder TERM/exit PASS; pm-service sole PASS; native cleanup PASS. Production qcrild2 restart count remained zero.
+SIM/WFC: exactly one single-SIM software POWER_DOWN/POWER_UP cycle completed successfully at the helper/API level. The subscription/UICC stack rebuilt, but bounded WFC samples remained IMS NOT_REGISTERED, WFC unavailable, qti.cne request absent, ePDG absent, XFRM absent.
+Conclusion: `X55_REBIRTH_SUCCESS / MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS / FAILED_AFTER_ONE_SIM_CYCLE / NATIVE_CLEAN`. The remaining question is recovery ordering: run 008 performed native cleanup before the SIM cycle, unlike the previously successful v2.5/v2.6.2 holder/per_mgr-stopped recovery scene.
+Evidence: `v2.7-alpha-native-handoff/EIGHTH_DEVICE_RUN_RESULT.md`; key evidence archive and full raw logcat remain host-side.
+
+## X55-V27-RECOVERY-BEFORE-CLEANUP-STATIC-009
+
+Date: 2026-09-24 Asia/Shanghai
+Scope: repository-only source redesign after run 008; no phone operation performed by this change.
+Change: move the optional one-shot SIM recovery cycle into the fresh-X55 holder-sole/vendor.per_mgr-stopped window; only afterward perform the already validated make-before-break native cleanup. Add `PRE_CLEANUP_WFC_RESULT` and a post-cleanup WFC survival check so recovery and cleanup effects are separable.
+Safety retained: exact holder identity; one optional SIM OFF/ON; no qcrild2 restart; no cnd restart; no kill -9; exact dual-owner cleanup; pm-service sole/X55 ONLINE/crash_count 0 gate.
+Conclusion: source redesign committed; exact paired PS5.1 selftest still required before any new phone execution.
