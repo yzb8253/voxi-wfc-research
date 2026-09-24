@@ -625,3 +625,16 @@ NEXT_ACTION: no reset. Design a separately authorized gate-only validation requi
 - PS5.1 parser/order/hash/no-write static audit passes. Static-phase phone writes 0.
 
 NEXT_ACTION: establish the one authorized `CONTROL_A0_R4B_V3` reboot baseline, then execute the frozen v3 runner once and stop at the first valid failure.
+
+## 2026-09-24 R4b v3 pre-gate observer abort
+
+- `CONTROL_A0_R4B_V3` used the one authorized reboot and captured F1.
+- Cycle 1 R0 passed; qcrild2 `1966 -> 14018` and qtidataservices `3348 -> 22991` each consumed exactly one authorized reset.
+- The inherited v2 provider observer reached nine stable samples, then one-shot creation lines rolled out of its logcat evidence window and it timed out before `NATIVE_PUBLICATION_READY` ran.
+- R3, P, v2.6.2, SIM cycle and Cycles 2/3 did not run. Phone remained PID 3423. No adaptive phone action followed.
+- Latest NAH generation was 22:53:48.139; its live working and LastReported caches were empty more than 120 seconds later. This supports CASE 1 but cannot be promoted to a valid gate result because the new gate did not continuously adjudicate it.
+- Classification: `ABORTED_PRE_NATIVE_PUBLICATION_GATE_LEGACY_PROVIDER_OBSERVER`; publication-gated candidate NOT TESTED / NOT FALSIFIED.
+- A static-only `-EpochOnly` correction now leaves publication judgment solely to `NATIVE_PUBLICATION_READY`; it has not been run.
+- Total phone writes/actions: 5.
+
+NEXT_ACTION: stop and preserve. Do not resume v3, repeat a reset, or claim `NATIVE_PUBLICATION_NOT_READY`. Any corrected independent series requires a new explicit reboot authorization.

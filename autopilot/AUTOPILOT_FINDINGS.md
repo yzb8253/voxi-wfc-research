@@ -554,3 +554,13 @@ NEXT_ACTION: no device write. Audit the IIWlan GET handler, response cache, filt
 - Successful R4a Cycle 1 differs earlier: its live current last-reported cache already contained IMS/EUTRAN before the fresh framework consumer received ANM publication.
 
 NEXT_ACTION: redefine native/provider readiness around the latest NAH generation and live current cache/query content; no sleep, re-report, injection, reset enlargement or R4c.
+
+## R4b v3 observer finding (2026-09-24)
+
+- The v3 runner did not reach the new native-publication gate. Its inherited provider adapter incorrectly retained a ten-sample requirement over transient creation log lines and timed out after nine samples.
+- The planned reset actions themselves occurred once and in order: qcrild2 cold epoch then qtidataservices cold epoch. No R3 or later action ran.
+- At stop, replacement NAH generation `22:53:48.139` had empty live working and LastReported containers after more than 120 seconds. Old IMS lines were correctly identified as prior-generation history.
+- This evidence supports the native-publication hypothesis but is not a valid falsification because the intended gate was never active. The run is an orchestrator/evidence-adapter abort.
+- Future code statically separates qtidataservices epoch readiness from native publication readiness. The correction remains unexecuted.
+
+NEXT_ACTION: no phone action. A new independently authorized series is needed to test the corrected gate; v3 must not be resumed.

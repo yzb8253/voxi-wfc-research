@@ -36,7 +36,7 @@ if(-not $Execute){throw 'EXECUTE_REQUIRED'}
 $common=@('-Cycle',[string]$Cycle,'-Execute','-RunName',$RunName,'-SummaryRootOverride',$RunRoot,'-HostRootOverride',$HostRoot)
 Run $R3 ($common+@('-StopAfterR0','-LabelPrefix','R4B_R0'))
 Run $Producer @('-Cycle',[string]$Cycle,'-Execute','-RunName',$RunName)
-Run $Provider @('-Cycle',[string]$Cycle,'-Execute','-RunName',$RunName)
+Run $Provider @('-Cycle',[string]$Cycle,'-Execute','-EpochOnly','-RunName',$RunName)
 Run $NativePublication @('-Cycle',[string]$Cycle,'-RunName',$RunName)
 Run $R3 ($common+@('-LabelPrefix','R4B'))
 Run $PostR3Query @('-Cycle',[string]$Cycle,'-RunName',$RunName)

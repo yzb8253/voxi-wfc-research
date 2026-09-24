@@ -556,3 +556,15 @@ NEXT_ACTION: preserve the scene. If separately authorized, test only a corrected
 - Static audit passes under Windows PowerShell 5.1. Phone writes 0 so far.
 
 NEXT_ACTION: run the authorized new reboot baseline and v3 series once, fail closed with no adaptive action.
+
+## Current checkpoint: R4b v3 stopped before native-publication gate
+
+- Test code commit: `8a6bca59d4ba4f13406c98c47cc711543188fd49`.
+- Result: `ABORTED_PRE_NATIVE_PUBLICATION_GATE_LEGACY_PROVIDER_OBSERVER`.
+- Baseline reboot used. Cycle 1 PIDs: qcrild2 `1966 -> 14018`, qtidataservices `3348 -> 22991`, phone `3423` unchanged.
+- The old provider observer timed out after transient creation log evidence disappeared; the new gate, R3, P, v2.6.2 and SIM cycle never ran.
+- Live replacement generation `22:53:48.139` remained empty at stop, but candidate status is NOT TESTED / NOT FALSIFIED.
+- Post-stop source correction adds unexecuted `-EpochOnly` behavior so native publication is judged only by the dedicated gate.
+- Phone actions: 5. Raw logs remain host-only.
+
+NEXT_ACTION: stop. Do not resume v3 or repeat any reset. A corrected run requires separate authorization and a new baseline.
