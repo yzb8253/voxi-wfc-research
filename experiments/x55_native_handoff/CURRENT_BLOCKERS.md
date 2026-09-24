@@ -38,6 +38,14 @@ Authorized run 007 reached the exact dual-owner gate, then sent one TERM to the 
 
 The likely cause is deferred shell trap handling while waiting for the foreground sleep child. No retry or cleanup was performed. A future change must be static-only first and must make exact-holder TERM completion deterministic without broad kill, SIGKILL, or weakening identity checks.
 
+## 6. Recovery ordering is now the active blocker
+
+Run 008 proved the redesigned native ownership handoff itself: X55 rebirth, exact dual ownership, exact holder TERM, pm-service sole ownership, unchanged qcrild2 PID, and native cleanup all completed. The one-shot SIM helper then executed POWER_DOWN/POWER_UP successfully, but WFC remained F1 through the bounded observation window.
+
+The ordering differed from the earlier successful v2.5/v2.6.2 scene: run 008 restored native pm-service ownership before the SIM cycle. The production script has now been reordered so the optional single SIM cycle occurs while the fresh X55 is still held by the exact holder and vendor.per_mgr remains stopped. Make-before-break native cleanup now runs only after the recovery window, followed by a post-cleanup WFC survival check.
+
+This is a source-level redesign only. Exact paired PS5.1 selftest must pass again before another phone execution.
+
 ## Current disposition
 
 - 001: `ABORTED_BEFORE_CONTENDED_PHASE / INCONCLUSIVE`
@@ -59,5 +67,7 @@ The likely cause is deferred shell trap handling while waiting for the foregroun
 - Detailed cleanup evidence: `X55_DUAL_OWNER_CLEANUP_006.md`
 - Seventh run: `HOLDER_TERM_DEFERRED_TIMEOUT / PRESERVED_DUAL_OWNER`; exact TERM once; SIM OFF/ON 0/0; X55 ONLINE; qcrild2 unchanged.
 - Detailed seventh-run evidence: `v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`
+- Eighth run: native handoff and cleanup PASS; one software SIM cycle completed; final WFC `FAILED_AFTER_ONE_SIM_CYCLE`; qcrild2 unchanged; cleanup native-clean.
+- Detailed eighth-run evidence: `v2.7-alpha-native-handoff/EIGHTH_DEVICE_RUN_RESULT.md`
 
-NEXT_ACTION: preserve the current dual-owner scene. Statically redesign the holder loop/TERM completion behavior; do not rerun or clean up the phone without explicit authorization.
+NEXT_ACTION: pull the recovery-before-cleanup source redesign to Computer A and run the exact paired PS5.1 `selftest` only. Do not execute the phone path until that selftest is reviewed.
