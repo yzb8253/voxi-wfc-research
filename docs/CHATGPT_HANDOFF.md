@@ -196,3 +196,22 @@ Unique next action: wait for explicit authorization before any phone execution o
 - Full sanitized report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`.
 
 Unique next action: preserve the scene and perform static-only redesign of deterministic holder TERM completion. No phone cleanup or rerun without explicit authorization.
+
+
+## v2.7-alpha eighth device run
+
+- Exact commit `81b5de257941f7bad9183cc4e9ec7b241de7b63e` ran once after fresh F1/native entry checks and paired selftest PASS.
+- X55 rebirth, exact holder+pm-service dual ownership, exact holder TERM, pm-service sole ownership, and native cleanup all passed. qcrild2 remained PID 873; no qcrild2 restart occurred.
+- The one-shot single-SIM helper completed POWER_DOWN and POWER_UP successfully, but WFC remained F1 through 30 seconds: IMS NOT_REGISTERED, qti.cne request absent, ePDG/XFRM absent.
+- Result: `X55_REBIRTH_SUCCESS / MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS / FAILED_AFTER_ONE_SIM_CYCLE / NATIVE_CLEAN`.
+- Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/EIGHTH_DEVICE_RUN_RESULT.md`.
+
+## Recovery-before-cleanup redesign
+
+The active hypothesis is now ordering rather than native ownership. Historical successful v2.5/v2.6.2 recovery ran the SIM cycle while the fresh X55 remained under the temporary holder with vendor.per_mgr stopped. Run 008 instead restored native pm-service ownership before the SIM cycle.
+
+Production source has been reordered to:
+
+`ENTRY -> STOP_PER_MGR -> HOLDER_SOLE -> X55_REBIRTH -> WFC_CHECK -> OPTIONAL_ONE_SIM_CYCLE -> START_PER_MGR -> DUAL_OWNER -> EXACT_TERM -> PM_SOLE -> POST_CLEANUP_WFC_CHECK`.
+
+The script emits `PRE_CLEANUP_WFC_RESULT` so a future run can distinguish whether recovery succeeded before cleanup and whether cleanup preserved it. This source change has not yet been phone-executed. Exact paired PS5.1 selftest is the next action.
