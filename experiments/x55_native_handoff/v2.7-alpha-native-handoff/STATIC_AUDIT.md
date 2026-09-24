@@ -69,7 +69,7 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - Exact owned host process-tree cleanup retained: PASS
 - ADB/su command quoting audit: PASS
 - PID automatic-variable audit (`$PID`/`$Pid`/`$pid`): PASS
-- Make-before-break state-machine order: PASS
+- Recovery-before-cleanup state-machine order: source audit updated; exact paired PS5.1 selftest pending after this change
 - Reserved PID variable collision scan: PASS
 - Launcher default dry-run: PASS
 - Fixed execution confirmation token: PASS
@@ -80,8 +80,8 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - Exact holder-sole, holder+pm-service dual-owner, and pm-service-sole models: PASS
 - Unknown third owner rejection: PASS
 - qcrild2 restart call sites in the redesigned path: `0`
-- Exact pm-service sole ownership required before SIM cycle: PASS
-- Healthy state skips SIM cycle: PASS
+- Exact holder sole ownership with vendor.per_mgr stopped required before the optional SIM cycle: source audit updated
+- Healthy post-rebirth state skips SIM cycle: source audit updated
 - One POWER_DOWN and one POWER_UP call site per device orchestrator: PASS
 - POWER_UP return-code preservation: PASS
 - No automatic retry: PASS
@@ -94,9 +94,9 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 
 - Stopping Peripheral Manager intentionally transitions X55 OFFLINE before holder-controlled rebirth.
 - Starting Peripheral Manager while the exact holder owns the node must form exactly two owners: that holder and one exact init-owned pm-service. Missing dual ownership or any third owner aborts before TERM.
-- After exact holder TERM, pm-service must be the sole owner and X55 must remain ONLINE with crash_count 0. Failure forbids the SIM cycle.
+- The optional SIM cycle now occurs before native cleanup, while the exact holder remains sole owner and vendor.per_mgr remains stopped. Native cleanup runs afterward regardless of whether recovery succeeded, so the script can distinguish recovery failure from WFC loss caused by cleanup.
 - A stale holder PID file is reported and preserved; the script does not delete it to manufacture a clean gate.
-- Cleanup 006 validates native ownership transfer only. WFC remained F1, so the redesigned complete recovery path still requires a separately authorized device run.
+- Cleanup 006 validates native ownership transfer. Run 008 then validated that native cleanup can complete cleanly before a SIM cycle, but WFC still failed. The next test is specifically about moving the one allowed SIM cycle back into the fresh-holder/per_mgr-stopped recovery window.
 
 ## Fourth-launch hash blocker resolution
 
@@ -136,3 +136,26 @@ PHONE_WRITES=0
 ```
 
 The redesigned executable state machine was not run against the phone. Any new device run requires explicit approval.
+
+
+## Recovery-before-cleanup redesign after run 008
+
+Run 008 completed X55 rebirth, exact dual ownership, exact holder TERM, pm-service sole ownership, and native cleanup successfully, then executed exactly one software SIM OFF/ON cycle. The SIM helper reported successful POWER_DOWN/POWER_UP callbacks and the target subscription rebuilt, but WFC remained F1 with no qti.cne request, ePDG, or XFRM recovery.
+
+The important ordering difference from the previously successful v2.5/v2.6.2 scene is that run 008 restored native pm-service ownership before the SIM cycle. The production path has therefore been reordered so recovery is attempted first in the fresh-X55 holder context:
+
+```text
+ENTRY
+-> STOP_PER_MGR
+-> HOLDER_SOLE
+-> X55_REBIRTH / NEW_PON_SUCCESS
+-> WFC_CHECK
+-> OPTIONAL_ONE_SIM_CYCLE while holder sole + per_mgr stopped
+-> MAKE_BEFORE_BREAK_NATIVE_CLEANUP
+-> PM_SERVICE_SOLE / X55 ONLINE
+-> POST_CLEANUP_WFC_CHECK
+```
+
+The native cleanup mechanics are unchanged: exact holder identity, exact two-owner holder+pm-service gate, one TERM, pm-service sole-owner verification, unchanged qcrild2 PID, X55 ONLINE, crash_count 0. The script now emits `PRE_CLEANUP_WFC_RESULT` so a future run can distinguish recovery success from WFC loss during cleanup.
+
+This section records a source-level redesign only. The exact paired Windows PowerShell 5.1 selftest must be rerun on Computer A before any phone execution, and no recovery success is claimed yet.
