@@ -272,3 +272,40 @@ PHONE_WRITES=0
 ```
 
 The current live phone scene from the previous recovery run is intentionally not a valid entry state for device execution: WFC is healthy, the exact holder remains sole owner of `/dev/subsys_esoc0`, and pm-service is running without esoc0 ownership. Do not execute the timing-optimized path against that preserved scene. Establish a fresh native-clean baseline first.
+
+
+## X55-V27-TIMING-OPTIMIZED-DEVICE-012
+
+Date: 2026-09-24 12:05-12:19 Asia/Shanghai
+Source executed: `355436b8a74fe883f16829bbcb52af22f7df4b5c`.
+Precondition: paired selftest PASS; production dry-run ENTRY_GATE PASS; native-clean single-SIM F1.
+
+Observed:
+- RECOVERY_PRESTAGE PASS
+- vendor.per_mgr stopped
+- exact holder sole ownership formed
+- X55 rebirth / ONLINE succeeded
+- one-shot SIM cycle host wait timed out at 40 seconds
+- failsafe native cleanup did not form dual ownership
+- qcrild2 PID remained unchanged
+- WFC remained F1
+- holder remained sole owner while vendor.per_mgr was running without esoc0 ownership
+
+Device-side `cycle.stdout` contained:
+
+```text
+: unknown optionvoxi-x55-v27-alpha/v27_sim_cycle_single.sh[2]: set: -
+```
+
+and `cycle.done`, `cycle.result`, and `cycle.log` were absent. Therefore the orchestrator exited at line 2 before invoking the SIM helper. No SIM POWER_DOWN or POWER_UP was executed in this run.
+
+Root cause: Windows checkout converted the Android shell orchestrator to CRLF, so Android `/system/bin/sh` parsed `set -u\r` as an invalid option. The previous static test normalized command payload strings but did not normalize the deployed script file itself.
+
+Fix:
+- production now creates an LF-only UTF-8/no-BOM copy of the selected orchestrator inside the run directory;
+- hashes and deploys that exact normalized copy;
+- logs `ORCHESTRATOR_LF_DEPLOY=PASS`;
+- selftest asserts normalized orchestrator header and emits `ORCHESTRATOR_LF_NORMALIZATION=PASS`;
+- v2.7 directory now contains `.gitattributes` with `*.sh text eol=lf` as a second defense.
+
+Do not classify this run as a SIM recovery mechanism failure: the SIM cycle never started.
