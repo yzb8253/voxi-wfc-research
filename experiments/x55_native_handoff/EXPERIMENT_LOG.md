@@ -309,3 +309,39 @@ Fix:
 - v2.7 directory now contains `.gitattributes` with `*.sh text eol=lf` as a second defense.
 
 Do not classify this run as a SIM recovery mechanism failure: the SIM cycle never started.
+
+
+## X55-V27-TIMING-OPTIMIZED-DEVICE-013
+
+Date: 2026-09-24 12:32-12:37 Asia/Shanghai.
+Source executed before this follow-up redesign: `966f3bd665089efd20054160dd9730755cc0c269`.
+Entry: native-clean single-SIM F1, pm-service sole owner, X55 ONLINE/crash_count 0, qcrild2 PID 1993.
+
+Observed sequence:
+- LF-normalized orchestrator deployed successfully.
+- vendor.per_mgr stopped.
+- exact holder sole ownership formed.
+- X55 rebirth succeeded and X55 returned ONLINE.
+- one software SIM POWER_DOWN/3s/POWER_UP completed successfully.
+- device-side `ctl.start vendor.per_mgr` returned success immediately after POWER_UP.
+- vendor.per_mgr reached running, but pm-service never acquired `/dev/subsys_esoc0`; holder PID 14614 remained sole owner.
+- WFC remained F1 at 12:37:23; IMS NOT_REGISTERED, no qti.cne request, no ePDG/XFRM.
+
+Critical PeripheralManager timing evidence from raw logcat:
+- PeripheralManager server died: 12:32:58.340-12:32:58.342.
+- qcrild2 / sibling client service acquisition failures occurred at approximately 12:33:04.415, 10.488, 16.550, 22.613, and 28.680.
+- SIM POWER_UP callback returned successfully at 12:33:28.888.
+- per_mgr start was requested around 12:33:29 and PerMgrSrv became available at 12:33:29.790.
+- Therefore the new server became available about 1.11 s after the final observed qcrild2 service-acquisition timeout. No later qcrild2 PeripheralManager registration/vote was captured.
+- PerMgrSrv started with SDX55M voter/listener count 0/0 and an empty client list.
+
+Interpretation:
+- "start per_mgr immediately after POWER_UP" was still too late to catch the finite qcrild2 PeripheralManager reacquisition sequence in this run.
+- This run does not prove that PeripheralManager dual ownership is required for WFC. A prior successful recovery reached WFC while the holder remained the native owner and per_mgr was not part of the recovery window.
+- The next controlled path therefore separates recovery from native cleanup: keep per_mgr stopped and holder sole during the entire post-SIM WFC observation window, restore per_mgr only after WFC is already healthy, and preserve the holder rather than forcing a cleanup handoff.
+
+Follow-up implementation:
+- orchestrators accept `X55_V27_START_PER_MGR_AFTER_POWER_UP=NO` and log `PER_MGR_START_SKIPPED`;
+- production uses NO for the recovery cycle;
+- WFC is sampled for 0-30 s while requiring per_mgr stopped + exact holder sole + X55 ONLINE/crash_count 0 + unchanged qcrild2;
+- if WFC becomes healthy, per_mgr is restored while holder remains preserved, WFC is rechecked after 5 s, and native cleanup is explicitly deferred for evidence preservation.
