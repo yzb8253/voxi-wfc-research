@@ -142,6 +142,13 @@ function Fallback-Residue($State) {
   $State.native.vendorPeripheralState -eq 'OFFLINE' -and $State.native.x55State -eq 'ONLINE' -and $State.native.crashCount -eq 0
 }
 
+function Stale-Holder-File-Only($State) {
+  $State.environment.airplaneMode -eq 0 -and $State.native.perMgrState -eq 'running' -and
+  $null -ne $State.processes.pmService -and (Pm-Owns $State) -and $null -eq $State.processes.holder -and
+  $State.native.vendorPeripheralState -eq 'ONLINE' -and $State.native.x55State -eq 'ONLINE' -and
+  $State.native.crashCount -eq 0 -and $State.residues.holderPidFile
+}
+
 function Extra-Environment-Gate {
   $text=Read-Root "cmd location is-location-enabled; settings get secure location_mode; pidof com.cxorz.anywhere; dumpsys location | grep -E -i -m8 'com.cxorz.anywhere|last mock location'"
   $lines=@($text -split "\r?\n")
@@ -152,7 +159,12 @@ function Extra-Environment-Gate {
 function Normalize-R0($State) {
   if(A-Canonical $State){Log 'R0=A_PASS_NO_WRITE';return $State}
   if(-not $Execute){throw 'R0_EXECUTE_REQUIRED'}
-  if(Fallback-Residue $State) {
+  if(Stale-Holder-File-Only $State) {
+    $audit=Read-Root 'p=$(cat /data/local/tmp/x55_holder.pid 2>/dev/null || true); case "$p" in *[!0-9]*|"") echo STALE_OK;; *) if test -d "/proc/$p"; then tr "\000" " " <"/proc/$p/cmdline"; else echo STALE_OK; fi;; esac'
+    if($audit -notmatch 'STALE_OK' -or $audit -match 'x55_holder\.pid.*subsys_esoc0'){throw 'R0_STALE_PID_FILE_IDENTITY_FAILED'}
+    [void](Root-Write 'rm -f /data/local/tmp/x55_holder.pid')
+    Log 'R0=REMOVED_VERIFIED_STALE_DEAD_HOLDER_PID_FILE'
+  } elseif(Fallback-Residue $State) {
     $result=Invoke-Child $QcrildNormalize @('-Serial',$Serial)
     foreach($line in $result.Output){Log "R0_QCRILD=$line"}
     if($result.ExitCode -ne 0){throw 'R0_QCRILD_FAILED'}
