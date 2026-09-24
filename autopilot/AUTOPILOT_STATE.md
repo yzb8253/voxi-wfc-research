@@ -534,3 +534,14 @@ NEXT_ACTION: use the separately authorized one reboot to establish CONTROL_A0_R4
 - Phone write actions: reboot, airplane disable, Wi-Fi enable, one qcrild2 restart = 4.
 
 NEXT_ACTION: preserve the clean airplane-OFF F1 scene. A corrected evidence adapter requires a separately authorized v2 series and new reboot baseline; do not resume v1 or escalate to R4b.
+
+## 2026-09-24 R4a v2 evidence adapter ready
+
+- User authorized a new independent `r4a_3cycle_v2` series and one reboot baseline.
+- Only the producer evidence adapter changed: cold DataModule/NAH evidence is now accepted from the bounded union of logcat and timestamped IIWlan debug history.
+- Current-restart device time is the lower bound; pre-restart IIWlan history is captured and identical historical lines are rejected.
+- Every readiness field records source, raw evidence, timestamp and pass/fail in a host-only evidence manifest.
+- Reset primitive/count/order, R3, A/P gates, timeout, v2.6.2 hash, SIM budget and health predicate are unchanged.
+- PS5 parse, state-machine order, max-one restart, no-fallback, run-name binding and static no-phone-write audits passed.
+
+NEXT_ACTION: checkpoint this frozen adapter, then use the single authorized reboot to establish `CONTROL_A0_R4A_V2` and execute the unchanged three-cycle v2 runner fail-closed.

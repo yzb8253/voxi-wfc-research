@@ -58,6 +58,36 @@ function Native-Ready($State){
   $State.native.x55State -eq 'ONLINE' -and $State.native.vendorPeripheralState -eq 'ONLINE' -and $State.native.crashCount -eq 0 -and
   (Pm-Owns $State) -and $null -eq $State.processes.holder -and -not $State.residues.holderPidFile -and -not $State.residues.moduleLock
 }
+function Parse-TimeOfDay([string]$Value){
+  [TimeSpan]::ParseExact($Value,'hh\:mm\:ss\.fff',[Globalization.CultureInfo]::InvariantCulture)
+}
+function Event-Evidence([string]$Text,[string]$Pattern,[string]$Source,[TimeSpan]$LowerBound,[string]$PreEpochText){
+  $found=$null
+  foreach($line in @($Text -split "\r?\n"|Where-Object{$_ -match $Pattern})){
+    $match=[regex]::Match($line,'(?<clock>\d{2}:\d{2}:\d{2}\.\d{3})')
+    if(-not $match.Success){continue}
+    $clock=Parse-TimeOfDay $match.Groups['clock'].Value
+    $relative=$clock
+    if($LowerBound.TotalHours -ge 23 -and $clock.TotalHours -lt 1){$relative=$clock.Add([TimeSpan]::FromDays(1))}
+    if($relative -lt $LowerBound){continue}
+    if($PreEpochText -and $PreEpochText.Contains($line)){continue}
+    $found=[pscustomobject]@{SOURCE=$Source;RAW_EVIDENCE=$line.Trim();TIMESTAMP=$match.Groups['clock'].Value;PASS=$true}
+  }
+  $found
+}
+function Combined-EventEvidence([string]$Pattern,[TimeSpan]$LowerBound,[string]$BeforeDebug,[string]$CurrentLogcat,[string]$CurrentDebug){
+  $fromLogcat=Event-Evidence $CurrentLogcat $Pattern 'logcat/current-restart-window' $LowerBound ''
+  if($null -ne $fromLogcat){return $fromLogcat}
+  Event-Evidence $CurrentDebug $Pattern 'IIWlan-IBase-debug/history' $LowerBound $BeforeDebug
+}
+function Evidence-Row([string]$Name,[string]$Source,[string]$Raw,[string]$Timestamp,[bool]$Pass){
+  [pscustomobject]@{FIELD=$Name;SOURCE=$Source;RAW_EVIDENCE=$Raw;TIMESTAMP=$Timestamp;PASS=$Pass}
+}
+function Save-Evidence([object[]]$Rows){
+  $path=Join-Path $HostRoot ("cycle_{0}_producer_evidence.json" -f $Cycle)
+  [IO.File]::WriteAllText($path,(@($Rows)|ConvertTo-Json -Depth 5),[Text.UTF8Encoding]::new($false))
+  Log "PRODUCER_EVIDENCE_FILE=$path"
+}
 
 if($StaticAudit){
   Write-Host 'PS5_PARSE_TARGET=PASS'
@@ -65,6 +95,9 @@ if($StaticAudit){
   Write-Host 'RESET_COUNT_MAX=1'
   Write-Host 'PRODUCER_READY_TIMEOUT_SECONDS=120'
   Write-Host 'PRODUCER_ORDER=NATIVE_BEFORE_FRAMEWORK'
+  Write-Host 'EVIDENCE_ADAPTER=LOGCAT_UNION_IIWLAN_DEBUG_HISTORY'
+  Write-Host 'EVIDENCE_LOWER_BOUND=DEVICE_RESTART_TIMESTAMP'
+  Write-Host 'STALE_HISTORY_REJECTED=YES'
   Write-Host 'STATIC_NO_ADB=PASS'
   exit 0
 }
@@ -74,13 +107,18 @@ $beforeState=Capture ("R4A_C{0}_PRODUCER_BEFORE" -f $Cycle)
 if($beforeState.environment.airplaneMode -ne 0){throw 'PRODUCER_ENTRY_REQUIRES_AIRPLANE_OFF'}
 if(-not (Native-Ready $beforeState)){throw 'PRODUCER_ENTRY_NATIVE_NOT_READY'}
 $before=Scope
+$debugBefore=Root 'lshal debug vendor.qti.hardware.data.iwlan@1.0::IIWlan/slot2 2>/dev/null'
 $since=(Root "date '+%m-%d %H:%M:%S.000'").Trim()
+$restartClockText=(Root "date '+%H:%M:%S.000'").Trim()
+if($restartClockText -notmatch '^\d{2}:\d{2}:\d{2}\.\d{3}$'){throw "INVALID_RESTART_CLOCK=$restartClockText"}
+$restartClock=Parse-TimeOfDay $restartClockText
 Log "PRODUCER_SCOPE_BEFORE primary=$($before.primary.pid) qcrild2=$($before.target.pid) qtidata=$($before.qtidata.pid) phone=$($before.phone.pid)"
+Log "PRODUCER_EPOCH_LOWER_BOUND=$restartClockText"
 [void](Root-Write 'setprop ctl.restart vendor.qcrild2')
 Log 'QCRILD2_RESTART_COUNT=1'
 
 $deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds)
-$new=$null;$debug='';$logs='';$services='';$stable=0
+$new=$null;$debug='';$logs='';$services='';$stable=0;$coldEvidence=$null;$nahEvidence=$null
 while((Get-Date)-lt $deadline){
   Start-Sleep -Seconds 2
   try{$candidate=Scope}catch{continue}
@@ -92,8 +130,10 @@ while((Get-Date)-lt $deadline){
   $debug=Root 'lshal debug vendor.qti.hardware.data.iwlan@1.0::IIWlan/slot2 2>/dev/null'
   $logs=Root ("logcat -d -b all -v threadtime -T " + (Quote-Sh $since))
   $services=Root "dumpsys activity services vendor.qti.iwlan | grep -E 'QualifiedNetworksServiceImpl|IWlanNetworkService|IWlanDataService' || true"
-  $coldInit=($logs -match 'performDataModuleInitialization')
-  $nah=($logs -match '(NetworkAvailabilityHandler|\[NAH\]constructor)')
+  $coldEvidence=Combined-EventEvidence 'performDataModuleInitialization' $restartClock $debugBefore $logs $debug
+  $nahEvidence=Combined-EventEvidence '(NetworkAvailabilityHandler|\[NAH\]constructor)' $restartClock $debugBefore $logs $debug
+  $coldInit=($null -ne $coldEvidence)
+  $nah=($null -ne $nahEvidence)
   $endpoints=($debug -match 'DsdServiceReady=true' -and $debug -match 'WdsServiceReady=true')
   $capability=($debug -match 'ModemCapability=true')
   $iwlan=($debug -match 'IWLANEnabled=true')
@@ -105,9 +145,24 @@ while((Get-Date)-lt $deadline){
     if($stable -ge 5){break}
   }else{$stable=0;$new=$candidate}
 }
-if($null -eq $new -or $new.target.pid -eq $before.target.pid -or $stable -lt 5){throw 'R4A_PRODUCER_READY_TIMEOUT'}
+$preRows=@(
+  (Evidence-Row 'DataModuleColdInit' $(if($coldEvidence){$coldEvidence.SOURCE}else{'logcat+IIWlan-debug'}) $(if($coldEvidence){$coldEvidence.RAW_EVIDENCE}else{'NOT_FOUND'}) $(if($coldEvidence){$coldEvidence.TIMESTAMP}else{$restartClockText}) ($null -ne $coldEvidence)),
+  (Evidence-Row 'NAHConstructor' $(if($nahEvidence){$nahEvidence.SOURCE}else{'logcat+IIWlan-debug'}) $(if($nahEvidence){$nahEvidence.RAW_EVIDENCE}else{'NOT_FOUND'}) $(if($nahEvidence){$nahEvidence.TIMESTAMP}else{$restartClockText}) ($null -ne $nahEvidence)),
+  (Evidence-Row 'IIWlanSlot2' 'HIDL-inventory+IBase-debug' $(if($debug){'IIWlan/slot2 debug callable'}else{'NOT_READY'}) (Get-Date -Format o) ([bool]$debug)),
+  (Evidence-Row 'DsdWdsReady' 'IIWlan-IBase-debug/live' $(if($debug -match 'DsdServiceReady=true' -and $debug -match 'WdsServiceReady=true'){'DsdServiceReady=true; WdsServiceReady=true'}else{'NOT_READY'}) (Get-Date -Format o) ($debug -match 'DsdServiceReady=true' -and $debug -match 'WdsServiceReady=true')),
+  (Evidence-Row 'IWLANEnabled' 'IIWlan-IBase-debug/live' $(if($debug -match 'IWLANEnabled=true'){'IWLANEnabled=true'}else{'NOT_READY'}) (Get-Date -Format o) ($debug -match 'IWLANEnabled=true')),
+  (Evidence-Row 'ModemCapability' 'IIWlan-IBase-debug/live' $(if($debug -match 'ModemCapability=true'){'ModemCapability=true'}else{'NOT_READY'}) (Get-Date -Format o) ($debug -match 'ModemCapability=true')),
+  (Evidence-Row 'ProviderServices' 'dumpsys-activity-services/live' $(if($provider){'QNS+IWlanNetworkService+IWlanDataService'}else{'NOT_READY'}) (Get-Date -Format o) $provider)
+)
+if($null -eq $new -or $new.target.pid -eq $before.target.pid -or $stable -lt 5){Save-Evidence $preRows;throw 'R4A_PRODUCER_READY_TIMEOUT'}
 $afterState=Capture ("R4A_C{0}_PRODUCER_READY" -f $Cycle)
 if(-not (Native-Ready $afterState)){throw 'R4A_PRODUCER_READY_NATIVE_GATE_FAIL'}
+$processRows=@(
+  (Evidence-Row 'OldQcrild2Gone' '/proc+process-snapshot' ("old={0} gone; new={1}" -f $before.target.pid,$new.target.pid) (Get-Date -Format o) ($new.target.pid -ne $before.target.pid)),
+  (Evidence-Row 'ProcessIdentity' 'ps-process-snapshot' ("qcrild2={0}; primary={1}; qtidata={2}; phone={3}" -f $new.target.pid,$new.primary.pid,$new.qtidata.pid,$new.phone.pid) (Get-Date -Format o) ($new.primary.pid -eq $before.primary.pid -and $new.qtidata.pid -eq $before.qtidata.pid -and $new.phone.pid -eq $before.phone.pid)),
+  (Evidence-Row 'PmX55NativeGate' 'sanitized-state-snapshot' ("pmSoleOwner={0}; x55={1}; crashCount={2}; noHolder={3}" -f (Pm-Owns $afterState),$afterState.native.x55State,$afterState.native.crashCount,($null -eq $afterState.processes.holder)) (Get-Date -Format o) (Native-Ready $afterState))
+)
+Save-Evidence @($preRows+$processRows)
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_producer_logcat.txt" -f $Cycle)),$logs,[Text.UTF8Encoding]::new($false))
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_producer_debug.txt" -f $Cycle)),$debug,[Text.UTF8Encoding]::new($false))
 Log "PRODUCER_READY=PASS oldQcrild2=$($before.target.pid) newQcrild2=$($new.target.pid) qtidataUnchanged=$($new.qtidata.pid)"
@@ -116,4 +171,3 @@ Write-Host "QCRILD2_OLD_PID=$($before.target.pid)"
 Write-Host "QCRILD2_NEW_PID=$($new.target.pid)"
 Write-Host "QTIDATASERVICES_PID_UNCHANGED=$($new.qtidata.pid)"
 Write-Host 'QCRILD2_RESTART_COUNT=1'
-

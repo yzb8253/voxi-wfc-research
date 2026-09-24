@@ -466,3 +466,12 @@ NEXT_ACTION: establish `CONTROL_A0_R4A` with the one authorized reboot, then run
 - R4a is not falsified and R4b is not justified. Phone write actions in the full phase: 4.
 
 NEXT_ACTION: stop. Do not resume this series. A new v2 gate correction needs a new explicit reboot authorization.
+
+## Current checkpoint: R4a v2 frozen before execution
+
+- User authorized one new reboot baseline and `runs/r4a_3cycle_v2`.
+- `R4A_V2_EVIDENCE_ADAPTER.md` documents the sole code correction.
+- Producer events are read from their authoritative sources and must be fresh relative to the current restart lower bound; stale IIWlan history is rejected.
+- All reset and recovery semantics remain unchanged. Static PS5/order/hash/no-write audits pass.
+
+NEXT_ACTION: establish `CONTROL_A0_R4A_V2`, then run `Run-R4aThreeCycle.ps1 -RunName r4a_3cycle_v2` exactly once and stop fail-closed at the first child failure.

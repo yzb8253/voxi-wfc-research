@@ -480,3 +480,12 @@ NEXT_ACTION: execute only the frozen order. Any producer, A, P or recovery failu
 - The complete R4a hypothesis remains untested because new framework consumers were never created. There is no basis to move to R4b.
 
 NEXT_ACTION: no phone action. Treat v1 as an invalid gate run, preserve evidence, and require a new authorized baseline for any corrected v2.
+
+## R4a v2 evidence-adapter correction (2026-09-24)
+
+- The v1 defect was source selection, not a missing lifecycle event: DataModule/NAH history is authoritative when timestamped inside the current restart epoch.
+- Freshness now requires both a device restart-time lower bound and rejection of lines already present in the pre-restart IIWlan history.
+- Current live readiness fields remain sourced from IIWlan debug and service inventory rather than inferred from logcat absence.
+- This is an observation-only correction; it adds no reset or recovery behavior.
+
+NEXT_ACTION: run only the newly authorized independent v2 series; preserve v1 as invalid and stop on the first valid v2 counterexample.

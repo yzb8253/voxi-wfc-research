@@ -1,10 +1,9 @@
 [CmdletBinding()]
-param([ValidateRange(1,3)][int]$Cycle=1,[switch]$Execute,[switch]$StaticAudit)
+param([ValidateRange(1,3)][int]$Cycle=1,[switch]$Execute,[switch]$StaticAudit,[string]$RunName='r4a_3cycle_v1')
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
-$RunName='r4a_3cycle_v1'
 $RunRoot=Join-Path $PSScriptRoot ("runs\{0}" -f $RunName)
 $HostRoot=Join-Path (Split-Path $Repo -Parent) ("voxi_wfc_local_runs\reset_boundary_r4a\{0}" -f $RunName)
 $R3=Join-Path $Repo 'experiment\reset-boundary-r3\Prepare-R3Cycle.ps1'
@@ -34,4 +33,3 @@ Run $R3 ($common+@('-LabelPrefix','R4A'))
 Run $Pipeline @('-Cycle',[string]$Cycle,'-Execute','-RunName',$RunName)
 Write-Host "R4A_CYCLE=$Cycle"
 Write-Host 'R4A_CYCLE_RESULT=PASS'
-
