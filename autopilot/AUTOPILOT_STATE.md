@@ -438,3 +438,12 @@ NEXT_ACTION: no phone experiment is authorized by this recovery. Continue only f
 - SIM OFF/ON 0/0. Production result: `X55_REBIRTH_SUCCESS / NOT_RUN / NOT_CHECKED / NOT_RUN`; phone write actions 4.
 
 NEXT_ACTION: preserve the dual-owner scene. Perform static-only redesign of deterministic holder TERM completion; no cleanup or rerun without explicit authorization.
+## 2026-09-24 W1 success versus V1 failure forensic diff
+
+- Completed a host-only event timeline diff; A/P canonical and recovery code remain unchanged.
+- Both runs reached ANM `ims -> [IWLAN]` and NRM IWLAN/HOME after SIM ON.
+- The first confirmed consequential fork is V1's missing NRM-to-SST delivery and therefore missing DNC WLAN restoration. The missing qti.cne request is downstream.
+- Historical filters did not retain complete QNS/DSD/WDS/QImsService logs, so vendor-side absence is not claimed.
+- Phone writes 0; ADB not used.
+
+NEXT_ACTION: add capture-only event telemetry for the ANM -> NRM -> SST -> DNC -> qti.cne chain before considering any canonical gate or recovery change.

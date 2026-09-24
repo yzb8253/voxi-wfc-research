@@ -392,3 +392,10 @@ NEXT_ACTION: repair the hash dependency and extend exact-launcher selftest; no a
 - This is `HOLDER_TERM_DEFERRED_TIMEOUT`, not a native-handoff or WFC recovery result.
 
 NEXT_ACTION: statically redesign the holder loop/TERM behavior first. No timeout extension, retry, SIGKILL, or phone cleanup is authorized.
+## 2026-09-24 W1/V1 event-level fork
+
+- Host-only log forensics found that successful W1 and failed V1 both completed ANM `ims -> [IWLAN]`, NRM IWLAN/HOME, subId restoration, CarrierConfig reload, and ImsResolver/MMTEL reconstruction.
+- W1 then delivered the NRM result into slot-1 SST and DNC; V1 did not. W1 created qti.cne IMS request 293 about 15.6 seconds after SIM ON returned, followed by TNF/DNC and IMS NetworkAgent creation.
+- Earliest ordering difference: MMTEL `connectionReady -1` preceded ANM in V1 but followed it in W1. Earliest clearly missing event: SST consumption of the returned IWLAN/HOME registration result.
+- Current A/P snapshots do not capture NRM-to-SST callback-generation/liveness. This is capture-only evidence for now, not a canonical or recovery change.
+- Full sanitized report: `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/W1_V1_RECOVERY_EVENT_DIFF.md`.

@@ -367,3 +367,12 @@ NEXT_ACTION: sync this checkpoint on other computers. Do not run any historical 
 - Sanitized report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/SEVENTH_DEVICE_RUN_RESULT.md`. Raw logs remain host-only.
 
 NEXT_ACTION: preserve the scene. Static-only holder-loop redesign is required before any separately authorized cleanup or rerun.
+## Current checkpoint: W1/V1 recovery event diff
+
+- Date: 2026-09-24; branch `experiment/v263-repeatable-state-machine`.
+- Host-only evidence shows both runs reached ANM `ims -> [IWLAN]`, NRM IWLAN/HOME, and complete ImsResolver/MMTEL reconstruction.
+- Failed V1 did not deliver the returned IWLAN/HOME result into slot-1 SST/DNC. Successful W1 did, then created qti.cne request 293 about 15.6 seconds after SIM ON returned.
+- A/P canonical and v2.6.2 recovery were not changed. Historical log filtering prevents a definitive DSD/QNS/QIms internal claim.
+- Report: `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/W1_V1_RECOVERY_EVENT_DIFF.md`.
+
+NEXT_ACTION: preserve the phone scene. Improve capture-only transition telemetry before deciding whether a pre-P canonical discriminator exists.
