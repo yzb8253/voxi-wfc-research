@@ -1,6 +1,6 @@
 # v2.6.3 state-machine static audit
 
-Status: `PASS_PENDING_DEVICE_VALIDATION`
+Status: `PASS_WITH_HOST_WRAPPER_CORRECTION_PENDING_DEVICE_VALIDATION`
 
 Base commit: `89f2c86d48c91a974988d9bf67415f592da6f50d`
 
@@ -45,3 +45,4 @@ No CND fallback, qtidataservices restart, second SIM cycle, IMS reset, radio res
 
 Any gate, child script, or post-recovery health failure aborts the driver and prevents later cycles. There is no retry loop or alternate recovery path. Raw logs remain host-only.
 
+The first device execution exposed a host-only child stderr handling defect before the qcrild2 fallback. `Invoke-ChildScript` now captures child output and exit status under a temporary non-terminating preference, restores fail-closed behavior immediately afterward, and lets the caller explicitly select the already audited transition. This correction is statically parsed but not yet device-validated.

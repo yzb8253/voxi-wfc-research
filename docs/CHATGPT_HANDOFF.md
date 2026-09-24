@@ -237,3 +237,12 @@ Correction: the run above used the wrong v2.5 source and is classified `WRONG_RE
 - A1 normalized to A0 on critical fields; P1 matched P0; W1 matched W0 on all functional fields.
 - Current phone scene after the last snapshot: W1 HEALTHY, airplane ON, Wi-Fi ON, per_mgr stopped, exact holder PID 31050 sole owner, X55 ONLINE/crash count 0. Do not clean it now.
 - Full report: `experiments/wfc_repeatability_normalization/runs/v262_freeze_run/RESULT.md`.
+
+## v2.6.3 three-cycle candidate checkpoint
+
+- Branch: `experiment/v263-repeatable-state-machine`.
+- The state machine reuses the hash-locked verified v2.6.2 freeze script and fails closed on unknown A/P fingerprints.
+- First execution stopped during V1 A normalization because expected child stderr became a terminating host PowerShell error. The qcrild2 fallback did not run.
+- Preserved scene: airplane OFF, per_mgr running, pm-service PID 11529 non-owner, exact holder PID 31050 sole owner, vendor X55 OFFLINE/kernel ONLINE/crash 0, qcrild 1958/qcrild2 27223 unchanged.
+- No holder TERM, airplane toggle, SIM cycle, recovery, CND action, or later validation cycle occurred.
+- The child-result wrapper has been corrected and statically parsed. Do not resume without fresh user authorization.

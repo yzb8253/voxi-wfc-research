@@ -209,3 +209,9 @@ After W0, airplane OFF exposed the expected native residue. Starting and then re
 The previous qti.cne active flag was also corrected: the old probe treated Connectivity request-history entries as current. The uniform collector now parses only the current request table and keeps the old result as `qtiCneProbeReported`.
 
 Full report: `experiments/wfc_repeatability_normalization/runs/v262_freeze_run/RESULT.md`.
+
+## v2.6.3 State-Machine Candidate
+
+An independent branch adds a fail-closed A/P canonical state machine around the hash-locked v2.6.2 freeze-on-success recovery. Its first device execution stopped in V1 A normalization due to a host PowerShell stderr-capture defect. The expected make-before-break helper failure was promoted before the verified qcrild2 fallback could run. No holder TERM, qcrild2 restart, airplane transition, SIM cycle, or WFC recovery occurred.
+
+The preserved scene is the known fallback precondition: airplane OFF; per_mgr running; pm-service present but not owner; exact holder sole owner; vendor X55 OFFLINE/kernel X55 ONLINE/crash zero; qcrild identities unchanged. The host wrapper is corrected and statically audited, but fresh authorization is required before any continuation. See `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/RESULT.md`.

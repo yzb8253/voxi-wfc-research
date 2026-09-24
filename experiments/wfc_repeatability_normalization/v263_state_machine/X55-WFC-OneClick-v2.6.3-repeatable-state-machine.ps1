@@ -55,12 +55,27 @@ function Root-Write([string]$Command) {
   $result.Text.Trim()
 }
 
+function Invoke-ChildScript([string]$Path,[string[]]$Arguments=@()) {
+  # A fail-closed helper may intentionally return nonzero and write to stderr.
+  # Capture that result without allowing the host's Stop preference to bypass
+  # the caller's explicit exit-code state transition.
+  $previousPreference=$ErrorActionPreference
+  try {
+    $ErrorActionPreference='Continue'
+    $output=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $Path @Arguments 2>&1)
+    $exitCode=$LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference=$previousPreference
+  }
+  [pscustomobject]@{ExitCode=$exitCode;Output=$output}
+}
+
 function Capture([string]$Label) {
   Log "CAPTURE_BEGIN=$Label"
-  $captureOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label $Label -Serial $Serial -RunName $RunName 2>&1)
-  $captureExit=$LASTEXITCODE
-  foreach($line in $captureOutput){Log "CAPTURE_OUTPUT=$line"}
-  if($captureExit -ne 0){throw "SNAPSHOT_FAILED=$Label"}
+  $captureResult=Invoke-ChildScript $CaptureScript @('-Label',$Label,'-Serial',$Serial,'-RunName',$RunName)
+  foreach($line in $captureResult.Output){Log "CAPTURE_OUTPUT=$line"}
+  if($captureResult.ExitCode -ne 0){throw "SNAPSHOT_FAILED=$Label"}
   $path=Join-Path $SnapshotRoot ($Label+'.json')
   $state=Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
   Log "CAPTURE_END=$Label HEALTH=$($state.health.goldenStrong)"
@@ -136,15 +151,14 @@ function Normalize-A([int]$Number,$State) {
   if(-not $Execute){throw "V${Number}_A_RESIDUE_DETECTED_EXECUTE_REQUIRED"}
 
   Log "V${Number}_A_RESIDUE=FROZEN_WFC_RESIDUE"
-  $nativeOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $NativeNormalize -Serial $Serial 2>&1)
-  $nativeExit=$LASTEXITCODE
-  foreach($line in $nativeOutput){Log "NATIVE_NORMALIZER_OUTPUT=$line"}
+  $nativeResult=Invoke-ChildScript $NativeNormalize @('-Serial',$Serial)
+  foreach($line in $nativeResult.Output){Log "NATIVE_NORMALIZER_OUTPUT=$line"}
+  $nativeExit=$nativeResult.ExitCode
   Log "V${Number}_NATIVE_NORMALIZER_EXIT=$nativeExit"
   if($nativeExit -ne 0) {
-    $qcrildOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $QcrildNormalize -Serial $Serial 2>&1)
-    $qcrildExit=$LASTEXITCODE
-    foreach($line in $qcrildOutput){Log "QCRILD_NORMALIZER_OUTPUT=$line"}
-    if($qcrildExit -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
+    $qcrildResult=Invoke-ChildScript $QcrildNormalize @('-Serial',$Serial)
+    foreach($line in $qcrildResult.Output){Log "QCRILD_NORMALIZER_OUTPUT=$line"}
+    if($qcrildResult.ExitCode -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
     Log "V${Number}_QCRILD2_REACQUIRE=PASS"
   }
   Start-Sleep -Seconds 60
@@ -175,8 +189,9 @@ Log "V${Cycle}_P_RESULT=P_PASS"
 
 if(-not $Execute){throw 'DRY_RUN_COMPLETE_BEFORE_RECOVERY'}
 Log "V${Cycle}_RECOVERY_BEGIN=VERIFIED_V262_FREEZE"
-& powershell -NoProfile -ExecutionPolicy Bypass -File $KnownGoodRecovery
-$recoveryExit=$LASTEXITCODE
+$recoveryResult=Invoke-ChildScript $KnownGoodRecovery
+foreach($line in $recoveryResult.Output){Log "RECOVERY_OUTPUT=$line"}
+$recoveryExit=$recoveryResult.ExitCode
 Log "V${Cycle}_RECOVERY_EXIT=$recoveryExit"
 if($recoveryExit -ne 0){
   [void](Capture ("V{0}_FAILURE" -f $Cycle))
