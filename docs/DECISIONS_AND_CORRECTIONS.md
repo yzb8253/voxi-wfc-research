@@ -241,3 +241,15 @@ The static identity and topology redesign did not guarantee timely shell trap ex
 
 Impact:
 Do not extend the timeout or retry TERM on the preserved phone scene. First redesign the holder loop statically so one TERM can complete deterministically while retaining exact PID/cmdline/FD9 identity, no SIGKILL, and no broad process kill. Run 007 is not a native-handoff or WFC recovery success.
+
+
+## 2026-09-24 - SIM recovery must be tested before native cleanup
+
+Evidence:
+Run 008 proved that X55 rebirth and make-before-break native cleanup can complete cleanly, after which one software SIM OFF/ON cycle also completed successfully at the helper/API level. WFC nevertheless remained F1 with no qti.cne request, ePDG, or XFRM recovery.
+
+Correction:
+The active design question is no longer whether pm-service can reclaim the X55 safely. Experiments 005/006/008 establish that native handoff mechanics are viable. The unresolved variable is ordering: the previously successful v2.5/v2.6.2 recovery scene performed the SIM cycle while the fresh X55 was still held by the temporary holder and vendor.per_mgr remained stopped.
+
+Decision:
+The next production path must attempt WFC recovery first in that holder-sole/per_mgr-stopped window, then perform the already validated make-before-break cleanup. It must record WFC health both before and after cleanup. This is a testable ordering hypothesis, not a claim that the reordered path will recover WFC.
