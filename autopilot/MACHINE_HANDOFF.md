@@ -499,3 +499,15 @@ NEXT_ACTION: preserve the scene and stop. Do not execute R4b without a separate 
 - Phone writes: 0.
 
 NEXT_ACTION: preserve the phone. Do not execute R4b until the user separately authorizes implementation, static audit and a fresh one-reboot series.
+
+## Current checkpoint: R4b v1 host-adapter abort
+
+- Branch: `experiment/v263-repeatable-state-machine`; starting commit `bf4ac6d85d017ac6021cb34af8d2b34bb822677e`.
+- Result: `experiment/reset-boundary-r4b/runs/r4b_3cycle_v1/RESULT.md`.
+- Baseline reboot passed; Cycle 1 producer passed (`qcrild2 1980 -> 14590`).
+- One provider TERM recreated `.qtidataservices 3366 -> 23798`, then PS5.1 scalar `.Count` handling aborted the evidence adapter.
+- R3/P/v2.6.2/SIM and Cycles 2/3 did not run. R4b is neither passed nor falsified.
+- Current frozen state: airplane OFF, F1, pm-service sole owner, X55 ONLINE, crash_count 0; no cleanup or recovery action followed.
+- Source correction is static-only and unexecuted.
+
+NEXT_ACTION: sync this checkpoint and stop. Any corrected R4b device series requires new explicit authorization and a new reboot baseline.

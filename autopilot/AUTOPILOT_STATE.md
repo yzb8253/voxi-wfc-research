@@ -569,3 +569,14 @@ NEXT_ACTION: preserve the Cycle 2 P scene. R4b is eligible for static design aro
 - Reports: `experiment/reset-boundary-r4b-analysis/`. This phase used only read-only device inspection and host APK analysis. Phone writes 0.
 
 NEXT_ACTION: preserve the Cycle 2 scene. R4b execution requires separate explicit authorization, a fresh one-reboot baseline and an implementation/static audit; do not run the designed primitive now.
+
+## 2026-09-24 R4b v1 aborted in provider evidence adapter
+
+- The authorized `CONTROL_A0_R4B_V1` reboot baseline passed.
+- Cycle 1 R0 and PRODUCER_READY passed; qcrild2 changed `1980 -> 14590`.
+- Exactly one audited `.qtidataservices` TERM changed PID `3366 -> 23798`.
+- The PS5.1 evidence adapter then raised `PropertyNotFoundStrict` on scalar `.Count` before `PROVIDER_READY` could be decided.
+- R3, A, P, v2.6.2, SIM cycle and M1-M7 were not run. Cycles 2/3 were not run. R4b/H3 was not falsified.
+- Read-only freeze confirmed native-clean X55/PM state and F1. The scalar handling was corrected and statically audited only; no rerun occurred.
+
+NEXT_ACTION: stop and preserve. A corrected device series needs a separate explicit authorization and a new baseline; never resume `r4b_3cycle_v1`.

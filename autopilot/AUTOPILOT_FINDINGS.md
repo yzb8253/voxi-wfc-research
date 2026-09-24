@@ -510,3 +510,12 @@ NEXT_ACTION: design R4b statically only; do not patch ANM/NRM/SST/DNC and do not
 - R4b is a falsifiable lifecycle reconstruction, not an ANM/SST workaround: producer first, provider second, consumer third, then fixed P.
 
 NEXT_ACTION: no phone action. Implement/audit R4b only after separate authorization; execution must start as a new series and stop at the first valid P or recovery failure.
+
+## R4b v1 execution validity finding (2026-09-24)
+
+- Producer construction was valid and repeatable in Cycle 1, but the provider evidence adapter aborted after the single provider TERM.
+- ActivityManager did recreate `.qtidataservices` (`3366 -> 23798`) and generic shared services, while the frozen read-only native cache still exposed IMS with IWLAN.
+- No completed initial `getAllQualifiedNetworks` response was captured; therefore provider replay and the H3 prediction were not tested to their falsification point.
+- Host observation failures after a consumed reset must be separated from lifecycle failures. This series is invalid/incomplete, not `R4B_FALSIFIED`.
+
+NEXT_ACTION: no phone action. Do not infer H3 from this aborted series and do not reuse its baseline.
