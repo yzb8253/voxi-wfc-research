@@ -166,7 +166,21 @@ function Resolve-ExactProcess([ValidateSet('pm-service', 'qcrild2')] [string]$Ki
     if ($Kind -eq 'qcrild2' -and $item.Name -eq 'qcrild' -and $item.Arguments -match '^(?:/vendor/bin/hw/)?qcrild -c 2$') { $resolvedProcesses += $item }
   }
   if ($resolvedProcesses.Count -ne 1) { return $null }
-  $resolvedProcesses[0]
+  $resolved=$resolvedProcesses[0]
+  $exeResult=Invoke-Root ("readlink /proc/{0}/exe 2>/dev/null" -f $resolved.ProcessId)
+  if($exeResult.ExitCode -ne 0) { return $null }
+  $resolved | Add-Member -NotePropertyName ExecutablePath -NotePropertyValue $exeResult.StdOut.Trim()
+  $resolved
+}
+
+function Test-ExactPmServiceProcess($Process) {
+  $null -ne $Process -and $Process.ParentProcessId -eq 1 -and $Process.Name -eq 'pm-service' -and
+  $Process.Arguments -match '^(?:/vendor/bin/)?pm-service$' -and $Process.ExecutablePath -ceq '/vendor/bin/pm-service'
+}
+
+function Test-ExactQcrild2Process($Process) {
+  $null -ne $Process -and $Process.ParentProcessId -eq 1 -and $Process.Name -eq 'qcrild' -and
+  $Process.Arguments -match '^(?:/vendor/bin/hw/)?qcrild -c 2$' -and $Process.ExecutablePath -ceq '/vendor/bin/hw/qcrild'
 }
 
 function Resolve-OnlineSerial {
@@ -224,8 +238,75 @@ function Capture-NativeState([string]$Label) {
   }
 }
 
-function Test-PmOwner($State, [int]$ExpectedProcessId) {
-  $State.OwnerLines.Count -eq 1 -and $State.OwnerLines[0] -match 'pm-service' -and $State.OwnerLines[0] -match "(^|\s)$ExpectedProcessId(\s|$)"
+function Get-OwnerProcessIds([string[]]$OwnerLines) {
+  @($OwnerLines | ForEach-Object {
+    $ownerMatch=[regex]::Match($_,'^\S+\s+(\d+)\s+')
+    if($ownerMatch.Success) { [int]$ownerMatch.Groups[1].Value }
+  })
+}
+
+function Test-ExactAndroidHolderIdentityModel($Identity, [int]$ExpectedProcessId) {
+  if($null -eq $Identity -or -not $Identity.PidFilePresent -or -not $Identity.ProcExists) { return $false }
+  if($Identity.PidFileValue -cne $ExpectedProcessId.ToString() -or $Identity.Fd9 -cne $DeviceNode) { return $false }
+  $parts=@($Identity.CommandLineParts)
+  $parts.Count -eq 3 -and $parts[0] -ceq '/system/bin/sh' -and $parts[1] -ceq '-c' -and $parts[2] -ceq (New-HolderCommand)
+}
+
+function Get-AndroidHolderIdentity([int]$ProcessId) {
+  $command=@"
+echo ====PID_FILE====
+if test -f $HolderPidFile; then echo PRESENT; cat $HolderPidFile; else echo ABSENT; fi
+echo ====PROC====
+if test -d /proc/$ProcessId; then echo PRESENT; else echo ABSENT; fi
+echo ====CMDLINE====
+if test -r /proc/$ProcessId/cmdline; then tr '\000' '\n' </proc/$ProcessId/cmdline; fi
+echo ====FD9====
+readlink /proc/$ProcessId/fd/9 2>/dev/null
+"@
+  $result=Invoke-Root $command
+  $pidFileLines=@((Get-Section $result.StdOut 'PID_FILE') -split "\r?\n" | Where-Object { $_ -ne '' })
+  [pscustomobject]@{
+    PidFilePresent=$pidFileLines.Count -eq 2 -and $pidFileLines[0] -ceq 'PRESENT'
+    PidFileValue=if($pidFileLines.Count -ge 2){$pidFileLines[1].Trim()}else{''}
+    ProcExists=(Get-Section $result.StdOut 'PROC').Trim() -ceq 'PRESENT'
+    CommandLineParts=@((Get-Section $result.StdOut 'CMDLINE') -split "\r?\n" | Where-Object { $_ -ne '' })
+    Fd9=(Get-Section $result.StdOut 'FD9').Trim()
+  }
+}
+
+function Test-ExactAndroidHolderIdentity([int]$ProcessId) {
+  Test-ExactAndroidHolderIdentityModel (Get-AndroidHolderIdentity $ProcessId) $ProcessId
+}
+
+function Test-HolderSoleOwnerModel([bool]$ExactIdentity, [string[]]$OwnerLines, [int]$HolderProcessId) {
+  if(-not $ExactIdentity) { return $false }
+  $ids=@(Get-OwnerProcessIds $OwnerLines)
+  $ids.Count -eq 1 -and $ids[0] -eq $HolderProcessId
+}
+
+function Test-HolderSoleOwner($State, [int]$HolderProcessId) {
+  Test-HolderSoleOwnerModel (Test-ExactAndroidHolderIdentity $HolderProcessId) $State.OwnerLines $HolderProcessId
+}
+
+function Test-HolderPmDualOwnerModel([bool]$ExactIdentity, [string[]]$OwnerLines, [int]$HolderProcessId, $PmService) {
+  if(-not $ExactIdentity -or -not (Test-ExactPmServiceProcess $PmService)) { return $false }
+  $ids=@(Get-OwnerProcessIds $OwnerLines | Sort-Object)
+  $expected=@(@($HolderProcessId,[int]$PmService.ProcessId) | Sort-Object)
+  $ids.Count -eq 2 -and $ids[0] -eq $expected[0] -and $ids[1] -eq $expected[1]
+}
+
+function Test-HolderPmDualOwner($State, [int]$HolderProcessId) {
+  Test-HolderPmDualOwnerModel (Test-ExactAndroidHolderIdentity $HolderProcessId) $State.OwnerLines $HolderProcessId $State.PmService
+}
+
+function Test-PmSoleOwnerModel([string[]]$OwnerLines, $PmService) {
+  if(-not (Test-ExactPmServiceProcess $PmService)) { return $false }
+  $ids=@(Get-OwnerProcessIds $OwnerLines)
+  $ids.Count -eq 1 -and $ids[0] -eq $PmService.ProcessId
+}
+
+function Test-PmSoleOwner($State) {
+  Test-PmSoleOwnerModel $State.OwnerLines $State.PmService
 }
 
 function Get-WfcJson([string]$Label) {
@@ -297,28 +378,24 @@ function Get-HolderAndroidProcessId {
   $null
 }
 
-function Test-OwnedHolder([int]$ProcessId) {
-  if($null -eq $script:HolderHostProcess -or $script:HolderHostProcess.HasExited) { return $false }
-  $command='test -d /proc/{0} && test "$(cat {1} 2>/dev/null)" = "{0}" && lsof {2} 2>&1' -f $ProcessId,$HolderPidFile,$DeviceNode
-  $result=Invoke-Root $command
-  $lines=@($result.StdOut -split "\r?\n" | Where-Object { $_ -match [regex]::Escape($DeviceNode) })
-  $result.ExitCode -eq 0 -and $lines.Count -eq 1 -and $lines[0] -match "(^|\s)$ProcessId(\s|$)"
+function Test-AndroidProcessAbsent([int]$ProcessId) {
+  (Invoke-Root ("test ! -d /proc/{0}" -f $ProcessId)).ExitCode -eq 0
 }
 
 function Stop-OwnedHolder {
   if($null -eq $script:HolderAndroidProcessId -or $script:HolderTermSent) { return }
-  Require (Test-OwnedHolder $script:HolderAndroidProcessId) 'Refusing TERM because holder identity no longer matches'
+  Require (Test-ExactAndroidHolderIdentity $script:HolderAndroidProcessId) 'FAILSAFE_HOLDER_IDENTITY_UNPROVEN'
   $script:HolderTermSent=$true
   $result=Invoke-Root "kill -TERM $($script:HolderAndroidProcessId)"
   $script:PhoneWrites++
   Save-Text 'holder_term.txt' ($result.StdOut+$result.StdErr)
-  Require (Wait-Until { -not (Test-OwnedHolder $script:HolderAndroidProcessId) } 10 'owned holder exit') 'Holder did not exit'
+  Require ($result.ExitCode -eq 0) 'Holder TERM failed'
+  Require (Wait-Until { Test-AndroidProcessAbsent $script:HolderAndroidProcessId } 10 'exact holder exit') 'Holder did not exit'
   $left=Get-HolderAndroidProcessId
   if($null -ne $left) {
     Require ($left -eq $script:HolderAndroidProcessId) 'Unexpected holder PID file content'
-    $cleanup=Invoke-Root "rm -f $HolderPidFile"
-    $script:PhoneWrites++
-    Save-Text 'holder_pidfile_cleanup.txt' ($cleanup.StdOut+$cleanup.StdErr)
+    Save-Text 'holder_pidfile_status.txt' 'STALE_PIDFILE'
+    throw 'STALE_PIDFILE'
   }
 }
 
@@ -340,12 +417,6 @@ function Ensure-PerMgrRunning {
   }
   $script:PerMgrWasStopped=$false
 }
-function Restart-FixedQcrild2 {
-  $result=Invoke-Root 'setprop ctl.restart vendor.qcrild2'
-  $script:PhoneWrites++
-  Save-Text 'qcrild2_restart.txt' ($result.StdOut+$result.StdErr)
-}
-
 function Get-Sha256Hex([string]$Path) {
   Require (Test-Path -LiteralPath $Path -PathType Leaf) "Hash input missing: $Path"
   $stream=$null
@@ -441,11 +512,10 @@ function Invoke-StaticNoAdbSelfTest {
     ReadOnlyStateProbe=(New-NativeStateProbeCommand)
     HolderLaunch=(New-HolderCommand)
     HolderPidRead="cat $HolderPidFile 2>/dev/null"
-    HolderIdentityProbe=('test -d /proc/{0} && test "$(cat {1} 2>/dev/null)" = "{0}" && lsof {2} 2>&1' -f 4242,$HolderPidFile,$DeviceNode)
+    HolderIdentityProbe=('test -d /proc/{0}; tr ''\000'' ''\n'' </proc/{0}/cmdline; readlink /proc/{0}/fd/9' -f 4242)
     HolderTermination='kill -TERM 4242'
     OwnerProbe="lsof $DeviceNode 2>&1"
     X55Probe="cat $X55StatePath 2>&1; cat $CrashCountPath 2>&1"
-    Qcrild2Restart='setprop ctl.restart vendor.qcrild2'
     SimPowerHelper="LAB_MODE=1 LAB_EXECUTE=YES CLASSPATH=$DeviceWorkDir/single-sim-slot1-power-helper.jar app_process /system/bin SingleSimSlot1PowerHelper ARM_ROLLBACK"
     SimCycleStart="X55_V27_MODE=1 X55_V27_EXECUTE=YES nohup /system/bin/sh $DeviceWorkDir/v27_sim_cycle_single.sh >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
   }
@@ -458,10 +528,64 @@ function Invoke-StaticNoAdbSelfTest {
   Require ($androidPayloadCrCount -eq 0) 'Android payload CR count is not zero'
   Require ((Normalize-AndroidShellText "alpha`r`nbeta`rgamma") -ceq "alpha`nbetagamma") 'Android LF normalization behavior mismatch'
   Require ($androidPayloads.HolderLaunch.Contains('echo $$ >') -and $androidPayloads.HolderLaunch.Contains("exec 9<$DeviceNode") -and $androidPayloads.HolderLaunch.Contains('while :; do sleep 60; done')) 'Holder command construction mismatch'
-  Require ($androidPayloads.Qcrild2Restart -ceq 'setprop ctl.restart vendor.qcrild2') 'qcrild2 command construction mismatch'
   Require ($androidPayloads.SimPowerHelper.Contains('SingleSimSlot1PowerHelper ARM_ROLLBACK') -and $androidPayloads.SimCycleStart.Contains('v27_sim_cycle_single.sh')) 'SIM command construction mismatch'
   $exactCleanupArguments='/PID {0} /T /F' -f 4242
   Require ($exactCleanupArguments -ceq '/PID 4242 /T /F') 'Exact process cleanup command construction mismatch'
+
+  $modelHolderProcessId=4242
+  $modelPmProcessId=5252
+  $modelHolderCommand=New-HolderCommand
+  $modelIdentity=[pscustomobject]@{
+    PidFilePresent=$true
+    PidFileValue='4242'
+    ProcExists=$true
+    CommandLineParts=@('/system/bin/sh','-c',$modelHolderCommand)
+    Fd9=$DeviceNode
+    HostProcessPresent=$false
+  }
+  $modelPmService=[pscustomobject]@{
+    ProcessId=$modelPmProcessId
+    ParentProcessId=1
+    Name='pm-service'
+    Arguments='/vendor/bin/pm-service'
+    ExecutablePath='/vendor/bin/pm-service'
+  }
+  $holderOwnerLine="holder $modelHolderProcessId root 9r CHR 0,0 0t0 1 $DeviceNode"
+  $pmOwnerLine="pm-service $modelPmProcessId root 9r CHR 0,0 0t0 1 $DeviceNode"
+  $thirdOwnerLine="unknown 6262 root 9r CHR 0,0 0t0 1 $DeviceNode"
+  $holderIdentityModel=Test-ExactAndroidHolderIdentityModel $modelIdentity $modelHolderProcessId
+  $holderSoleModel=Test-HolderSoleOwnerModel $holderIdentityModel @($holderOwnerLine) $modelHolderProcessId
+  $dualOwnerModel=Test-HolderPmDualOwnerModel $holderIdentityModel @($holderOwnerLine,$pmOwnerLine) $modelHolderProcessId $modelPmService
+  $pmSoleModel=Test-PmSoleOwnerModel @($pmOwnerLine) $modelPmService
+  $unknownThirdRejected=-not (Test-HolderPmDualOwnerModel $holderIdentityModel @($holderOwnerLine,$pmOwnerLine,$thirdOwnerLine) $modelHolderProcessId $modelPmService)
+  $hostAbsentIdentityModel=(-not $modelIdentity.HostProcessPresent) -and (Test-ExactAndroidHolderIdentityModel $modelIdentity $modelHolderProcessId)
+  $badFdIdentity=[pscustomobject]@{ PidFilePresent=$true; PidFileValue='4242'; ProcExists=$true; CommandLineParts=@('/system/bin/sh','-c',$modelHolderCommand); Fd9='/dev/null' }
+  $badCommandIdentity=[pscustomobject]@{ PidFilePresent=$true; PidFileValue='4242'; ProcExists=$true; CommandLineParts=@('/system/bin/sh','-c','sleep 60'); Fd9=$DeviceNode }
+  Require $holderIdentityModel 'case A exact holder identity failed'
+  Require $holderSoleModel 'case B holder sole-owner model failed'
+  Require $dualOwnerModel 'case C exact dual-owner model failed'
+  Require $pmSoleModel 'case D pm-service sole-owner model failed'
+  Require $unknownThirdRejected 'case E unknown third owner was accepted'
+  Require (-not (Test-ExactAndroidHolderIdentityModel $badFdIdentity $modelHolderProcessId)) 'case F wrong FD9 was accepted'
+  Require (-not (Test-ExactAndroidHolderIdentityModel $badCommandIdentity $modelHolderProcessId)) 'case F wrong command was accepted'
+  Require $hostAbsentIdentityModel 'case G host-process absence invalidated Android holder identity'
+
+  $qcrild2RestartToken='setprop ctl.'+'restart vendor.qcrild2'
+  $qcrild2RestartCount=([regex]::Matches($sourceText,[regex]::Escape($qcrild2RestartToken))).Count
+  Require ($qcrild2RestartCount -eq 0) 'qcrild2 restart remains in production path'
+  $stopPerMgrIndex=[regex]::Match($sourceText,'(?m)^  Stop-PerMgr\r?$').Index
+  $holderStartIndex=[regex]::Match($sourceText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?$').Index
+  $startPerMgrIndex=[regex]::Match($sourceText,'(?m)^  Start-PerMgr\r?$').Index
+  $dualGateIndex=[regex]::Match($sourceText,'(?m)^  \$dualOwnerReady=Wait-Until \{\r?$').Index
+  $holderTermIndex=[regex]::Match($sourceText,'(?m)^  Stop-OwnedHolder\r?$').Index
+  $pmSoleGateIndex=[regex]::Match($sourceText,'(?m)^  \$pmSoleReady=Wait-Until \{\r?$').Index
+  $handoffSuccessIndex=[regex]::Match($sourceText,'(?m)^  \$script:NativeHandoffResult=''MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS''\r?$').Index
+  $simCycleIndex=[regex]::Match($sourceText,'(?m)^    Start-OneShotSimCycle \$orchestratorRemote\r?$').Index
+  $stateMachineOrder=$stopPerMgrIndex -gt 0 -and $stopPerMgrIndex -lt $holderStartIndex -and
+    $holderStartIndex -lt $startPerMgrIndex -and $startPerMgrIndex -lt $dualGateIndex -and
+    $dualGateIndex -lt $holderTermIndex -and $holderTermIndex -lt $pmSoleGateIndex -and
+    $pmSoleGateIndex -lt $handoffSuccessIndex -and $handoffSuccessIndex -lt $simCycleIndex
+  Require $stateMachineOrder 'make-before-break state-machine order mismatch'
 
   $childScript = Join-Path ([IO.Path]::GetTempPath()) ('v27-ps51-argv-' + [guid]::NewGuid().ToString('N') + '.ps1')
   $childSource = @'
@@ -508,8 +632,18 @@ foreach($value in $Values) {
   Write-Host "SINGLE_ORCHESTRATOR_SHA256=$singleOrchestratorActualHash"
   Write-Host 'ARTIFACT_GATE=PASS'
   Write-Host 'HOLDER_COMMAND_BUILD=PASS'
-  Write-Host 'QCRILD2_COMMAND_BUILD=PASS'
   Write-Host 'SIM_COMMAND_BUILD=PASS'
+  Write-Host 'HOLDER_IDENTITY_MODEL=PASS'
+  Write-Host 'HOLDER_SOLE_MODEL=PASS'
+  Write-Host 'DUAL_OWNER_MODEL=PASS'
+  Write-Host 'PM_SOLE_MODEL=PASS'
+  Write-Host 'UNKNOWN_THIRD_OWNER_REJECTED=PASS'
+  Write-Host 'HOST_PROCESS_ABSENT_IDENTITY_MODEL=PASS'
+  Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
+  Write-Host "QCRILD2_RESTARTS_IN_NEW_PATH=$qcrild2RestartCount"
+  Write-Host 'SIM_OFF_MAX=1'
+  Write-Host 'SIM_ON_MAX=1'
+  Write-Host 'STATE_MACHINE_ORDER=ENTRY>STOP_PER_MGR>HOLDER_SOLE>X55_REBIRTH>START_PER_MGR>DUAL_OWNER>EXACT_TERM>PM_SOLE>WFC_CHECK>OPTIONAL_ONE_SIM_CYCLE'
   Write-Host 'STATIC_NO_ADB=PASS'
   Write-Host 'WINDOWS_ARGUMENT_ROUNDTRIP=PASS'
   Write-Host 'PHONE_WRITES=0'
@@ -532,11 +666,12 @@ try {
   Require ($entry.Device -eq 'cas') "unexpected device: $($entry.Device)"
   Require ($entry.Airplane -eq '1') 'airplane mode must be ON'
   Require ($entry.PerMgr -eq 'running') 'vendor.per_mgr is not running'
-  Require ($null -ne $entry.PmService -and $entry.PmService.ParentProcessId -eq 1) 'pm-service identity failed'
-  Require (Test-PmOwner $entry $entry.PmService.ProcessId) 'pm-service is not sole native owner'
+  Require (Test-ExactPmServiceProcess $entry.PmService) 'pm-service identity failed'
+  Require (Test-PmSoleOwner $entry) 'pm-service is not sole native owner'
   Require ($entry.X55 -eq 'ONLINE' -and $entry.CrashCount -eq '0') 'X55 ONLINE/crash gate failed'
   Require ($entry.HolderFiles -notmatch '(?m)^PRESENT:') 'holder file already exists'
-  Require ($null -ne $entry.Qcrild2 -and $entry.Qcrild2.ParentProcessId -eq 1) 'fixed qcrild2 identity failed'
+  Require (Test-ExactQcrild2Process $entry.Qcrild2) 'fixed qcrild2 identity failed'
+  $entryQcrild2ProcessId=$entry.Qcrild2.ProcessId
   Require (Test-TargetGate $entryWfc) 'VOXI active/UICC/mapping gate failed'
 
   if($topology -eq 'DUAL_SIM') {
@@ -566,7 +701,12 @@ try {
 
   $script:HolderHostProcess=Start-OwnedHolder
   $script:PhoneWrites++
-  Require (Wait-Until { $script:HolderAndroidProcessId=Get-HolderAndroidProcessId; $null -ne $script:HolderAndroidProcessId -and (Test-OwnedHolder $script:HolderAndroidProcessId) } 15 'holder ownership') 'holder failed'
+  Require (Wait-Until {
+    $script:HolderAndroidProcessId=Get-HolderAndroidProcessId
+    if($null -eq $script:HolderAndroidProcessId) { return $false }
+    $holderState=Capture-NativeState 'holder_identity_wait'
+    (Test-HolderSoleOwner $holderState $script:HolderAndroidProcessId)
+  } 15 'exact holder sole ownership') 'holder failed'
 
   Require (Wait-Until { $state=Capture-NativeState 'holder_wait'; $state.X55 -eq 'ONLINE' -and $state.CrashCount -eq '0' } 15 'holder X55 ONLINE') 'holder X55 gate failed'
   $holderPon=Read-PonSuccess 'holder'
@@ -576,33 +716,37 @@ try {
   Start-PerMgr
   Require (Wait-Until { (Invoke-Root 'getprop init.svc.vendor.per_mgr').StdOut.Trim() -eq 'running' } 15 'per_mgr contended start') 'per_mgr start failed'
   $script:PerMgrWasStopped=$false
-  Start-Sleep -Seconds 5
-  $contended=Capture-NativeState 'holder_plus_per_mgr'
-  $holderStillOwns=$contended.OwnerLines.Count -eq 1 -and $contended.OwnerLines[0] -match "(^|\s)$($script:HolderAndroidProcessId)(\s|$)"
-  $contendedPmReady=$null -ne $contended.PmService -and $contended.PmService.ParentProcessId -eq 1
-  if(-not $contendedPmReady -or -not $holderStillOwns -or $contended.X55 -ne 'ONLINE' -or $contended.CrashCount -ne '0') {
-    $script:NativeHandoffResult='BEHAVIOR_CHANGED'
-    throw 'contended state changed; refusing to continue'
+  $dualOwnerReady=Wait-Until {
+    $contended=Capture-NativeState 'holder_plus_per_mgr_wait'
+    (Test-HolderPmDualOwner $contended $script:HolderAndroidProcessId) -and
+      $contended.PerMgr -eq 'running' -and $contended.X55 -eq 'ONLINE' -and $contended.CrashCount -eq '0' -and
+      (Test-ExactQcrild2Process $contended.Qcrild2) -and $contended.Qcrild2.ProcessId -eq $entryQcrild2ProcessId
+  } 15 'holder plus pm-service dual ownership'
+  if(-not $dualOwnerReady) {
+    $script:NativeHandoffResult='EXPECTED_DUAL_OWNER_NOT_FORMED'
+    throw 'expected exact dual-owner state did not form; refusing holder release'
   }
 
-  $oldQcrild2ProcessId=$contended.Qcrild2.ProcessId
   Stop-OwnedHolder
-  $released=Capture-NativeState 'holder_released'
-  Require ($released.OwnerLines.Count -eq 0 -and $released.HolderFiles -notmatch '(?m)^PRESENT:') 'holder release gate failed'
-  Restart-FixedQcrild2
-  $nativeReady=Wait-Until {
-    $candidate=Resolve-ExactProcess 'qcrild2'
-    if($null -eq $candidate -or $candidate.ParentProcessId -ne 1 -or $candidate.ProcessId -eq $oldQcrild2ProcessId) { return $false }
-    $state=Capture-NativeState 'native_reacquire_wait'
-    $null -ne $state.PmService -and (Test-PmOwner $state $state.PmService.ProcessId) -and $state.X55 -eq 'ONLINE' -and $state.CrashCount -eq '0'
-  } 15 'native reacquire'
-  if(-not $nativeReady) {
-    $script:NativeHandoffResult='NATIVE_REACQUIRE_FAILED'
-    $script:CleanupResult='HOLDER_CLEAN_NATIVE_UNRECOVERED'
-    throw 'native reacquire failed; SIM cycle forbidden'
+  $pmSoleReady=Wait-Until {
+    $released=Capture-NativeState 'post_break_wait'
+    (Test-PmSoleOwner $released) -and $released.PerMgr -eq 'running' -and
+      $released.HolderFiles -notmatch '(?m)^PRESENT:' -and
+      (Test-ExactQcrild2Process $released.Qcrild2) -and $released.Qcrild2.ProcessId -eq $entryQcrild2ProcessId
+  } 15 'pm-service sole ownership after exact holder TERM'
+  if(-not $pmSoleReady) {
+    $script:NativeHandoffResult='POST_BREAK_NATIVE_OWNER_INVALID'
+    $script:CleanupResult='HOLDER_RELEASED_NATIVE_OWNER_INVALID'
+    throw 'post-break pm-service sole-owner gate failed; SIM cycle forbidden'
+  }
+  $released=Capture-NativeState 'post_break_verified'
+  if($released.X55 -ne 'ONLINE' -or $released.CrashCount -ne '0') {
+    $script:NativeHandoffResult='POST_BREAK_X55_REGRESSION'
+    $script:CleanupResult='NATIVE_OWNER_PRESENT_X55_REGRESSED'
+    throw 'X55 regressed after exact holder release; SIM cycle forbidden'
   }
 
-  $script:NativeHandoffResult='PM_SERVICE_REACQUIRED'
+  $script:NativeHandoffResult='MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS'
   $script:CleanupResult='NATIVE_CLEAN'
   Start-Sleep -Seconds 10
   Read-PonSuccess 'post_handoff'|Out-Null
@@ -635,7 +779,8 @@ try {
       $sample=Get-WfcJson ("post_cycle_{0:D2}s" -f $second)
       $native=Capture-NativeState ("post_cycle_{0:D2}s" -f $second)
       Require ($native.X55 -eq 'ONLINE' -and $native.CrashCount -eq '0') 'X55 regressed after SIM cycle'
-      Require ($null -ne $native.PmService -and (Test-PmOwner $native $native.PmService.ProcessId)) 'owner regressed after SIM cycle'
+      Require (Test-PmSoleOwner $native) 'owner regressed after SIM cycle'
+      Require ((Test-ExactQcrild2Process $native.Qcrild2) -and $native.Qcrild2.ProcessId -eq $entryQcrild2ProcessId) 'qcrild2 changed after SIM cycle'
       if(Test-Healthy $sample) { $healthy=$true; Write-Log "WFC HEALTHY at $($second)s"; break }
     }
     if($healthy) { $script:FinalWfcResult='HEALTHY' } else {

@@ -172,4 +172,16 @@ At the fifth-run checkpoint, the holder/native scene was intentionally preserved
 - WFC remained F1 with qti.cne/ePDG/XFRM absent.
 - Result: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`. Full report: `experiments/x55_native_handoff/X55_DUAL_OWNER_CLEANUP_006.md`.
 
-The live holder scene is now clean. Do not rerun v2.7-alpha without explicit authorization; next work is static redesign/audit of the dual-owner contention and exact-holder cleanup gates.
+The live holder scene is now clean.
+
+## v2.7-alpha make-before-break redesign
+
+- Static redesign completed from experiments 005 and cleanup 006; no ADB or phone operation was used.
+- The production path now requires holder sole -> exact holder+pm-service dual owner -> exact holder TERM -> pm-service sole, with X55 ONLINE/crash_count 0 throughout the handoff boundary.
+- Exact Android holder identity uses PID file, live PID, exact cmdline, and FD9. Windows host-process lifetime is not an identity requirement.
+- Unknown third owners fail closed. A stale PID file is reported and not deleted.
+- Production qcrild2 restart count is zero; qcrild2 must remain the same process through handoff.
+- Paired Windows PowerShell 5.1 no-ADB selftest, A-G ownership models, artifact gate, state-machine order, and static audit all pass.
+- This is not a WFC recovery validation. Cleanup 006 left WFC F1.
+
+Unique next action: wait for explicit authorization before any phone execution of the redesigned v2.7-alpha path.

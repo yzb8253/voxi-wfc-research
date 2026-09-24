@@ -1,6 +1,6 @@
 # v2.7-alpha Static Audit
 
-Status: PASS — Windows PowerShell 5.1 host-script compatibility repairs verified
+Status: PASS — make-before-break native-handoff redesign verified statically
 
 Scope: local source review plus an isolated `STATIC / NO-ADB / NO-PHONE-WRITE` Windows PowerShell 5.1 runtime self-test. No ADB invocation, no script execution against a phone, and no phone write.
 
@@ -48,7 +48,7 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - The execute branch, phone state machine, gates, write budget, helper hashes, and fail-safe ordering were not changed.
 - Renamed the process-result collection to `$resolvedProcesses`; no custom `$matches`/`$Matches` variable remains in executable source.
 - Added one `Normalize-AndroidShellText` helper. Every `Invoke-Root` command is normalized to LF before quoting, and the direct holder launch is normalized before its ADB argument is built.
-- Expanded the no-ADB self-test to build the read-only state probe, holder launch/PID/identity/termination payloads, owner/X55 probes, qcrild2 restart, and SIM helper/orchestrator commands. All final payloads are checked for carriage returns without invoking ADB.
+- Expanded the no-ADB self-test to build the read-only state probe, holder launch/PID/identity/termination payloads, owner/X55 probes, and SIM helper/orchestrator commands. All final payloads are checked for carriage returns without invoking ADB.
 - Added a case-insensitive automatic-variable assignment audit covering PID, Matches, Error, Args, Input, Home, Host, Null, True, and False.
 
 ## Results
@@ -59,7 +59,7 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - Custom Matches variables: `0`
 - Android LF normalization: PASS
 - Android payload CR count: `0`
-- Holder/qcrild2/SIM command construction: PASS
+- Holder/SIM command construction: PASS
 - Paired `.cmd selftest`: PASS
 - Windows argv round-trip: PASS
 - PowerShell parser: PASS
@@ -69,15 +69,18 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - Exact owned host process-tree cleanup retained: PASS
 - ADB/su command quoting audit: PASS
 - PID automatic-variable audit (`$PID`/`$Pid`/`$pid`): PASS
-- Native state-machine order unchanged: PASS
+- Make-before-break state-machine order: PASS
 - Reserved PID variable collision scan: PASS
 - Launcher default dry-run: PASS
 - Fixed execution confirmation token: PASS
 - Fixed target slot 1 and protected slot 0 gates: PASS
 - Fixed helper classes and SHA-256 pins: PASS
-- Holder ownership/PID verification before TERM: PASS
-- Exactly one qcrild2 restart call site: PASS
-- Native reacquire required before SIM cycle: PASS
+- Exact Android holder PID-file/PID/cmdline/FD9 verification before TERM: PASS
+- Holder identity independent of Windows host-process lifetime: PASS
+- Exact holder-sole, holder+pm-service dual-owner, and pm-service-sole models: PASS
+- Unknown third owner rejection: PASS
+- qcrild2 restart call sites in the redesigned path: `0`
+- Exact pm-service sole ownership required before SIM cycle: PASS
 - Healthy state skips SIM cycle: PASS
 - One POWER_DOWN and one POWER_UP call site per device orchestrator: PASS
 - POWER_UP return-code preservation: PASS
@@ -90,10 +93,10 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 ## Residual risks
 
 - Stopping Peripheral Manager intentionally transitions X55 OFFLINE before holder-controlled rebirth.
-- Restarting qcrild2 can transiently disrupt slot2 radio/data framework state.
-- Starting Peripheral Manager while holder owns the node is device-specific; unexpected behavior causes BEHAVIOR_CHANGED and abort.
-- Fail-safe cleanup restores Peripheral Manager and releases only the script-owned holder, but does not escalate into extra qcrild2, cnd, modem, radio, or reboot actions.
-- The internal QCRIL re-vote mechanism remains log-unproven even though native reacquire behavior was observed in 001B.
+- Starting Peripheral Manager while the exact holder owns the node must form exactly two owners: that holder and one exact init-owned pm-service. Missing dual ownership or any third owner aborts before TERM.
+- After exact holder TERM, pm-service must be the sole owner and X55 must remain ONLINE with crash_count 0. Failure forbids the SIM cycle.
+- A stale holder PID file is reported and preserved; the script does not delete it to manufacture a clean gate.
+- Cleanup 006 validates native ownership transfer only. WFC remained F1, so the redesigned complete recovery path still requires a separately authorized device run.
 
 ## Fourth-launch hash blocker resolution
 
@@ -119,10 +122,17 @@ STATIC_NO_ADB=PASS
 CMD_WRAPPER_AUDIT=PASS
 ADB_QUOTING_AUDIT=PASS
 PID_VARIABLE_AUDIT=PASS
-HOLDER_LIFECYCLE_AUDIT=PASS
-FAIL_SAFE_AUDIT=PASS
-STATE_MACHINE_UNCHANGED=YES
+HOLDER_IDENTITY_MODEL=PASS
+HOLDER_SOLE_MODEL=PASS
+DUAL_OWNER_MODEL=PASS
+PM_SOLE_MODEL=PASS
+UNKNOWN_THIRD_OWNER_REJECTED=PASS
+HOST_PROCESS_ABSENT_IDENTITY_MODEL=PASS
+MAKE_BEFORE_BREAK_STATE_MACHINE=PASS
+QCRILD2_RESTARTS_IN_NEW_PATH=0
+SIM_OFF_MAX=1
+SIM_ON_MAX=1
 PHONE_WRITES=0
 ```
 
-The repaired executable state machine was not rerun against the phone. Any new device run requires explicit approval.
+The redesigned executable state machine was not run against the phone. Any new device run requires explicit approval.

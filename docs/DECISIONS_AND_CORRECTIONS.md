@@ -216,3 +216,17 @@ For this ROM and observed scene, holder + pm-service dual ownership can be a val
 
 Impact:
 Future production design may accept the exact two-owner intermediate state only after strict validation of both holder and pm-service identities. Cleanup authorization must rely on exact holder PID/cmdline/PID-file/FD9 checks rather than unique ownership alone. This is a design conclusion, not authorization to modify or rerun the production script.
+
+## 2026-09-24 - v2.7-alpha adopts make-before-break without qcrild2 restart
+
+Decision:
+The static v2.7-alpha production design now treats exact holder + exact init-owned pm-service dual ownership as the required handoff state. It sends one TERM only after revalidating the Android holder's PID file, live PID, exact cmdline, and FD9 target. It then requires pm-service sole ownership and X55 ONLINE with crash_count 0 before any WFC decision or optional one-shot SIM cycle.
+
+Correction:
+The Windows holder process is transport supervision, not Android holder identity. Its absence no longer invalidates an otherwise exact Android holder. Conversely, owner topology alone is never identity proof, and an unknown third owner is rejected.
+
+Removed behavior:
+The qcrild2 restart is no longer part of the production handoff. Experiment 006 completed the native transfer with qcrild2 unchanged, so the redesigned path requires that process to remain unchanged.
+
+Evidence boundary:
+Experiments 005 and 006 validate the native ownership transition. WFC remained F1 after cleanup 006; final WFC recovery through the redesigned end-to-end path remains untested.

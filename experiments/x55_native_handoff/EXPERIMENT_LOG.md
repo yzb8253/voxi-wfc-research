@@ -190,3 +190,12 @@ Action: exactly one `kill -TERM 22129`; no retry, SIGKILL, service restart, SIM 
 Observed result: holder and v2.7 PID file disappeared; pm-service 22536 became sole native owner; X55 remained ONLINE; crash_count remained 0; qcrild2 remained PID 873. WFC remained F1 with no qti.cne/ePDG/XFRM recovery.
 Conclusion: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`; phone write actions 1.
 Evidence: `X55_DUAL_OWNER_CLEANUP_006.md`; before/after raw captures remain host-only.
+
+## X55-V27-MAKE-BEFORE-BREAK-STATIC-007
+
+Date: 2026-09-24 Asia/Shanghai
+Scope: repository-only redesign and validation; no ADB invocation and no phone access.
+Evidence basis: experiment 005 established the exact holder + pm-service dual-owner intermediate state. Cleanup 006 proved that one identity-gated holder TERM transitioned directly to pm-service sole ownership while X55 stayed ONLINE, crash_count stayed 0, and qcrild2 PID did not change.
+Changes: separated exact Android holder identity from owner topology; modeled holder sole, exact two-owner holder+pm-service, and pm-service sole states; removed host-process lifetime from holder identity; preserved stale PID files; removed qcrild2 restart from the production path; required unchanged qcrild2 identity; retained at most one optional SIM OFF/ON cycle after native handoff success.
+Validation: Windows PowerShell 5.1 parse PASS; paired `.cmd selftest` PASS; artifact hash gate PASS; A-G ownership models PASS; unknown third owner rejected; make-before-break order PASS; production qcrild2 restart count 0; static audit PASS.
+Conclusion: `MAKE_BEFORE_BREAK_STATIC_REDESIGN=PASS / PHONE_NOT_RUN`. This validates the implementation model only. It does not promote cleanup 006 into WFC recovery proof.

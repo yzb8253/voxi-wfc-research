@@ -156,3 +156,11 @@ At the fifth-run abort checkpoint, per_mgr was running; holder 22129 and pm-serv
 Fresh identity checks proved that PID 22129 was the exact fifth-run holder and that FD9 still targeted `/dev/subsys_esoc0`. One authorized TERM was sent. The holder exited, its PID file was removed by the EXIT trap, and pm-service PID 22536 naturally became the sole native owner while X55 remained ONLINE and crash_count remained 0. qcrild2 stayed at PID 873; no service restart or SIM action occurred.
 
 Result: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`. WFC remained F1, so this validates native ownership handoff only, not WFC recovery. Current native state is clean: per_mgr running, pm-service sole owner, holder absent, X55 ONLINE, crash_count 0.
+
+## v2.7-alpha Make-Before-Break Static Redesign
+
+The production path now models the experimentally observed sequence directly: native pm-service sole owner -> stop per_mgr -> exact holder sole owner/X55 rebirth -> start per_mgr -> exact holder+pm-service dual ownership -> TERM only the exact Android holder -> pm-service sole owner with X55 still ONLINE -> WFC check -> at most one optional SIM cycle.
+
+Holder identity is independent of the Windows-side ADB process and requires the exact PID file value, live Android PID, exact shell command, and FD9 target. The dual-owner gate accepts exactly those two verified processes and rejects unknown third owners. The old qcrild2 restart has been removed from the production path; its PID must remain unchanged. PS5.1 parse, paired no-ADB selftest, A-G ownership models, artifact gate, and static audit all pass. No phone was accessed or modified.
+
+This redesign is supported by 005 and cleanup 006 for native ownership mechanics only. It has not yet proven final WFC recovery.
