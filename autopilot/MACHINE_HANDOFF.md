@@ -343,3 +343,16 @@ NEXT_ACTION: sync the authoritative branch on other computers. A fresh device ex
 - Post-state was unchanged. Raw logs remain host-only in `voxi_wfc_local_runs/v27_alpha_native_handoff_20260923_214813`.
 
 NEXT_ACTION: exact-launcher PS5.1 hash repair plus no-ADB artifact assertion. Do not run another device experiment without explicit approval.
+
+## Current checkpoint: Computer A legacy assets recovered
+
+- Date: 2026-09-24.
+- Report: `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md`.
+- Full host-only disposition index: `docs/COMPUTER_A_RAW_EVIDENCE_MANIFEST.csv`.
+- Imported provenance: `archive/computer_a_legacy/SOURCE_PROVENANCE.csv`.
+- Exact v2.6.2 host source is now present; historical raw logs remain incomplete.
+- PassiveMonitor v1.2 canonical path: `tools/x55_voxi_passive_monitor/`.
+- StateSearcher v3.0-v3.5 and SSR read-only audit are preserved.
+- D: originals were not changed; ADB not used; phone writes 0.
+
+NEXT_ACTION: sync this checkpoint on other computers. Do not run any historical tool or phone experiment without separate explicit authorization.

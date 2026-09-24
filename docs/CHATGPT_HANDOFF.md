@@ -25,7 +25,7 @@ Prove a safe handoff from a temporary `/dev/subsys_esoc0` holder back to native 
 
 ## Latest conclusions
 
-Labels: `DEVICE_CONFIRMED` was reproduced in this Codex/device session. `TRANSFERRED_VERIFIED` was verified in the cross-account handoff, but raw v2.6.2 artifacts still need import.
+Labels: `DEVICE_CONFIRMED` was reproduced in this Codex/device session. `TRANSFERRED_VERIFIED` was verified in the cross-account handoff. Exact v2.6.2 host source was recovered from Computer A on 2026-09-24; historical raw-log completeness remains unresolved.
 
 - `TRANSFERRED_VERIFIED`: Binder `vendor.qcom.PeripheralManager`, interface `vendor.qcom.IPeripheralManager`.
 - `TRANSFERRED_VERIFIED`: `libperipheral_client.so` exports register/connect/disconnect/unregister/event-acknowledge calls.
@@ -140,3 +140,14 @@ Unique next action: rebuild and hash-verify the exact helper and repair the host
 - Post-check remained native-clean and unchanged. Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
 
 Unique next action: fix and test hashing in the exact PS5.1 no-ADB launcher path. Do not run another device experiment without explicit approval.
+
+## Computer A legacy recovery checkpoint
+
+- Exact v2.6.2 PS1/CMD source is now preserved under `archive/computer_a_legacy/x55_wfc_oneclick/v2.6.2/` with SHA-256 provenance.
+- PassiveMonitor v1.2 is canonical under `tools/x55_voxi_passive_monitor/`; original logic is unchanged.
+- StateSearcher v3.0-v3.5 and launchers are preserved; v3.5 is only the latest historical timing sweeper, not a proven recovery.
+- The SSR read-only topology audit source and small captures are under `tools/voxi_modem_ssr_readonly_audit_v3/`.
+- Large raw evidence and binaries remain host-only and hash-indexed in `docs/COMPUTER_A_RAW_EVIDENCE_MANIFEST.csv`.
+- No ADB or phone operation occurred during recovery.
+
+Read `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md` before claiming that a historical source artifact is still missing.

@@ -1,0 +1,183 @@
+﻿[2026-09-23 11:40:06.910] Startup: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:40:06.923] v2.5 path: C:\Users\ZJH\Desktop\X55-WFC-OneClick.ps1
+[2026-09-23 11:40:06.928] v3.4 will NOT toggle location, Anywhere, or VPN.
+[2026-09-23 11:40:09.757] ------------------------------------------------------------
+[2026-09-23 11:40:09.762] Round 1/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:40:10.137] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:40:10.144] Round 1: airplane OFF
+[2026-09-23 11:40:12.301] Round 1: Wi-Fi ON during cellular baseline
+[2026-09-23 11:40:12.559] Round 1: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:40:16.267] Round 1: cellular baseline confirmed
+[2026-09-23 11:40:16.530] Round 1: airplane ON
+[2026-09-23 11:40:18.698] Round 1: Wi-Fi ON after airplane ON
+[2026-09-23 11:40:21.041] Round 1: Wi-Fi connected
+[2026-09-23 11:40:21.170] Round 1: VPN auto-returned
+[2026-09-23 11:41:08.776] Round 1: class=P0
+[2026-09-23 11:41:08.780] Round 1: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:41:08.786] Round 1: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:41:08.797] Round 1: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:41:13.862] ------------------------------------------------------------
+[2026-09-23 11:41:13.866] Round 2/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:41:14.215] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:41:14.221] Round 2: airplane OFF
+[2026-09-23 11:41:16.383] Round 2: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:41:16.547] Round 2: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:41:20.204] Round 2: cellular baseline confirmed
+[2026-09-23 11:41:20.479] Round 2: airplane ON
+[2026-09-23 11:41:22.648] Round 2: Wi-Fi ON after airplane ON
+[2026-09-23 11:41:25.005] Round 2: Wi-Fi connected
+[2026-09-23 11:41:25.125] Round 2: VPN auto-returned
+[2026-09-23 11:42:13.018] Round 2: class=P0
+[2026-09-23 11:42:13.022] Round 2: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:42:13.027] Round 2: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:42:13.037] Round 2: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:42:18.062] ------------------------------------------------------------
+[2026-09-23 11:42:18.068] Round 3/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:42:18.402] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:42:18.410] Round 3: airplane OFF
+[2026-09-23 11:42:20.551] Round 3: Wi-Fi ON during cellular baseline
+[2026-09-23 11:42:20.790] Round 3: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:42:24.445] Round 3: cellular baseline confirmed
+[2026-09-23 11:42:24.687] Round 3: airplane ON
+[2026-09-23 11:42:26.825] Round 3: Wi-Fi ON after airplane ON
+[2026-09-23 11:42:29.154] Round 3: Wi-Fi connected
+[2026-09-23 11:42:29.285] Round 3: VPN auto-returned
+[2026-09-23 11:43:17.688] Round 3: class=P0
+[2026-09-23 11:43:17.692] Round 3: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:43:17.699] Round 3: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:43:17.703] Round 3: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:43:22.726] ------------------------------------------------------------
+[2026-09-23 11:43:22.732] Round 4/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:43:23.064] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:43:23.067] Round 4: airplane OFF
+[2026-09-23 11:43:25.212] Round 4: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:43:25.369] Round 4: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:43:29.035] Round 4: cellular baseline confirmed
+[2026-09-23 11:43:29.278] Round 4: airplane ON
+[2026-09-23 11:43:31.440] Round 4: Wi-Fi ON after airplane ON
+[2026-09-23 11:43:33.817] Round 4: Wi-Fi connected
+[2026-09-23 11:43:33.919] Round 4: VPN auto-returned
+[2026-09-23 11:44:21.983] Round 4: class=P0
+[2026-09-23 11:44:21.987] Round 4: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:44:21.991] Round 4: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:44:21.994] Round 4: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:44:27.011] ------------------------------------------------------------
+[2026-09-23 11:44:27.017] Round 5/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:44:27.374] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:44:27.382] Round 5: airplane OFF
+[2026-09-23 11:44:29.563] Round 5: Wi-Fi ON during cellular baseline
+[2026-09-23 11:44:29.810] Round 5: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:44:33.477] Round 5: cellular baseline confirmed
+[2026-09-23 11:44:33.723] Round 5: airplane ON
+[2026-09-23 11:44:35.858] Round 5: Wi-Fi ON after airplane ON
+[2026-09-23 11:44:38.212] Round 5: Wi-Fi connected
+[2026-09-23 11:44:38.346] Round 5: VPN auto-returned
+[2026-09-23 11:45:26.301] Round 5: class=P0
+[2026-09-23 11:45:26.305] Round 5: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:45:26.309] Round 5: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:45:26.314] Round 5: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:45:31.331] ------------------------------------------------------------
+[2026-09-23 11:45:31.339] Round 6/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:45:31.706] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:45:31.711] Round 6: airplane OFF
+[2026-09-23 11:45:33.872] Round 6: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:45:34.013] Round 6: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:45:37.677] Round 6: cellular baseline confirmed
+[2026-09-23 11:45:37.936] Round 6: airplane ON
+[2026-09-23 11:45:40.096] Round 6: Wi-Fi ON after airplane ON
+[2026-09-23 11:45:42.497] Round 6: Wi-Fi connected
+[2026-09-23 11:45:42.628] Round 6: VPN auto-returned
+[2026-09-23 11:46:30.553] Round 6: class=P0
+[2026-09-23 11:46:30.558] Round 6: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:46:30.562] Round 6: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:46:30.567] Round 6: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:46:35.585] ------------------------------------------------------------
+[2026-09-23 11:46:35.591] Round 7/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:46:35.946] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:46:35.950] Round 7: airplane OFF
+[2026-09-23 11:46:38.100] Round 7: Wi-Fi ON during cellular baseline
+[2026-09-23 11:46:38.342] Round 7: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:46:42.116] Round 7: cellular baseline confirmed
+[2026-09-23 11:46:42.409] Round 7: airplane ON
+[2026-09-23 11:46:44.587] Round 7: Wi-Fi ON after airplane ON
+[2026-09-23 11:46:46.948] Round 7: Wi-Fi connected
+[2026-09-23 11:46:47.070] Round 7: VPN auto-returned
+[2026-09-23 11:47:35.132] Round 7: class=P0
+[2026-09-23 11:47:35.136] Round 7: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:47:35.139] Round 7: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:47:35.143] Round 7: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:47:40.163] ------------------------------------------------------------
+[2026-09-23 11:47:40.168] Round 8/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:47:40.558] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:47:40.563] Round 8: airplane OFF
+[2026-09-23 11:47:42.750] Round 8: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:47:42.897] Round 8: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:47:46.554] Round 8: cellular baseline confirmed
+[2026-09-23 11:47:46.797] Round 8: airplane ON
+[2026-09-23 11:47:48.949] Round 8: Wi-Fi ON after airplane ON
+[2026-09-23 11:47:51.299] Round 8: Wi-Fi connected
+[2026-09-23 11:47:51.399] Round 8: VPN auto-returned
+[2026-09-23 11:48:39.789] Round 8: class=P0
+[2026-09-23 11:48:39.795] Round 8: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:48:39.799] Round 8: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:48:39.802] Round 8: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:48:44.811] ------------------------------------------------------------
+[2026-09-23 11:48:44.816] Round 9/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:48:45.151] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:48:45.157] Round 9: airplane OFF
+[2026-09-23 11:48:47.294] Round 9: Wi-Fi ON during cellular baseline
+[2026-09-23 11:48:47.529] Round 9: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:48:51.191] Round 9: cellular baseline confirmed
+[2026-09-23 11:48:51.451] Round 9: airplane ON
+[2026-09-23 11:48:53.587] Round 9: Wi-Fi ON after airplane ON
+[2026-09-23 11:48:55.912] Round 9: Wi-Fi connected
+[2026-09-23 11:48:56.036] Round 9: VPN auto-returned
+[2026-09-23 11:49:44.047] Round 9: class=P0
+[2026-09-23 11:49:44.051] Round 9: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:49:44.055] Round 9: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:49:44.059] Round 9: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:49:49.069] ------------------------------------------------------------
+[2026-09-23 11:49:49.072] Round 10/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:49:49.425] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:49:49.436] Round 10: airplane OFF
+[2026-09-23 11:49:51.574] Round 10: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:49:51.722] Round 10: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:49:55.415] Round 10: cellular baseline confirmed
+[2026-09-23 11:49:55.668] Round 10: airplane ON
+[2026-09-23 11:49:57.824] Round 10: Wi-Fi ON after airplane ON
+[2026-09-23 11:50:00.179] Round 10: Wi-Fi connected
+[2026-09-23 11:50:00.306] Round 10: VPN auto-returned
+[2026-09-23 11:50:49.123] Round 10: class=P0
+[2026-09-23 11:50:49.127] Round 10: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:50:49.131] Round 10: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:50:49.136] Round 10: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:50:54.158] ------------------------------------------------------------
+[2026-09-23 11:50:54.162] Round 11/12 START scenario=BASE_WIFI_ON
+[2026-09-23 11:50:54.498] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:50:54.505] Round 11: airplane OFF
+[2026-09-23 11:50:56.653] Round 11: Wi-Fi ON during cellular baseline
+[2026-09-23 11:50:56.894] Round 11: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:51:00.560] Round 11: cellular baseline confirmed
+[2026-09-23 11:51:00.797] Round 11: airplane ON
+[2026-09-23 11:51:02.956] Round 11: Wi-Fi ON after airplane ON
+[2026-09-23 11:51:05.301] Round 11: Wi-Fi connected
+[2026-09-23 11:51:05.443] Round 11: VPN auto-returned
+[2026-09-23 11:51:54.420] Round 11: class=P0
+[2026-09-23 11:51:54.424] Round 11: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:51:54.432] Round 11: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:51:54.441] Round 11: decision=SKIP reason=P0: known low-value state
+[2026-09-23 11:51:59.462] ------------------------------------------------------------
+[2026-09-23 11:51:59.465] Round 12/12 START scenario=BASE_WIFI_OFF
+[2026-09-23 11:51:59.812] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:51:59.815] Round 12: airplane OFF
+[2026-09-23 11:52:01.972] Round 12: Wi-Fi OFF during cellular baseline
+[2026-09-23 11:52:02.115] Round 12: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 11:52:05.923] Round 12: cellular baseline confirmed
+[2026-09-23 11:52:06.175] Round 12: airplane ON
+[2026-09-23 11:52:08.335] Round 12: Wi-Fi ON after airplane ON
+[2026-09-23 11:52:10.751] Round 12: Wi-Fi connected
+[2026-09-23 11:52:10.851] Round 12: VPN auto-returned
+[2026-09-23 11:52:59.205] Round 12: class=P0
+[2026-09-23 11:52:59.212] Round 12: fingerprint=CLASS=P0;HOME=0;DATASVC=0;PREF=0;DIWLAN=0;VOICE=POWER_OFF;DATA=POWER_OFF;RAT=Unknown;CNE=NO;ACTIVE=NO;REQ=NULL;M19=NONE;RATREQ=0;STARTDC=0;QUAL=0;EPDG=0;XFRM=0;MMTEL=1
+[2026-09-23 11:52:59.215] Round 12: external location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 11:52:59.218] Round 12: decision=SKIP reason=P0: known low-value state

@@ -1,0 +1,8 @@
+=== DT MATCHES WITH COMPATIBLE ===
+/system/bin/sh: mba: inaccessible or not found
+/system/bin/sh: remoteproc: inaccessible or not found
+/system/bin/sh: esoc: inaccessible or not found
+/system/bin/sh: ssr: inaccessible or not found
+/system/bin/sh: pil: inaccessible or not found
+/system/bin/sh: mss: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found

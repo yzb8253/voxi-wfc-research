@@ -1,0 +1,41 @@
+=== PROPS ===
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: ssr: inaccessible or not found
+/system/bin/sh: esoc: inaccessible or not found
+/system/bin/sh: radio: inaccessible or not found
+/system/bin/sh: remoteproc: inaccessible or not found
+/system/bin/sh: pil: inaccessible or not found
+/system/bin/sh: mss: inaccessible or not found
+/system/bin/sh: rild: inaccessible or not found
+/system/bin/sh: mba: inaccessible or not found
+/system/bin/sh: qcril: inaccessible or not found
+/system/bin/sh: ramdump: inaccessible or not found
+/system/bin/sh: pd_mapper: inaccessible or not found
+/system/bin/sh: qrtr: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found
+
+=== PROCESSES ===
+/system/bin/sh: rild: inaccessible or not found
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: pd-mapper: inaccessible or not found
+/system/bin/sh: ims: inaccessible or not found
+/system/bin/sh: cnd: inaccessible or not found
+/system/bin/sh: rmt_storage: inaccessible or not found
+/system/bin/sh: esoc: inaccessible or not found
+/system/bin/sh: ssr: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found
+/system/bin/sh: qrtr: inaccessible or not found
+/system/bin/sh: pd_mapper: inaccessible or not found
+/system/bin/sh: netmgr: inaccessible or not found
+
+=== HIDL/AIDL-ish ===
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: iwlan: inaccessible or not found
+/system/bin/sh: ims: inaccessible or not found
+/system/bin/sh: esoc: inaccessible or not found
+/system/bin/sh: qti: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: phone: inaccessible or not found
+/system/bin/sh: ims: inaccessible or not found
+/system/bin/sh: qti: inaccessible or not found

@@ -1,0 +1,126 @@
+﻿[2026-09-23 13:19:19.229] STAGE=M19_OTHER
+Mode19Raw: 09-23 13:19:10.285  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 2 status = 0 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:19:29.068] STAGE=M19_2_1
+Mode19Raw: 09-23 13:19:14.699  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:20:00.976] STAGE=IWLAN_HOME
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:22:04.844] STAGE=M19_OTHER
+Mode19Raw: 09-23 13:21:56.239  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 2 status = 0 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:22:14.916] STAGE=M19_2_1
+Mode19Raw: 09-23 13:22:00.229  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:23:04.315] STAGE=IWLAN_HOME
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:24:56.527] STAGE=M19_2_1
+Mode19Raw: 09-23 13:24:49.088  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:25:48.008] STAGE=IWLAN_HOME
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:31:18.143] STAGE=M19_OTHER
+Mode19Raw: 09-23 13:31:10.723  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 2 status = 0 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:31:28.018] STAGE=M19_2_1
+Mode19Raw: 09-23 13:31:13.449  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:31:48.111] STAGE=IWLAN_HOME
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:34:19.825] STAGE=M19_2_1
+Mode19Raw: 09-23 13:34:03.164  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:34:29.883] STAGE=M19_OTHER
+Mode19Raw: 09-23 13:34:21.815  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 2 status = 0 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:34:40.027] STAGE=M19_2_1
+Mode19Raw: 09-23 13:34:25.234  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:35:00.385] STAGE=NONE
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:41:21.969] STAGE=M19_OTHER
+Mode19Raw: 09-23 13:41:12.505  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 2 status = 0 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:41:33.022] STAGE=M19_2_1
+Mode19Raw: 09-23 13:41:16.119  3179  3179 I QImsService: ImsServiceSub : [1] StatusForAccessTech networkMode = 19 registered = 1 status = 2 restrictCause = 0
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+
+[2026-09-23 13:41:54.256] STAGE=IWLAN_HOME
+Mode19Raw: 
+RatRequestedRaw: 
+StartDataCallRaw: 
+QualifiedNetworksRaw: 
+IWlanProxyRaw: 
+

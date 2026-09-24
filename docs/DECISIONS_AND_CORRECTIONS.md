@@ -176,3 +176,9 @@ The fourth launch is `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`, not a recover
 
 Impact:
 Add a PS5.1-compatible hashing implementation or explicit module import and exercise the actual `Assert-LocalArtifact` path in `selftest`. Do not rerun automatically.
+
+## Correction: exact v2.6.2 source availability
+
+Earlier checkpoints correctly stated that exact v2.6.2 host source was absent from the authoritative repository at that time. Computer A legacy recovery on 2026-09-24 found and preserved the exact PS1 and CMD bytes with SHA-256 provenance.
+
+Current statement: exact v2.6.2 host source is available under `archive/computer_a_legacy/x55_wfc_oneclick/v2.6.2/`. This correction does not claim that all historical raw logs or every runtime artifact were recovered.

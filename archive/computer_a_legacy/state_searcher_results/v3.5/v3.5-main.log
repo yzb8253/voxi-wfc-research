@@ -1,0 +1,369 @@
+﻿[2026-09-23 12:11:43.706] Startup: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:11:43.720] v2.5 path: C:\Users\ZJH\Desktop\X55-WFC-OneClick.ps1
+[2026-09-23 12:11:43.722] v3.5 will NOT toggle location, Anywhere, or VPN.
+[2026-09-23 12:11:46.652] ------------------------------------------------------------
+[2026-09-23 12:11:46.656] Round 1/16 START scenario=BASE_WIFI_ON cellular_dwell=3s airplane_to_wifi=1s
+[2026-09-23 12:11:46.996] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:11:47.000] Round 1: airplane OFF
+[2026-09-23 12:11:49.175] Round 1: Wi-Fi ON during cellular baseline
+[2026-09-23 12:11:49.436] Round 1: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:11:53.101] Round 1: cellular baseline confirmed
+[2026-09-23 12:11:53.247] Round 1: holding stable cellular baseline for 3s before airplane transition
+[2026-09-23 12:11:57.263] Round 1: cellular dwell complete and still valid
+[2026-09-23 12:11:57.419] Round 1: airplane ON
+[2026-09-23 12:11:57.561] Round 1: waiting 1s before re-enabling Wi-Fi
+[2026-09-23 12:11:58.577] Round 1: Wi-Fi ON after airplane ON
+[2026-09-23 12:12:00.928] Round 1: Wi-Fi connected
+[2026-09-23 12:12:01.065] Round 1: VPN auto-returned
+[2026-09-23 12:12:07.273] Round 1 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:13.450] Round 1 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:19.692] Round 1 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:25.815] Round 1 T+22s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:32.036] Round 1 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:38.321] Round 1 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:44.655] Round 1 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:50.846] Round 1 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:12:53.992] Round 1: no candidate within 45s; final class=P0
+[2026-09-23 12:12:59.353] ------------------------------------------------------------
+[2026-09-23 12:12:59.361] Round 2/16 START scenario=BASE_WIFI_OFF cellular_dwell=3s airplane_to_wifi=3s
+[2026-09-23 12:12:59.714] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:12:59.718] Round 2: airplane OFF
+[2026-09-23 12:13:01.869] Round 2: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:13:02.007] Round 2: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:13:05.709] Round 2: cellular baseline confirmed
+[2026-09-23 12:13:05.867] Round 2: holding stable cellular baseline for 3s before airplane transition
+[2026-09-23 12:13:09.852] Round 2: cellular dwell complete and still valid
+[2026-09-23 12:13:09.956] Round 2: airplane ON
+[2026-09-23 12:13:10.102] Round 2: waiting 3s before re-enabling Wi-Fi
+[2026-09-23 12:13:13.116] Round 2: Wi-Fi ON after airplane ON
+[2026-09-23 12:13:15.482] Round 2: Wi-Fi connected
+[2026-09-23 12:13:15.625] Round 2: VPN auto-returned
+[2026-09-23 12:13:21.707] Round 2 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:13:27.776] Round 2 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:13:34.039] Round 2 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:13:43.670] Round 2 T+25s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:13:49.901] Round 2 T+31s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:13:56.167] Round 2 T+37s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:14:02.387] Round 2 T+44s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:14:05.620] Round 2: no candidate within 45s; final class=P0
+[2026-09-23 12:14:11.002] ------------------------------------------------------------
+[2026-09-23 12:14:11.006] Round 3/16 START scenario=BASE_WIFI_ON cellular_dwell=5s airplane_to_wifi=5s
+[2026-09-23 12:14:11.470] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:14:11.473] Round 3: airplane OFF
+[2026-09-23 12:14:13.648] Round 3: Wi-Fi ON during cellular baseline
+[2026-09-23 12:14:13.933] Round 3: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:14:17.640] Round 3: cellular baseline confirmed
+[2026-09-23 12:14:17.774] Round 3: holding stable cellular baseline for 5s before airplane transition
+[2026-09-23 12:14:23.045] Round 3: cellular dwell complete and still valid
+[2026-09-23 12:14:23.161] Round 3: airplane ON
+[2026-09-23 12:14:23.309] Round 3: waiting 5s before re-enabling Wi-Fi
+[2026-09-23 12:14:28.327] Round 3: Wi-Fi ON after airplane ON
+[2026-09-23 12:14:30.713] Round 3: Wi-Fi connected
+[2026-09-23 12:14:30.834] Round 3: VPN auto-returned
+[2026-09-23 12:14:37.050] Round 3 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:14:43.227] Round 3 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:14:49.381] Round 3 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:14:55.625] Round 3 T+22s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:15:02.022] Round 3 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:15:08.159] Round 3 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:15:14.364] Round 3 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:15:20.569] Round 3 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:15:23.732] Round 3: no candidate within 45s; final class=P0
+[2026-09-23 12:15:29.073] ------------------------------------------------------------
+[2026-09-23 12:15:29.077] Round 4/16 START scenario=BASE_WIFI_OFF cellular_dwell=5s airplane_to_wifi=8s
+[2026-09-23 12:15:29.460] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:15:29.464] Round 4: airplane OFF
+[2026-09-23 12:15:31.604] Round 4: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:15:31.746] Round 4: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:15:35.388] Round 4: cellular baseline confirmed
+[2026-09-23 12:15:35.524] Round 4: holding stable cellular baseline for 5s before airplane transition
+[2026-09-23 12:15:40.873] Round 4: cellular dwell complete and still valid
+[2026-09-23 12:15:40.974] Round 4: airplane ON
+[2026-09-23 12:15:41.114] Round 4: waiting 8s before re-enabling Wi-Fi
+[2026-09-23 12:15:49.129] Round 4: Wi-Fi ON after airplane ON
+[2026-09-23 12:15:51.487] Round 4: Wi-Fi connected
+[2026-09-23 12:15:51.616] Round 4: VPN auto-returned
+[2026-09-23 12:15:57.742] Round 4 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:03.864] Round 4 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:09.961] Round 4 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:16.073] Round 4 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:22.349] Round 4 T+27s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:28.649] Round 4 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:34.916] Round 4 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:41.131] Round 4 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:16:44.413] Round 4: no candidate within 45s; final class=P0
+[2026-09-23 12:16:49.769] ------------------------------------------------------------
+[2026-09-23 12:16:49.773] Round 5/16 START scenario=BASE_WIFI_ON cellular_dwell=8s airplane_to_wifi=2s
+[2026-09-23 12:16:50.120] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:16:50.124] Round 5: airplane OFF
+[2026-09-23 12:16:52.278] Round 5: Wi-Fi ON during cellular baseline
+[2026-09-23 12:16:52.525] Round 5: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:16:56.157] Round 5: cellular baseline confirmed
+[2026-09-23 12:16:56.307] Round 5: holding stable cellular baseline for 8s before airplane transition
+[2026-09-23 12:17:05.633] Round 5: cellular dwell complete and still valid
+[2026-09-23 12:17:05.735] Round 5: airplane ON
+[2026-09-23 12:17:05.875] Round 5: waiting 2s before re-enabling Wi-Fi
+[2026-09-23 12:17:07.885] Round 5: Wi-Fi ON after airplane ON
+[2026-09-23 12:17:10.221] Round 5: Wi-Fi connected
+[2026-09-23 12:17:10.419] Round 5: VPN auto-returned
+[2026-09-23 12:17:16.615] Round 5 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:22.773] Round 5 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:28.854] Round 5 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:35.224] Round 5 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:41.399] Round 5 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:47.562] Round 5 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:17:53.857] Round 5 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:18:00.039] Round 5 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:18:03.231] Round 5: no candidate within 45s; final class=P0
+[2026-09-23 12:18:08.605] ------------------------------------------------------------
+[2026-09-23 12:18:08.613] Round 6/16 START scenario=BASE_WIFI_OFF cellular_dwell=8s airplane_to_wifi=12s
+[2026-09-23 12:18:08.939] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:18:08.944] Round 6: airplane OFF
+[2026-09-23 12:18:11.099] Round 6: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:18:11.239] Round 6: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:18:14.934] Round 6: cellular baseline confirmed
+[2026-09-23 12:18:15.079] Round 6: holding stable cellular baseline for 8s before airplane transition
+[2026-09-23 12:18:24.391] Round 6: cellular dwell complete and still valid
+[2026-09-23 12:18:24.511] Round 6: airplane ON
+[2026-09-23 12:18:24.645] Round 6: waiting 12s before re-enabling Wi-Fi
+[2026-09-23 12:18:36.665] Round 6: Wi-Fi ON after airplane ON
+[2026-09-23 12:18:39.023] Round 6: Wi-Fi connected
+[2026-09-23 12:18:39.146] Round 6: VPN auto-returned
+[2026-09-23 12:18:45.322] Round 6 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:18:51.503] Round 6 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:18:57.615] Round 6 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:03.793] Round 6 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:09.868] Round 6 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:16.136] Round 6 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:22.313] Round 6 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:28.579] Round 6 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:19:31.782] Round 6: no candidate within 45s; final class=P0
+[2026-09-23 12:19:37.151] ------------------------------------------------------------
+[2026-09-23 12:19:37.156] Round 7/16 START scenario=BASE_WIFI_ON cellular_dwell=12s airplane_to_wifi=3s
+[2026-09-23 12:19:37.515] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:19:37.520] Round 7: airplane OFF
+[2026-09-23 12:19:39.670] Round 7: Wi-Fi ON during cellular baseline
+[2026-09-23 12:19:39.912] Round 7: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:19:43.616] Round 7: cellular baseline confirmed
+[2026-09-23 12:19:43.772] Round 7: holding stable cellular baseline for 12s before airplane transition
+[2026-09-23 12:19:55.893] Round 7: cellular dwell complete and still valid
+[2026-09-23 12:19:55.995] Round 7: airplane ON
+[2026-09-23 12:19:56.135] Round 7: waiting 3s before re-enabling Wi-Fi
+[2026-09-23 12:19:59.155] Round 7: Wi-Fi ON after airplane ON
+[2026-09-23 12:20:01.515] Round 7: Wi-Fi connected
+[2026-09-23 12:20:01.639] Round 7: VPN auto-returned
+[2026-09-23 12:20:07.774] Round 7 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:13.931] Round 7 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:20.126] Round 7 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:26.397] Round 7 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:32.507] Round 7 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:38.726] Round 7 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:44.907] Round 7 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:51.216] Round 7 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:20:54.439] Round 7: no candidate within 45s; final class=P0
+[2026-09-23 12:20:59.829] ------------------------------------------------------------
+[2026-09-23 12:20:59.834] Round 8/16 START scenario=BASE_WIFI_OFF cellular_dwell=12s airplane_to_wifi=5s
+[2026-09-23 12:21:00.169] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:21:00.175] Round 8: airplane OFF
+[2026-09-23 12:21:02.338] Round 8: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:21:02.514] Round 8: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:21:06.170] Round 8: cellular baseline confirmed
+[2026-09-23 12:21:06.329] Round 8: holding stable cellular baseline for 12s before airplane transition
+[2026-09-23 12:21:18.450] Round 8: cellular dwell complete and still valid
+[2026-09-23 12:21:18.559] Round 8: airplane ON
+[2026-09-23 12:21:18.701] Round 8: waiting 5s before re-enabling Wi-Fi
+[2026-09-23 12:21:23.707] Round 8: Wi-Fi ON after airplane ON
+[2026-09-23 12:21:26.073] Round 8: Wi-Fi connected
+[2026-09-23 12:21:26.205] Round 8: VPN auto-returned
+[2026-09-23 12:21:32.417] Round 8 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:21:38.476] Round 8 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:21:44.678] Round 8 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:21:50.913] Round 8 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:21:57.265] Round 8 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:22:03.432] Round 8 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:22:09.708] Round 8 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:22:15.832] Round 8 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:22:19.081] Round 8: no candidate within 45s; final class=P0
+[2026-09-23 12:22:24.420] ------------------------------------------------------------
+[2026-09-23 12:22:24.424] Round 9/16 START scenario=BASE_WIFI_ON cellular_dwell=15s airplane_to_wifi=8s
+[2026-09-23 12:22:24.751] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:22:24.756] Round 9: airplane OFF
+[2026-09-23 12:22:26.917] Round 9: Wi-Fi ON during cellular baseline
+[2026-09-23 12:22:27.143] Round 9: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:22:30.808] Round 9: cellular baseline confirmed
+[2026-09-23 12:22:30.951] Round 9: holding stable cellular baseline for 15s before airplane transition
+[2026-09-23 12:22:46.948] Round 9: cellular dwell complete and still valid
+[2026-09-23 12:22:47.049] Round 9: airplane ON
+[2026-09-23 12:22:47.210] Round 9: waiting 8s before re-enabling Wi-Fi
+[2026-09-23 12:22:55.223] Round 9: Wi-Fi ON after airplane ON
+[2026-09-23 12:22:57.608] Round 9: Wi-Fi connected
+[2026-09-23 12:22:57.734] Round 9: VPN auto-returned
+[2026-09-23 12:23:03.977] Round 9 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:10.093] Round 9 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:16.152] Round 9 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:22.341] Round 9 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:28.557] Round 9 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:34.703] Round 9 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:41.008] Round 9 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:47.211] Round 9 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:23:50.316] Round 9: no candidate within 45s; final class=P0
+[2026-09-23 12:23:55.689] ------------------------------------------------------------
+[2026-09-23 12:23:55.694] Round 10/16 START scenario=BASE_WIFI_OFF cellular_dwell=15s airplane_to_wifi=1s
+[2026-09-23 12:23:56.042] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:23:56.046] Round 10: airplane OFF
+[2026-09-23 12:23:58.184] Round 10: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:23:58.341] Round 10: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:24:02.039] Round 10: cellular baseline confirmed
+[2026-09-23 12:24:02.222] Round 10: holding stable cellular baseline for 15s before airplane transition
+[2026-09-23 12:24:17.290] Round 10: cellular dwell complete and still valid
+[2026-09-23 12:24:17.396] Round 10: airplane ON
+[2026-09-23 12:24:17.536] Round 10: waiting 1s before re-enabling Wi-Fi
+[2026-09-23 12:24:18.553] Round 10: Wi-Fi ON after airplane ON
+[2026-09-23 12:24:20.888] Round 10: Wi-Fi connected
+[2026-09-23 12:24:21.015] Round 10: VPN auto-returned
+[2026-09-23 12:24:27.094] Round 10 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:24:33.130] Round 10 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:24:39.180] Round 10 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:24:45.435] Round 10 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:24:51.568] Round 10 T+27s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:24:57.813] Round 10 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:25:03.982] Round 10 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:25:10.201] Round 10 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:25:13.362] Round 10: no candidate within 45s; final class=P0
+[2026-09-23 12:25:18.750] ------------------------------------------------------------
+[2026-09-23 12:25:18.758] Round 11/16 START scenario=BASE_WIFI_ON cellular_dwell=20s airplane_to_wifi=12s
+[2026-09-23 12:25:19.224] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:25:19.235] Round 11: airplane OFF
+[2026-09-23 12:25:21.404] Round 11: Wi-Fi ON during cellular baseline
+[2026-09-23 12:25:21.631] Round 11: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:25:25.325] Round 11: cellular baseline confirmed
+[2026-09-23 12:25:25.487] Round 11: holding stable cellular baseline for 20s before airplane transition
+[2026-09-23 12:25:46.734] Round 11: cellular dwell complete and still valid
+[2026-09-23 12:25:46.838] Round 11: airplane ON
+[2026-09-23 12:25:46.976] Round 11: waiting 12s before re-enabling Wi-Fi
+[2026-09-23 12:25:58.985] Round 11: Wi-Fi ON after airplane ON
+[2026-09-23 12:26:01.301] Round 11: Wi-Fi connected
+[2026-09-23 12:26:01.436] Round 11: VPN auto-returned
+[2026-09-23 12:26:07.559] Round 11 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:13.835] Round 11 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:19.989] Round 11 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:26.146] Round 11 T+22s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:32.531] Round 11 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:38.806] Round 11 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:45.000] Round 11 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:51.422] Round 11 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:26:54.637] Round 11: no candidate within 45s; final class=P0
+[2026-09-23 12:26:59.992] ------------------------------------------------------------
+[2026-09-23 12:26:59.997] Round 12/16 START scenario=BASE_WIFI_OFF cellular_dwell=20s airplane_to_wifi=2s
+[2026-09-23 12:27:00.354] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:27:00.359] Round 12: airplane OFF
+[2026-09-23 12:27:02.520] Round 12: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:27:02.679] Round 12: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:27:06.318] Round 12: cellular baseline confirmed
+[2026-09-23 12:27:06.458] Round 12: holding stable cellular baseline for 20s before airplane transition
+[2026-09-23 12:27:27.616] Round 12: cellular dwell complete and still valid
+[2026-09-23 12:27:27.727] Round 12: airplane ON
+[2026-09-23 12:27:27.875] Round 12: waiting 2s before re-enabling Wi-Fi
+[2026-09-23 12:27:29.888] Round 12: Wi-Fi ON after airplane ON
+[2026-09-23 12:27:32.265] Round 12: Wi-Fi connected
+[2026-09-23 12:27:32.403] Round 12: VPN auto-returned
+[2026-09-23 12:27:38.555] Round 12 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:27:44.753] Round 12 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:27:50.842] Round 12 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:27:57.038] Round 12 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:28:03.183] Round 12 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:28:09.425] Round 12 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:28:15.584] Round 12 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:28:21.834] Round 12 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:28:25.070] Round 12: no candidate within 45s; final class=P0
+[2026-09-23 12:28:30.426] ------------------------------------------------------------
+[2026-09-23 12:28:30.433] Round 13/16 START scenario=BASE_WIFI_ON cellular_dwell=30s airplane_to_wifi=5s
+[2026-09-23 12:28:30.771] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:28:30.776] Round 13: airplane OFF
+[2026-09-23 12:28:32.939] Round 13: Wi-Fi ON during cellular baseline
+[2026-09-23 12:28:33.197] Round 13: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:28:36.886] Round 13: cellular baseline confirmed
+[2026-09-23 12:28:37.024] Round 13: holding stable cellular baseline for 30s before airplane transition
+[2026-09-23 12:29:07.716] Round 13: cellular dwell complete and still valid
+[2026-09-23 12:29:07.856] Round 13: airplane ON
+[2026-09-23 12:29:08.093] Round 13: waiting 5s before re-enabling Wi-Fi
+[2026-09-23 12:29:13.109] Round 13: Wi-Fi ON after airplane ON
+[2026-09-23 12:29:15.809] Round 13: Wi-Fi connected
+[2026-09-23 12:29:15.969] Round 13: VPN auto-returned
+[2026-09-23 12:29:22.804] Round 13 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:29:29.313] Round 13 T+10s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:29:35.801] Round 13 T+16s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:29:42.357] Round 13 T+23s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:29:48.809] Round 13 T+29s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:29:55.537] Round 13 T+36s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:30:01.949] Round 13 T+43s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:30:05.561] Round 13: no candidate within 45s; final class=P0
+[2026-09-23 12:30:11.044] ------------------------------------------------------------
+[2026-09-23 12:30:11.051] Round 14/16 START scenario=BASE_WIFI_OFF cellular_dwell=30s airplane_to_wifi=3s
+[2026-09-23 12:30:11.590] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:30:11.594] Round 14: airplane OFF
+[2026-09-23 12:30:13.774] Round 14: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:30:13.940] Round 14: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:30:18.040] Round 14: cellular baseline confirmed
+[2026-09-23 12:30:18.302] Round 14: holding stable cellular baseline for 30s before airplane transition
+[2026-09-23 12:30:48.753] Round 14: cellular dwell complete and still valid
+[2026-09-23 12:30:48.878] Round 14: airplane ON
+[2026-09-23 12:30:49.069] Round 14: waiting 3s before re-enabling Wi-Fi
+[2026-09-23 12:30:52.079] Round 14: Wi-Fi ON after airplane ON
+[2026-09-23 12:30:54.992] Round 14: Wi-Fi connected
+[2026-09-23 12:30:55.315] Round 14: VPN auto-returned
+[2026-09-23 12:31:01.628] Round 14 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:07.860] Round 14 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:14.088] Round 14 T+16s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:20.330] Round 14 T+22s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:26.651] Round 14 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:32.829] Round 14 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:39.127] Round 14 T+41s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:45.385] Round 14 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:31:48.593] Round 14: no candidate within 45s; final class=P0
+[2026-09-23 12:31:53.925] ------------------------------------------------------------
+[2026-09-23 12:31:53.935] Round 15/16 START scenario=BASE_WIFI_ON cellular_dwell=45s airplane_to_wifi=1s
+[2026-09-23 12:31:54.267] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:31:54.270] Round 15: airplane OFF
+[2026-09-23 12:31:56.421] Round 15: Wi-Fi ON during cellular baseline
+[2026-09-23 12:31:56.658] Round 15: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:32:00.369] Round 15: cellular baseline confirmed
+[2026-09-23 12:32:00.543] Round 15: holding stable cellular baseline for 45s before airplane transition
+[2026-09-23 12:32:46.682] Round 15: cellular dwell complete and still valid
+[2026-09-23 12:32:46.843] Round 15: airplane ON
+[2026-09-23 12:32:47.040] Round 15: waiting 1s before re-enabling Wi-Fi
+[2026-09-23 12:32:48.056] Round 15: Wi-Fi ON after airplane ON
+[2026-09-23 12:32:50.531] Round 15: Wi-Fi connected
+[2026-09-23 12:32:50.674] Round 15: VPN auto-returned
+[2026-09-23 12:32:56.916] Round 15 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:03.228] Round 15 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:09.584] Round 15 T+16s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:15.695] Round 15 T+22s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:21.831] Round 15 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:27.986] Round 15 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:34.152] Round 15 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:40.418] Round 15 T+46s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:33:43.519] Round 15: no candidate within 45s; final class=P0
+[2026-09-23 12:33:48.889] ------------------------------------------------------------
+[2026-09-23 12:33:48.893] Round 16/16 START scenario=BASE_WIFI_OFF cellular_dwell=45s airplane_to_wifi=8s
+[2026-09-23 12:33:49.244] External before cycle: location_mode=3 vpn=CONNECTED_FLCLASH anywhere=RUNNING
+[2026-09-23 12:33:49.247] Round 16: airplane OFF
+[2026-09-23 12:33:51.404] Round 16: Wi-Fi OFF during cellular baseline
+[2026-09-23 12:33:51.548] Round 16: waiting for VOXI 46000/LTE/IN_SERVICE
+[2026-09-23 12:33:55.177] Round 16: cellular baseline confirmed
+[2026-09-23 12:33:55.320] Round 16: holding stable cellular baseline for 45s before airplane transition
+[2026-09-23 12:34:40.857] Round 16: cellular dwell complete and still valid
+[2026-09-23 12:34:40.967] Round 16: airplane ON
+[2026-09-23 12:34:41.102] Round 16: waiting 8s before re-enabling Wi-Fi
+[2026-09-23 12:34:49.113] Round 16: Wi-Fi ON after airplane ON
+[2026-09-23 12:34:51.490] Round 16: Wi-Fi connected
+[2026-09-23 12:34:51.631] Round 16: VPN auto-returned
+[2026-09-23 12:34:57.814] Round 16 T+3s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:03.913] Round 16 T+9s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:10.045] Round 16 T+15s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:16.220] Round 16 T+21s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:22.325] Round 16 T+28s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:28.904] Round 16 T+34s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:35.214] Round 16 T+40s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:41.666] Round 16 T+47s: class=P0 HOME=0 PREF=0 REQ=NULL M19=NONE RatReq=0 StartDC=0
+[2026-09-23 12:35:45.065] Round 16: no candidate within 45s; final class=P0

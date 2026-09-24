@@ -12,7 +12,7 @@ Peripheral Manager uses Binder `vendor.qcom.PeripheralManager` / `vendor.qcom.IP
 
 # Verified Recovery Path
 
-Transferred experiments establish: stop per_mgr -> X55 OFFLINE -> holder opens `/dev/subsys_esoc0` -> X55 ONLINE/new PON_SUCCESS -> one fixed SIM2 OFF, 3-second wait, ON -> WFC HEALTHY. It succeeded in at least two key runs. Raw v2.6.2 artifacts are pending import.
+Transferred experiments establish: stop per_mgr -> X55 OFFLINE -> holder opens `/dev/subsys_esoc0` -> X55 ONLINE/new PON_SUCCESS -> one fixed SIM2 OFF, 3-second wait, ON -> WFC HEALTHY. It succeeded in at least two key runs. Exact v2.6.2 host source is now imported; historical raw-log completeness remains unresolved.
 
 # Verified Peripheral Manager Behavior
 
@@ -130,3 +130,9 @@ Next action: repair the hash implementation and extend exact-launcher host-only 
 Computer A supplied the exact previously audited helper at `experiments/sim_soft_reset/single_sim_isolation/build/single-sim-slot1-power-helper.jar`. It is 11534 bytes and hashes to `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`, exactly matching v2.7-alpha's fixed safety gate.
 
 The repository's global `*.jar` ignore remains unchanged. This one exact artifact is force-tracked so a fresh checkout has the required fixed single-SIM slot1 helper. This resolves the packaging blocker only; it does not authorize or perform another device run. ADB was not used and phone writes were 0.
+
+## Computer A Legacy Recovery
+
+On 2026-09-24, 465 Computer A candidates under `D:\` were hashed and classified. Exact v2.6.2 source, PassiveMonitor v1.0-v1.2, StateSearcher v3.0-v3.5, the SSR read-only topology audit, selected compact negative-result histories, and historical source variants were preserved without changing original bytes.
+
+Large raw evidence (353 files, 416795027 bytes), system/vendor binaries, ZIP containers, and two source-less kernel modules remain host-only and hash-indexed. The comprehensive report is `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md`.

@@ -1,0 +1,5 @@
+*.ps1 -text -diff
+*.cmd -text -diff
+*.txt -text -diff
+*.csv -text -diff
+*.log -text -diff

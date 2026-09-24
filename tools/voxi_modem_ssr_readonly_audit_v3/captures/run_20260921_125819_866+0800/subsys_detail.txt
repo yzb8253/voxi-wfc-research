@@ -1,0 +1,149 @@
+=== SUBSYSTEM FRAMEWORK ===
+
+
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,kgsl-hyp/subsys/subsys_a650_zap
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_a650_zap -> ../../devices/platform/soc/soc:qcom,kgsl-hyp/subsys/subsys_a650_zap
+
+
+realpath=/sys/devices/platform/soc/17300000.qcom,lpass/subsys/subsys_adsp
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_adsp -> ../../devices/platform/soc/17300000.qcom,lpass/subsys/subsys_adsp
+
+
+realpath=/sys/devices/platform/soc/8300000.qcom,turing/subsys/subsys_cdsp
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_cdsp -> ../../devices/platform/soc/8300000.qcom,turing/subsys/subsys_cdsp
+
+
+realpath=/sys/devices/platform/soc/abb0000.qcom,cvpss/subsys/subsys_cvpss
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_cvpss -> ../../devices/platform/soc/abb0000.qcom,cvpss/subsys/subsys_cvpss
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,mdm0/subsys/subsys_esoc0
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_esoc0 -> ../../devices/platform/soc/soc:qcom,mdm0/subsys/subsys_esoc0
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,ipa_fws/subsys/subsys_ipa_fws
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_ipa_fws -> ../../devices/platform/soc/soc:qcom,ipa_fws/subsys/subsys_ipa_fws
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,ipa_uc/subsys/subsys_ipa_uc
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_ipa_uc -> ../../devices/platform/soc/soc:qcom,ipa_uc/subsys/subsys_ipa_uc
+
+
+realpath=/sys/devices/platform/soc/9800000.qcom,npu/subsys/subsys_npu
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_npu -> ../../devices/platform/soc/9800000.qcom,npu/subsys/subsys_npu
+
+
+realpath=/sys/devices/platform/soc/5c00000.qcom,ssc/subsys/subsys_slpi
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_slpi -> ../../devices/platform/soc/5c00000.qcom,ssc/subsys/subsys_slpi
+
+
+realpath=/sys/devices/platform/soc/188101c.qcom,spss/subsys/subsys_spss
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_spss -> ../../devices/platform/soc/188101c.qcom,spss/subsys/subsys_spss
+
+
+realpath=/sys/devices/platform/soc/aab0000.qcom,venus/subsys/subsys_venus
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_venus -> ../../devices/platform/soc/aab0000.qcom,venus/subsys/subsys_venus
+
+
+realpath=/sys/devices/platform/soc/b0000000.qcom,cnss-qca6390/subsys/subsys_wlan
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/class/subsys/subsys_wlan -> ../../devices/platform/soc/b0000000.qcom,cnss-qca6390/subsys/subsys_wlan
+
+
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,ipa_fws/subsys0
+--- name ---
+ipa_fws
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys0 -> ../../../devices/platform/soc/soc:qcom,ipa_fws/subsys0
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,ipa_uc/subsys1
+--- name ---
+ipa_uc
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys1 -> ../../../devices/platform/soc/soc:qcom,ipa_uc/subsys1
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,mdm0/subsys10
+--- name ---
+esoc0
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys10 -> ../../../devices/platform/soc/soc:qcom,mdm0/subsys10
+
+
+realpath=/sys/devices/platform/soc/9800000.qcom,npu/subsys11
+--- name ---
+npu
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys11 -> ../../../devices/platform/soc/9800000.qcom,npu/subsys11
+
+
+realpath=/sys/devices/platform/soc/17300000.qcom,lpass/subsys2
+--- name ---
+adsp
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys2 -> ../../../devices/platform/soc/17300000.qcom,lpass/subsys2
+
+
+realpath=/sys/devices/platform/soc/8300000.qcom,turing/subsys3
+--- name ---
+cdsp
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys3 -> ../../../devices/platform/soc/8300000.qcom,turing/subsys3
+
+
+realpath=/sys/devices/platform/soc/aab0000.qcom,venus/subsys4
+--- name ---
+venus
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys4 -> ../../../devices/platform/soc/aab0000.qcom,venus/subsys4
+
+
+realpath=/sys/devices/platform/soc/188101c.qcom,spss/subsys5
+--- name ---
+spss
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys5 -> ../../../devices/platform/soc/188101c.qcom,spss/subsys5
+
+
+realpath=/sys/devices/platform/soc/abb0000.qcom,cvpss/subsys6
+--- name ---
+cvpss
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys6 -> ../../../devices/platform/soc/abb0000.qcom,cvpss/subsys6
+
+
+realpath=/sys/devices/platform/soc/5c00000.qcom,ssc/subsys7
+--- name ---
+slpi
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys7 -> ../../../devices/platform/soc/5c00000.qcom,ssc/subsys7
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,kgsl-hyp/subsys8
+--- name ---
+a650_zap
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys8 -> ../../../devices/platform/soc/soc:qcom,kgsl-hyp/subsys8
+
+
+realpath=/sys/devices/platform/soc/b0000000.qcom,cnss-qca6390/subsys9
+--- name ---
+wlan
+--- permissions ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/msm_subsys/devices/subsys9 -> ../../../devices/platform/soc/b0000000.qcom,cnss-qca6390/subsys9

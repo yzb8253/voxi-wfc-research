@@ -1,0 +1,14 @@
+=== ESOC DEVICES ===
+
+
+realpath=/sys/devices/platform/soc/soc:qcom,mdm0/esoc0
+driver=/sys/bus/esoc/drivers/mdm-4x
+--- attrs ---
+lrwxrwxrwx 1 root root u:object_r:sysfs:s0  0 2026-09-21 12:58 /sys/bus/esoc/devices/esoc0 -> ../../../devices/platform/soc/soc:qcom,mdm0/esoc0
+--- esoc_link_info ---
+0306_02.01.00--- uevent ---
+DRIVER=mdm-4x
+OF_NAME=qcom,mdm0
+OF_FULLNAME=/soc/qcom,mdm0
+OF_COMPATIBLE_0=qcom,ext-sdx55m
+OF_COMPATIBLE_N=1

@@ -1,0 +1,3 @@
+README.original.md -text -diff
+*.ps1 -text -diff
+captures/** -text -diff

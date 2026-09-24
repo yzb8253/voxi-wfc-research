@@ -12,7 +12,7 @@ Resolution: do not infer a verified re-vote from the ownership transition. Furth
 
 ## 2. Historical artifact provenance remains incomplete
 
-The exact historical v2.6.2 source and raw evidence remain absent from GitHub. This does not invalidate the independently captured 001/001B evidence, but it limits comparison with the older implementation.
+Exact historical v2.6.2 host source was recovered from Computer A on 2026-09-24 and is now preserved with SHA-256 provenance. Historical raw evidence remains incomplete; source recovery must not be described as full raw-log recovery.
 
 ## 3. Exact launcher file-hash path is not runtime-proven
 

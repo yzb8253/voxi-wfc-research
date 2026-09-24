@@ -374,3 +374,11 @@ NEXT_ACTION: fix artifact reproducibility/preflight statically; no automatic dev
 - Host-only acceptance must call the same `Assert-LocalArtifact` implementation under the same `powershell.exe` process selected by the `.cmd` launcher.
 
 NEXT_ACTION: repair the hash dependency and extend exact-launcher selftest; no automatic device rerun.
+
+## Computer A legacy recovery finding (2026-09-24)
+
+- The earlier durable-state claim that exact v2.6.2 host source was unavailable is superseded: exact PS1/CMD bytes were recovered and provenance-hashed.
+- Source recovery does not imply complete historical raw evidence; 353 raw/unselected files remain host-only.
+- PassiveMonitor v1.2 is the current canonical read-only detector, but its state labels remain research heuristics.
+- StateSearcher v3.4 and v3.5 compact histories confirm their negative all-P0 runs; they are not successful recovery tools.
+- No phone state was read or changed during this audit.

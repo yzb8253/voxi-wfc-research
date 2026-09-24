@@ -1,0 +1,17 @@
+=== MODULES ===
+/system/bin/sh: rproc: inaccessible or not found
+/system/bin/sh: ssr: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found
+/system/bin/sh: mba: inaccessible or not found
+/system/bin/sh: mss: inaccessible or not found
+/system/bin/sh: pil: inaccessible or not found
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: ramdump: inaccessible or not found
+/system/bin/sh: esoc: inaccessible or not found
+
+=== KALLSYMS NAMES ONLY ===
+/system/bin/sh: esoc.*restart: inaccessible or not found
+/system/bin/sh: qcom.*remoteproc: inaccessible or not found
+/system/bin/sh: modem.*restart: inaccessible or not found
+/system/bin/sh: remoteproc.*(stop|start|shutdown|boot): inaccessible or not found
+/system/bin/sh: subsys.*restart: inaccessible or not found

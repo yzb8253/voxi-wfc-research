@@ -158,3 +158,13 @@ Post-state: pm-service PID 31818 sole owner; X55 ONLINE; crash_count 0; qcrild2 
 Logs: host-only `C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\v27_alpha_native_handoff_20260923_214813`; sanitized report `v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
 Conclusion: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION / NOT_RUN`; phone writes 0.
 Next action: exact-launcher PS5.1 hash repair and no-ADB artifact-gate coverage; require fresh authorization before another device launch.
+
+## COMPUTER-A-LEGACY-RECOVERY-20260924
+
+Date: 2026-09-24
+Environment: Computer A filesystem and Git only.
+Actions: hashed 465 D: candidates; compared them with the authoritative repository; copied selected source and compact evidence without modifying D:; inspected ZIP entries; generated provenance, raw-evidence, and parser manifests.
+Observed result: exact v2.6.2 host source recovered; PassiveMonitor v1.2 canonicalized; StateSearcher v3.0-v3.5 and SSR read-only audit preserved. Large raw logs and non-source binaries remain host-only.
+Validation: source hash match PASS; critical PassiveMonitor v1.2 and v2.6.2 parser checks PASS; 20/22 imported PowerShell files parse, with two exact historical originals explicitly retained as parser failures.
+Conclusion: `COMPUTER_A_LEGACY_RECOVERY=PASS`; ADB not used; phone writes 0.
+Next action: no device experiment is authorized by this import.

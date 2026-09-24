@@ -416,3 +416,14 @@ NEXT_ACTION: wait for fresh explicit authorization before any additional v2.7-al
 - Result: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; phone writes 0.
 
 NEXT_ACTION: repair and host-only test the actual launcher artifact assertion. Do not rerun without explicit approval.
+
+## 2026-09-24 Computer A legacy recovery
+
+- Git/filesystem-only audit scanned 465 D: candidates totaling 463169043 bytes.
+- Exact v2.6.2 host source is recovered with SHA-256 provenance; raw-log completeness remains unresolved.
+- PassiveMonitor v1.2 is canonical under `tools/`; StateSearcher v3.0-v3.5 and SSR read-only audit are preserved.
+- 353 raw/unselected evidence files totaling 416795027 bytes remain host-only and hash-indexed.
+- Two source-less kernel modules remain host-only pending a separate decision.
+- Source hash match PASS; no D: source modified; ADB not used; phone writes 0.
+
+NEXT_ACTION: no phone experiment is authorized by this recovery. Continue only from a new explicit user decision.

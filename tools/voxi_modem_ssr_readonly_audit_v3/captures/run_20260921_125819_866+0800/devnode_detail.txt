@@ -1,0 +1,44 @@
+=== CANDIDATE DEVICE NODES ===
+crw-rw---- 1 system system u:object_r:vendor_sp_keymaster_ssr_device:s0  511,   3 1970-03-26 20:37 /dev/sp_keymaster_ssr
+crw------- 1 root root u:object_r:vendor_esoc_device:s0  485,   0 1970-03-26 20:37 /dev/esoc-0
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   9 1970-03-26 20:37 /dev/subsys_a650_zap
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,  10 1970-03-26 20:37 /dev/subsys_wlan
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   4 1970-03-26 20:37 /dev/subsys_venus
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  10 1970-03-26 20:37 /dev/ramdump_spss
+crw-r----- 1 system system u:object_r:vendor_ramdump_microdump_modem_device:s0  235,  18 1970-03-26 20:37 /dev/ramdump_microdump_modem
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  17 1970-03-26 20:37 /dev/ramdump_md_a650_zap
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  19 1970-03-26 20:37 /dev/ramdump_wlan
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   8 1970-03-26 20:37 /dev/ramdump_venus
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  22 1970-03-26 20:37 /dev/ramdump_adsp_rh
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  11 1970-03-26 20:37 /dev/ramdump_md_spss
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   5 1970-03-26 20:37 /dev/subsys_spss
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   0 1970-03-26 20:37 /dev/ramdump_ipa_fws
+crw-rw---- 1 system system u:object_r:vendor_sp_ssr_device:s0  511,   2 1970-03-26 20:37 /dev/sp_ssr
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,  11 1970-03-26 20:37 /dev/subsys_esoc0
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  16 1970-03-26 20:37 /dev/ramdump_a650_zap
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   6 1970-03-26 20:37 /dev/subsys_cvpss
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   9 1970-03-26 20:37 /dev/ramdump_md_venus
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   1 1970-03-26 20:37 /dev/ramdump_md_ipa_fws
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  15 1970-03-26 20:37 /dev/ramdump_md_slpi
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   3 1970-03-26 20:37 /dev/ramdump_md_ipa_uc
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   0 1970-03-26 20:37 /dev/subsys_ipa_fws
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  12 1970-03-26 20:37 /dev/ramdump_cvpss
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  13 1970-03-26 20:37 /dev/ramdump_md_cvpss
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   8 1970-03-26 20:37 /dev/subsys_slpi
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   1 1970-03-26 20:37 /dev/subsys_ipa_uc
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  14 1970-03-26 20:37 /dev/ramdump_slpi
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   2 1970-03-26 20:37 /dev/ramdump_ipa_uc
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   5 1970-03-26 20:37 /dev/ramdump_md_adsp
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   6 1970-03-26 20:37 /dev/ramdump_cdsp
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,  12 1970-03-26 20:37 /dev/subsys_npu
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   7 1970-03-26 20:37 /dev/ramdump_md_cdsp
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   2 1970-03-26 20:37 /dev/subsys_adsp
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,   4 1970-03-26 20:37 /dev/ramdump_adsp
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  21 1970-03-26 20:37 /dev/ramdump_md_npu
+crw-r----- 1 system system u:object_r:vendor_ssr_device:s0  234,   3 1970-03-26 20:37 /dev/subsys_cdsp
+crw-r----- 1 system system u:object_r:vendor_ramdump_device:s0  235,  20 1970-03-26 20:37 /dev/ramdump_npu
+
+=== QRTR / DIAG / SMD CONTEXT ===
+crw-rw---- 1 system vendor_qti_diag u:object_r:vendor_diag_device:s0  505,   0 1970-03-26 20:37 /dev/diag
+crw-r--r-- 1 system system u:object_r:vendor_xdsp_device:s0  480,   1 1970-03-26 20:37 /dev/adsprpc-smd-secure
+crw-rw-r-- 1 system system u:object_r:vendor_qdsp_device:s0  480,   0 1970-03-26 20:37 /dev/adsprpc-smd

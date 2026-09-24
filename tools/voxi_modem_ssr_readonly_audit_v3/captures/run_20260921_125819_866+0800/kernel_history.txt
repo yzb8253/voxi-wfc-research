@@ -1,0 +1,16 @@
+=== DMESG ===
+/system/bin/sh: esoc: inaccessible or not found
+/system/bin/sh: subsystem: inaccessible or not found
+/system/bin/sh: rproc: inaccessible or not found
+/system/bin/sh: subsys: inaccessible or not found
+/system/bin/sh: ssr: inaccessible or not found
+/system/bin/sh: pil: inaccessible or not found
+/system/bin/sh: mba: inaccessible or not found
+/system/bin/sh: crash: inaccessible or not found
+/system/bin/sh: mss: inaccessible or not found
+/system/bin/sh: modem: inaccessible or not found
+/system/bin/sh: restart: inaccessible or not found
+/system/bin/sh: ramdump: inaccessible or not found
+/system/bin/sh: fatal: inaccessible or not found
+
+=== PSTORE / LAST_KMSG IF PRESENT ===
