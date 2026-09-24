@@ -229,3 +229,15 @@ Scope: repository-only source redesign after run 008; no phone operation perform
 Change: move the optional one-shot SIM recovery cycle into the fresh-X55 holder-sole/vendor.per_mgr-stopped window; only afterward perform the already validated make-before-break native cleanup. Add `PRE_CLEANUP_WFC_RESULT` and a post-cleanup WFC survival check so recovery and cleanup effects are separable.
 Safety retained: exact holder identity; one optional SIM OFF/ON; no qcrild2 restart; no cnd restart; no kill -9; exact dual-owner cleanup; pm-service sole/X55 ONLINE/crash_count 0 gate.
 Conclusion: source redesign committed; exact paired PS5.1 selftest still required before any new phone execution.
+
+
+## X55-V27-RECOVERY-BEFORE-CLEANUP-DEVICE-010
+
+Date: 2026-09-24 10:21-10:26 Asia/Shanghai
+Baseline: exact clean `a45bd0633b18be765bab80b45ed41cbfc66160f5`; paired PS5.1 selftest PASS.
+Pre-state: native-clean single-SIM F1; pm-service sole owner; X55 ONLINE/crash_count 0; holder absent; qcrild2 PID 873.
+Observed recovery: per_mgr stop PASS; holder sole PASS; X55 rebirth/new PON_SUCCESS PASS; exactly one SIM POWER_DOWN/UP completed. Full WFC recovered before cleanup, including IMS REGISTERED over WLAN, qti.cne request 929, IMS IWLAN NetworkAgent 107, UDP/4500 keepalive and XFRM in later read-only status.
+Critical timing: qcrild2 logged PeripheralManager server death at 10:21:25.263 and failed service-reconnect rounds through 10:21:55.556. The script did not start pm-service until 10:25:12.954; the new server reported SDX55M voter/listener count 0/0 and no client, so exact dual ownership never formed.
+Result: recovery success before cleanup; cleanup blocked as `EXPECTED_DUAL_OWNER_NOT_FORMED`; live scene intentionally preserved with WFC healthy, holder sole, pm-service running without esoc0 ownership, X55 ONLINE/crash_count 0, qcrild2 unchanged.
+Evidence: `v2.7-alpha-native-handoff/RECOVERY_BEFORE_CLEANUP_102120_RESULT.md`.
+Next design: pre-stage slow artifacts before per_mgr stop and request per_mgr start immediately after successful SIM POWER_UP while keeping the holder alive until WFC observation completes.
