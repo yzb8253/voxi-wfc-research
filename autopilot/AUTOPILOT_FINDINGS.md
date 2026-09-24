@@ -489,3 +489,13 @@ NEXT_ACTION: no phone action. Treat v1 as an invalid gate run, preserve evidence
 - This is an observation-only correction; it adds no reset or recovery behavior.
 
 NEXT_ACTION: run only the newly authorized independent v2 series; preserve v1 as invalid and stop on the first valid v2 counterexample.
+
+## R4a v2 causal result (2026-09-24)
+
+- R4a was validly falsified at Cycle 2 P after both producer and framework-consumer readiness passed.
+- The qcrild2 producer was not the failed layer: old phone PID 24403 received fresh IMS->IWLAN callbacks after the new producer epoch.
+- qtidataservices stayed in PID 3373 across both cycles. After R3, new phone PID 19318 did not receive M1 replay.
+- First missing milestone: M1. Downstream NRM returned NOT_REG_OR_SEARCHING, SST consumed the negative result, and DNC remained UNKNOWN.
+- This supports moving the minimum candidate boundary to qtidataservices/QNS provider lifecycle plus a subsequent fresh framework consumer, subject to separate R4b audit and authorization.
+
+NEXT_ACTION: design R4b statically only; do not patch ANM/NRM/SST/DNC and do not execute another reset without explicit authorization.

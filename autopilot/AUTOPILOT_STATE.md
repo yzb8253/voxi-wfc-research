@@ -545,3 +545,15 @@ NEXT_ACTION: preserve the clean airplane-OFF F1 scene. A corrected evidence adap
 - PS5 parse, state-machine order, max-one restart, no-fallback, run-name binding and static no-phone-write audits passed.
 
 NEXT_ACTION: checkpoint this frozen adapter, then use the single authorized reboot to establish `CONTROL_A0_R4A_V2` and execute the unchanged three-cycle v2 runner fail-closed.
+
+## 2026-09-24 R4a v2 valid counterexample
+
+- The one authorized reboot established `CONTROL_A0_R4A_V2` in F1 with all environment/native gates passing.
+- Cycle 1: producer qcrild2 1875 -> 15426, phone 3466 -> 24403, qtidataservices 3373 unchanged, P canonical, M1-M7 complete, WFC HEALTHY after one SIM cycle.
+- Cycle 2: fixed R0 normalized prior frozen ownership; R4a producer qcrild2 5785 -> 8932 passed; phone 24403 -> 19318 passed; qtidataservices remained 3373.
+- Cycle 2 fixed P failed: Unknown/UNKNOWN/UNKNOWN/preferred=false. v2.6.2 and SIM cycle were not run. Cycle 3 was not run.
+- Classification: `R4A_FALSIFIED_AT_P`, `FIRST_MISSING_MILESTONE=M1`.
+- Old phone PID 24403 received fresh IMS->IWLAN before R3; new PID 19318 received no replay after R3. NRM was NOT_REG_OR_SEARCHING and SST consumed that negative result.
+- No adaptive action or post-failure phone write occurred.
+
+NEXT_ACTION: preserve the Cycle 2 P scene. R4b is eligible for static design around the qtidataservices/QNS provider epoch, but is not authorized for execution.

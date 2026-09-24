@@ -475,3 +475,14 @@ NEXT_ACTION: stop. Do not resume this series. A new v2 gate correction needs a n
 - All reset and recovery semantics remain unchanged. Static PS5/order/hash/no-write audits pass.
 
 NEXT_ACTION: establish `CONTROL_A0_R4A_V2`, then run `Run-R4aThreeCycle.ps1 -RunName r4a_3cycle_v2` exactly once and stop fail-closed at the first child failure.
+
+## Current checkpoint: R4a v2 falsified at Cycle 2 P
+
+- Result: `experiment/reset-boundary-r4a/runs/r4a_3cycle_v2/RESULT.md`.
+- Cycle 1 passed through WFC HEALTHY with one SIM cycle.
+- Cycle 2 producer and R3/A_READY passed, but P ended Unknown/UNKNOWN/preferred=false with no fresh M1 to the new phone process.
+- v2.6.2 did not run in Cycle 2; SIM writes were zero; Cycle 3 did not run.
+- Phone remains in the airplane-ON P-failure scene. No cleanup or adaptive action was performed.
+- R4a is falsified. R4b is eligible for design only, focused on qtidataservices/QNS provider lifecycle before the new framework consumer.
+
+NEXT_ACTION: preserve the scene and stop. Do not execute R4b without a separate static audit and explicit authorization.
