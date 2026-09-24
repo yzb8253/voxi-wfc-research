@@ -12,3 +12,10 @@
 
 Logcat evidence is bounded by the provider restart timestamp and the new PID. Old debug history is never accepted as lifecycle evidence.
 
+## v2 observation extension
+
+The reset and readiness semantics are unchanged. Observation now records T1-T10 separately and classifies the initial query as `QUERY_NOT_SENT`, `QUERY_SENT_NO_RESPONSE`, `QUERY_RESPONSE_EMPTY`, or `QUERY_RESPONSE_VALID`. Request and response serials and the IMS network list are separate fields. A missing log is `UNOBSERVABLE`; it is never converted into runtime proof.
+
+The current-ROM implementation order is `getAllQualifiedNetworks()` followed by `registerForQualifiedNetworksChanged()`. The slot-level process-static `IWlanProxy` owns service/proxy state, pending requests, registrants, cookies and production response/indication objects. These facts support the reset boundary but do not prove a particular runtime payload.
+
+User-supplied external MinQns evidence is retained only as corroboration that first-publication/replay races are a real problem class. Periodic re-report, forced IMS-to-IWLAN publication, callback injection and provider replacement remain explicitly forbidden and are absent from this implementation.

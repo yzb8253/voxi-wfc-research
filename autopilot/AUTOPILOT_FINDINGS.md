@@ -519,3 +519,13 @@ NEXT_ACTION: no phone action. Implement/audit R4b only after separate authorizat
 - Host observation failures after a consumed reset must be separated from lifecycle failures. This series is invalid/incomplete, not `R4B_FALSIFIED`.
 
 NEXT_ACTION: no phone action. Do not infer H3 from this aborted series and do not reuse its baseline.
+
+## R4b v2 causal result (2026-09-24)
+
+- Full producer + provider + consumer lifecycle reconstruction did not restore deterministic M1 at fixed P.
+- Provider creation, slot1 IWlanProxy, IIWlan/slot2 connection and response serial 0 were observed. Native NAH's current IMS cache contained EUTRAN/IWLAN.
+- Exact request serial, response payload, `updateQualifiedNetworks`, `updateQualifiedNetworkTypes` and runtime callback registration were not observable; native cache content is supporting evidence, not proof of the Java response payload.
+- New phone ANM bound to vendor QNS but received no IMS-to-IWLAN publication. P remained unknown/preferred=false.
+- R4b is falsified at P/M1. The narrowest remaining evidence gap spans QNS response-to-update and provider-to-new-consumer replay; it cannot yet be assigned strictly to CASE A or CASE B.
+
+NEXT_ACTION: no phone action. Preserve this counterexample; any larger reset boundary requires separate static design and approval.

@@ -3,6 +3,7 @@ param(
   [ValidateRange(1,3)][int]$Cycle=1,
   [switch]$Execute,
   [switch]$StaticAudit,
+  [switch]$Ps51Regression,
   [string]$RunName='r4b_3cycle_v1'
 )
 
@@ -51,6 +52,7 @@ function Scope {
     qtidata=(One-Process '^\s*10104\s+\d+\s+\d+\s+\.qtidataservices\s+\.qtidataservices\s*$' 'QTIDATA')
     phone=(One-Process '^\s*1001\s+\d+\s+\d+\s+com\.android\.phone\s+com\.android\.phone\s*$' 'PHONE')
     qcomims=(One-Process '^\s*10196\s+\d+\s+\d+\s+org\.codeaurora\.ims\s+org\.codeaurora\.ims\s*$' 'QCOMIMS')
+    cnd=(One-Process '^\s*1000\s+\d+\s+1\s+cnd\s+cnd\s*$' 'CND')
   }
 }
 function Pm-Owns($State){if($null -eq $State.processes.pmService){return $false};$p=[string]$State.processes.pmService.pid;[bool](@($State.native.ownerLines|Where-Object{$_ -match '/dev/subsys_esoc0' -and $_ -match "\s$p\s"}).Count)}
@@ -60,10 +62,16 @@ function Native-Ready($State){
   $State.native.x55State -eq 'ONLINE' -and $State.native.vendorPeripheralState -eq 'ONLINE' -and $State.native.crashCount -eq 0 -and
   (Pm-Owns $State) -and $null -eq $State.processes.holder -and -not $State.residues.holderPidFile -and -not $State.residues.moduleLock
 }
-function Evidence([string]$Name,[string]$Source,[string]$Raw,[bool]$Pass){[pscustomobject]@{FIELD=$Name;SOURCE=$Source;TIMESTAMP=(Get-Date -Format o);RAW_EVIDENCE=$Raw;PASS=$Pass}}
+function Evidence([string]$Name,[string]$Source,[string]$Raw,[string]$Timestamp,[string]$Status,[string]$Serial='UNOBSERVABLE',[string]$Content='UNOBSERVABLE'){
+  [pscustomobject]@{FIELD=$Name;SOURCE=$Source;TIMESTAMP=$Timestamp;RAW_EVIDENCE=$Raw;STATUS=$Status;PASS=($Status -eq 'PASS');SERIAL=$Serial;CONTENT=$Content}
+}
 function New-PidLine([string]$Logs,[int]$AndroidPid,[string]$Pattern){
   @($Logs -split "\r?\n"|Where-Object{$_ -match ("\s{0}\s+\d+\s" -f $AndroidPid) -and $_ -match $Pattern}|Select-Object -Last 1)
 }
+function Last-Line([string]$Logs,[string]$Pattern){@($Logs -split "\r?\n"|Where-Object{$_ -match $Pattern}|Select-Object -Last 1)}
+function Line-Text($Value){$a=@($Value);if($a.Count -eq 0){'UNOBSERVABLE'}else{([string]$a[0]).Trim()}}
+function Line-Time($Value){$raw=Line-Text $Value;$m=[regex]::Match($raw,'^(?<time>\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d{3})');if($m.Success){$m.Groups['time'].Value}else{'UNOBSERVABLE'}}
+function Line-Serial($Value){$raw=Line-Text $Value;$m=[regex]::Match($raw,'QualifiedNetworksServiceImpl:\s*(?<serial>\d+)\s*>');if($m.Success){$m.Groups['serial'].Value}else{'UNOBSERVABLE'}}
 function Cache-Classification([string]$Debug){
   $line=@($Debug -split "\r?\n"|Where-Object{$_ -match '(?i)(\[NAH\].*)?type=IMS.*networks=\['}|Select-Object -Last 1)
   if($line.Count -eq 0){return [pscustomobject]@{Class='QUERY_RESPONSE_NO_IMS_ROW';Raw='IMS_ROW_NOT_FOUND'}}
@@ -74,12 +82,24 @@ function Cache-Classification([string]$Debug){
 }
 function Save-Evidence([object[]]$Rows){$path=Join-Path $HostRoot ("cycle_{0}_provider_evidence.json" -f $Cycle);[IO.File]::WriteAllText($path,(@($Rows)|ConvertTo-Json -Depth 6),[Text.UTF8Encoding]::new($false));Log "PROVIDER_EVIDENCE_FILE=$path"}
 
+if($Ps51Regression){
+  $single=@(New-PidLine '09-24 00:00:00.000  123  456 D Tag: marker serial=7' 123 'marker').Count
+  $empty=@(New-PidLine '09-24 00:00:00.000  123  456 D Tag: other' 123 'marker').Count
+  $nullArray=@($null).Count
+  $lineArray=@(Last-Line "one`ntwo marker" 'marker').Count
+  if($single -ne 1 -or $empty -ne 0 -or $nullArray -ne 1 -or $lineArray -ne 1){throw "PS51_ARRAY_REGRESSION_FAILED single=$single empty=$empty null=$nullArray line=$lineArray"}
+  Write-Host 'PS51_SCALAR_NULL_ARRAY_REGRESSION=PASS'
+  Write-Host 'STATIC_NO_ADB=PASS'
+  exit 0
+}
+
 if($StaticAudit){
   Write-Host 'PS5_PARSE_TARGET=PASS'
   Write-Host 'RESET_PRIMITIVE=exact verified qtidataservices PID TERM'
   Write-Host 'RESET_COUNT_MAX=1'
   Write-Host 'PROVIDER_READY_TIMEOUT_SECONDS=120'
-  Write-Host 'INITIAL_QUERY_EVIDENCE=new-PID Response Processed plus live IIWlan cache'
+  Write-Host 'INITIAL_QUERY_CLASSES=QUERY_NOT_SENT,QUERY_SENT_NO_RESPONSE,QUERY_RESPONSE_EMPTY,QUERY_RESPONSE_VALID'
+  Write-Host 'INITIAL_QUERY_EVIDENCE=T6-T9 new-PID logcat plus contemporaneous live IIWlan cache'
   Write-Host 'CALLBACK_REGISTRATION_EVIDENCE=static constructor control-flow plus new process epoch'
   Write-Host 'NO_SET_RESPONSE_FUNCTIONS_FROM_EXTERNAL_CLIENT=YES'
   Write-Host 'STATIC_NO_ADB=PASS'
@@ -98,19 +118,20 @@ $identityPass=($before.qtidata.uid -eq 10104 -and $domain -eq $ExpectedDomain -a
 if(-not $identityPass){throw "QTIDATA_PRE_IDENTITY_FAIL domain=$domain parent=$parentCmd"}
 $since=(Root "date '+%m-%d %H:%M:%S.000'").Trim()
 $epoch=(Root "date '+%H:%M:%S.000'").Trim()
-Log "PROVIDER_SCOPE_BEFORE primary=$($before.primary.pid) qcrild2=$($before.target.pid) qtidata=$($before.qtidata.pid) phone=$($before.phone.pid) qcomims=$($before.qcomims.pid)"
+Log "PROVIDER_SCOPE_BEFORE primary=$($before.primary.pid) qcrild2=$($before.target.pid) qtidata=$($before.qtidata.pid) phone=$($before.phone.pid) qcomims=$($before.qcomims.pid) cnd=$($before.cnd.pid)"
 Log "PROVIDER_EPOCH_LOWER_BOUND=$epoch"
 [void](Root-Write ("kill -TERM {0}" -f $before.qtidata.pid))
 Log 'QTIDATASERVICES_TERM_COUNT=1'
 
-$deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds);$new=$null;$stable=0;$logs='';$debug='';$services='';$activity='';$cache=[pscustomobject]@{Class='C_QUERY_INCOMPLETE';Raw='NO_RESPONSE'};$rows=@()
+$deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds);$new=$null;$stable=0;$logs='';$debug='';$services='';$activity='';$cache=[pscustomobject]@{Class='NO_IMS_ROW';Raw='NO_RESPONSE'};$rows=@();$queryClass='QUERY_NOT_SENT'
 $newDomain='';$processIdentity=$false;$serviceIdentity=$false;$qns=$false;$network=$false;$data=$false;$slotProvider=$false;$proxy=$false;$connected=$false;$response=$false;$nativeReady=$false;$fatal=$false
+$t1=@();$t2=@();$t3=@();$t4=@();$t5=@();$t6=@();$t7=@();$t8=@();$t9=@();$t10=@()
 while((Get-Date)-lt $deadline){
-  Start-Sleep -Seconds 2
+  Start-Sleep -Seconds 1
   try{$candidate=Scope}catch{continue}
   if($candidate.qtidata.pid -eq $before.qtidata.pid){continue}
   if((Root ("test -d /proc/{0} && echo LIVE || echo GONE" -f $before.qtidata.pid)).Trim() -ne 'GONE'){continue}
-  if($candidate.primary.pid -ne $before.primary.pid -or $candidate.target.pid -ne $before.target.pid -or $candidate.phone.pid -ne $before.phone.pid -or $candidate.qcomims.pid -ne $before.qcomims.pid){throw 'R4B_PROVIDER_SCOPE_VIOLATION'}
+  if($candidate.primary.pid -ne $before.primary.pid -or $candidate.target.pid -ne $before.target.pid -or $candidate.phone.pid -ne $before.phone.pid -or $candidate.qcomims.pid -ne $before.qcomims.pid -or $candidate.cnd.pid -ne $before.cnd.pid){throw 'R4B_PROVIDER_SCOPE_VIOLATION'}
   $newDomain=(Root ("cat /proc/{0}/attr/current" -f $candidate.qtidata.pid)).Trim()
   $activity=Root 'dumpsys activity processes'
   $services=(Root 'dumpsys activity services vendor.qti.iwlan')+(Root 'dumpsys activity services com.qualcomm.qti.cne')+(Root 'dumpsys activity services vendor.qti.hardware.cacert.server')
@@ -118,7 +139,7 @@ while((Get-Date)-lt $deadline){
   $debug=Root 'lshal debug vendor.qti.hardware.data.iwlan@1.0::IIWlan/slot2 2>/dev/null'
   $cache=Cache-Classification $debug
   $processIdentity=($candidate.qtidata.uid -eq 10104 -and $newDomain -eq $ExpectedDomain -and $activity -match ("\*PERS\* UID 10104 ProcessRecord\{{[^\r\n]+\s{0}:\.qtidataservices/u0a104\}}" -f $candidate.qtidata.pid))
-  $serviceIdentity=($services -match ("app=ProcessRecord\{{[^\r\n]+\s{0}:\.qtidataservices/u0a104\}}" -f $candidate.qtidata.pid) -and $services -match 'QualifiedNetworksServiceImpl' -and $services -match 'IWlanNetworkService' -and $services -match 'IWlanDataService' -and $services -match 'CneApp')
+  $serviceIdentity=($services -match ("app=ProcessRecord\{{[^\r\n]+\s{0}:\.qtidataservices/u0a104\}}" -f $candidate.qtidata.pid) -and $services -match 'QualifiedNetworksServiceImpl' -and $services -match 'IWlanNetworkService' -and $services -match 'IWlanDataService' -and $services -match 'CneApp' -and $services -match 'CACertService')
   $qns=@(New-PidLine $logs $candidate.qtidata.pid '(?i)Qualified networks service created').Count -gt 0
   $network=@(New-PidLine $logs $candidate.qtidata.pid '(?i)IWlan network service created').Count -gt 0
   $data=@(New-PidLine $logs $candidate.qtidata.pid '(?i)IWlan data service created').Count -gt 0
@@ -126,39 +147,57 @@ while((Get-Date)-lt $deadline){
   $proxy=@(New-PidLine $logs $candidate.qtidata.pid '(?i)new IWlan Proxy on slot 1').Count -gt 0
   $connected=@(New-PidLine $logs $candidate.qtidata.pid '(?i)(IIWlan client connected on slot2|new service: IIWlan.*slot2)').Count -gt 0
   $response=@(New-PidLine $logs $candidate.qtidata.pid '(?i)QualifiedNetworksServiceImpl:.*Response Processed').Count -gt 0
+  $t1=Last-Line $logs ("Process \.qtidataservices \(pid {0}\) has died" -f $before.qtidata.pid)
+  $t2=Last-Line $logs ("(am_proc_start: \[0,{0},10104,\.qtidataservices|Start proc {0}:\.qtidataservices)" -f $candidate.qtidata.pid)
+  $t3=New-PidLine $logs $candidate.qtidata.pid '(?i)Qualified Networks service created for slot 1'
+  $t4=New-PidLine $logs $candidate.qtidata.pid '(?i)new IWlan Proxy on slot 1'
+  $t5=New-PidLine $logs $candidate.qtidata.pid '(?i)(IIWlan client connected on slot2|new service: IIWlan.*slot2)'
+  $t6=New-PidLine $logs $candidate.qtidata.pid '(?i)(getAllQualifiedNetworks.*(request|serial|sent)|request.*getAllQualifiedNetworks)'
+  $t7=New-PidLine $logs $candidate.qtidata.pid '(?i)QualifiedNetworksServiceImpl:.*Response Processed'
+  $t8=New-PidLine $logs $candidate.qtidata.pid '(?i)get complete, Calling updateQualifiedNetworks'
+  $t9=New-PidLine $logs $candidate.qtidata.pid '(?i)Calling updateQualifiedNetworkTypes'
+  $t10=New-PidLine $logs $candidate.qtidata.pid '(?i)registerForQualifiedNetworksChanged'
+  if(-not $slotProvider){$queryClass='QUERY_NOT_SENT'}elseif(-not $response){$queryClass='QUERY_SENT_NO_RESPONSE'}elseif($cache.Class -match 'NO_IMS|UNKNOWN_OR_EMPTY'){$queryClass='QUERY_RESPONSE_EMPTY'}else{$queryClass='QUERY_RESPONSE_VALID'}
   $nativeReady=($debug -match 'DsdServiceReady=true' -and $debug -match 'WdsServiceReady=true' -and $debug -match 'IWLANEnabled=true' -and $debug -match 'ModemCapability=true')
   $fatal=@(New-PidLine $logs $candidate.qtidata.pid '(?i)(FATAL EXCEPTION|DeadObjectException|serviceDied|fatal binder)').Count -gt 0
   $ready=$processIdentity -and $serviceIdentity -and $qns -and $network -and $data -and $slotProvider -and $proxy -and $connected -and $response -and $nativeReady -and -not $fatal
-  Log "PROVIDER_PROGRESS newPid=$($candidate.qtidata.pid) identity=$processIdentity services=$serviceIdentity qns=$qns network=$network data=$data slot1=$slotProvider proxy=$proxy connected=$connected response=$response native=$nativeReady fatal=$fatal cache=$($cache.Class) stable=$stable"
-  if($ready){if($null -ne $new -and $new.qtidata.pid -eq $candidate.qtidata.pid){$stable++}else{$stable=1};$new=$candidate;if($stable -ge 5){break}}else{$stable=0;$new=$candidate}
+  Log "PROVIDER_PROGRESS newPid=$($candidate.qtidata.pid) identity=$processIdentity services=$serviceIdentity qns=$qns network=$network data=$data slot1=$slotProvider proxy=$proxy connected=$connected response=$response queryClass=$queryClass native=$nativeReady fatal=$fatal cache=$($cache.Class) stable=$stable"
+  if($ready){if($null -ne $new -and $new.qtidata.pid -eq $candidate.qtidata.pid){$stable++}else{$stable=1};$new=$candidate;if($stable -ge 10){break}}else{$stable=0;$new=$candidate}
 }
 if($null -eq $new){$new=$before}
+$responseSerial=Line-Serial $t7
+$requestSerial=Line-Serial $t6
+$imsContent=if($cache.Raw){$cache.Raw}else{'UNOBSERVABLE'}
 $rows=@(
-  (Evidence 'OldPidGone' '/proc' ("old={0}; new={1}" -f $before.qtidata.pid,$new.qtidata.pid) ($new.qtidata.pid -ne $before.qtidata.pid)),
-  (Evidence 'ProcessIdentity' 'ps+SELinux+ActivityManager' ("pid={0}; uid={1}; domain={2}" -f $new.qtidata.pid,$new.qtidata.uid,$newDomain) $processIdentity),
-  (Evidence 'HostedServices' 'dumpsys activity services' 'QNS+NetworkService+DataService+CneApp hosted by new PID' $serviceIdentity),
-  (Evidence 'QnsCreated' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)Qualified networks service created')) $qns),
-  (Evidence 'IwlanNetworkServiceCreated' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)IWlan network service created')) $network),
-  (Evidence 'IwlanDataServiceCreated' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)IWlan data service created')) $data),
-  (Evidence 'Slot1ProviderCreated' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)(Qualified Networks service created for slot 1|create.*NetworkAvailabilityProvider.*1)')) $slotProvider),
-  (Evidence 'StaticIwlanProxyNewEpoch' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)new IWlan Proxy on slot 1')) $proxy),
-  (Evidence 'IIWlanSlot2Connected' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)(IIWlan client connected on slot2|new service: IIWlan.*slot2)')) $connected),
-  (Evidence 'InitialGetAllQualifiedNetworksResponse' 'new-PID logcat' ([string](New-PidLine $logs $new.qtidata.pid '(?i)QualifiedNetworksServiceImpl:.*Response Processed')) $response),
-  (Evidence 'InitialCacheClassification' 'live IIWlan IBase debug at response epoch' $cache.Raw ($response -and $cache.Class -notmatch '^QUERY_RESPONSE_NO')),
-  (Evidence 'CallbackRegistration' 'audited provider constructor control-flow+new process epoch' 'getAllQualifiedNetworks then registerForQualifiedNetworksChanged; direct runtime callback identity not externally exposed' ($response -and $proxy)),
-  (Evidence 'ProducerPreserved' 'process snapshot' ("qcrild2={0}" -f $new.target.pid) ($new.target.pid -eq $before.target.pid)),
-  (Evidence 'FatalHidlBinderErrorsAbsent' 'new-PID logcat' 'none' (-not $fatal)),
-  (Evidence 'StableTenSeconds' '5 consecutive 2-second samples' ("samples={0}" -f $stable) ($stable -ge 5))
+  (Evidence 'T1_OLD_QTIDATA_PID_GONE' 'ActivityManager logcat' (Line-Text $t1) (Line-Time $t1) $(if(@($t1).Count){'PASS'}else{'UNOBSERVABLE'})),
+  (Evidence 'T2_NEW_QTIDATA_PID_BORN' 'ActivityManager logcat' (Line-Text $t2) (Line-Time $t2) $(if(@($t2).Count){'PASS'}else{'UNOBSERVABLE'})),
+  (Evidence 'T3_QNS_SLOT1_PROVIDER_CREATED' 'new-PID logcat' (Line-Text $t3) (Line-Time $t3) $(if(@($t3).Count){'PASS'}else{'FAIL'})),
+  (Evidence 'T4_IWLANPROXY_SLOT1_NEW_EPOCH' 'new-PID logcat' (Line-Text $t4) (Line-Time $t4) $(if(@($t4).Count){'PASS'}else{'FAIL'})),
+  (Evidence 'T5_IIWLAN_SLOT2_CONNECTED' 'new-PID logcat' (Line-Text $t5) (Line-Time $t5) $(if(@($t5).Count){'PASS'}else{'FAIL'})),
+  (Evidence 'T6_GET_ALL_QUALIFIED_NETWORKS_REQUEST' 'new-PID logcat' (Line-Text $t6) (Line-Time $t6) $(if(@($t6).Count){'PASS'}else{'UNOBSERVABLE'}) $requestSerial),
+  (Evidence 'T7_GET_ALL_QUALIFIED_NETWORKS_RESPONSE' 'new-PID logcat' (Line-Text $t7) (Line-Time $t7) $(if(@($t7).Count){'PASS'}else{'FAIL'}) $responseSerial),
+  (Evidence 'T8_GET_COMPLETE_UPDATE_QUALIFIED_NETWORKS' 'new-PID logcat' (Line-Text $t8) (Line-Time $t8) $(if(@($t8).Count){'PASS'}else{'UNOBSERVABLE'}) $responseSerial),
+  (Evidence 'T9_UPDATE_QUALIFIED_NETWORK_TYPES' 'new-PID logcat' (Line-Text $t9) (Line-Time $t9) $(if(@($t9).Count){'PASS'}else{'UNOBSERVABLE'}) $responseSerial $imsContent),
+  (Evidence 'T10_CALLBACK_REGISTERED' 'new-PID logcat or audited constructor control-flow' $(if(@($t10).Count){Line-Text $t10}else{'runtime registration object is UNOBSERVABLE; constructor order is getAllQualifiedNetworks then registerForQualifiedNetworksChanged'}) $(if(@($t10).Count){Line-Time $t10}else{Line-Time $t3}) $(if(@($t10).Count){'PASS'}else{'UNOBSERVABLE'})),
+  (Evidence 'QueryClassification' 'T3/T7 plus contemporaneous IIWlan debug' $queryClass (Get-Date -Format o) 'PASS' $responseSerial $imsContent),
+  (Evidence 'ProcessIdentity' 'ps+SELinux+ActivityManager' ("pid={0}; uid={1}; domain={2}" -f $new.qtidata.pid,$new.qtidata.uid,$newDomain) (Get-Date -Format o) $(if($processIdentity){'PASS'}else{'FAIL'})),
+  (Evidence 'HostedServices' 'dumpsys activity services' 'QNS+NetworkService+DataService+CneApp+CACertService hosted by new PID' (Get-Date -Format o) $(if($serviceIdentity){'PASS'}else{'FAIL'})),
+  (Evidence 'ProducerPreserved' 'process snapshot' ("qcrild2={0}; primary={1}; cnd={2}; qcomims={3}; phone={4}" -f $new.target.pid,$new.primary.pid,$new.cnd.pid,$new.qcomims.pid,$new.phone.pid) (Get-Date -Format o) $(if($new.target.pid -eq $before.target.pid -and $new.primary.pid -eq $before.primary.pid -and $new.cnd.pid -eq $before.cnd.pid -and $new.qcomims.pid -eq $before.qcomims.pid -and $new.phone.pid -eq $before.phone.pid){'PASS'}else{'FAIL'})),
+  (Evidence 'FatalHidlBinderErrorsAbsent' 'new-PID logcat' 'none' (Get-Date -Format o) $(if(-not $fatal){'PASS'}else{'FAIL'})),
+  (Evidence 'StableTenSeconds' '10 consecutive 1-second samples' ("samples={0}" -f $stable) (Get-Date -Format o) $(if($stable -ge 10){'PASS'}else{'FAIL'}))
 )
 Save-Evidence $rows
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_provider_logcat.txt" -f $Cycle)),$logs,[Text.UTF8Encoding]::new($false))
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_provider_debug.txt" -f $Cycle)),$debug,[Text.UTF8Encoding]::new($false))
-if($new.qtidata.pid -eq $before.qtidata.pid -or $stable -lt 5){throw 'R4B_PROVIDER_READY_TIMEOUT'}
+if($new.qtidata.pid -eq $before.qtidata.pid -or $stable -lt 10){throw 'R4B_PROVIDER_READY_TIMEOUT'}
 $afterState=Capture ("R4B_C{0}_PROVIDER_READY" -f $Cycle)
 if(-not (Native-Ready $afterState)){throw 'R4B_PROVIDER_READY_NATIVE_GATE_FAIL'}
-Log "PROVIDER_READY=PASS oldQtidata=$($before.qtidata.pid) newQtidata=$($new.qtidata.pid) qcrild2=$($new.target.pid) cache=$($cache.Class)"
+Log "PROVIDER_READY=PASS oldQtidata=$($before.qtidata.pid) newQtidata=$($new.qtidata.pid) qcrild2=$($new.target.pid) queryClass=$queryClass requestSerial=$requestSerial responseSerial=$responseSerial cache=$($cache.Class)"
 Write-Host 'PROVIDER_READY=PASS'
 Write-Host "QTIDATASERVICES_OLD_PID=$($before.qtidata.pid)"
 Write-Host "QTIDATASERVICES_NEW_PID=$($new.qtidata.pid)"
-Write-Host "PROVIDER_INITIAL_CACHE=$($cache.Class)"
+Write-Host "PROVIDER_QUERY_CLASS=$queryClass"
+Write-Host "PROVIDER_REQUEST_SERIAL=$requestSerial"
+Write-Host "PROVIDER_RESPONSE_SERIAL=$responseSerial"
+Write-Host "PROVIDER_IMS_CONTENT=$imsContent"
 Write-Host 'QTIDATASERVICES_TERM_COUNT=1'

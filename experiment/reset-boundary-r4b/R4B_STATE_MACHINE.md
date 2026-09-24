@@ -8,3 +8,6 @@ Failure classes are producer, provider, A, P, or cycle/WFC. Any failure stops th
 
 The central prediction is explicit: R4a's old-provider/new-consumer pairing missed M1; if a new-provider/new-consumer pairing still misses M1, H3 is falsified at this reset boundary.
 
+## v2 execution result
+
+The new independent v2 series was valid through PRODUCER_READY, PROVIDER_READY and A_READY in Cycle 1, then failed fixed P with M1 absent. Result: `R4B_FALSIFIED_AT_P`, Cycle 1. Cycles 2/3 and v2.6.2 were not run. See `runs/r4b_3cycle_v2/RESULT.md`.

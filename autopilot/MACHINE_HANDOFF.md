@@ -511,3 +511,14 @@ NEXT_ACTION: preserve the phone. Do not execute R4b until the user separately au
 - Source correction is static-only and unexecuted.
 
 NEXT_ACTION: sync this checkpoint and stop. Any corrected R4b device series requires new explicit authorization and a new reboot baseline.
+
+## Current checkpoint: R4b v2 falsified at Cycle 1 P
+
+- New series `r4b_3cycle_v2` used one reboot baseline.
+- Cycle 1 PIDs: qcrild2 `1961 -> 14682`, qtidataservices `3385 -> 23859`, phone `3448 -> 27795`.
+- PRODUCER_READY, PROVIDER_READY and A_READY passed. Provider response serial 0 completed; native IMS cache contained EUTRAN/IWLAN, while exact Java payload/update logs were unobservable.
+- Fixed P failed with M1 absent and Unknown/UNKNOWN/preferred=false. v2.6.2, SIM cycle and Cycles 2/3 were not run.
+- Result file: `experiment/reset-boundary-r4b/runs/r4b_3cycle_v2/RESULT.md`.
+- No workaround, retry or post-failure write occurred.
+
+NEXT_ACTION: preserve the airplane-ON P failure scene. R4b is falsified; do not continue this series.

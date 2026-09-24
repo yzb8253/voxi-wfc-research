@@ -580,3 +580,14 @@ NEXT_ACTION: preserve the Cycle 2 scene. R4b execution requires separate explici
 - Read-only freeze confirmed native-clean X55/PM state and F1. The scalar handling was corrected and statically audited only; no rerun occurred.
 
 NEXT_ACTION: stop and preserve. A corrected device series needs a separate explicit authorization and a new baseline; never resume `r4b_3cycle_v1`.
+
+## 2026-09-24 R4b v2 valid P counterexample
+
+- A new one-reboot `CONTROL_A0_R4B_V2` baseline passed; v1 was not resumed.
+- Cycle 1 producer qcrild2 `1961 -> 14682`, provider qtidataservices `3385 -> 23859`, and phone consumer `3448 -> 27795` all passed their frozen readiness gates.
+- Provider response serial 0 was processed; the contemporaneous native IMS cache contained EUTRAN/IWLAN. Request serial and exact Java response/update payload were unobservable.
+- Fixed P ended Unknown/UNKNOWN/UNKNOWN/preferred=false with no M1. v2.6.2 and SIM cycle did not run; Cycles 2/3 did not run.
+- Classification: `R4B_FALSIFIED_AT_P`, `R4B_FALSIFIED_AT_CYCLE=1`, `FIRST_MISSING_MILESTONE=M1`.
+- Earliest unclosed internal interval is response serial 0 -> unobservable QNS update -> missing new-consumer ANM publication. No workaround or adaptive action followed.
+
+NEXT_ACTION: stop and preserve the P-failure scene. Do not add periodic QNS re-report, forced IMS/IWLAN, callback injection or another reset to this run.
