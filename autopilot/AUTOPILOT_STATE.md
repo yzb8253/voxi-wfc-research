@@ -638,3 +638,14 @@ NEXT_ACTION: establish the one authorized `CONTROL_A0_R4B_V3` reboot baseline, t
 - Total phone writes/actions: 5.
 
 NEXT_ACTION: stop and preserve. Do not resume v3, repeat a reset, or claim `NATIVE_PUBLICATION_NOT_READY`. Any corrected independent series requires a new explicit reboot authorization.
+
+## 2026-09-24 R4b publication-gated v4 authorized
+
+- v3 remains frozen as an invalid pre-gate observer abort.
+- User authorized a new independent `r4b_3cycle_v4` series and exactly one reboot baseline.
+- In `-EpochOnly` mode the inherited observer now proves only the qtidataservices PID epoch; transient service/query logs cannot PASS/FAIL publication or abort the lifecycle test.
+- Dedicated publication timeout is anchored to the latest replacement NAH constructor G and remains exactly 120 seconds.
+- Live working/LastReported cache samples and full native/DSD/qualification telemetry are retained host-only. No GET is injected.
+- Static audit passes; phone writes for v4 remain 0 before baseline.
+
+NEXT_ACTION: establish `CONTROL_A0_R4B_V4`, then run the v4 series once and stop at the first legal terminal classification.

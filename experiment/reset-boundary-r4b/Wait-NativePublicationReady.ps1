@@ -16,6 +16,8 @@ $HostRoot=Join-Path (Split-Path $Repo -Parent) ("voxi_wfc_local_runs\reset_bound
 $ProviderLog=Join-Path $HostRoot ("cycle_{0}_provider.log" -f $Cycle)
 $MetadataPath=Join-Path $HostRoot ("cycle_{0}_native_publication_ready.json" -f $Cycle)
 $Timeline=Join-Path $HostRoot ("cycle_{0}_native_publication.log" -f $Cycle)
+$SamplePath=Join-Path $HostRoot ("cycle_{0}_native_publication_samples.jsonl" -f $Cycle)
+$RawSamplesPath=Join-Path $HostRoot ("cycle_{0}_native_publication_raw_samples.txt" -f $Cycle)
 [IO.Directory]::CreateDirectory($HostRoot)|Out-Null
 
 function Log([string]$Message){$line='{0} {1}' -f (Get-Date -Format o),$Message;Add-Content -LiteralPath $Timeline -Value $line -Encoding UTF8;Write-Host $line}
@@ -27,6 +29,7 @@ function Current-Nah([string]$Debug){$m=[regex]::Match($Debug,'(?ms)^NetworkAvai
 function Latest-Constructor([string]$Debug){$rows=@($Debug -split "\r?\n"|Where-Object{$_ -match '^\s*(?<ts>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) \[NAH\]constructor\s*$'});if($rows.Count -eq 0){return $null};$raw=$rows[-1].Trim();$m=[regex]::Match($raw,'^(?<ts>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})');[pscustomobject]@{Raw=$raw;Timestamp=$m.Groups['ts'].Value}}
 function Working-Ims([string]$Body){[regex]::Match($Body,'(?ms)apn=ims\s+hasPendingIntent=(?<pending>\S+).*?apn types=\[(?<types>[^\]]*IMS[^\]]*)\]\s+networks=\[(?<networks>[^\]]+)\]')}
 function Reported-Ims([string]$Body){[regex]::Match($Body,'(?m)^\s*apnType=IMS\s+prefNw=(?<network>\S+)\s*$')}
+function Global-Pref([string]$Body){$m=[regex]::Match($Body,'(?m)^\s*globalPrefSys=\s*(?<value>\S+)\s*$');if($m.Success){$m.Groups['value'].Value}else{'UNOBSERVABLE'}}
 function Native-Clean {
   $text=Root "getprop init.svc.vendor.per_mgr; getprop vendor.peripheral.SDX55M.state; cat /sys/bus/msm_subsys/devices/subsys10/state; cat /sys/bus/msm_subsys/devices/subsys10/crash_count; pidof pm-service; lsof /dev/subsys_esoc0 2>/dev/null || true"
   $lines=@($text -split "\r?\n"|Where-Object{$_.Trim().Length})
@@ -56,9 +59,10 @@ if(-not $epochMatch.Success -or -not $readyMatch.Success){throw 'PROVIDER_EPOCH_
 $expectedQtidata=[int]$readyMatch.Groups['new'].Value
 $expectedQcrild2=[int]$readyMatch.Groups['qcrild2'].Value
 $epochTime=[TimeSpan]::Parse($epochMatch.Groups['time'].Value)
-$deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds)
+$hardDeadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds)
+$generationDeadline=$null
 $stable=0;$accepted=$null;$lastDebug='';$lastBody='';$lastWorking=$null;$lastReported=$null
-while((Get-Date)-lt $deadline){
+while((Get-Date)-lt $(if($null -ne $generationDeadline){$generationDeadline}else{$hardDeadline})){
   Start-Sleep -Seconds 1
   $qtidata=One-Pid '^\s*10104\s+\d+\s+\d+\s+\.qtidataservices\s+\.qtidataservices\s*$' 'QTIDATA'
   $qcrild2=One-Pid '^\s*1001\s+\d+\s+1\s+qcrild\s+qcrild -c 2\s*$' 'QCRILD2'
@@ -69,11 +73,24 @@ while((Get-Date)-lt $deadline){
   $working=Working-Ims $body
   $reported=Reported-Ims $body
   $fresh=$false
-  if($null -ne $constructor){$constructorTime=[DateTime]::ParseExact($constructor.Timestamp,'yyyy-MM-dd HH:mm:ss.fff',[Globalization.CultureInfo]::InvariantCulture);$fresh=($constructorTime.TimeOfDay -ge $epochTime)}
+  if($null -ne $constructor){
+    $constructorTime=[DateTime]::ParseExact($constructor.Timestamp,'yyyy-MM-dd HH:mm:ss.fff',[Globalization.CultureInfo]::InvariantCulture)
+    $fresh=($constructorTime.TimeOfDay -ge $epochTime)
+    if($fresh -and $null -eq $generationDeadline){$generationDeadline=$constructorTime.AddSeconds($ReadyTimeoutSeconds);Log "NATIVE_PUBLICATION_GENERATION_BOUND generation=$($constructor.Timestamp) deadline=$($generationDeadline.ToString('o'))"}
+  }
   $workingReady=($working.Success -and $working.Groups['networks'].Value -match 'EUTRAN')
   $reportedReady=($reported.Success -and $reported.Groups['network'].Value -eq 'EUTRAN')
   $clean=Native-Clean
   $ready=$fresh -and $workingReady -and $reportedReady -and $clean
+  $sample=[ordered]@{
+    capturedAt=(Get-Date -Format o);generation=$(if($constructor){$constructor.Timestamp}else{'NONE'});fresh=$fresh
+    qcrild2Pid=$qcrild2;qtidataservicesPid=$qtidata;globalPrefSys=(Global-Pref $body)
+    workingImsPresent=$working.Success;workingImsNetworks=$(if($working.Success){$working.Groups['networks'].Value}else{''})
+    lastReportedImsPresent=$reported.Success;lastReportedIms=$(if($reported.Success){$reported.Groups['network'].Value}else{''})
+    nativeClean=$clean;ready=$ready;stableBefore=$stable
+  }
+  Add-Content -LiteralPath $SamplePath -Value ($sample|ConvertTo-Json -Compress) -Encoding UTF8
+  Add-Content -LiteralPath $RawSamplesPath -Value (("===== {0} G={1} =====`n{2}" -f $sample.capturedAt,$sample.generation,$debug)) -Encoding UTF8
   Log "NATIVE_PUBLICATION_PROGRESS generation=$(if($constructor){$constructor.Timestamp}else{'NONE'}) fresh=$fresh working=$workingReady reported=$reportedReady nativeClean=$clean qcrild2=$qcrild2 qtidata=$qtidata stable=$stable"
   if($ready){
     if($null -ne $accepted -and $accepted.Timestamp -eq $constructor.Timestamp){$stable++}else{$stable=1}
@@ -82,8 +99,20 @@ while((Get-Date)-lt $deadline){
   }else{$stable=0;$accepted=$null}
 }
 if($stable -lt $StableSamplesRequired -or $null -eq $accepted){
+  $finalDebug=Root 'lshal debug vendor.qti.hardware.data.iwlan@1.0::IIWlan/slot2 2>/dev/null'
+  [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_native_publication_timeout_debug.txt" -f $Cycle)),$finalDebug,[Text.UTF8Encoding]::new($false))
+  $g=Latest-Constructor $finalDebug
+  if($null -ne $g){
+    $since=[DateTime]::ParseExact($g.Timestamp,'yyyy-MM-dd HH:mm:ss.fff',[Globalization.CultureInfo]::InvariantCulture).ToString('MM-dd HH:mm:ss.000',[Globalization.CultureInfo]::InvariantCulture)
+    $bounded=Root ("logcat -d -b all -v threadtime -T " + (Quote-Sh $since))
+    [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_native_publication_bounded_logcat.txt" -f $Cycle)),$bounded,[Text.UTF8Encoding]::new($false))
+  }
+  $mapping=Root 'dumpsys isub; echo ===PHONE===; dumpsys phone'
+  [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_native_publication_mapping.txt" -f $Cycle)),$mapping,[Text.UTF8Encoding]::new($false))
+  $failure=[ordered]@{cycle=$Cycle;runName=$RunName;result='NATIVE_PUBLICATION_NOT_READY';failStage='INITIALIZE_IWLAN_TO_NAH_PUBLICATION';generation=$(if($g){$g.Timestamp}else{'UNIDENTIFIED'});timeoutSeconds=$ReadyTimeoutSeconds;qcrild2Pid=$expectedQcrild2;qtidataservicesPid=$expectedQtidata;activeGetInjected=$false}
+  [IO.File]::WriteAllText($MetadataPath,($failure|ConvertTo-Json -Depth 5),[Text.UTF8Encoding]::new($false))
   Log 'NATIVE_PUBLICATION_NOT_READY'
-  throw 'NATIVE_PUBLICATION_NOT_READY'
+  throw 'NATIVE_PUBLICATION_NOT_READY FAIL_STAGE=INITIALIZE_IWLAN_TO_NAH_PUBLICATION'
 }
 $metadata=[ordered]@{
   cycle=$Cycle;runName=$RunName;generationId=$accepted.Timestamp;constructorRaw=$accepted.Raw

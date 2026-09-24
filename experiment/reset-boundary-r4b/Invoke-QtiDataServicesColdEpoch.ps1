@@ -104,7 +104,7 @@ if($StaticAudit){
   Write-Host 'CALLBACK_REGISTRATION_EVIDENCE=static constructor control-flow plus new process epoch'
   Write-Host 'NO_SET_RESPONSE_FUNCTIONS_FROM_EXTERNAL_CLIENT=YES'
   Write-Host 'STATIC_NO_ADB=PASS'
-  Write-Host 'EPOCH_ONLY_GATE=process identity + hosted services + native IIWlan readiness; publication delegated to NATIVE_PUBLICATION_READY'
+  Write-Host 'EPOCH_ONLY_GATE=exact old PID gone + new verified process identity; all service/query/publication fields are telemetry'
   exit 0
 }
 if(-not $Execute){throw 'EXECUTE_REQUIRED'}
@@ -127,7 +127,7 @@ Log 'QTIDATASERVICES_TERM_COUNT=1'
 
 $deadline=(Get-Date).AddSeconds($ReadyTimeoutSeconds);$new=$null;$stable=0;$logs='';$debug='';$services='';$activity='';$cache=[pscustomobject]@{Class='NO_IMS_ROW';Raw='NO_RESPONSE'};$rows=@();$queryClass='QUERY_NOT_SENT'
 $newDomain='';$processIdentity=$false;$serviceIdentity=$false;$qns=$false;$network=$false;$data=$false;$slotProvider=$false;$proxy=$false;$connected=$false;$response=$false;$nativeReady=$false;$fatal=$false
-$requiredStable=if($EpochOnly){3}else{10}
+$requiredStable=if($EpochOnly){1}else{10}
 $t1=@();$t2=@();$t3=@();$t4=@();$t5=@();$t6=@();$t7=@();$t8=@();$t9=@();$t10=@()
 while((Get-Date)-lt $deadline){
   Start-Sleep -Seconds 1
@@ -163,7 +163,11 @@ while((Get-Date)-lt $deadline){
   if(-not $slotProvider){$queryClass='QUERY_NOT_SENT'}elseif(-not $response){$queryClass='QUERY_SENT_NO_RESPONSE'}elseif($cache.Class -match 'NO_IMS|UNKNOWN_OR_EMPTY'){$queryClass='QUERY_RESPONSE_EMPTY'}else{$queryClass='QUERY_RESPONSE_VALID'}
   $nativeReady=($debug -match 'DsdServiceReady=true' -and $debug -match 'WdsServiceReady=true' -and $debug -match 'IWLANEnabled=true' -and $debug -match 'ModemCapability=true')
   $fatal=@(New-PidLine $logs $candidate.qtidata.pid '(?i)(FATAL EXCEPTION|DeadObjectException|serviceDied|fatal binder)').Count -gt 0
-  $ready=if($EpochOnly){$processIdentity -and $serviceIdentity -and $nativeReady -and -not $fatal}else{$processIdentity -and $serviceIdentity -and $qns -and $network -and $data -and $slotProvider -and $proxy -and $connected -and $response -and $nativeReady -and -not $fatal}
+  # In publication-gated series the legacy provider observer has no lifecycle
+  # verdict authority. It proves only the exact cold process epoch. All service,
+  # query and native-publication fields below remain telemetry for the dedicated
+  # current-generation gate.
+  $ready=if($EpochOnly){$processIdentity}else{$processIdentity -and $serviceIdentity -and $qns -and $network -and $data -and $slotProvider -and $proxy -and $connected -and $response -and $nativeReady -and -not $fatal}
   Log "PROVIDER_PROGRESS newPid=$($candidate.qtidata.pid) identity=$processIdentity services=$serviceIdentity qns=$qns network=$network data=$data slot1=$slotProvider proxy=$proxy connected=$connected response=$response queryClass=$queryClass native=$nativeReady fatal=$fatal cache=$($cache.Class) stable=$stable"
   if($ready){if($null -ne $new -and $new.qtidata.pid -eq $candidate.qtidata.pid){$stable++}else{$stable=1};$new=$candidate;if($stable -ge $requiredStable){break}}else{$stable=0;$new=$candidate}
 }
@@ -194,7 +198,7 @@ Save-Evidence $rows
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_provider_debug.txt" -f $Cycle)),$debug,[Text.UTF8Encoding]::new($false))
 if($new.qtidata.pid -eq $before.qtidata.pid -or $stable -lt $requiredStable){throw 'R4B_PROVIDER_READY_TIMEOUT'}
 $afterState=Capture ("R4B_C{0}_PROVIDER_READY" -f $Cycle)
-if(-not (Native-Ready $afterState)){throw 'R4B_PROVIDER_READY_NATIVE_GATE_FAIL'}
+if(-not $EpochOnly -and -not (Native-Ready $afterState)){throw 'R4B_PROVIDER_READY_NATIVE_GATE_FAIL'}
 Log "PROVIDER_READY=PASS oldQtidata=$($before.qtidata.pid) newQtidata=$($new.qtidata.pid) qcrild2=$($new.target.pid) queryClass=$queryClass requestSerial=$requestSerial responseSerial=$responseSerial cache=$($cache.Class)"
 Write-Host 'PROVIDER_READY=PASS'
 Write-Host "PROVIDER_EPOCH_ONLY=$EpochOnly"
