@@ -202,3 +202,17 @@ The fifth run is `X55_REBIRTH_SUCCESS / BEHAVIOR_CHANGED`, not a native-handoff 
 
 Impact:
 Do not rerun the state machine or manually clean the preserved scene without explicit authorization. Before any future run, separately redesign and audit the contention gate and holder cleanup predicate without weakening holder PID/identity ownership checks.
+
+## 2026-09-24 - dual ownership is a valid make-before-break intermediate state
+
+Previous conclusion:
+The fifth-run dual-owner state was treated only as a behavior change requiring preservation because the production gate expected the holder to remain the unique owner.
+
+Evidence:
+Cleanup experiment 006 revalidated the exact holder PID, cmdline, PID file, and FD9. After one TERM, the holder and PID file disappeared; pm-service remained sole owner; X55 stayed ONLINE; crash_count stayed 0; qcrild2 did not change.
+
+Correction:
+For this ROM and observed scene, holder + pm-service dual ownership can be a valid make-before-break handoff intermediate state. Releasing the exact holder completes native ownership transfer without qcrild2 restart or native loss.
+
+Impact:
+Future production design may accept the exact two-owner intermediate state only after strict validation of both holder and pm-service identities. Cleanup authorization must rely on exact holder PID/cmdline/PID-file/FD9 checks rather than unique ownership alone. This is a design conclusion, not authorization to modify or rerun the production script.

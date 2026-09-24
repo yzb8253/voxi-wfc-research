@@ -162,4 +162,14 @@ Read `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md` before claiming that a histor
 - `PerMgrSrv` directly logged QCRIL registration and voting, but the full four-line bilateral evidence gate remains `UNPROVEN`.
 - Full result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FIFTH_DEVICE_RUN_RESULT.md`.
 
-Do not rerun v2.7-alpha or alter the preserved holder/native scene without separate explicit authorization.
+At the fifth-run checkpoint, the holder/native scene was intentionally preserved pending separate cleanup authorization. Cleanup 006 below supersedes that live scene.
+
+## Dual-owner cleanup 006
+
+- Fresh identity checks matched the fifth-run holder PID 22129, exact cmdline, PID file, and FD9 target.
+- Exactly one TERM was sent. No retry, SIGKILL, restart, SIM action, or other recovery write occurred.
+- Holder 22129 exited and its PID file disappeared. pm-service PID 22536 became sole `/dev/subsys_esoc0` owner; per_mgr remained running; X55 remained ONLINE; crash_count remained 0; qcrild2 remained PID 873.
+- WFC remained F1 with qti.cne/ePDG/XFRM absent.
+- Result: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`. Full report: `experiments/x55_native_handoff/X55_DUAL_OWNER_CLEANUP_006.md`.
+
+The live holder scene is now clean. Do not rerun v2.7-alpha without explicit authorization; next work is static redesign/audit of the dual-owner contention and exact-holder cleanup gates.

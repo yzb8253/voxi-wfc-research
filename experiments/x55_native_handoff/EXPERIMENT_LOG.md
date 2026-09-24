@@ -180,3 +180,13 @@ Fail-safe result: holder TERM was refused because the holder was no longer the u
 Mechanism evidence: server-side `PerMgrSrv: QCRIL registered` and `PerMgrSrv: QCRIL voting for SDX55M` were captured; the full four-line bilateral evidence gate remains UNPROVEN.
 Conclusion: `X55_REBIRTH_SUCCESS / BEHAVIOR_CHANGED / NOT_CHECKED / NOT_RUN`; phone write actions 3. Preserve the scene and do not rerun or clean up without separate explicit authorization.
 Evidence: `v2.7-alpha-native-handoff/FIFTH_DEVICE_RUN_RESULT.md`; large logs remain host-only.
+
+## X55-V27-DUAL-OWNER-CLEANUP-006
+
+Date: 2026-09-24 08:58-08:59 Asia/Shanghai
+Pre-state: preserved fifth-run scene with holder PID 22129 and pm-service PID 22536 as the exact two `/dev/subsys_esoc0` owners; per_mgr running; X55 ONLINE; crash_count 0; qcrild2 PID 873; WFC F1.
+Identity gate: PID file, exact holder cmdline/status, FD9 target, owner set, pm-service PPID/executable, qcrild2 identity, X55, and crash_count all PASS.
+Action: exactly one `kill -TERM 22129`; no retry, SIGKILL, service restart, SIM action, or other write.
+Observed result: holder and v2.7 PID file disappeared; pm-service 22536 became sole native owner; X55 remained ONLINE; crash_count remained 0; qcrild2 remained PID 873. WFC remained F1 with no qti.cne/ePDG/XFRM recovery.
+Conclusion: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`; phone write actions 1.
+Evidence: `X55_DUAL_OWNER_CLEANUP_006.md`; before/after raw captures remain host-only.

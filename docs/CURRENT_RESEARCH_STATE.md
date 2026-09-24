@@ -149,4 +149,10 @@ Commit `13d2969acbfe6e43171929583f40b18ed4ceb361` passed the fresh device gate a
 
 When per_mgr restarted under contention, pm-service PID 22536 also acquired `/dev/subsys_esoc0`; the resulting dual-owner state violated the expected holder-only gate. The script stopped as `BEHAVIOR_CHANGED` before holder release, qcrild2 restart, deployment, or SIM cycle. Fail-safe TERM was refused by the unique-owner identity check.
 
-Current preserved scene: per_mgr running; holder 22129 and pm-service 22536 both own the device; X55 ONLINE; crash_count 0; qcrild2 unchanged PID 873; VOXI remains active/enabled in F1; SIM OFF/ON 0/0. Do not rerun or modify this scene without separate explicit authorization.
+At the fifth-run abort checkpoint, per_mgr was running; holder 22129 and pm-service 22536 both owned the device; X55 was ONLINE; crash_count was 0; qcrild2 remained PID 873; VOXI remained active/enabled in F1; SIM OFF/ON was 0/0. Cleanup 006 below supersedes that preserved live scene.
+
+## Dual-Owner Cleanup 006
+
+Fresh identity checks proved that PID 22129 was the exact fifth-run holder and that FD9 still targeted `/dev/subsys_esoc0`. One authorized TERM was sent. The holder exited, its PID file was removed by the EXIT trap, and pm-service PID 22536 naturally became the sole native owner while X55 remained ONLINE and crash_count remained 0. qcrild2 stayed at PID 873; no service restart or SIM action occurred.
+
+Result: `MAKE_BEFORE_BREAK_NATIVE_HANDOFF_SUCCESS`. WFC remained F1, so this validates native ownership handoff only, not WFC recovery. Current native state is clean: per_mgr running, pm-service sole owner, holder absent, X55 ONLINE, crash_count 0.
