@@ -522,3 +522,15 @@ NEXT_ACTION: sync this checkpoint and stop. Any corrected R4b device series requ
 - No workaround, retry or post-failure write occurred.
 
 NEXT_ACTION: preserve the airplane-ON P failure scene. R4b is falsified; do not continue this series.
+
+## Current checkpoint: R4b order/callback analysis completed
+
+- Branch: `experiment/v263-repeatable-state-machine`; analysis started from `896536fc80546234df51ad90dbda0e03e7019b9f`.
+- Frozen result remains R4b falsified at Cycle 1 P/M1.
+- New phone did create a fresh slot1 provider/callback/query; no existing-provider short circuit explains missing M1.
+- QNS internal dump plus target APK semantics prove query serials 0 and 6 returned zero entries. Native NAH IMS `[EUTRAN,IWLAN]` was not the Java/HIDL response payload.
+- Boot provider creation is consumer-driven by phone/ANM bind, although qtidataservices host starts first.
+- Four sanitized reports are in `experiment/reset-boundary-r4b-analysis/`; raw logs and decompilation artifacts remain host-only.
+- Current phase performed read-only inspection only; phone writes 0. No reboot, restart, cleanup, R4c or recovery occurred.
+
+NEXT_ACTION: statically trace the target native IIWlan GET response construction and reconcile it with NAH dump state. Do not execute another reset until that mismatch is understood and a separate experiment is authorized.

@@ -591,3 +591,16 @@ NEXT_ACTION: stop and preserve. A corrected device series needs a separate expli
 - Earliest unclosed internal interval is response serial 0 -> unobservable QNS update -> missing new-consumer ANM publication. No workaround or adaptive action followed.
 
 NEXT_ACTION: stop and preserve the P-failure scene. Do not add periodic QNS re-report, forced IMS/IWLAN, callback injection or another reset to this run.
+
+## 2026-09-24 R4b order/callback counterexample analysis
+
+- Frozen classification remains `R4B_FALSIFIED_AT_P`, Cycle 1, first missing M1.
+- Target `framework.jar` confirms slot-keyed providers, existing-provider early return, callback-local cache replay, and remove-all-on-unbind.
+- R4b's old phone owned the first callback, but new phone PID 27795 caused a fresh QNS Service, fresh slot1 provider, fresh callback and query serial 6. No `already existed` branch blocked it.
+- Retained QNS debug history proves both serial 0 and serial 6 responses had zero QualifiedNetworks entries. The former `QUERY_RESPONSE_VALID` label meant response completion, not a non-empty payload.
+- First concrete mismatch is native NAH dump IMS `[EUTRAN,IWLAN]` versus zero-entry IIWlan GET response. Specific `STALE_PROVIDER_CALLBACK_EPOCH` is not supported; broad lifecycle residue remains unproven.
+- Boot is consumer-driven provider construction: qtidataservices host starts first, then phone/ANM bind causes per-slot provider creation.
+- Reports: `experiment/reset-boundary-r4b-analysis/{R4B_ORDER_COUNTEREXAMPLE_ANALYSIS,QNS_PROVIDER_CALLBACK_LIFECYCLE,BOOT_PROVIDER_CONSUMER_ORDER,NEXT_RESET_ORDER_CANDIDATES}.md`.
+- Phone writes: 0.
+
+NEXT_ACTION: static/read-only trace of native `IIWlan::getAllQualifiedNetworks` response construction versus `NetworkAvailabilityHandler::dumpCache`. Do not execute ORDER-B or R4c yet.

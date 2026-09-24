@@ -1,5 +1,7 @@
 # R4b qtidataservices provider lifecycle
 
+> **Post-run correction (2026-09-24):** the target framework does replay values cached inside a provider when registering its callback, and the new phone did cause a fresh Service/provider/query. Retained QNS debug history proves both serial 0 and serial 6 responses were zero-entry lists despite a separate native NAH dump showing IMS `[EUTRAN,IWLAN]`. The specific stale-existing-provider/callback explanation is therefore not supported for R4b Cycle 1. See `R4B_ORDER_COUNTEREXAMPLE_ANALYSIS.md` and `QNS_PROVIDER_CALLBACK_LIFECYCLE.md`.
+
 Date: 2026-09-24
 
 Status: static/read-only analysis only. `R4A_FALSIFIED_AT_P` and `FIRST_MISSING_MILESTONE=M1` remain frozen. The phone remains in the Cycle 2 airplane-ON P-failure scene. Phone writes: **0**.

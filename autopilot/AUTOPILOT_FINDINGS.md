@@ -529,3 +529,16 @@ NEXT_ACTION: no phone action. Do not infer H3 from this aborted series and do no
 - R4b is falsified at P/M1. The narrowest remaining evidence gap spans QNS response-to-update and provider-to-new-consumer replay; it cannot yet be assigned strictly to CASE A or CASE B.
 
 NEXT_ACTION: no phone action. Preserve this counterexample; any larger reset boundary requires separate static design and approval.
+
+## R4b callback/order refinement (2026-09-24)
+
+- Target-ROM framework bytecode confirms `NetworkAvailabilityProvider` stores one callback and a provider-local qualified-network cache. Fresh callback registration replays that cache, while a duplicate create request for an existing slot returns without callback replacement.
+- In the actual run the duplicate-existing path was not taken after R3. New phone PID 27795 drove a fresh QNS Service/provider and query serial 6.
+- No old-provider `close()`/unregister was captured, and IWlanProxy reference counts suggest residue, but fresh provider construction was not prevented.
+- Both provider query responses (serial 0 before R3 and serial 6 after R3) were zero-entry payloads. The native NAH debug cache's IMS `[EUTRAN,IWLAN]` value was a distinct source and must not be labeled as the response payload.
+- The earliest concrete divergence is now `native NAH cache -> IIWlan getAllQualifiedNetworks response`, upstream of provider replay and ANM M1.
+- Specific stale-provider/callback H4 is rejected for this counterexample. A broader ordering-residue theory is inconclusive, not proven.
+- Reboot order is consumer-driven: phone/ANM bind creates providers inside the already-running qtidataservices host.
+- R4c is not yet justified. First explain the zero-entry IIWlan response with static/read-only native tracing.
+
+NEXT_ACTION: no device write. Audit the IIWlan GET handler, response cache, filters and readiness/sequence conditions before freezing any new reset order.
