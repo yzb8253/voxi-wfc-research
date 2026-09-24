@@ -411,3 +411,14 @@ NEXT_ACTION: statically redesign the holder loop/TERM behavior first. No timeout
 - Phone writes 0; ADB not used.
 
 NEXT_ACTION: design and statically audit the exact-PID R3 executor; do not run it without separate approval.
+
+## R3 safety/determinism audit finding (2026-09-24)
+
+- Exact main process selection must combine UID 1001, `u:r:radio:s0`, exact name/argv and ActivityManager `*PERS*`; a same-name user-999 process is live.
+- Exact PID TERM is the smallest confirmed lifecycle death on this ROM. ActivityManager persistent supervision, not init, recreates the process.
+- The prior same-ROM C7 log proves fresh construction of both Phone objects and the ANM/NRM/QtiSST/DNC graph after TERM.
+- R3 readiness can be gated from fresh-PID log markers plus stable dumps; internal Java object addresses and pending Handler contents remain explicitly unobservable.
+- R3 affects both slots at the framework layer even when slot0 is physically absent.
+- A path-specific LF checkout rule is required so Windows preserves the audited v2.6.2 SHA-256 without changing its logic.
+
+NEXT_ACTION: execute only through the audited CONTROL_A0 and R3 cycle scripts; fail closed on any scope change or missing readiness marker.

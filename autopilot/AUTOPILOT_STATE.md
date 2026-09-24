@@ -460,3 +460,14 @@ NEXT_ACTION: add capture-only event telemetry for the ANM -> NRM -> SST -> DNC -
 - Host-only work. ADB not used; phone writes 0.
 
 NEXT_ACTION: separately audit an R3 executor and run only after explicit authorization. Freeze R, P and v2.6.2 for three cycles; any failed valid cycle falsifies R3 without an in-run patch.
+
+## 2026-09-24 R3 safety/determinism audit
+
+- Current ROM main telephony process is an ActivityManager `*PERS*` UID-1001 `com.android.phone`; no independent init service exists.
+- Same-ROM historical evidence confirms one exact-PID TERM causes immediate ActivityManager recreation and fresh Phone[0/1], ANM, NRM, QtiSST and DNC construction.
+- Force-stop is rejected because it adds package stopped-state semantics. R3 is one exact UID-1001/radio-domain PID TERM with no retry or escalation.
+- R3_READY is a 120-second state gate requiring fresh construction markers, stable mapping/UICC/MMTEL/provider bindings, unchanged vendor PIDs, clean native ownership and stable environment.
+- Computer B CRLF checkout of the frozen v2.6.2 was repaired with a path-specific LF attribute; the resulting bytes match historical SHA-256 `445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75`.
+- PS5.1 parser and STATIC_NO_ADB checks pass. Audit phone writes 0.
+
+NEXT_ACTION: commit/push the audited runner, then use the one authorized reboot to establish CONTROL_A0 before any R3 process signal.

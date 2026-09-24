@@ -389,3 +389,15 @@ NEXT_ACTION: preserve the phone scene. Improve capture-only transition telemetry
 - No ADB/device access; phone writes 0.
 
 NEXT_ACTION: no device action is authorized by this checkpoint. Build an R3 safety/executor audit only after a new explicit decision.
+
+## Current checkpoint: R3 safety/determinism audit passed
+
+- Date: 2026-09-24; Computer B; Account B.
+- Audit: `experiment/reset-boundary-r3/R3_SAFETY_DETERMINISM_AUDIT.md`.
+- Method: one exact main UID-1001 `com.android.phone` PID TERM; no force-stop, wide kill, retry or SIGKILL.
+- ActivityManager persistent auto-recreate and fresh Phone/ANM/NRM/QtiSST/DNC construction are confirmed from current records plus same-ROM C7 evidence.
+- R3_READY: 120-second fail-closed state gate with fresh creation markers and unchanged vendor scope.
+- Frozen v2.6.2 checkout hash restored to `445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75`; logic unchanged.
+- Audit scripts parse under PS5.1 and pass STATIC_NO_ADB. Phone writes 0 so far.
+
+NEXT_ACTION: after this audit is committed/pushed, run the separately authorized one-time reboot baseline, then fixed R3/P/v2.6.2 cycles. Stop at the first valid failure.
