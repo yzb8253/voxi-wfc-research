@@ -511,3 +511,14 @@ NEXT_ACTION: no further phone action in this scene. A new reset boundary require
 - Reports: `experiment/reset-boundary-r4-analysis/`. Host-only analysis; ADB not used; phone writes 0.
 
 NEXT_ACTION: separately audit and authorize R4a before any phone action. Freeze provider-first order and fail closed; a valid failed cycle falsifies R4a with no adaptive enlargement.
+
+## 2026-09-24 R4a implementation frozen before device writes
+
+- Confirmed that R4a uses the same verified init primitive as historical qcrild2 tests: one `ctl.restart vendor.qcrild2`. It is not a new low-level reset.
+- The distinct hypothesis is fixed ordering: R0 native clean -> qcrild2 process epoch -> producer readiness -> exact R3 -> fixed P/v2.6.2.
+- PRODUCER_READY requires old PID gone, new exact PID, cold DataModule and NAH markers, IIWlan/slot2, DSD/WDS ready, modem/IWLAN capability, live qtidataservices services, clean PM/X55 and stable samples.
+- Modem-side endpoint teardown, callback IDs and internal object addresses remain explicitly unobservable.
+- PS5 parser, R3 default-state-machine regression, fixed-order audit, one-restart ceiling and STATIC_NO_ADB checks pass.
+- Audit-phase phone writes 0. A read-only current IIWlan dump was captured host-only to validate actual ROM field names.
+
+NEXT_ACTION: use the separately authorized one reboot to establish CONTROL_A0_R4A, then run the frozen R4a series and stop at the first terminal failure.

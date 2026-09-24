@@ -1,5 +1,14 @@
 [CmdletBinding()]
-param([switch]$Execute,[switch]$StaticAudit,[switch]$ResumeAfterReboot)
+param(
+  [switch]$Execute,
+  [switch]$StaticAudit,
+  [switch]$ResumeAfterReboot,
+  [string]$RunName='r3_3cycle_v2',
+  [string]$ControlLabel='CONTROL_A0_V2',
+  [string]$HostRootOverride='',
+  [string]$SummaryRootOverride='',
+  [string]$MarkerFileName='CONTROL_A0_V2_REBOOT_USED.marker'
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -8,8 +17,9 @@ $Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $Adb=Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $CaptureScript=Join-Path $Repo 'experiments\wfc_repeatability_normalization\capture_snapshot.ps1'
 $Recovery=Join-Path $Repo 'experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
-$HostRoot=Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'
-$Marker=Join-Path $HostRoot 'CONTROL_A0_V2_REBOOT_USED.marker'
+$HostRoot=if($HostRootOverride){$HostRootOverride}else{Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'}
+$SummaryRoot=if($SummaryRootOverride){$SummaryRootOverride}else{Join-Path $PSScriptRoot 'runs\r3_3cycle_v2\snapshots'}
+$Marker=Join-Path $HostRoot $MarkerFileName
 [IO.Directory]::CreateDirectory($HostRoot)|Out-Null
 
 function Quote-Sh([string]$Value){$s=[string][char]39;$d=[string][char]34;$s+$Value.Replace($s,($s+$d+$s+$d+$s))+$s}
@@ -54,11 +64,11 @@ do {
 if(-not $ready){throw 'CONTROL_A0_ENVIRONMENT_TIMEOUT'}
 
 $old=$ErrorActionPreference
-try{$ErrorActionPreference='Continue';$out=@(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label CONTROL_A0_V2 -Serial $Serial -RunName r3_3cycle_v2 2>&1);$rc=$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+try{$ErrorActionPreference='Continue';$out=@(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label $ControlLabel -Serial $Serial -RunName $RunName 2>&1);$rc=$LASTEXITCODE}finally{$ErrorActionPreference=$old}
 $out|ForEach-Object{Write-Host $_}
 if($rc -ne 0){throw 'CONTROL_A0_CAPTURE_FAILED'}
-$generated=Join-Path $Repo 'experiments\wfc_repeatability_normalization\runs\r3_3cycle_v2\snapshots\CONTROL_A0_V2.json'
-$destination=Join-Path $PSScriptRoot 'runs\r3_3cycle_v2\snapshots\CONTROL_A0_V2.json'
+$generated=Join-Path $Repo ("experiments\wfc_repeatability_normalization\runs\{0}\snapshots\{1}.json" -f $RunName,$ControlLabel)
+$destination=Join-Path $SummaryRoot ($ControlLabel+'.json')
 [IO.Directory]::CreateDirectory((Split-Path $destination -Parent))|Out-Null
 $json=Get-Content -LiteralPath $generated -Raw
 [IO.File]::WriteAllText($destination,$json,[Text.UTF8Encoding]::new($false))

@@ -462,3 +462,12 @@ NEXT_ACTION: preserve the clean-native airplane-ON F1 scene. Do not patch SST/QN
 - Isolated qcrild2 and isolated/coordinated qtidataservices tests previously failed, so success probability is not assumed. Their different ordering and missing consumer reset make R4a a distinct, falsifiable hypothesis.
 
 NEXT_ACTION: R4a is design-only. Do not execute until its exact one-shot runner and readiness gates receive separate approval.
+
+## R4a cold-epoch implementation finding (2026-09-24)
+
+- Process-level qcrild2 cold epoch and the historical normal restart use the identical init operation. R4a must not be described as a novel reset primitive.
+- Process death structurally removes process-local DataModule, DSD/WDS client objects and NAH. The ROM does not expose a modem-server teardown acknowledgement or generation ID.
+- A valid new epoch is proven by old PID disappearance, new PID/identity, new-window cold initialization and NAH construction, IIWlan re-registration, and live DSD/WDS debug state.
+- R4a's falsifiable novelty is producer-first composition followed by a new framework consumer epoch.
+
+NEXT_ACTION: execute only the frozen order. Any producer, A, P or recovery failure stops the entire series without R4b fallback.

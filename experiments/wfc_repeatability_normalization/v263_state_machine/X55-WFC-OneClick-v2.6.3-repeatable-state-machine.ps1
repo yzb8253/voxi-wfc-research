@@ -1,14 +1,14 @@
 [CmdletBinding()]
 param(
   [ValidateRange(1,3)][int]$Cycle = 1,
-  [switch]$Execute
+  [switch]$Execute,
+  [string]$RunName = 'r3_3cycle_v2'
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $Serial = 'fd0ff892'
-$RunName = 'r3_3cycle_v2'
 $SettleSeconds = 60
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Repo = (Resolve-Path (Join-Path $Root '..\..')).Path

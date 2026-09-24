@@ -446,3 +446,12 @@ NEXT_ACTION: stop. Do not add an SST/QNS workaround or another reset to this run
 - ADB not used; phone writes 0.
 
 NEXT_ACTION: no phone action. If authorized later, statically audit R4a and begin a new one-reboot three-cycle series. Stop at the first valid failure.
+
+## Current checkpoint: R4a pre-write implementation audit
+
+- Directory: `experiment/reset-boundary-r4a/`.
+- Static audit passed under Windows PowerShell 5.1; R3 default behavior and frozen v2.6.2 hash are unchanged.
+- qcrild2 reset primitive is the historical exact one-shot init restart. R4a adds only the frozen producer-first/consumer-second lifecycle composition and fail-closed producer gate.
+- No phone write has occurred in this implementation phase. ADB was used only for a read-only current-ROM IIWlan dump.
+
+NEXT_ACTION: establish `CONTROL_A0_R4A` with the one authorized reboot, then run `Run-R4aThreeCycle.ps1`. Stop on the first failed child stage.

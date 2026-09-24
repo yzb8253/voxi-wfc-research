@@ -2,7 +2,12 @@
 param(
   [ValidateRange(1,3)][int]$Cycle = 1,
   [switch]$Execute,
-  [switch]$StaticAudit
+  [switch]$StaticAudit,
+  [switch]$StopAfterR0,
+  [string]$RunName = 'r3_3cycle_v2',
+  [string]$SummaryRootOverride = '',
+  [string]$HostRootOverride = '',
+  [string]$LabelPrefix = 'R3V2'
 )
 
 Set-StrictMode -Version Latest
@@ -17,11 +22,10 @@ $CaptureScript = Join-Path $RepeatRoot 'capture_snapshot.ps1'
 $NativeNormalize = Join-Path $RepeatRoot 'v262_freeze_run\normalize_a1_native_owner.ps1'
 $QcrildNormalize = Join-Path $RepeatRoot 'v262_freeze_run\normalize_a1_qcrild2_reacquire.ps1'
 $Recovery = Join-Path $RepeatRoot 'v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
-$RunName = 'r3_3cycle_v2'
-$SummaryRoot = Join-Path $PSScriptRoot 'runs\r3_3cycle_v2'
+$SummaryRoot = if($SummaryRootOverride){$SummaryRootOverride}else{Join-Path $PSScriptRoot 'runs\r3_3cycle_v2'}
 $SnapshotRoot = Join-Path $SummaryRoot 'snapshots'
 $GeneratedSnapshotRoot = Join-Path $RepeatRoot 'runs\r3_3cycle_v2\snapshots'
-$HostRoot = Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'
+$HostRoot = if($HostRootOverride){$HostRootOverride}else{Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'}
 $Timeline = Join-Path $HostRoot ("cycle_{0}_r3.log" -f $Cycle)
 [IO.Directory]::CreateDirectory($SnapshotRoot) | Out-Null
 [IO.Directory]::CreateDirectory($HostRoot) | Out-Null
@@ -183,7 +187,7 @@ function Normalize-R0($State) {
     }
   } else {throw 'R0_UNKNOWN_FINGERPRINT'}
   Start-Sleep -Seconds 60
-  $normalized=Capture ("R3V2_C{0}_R0_NATIVE_READY" -f $Cycle)
+  $normalized=Capture ("{0}_C{1}_R0_NATIVE_READY" -f $LabelPrefix,$Cycle)
   if(-not (R0-Native-Ready $normalized)){throw 'R0_NATIVE_READY_FAIL'}
   Log 'R0_NATIVE_READY=PASS'
   $normalized
@@ -239,14 +243,22 @@ if($StaticAudit){
   Write-Host 'GATE_ORDER=R0_NATIVE_READY_THEN_PHONE_TERM_THEN_R3_FRAMEWORK_READY'
   Write-Host 'R0_FORBIDDEN_FRAMEWORK_FIELDS=rilTechnology,mIsIwlanPreferred,SST,DNC,qti.cne'
   Write-Host 'R3_READY_TIMEOUT_SECONDS=120'
+  Write-Host 'STOP_AFTER_R0_HOOK=HOST_ORCHESTRATION_ONLY'
+  Write-Host 'DEFAULT_R3_STATE_MACHINE_UNCHANGED=YES'
   exit 0
 }
 
 $devices=Invoke-Adb @('devices')
 if($devices.Text -notmatch "(?m)^$([regex]::Escape($Serial))\s+device\s*$"){throw 'TARGET_NOT_ONLINE'}
-$aRaw=Capture ("R3V2_C{0}_A_RAW" -f $Cycle)
+$aRaw=Capture ("{0}_C{1}_A_RAW" -f $LabelPrefix,$Cycle)
 if($aRaw.environment.airplaneMode -ne 0){throw 'R3_ENTRY_REQUIRES_AIRPLANE_OFF'}
 $a=Normalize-R0 $aRaw
+if($StopAfterR0){
+  Log 'STOP_AFTER_R0=PASS'
+  Write-Host 'R0_NATIVE_READY=PASS'
+  Write-Host 'PHONE_TERM_COUNT=0'
+  exit 0
+}
 if(-not (Extra-Environment-Gate)){throw 'R3_ENVIRONMENT_NOT_READY'}
 
 $before=Get-Scope
@@ -278,7 +290,7 @@ while($stable -lt 5) {
   if($sample.phone.pid -ne $after.phone.pid -or -not (Same-Vendor-Scope $before $sample)){throw 'R3_READY_STABILITY_SCOPE_CHANGED'}
   $stable++
 }
-$ready=Capture ("R3V2_C{0}_A_READY" -f $Cycle)
+$ready=Capture ("{0}_C{1}_A_READY" -f $LabelPrefix,$Cycle)
 if(-not (R3-Framework-Ready $ready)){throw 'R3_READY_FRAMEWORK_NOT_CANONICAL'}
 if(-not (Extra-Environment-Gate)){throw 'R3_READY_ENVIRONMENT_LOST'}
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_phone_rebuild_log.txt" -f $Cycle)),$logText,[Text.UTF8Encoding]::new($false))
