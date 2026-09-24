@@ -47,7 +47,7 @@ cleanup(){
 [ "$#" -eq 0 ] || exit 10
 [ "$X55_V27_MODE" = 1 ] || exit 11
 [ "$X55_V27_EXECUTE" = YES ] || exit 12
-[ "${X55_V27_START_PER_MGR_AFTER_POWER_UP:-}" = YES ] || exit 15
+case "${X55_V27_START_PER_MGR_AFTER_POWER_UP:-}" in YES|NO) ;; *) exit 15 ;; esac
 [ "$(id -u)" = 0 ] || exit 13
 [ -f "$HELPER_JAR" ] || exit 14
 trap cleanup EXIT HUP INT TERM
@@ -61,8 +61,13 @@ sleep 3
 power_up_once normal_three_second_hold
 up_rc=$?
 if [ "$up_rc" -ne 0 ]; then echo "RESULT=POWER_UP_FAILED rc=$up_rc" > "$RESULT_FILE"; exit 21; fi
-start_per_mgr_once immediately_after_power_up
-pm_rc=$?
-if [ "$pm_rc" -ne 0 ]; then echo "RESULT=PER_MGR_START_FAILED rc=$pm_rc" > "$RESULT_FILE"; exit 22; fi
-echo "RESULT=SUCCESS PER_MGR_START=REQUESTED" > "$RESULT_FILE"
+if [ "${X55_V27_START_PER_MGR_AFTER_POWER_UP}" = YES ]; then
+  start_per_mgr_once immediately_after_power_up
+  pm_rc=$?
+  if [ "$pm_rc" -ne 0 ]; then echo "RESULT=PER_MGR_START_FAILED rc=$pm_rc" > "$RESULT_FILE"; exit 22; fi
+  echo "RESULT=SUCCESS PER_MGR_START=REQUESTED" > "$RESULT_FILE"
+else
+  log "PER_MGR_START_SKIPPED reason=configured_holder_sole_recovery"
+  echo "RESULT=SUCCESS PER_MGR_START=SKIPPED" > "$RESULT_FILE"
+fi
 exit 0
