@@ -346,9 +346,25 @@ function Restart-FixedQcrild2 {
   Save-Text 'qcrild2_restart.txt' ($result.StdOut+$result.StdErr)
 }
 
+function Get-Sha256Hex([string]$Path) {
+  Require (Test-Path -LiteralPath $Path -PathType Leaf) "Hash input missing: $Path"
+  $stream=$null
+  $sha=$null
+  try {
+    $stream=[IO.File]::OpenRead($Path)
+    $sha=[Security.Cryptography.SHA256]::Create()
+    $bytes=$sha.ComputeHash($stream)
+    ([BitConverter]::ToString($bytes)).Replace('-','').ToUpperInvariant()
+  } finally {
+    if($null -ne $sha) { $sha.Dispose() }
+    if($null -ne $stream) { $stream.Dispose() }
+  }
+}
+
 function Assert-LocalArtifact([string]$Path,[string]$ExpectedHash) {
-  Require (Test-Path -LiteralPath $Path) "Missing local audited artifact: $Path"
-  Require ((Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToUpperInvariant() -eq $ExpectedHash) "Artifact hash mismatch: $Path"
+  Require (Test-Path -LiteralPath $Path -PathType Leaf) "Missing local audited artifact: $Path"
+  $actualHash=Get-Sha256Hex $Path
+  Require ($actualHash -ceq $ExpectedHash) "Artifact hash mismatch: $Path"
 }
 
 function Deploy-File([string]$LocalPath,[string]$RemoteName,[string]$ExpectedHash) {
@@ -403,6 +419,23 @@ function Invoke-StaticNoAdbSelfTest {
   Require ($automaticAssignments.Count -eq 0) 'PowerShell automatic variable used as custom state'
   $forbiddenMatchesToken=([string][char]36) + 'matches'
   Require ($sourceText.IndexOf($forbiddenMatchesToken,[StringComparison]::OrdinalIgnoreCase) -lt 0) 'Custom Matches variable remains'
+  $legacyHashToken='Get' + '-File' + 'Hash'
+  $legacyHashDependencyCount=([regex]::Matches($sourceText,[regex]::Escape($legacyHashToken),[Text.RegularExpressions.RegexOptions]::IgnoreCase)).Count
+  Require ($legacyHashDependencyCount -eq 0) 'Legacy hash cmdlet dependency remains'
+
+  $knownVectorPath=Join-Path ([IO.Path]::GetTempPath()) ('v27-sha256-' + [guid]::NewGuid().ToString('N') + '.bin')
+  try {
+    [IO.File]::WriteAllBytes($knownVectorPath,[byte[]](0x61,0x62,0x63))
+    $knownVectorHash=Get-Sha256Hex $knownVectorPath
+    Require ($knownVectorHash -ceq 'BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD') 'SHA-256 known vector mismatch'
+  } finally {
+    if(Test-Path -LiteralPath $knownVectorPath) { Remove-Item -LiteralPath $knownVectorPath -Force }
+  }
+
+  Assert-LocalArtifact $SingleHelperLocal $SingleHelperHash
+  $singleHelperActualHash=Get-Sha256Hex $SingleHelperLocal
+  Require (Test-Path -LiteralPath $SingleOrchestrator -PathType Leaf) "Single-SIM orchestrator missing: $SingleOrchestrator"
+  $singleOrchestratorActualHash=Get-Sha256Hex $SingleOrchestrator
 
   $androidPayloads=[ordered]@{
     ReadOnlyStateProbe=(New-NativeStateProbeCommand)
@@ -464,6 +497,16 @@ foreach($value in $Values) {
   Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
   Write-Host 'ANDROID_LF_NORMALIZATION=PASS'
   Write-Host "ANDROID_PAYLOAD_CR_COUNT=$androidPayloadCrCount"
+  Write-Host 'DOTNET_SHA256_KNOWN_VECTOR=PASS'
+  Write-Host 'LOCAL_HASH_ENGINE=DOTNET_SHA256'
+  Write-Host 'LOCAL_HASH_ENGINE_SELFTEST=PASS'
+  Write-Host "GET_FILE_HASH_DEPENDENCY_COUNT=$legacyHashDependencyCount"
+  Write-Host 'SINGLE_SIM_HELPER_PRESENT=YES'
+  Write-Host "SINGLE_SIM_HELPER_SHA256=$singleHelperActualHash"
+  Write-Host 'SINGLE_SIM_HELPER_HASH_MATCH=YES'
+  Write-Host 'SINGLE_ORCHESTRATOR_PRESENT=YES'
+  Write-Host "SINGLE_ORCHESTRATOR_SHA256=$singleOrchestratorActualHash"
+  Write-Host 'ARTIFACT_GATE=PASS'
   Write-Host 'HOLDER_COMMAND_BUILD=PASS'
   Write-Host 'QCRILD2_COMMAND_BUILD=PASS'
   Write-Host 'SIM_COMMAND_BUILD=PASS'
@@ -571,7 +614,7 @@ try {
     Require (Test-TargetGate $cycleGate) 'VOXI gate failed before SIM cycle'
     Require ((Resolve-Topology $cycleGate) -eq $topology) 'topology changed before SIM cycle'
     Deploy-File $helperLocal $helperJar $helperHash
-    $orchestratorHash=(Get-FileHash -LiteralPath $orchestratorLocal -Algorithm SHA256).Hash.ToUpperInvariant()
+    $orchestratorHash=Get-Sha256Hex $orchestratorLocal
     Deploy-File $orchestratorLocal $orchestratorRemote $orchestratorHash
     $dry=Invoke-SimHelper $helperClass $helperJar 'DRY_RUN'
     Save-Text 'sim_helper_dry_run.txt' ($dry.StdOut+$dry.StdErr)

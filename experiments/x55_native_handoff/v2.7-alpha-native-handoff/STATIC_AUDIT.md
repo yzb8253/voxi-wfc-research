@@ -95,6 +95,12 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 - Fail-safe cleanup restores Peripheral Manager and releases only the script-owned holder, but does not escalate into extra qcrild2, cnd, modem, radio, or reboot actions.
 - The internal QCRIL re-vote mechanism remains log-unproven even though native reacquire behavior was observed in 001B.
 
+## Fourth-launch hash blocker resolution
+
+The fourth launch was correctly classified as `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`. The production script now uses an internal .NET `SHA256` implementation with explicit stream and hash-object disposal. Both the artifact gate and orchestrator deployment use this implementation; the main script has zero `Get-FileHash` dependencies.
+
+The exact paired launcher command `Run-X55-WFC-v2.7-alpha-native-handoff.cmd selftest` ran under Windows PowerShell `5.1.19041.6456`. It invoked production `Assert-LocalArtifact` against the fixed single-SIM helper, verified the known `abc` SHA-256 vector, hashed the single-SIM orchestrator, and exited before run-directory or ADB initialization. Result: PASS. The phone was not rerun.
+
 ## Required acceptance block
 
 ```text
@@ -104,6 +110,11 @@ AUTO_VARIABLE_AUDIT=PASS
 CUSTOM_MATCHES_VARIABLES=0
 ANDROID_LF_NORMALIZATION=PASS
 ANDROID_PAYLOAD_CR_COUNT=0
+DOTNET_SHA256_KNOWN_VECTOR=PASS
+LOCAL_HASH_ENGINE=DOTNET_SHA256
+GET_FILE_HASH_DEPENDENCY_COUNT=0
+SINGLE_SIM_HELPER_HASH_MATCH=YES
+ARTIFACT_GATE=PASS
 STATIC_NO_ADB=PASS
 CMD_WRAPPER_AUDIT=PASS
 ADB_QUOTING_AUDIT=PASS
@@ -114,4 +125,4 @@ STATE_MACHINE_UNCHANGED=YES
 PHONE_WRITES=0
 ```
 
-The twice-repaired executable state machine has not entered its phone-write phase. A third real run requires explicit approval.
+The repaired executable state machine was not rerun against the phone. Any new device run requires explicit approval.

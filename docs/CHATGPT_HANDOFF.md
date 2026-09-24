@@ -139,7 +139,7 @@ Unique next action: rebuild and hash-verify the exact helper and repair the host
 - Classification: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; recovery/native-handoff NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
 - Post-check remained native-clean and unchanged. Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
 
-Unique next action: fix and test hashing in the exact PS5.1 no-ADB launcher path. Do not run another device experiment without explicit approval.
+The fourth-launch blocker is now repaired and host-validated: the exact paired launcher ran its no-ADB selftest under Windows PowerShell `5.1.19041.6456`, invoked production `Assert-LocalArtifact`, and passed the fixed helper hash gate using the internal .NET SHA-256 engine. The main script has zero `Get-FileHash` dependencies. The phone was not rerun; do not run another device experiment without explicit approval.
 
 ## Computer A legacy recovery checkpoint
 

@@ -177,6 +177,9 @@ The fourth launch is `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`, not a recover
 Impact:
 Add a PS5.1-compatible hashing implementation or explicit module import and exercise the actual `Assert-LocalArtifact` path in `selftest`. Do not rerun automatically.
 
+Resolution on 2026-09-24:
+The production script now uses an internal .NET `SHA256` implementation with explicit disposal. The exact paired `.cmd selftest` ran in Windows PowerShell `5.1.19041.6456`, called production `Assert-LocalArtifact`, passed the pinned single-SIM helper hash and known SHA-256 vector, and reported zero legacy hash-cmdlet dependencies. This is a host/runtime correction only; `PHONE_NOT_RERUN` and no v2.7 recovery success is claimed.
+
 ## Correction: exact v2.6.2 source availability
 
 Earlier checkpoints correctly stated that exact v2.6.2 host source was absent from the authoritative repository at that time. Computer A legacy recovery on 2026-09-24 found and preserved the exact PS1 and CMD bytes with SHA-256 provenance.

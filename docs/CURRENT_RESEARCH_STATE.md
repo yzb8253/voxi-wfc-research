@@ -123,7 +123,13 @@ Commit `12e59b9b78589657f3f62938b957ba73ff9ee183` contained the exact tracked he
 
 Result: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; per_mgr/holder/qcrild2/SIM state machine NOT_RUN, SIM OFF/ON 0/0, phone writes 0. Post-state remained pm-service PID 31818 sole owner, X55 ONLINE, crash_count 0, qcrild2 PID 873, holder absent, and WFC F1.
 
-Next action: repair the hash implementation and extend exact-launcher host-only coverage through the real artifact gate. Another device run requires new explicit approval.
+Historical next action was to repair the hash implementation and extend exact-launcher host-only coverage through the real artifact gate; the host-side resolution is recorded below. Another device run still requires new explicit approval.
+
+## v2.7-alpha PS5.1 Hash Blocker Resolution
+
+The exact paired launcher no-ADB selftest now passes under Windows PowerShell `5.1.19041.6456`. Production `Assert-LocalArtifact` and orchestrator hashing share an internal .NET `SHA256` implementation; the helper hash matched `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`, the known `abc` vector passed, and the main script contains zero `Get-FileHash` dependencies.
+
+This resolves `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION` at the host/runtime level only. `PHONE_NOT_RERUN`; v2.7 recovery remains unvalidated and requires fresh authorization.
 
 ## Single-SIM Helper Packaging Resolution
 
