@@ -500,6 +500,18 @@ function Deploy-File([string]$LocalPath,[string]$RemoteName,[string]$ExpectedHas
   Require ((Invoke-Root "sha256sum $DeviceWorkDir/$RemoteName").StdOut.ToUpperInvariant().Contains($ExpectedHash)) "Device hash mismatch: $RemoteName"
 }
 
+function New-LfNormalizedShellArtifact([string]$SourcePath,[string]$OutputPath) {
+  Require (Test-Path -LiteralPath $SourcePath -PathType Leaf) "Shell artifact missing: $SourcePath"
+  $text=[IO.File]::ReadAllText($SourcePath)
+  $normalized=Normalize-AndroidShellText $text
+  Require (-not $normalized.Contains("`r")) "Shell normalization retained CR: $SourcePath"
+  [IO.File]::WriteAllText($OutputPath,$normalized,[Text.UTF8Encoding]::new($false))
+  $verify=[IO.File]::ReadAllText($OutputPath)
+  Require (-not $verify.Contains("`r")) "Normalized shell artifact contains CR: $OutputPath"
+  Require ($verify.StartsWith('#!/system/bin/sh')) "Normalized shell artifact missing shebang: $OutputPath"
+  $OutputPath
+}
+
 function Invoke-SimHelper([string]$HelperClass,[string]$HelperJar,[ValidateSet('DRY_RUN','ARM_ROLLBACK')][string]$Command) {
   Invoke-Root "LAB_MODE=1 LAB_EXECUTE=YES CLASSPATH=$DeviceWorkDir/$HelperJar app_process /system/bin $HelperClass $Command" 60000
 }
@@ -591,6 +603,10 @@ function Invoke-StaticNoAdbSelfTest {
   Require ($singleOrchestratorText.Contains('PER_MGR_START_EXIT rc=$rc') -and
     $singleOrchestratorText.Contains('immediately_after_power_up') -and
     $singleOrchestratorText.Contains('X55_V27_START_PER_MGR_AFTER_POWER_UP')) 'single-SIM early per_mgr start contract mismatch'
+  $normalizedOrchestrator=Normalize-AndroidShellText $singleOrchestratorText
+  Require (-not $normalizedOrchestrator.Contains("`r")) 'single-SIM orchestrator LF normalization failed'
+  $normalizedHeader='#!/system/bin/sh' + "`n" + 'set -u' + "`n"
+  Require ($normalizedOrchestrator.StartsWith($normalizedHeader)) 'single-SIM orchestrator normalized header mismatch'
   $exactCleanupArguments='/PID {0} /T /F' -f 4242
   Require ($exactCleanupArguments -ceq '/PID 4242 /T /F') 'Exact process cleanup command construction mismatch'
 
@@ -682,6 +698,7 @@ foreach($value in $Values) {
   Write-Host 'AUTO_VARIABLE_AUDIT=PASS'
   Write-Host 'CUSTOM_MATCHES_VARIABLES=0'
   Write-Host 'ANDROID_LF_NORMALIZATION=PASS'
+  Write-Host 'ORCHESTRATOR_LF_NORMALIZATION=PASS'
   Write-Host "ANDROID_PAYLOAD_CR_COUNT=$androidPayloadCrCount"
   Write-Host 'DOTNET_SHA256_KNOWN_VECTOR=PASS'
   Write-Host 'LOCAL_HASH_ENGINE=DOTNET_SHA256'
@@ -763,8 +780,11 @@ try {
 
   # Prepare all slow artifacts and rollback guards before opening qcrild2's reconnect window.
   Deploy-File $helperLocal $helperJar $helperHash
-  $orchestratorHash=Get-Sha256Hex $orchestratorLocal
-  Deploy-File $orchestratorLocal $orchestratorRemote $orchestratorHash
+  $orchestratorDeployLocal=Join-Path $RunDir ('lf_' + $orchestratorRemote)
+  New-LfNormalizedShellArtifact $orchestratorLocal $orchestratorDeployLocal | Out-Null
+  $orchestratorHash=Get-Sha256Hex $orchestratorDeployLocal
+  Deploy-File $orchestratorDeployLocal $orchestratorRemote $orchestratorHash
+  Write-Log "ORCHESTRATOR_LF_DEPLOY=PASS sha256=$orchestratorHash"
   $dry=Invoke-SimHelper $helperClass $helperJar 'DRY_RUN'
   Save-Text 'sim_helper_dry_run.txt' ($dry.StdOut+$dry.StdErr)
   Require ($dry.ExitCode -eq 0 -and $dry.StdOut -match 'result=DRY_RUN_ZERO_WRITE') 'SIM helper dry-run failed'
