@@ -139,7 +139,7 @@ Unique next action: rebuild and hash-verify the exact helper and repair the host
 - Classification: `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`; recovery/native-handoff NOT_RUN, final WFC NOT_CHECKED, phone writes 0.
 - Post-check remained native-clean and unchanged. Full report: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FOURTH_DEVICE_RUN_RESULT.md`.
 
-The fourth-launch blocker is now repaired and host-validated: the exact paired launcher ran its no-ADB selftest under Windows PowerShell `5.1.19041.6456`, invoked production `Assert-LocalArtifact`, and passed the fixed helper hash gate using the internal .NET SHA-256 engine. The main script has zero `Get-FileHash` dependencies. The phone was not rerun; do not run another device experiment without explicit approval.
+The fourth-launch blocker was repaired and host-validated before the fifth run: the exact paired launcher ran its no-ADB selftest under Windows PowerShell `5.1.19041.6456`, invoked production `Assert-LocalArtifact`, and passed the fixed helper hash gate using the internal .NET SHA-256 engine. The main script has zero `Get-FileHash` dependencies. The later fifth-run result is recorded below.
 
 ## Computer A legacy recovery checkpoint
 
@@ -152,3 +152,14 @@ The fourth-launch blocker is now repaired and host-validated: the exact paired l
 - No ADB or phone operation occurred during recovery.
 
 Read `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md` before claiming that a historical source artifact is still missing.
+
+## v2.7-alpha fifth device launch
+
+- Exact commit `13d2969acbfe6e43171929583f40b18ed4ceb361` was executed once after fresh entry gate and paired PS5.1 selftest PASS.
+- per_mgr stop, holder rebirth, X55 ONLINE, and new PON_SUCCESS succeeded. Android holder PID 22129 was initially sole owner.
+- Starting per_mgr under contention created pm-service PID 22536, which acquired `/dev/subsys_esoc0` while holder 22129 still owned it. The script correctly stopped with `NATIVE_HANDOFF_RESULT=BEHAVIOR_CHANGED` before qcrild2 restart and before any SIM cycle.
+- Fail-safe TERM was not sent because the holder identity predicate requires unique ownership. Current preserved scene: per_mgr running; holder 22129 plus pm-service 22536 dual owners; X55 ONLINE; crash_count 0; qcrild2 unchanged PID 873; WFC F1; SIM OFF/ON 0/0.
+- `PerMgrSrv` directly logged QCRIL registration and voting, but the full four-line bilateral evidence gate remains `UNPROVEN`.
+- Full result: `experiments/x55_native_handoff/v2.7-alpha-native-handoff/FIFTH_DEVICE_RUN_RESULT.md`.
+
+Do not rerun v2.7-alpha or alter the preserved holder/native scene without separate explicit authorization.

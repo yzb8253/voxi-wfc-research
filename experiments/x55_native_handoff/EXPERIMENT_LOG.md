@@ -168,3 +168,15 @@ Observed result: exact v2.6.2 host source recovered; PassiveMonitor v1.2 canonic
 Validation: source hash match PASS; critical PassiveMonitor v1.2 and v2.6.2 parser checks PASS; 20/22 imported PowerShell files parse, with two exact historical originals explicitly retained as parser failures.
 Conclusion: `COMPUTER_A_LEGACY_RECOVERY=PASS`; ADB not used; phone writes 0.
 Next action: no device experiment is authorized by this import.
+
+## X55-V27-ALPHA-FIFTH-DEVICE-005
+
+Date: 2026-09-24 08:49 Asia/Shanghai
+Environment: Computer A, Account A; exact clean commit `13d2969acbfe6e43171929583f40b18ed4ceb361`; Windows PowerShell 5.1.19041.6456; USB serial `fd0ff892`.
+Pre-state: fresh gate PASS; pm-service PID 31818 sole owner; X55 ONLINE; crash_count 0; holder absent; qcrild2 PID 873; VOXI active/enabled; single-SIM slot0-absent topology; WFC strict F1.
+Commands/actions: exact paired selftest PASS, followed by exactly one authorized launcher `execute`. No manual follow-up or retry.
+Observed result: per_mgr stop and holder rebirth succeeded; Android holder PID 22129 became sole owner and produced a new PON_SUCCESS. After per_mgr restart, new pm-service PID 22536 acquired the device while the holder still held it, producing dual ownership. The script classified `BEHAVIOR_CHANGED` and stopped before holder release, qcrild2 restart, or SIM cycle.
+Fail-safe result: holder TERM was refused because the holder was no longer the unique owner. Final scene remains per_mgr running, holder 22129 plus pm-service 22536 as dual owners, X55 ONLINE, crash_count 0, qcrild2 unchanged at 873, WFC F1, SIM OFF/ON 0/0.
+Mechanism evidence: server-side `PerMgrSrv: QCRIL registered` and `PerMgrSrv: QCRIL voting for SDX55M` were captured; the full four-line bilateral evidence gate remains UNPROVEN.
+Conclusion: `X55_REBIRTH_SUCCESS / BEHAVIOR_CHANGED / NOT_CHECKED / NOT_RUN`; phone write actions 3. Preserve the scene and do not rerun or clean up without separate explicit authorization.
+Evidence: `v2.7-alpha-native-handoff/FIFTH_DEVICE_RUN_RESULT.md`; large logs remain host-only.

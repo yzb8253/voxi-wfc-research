@@ -178,10 +178,27 @@ Impact:
 Add a PS5.1-compatible hashing implementation or explicit module import and exercise the actual `Assert-LocalArtifact` path in `selftest`. Do not rerun automatically.
 
 Resolution on 2026-09-24:
-The production script now uses an internal .NET `SHA256` implementation with explicit disposal. The exact paired `.cmd selftest` ran in Windows PowerShell `5.1.19041.6456`, called production `Assert-LocalArtifact`, passed the pinned single-SIM helper hash and known SHA-256 vector, and reported zero legacy hash-cmdlet dependencies. This is a host/runtime correction only; `PHONE_NOT_RERUN` and no v2.7 recovery success is claimed.
+The production script now uses an internal .NET `SHA256` implementation with explicit disposal. The exact paired `.cmd selftest` ran in Windows PowerShell `5.1.19041.6456`, called production `Assert-LocalArtifact`, passed the pinned single-SIM helper hash and known SHA-256 vector, and reported zero legacy hash-cmdlet dependencies. This was a host/runtime correction only; at that checkpoint `PHONE_NOT_RERUN` and no v2.7 recovery success was claimed. The later fifth run is a separate result.
 
 ## Correction: exact v2.6.2 source availability
 
 Earlier checkpoints correctly stated that exact v2.6.2 host source was absent from the authoritative repository at that time. Computer A legacy recovery on 2026-09-24 found and preserved the exact PS1 and CMD bytes with SHA-256 provenance.
 
 Current statement: exact v2.6.2 host source is available under `archive/computer_a_legacy/x55_wfc_oneclick/v2.6.2/`. This correction does not claim that all historical raw logs or every runtime artifact were recovered.
+
+## 2026-09-24 - contended per_mgr can co-own the X55 device
+
+Previous design assumption:
+Starting per_mgr while the script holder owns `/dev/subsys_esoc0` would leave the holder as the unique owner until the script deliberately released it.
+
+Evidence:
+In `X55-V27-ALPHA-FIFTH-DEVICE-005`, holder PID 22129 initially became sole owner and brought X55 ONLINE. After per_mgr restart, pm-service PID 22536 acquired the same device without displacing the holder, producing two simultaneous owners. Server logs showed QCRIL registration and voting.
+
+Correction:
+The contended phase can produce dual ownership on this ROM. The current `Test-OwnedHolder` safety predicate also prevents fail-safe TERM once pm-service becomes a co-owner, so abort can preserve a live Android holder and PID file.
+
+Current conclusion:
+The fifth run is `X55_REBIRTH_SUCCESS / BEHAVIOR_CHANGED`, not a native-handoff or WFC recovery success. qcrild2 was not restarted and SIM OFF/ON remained 0/0.
+
+Impact:
+Do not rerun the state machine or manually clean the preserved scene without explicit authorization. Before any future run, separately redesign and audit the contention gate and holder cleanup predicate without weakening holder PID/identity ownership checks.

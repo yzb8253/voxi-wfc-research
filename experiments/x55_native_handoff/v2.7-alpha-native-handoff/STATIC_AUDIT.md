@@ -99,7 +99,7 @@ Classification: `BLOCKED_PRE_WRITE_HOST_SCRIPT_COMPATIBILITY`. This is not a rec
 
 The fourth launch was correctly classified as `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION`. The production script now uses an internal .NET `SHA256` implementation with explicit stream and hash-object disposal. Both the artifact gate and orchestrator deployment use this implementation; the main script has zero `Get-FileHash` dependencies.
 
-The exact paired launcher command `Run-X55-WFC-v2.7-alpha-native-handoff.cmd selftest` ran under Windows PowerShell `5.1.19041.6456`. It invoked production `Assert-LocalArtifact` against the fixed single-SIM helper, verified the known `abc` SHA-256 vector, hashed the single-SIM orchestrator, and exited before run-directory or ADB initialization. Result: PASS. The phone was not rerun.
+The exact paired launcher command `Run-X55-WFC-v2.7-alpha-native-handoff.cmd selftest` ran under Windows PowerShell `5.1.19041.6456`. It invoked production `Assert-LocalArtifact` against the fixed single-SIM helper, verified the known `abc` SHA-256 vector, hashed the single-SIM orchestrator, and exited before run-directory or ADB initialization. Result: PASS. The phone had not yet been rerun at this audit checkpoint; the later fifth run is documented separately.
 
 ## Required acceptance block
 

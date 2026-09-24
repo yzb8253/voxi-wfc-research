@@ -129,7 +129,7 @@ Historical next action was to repair the hash implementation and extend exact-la
 
 The exact paired launcher no-ADB selftest now passes under Windows PowerShell `5.1.19041.6456`. Production `Assert-LocalArtifact` and orchestrator hashing share an internal .NET `SHA256` implementation; the helper hash matched `90D6F55FBE1F941C1E3EEE1AA1F93B569FA3AE4084B93C5560082A38AAAF5C39`, the known `abc` vector passed, and the main script contains zero `Get-FileHash` dependencies.
 
-This resolves `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION` at the host/runtime level only. `PHONE_NOT_RERUN`; v2.7 recovery remains unvalidated and requires fresh authorization.
+This resolved `BLOCKED_PRE_WRITE_PS51_FILEHASH_RESOLUTION` at the host/runtime level. At that checkpoint the phone had not been rerun; the later fifth authorized launch is recorded below.
 
 ## Single-SIM Helper Packaging Resolution
 
@@ -142,3 +142,11 @@ The repository's global `*.jar` ignore remains unchanged. This one exact artifac
 On 2026-09-24, 465 Computer A candidates under `D:\` were hashed and classified. Exact v2.6.2 source, PassiveMonitor v1.0-v1.2, StateSearcher v3.0-v3.5, the SSR read-only topology audit, selected compact negative-result histories, and historical source variants were preserved without changing original bytes.
 
 Large raw evidence (353 files, 416795027 bytes), system/vendor binaries, and ZIP containers remain host-only and hash-indexed. The two unique source-less kernel modules are now isolated under `archive/computer_a_legacy/unique_binaries/` as historical do-not-load artifacts. The comprehensive report is `docs/COMPUTER_A_LEGACY_RECOVERY_20260924.md`.
+
+## v2.7-alpha Fifth Authorized Launch
+
+Commit `13d2969acbfe6e43171929583f40b18ed4ceb361` passed the fresh device gate and exact paired PS5.1 selftest, then ran once. X55 controlled rebirth succeeded, with Android holder PID 22129 becoming sole owner and producing a new PON_SUCCESS.
+
+When per_mgr restarted under contention, pm-service PID 22536 also acquired `/dev/subsys_esoc0`; the resulting dual-owner state violated the expected holder-only gate. The script stopped as `BEHAVIOR_CHANGED` before holder release, qcrild2 restart, deployment, or SIM cycle. Fail-safe TERM was refused by the unique-owner identity check.
+
+Current preserved scene: per_mgr running; holder 22129 and pm-service 22536 both own the device; X55 ONLINE; crash_count 0; qcrild2 unchanged PID 873; VOXI remains active/enabled in F1; SIM OFF/ON 0/0. Do not rerun or modify this scene without separate explicit authorization.
