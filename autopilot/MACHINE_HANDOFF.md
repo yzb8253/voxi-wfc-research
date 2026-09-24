@@ -455,3 +455,14 @@ NEXT_ACTION: no phone action. If authorized later, statically audit R4a and begi
 - No phone write has occurred in this implementation phase. ADB was used only for a read-only current-ROM IIWlan dump.
 
 NEXT_ACTION: establish `CONTROL_A0_R4A` with the one authorized reboot, then run `Run-R4aThreeCycle.ps1`. Stop on the first failed child stage.
+
+## Current checkpoint: R4a v1 stopped before R3
+
+- Result: `experiment/reset-boundary-r4a/runs/r4a_3cycle_v1/RESULT.md`.
+- One reboot baseline used. One qcrild2 restart changed 1988 -> 19229 and produced a real cold DataModule/NAH epoch.
+- Producer script falsely timed out because it did not parse those two timestamped markers from the IIWlan debug history it had already captured.
+- No phone TERM, P, v2.6.2, SIM write, Cycle 2 or Cycle 3 occurred.
+- Final scene: airplane OFF, F1, native ownership clean, X55 ONLINE/crash zero, qcrild2 19229 stable.
+- R4a is not falsified and R4b is not justified. Phone write actions in the full phase: 4.
+
+NEXT_ACTION: stop. Do not resume this series. A new v2 gate correction needs a new explicit reboot authorization.

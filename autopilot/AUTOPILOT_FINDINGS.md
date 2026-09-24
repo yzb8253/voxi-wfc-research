@@ -471,3 +471,12 @@ NEXT_ACTION: R4a is design-only. Do not execute until its exact one-shot runner 
 - R4a's falsifiable novelty is producer-first composition followed by a new framework consumer epoch.
 
 NEXT_ACTION: execute only the frozen order. Any producer, A, P or recovery failure stops the entire series without R4b fallback.
+
+## R4a v1 producer evidence finding (2026-09-24)
+
+- The one-shot qcrild2 restart did create a new native producer epoch: new PID, post-command cold DataModule initialization, new NAH constructor, ready DSD/WDS, IWLAN enabled and modem capability true.
+- qtidataservices stayed PID 3241, establishing the intended old-Java-provider/new-native-producer combination before R3.
+- The runner's cold-init/NAH booleans were false only because it searched the selected logcat window rather than the timestamped histories in its IIWlan debug dump.
+- The complete R4a hypothesis remains untested because new framework consumers were never created. There is no basis to move to R4b.
+
+NEXT_ACTION: no phone action. Treat v1 as an invalid gate run, preserve evidence, and require a new authorized baseline for any corrected v2.

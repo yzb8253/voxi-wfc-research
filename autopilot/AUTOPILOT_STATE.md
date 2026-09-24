@@ -522,3 +522,15 @@ NEXT_ACTION: separately audit and authorize R4a before any phone action. Freeze 
 - Audit-phase phone writes 0. A read-only current IIWlan dump was captured host-only to validate actual ROM field names.
 
 NEXT_ACTION: use the separately authorized one reboot to establish CONTROL_A0_R4A, then run the frozen R4a series and stop at the first terminal failure.
+
+## 2026-09-24 R4a v1 aborted at invalid producer evidence gate
+
+- CONTROL_A0_R4A used the single authorized reboot and passed environment/F1/native gates.
+- R0_NATIVE_READY passed without write. One exact qcrild2 restart changed PID 1988 -> 19229 while qcrild 1960, qtidataservices 3241, phone 3348 and pm-service 1239 stayed unchanged.
+- IIWlan, DSD/WDS, IWLAN capability, modem capability and Java provider-service gates passed.
+- Runner timed out because it searched logcat only for cold DataModule/NAH markers.
+- Immediate read-only IIWlan history proves `performDataModuleInitialization` at 20:08:05.057 and `[NAH]constructor` at 20:08:05.453, inside the fixed window.
+- Classification: `ABORTED_PRE_R3_INVALID_PRODUCER_EVIDENCE_GATE`, not R4a or producer falsification. R3/P/v2.6.2/SIM did not run; cycles 2/3 did not run.
+- Phone write actions: reboot, airplane disable, Wi-Fi enable, one qcrild2 restart = 4.
+
+NEXT_ACTION: preserve the clean airplane-OFF F1 scene. A corrected evidence adapter requires a separately authorized v2 series and new reboot baseline; do not resume v1 or escalate to R4b.
