@@ -24,8 +24,11 @@ foreach($token in $order){$index=$cycle.IndexOf($token,[StringComparison]::Ordin
 $producer=Get-Content (Join-Path $PSScriptRoot 'Invoke-Qcrild2ColdEpoch.ps1') -Raw
 if(([regex]::Matches($producer,[regex]::Escape("Root-Write 'setprop ctl.restart vendor.qcrild2'"))).Count -ne 1){throw 'QCRILD2_RESTART_CALL_COUNT_INVALID'}
 foreach($forbidden in @('qtidataservices restart','vendor.cnd','resetIms','kill -9','airplane-mode enable')){if($producer -match [regex]::Escape($forbidden)){throw "PRODUCER_CONTAINS_FORBIDDEN=$forbidden"}}
+$r3=Get-Content (Resolve-Path (Join-Path $PSScriptRoot '..\reset-boundary-r3\Prepare-R3Cycle.ps1')) -Raw
+if($r3 -notmatch 'runs\\\{0\}\\snapshots.*-f \$RunName'){throw 'R3_RUNNAME_SNAPSHOT_BINDING_MISSING'}
 Write-Host 'PS5_PARSE=PASS'
 Write-Host 'R4A_ORDER_AUDIT=PASS'
 Write-Host 'QCRILD2_RESTART_MAX_ONE=PASS'
 Write-Host 'NO_ADAPTIVE_FALLBACK=PASS'
+Write-Host 'RUNNAME_SNAPSHOT_BINDING=PASS'
 Write-Host 'PHONE_WRITES=0'

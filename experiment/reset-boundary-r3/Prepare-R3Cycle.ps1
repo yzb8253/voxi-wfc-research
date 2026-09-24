@@ -24,7 +24,7 @@ $QcrildNormalize = Join-Path $RepeatRoot 'v262_freeze_run\normalize_a1_qcrild2_r
 $Recovery = Join-Path $RepeatRoot 'v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
 $SummaryRoot = if($SummaryRootOverride){$SummaryRootOverride}else{Join-Path $PSScriptRoot 'runs\r3_3cycle_v2'}
 $SnapshotRoot = Join-Path $SummaryRoot 'snapshots'
-$GeneratedSnapshotRoot = Join-Path $RepeatRoot 'runs\r3_3cycle_v2\snapshots'
+$GeneratedSnapshotRoot = Join-Path $RepeatRoot ("runs\{0}\snapshots" -f $RunName)
 $HostRoot = if($HostRootOverride){$HostRootOverride}else{Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'}
 $Timeline = Join-Path $HostRoot ("cycle_{0}_r3.log" -f $Cycle)
 [IO.Directory]::CreateDirectory($SnapshotRoot) | Out-Null
