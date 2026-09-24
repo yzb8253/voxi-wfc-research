@@ -57,8 +57,10 @@ function Root-Write([string]$Command) {
 
 function Capture([string]$Label) {
   Log "CAPTURE_BEGIN=$Label"
-  & powershell -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label $Label -Serial $Serial -RunName $RunName
-  if($LASTEXITCODE -ne 0){throw "SNAPSHOT_FAILED=$Label"}
+  $captureOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label $Label -Serial $Serial -RunName $RunName 2>&1)
+  $captureExit=$LASTEXITCODE
+  foreach($line in $captureOutput){Log "CAPTURE_OUTPUT=$line"}
+  if($captureExit -ne 0){throw "SNAPSHOT_FAILED=$Label"}
   $path=Join-Path $SnapshotRoot ($Label+'.json')
   $state=Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
   Log "CAPTURE_END=$Label HEALTH=$($state.health.goldenStrong)"
@@ -134,12 +136,15 @@ function Normalize-A([int]$Number,$State) {
   if(-not $Execute){throw "V${Number}_A_RESIDUE_DETECTED_EXECUTE_REQUIRED"}
 
   Log "V${Number}_A_RESIDUE=FROZEN_WFC_RESIDUE"
-  & powershell -NoProfile -ExecutionPolicy Bypass -File $NativeNormalize -Serial $Serial
+  $nativeOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $NativeNormalize -Serial $Serial 2>&1)
   $nativeExit=$LASTEXITCODE
+  foreach($line in $nativeOutput){Log "NATIVE_NORMALIZER_OUTPUT=$line"}
   Log "V${Number}_NATIVE_NORMALIZER_EXIT=$nativeExit"
   if($nativeExit -ne 0) {
-    & powershell -NoProfile -ExecutionPolicy Bypass -File $QcrildNormalize -Serial $Serial
-    if($LASTEXITCODE -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
+    $qcrildOutput=@(& powershell -NoProfile -ExecutionPolicy Bypass -File $QcrildNormalize -Serial $Serial 2>&1)
+    $qcrildExit=$LASTEXITCODE
+    foreach($line in $qcrildOutput){Log "QCRILD_NORMALIZER_OUTPUT=$line"}
+    if($qcrildExit -ne 0){throw "V${Number}_QCRILD2_REACQUIRE_FAILED"}
     Log "V${Number}_QCRILD2_REACQUIRE=PASS"
   }
   Start-Sleep -Seconds 60
@@ -184,4 +189,3 @@ Log "V${Cycle}_RESULT=PASS FREEZE_ON_HEALTHY=TRUE"
 Write-Host "VALIDATION_CYCLE=$Cycle"
 Write-Host 'RESULT=PASS'
 Write-Host 'FREEZE_ON_HEALTHY=TRUE'
-
