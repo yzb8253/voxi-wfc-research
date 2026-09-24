@@ -411,3 +411,12 @@ NEXT_ACTION: after this audit is committed/pushed, run the separately authorized
 - Current scene: airplane OFF, holder absent, per_mgr running, native clean, VOXI active/UICC enabled, F1.
 
 NEXT_ACTION: no continuation or phone workaround. Redefine the post-R0 intermediate gate in a new, separately authorized series.
+
+## R3 v2 gate-fix checkpoint
+
+- Gate correction report: `experiment/reset-boundary-r3/STATE_MACHINE_GATE_FIX.md`.
+- `R0_NATIVE_READY` no longer requires terrestrial framework state; `R3_FRAMEWORK_READY` retains the complete post-recreation canonical gate.
+- New series and reboot marker are isolated as `r3_3cycle_v2` / `CONTROL_A0_V2`.
+- PS5.1 parser, AST gate-order audit and STATIC_NO_ADB pass. Proven v2.6.2 bytes are unchanged.
+
+NEXT_ACTION: run the newly authorized CONTROL_A0_V2 reboot baseline, then fixed cycles. Stop on the first valid failure.

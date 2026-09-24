@@ -8,8 +8,8 @@ $Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $Adb=Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $CaptureScript=Join-Path $Repo 'experiments\wfc_repeatability_normalization\capture_snapshot.ps1'
 $Recovery=Join-Path $Repo 'experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
-$HostRoot=Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle'
-$Marker=Join-Path $HostRoot 'CONTROL_A0_REBOOT_USED.marker'
+$HostRoot=Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'
+$Marker=Join-Path $HostRoot 'CONTROL_A0_V2_REBOOT_USED.marker'
 [IO.Directory]::CreateDirectory($HostRoot)|Out-Null
 
 function Quote-Sh([string]$Value){$s=[string][char]39;$d=[string][char]34;$s+$Value.Replace($s,($s+$d+$s+$d+$s))+$s}
@@ -54,11 +54,11 @@ do {
 if(-not $ready){throw 'CONTROL_A0_ENVIRONMENT_TIMEOUT'}
 
 $old=$ErrorActionPreference
-try{$ErrorActionPreference='Continue';$out=@(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label CONTROL_A0 -Serial $Serial -RunName r3_3cycle 2>&1);$rc=$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+try{$ErrorActionPreference='Continue';$out=@(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $CaptureScript -Label CONTROL_A0_V2 -Serial $Serial -RunName r3_3cycle_v2 2>&1);$rc=$LASTEXITCODE}finally{$ErrorActionPreference=$old}
 $out|ForEach-Object{Write-Host $_}
 if($rc -ne 0){throw 'CONTROL_A0_CAPTURE_FAILED'}
-$generated=Join-Path $Repo 'experiments\wfc_repeatability_normalization\runs\r3_3cycle\snapshots\CONTROL_A0.json'
-$destination=Join-Path $PSScriptRoot 'runs\r3_3cycle\snapshots\CONTROL_A0.json'
+$generated=Join-Path $Repo 'experiments\wfc_repeatability_normalization\runs\r3_3cycle_v2\snapshots\CONTROL_A0_V2.json'
+$destination=Join-Path $PSScriptRoot 'runs\r3_3cycle_v2\snapshots\CONTROL_A0_V2.json'
 [IO.Directory]::CreateDirectory((Split-Path $destination -Parent))|Out-Null
 $json=Get-Content -LiteralPath $generated -Raw
 [IO.File]::WriteAllText($destination,$json,[Text.UTF8Encoding]::new($false))

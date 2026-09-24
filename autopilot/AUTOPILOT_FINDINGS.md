@@ -431,3 +431,13 @@ NEXT_ACTION: execute only through the audited CONTROL_A0 and R3 cycle scripts; f
 - The run is `ABORTED_PRE_R3_INVALID_INTERMEDIATE_GATE_CYCLE_2`, not an R3 counterexample and not a 3-cycle success. No Cycle 3 or adaptive phone action ran.
 
 NEXT_ACTION: only under new authorization, revise the experimental definition so post-R0 requires native-clean/identity/environment while framework canonicality is checked after R3. Restart the falsification series from a fresh authorized baseline; do not continue this interrupted series.
+
+## R3 gate correction audit (2026-09-24)
+
+- `R0_NATIVE_READY` now checks only fixed target/process identity, native pm-service sole ownership, no holder/native residue, X55 ONLINE and crash_count zero.
+- LTE/IWLAN, `mIsIwlanPreferred`, SST/DNC state and qti.cne demand are explicitly excluded from the post-R0 gate.
+- Full framework canonicality is checked only after one exact main-phone TERM, fresh object creation markers and five stable scope samples.
+- The new independent series uses `r3_3cycle_v2` and `CONTROL_A0_V2`; old results remain unchanged.
+- PS5.1 parser, gate-order audit, framework-field exclusion and STATIC_NO_ADB all pass. Frozen v2.6.2 hash remains `445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75`.
+
+NEXT_ACTION: establish the separately authorized one-reboot CONTROL_A0_V2 baseline, then run only the fixed v2 series and stop at the first valid failure.

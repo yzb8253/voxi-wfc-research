@@ -480,3 +480,12 @@ NEXT_ACTION: commit/push the audited runner, then use the one authorized reboot 
 - Classification: `ABORTED_PRE_R3_INVALID_INTERMEDIATE_GATE_CYCLE_2`; R3 sufficiency remains inconclusive.
 
 NEXT_ACTION: preserve the current clean-native/F1 scene. Do not patch and resume this series. A separately approved new series must correct the pre-R3 gate definition first.
+
+## 2026-09-24 R3 gate correction ready
+
+- Old series remains Cycle 1 valid PASS / Cycle 2 aborted pre-R3.
+- New isolated series: `experiment/reset-boundary-r3/runs/r3_3cycle_v2/`.
+- Gate order is now R0 native-only -> exact phone TERM -> full R3 framework readiness.
+- PS5.1 and STATIC_NO_ADB audits pass; phone writes for this correction are zero.
+
+NEXT_ACTION: use the one authorized reboot for CONTROL_A0_V2, then execute three identical cycles without reboot or adaptive recovery.

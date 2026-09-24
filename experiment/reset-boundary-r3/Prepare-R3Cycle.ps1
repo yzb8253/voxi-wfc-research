@@ -17,11 +17,11 @@ $CaptureScript = Join-Path $RepeatRoot 'capture_snapshot.ps1'
 $NativeNormalize = Join-Path $RepeatRoot 'v262_freeze_run\normalize_a1_native_owner.ps1'
 $QcrildNormalize = Join-Path $RepeatRoot 'v262_freeze_run\normalize_a1_qcrild2_reacquire.ps1'
 $Recovery = Join-Path $RepeatRoot 'v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
-$RunName = 'r3_3cycle'
-$SummaryRoot = Join-Path $PSScriptRoot 'runs\r3_3cycle'
+$RunName = 'r3_3cycle_v2'
+$SummaryRoot = Join-Path $PSScriptRoot 'runs\r3_3cycle_v2'
 $SnapshotRoot = Join-Path $SummaryRoot 'snapshots'
-$GeneratedSnapshotRoot = Join-Path $RepeatRoot 'runs\r3_3cycle\snapshots'
-$HostRoot = Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle'
+$GeneratedSnapshotRoot = Join-Path $RepeatRoot 'runs\r3_3cycle_v2\snapshots'
+$HostRoot = Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\reset_boundary_r3\r3_3cycle_v2'
 $Timeline = Join-Path $HostRoot ("cycle_{0}_r3.log" -f $Cycle)
 [IO.Directory]::CreateDirectory($SnapshotRoot) | Out-Null
 [IO.Directory]::CreateDirectory($HostRoot) | Out-Null
@@ -123,11 +123,16 @@ function Native-Clean($State) {
   $State.native.crashCount -eq 0 -and -not $State.residues.holderPidFile
 }
 
-function A-Canonical($State) {
+function R0-Native-Ready($State) {
   (Target-Gate $State) -and (Process-Gate $State) -and (Native-Clean $State) -and
+  -not $State.residues.moduleLock
+}
+
+function R3-Framework-Ready($State) {
+  (R0-Native-Ready $State) -and
   $State.environment.airplaneMode -eq 0 -and $State.environment.wlan0Up -and $State.environment.vpnNetwork -and
   $State.iwlan.rilTechnology -eq 'LTE' -and -not $State.iwlan.preferred -and
-  -not $State.data.qtiCneRequest -and -not $State.residues.moduleLock
+  -not $State.data.qtiCneRequest
 }
 
 function Frozen-Residue($State) {
@@ -157,7 +162,7 @@ function Extra-Environment-Gate {
 }
 
 function Normalize-R0($State) {
-  if(A-Canonical $State){Log 'R0=A_PASS_NO_WRITE';return $State}
+  if(R0-Native-Ready $State){Log 'R0_NATIVE_READY=PASS_NO_WRITE';return $State}
   if(-not $Execute){throw 'R0_EXECUTE_REQUIRED'}
   if(Stale-Holder-File-Only $State) {
     $audit=Read-Root 'p=$(cat /data/local/tmp/x55_holder.pid 2>/dev/null || true); case "$p" in *[!0-9]*|"") echo STALE_OK;; *) if test -d "/proc/$p"; then tr "\000" " " <"/proc/$p/cmdline"; else echo STALE_OK; fi;; esac'
@@ -178,9 +183,9 @@ function Normalize-R0($State) {
     }
   } else {throw 'R0_UNKNOWN_FINGERPRINT'}
   Start-Sleep -Seconds 60
-  $normalized=Capture ("R3_C{0}_R0_NORMALIZED" -f $Cycle)
-  if(-not (A-Canonical $normalized)){throw 'R0_NOT_CANONICAL'}
-  Log 'R0=PASS'
+  $normalized=Capture ("R3V2_C{0}_R0_NATIVE_READY" -f $Cycle)
+  if(-not (R0-Native-Ready $normalized)){throw 'R0_NATIVE_READY_FAIL'}
+  Log 'R0_NATIVE_READY=PASS'
   $normalized
 }
 
@@ -231,13 +236,15 @@ Assert-Hash $Recovery '445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4
 if($StaticAudit){
   Write-Host 'STATIC_NO_ADB=PASS'
   Write-Host 'R3_METHOD=EXACT_UID1001_PHONE_PID_SIGTERM'
+  Write-Host 'GATE_ORDER=R0_NATIVE_READY_THEN_PHONE_TERM_THEN_R3_FRAMEWORK_READY'
+  Write-Host 'R0_FORBIDDEN_FRAMEWORK_FIELDS=rilTechnology,mIsIwlanPreferred,SST,DNC,qti.cne'
   Write-Host 'R3_READY_TIMEOUT_SECONDS=120'
   exit 0
 }
 
 $devices=Invoke-Adb @('devices')
 if($devices.Text -notmatch "(?m)^$([regex]::Escape($Serial))\s+device\s*$"){throw 'TARGET_NOT_ONLINE'}
-$aRaw=Capture ("R3_C{0}_A_RAW" -f $Cycle)
+$aRaw=Capture ("R3V2_C{0}_A_RAW" -f $Cycle)
 if($aRaw.environment.airplaneMode -ne 0){throw 'R3_ENTRY_REQUIRES_AIRPLANE_OFF'}
 $a=Normalize-R0 $aRaw
 if(-not (Extra-Environment-Gate)){throw 'R3_ENVIRONMENT_NOT_READY'}
@@ -271,8 +278,8 @@ while($stable -lt 5) {
   if($sample.phone.pid -ne $after.phone.pid -or -not (Same-Vendor-Scope $before $sample)){throw 'R3_READY_STABILITY_SCOPE_CHANGED'}
   $stable++
 }
-$ready=Capture ("R3_C{0}_A_READY" -f $Cycle)
-if(-not (A-Canonical $ready)){throw 'R3_READY_A_NOT_CANONICAL'}
+$ready=Capture ("R3V2_C{0}_A_READY" -f $Cycle)
+if(-not (R3-Framework-Ready $ready)){throw 'R3_READY_FRAMEWORK_NOT_CANONICAL'}
 if(-not (Extra-Environment-Gate)){throw 'R3_READY_ENVIRONMENT_LOST'}
 [IO.File]::WriteAllText((Join-Path $HostRoot ("cycle_{0}_phone_rebuild_log.txt" -f $Cycle)),$logText,[Text.UTF8Encoding]::new($false))
 Log "R3_READY=PASS oldPhone=$($before.phone.pid) newPhone=$($after.phone.pid)"
