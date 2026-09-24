@@ -376,3 +376,16 @@ NEXT_ACTION: preserve the scene. Static-only holder-loop redesign is required be
 - Report: `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/W1_V1_RECOVERY_EVENT_DIFF.md`.
 
 NEXT_ACTION: preserve the phone scene. Improve capture-only transition telemetry before deciding whether a pre-P canonical discriminator exists.
+
+## Current checkpoint: deterministic reset-boundary analysis
+
+- Date: 2026-09-24; Computer B; Account B; baseline `b3547a32c2a74b2eb60d943e5f006efe9cb72d9c`.
+- Static report: `experiment/reset-boundary-analysis/RESET_BOUNDARY_ANALYSIS.md`.
+- R0 resets X55/PM/qcrild2 but not Phone[1]-owned ANM/NRM/QtiSST/DNC.
+- R1 (slot1 Phone reconstruction) is the causal minimum but has no verified callable boundary.
+- R2 (`.qtidataservices`) rebuilds QNS/IWLAN/CNE providers, not existing framework objects.
+- R3 (`com.android.phone`) is the minimum available deterministic framework object reset, diagnostic only, with both-slot impact.
+- Proposed test freezes R3, P and exact v2.6.2 for three cycles; any valid failure falsifies R3 and forbids an in-run workaround.
+- No ADB/device access; phone writes 0.
+
+NEXT_ACTION: no device action is authorized by this checkpoint. Build an R3 safety/executor audit only after a new explicit decision.

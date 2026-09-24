@@ -399,3 +399,15 @@ NEXT_ACTION: statically redesign the holder loop/TERM behavior first. No timeout
 - Earliest ordering difference: MMTEL `connectionReady -1` preceded ANM in V1 but followed it in W1. Earliest clearly missing event: SST consumption of the returned IWLAN/HOME registration result.
 - Current A/P snapshots do not capture NRM-to-SST callback-generation/liveness. This is capture-only evidence for now, not a canonical or recovery change.
 - Full sanitized report: `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/W1_V1_RECOVERY_EVENT_DIFF.md`.
+
+## Deterministic lifecycle reset boundary (2026-09-24)
+
+- ANM, NRM, QtiSST and DNC are Phone-owned objects in `com.android.phone`; vendor QNS/IWLAN service restart only rebinds their existing client objects.
+- AOSP states that `GsmCdmaPhone.dispose()` is currently never called, and no verified slot-scoped API recreates Phone[1]. A listener re-arm would be a workaround, not a reset boundary.
+- R0 cannot erase the W1/V1 framework residue. R2 recreates shared vendor providers but does not recreate SST/DNC.
+- The causal minimum R1 is currently unavailable; the minimum executable object-recreation boundary is diagnostic R3 (`com.android.phone`).
+- R3 must be tested as fixed `R -> P -> unchanged v2.6.2` for at least three consecutive cycles. Any valid failure falsifies R3; no adaptive SST or service patch is allowed.
+- Prior broad userspace/framework failures lower confidence in R3 success but were not the same controlled cross-cycle experiment.
+- Phone writes 0; ADB not used.
+
+NEXT_ACTION: design and statically audit the exact-PID R3 executor; do not run it without separate approval.

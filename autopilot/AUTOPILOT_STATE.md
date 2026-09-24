@@ -447,3 +447,16 @@ NEXT_ACTION: preserve the dual-owner scene. Perform static-only redesign of dete
 - Phone writes 0; ADB not used.
 
 NEXT_ACTION: add capture-only event telemetry for the ANM -> NRM -> SST -> DNC -> qti.cne chain before considering any canonical gate or recovery change.
+
+## 2026-09-24 deterministic reset-boundary analysis
+
+- Synced exact baseline `b3547a32c2a74b2eb60d943e5f006efe9cb72d9c` on `experiment/v263-repeatable-state-machine`.
+- Reframed the work from an SST workaround to a falsifiable lifecycle-reset hypothesis.
+- R0 covers X55/PM/qcrild2 but leaves ANM, NRM, QtiSST, DNC and framework IMS objects alive.
+- A slot1-only Phone/SST reconstruction (R1) is the causal minimum, but no verified production API exposes it.
+- A `.qtidataservices` reconstruction (R2) recreates vendor QNS/IWLAN/CNE providers but only rebinds existing framework objects.
+- `com.android.phone` (R3) is the first available boundary that deterministically recreates the entire framework object graph. It is diagnostic, broad and affects both slots.
+- Report: `experiment/reset-boundary-analysis/RESET_BOUNDARY_ANALYSIS.md`.
+- Host-only work. ADB not used; phone writes 0.
+
+NEXT_ACTION: separately audit an R3 executor and run only after explicit authorization. Freeze R, P and v2.6.2 for three cycles; any failed valid cycle falsifies R3 without an in-run patch.
