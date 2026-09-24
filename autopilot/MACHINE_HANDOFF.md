@@ -486,3 +486,16 @@ NEXT_ACTION: establish `CONTROL_A0_R4A_V2`, then run `Run-R4aThreeCycle.ps1 -Run
 - R4a is falsified. R4b is eligible for design only, focused on qtidataservices/QNS provider lifecycle before the new framework consumer.
 
 NEXT_ACTION: preserve the scene and stop. Do not execute R4b without a separate static audit and explicit authorization.
+
+## Current checkpoint: R4b static provider-lifecycle design
+
+- Starting commit: `99f5af8cd83622ca7d4233c2f3b54cd54d4497a6`; branch `experiment/v263-repeatable-state-machine`.
+- R4a counterexample remains frozen. Phone remains in Cycle 2 airplane-ON P failure; no cleanup occurred.
+- Reports are under `experiment/reset-boundary-r4b-analysis/`.
+- `.qtidataservices` is persistent ActivityManager process `.qtidataservices`, UID 10104, shared by IWLAN/QNS, CneApp and CACert; there is no init service.
+- APK inspection proves new QNS provider creation actively queries `IIWlan.getAllQualifiedNetworks` and processes current cache before registering change notifications.
+- Future primitive: one exact dynamically verified PID TERM, followed by ActivityManager recreation and a 120-second fail-closed PROVIDER_READY gate. No action was executed in this phase.
+- Frozen order: R0 -> qcrild2 cold producer -> qtidataservices cold provider -> exact R3 phone consumer -> fixed P -> unchanged v2.6.2 only if P passes.
+- Phone writes: 0.
+
+NEXT_ACTION: preserve the phone. Do not execute R4b until the user separately authorizes implementation, static audit and a fresh one-reboot series.

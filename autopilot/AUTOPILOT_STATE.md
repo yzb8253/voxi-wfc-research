@@ -557,3 +557,15 @@ NEXT_ACTION: checkpoint this frozen adapter, then use the single authorized rebo
 - No adaptive action or post-failure phone write occurred.
 
 NEXT_ACTION: preserve the Cycle 2 P scene. R4b is eligible for static design around the qtidataservices/QNS provider epoch, but is not authorized for execution.
+
+## 2026-09-24 R4b provider-lifecycle static design complete
+
+- R4a remains frozen as `R4A_FALSIFIED_AT_P`, first missing milestone M1.
+- Current-ROM read-only inventory confirms `.qtidataservices` is a zygote child/persistent ActivityManager process, not an init service. It uses shared UID 10104 and hosts QNS, IWLAN NetworkService/DataService, CneApp and CACertService for both slots.
+- Current IWlanService APK inspection proves that a new slot provider actively calls `getAllQualifiedNetworks`, processes the response with `updateQualifiedNetworks`, and then registers for qualified-network changes.
+- A process-cold epoch resets static IWlanProxy instances, production HIDL callbacks, registrants, request state and all co-hosted Java providers. Service rebind alone is incomplete.
+- Minimum verified complete primitive for a future series is one exact verified PID TERM followed by ActivityManager persistent-process recreation. It was not executed.
+- Frozen R4b dependency order is R0 -> qcrild2 producer -> PRODUCER_READY -> qtidataservices provider -> PROVIDER_READY -> exact R3 consumer -> A_READY -> fixed P -> unchanged v2.6.2 only after P passes.
+- Reports: `experiment/reset-boundary-r4b-analysis/`. This phase used only read-only device inspection and host APK analysis. Phone writes 0.
+
+NEXT_ACTION: preserve the Cycle 2 scene. R4b execution requires separate explicit authorization, a fresh one-reboot baseline and an implementation/static audit; do not run the designed primitive now.

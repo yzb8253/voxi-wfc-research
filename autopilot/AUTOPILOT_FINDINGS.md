@@ -499,3 +499,14 @@ NEXT_ACTION: run only the newly authorized independent v2 series; preserve v1 as
 - This supports moving the minimum candidate boundary to qtidataservices/QNS provider lifecycle plus a subsequent fresh framework consumer, subject to separate R4b audit and authorization.
 
 NEXT_ACTION: design R4b statically only; do not patch ANM/NRM/SST/DNC and do not execute another reset without explicit authorization.
+
+## R4b provider lifecycle finding (2026-09-24)
+
+- `.qtidataservices` is the persistent shared Java bridge process for QNS, IWLAN NetworkService/DataService, CNE Java and CACert; it is not an init service.
+- Its current-ROM QNS provider constructor performs an explicit production `IIWlan.getAllQualifiedNetworks` query, processes the current native cache into `updateQualifiedNetworkTypes`, and then registers for changes.
+- R3 recreated bound service objects but preserved the process-static IWlanProxy/callback/registrant epoch. A process restart necessarily replaces that state and is therefore a materially larger provider boundary.
+- R4a fits a missing initial republication: the old consumer received live M1 after the new producer, while the new consumer received no M1 through the retained provider process. The exact hidden callback/replay defect remains unobservable.
+- No smaller verified API resets the complete provider epoch. Exact PID TERM with ActivityManager recreation is the minimum verified full boundary, but affects shared both-slot providers.
+- R4b is a falsifiable lifecycle reconstruction, not an ANM/SST workaround: producer first, provider second, consumer third, then fixed P.
+
+NEXT_ACTION: no phone action. Implement/audit R4b only after separate authorization; execution must start as a new series and stop at the first valid P or recovery failure.
