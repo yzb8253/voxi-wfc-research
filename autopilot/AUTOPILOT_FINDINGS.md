@@ -441,3 +441,13 @@ NEXT_ACTION: only under new authorization, revise the experimental definition so
 - PS5.1 parser, gate-order audit, framework-field exclusion and STATIC_NO_ADB all pass. Frozen v2.6.2 hash remains `445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75`.
 
 NEXT_ACTION: establish the separately authorized one-reboot CONTROL_A0_V2 baseline, then run only the fixed v2 series and stop at the first valid failure.
+
+## R3 v2 falsification result (2026-09-24)
+
+- The new independent series used its one authorized reboot and captured CONTROL_A0_V2.
+- Cycle 1 passed R0_NATIVE_READY with no write, then passed exact-PID R3_FRAMEWORK_READY (phone 3425 -> 17756, fresh Phone/SST/ANM/NRM/DNC, vendor PIDs unchanged).
+- The unchanged P transition failed after its fixed 60-second settle: IWLAN/PS state remained UNKNOWN and preferred=false. NRM returned IWLAN NOT_REG_OR_SEARCHING; ANM never published IMS -> IWLAN.
+- The state machine stopped before v2.6.2 and before any SIM write. SIM OFF/ON 0/0; cycles 2/3 not run.
+- Classification: `R3_FALSIFIED_AT_CYCLE=1`, `FIRST_MISSING_MILESTONE=M1`.
+
+NEXT_ACTION: preserve the clean-native airplane-ON F1 scene. Do not patch SST/QNS or enlarge the reset in this run. Design any next boundary as a new candidate under separate approval.

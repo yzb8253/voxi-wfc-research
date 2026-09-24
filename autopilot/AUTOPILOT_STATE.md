@@ -489,3 +489,13 @@ NEXT_ACTION: preserve the current clean-native/F1 scene. Do not patch and resume
 - PS5.1 and STATIC_NO_ADB audits pass; phone writes for this correction are zero.
 
 NEXT_ACTION: use the one authorized reboot for CONTROL_A0_V2, then execute three identical cycles without reboot or adaptive recovery.
+
+## 2026-09-24 R3 v2 falsified at Cycle 1
+
+- CONTROL_A0_V2 captured after the single authorized reboot.
+- R0_NATIVE_READY PASS; exact phone TERM 3425 -> 17756; R3_FRAMEWORK_READY PASS.
+- Fixed P failed canonicality: no ANM IMS->IWLAN; NRM reported IWLAN NOT_REG_OR_SEARCHING; final PS/WLAN UNKNOWN and preferred=false.
+- v2.6.2 was not invoked; SIM OFF/ON 0/0; cycles 2/3 not run.
+- Result: `R3_FALSIFIED_AT_CYCLE=1`, first missing milestone M1.
+
+NEXT_ACTION: no further phone action in this scene. A new reset boundary requires a new design and explicit authorization.

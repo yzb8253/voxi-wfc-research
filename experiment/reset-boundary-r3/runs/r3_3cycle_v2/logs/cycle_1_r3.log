@@ -1,0 +1,22 @@
+﻿2026-09-24T19:16:02.8448661+08:00 R3_PREPARE_BEGIN cycle=1 execute=False
+2026-09-24T19:16:03.0900139+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T19:21:11.2863194+08:00 R3_PREPARE_BEGIN cycle=1 execute=True
+2026-09-24T19:21:11.4615907+08:00 HASH_PASS path=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\v262_freeze_run\X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1 sha256=445752BB49FB487850D0B1A1EFF4F0AA29D58C363C3A86E75BAA841E4CC08F75
+2026-09-24T19:21:23.8489351+08:00 CAPTURE=SNAPSHOT=R3V2_C1_A_RAW
+2026-09-24T19:21:23.8556145+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle_v2\snapshots\R3V2_C1_A_RAW.json
+2026-09-24T19:21:23.8596153+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle_v2\R3V2_C1_A_RAW
+2026-09-24T19:21:23.8646139+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T19:21:23.8736256+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T19:21:23.8776140+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T19:21:24.0754613+08:00 R0_NATIVE_READY=PASS_NO_WRITE
+2026-09-24T19:21:25.6562370+08:00 R3_SCOPE_BEFORE phone=3425 qcrild=1906 qcrild2=1927 qtidata=3319 qcomims=3332
+2026-09-24T19:21:25.8463048+08:00 PHONE_WRITE=kill -TERM 3425
+2026-09-24T19:21:30.0243173+08:00 R3_READY_PROGRESS newPhone=17756 missing=carrierLoaded,mmtel11
+2026-09-24T19:21:34.6215536+08:00 R3_READY_PROGRESS newPhone=17756 missing=
+2026-09-24T19:21:58.4221449+08:00 CAPTURE=SNAPSHOT=R3V2_C1_A_READY
+2026-09-24T19:21:58.4271455+08:00 CAPTURE=SUMMARY=C:\Users\TT\Desktop\platform-tools\voxi_wfc_research_computer_b\experiments\wfc_repeatability_normalization\runs\r3_3cycle_v2\snapshots\R3V2_C1_A_READY.json
+2026-09-24T19:21:58.4351510+08:00 CAPTURE=RAW=C:\Users\TT\Desktop\platform-tools\voxi_wfc_local_runs\repeatability_normalization\r3_3cycle_v2\R3V2_C1_A_READY
+2026-09-24T19:21:58.4430410+08:00 CAPTURE=AIRPLANE=0
+2026-09-24T19:21:58.4574651+08:00 CAPTURE=WFC_HEALTHY=False
+2026-09-24T19:21:58.4632705+08:00 CAPTURE=FAILURE_CLASS=F1
+2026-09-24T19:21:58.8125577+08:00 R3_READY=PASS oldPhone=3425 newPhone=17756

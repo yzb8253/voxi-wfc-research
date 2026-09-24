@@ -420,3 +420,14 @@ NEXT_ACTION: no continuation or phone workaround. Redefine the post-R0 intermedi
 - PS5.1 parser, AST gate-order audit and STATIC_NO_ADB pass. Proven v2.6.2 bytes are unchanged.
 
 NEXT_ACTION: run the newly authorized CONTROL_A0_V2 reboot baseline, then fixed cycles. Stop on the first valid failure.
+
+## R3 v2 final checkpoint
+
+- Result: `experiment/reset-boundary-r3/runs/r3_3cycle_v2/RESULT.md`.
+- One reboot baseline used. Cycle 1 passed R0 native readiness and R3 framework readiness; phone PID 3425 -> 17756.
+- The fixed P transition did not reach canonical IWLAN/HOME: NRM returned NOT_REG_OR_SEARCHING, ANM IMS->IWLAN was absent, and the 60-second snapshot was UNKNOWN/preferred=false.
+- Fail-closed occurred before v2.6.2. SIM OFF/ON 0/0. Cycles 2/3 were not run.
+- Classification: `R3_FALSIFIED_AT_CYCLE=1`, `FIRST_MISSING_MILESTONE=M1`.
+- Preserved state: airplane ON, native pm-service ownership clean, X55 ONLINE/crash zero, holder absent, VOXI active/UICC enabled, F1.
+
+NEXT_ACTION: stop. Do not add an SST/QNS workaround or another reset to this run.
