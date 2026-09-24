@@ -46,6 +46,7 @@ $script:CleanupResult = 'NOT_RUN'
 $script:PreCleanupWfcResult = 'NOT_CHECKED'
 $script:EntryQcrild2ProcessId = $null
 $script:RevoteEvidence = 'NOT_CHECKED'
+$script:PreserveHolderForEvidence = $false
 
 function Write-Log([string]$Message) {
   $line = '{0} {1}' -f (Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffK'), $Message
@@ -523,7 +524,7 @@ function Prepare-OneShotSimCycle {
 }
 
 function Start-OneShotSimCycle([string]$RemoteScript) {
-  $start=Invoke-Root "X55_V27_MODE=1 X55_V27_EXECUTE=YES X55_V27_START_PER_MGR_AFTER_POWER_UP=YES nohup /system/bin/sh $DeviceWorkDir/$RemoteScript >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
+  $start=Invoke-Root "X55_V27_MODE=1 X55_V27_EXECUTE=YES X55_V27_START_PER_MGR_AFTER_POWER_UP=NO nohup /system/bin/sh $DeviceWorkDir/$RemoteScript >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
   $script:PhoneWrites++
   Require ($start.ExitCode -eq 0) 'Unable to start one-shot SIM cycle'
 }
@@ -584,7 +585,7 @@ function Invoke-StaticNoAdbSelfTest {
     X55Probe="cat $X55StatePath 2>&1; cat $CrashCountPath 2>&1"
     SimPowerHelper="LAB_MODE=1 LAB_EXECUTE=YES CLASSPATH=$DeviceWorkDir/single-sim-slot1-power-helper.jar app_process /system/bin SingleSimSlot1PowerHelper ARM_ROLLBACK"
     SimCyclePrepare="rm -f $DeviceWorkDir/cycle.done $DeviceWorkDir/cycle.result $DeviceWorkDir/cycle.log $DeviceWorkDir/cycle.stdout"
-    SimCycleStart="X55_V27_MODE=1 X55_V27_EXECUTE=YES X55_V27_START_PER_MGR_AFTER_POWER_UP=YES nohup /system/bin/sh $DeviceWorkDir/v27_sim_cycle_single.sh >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
+    SimCycleStart="X55_V27_MODE=1 X55_V27_EXECUTE=YES X55_V27_START_PER_MGR_AFTER_POWER_UP=NO nohup /system/bin/sh $DeviceWorkDir/v27_sim_cycle_single.sh >$DeviceWorkDir/cycle.stdout 2>&1 </dev/null &"
   }
   $androidPayloadCrCount=0
   foreach($payloadName in $androidPayloads.Keys) {
@@ -597,12 +598,12 @@ function Invoke-StaticNoAdbSelfTest {
   Require ($androidPayloads.HolderLaunch.Contains('echo $$ >') -and $androidPayloads.HolderLaunch.Contains("exec 9<$DeviceNode") -and $androidPayloads.HolderLaunch.Contains('while :; do sleep 1; done')) 'Holder command construction mismatch'
   Require ($androidPayloads.SimPowerHelper.Contains('SingleSimSlot1PowerHelper ARM_ROLLBACK') -and
     $androidPayloads.SimCyclePrepare.Contains('cycle.done') -and
-    $androidPayloads.SimCycleStart.Contains('X55_V27_START_PER_MGR_AFTER_POWER_UP=YES') -and
+    $androidPayloads.SimCycleStart.Contains('X55_V27_START_PER_MGR_AFTER_POWER_UP=NO') -and
     $androidPayloads.SimCycleStart.Contains('v27_sim_cycle_single.sh')) 'SIM command construction mismatch'
   $singleOrchestratorText=[IO.File]::ReadAllText($SingleOrchestrator)
-  Require ($singleOrchestratorText.Contains('PER_MGR_START_EXIT rc=$rc') -and
-    $singleOrchestratorText.Contains('immediately_after_power_up') -and
-    $singleOrchestratorText.Contains('X55_V27_START_PER_MGR_AFTER_POWER_UP')) 'single-SIM early per_mgr start contract mismatch'
+  Require ($singleOrchestratorText.Contains('PER_MGR_START_SKIPPED reason=configured_holder_sole_recovery') -and
+    $singleOrchestratorText.Contains('X55_V27_START_PER_MGR_AFTER_POWER_UP') -and
+    $singleOrchestratorText.Contains('YES|NO')) 'single-SIM holder-sole recovery contract mismatch'
   $normalizedOrchestrator=Normalize-AndroidShellText $singleOrchestratorText
   Require (-not $normalizedOrchestrator.Contains("`r")) 'single-SIM orchestrator LF normalization failed'
   $normalizedHeader='#!/system/bin/sh' + "`n" + 'set -u' + "`n"
@@ -656,14 +657,14 @@ function Invoke-StaticNoAdbSelfTest {
   $holderStartIndex=[regex]::Match($sourceText,'(?m)^  \$script:HolderHostProcess=Start-OwnedHolder\r?$').Index
   $postRebirthWfcIndex=[regex]::Match($sourceText,'(?m)^  \$postRebirth=Get-WfcJson ''post_rebirth_10s''\r?$').Index
   $simCycleIndex=[regex]::Match($sourceText,'(?m)^    Start-OneShotSimCycle \$orchestratorRemote\r?$').Index
-  $earlyDualOwnerIndex=[regex]::Match($sourceText,'(?m)^    \$earlyDualOwnerReady=Wait-Until \{\r?$').Index
-  $cleanupInvokeIndex=[regex]::Match($sourceText,'(?m)^  Invoke-MakeBeforeBreakCleanup\r?$').Index
-  $postCleanupWfcIndex=[regex]::Match($sourceText,'(?m)^    \$postCleanup=Get-WfcJson ''post_cleanup_5s''\r?$').Index
+  $holderSoleWindowIndex=[regex]::Match($sourceText,'(?m)^    Write-Log ''HOLDER_SOLE_RECOVERY_WINDOW=PASS.*''\r?$').Index
+  $perMgrRestoreIndex=[regex]::Match($sourceText,'(?m)^    Write-Log ''PER_MGR_RESTORE_AFTER_RECOVERY=PASS.*''\r?$').Index
+  $postRestoreWfcIndex=[regex]::Match($sourceText,'(?m)^    \$postRestore=Get-WfcJson ''post_per_mgr_restore_5s''\r?$').Index
   $stateMachineOrder=$prestageIndex -gt 0 -and $prestageIndex -lt $stopPerMgrIndex -and
     $stopPerMgrIndex -lt $holderStartIndex -and $holderStartIndex -lt $postRebirthWfcIndex -and
-    $postRebirthWfcIndex -lt $simCycleIndex -and $simCycleIndex -lt $earlyDualOwnerIndex -and
-    $earlyDualOwnerIndex -lt $cleanupInvokeIndex -and $cleanupInvokeIndex -lt $postCleanupWfcIndex
-  Require $stateMachineOrder 'timing-optimized recovery state-machine order mismatch'
+    $postRebirthWfcIndex -lt $simCycleIndex -and $simCycleIndex -lt $holderSoleWindowIndex -and
+    $holderSoleWindowIndex -lt $perMgrRestoreIndex -and $perMgrRestoreIndex -lt $postRestoreWfcIndex
+  Require $stateMachineOrder 'holder-sole recovery state-machine order mismatch'
 
   $childScript = Join-Path ([IO.Path]::GetTempPath()) ('v27-ps51-argv-' + [guid]::NewGuid().ToString('N') + '.ps1')
   $childSource = @'
@@ -720,13 +721,13 @@ foreach($value in $Values) {
   Write-Host 'HOST_PROCESS_ABSENT_IDENTITY_MODEL=PASS'
   Write-Host 'MAKE_BEFORE_BREAK_STATE_MACHINE=PASS'
   Write-Host 'RECOVERY_BEFORE_CLEANUP_STATE_MACHINE=PASS'
-  Write-Host 'TIMING_OPTIMIZED_RECONNECT_WINDOW=PASS'
+  Write-Host 'HOLDER_SOLE_WFC_OBSERVATION=PASS'
   Write-Host 'PRESTAGE_BEFORE_PER_MGR_STOP=PASS'
-  Write-Host 'EARLY_PER_MGR_START_AFTER_POWER_UP=PASS'
+  Write-Host 'PER_MGR_DEFERRED_UNTIL_AFTER_WFC=PASS'
   Write-Host "QCRILD2_RESTARTS_IN_NEW_PATH=$qcrild2RestartCount"
   Write-Host 'SIM_OFF_MAX=1'
   Write-Host 'SIM_ON_MAX=1'
-  Write-Host 'STATE_MACHINE_ORDER=ENTRY>PRESTAGE>STOP_PER_MGR>HOLDER_SOLE>X55_REBIRTH>WFC_CHECK>OPTIONAL_ONE_SIM_CYCLE+EARLY_PER_MGR_START>DUAL_OWNER>WFC_OBSERVE>EXACT_TERM>PM_SOLE>POST_CLEANUP_WFC_CHECK'
+  Write-Host 'STATE_MACHINE_ORDER=ENTRY>PRESTAGE>STOP_PER_MGR>HOLDER_SOLE>X55_REBIRTH>WFC_CHECK>OPTIONAL_ONE_SIM_CYCLE>HOLDER_SOLE_WFC_OBSERVE>RESTORE_PER_MGR_WITH_HOLDER_PRESERVED>POST_RESTORE_WFC_CHECK'
   Write-Host 'STATIC_NO_ADB=PASS'
   Write-Host 'WINDOWS_ARGUMENT_ROUNDTRIP=PASS'
   Write-Host 'PHONE_WRITES=0'
@@ -846,59 +847,57 @@ try {
     $cycleResult=Invoke-Root "cat $DeviceWorkDir/cycle.result $DeviceWorkDir/cycle.log $DeviceWorkDir/cycle.stdout 2>&1"
     Save-Text 'sim_cycle_result.txt' ($cycleResult.StdOut+$cycleResult.StdErr)
     Require ($cycleResult.StdOut -match 'RESULT=SUCCESS') 'single SIM cycle failed'
-    Require ($cycleResult.StdOut -match 'PER_MGR_START_EXIT rc=0') 'device-side immediate per_mgr start failed'
-    $script:PhoneWrites++
-    Require (Wait-Until { (Invoke-Root 'getprop init.svc.vendor.per_mgr').StdOut.Trim() -eq 'running' } 5 'per_mgr running after POWER_UP') 'per_mgr did not start after POWER_UP'
-    $script:PerMgrWasStopped=$false
+    Require ($cycleResult.StdOut -match 'PER_MGR_START=SKIPPED') 'device-side holder-sole recovery contract failed'
 
-    $earlyDualOwnerReady=Wait-Until {
-      $contended=Capture-NativeState 'post_power_up_dual_owner_wait'
-      (Test-HolderPmDualOwner $contended $script:HolderAndroidProcessId) -and
-        $contended.PerMgr -eq 'running' -and $contended.X55 -eq 'ONLINE' -and $contended.CrashCount -eq '0' -and
-        (Test-ExactQcrild2Process $contended.Qcrild2) -and $contended.Qcrild2.ProcessId -eq $entryQcrild2ProcessId
-    } 10 'early holder plus pm-service dual ownership after SIM POWER_UP'
-    if(-not $earlyDualOwnerReady) {
-      $script:NativeHandoffResult='EXPECTED_EARLY_DUAL_OWNER_NOT_FORMED'
-      throw 'expected early dual-owner state did not form after SIM POWER_UP'
-    }
-    Write-Log 'EARLY_DUAL_OWNER=PASS holder preserved while WFC rebuilds'
+    $holderSoleAfterCycle=Capture-NativeState 'post_cycle_holder_sole_gate'
+    Require ($holderSoleAfterCycle.PerMgr -eq 'stopped') 'per_mgr restarted during holder-sole recovery'
+    Require (Test-HolderSoleOwner $holderSoleAfterCycle $script:HolderAndroidProcessId) 'holder is not sole owner after SIM cycle'
+    Require ($holderSoleAfterCycle.X55 -eq 'ONLINE' -and $holderSoleAfterCycle.CrashCount -eq '0') 'X55 regressed after SIM cycle'
+    Require ((Test-ExactQcrild2Process $holderSoleAfterCycle.Qcrild2) -and $holderSoleAfterCycle.Qcrild2.ProcessId -eq $entryQcrild2ProcessId) 'qcrild2 changed after SIM cycle'
+    Write-Log 'HOLDER_SOLE_RECOVERY_WINDOW=PASS per_mgr stopped while WFC rebuilds'
 
     foreach($second in 0,3,6,9,12,15,18,21,24,27,30) {
       if($second -gt 0) { Start-Sleep -Seconds 3 }
-      $sample=Get-WfcJson ("post_cycle_dual_{0:D2}s" -f $second)
-      $native=Capture-NativeState ("post_cycle_dual_{0:D2}s" -f $second)
-      Require ($native.PerMgr -eq 'running') 'per_mgr regressed during dual-owner WFC recovery'
-      Require (Test-HolderPmDualOwner $native $script:HolderAndroidProcessId) 'dual ownership regressed during WFC recovery'
+      $sample=Get-WfcJson ("post_cycle_holder_sole_{0:D2}s" -f $second)
+      $native=Capture-NativeState ("post_cycle_holder_sole_{0:D2}s" -f $second)
+      Require ($native.PerMgr -eq 'stopped') 'per_mgr restarted during holder-sole WFC recovery'
+      Require (Test-HolderSoleOwner $native $script:HolderAndroidProcessId) 'holder sole ownership regressed during WFC recovery'
       Require ($native.X55 -eq 'ONLINE' -and $native.CrashCount -eq '0') 'X55 regressed after SIM cycle'
       Require ((Test-ExactQcrild2Process $native.Qcrild2) -and $native.Qcrild2.ProcessId -eq $entryQcrild2ProcessId) 'qcrild2 changed after SIM cycle'
       if(Test-Healthy $sample) {
         $preCleanupHealthy=$true
-        $script:PreCleanupWfcResult='HEALTHY_AFTER_ONE_SIM_CYCLE_WITH_EARLY_DUAL_OWNER'
-        Write-Log "PRE_CLEANUP_WFC=HEALTHY_AFTER_ONE_SIM_CYCLE_WITH_EARLY_DUAL_OWNER at $($second)s"
+        $script:PreCleanupWfcResult='HEALTHY_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
+        Write-Log "PRE_CLEANUP_WFC=HEALTHY_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE at $($second)s"
         break
       }
     }
     if(-not $preCleanupHealthy) {
-      $script:PreCleanupWfcResult='FAILED_AFTER_ONE_SIM_CYCLE_WITH_EARLY_DUAL_OWNER'
-      $script:FinalWfcResult='FAILED_AFTER_ONE_SIM_CYCLE_WITH_EARLY_DUAL_OWNER'
-      Write-Log 'PRE_CLEANUP_WFC=FAILED_AFTER_ONE_SIM_CYCLE_WITH_EARLY_DUAL_OWNER'
+      $script:PreCleanupWfcResult='FAILED_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
+      $script:FinalWfcResult='FAILED_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
+      Write-Log 'PRE_CLEANUP_WFC=FAILED_AFTER_ONE_SIM_CYCLE_HOLDER_SOLE'
     }
-  }
-
-  Invoke-MakeBeforeBreakCleanup
 
   if($preCleanupHealthy) {
+    Ensure-PerMgrRunning
+    Write-Log 'PER_MGR_RESTORE_AFTER_RECOVERY=PASS holder preserved'
     Start-Sleep -Seconds 5
-    $postCleanup=Get-WfcJson 'post_cleanup_5s'
-    if(Test-Healthy $postCleanup) {
-      $script:FinalWfcResult='HEALTHY'
-      Write-Log 'POST_CLEANUP_WFC=HEALTHY'
+    $postRestore=Get-WfcJson 'post_per_mgr_restore_5s'
+    $postRestoreNative=Capture-NativeState 'post_per_mgr_restore_5s'
+    Require ($postRestoreNative.PerMgr -eq 'running') 'per_mgr failed to remain running after recovery'
+    Require (Test-HolderSoleOwner $postRestoreNative $script:HolderAndroidProcessId) 'holder sole ownership changed after per_mgr restore'
+    Require ($postRestoreNative.X55 -eq 'ONLINE' -and $postRestoreNative.CrashCount -eq '0') 'X55 regressed after per_mgr restore'
+    Require ((Test-ExactQcrild2Process $postRestoreNative.Qcrild2) -and $postRestoreNative.Qcrild2.ProcessId -eq $entryQcrild2ProcessId) 'qcrild2 changed after per_mgr restore'
+    if(Test-Healthy $postRestore) {
+      $script:FinalWfcResult='HEALTHY_HOLDER_SOLE_PER_MGR_RUNNING'
+      $script:CleanupResult='HOLDER_PRESERVED_FOR_EVIDENCE'
+      $script:PreserveHolderForEvidence=$true
+      Write-Log 'POST_PER_MGR_RESTORE_WFC=HEALTHY holder preserved for evidence'
     } else {
-      $script:FinalWfcResult='LOST_AFTER_NATIVE_CLEANUP'
-      throw 'WFC was healthy before native cleanup but was lost after cleanup'
+      $script:FinalWfcResult='LOST_AFTER_PER_MGR_RESTORE'
+      throw 'WFC was healthy with holder sole but was lost after per_mgr restore'
     }
   } else {
-    throw 'WFC failed after one SIM cycle with early dual-owner restoration'
+    throw 'WFC failed after one SIM cycle with holder-sole recovery'
   }
 } catch {
   $script:Failure=$_.Exception.Message
@@ -907,14 +906,18 @@ try {
   if($null -eq $script:HolderAndroidProcessId -and $null -ne $script:HolderHostProcess) { $script:HolderAndroidProcessId=Get-HolderAndroidProcessId }
 
   if($null -ne $script:HolderAndroidProcessId -and -not $script:HolderTermSent) {
-    try {
-      if($null -ne $script:EntryQcrild2ProcessId) {
-        Invoke-MakeBeforeBreakCleanup
-      } else {
-        Write-Log 'FAILSAFE_NATIVE_CLEANUP_SKIPPED=entry qcrild2 PID unavailable; holder preserved'
+    if($script:PreserveHolderForEvidence) {
+      Write-Log 'FAILSAFE_NATIVE_CLEANUP_SKIPPED=healthy holder-sole evidence preserved'
+    } else {
+      try {
+        if($null -ne $script:EntryQcrild2ProcessId) {
+          Invoke-MakeBeforeBreakCleanup
+        } else {
+          Write-Log 'FAILSAFE_NATIVE_CLEANUP_SKIPPED=entry qcrild2 PID unavailable; holder preserved'
+        }
+      } catch {
+        Write-Log "FAILSAFE_NATIVE_CLEANUP_ERROR=$($_.Exception.Message)"
       }
-    } catch {
-      Write-Log "FAILSAFE_NATIVE_CLEANUP_ERROR=$($_.Exception.Message)"
     }
   }
 
