@@ -592,3 +592,13 @@ NEXT_ACTION: no phone action. Preserve the mismatch and treat R_BIG_V1 as NOT TE
 - The fail stage is `V262/WFC`, not HOLDER or qcrild2 reacquire. R_BIG_V1.1 Cycles 3-5 remain untested.
 
 NEXT_ACTION: no phone action. Preserve holder 27699 and the F1 counterexample; do not infer failure or success of R_BIG_V1.1 itself.
+
+## Profiling methodology finding (2026-09-25)
+
+- The golden archive cannot supply six measured subId1 rows: W0/W1 raw logs are host-only, their committed snapshots omit protected slot0, and runs 3-6 are aggregate-only.
+- Longitudinal repository evidence says slot0 was already ABSENT before golden. Current single-SIM status is not a proven new variable and cannot explain the profile failure by itself.
+- Normal SIM2 OFF/ON is independently fixed to slotId1 and guarded by exact VOXI mapping. The legacy protected-slot0 status line is not its write target gate; the optional UICC fallback has a separate hard protected-slot0 gate.
+- Full snapshots are a pre-existing golden-path confounder. Read-only does not imply timing-neutral.
+- The nominal 30-second WFC window is currently a 30-second sleep budget plus probe runtimes (`TIMEOUT_ACCOUNTING_DEFECT / CONTRACT_AMBIGUITY`). Do not change it without a separate experiment.
+
+NEXT_ACTION: design and offline-verify low-perturbation profiling; no device mutation before review.

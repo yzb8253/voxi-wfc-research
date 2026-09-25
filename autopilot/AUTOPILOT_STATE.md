@@ -681,3 +681,13 @@ NEXT_ACTION: preserve the stopped airplane-OFF F1 scene. Do not resume this seri
 - The series stopped at `CYCLE2_V262_WFC_NO_CNE_REQUEST`. Cycles 3-5 and R_BIG_V1.1 were not run, so the upper-bound candidate is NOT TESTED / NOT FALSIFIED.
 
 NEXT_ACTION: preserve the final airplane-ON F1 scene. Do not resume, clean up, or claim an R_BIG verdict without a new explicit experiment.
+
+## 2026-09-25 Phase 1.5 profiling methodology audit
+
+- Golden 6/6 per-run raw isub evidence is not repository-retained; W0/W1 snapshots omit protected-slot0 fields and later successes are aggregate-only.
+- Repository continuity instead records single-SIM/slot0 ABSENT from 2026-09-20 through the golden period. The prior claim that the profiling run had a different physical start state is withdrawn.
+- The 46-51 second snapshots and 38-41 second logcat scans were already in the golden preflight. Stopwatch instrumentation measured them; it did not add those calls. Their wall-clock delay can still perturb asynchronous recovery.
+- `coreExit=30` means cleanup was not verified. A later wrapper health probe can observe WFC, but strong health alone does not prove a supported native freeze invariant.
+- No recovery, timeout, slot0 contract, wait, mutation, or instrumentation code changed. Phone writes 0; ADB not used.
+
+NEXT_ACTION: implement a separately reviewed low-perturbation profiling-only collector and prove offline classifier equivalence before any further phone-write run. Keep timeout accounting and exit-30 classification as separate future experiments.

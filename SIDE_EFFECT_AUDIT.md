@@ -4,7 +4,7 @@ Date: 2026-09-25
 
 ## Result
 
-The instrumentation itself caused zero phone writes. The real profiling invocation used only the pre-existing verified wrapper actions. It did not recover WFC in the current single-SIM physical state, and it stopped fail-closed at the protected-slot0 gate.
+The instrumentation itself caused zero phone writes. The real profiling invocation used only the pre-existing verified wrapper actions. It did not recover WFC in the single-SIM physical state, and the optional UICC fallback stopped fail-closed at its protected-slot0 gate. Read-only instrumentation is not automatically behavior-neutral: the golden preflight's pre-existing full snapshots add tens of seconds to asynchronous state transitions.
 
 ## Protected slot0
 
@@ -12,7 +12,7 @@ The instrumentation itself caused zero phone writes. The real profiling invocati
 - Final `dumpsys isub` shows subId1 in the database with `simSlotIndex=-1`, not active in slot0.
 - No slot0 SIM power, enable/disable, reset, or configuration write was issued.
 - The guarded UICC fallback detected this mismatch and performed zero UICC writes.
-- Because the current device does not satisfy the documented protected-slot0 matrix, further recovery profiling is blocked.
+- Per-run golden slot0 dumps are not retained. Repository continuity indicates the golden period was also single-SIM/slot0-absent, so the current absence must not be called a newly different start state. Further recovery profiling remains paused for methodology review, not because a golden/current physical mismatch was proven.
 
 ## VOXI slot1
 

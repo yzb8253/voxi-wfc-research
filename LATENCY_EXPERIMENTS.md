@@ -53,13 +53,13 @@ Final:
 
 Classification:
 
-- This does not falsify the historical 6/6 golden stability record because the current physical start-state matrix differs: protected slot0 is absent.
+- This does not falsify the historical 6/6 golden stability record. The earlier explanation that the physical start-state matrix differed is withdrawn: retained chronology indicates the golden period was already single-SIM/slot0-absent, while per-run golden isub dumps are unavailable.
 - It does confirm the latency decomposition and a real nominal-time versus wall-time accounting defect.
 - No optimization candidate has been applied.
 
 ## Candidate queue
 
-1. **Lightweight preflight gate** — retain every decision input, move full dumps/logcat to unexpected/failure capture. Highest value, low risk, not implemented.
+1. **Lightweight preflight gate** — retain every decision input, move full dumps/logcat to unexpected/failure capture. Highest value; profiling-method change requiring offline classifier equivalence, not implemented.
 2. **Remove duplicate diagnostics inside one snapshot** — `dumpsys connectivity` is collected in both network and IMS bundles. Medium value, low risk, not implemented.
 3. **Probe accounting** — use a wall-clock deadline while preserving the same 30-second policy and early-exit semantics. Requires its own design/review; not implemented.
 4. **A/P settle study** — deferred until diagnostic overhead is reduced and successful A/B baselines exist.

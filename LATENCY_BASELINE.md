@@ -14,7 +14,7 @@ This is a profiling baseline, not an optimization result. No timeout, wait, gate
 
 The real-device run started from the priority-B state: airplane OFF after a previous frozen-holder success. It produced three complete frozen-residue preflight/normalization samples and two unchanged v2.6.2 core attempts in one wrapper invocation. Both core attempts ended in `NO_CNE_REQUEST`; therefore this run is not a WFC-success validation sample.
 
-Further independent runs, including priority-A native-clean A0, were stopped because protected subId1 was physically/unambiguously absent from slot0. The existing UICC deep fallback correctly failed closed before any UICC write.
+Further independent runs, including priority-A native-clean A0, were stopped pending a slot0-contract audit. Protected subId1 was absent from slot0 and the existing UICC deep fallback correctly failed closed before any UICC write. Repository continuity evidence now indicates that the golden 6/6 series was also most likely single-SIM/slot0-absent; absence is not established as a changed physical start state. See `PROFILING_METHOD_AUDIT.md`.
 
 ## Timing distribution
 
@@ -49,7 +49,7 @@ All values are milliseconds. Median is the arithmetic midpoint for an even sampl
 
 ## Main finding
 
-The 153-second historical suspicion is confirmed. In this run a frozen-residue preflight took 139-189 seconds. Two full snapshots consume roughly 94-102 seconds, and their two all-buffer logcat scans alone consume roughly 76-81 seconds. Diagnostic collection is the highest-value low-risk optimization target.
+The 153-second historical suspicion is confirmed. In this run a frozen-residue preflight took 139-189 seconds. Two full snapshots consume roughly 94-102 seconds, and their two all-buffer logcat scans alone consume roughly 76-81 seconds. These snapshot calls already existed in the golden preflight; the Stopwatch instrumentation measured them rather than adding them. Diagnostic collection remains the highest-value candidate, but removing it from the critical path is itself a timing/methodology change that needs classifier-equivalence review.
 
 The second large variable is holder termination: 5.1, 34.5, and 53.3 seconds. This variance is real and must not be hidden by shortening safety gates.
 
@@ -59,4 +59,4 @@ The post-SIM function describes a 30-second maximum, but it increments a logical
 
 ## Next safe profiling action
 
-Do not run more phone mutations until the protected-slot0 contract is satisfied again or the user explicitly supplies a revised, audited single-SIM safety contract. Once unblocked, collect independent native-clean A0 and frozen-holder success samples with the same instrumentation commit before changing behavior.
+Do not run more phone mutations until the slot0 evidence and low-perturbation methodology are reviewed. The profiling failure cannot be attributed to a physical-state difference that the archive does not prove. Implement and statically validate a profiling-only lightweight classifier before another device run; do not change recovery behavior, timeout accounting, or slot0 safety logic.

@@ -603,3 +603,14 @@ NEXT_ACTION: stop. Do not resume this run, normalize the phone, or claim an R_BI
 - Cycles 3-5 and R_BIG_V1.1 never ran. Sanitized report: `experiment/destructive-upper-bound/runs/r_big_v1_1_5cycle/`.
 
 NEXT_ACTION: stop. No cleanup or continuation is authorized by this checkpoint.
+
+## Current checkpoint: Phase 1.5 profiling methodology audit
+
+- Branch: `wfc-latency-study-20260925`.
+- Detailed audit: `PROFILING_METHOD_AUDIT.md`.
+- Corrected conclusion: golden 6/6 is not proven dual-SIM. Repository continuity strongly favors the same single-SIM/slot0-absent scene; per-run golden subId1 raw fields are unavailable.
+- Golden preflight already contained both heavy snapshots. Timing additions did not add snapshot calls, but the existing 46-51 second synchronous captures are a possible asynchronous-state perturbation.
+- Low-perturbation mode is designed but intentionally not implemented in this checkpoint because replacing snapshots changes critical-path wall time and first needs offline classifier-equivalence review.
+- Windows PowerShell 5.1 parser passed for all five recovery/profiling scripts. No ADB call and no phone write occurred.
+
+NEXT_ACTION: implement only profiling-layer lightweight collection, prove decision equivalence offline, and request review before another phone-write run. Do not alter waits, timeouts, attempts, mutation order, health predicate, or slot0 safety contracts.
