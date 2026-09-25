@@ -121,7 +121,11 @@ function Ensure-WifiOn {
 
 function Get-WfcStatusText {
     $r = RootResult "$WfcCtl status"
-    Require ($r.ExitCode -eq 0) 'wfcctl status failed.'
+    # The validated v2.6.2 core treats wfcctl status as a probe and parses
+    # its text even when the helper returns a non-zero process exit code.
+    # Do the same here: fail only when the expected status body is missing.
+    Require (-not [string]::IsNullOrWhiteSpace($r.Text)) 'wfcctl status returned no output.'
+    Require ($r.Text -match '(?m)^IMS:\s+' -and $r.Text -match '(?m)^WFC:\s+') 'wfcctl status output is incomplete.'
     $r.Text
 }
 
