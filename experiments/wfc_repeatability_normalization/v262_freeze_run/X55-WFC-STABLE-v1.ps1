@@ -3,7 +3,7 @@ param(
     [string]$Serial = 'fd0ff892',
     [int]$ASettleSeconds = 12,
     [int]$PSettleSeconds = 12,
-    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
+    [ValidateRange(1,5)][int]$MaxRecoveryAttempts = 4
 )
 
 Set-StrictMode -Version Latest
@@ -202,8 +202,17 @@ function Assert-PlatformAndTarget {
     Require (Test-Path -LiteralPath $FastNoCne) ("fast NO_CNE normalizer missing: {0}" -f $FastNoCne)
     Require (Test-Path -LiteralPath $Recovery) ("v2.6.2 recovery missing: {0}" -f $Recovery)
 
-    $devices = Invoke-Adb @('devices')
-    Require ($devices.Text -match "(?m)^$([regex]::Escape($Serial))\s+device\s*$") ("ADB target not online: {0}" -f $Serial)
+    $adbReady = $false
+    for($i=1; $i -le 10; $i++) {
+        $devices = Invoke-Adb @('devices')
+        if($devices.Text -match "(?m)^$([regex]::Escape($Serial))\s+device\s*$") {
+            $adbReady = $true
+            break
+        }
+        if($i -eq 1) { Log 'ADB_WAIT=target temporarily offline; waiting up to 10s' }
+        Start-Sleep -Seconds 1
+    }
+    Require $adbReady ("ADB target not online after 10s: {0}" -f $Serial)
     Require ((Root 'id') -match 'uid=0\(root\)') 'Root access unavailable.'
 
     $device = Root 'getprop ro.product.device'
