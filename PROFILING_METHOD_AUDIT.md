@@ -1,7 +1,9 @@
 # VOXI WFC Phase 1.5 profiling methodology audit
 
-Date: 2026-09-25  
-Golden commit: `253ab93a2127806837cb472071846f568c811a34`  
+Date: 2026-09-25
+
+Golden commit: `253ab93a2127806837cb472071846f568c811a34`
+
 Instrumented commit audited: `e9a50f9f998fbcb5efd4642e886e0bd076f36738`
 
 ## Decision
@@ -163,5 +165,6 @@ This audit documents the gap only. It does not change wrapper classification.
 5. Review the patch before authorizing any phone-write run.
 6. Treat timeout accounting and exit-30 classification as separate future experiments, not opportunistic fixes.
 
-Phone writes performed for this audit: **0**.  
+Phone writes performed for this audit: **0**.
+
 ADB used for this audit: **NO**.
