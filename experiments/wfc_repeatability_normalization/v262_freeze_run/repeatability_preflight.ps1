@@ -73,9 +73,12 @@ if(-not $ApplyNormalization) {
 }
 
 $native=Join-Path $PSScriptRoot 'normalize_a1_native_owner.ps1'
-& powershell -NoProfile -ExecutionPolicy Bypass -File $native -Serial $Serial
+& powershell -NoProfile -ExecutionPolicy Bypass -File $native -Serial $Serial -QuickFallback
 $nativeExit=$LASTEXITCODE
 if($nativeExit -ne 0) {
+  if($nativeExit -eq 40) {
+    Write-Host 'PREFLIGHT_FAST_PATH=NATIVE_DUAL_SKIPPED_TO_QCRILD2'
+  }
   $reacquire=Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'
   & powershell -NoProfile -ExecutionPolicy Bypass -File $reacquire -Serial $Serial
   if($LASTEXITCODE -ne 0){throw 'PREFLIGHT_FAIL: fingerprint-specific native reacquire failed'}
