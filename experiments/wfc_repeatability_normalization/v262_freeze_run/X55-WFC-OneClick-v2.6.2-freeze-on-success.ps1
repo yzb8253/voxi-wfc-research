@@ -1,5 +1,6 @@
 ﻿param(
-    [switch]$Holder
+    [switch]$Holder,
+    [switch]$NoPause
 )
 
 $ErrorActionPreference = 'Stop'
@@ -494,7 +495,7 @@ function Start-HolderWindow {
         '-File', ('"{0}"' -f $PSCommandPath),
         '-Holder'
     )
-    Start-Process -FilePath 'powershell.exe' -ArgumentList $argList -WindowStyle Minimized | Out-Null
+    Start-Process -FilePath 'powershell.exe' -ArgumentList $argList -WindowStyle Hidden | Out-Null
 }
 
 function Wait-HolderStarted {
@@ -1258,7 +1259,9 @@ Write-Host '============================================================'
 Write-Host ("Finished. Log: {0}" -f $script:LogFile)
 Write-Host '============================================================'
 Write-Host ''
-Read-Host 'Press Enter to close this window'
+if (-not $NoPause) {
+    Read-Host 'Press Enter to close this window'
+}
 
 if (-not $script:CleanupOk) { exit 30 }
 if ($recoverySucceeded -and $script:PostCleanupWfc -eq 'HEALTHY') { exit 0 }
