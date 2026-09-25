@@ -59,6 +59,17 @@ function Log([string]$Message) {
     Add-Content -LiteralPath $LogFile -Value $line -Encoding UTF8
 }
 
+function Write-Timing([string]$Name,[Diagnostics.Stopwatch]$Stopwatch) {
+    $Stopwatch.Stop()
+    Log ("TIMING name={0} ms={1}" -f $Name,$Stopwatch.ElapsedMilliseconds)
+}
+
+function Write-TotalTiming {
+    if($null -ne $script:WrapperTotal -and $script:WrapperTotal.IsRunning) {
+        Write-Timing wrapper_total $script:WrapperTotal
+    }
+}
+
 function Quote-Sh([string]$Value) {
     $single = [string][char]39
     $double = [string][char]34
@@ -133,6 +144,7 @@ function Set-AirplaneMode([bool]$Enabled) {
 }
 
 function Ensure-WifiOn {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     [void](RootResult 'svc wifi enable')
     Start-Sleep -Seconds 3
     $wifi = (Root 'settings get global wifi_on').Trim()
@@ -146,15 +158,18 @@ function Ensure-WifiOn {
 
     Require ($wifi -ne '0') 'Wi-Fi is still disabled.'
     Log ("WIFI_SETTING={0}" -f $wifi)
+    Write-Timing ensure_wifi_on $timer
 }
 
 function Get-WfcStatusText {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     $r = RootResult "$WfcCtl status"
     # The validated v2.6.2 core treats wfcctl status as a probe and parses
     # its text even when the helper returns a non-zero process exit code.
     # Do the same here: fail only when the expected status body is missing.
     Require (-not [string]::IsNullOrWhiteSpace($r.Text)) 'wfcctl status returned no output.'
     Require ($r.Text -match '(?m)^IMS:\s+' -and $r.Text -match '(?m)^WFC:\s+') 'wfcctl status output is incomplete.'
+    Write-Timing wfc_status_text $timer
     $r.Text
 }
 
@@ -175,6 +190,7 @@ function Test-WfcHealthy {
 }
 
 function Get-CneSnapshot {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     $text = Get-WfcStatusText
     $registered = 'UNKNOWN'
     $active = 'UNKNOWN'
@@ -188,15 +204,18 @@ function Get-CneSnapshot {
         $satisfied = $Matches[4]
     }
 
-    [pscustomobject]@{
+    $result = [pscustomobject]@{
         Registered = $registered
         Active = $active
         Request = $request
         Satisfied = $satisfied
     }
+    Write-Timing cne_snapshot $timer
+    $result
 }
 
 function Assert-PlatformAndTarget {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     Require (Test-Path -LiteralPath $Adb) ("adb.exe not found: {0}" -f $Adb)
     Require (Test-Path -LiteralPath $Preflight) ("preflight missing: {0}" -f $Preflight)
     Require (Test-Path -LiteralPath $UiccDeepFallback) ("UICC deep fallback missing: {0}" -f $UiccDeepFallback)
@@ -227,9 +246,11 @@ function Assert-PlatformAndTarget {
     Require ($status.subscription.areUiccApplicationsEnabled) 'VOXI UICC applications are not enabled.'
 
     Log 'SAFETY_GATE=PASS cas/Android13/validated ROM, VOXI slot1/sub11/23415'
+    Write-Timing platform_target_safety_gate $timer
 }
 
 function Invoke-PreflightNormalization {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     Require ((Get-AirplaneMode) -eq '0') 'Normalization is only allowed with airplane mode OFF.'
 
     Log 'PREFLIGHT_APPLY_NORMALIZATION=START'
@@ -254,6 +275,7 @@ function Invoke-PreflightNormalization {
     Require ($rc -eq 0) ("Preflight normalization failed with exit code {0}." -f $rc)
     Require ($text -match 'PREFLIGHT_RESULT=(A0_READY|A0_NORMALIZED)') 'Preflight did not confirm A0_READY/A0_NORMALIZED.'
     Log ("PREFLIGHT_APPLY_NORMALIZATION=PASS result={0}" -f $Matches[1])
+    Write-Timing preflight_normalization_total $timer
 }
 
 function Prepare-A0 {
@@ -261,7 +283,9 @@ function Prepare-A0 {
     Require ((Get-AirplaneMode) -eq '0') 'Entry/normalization requires airplane mode OFF.'
     Ensure-WifiOn
     Log ("A_SETTLE={0}s" -f $ASettleSeconds)
+    $settleTimer = [Diagnostics.Stopwatch]::StartNew()
     Start-Sleep -Seconds $ASettleSeconds
+    Write-Timing a_settle $settleTimer
     Invoke-PreflightNormalization
 
     Require ((Get-AirplaneMode) -eq '0') 'A0 verification failed: airplane mode is not OFF.'
@@ -284,10 +308,14 @@ function Prepare-A0 {
 
 function Prepare-P {
     Log 'P_PREP=START'
+    $airplaneTimer = [Diagnostics.Stopwatch]::StartNew()
     Set-AirplaneMode $true
+    Write-Timing airplane_off_to_on $airplaneTimer
     Ensure-WifiOn
     Log ("P_SETTLE={0}s" -f $PSettleSeconds)
+    $settleTimer = [Diagnostics.Stopwatch]::StartNew()
     Start-Sleep -Seconds $PSettleSeconds
+    Write-Timing p_settle $settleTimer
 
     if(Test-WfcHealthy) {
         Log 'P_PREP=ALREADY_HEALTHY'
@@ -309,6 +337,7 @@ function Prepare-P {
 
 function Invoke-V262Core {
     Log 'V262_CORE=START'
+    $timer = [Diagnostics.Stopwatch]::StartNew()
 
     $psi = [Diagnostics.ProcessStartInfo]::new()
     $psi.FileName = 'powershell.exe'
@@ -331,6 +360,7 @@ function Invoke-V262Core {
     $proc.Dispose()
 
     Log ("V262_CORE=EXIT code={0}" -f $rc)
+    Write-Timing v262_core_total $timer
     $rc
 }
 
@@ -377,6 +407,7 @@ function Invoke-UiccDeepFallback {
     Log 'UICC_DEEP_FALLBACK=PASS'
 }
 
+$script:WrapperTotal = [Diagnostics.Stopwatch]::StartNew()
 Log '============================================================'
 Log 'X55 WFC STABLE WRAPPER v1 started'
 Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
@@ -384,7 +415,9 @@ Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.
 Log '============================================================'
 
 try {
+    $syntaxTimer = [Diagnostics.Stopwatch]::StartNew()
     Assert-ScriptSyntax
+    Write-Timing syntax_gate $syntaxTimer
     Assert-PlatformAndTarget
 
     $entryAirplane = Get-AirplaneMode
@@ -404,6 +437,7 @@ try {
         if(Test-WfcHealthy) {
             Log ("ATTEMPT={0} HEALTHY_IN_A_UNEXPECTED_BUT_ACCEPTED" -f $attempt)
             Write-Host '[OK] WFC became healthy before P entry. Leaving state untouched.' -ForegroundColor Green
+            Write-TotalTiming
             exit 0
         }
 
@@ -412,6 +446,7 @@ try {
         if(Test-WfcHealthy) {
             Log ("ATTEMPT={0} HEALTHY_BEFORE_CORE" -f $attempt)
             Write-Host '[OK] WFC became healthy before the core recovery. Leaving airplane mode ON and state untouched.' -ForegroundColor Green
+            Write-TotalTiming
             exit 0
         }
 
@@ -434,6 +469,7 @@ try {
             Log 'FINAL=WFC_HEALTHY_FREEZE'
             Write-Host ''
             Write-Host '[OK] STABLE WRAPPER RESULT: WFC HEALTHY. Frozen healthy state is preserved.' -ForegroundColor Green
+            Write-TotalTiming
             exit 0
         }
 
@@ -491,6 +527,7 @@ try {
             Log 'DEEP_FALLBACK=SUCCESS_BEFORE_CORE'
             Log 'FINAL=WFC_HEALTHY_FREEZE'
             Write-Host '[OK] DEEP FALLBACK RESULT: WFC HEALTHY after UICC lifecycle.' -ForegroundColor Green
+            Write-TotalTiming
             exit 0
         }
 
@@ -502,6 +539,7 @@ try {
                 Log ("DEEP_FALLBACK=SUCCESS_AFTER_CORE coreExit={0}" -f $deepCoreRc)
                 Log 'FINAL=WFC_HEALTHY_FREEZE'
                 Write-Host '[OK] DEEP FALLBACK RESULT: WFC HEALTHY after one final unchanged v2.6.2 cycle.' -ForegroundColor Green
+                Write-TotalTiming
                 exit 0
             }
 
@@ -525,6 +563,7 @@ try {
 
     Log 'FINAL=WFC_NOT_RECOVERED'
     Write-Host '[FAIL] WFC was not recovered within the bounded attempts and guarded deep fallback.' -ForegroundColor Red
+    Write-TotalTiming
     exit 20
 }
 catch {
@@ -532,5 +571,6 @@ catch {
     Write-Host ''
     Write-Host ('[STOP] ' + $_.Exception.Message) -ForegroundColor Red
     Write-Host 'No further automatic recovery action will be attempted.' -ForegroundColor Yellow
+    Write-TotalTiming
     exit 30
 }

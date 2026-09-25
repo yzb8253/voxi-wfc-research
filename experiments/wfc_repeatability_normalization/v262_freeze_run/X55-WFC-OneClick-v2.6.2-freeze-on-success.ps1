@@ -198,6 +198,20 @@ function Write-Log {
     Append-LogSafe $line
 }
 
+function Write-Timing {
+    param([string]$Name,[Diagnostics.Stopwatch]$Stopwatch)
+    $Stopwatch.Stop()
+    $line = "TIMING name={0} ms={1}" -f $Name,$Stopwatch.ElapsedMilliseconds
+    Write-Host $line
+    Write-Log $line
+}
+
+function Write-CoreTotalTiming {
+    if($null -ne $script:CoreTotal -and $script:CoreTotal.IsRunning) {
+        Write-Timing -Name 'core_total' -Stopwatch $script:CoreTotal
+    }
+}
+
 function Fail {
     param([string]$Message)
     Write-Host ''
@@ -241,6 +255,7 @@ function Test-WfcHealthy {
     # Do not use the old module's overall SAFE/UNSAFE result here.
     # The success decision below intentionally ignores Result: UNSAFE and the protected-slot0 gate.
     # In airplane mode the protected slot0 gate can be FAIL even while VOXI WFC is healthy.
+    $timer = [Diagnostics.Stopwatch]::StartNew()
     $r = Invoke-Root -Command "$WfcCtl status" -Quiet
     $text = $r.Text
     if ($ShowStatus -and $text) { Write-Host $text }
@@ -252,6 +267,7 @@ function Test-WfcHealthy {
     $healthy = $ims -and $transport -and $voiceIwlan -and $wfc
 
     Write-Log ("HEALTH {0}: ims={1} transportWlan={2} voiceIwlan={3} wfc={4}" -f $Tag,$ims,$transport,$voiceIwlan,$wfc)
+    Write-Timing -Name ("core_wfc_health_{0}" -f $Tag) -Stopwatch $timer
     return $healthy
 }
 
@@ -335,28 +351,35 @@ function Invoke-SimPowerCycle {
     try { Get-Sim2LifecycleSnapshot -Tag ("before_cycle_{0}" -f $Attempt) } catch { Write-Log ("SNAPSHOT_NONFATAL before cycle {0}: {1}" -f $Attempt,$_.Exception.Message) }
 
     # 1) Software removal.
+    $offTimer = [Diagnostics.Stopwatch]::StartNew()
     $off = Invoke-Root -Command "service call phone $SimPowerTransaction i32 1 i32 0"
     if ($off.Code -ne 0) {
         throw "SIM2 POWER OFF ADB/service-call error on attempt $Attempt."
     }
 
     $script:SimMayBeOff = $true
+    Write-Timing -Name 'core_sim2_power_off_request' -Stopwatch $offTimer
     Write-Host ("SIM2 POWER OFF accepted. Holding OFF for {0} seconds..." -f $SimPowerOffHoldSeconds)
     Write-Log ("SIM cycle {0}: POWER OFF accepted" -f $Attempt)
 
+    $holdTimer = [Diagnostics.Stopwatch]::StartNew()
     Start-Sleep -Seconds 1
     try { Get-Sim2LifecycleSnapshot -Tag ("after_power_off_{0}" -f $Attempt) } catch { Write-Log ("SNAPSHOT_NONFATAL after POWER OFF cycle {0}: {1}" -f $Attempt,$_.Exception.Message) }
 
     $remainingOff = [Math]::Max(0, $SimPowerOffHoldSeconds - 1)
     if ($remainingOff -gt 0) { Start-Sleep -Seconds $remainingOff }
+    Write-Timing -Name 'core_sim2_off_hold' -Stopwatch $holdTimer
 
     # 2) Single POWER ON.
+    $onTimer = [Diagnostics.Stopwatch]::StartNew()
+    $script:SimPowerOnToHealthTimer = [Diagnostics.Stopwatch]::StartNew()
     $on1 = Invoke-Root -Command "service call phone $SimPowerTransaction i32 1 i32 1"
     if ($on1.Code -ne 0) {
         throw "SIM2 POWER ON failed on attempt $Attempt."
     }
 
     $script:SimMayBeOff = $false
+    Write-Timing -Name 'core_sim2_power_on_request' -Stopwatch $onTimer
     Write-Host 'SIM2 POWER ON accepted. No second POWER ON trigger will be sent.'
     Write-Log ("SIM cycle {0}: single POWER ON sent; duplicate POWER ON disabled" -f $Attempt)
 
@@ -823,7 +846,9 @@ $script:PostCleanupWfc = 'NOT_APPLICABLE'
 $script:FreezeOnHealthy = $false
 $script:PreShutdownCrashCount = $null
 $script:OfflineCrashCount = $null
+$script:SimPowerOnToHealthTimer = $null
 $finalResult = 'NOT_COMPLETED'
+$script:CoreTotal = [Diagnostics.Stopwatch]::StartNew()
 
 Write-Log '============================================================'
 Write-Log ('X55 + VOXI WFC one-click recovery started ' + $ScriptVersion)
@@ -831,6 +856,7 @@ Write-Log "Serial=$Serial"
 Write-Log '============================================================'
 
 try {
+    $preconditionsTimer = [Diagnostics.Stopwatch]::StartNew()
     $Host.UI.RawUI.WindowTitle = 'X55 + VOXI WFC v2.6 Clean Transactional Recovery'
 
     Write-Host ''
@@ -908,7 +934,9 @@ try {
     Write-Host 'Checking clean boot-normal X55 power-management baseline...'
     Assert-CleanEntryEnvironment
 
-    if (Test-WfcHealthy -ShowStatus -Tag 'initial') {
+    $initialHealthy = Test-WfcHealthy -ShowStatus -Tag 'initial'
+    Write-Timing -Name 'core_preconditions' -Stopwatch $preconditionsTimer
+    if ($initialHealthy) {
         $finalResult = 'ALREADY_HEALTHY'
         Write-Host '[OK] WFC is already healthy. Zero recovery writes executed.' -ForegroundColor Green
         throw [System.OperationCanceledException]::new('ALREADY_HEALTHY')
@@ -924,6 +952,7 @@ try {
     Write-Host ("PRE_SHUTDOWN_CRASH_COUNT={0}" -f $script:PreShutdownCrashCount)
     Write-Log ("PRE_SHUTDOWN_CRASH_COUNT={0}" -f $script:PreShutdownCrashCount)
 
+    $offlineTimer = [Diagnostics.Stopwatch]::StartNew()
     $stop = Invoke-Root -Command 'setprop ctl.stop vendor.per_mgr' -Quiet
     if ($stop.Code -ne 0) { Fail 'Failed to request vendor.per_mgr stop.' }
     $script:PerMgrStopped = $true
@@ -979,10 +1008,12 @@ try {
     Write-Host ("CRASH_COUNT_DELTA_DURING_CONTROLLED_SHUTDOWN={0}" -f $delta)
     Write-Host '[OK] Clean X55 shutdown confirmed; cumulative crash_count recorded.' -ForegroundColor Green
     Write-Log ("X55 OFFLINE; CRASH_COUNT before={0} after={1} delta={2}" -f $script:PreShutdownCrashCount,$script:OfflineCrashCount,$delta)
+    Write-Timing -Name 'core_x55_offline' -Stopwatch $offlineTimer
 
     # STEP 7
     Write-Host ''
     Write-Host '[7/9] Starting temporary X55 holder...'
+    $holderOnlineTimer = [Diagnostics.Stopwatch]::StartNew()
     Start-HolderWindow
 
     if (-not (Wait-HolderStarted -MaxSeconds 10)) {
@@ -1013,10 +1044,12 @@ try {
     Write-Host ("[OK] X55 ONLINE, crash_count stable at {0}, temporary holder active." -f $crash) -ForegroundColor Green
     Write-Host $holderLsof
     Write-Log ("X55 ONLINE; CRASH_COUNT={0} stable_from_offline=PASS; temporary holder active" -f $crash)
+    Write-Timing -Name 'core_holder_start_to_x55_online' -Stopwatch $holderOnlineTimer
 
     # STEP 8
     Write-Host ''
     Write-Host '[8/9] Verifying this cycle reached a new PON_SUCCESS...'
+    $ponTimer = [Diagnostics.Stopwatch]::StartNew()
     $postPon = ''
     $ponVerified = $false
     for ($i=1; $i -le 15; $i++) {
@@ -1034,16 +1067,22 @@ try {
     }
     Write-Host '[OK] New PON_SUCCESS confirmed.' -ForegroundColor Green
     Write-Log ('New PON_SUCCESS: ' + $postPon)
+    Write-Timing -Name 'core_pon_success' -Stopwatch $ponTimer
     [void](Invoke-Root -Command "cat $EsocLog 2>/dev/null | tail -n 50")
 
     Write-Host ''
     Write-Host 'Allowing X55 / qcrild / UICC stack to settle for 10 seconds...'
     Write-Log ("Post-PON stabilization wait: {0}s" -f $PostPonSettleSeconds)
+    $settleTimer = [Diagnostics.Stopwatch]::StartNew()
     Start-Sleep -Seconds $PostPonSettleSeconds
+    Write-Timing -Name 'core_post_pon_settle' -Stopwatch $settleTimer
 
     Write-Host ''
     Write-Host 'Checking whether X55 restart alone already restored WFC...'
-    if (Wait-WfcHealthy -MaxSeconds 5 -Tag 'after_x55_only') {
+    $x55OnlyTimer = [Diagnostics.Stopwatch]::StartNew()
+    $x55OnlyHealthy = Wait-WfcHealthy -MaxSeconds 5 -Tag 'after_x55_only'
+    Write-Timing -Name 'core_x55_only_health_checks' -Stopwatch $x55OnlyTimer
+    if ($x55OnlyHealthy) {
         $finalResult = 'X55_ONLY_SUCCESS'
         $script:FreezeOnHealthy = $true
         Write-Log 'FREEZE_ON_HEALTHY=TRUE reason=X55_ONLY_SUCCESS'
@@ -1060,7 +1099,11 @@ try {
 
     Invoke-SimPowerCycle -Attempt 1
 
-    if (Wait-WfcHealthy -MaxSeconds 30 -Tag 'after_sim_cycle_1') {
+    $simCycleHealthy = Wait-WfcHealthy -MaxSeconds 30 -Tag 'after_sim_cycle_1'
+    if($null -ne $script:SimPowerOnToHealthTimer -and $script:SimPowerOnToHealthTimer.IsRunning) {
+        Write-Timing -Name 'core_sim_on_to_health_result' -Stopwatch $script:SimPowerOnToHealthTimer
+    }
+    if ($simCycleHealthy) {
         $finalResult = 'SIM_CYCLE_1_SUCCESS'
         $script:FreezeOnHealthy = $true
         Write-Log 'FREEZE_ON_HEALTHY=TRUE reason=SIM_CYCLE_1_SUCCESS'
@@ -1263,6 +1306,7 @@ if (-not $NoPause) {
     Read-Host 'Press Enter to close this window'
 }
 
+Write-CoreTotalTiming
 if (-not $script:CleanupOk) { exit 30 }
 if ($recoverySucceeded -and $script:PostCleanupWfc -eq 'HEALTHY') { exit 0 }
 if ($recoverySucceeded -and $script:PostCleanupWfc -eq 'LOST_AFTER_CLEANUP') { exit 21 }

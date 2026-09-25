@@ -42,6 +42,15 @@ function Read-Root([string]$Name,[string]$Command) {
   [IO.File]::WriteAllText((Join-Path $RunDir ($Name+'.txt')),$result.Text,[Text.UTF8Encoding]::new($false))
   $result
 }
+function Write-Timing([string]$Name,[Diagnostics.Stopwatch]$Stopwatch) {
+  $Stopwatch.Stop()
+  Write-Host ("TIMING name={0} ms={1}" -f $Name,$Stopwatch.ElapsedMilliseconds)
+}
+function Read-RootTimed([string]$Name,[string]$Command) {
+  $timer=[Diagnostics.Stopwatch]::StartNew()
+  try { Read-Root $Name $Command }
+  finally { Write-Timing ("snapshot_{0}" -f $Name) $timer }
+}
 function Last-Match([string]$Text,[string]$Pattern) {
   $all=[regex]::Matches($Text,$Pattern,[Text.RegularExpressions.RegexOptions]::Multiline)
   if($all.Count){$all[$all.Count-1].Value}else{''}
@@ -56,27 +65,28 @@ function Process-FromPs([string]$Text,[string]$Pattern) {
 }
 function Bool-Text([string]$Text,[string]$Pattern){[bool]($Text -match $Pattern)}
 
+$snapshotTotal=[Diagnostics.Stopwatch]::StartNew()
 $timestamp=(Get-Date).ToString('o')
 $gitHead=(git -C $Repo rev-parse HEAD).Trim()
 $devices=Invoke-Adb @('devices')
 if($devices.Text -notmatch "(?m)^$([regex]::Escape($Serial))\s+device\s*$"){throw "ADB target not online: $Serial"}
 
-$identity=(Read-Root identity 'id; getprop ro.product.device; getprop ro.product.model; getprop ro.build.fingerprint').Text
-$settings=(Read-Root settings 'settings get global airplane_mode_on; settings get global wifi_on; settings get global mobile_data; settings get global preferred_network_mode').Text
-$network=(Read-Root network 'ip -br addr; ip route show table all; dumpsys connectivity').Text
-$subscriptions=(Read-Root subscriptions 'dumpsys isub; dumpsys telephony.registry; dumpsys phone; dumpsys carrier_config').Text
-$ims=(Read-Root ims 'dumpsys telephony_ims; dumpsys ims; dumpsys connectivity; dumpsys phone').Text
-$processes=(Read-Root processes 'ps -A -o PID,PPID,NAME,ARGS').Text
-$holderIdentity=(Read-Root holder_identity 'p=""; for f in /data/local/tmp/x55_holder.pid /data/local/tmp/x55_v27_holder.pid; do test -r "$f" && p=$(cat "$f") && break; done; case "$p" in *[!0-9]*|"") exit 0;; esac; test -d "/proc/$p" && ps -p "$p" -o PID,PPID,NAME,ARGS').Text
-$init=(Read-Root init_services 'getprop init.svc.vendor.qcrild; getprop init.svc.vendor.qcrild2; getprop init.svc.vendor.per_mgr; getprop init.svc.vendor.per_proxy; getprop init.svc.vendor.mdm_helper').Text
-$native=(Read-Root native_x55 'getprop vendor.peripheral.SDX55M.state; cat /sys/bus/msm_subsys/devices/subsys10/state; cat /sys/bus/msm_subsys/devices/subsys10/crash_count; lsof /dev/subsys_esoc0 2>&1; lsof /dev/esoc-0 2>&1').Text
-$statusResult=Read-Root wfc_status '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status-json'
+$identity=(Read-RootTimed identity 'id; getprop ro.product.device; getprop ro.product.model; getprop ro.build.fingerprint').Text
+$settings=(Read-RootTimed settings 'settings get global airplane_mode_on; settings get global wifi_on; settings get global mobile_data; settings get global preferred_network_mode').Text
+$network=(Read-RootTimed network 'ip -br addr; ip route show table all; dumpsys connectivity').Text
+$subscriptions=(Read-RootTimed subscriptions 'dumpsys isub; dumpsys telephony.registry; dumpsys phone; dumpsys carrier_config').Text
+$ims=(Read-RootTimed ims 'dumpsys telephony_ims; dumpsys ims; dumpsys connectivity; dumpsys phone').Text
+$processes=(Read-RootTimed processes 'ps -A -o PID,PPID,NAME,ARGS').Text
+$holderIdentity=(Read-RootTimed holder_identity 'p=""; for f in /data/local/tmp/x55_holder.pid /data/local/tmp/x55_v27_holder.pid; do test -r "$f" && p=$(cat "$f") && break; done; case "$p" in *[!0-9]*|"") exit 0;; esac; test -d "/proc/$p" && ps -p "$p" -o PID,PPID,NAME,ARGS').Text
+$init=(Read-RootTimed init_services 'getprop init.svc.vendor.qcrild; getprop init.svc.vendor.qcrild2; getprop init.svc.vendor.per_mgr; getprop init.svc.vendor.per_proxy; getprop init.svc.vendor.mdm_helper').Text
+$native=(Read-RootTimed native_x55 'getprop vendor.peripheral.SDX55M.state; cat /sys/bus/msm_subsys/devices/subsys10/state; cat /sys/bus/msm_subsys/devices/subsys10/crash_count; lsof /dev/subsys_esoc0 2>&1; lsof /dev/esoc-0 2>&1').Text
+$statusResult=Read-RootTimed wfc_status '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh status-json'
 $statusLine=@($statusResult.Text -split "\r?\n" | Where-Object {$_.Trim().StartsWith('{')}) | Select-Object -Last 1
 if(-not $statusLine){throw 'wfcctl status-json missing'}
 $status=$statusLine|ConvertFrom-Json
-$xfrm=(Read-Root xfrm 'ip xfrm state; ip xfrm policy; ss -anupe').Text
-$temp=(Read-Root module_temp 'for f in /data/local/tmp/x55* /data/local/tmp/voxi* /data/adb/modules/voxi_wfc_recovery/*.lock /data/adb/modules/voxi_wfc_recovery/*.state /data/adb/modules/voxi_wfc_recovery/*.tmp; do test -e "$f" && ls -ld "$f"; done').Text
-$qcrilEvidence=(Read-Root qcril_x55_evidence 'logcat -d -b all -v threadtime | grep -E "PM_SUPPORTED|ESOC_SUPPORTED|ESOC_FD|VOTING_STATE|POWER_NODE|SDX55M|PeripheralManager|IWLAN|qti.cne|NetworkAvailabilityHandler" | tail -n 1200').Text
+$xfrm=(Read-RootTimed xfrm 'ip xfrm state; ip xfrm policy; ss -anupe').Text
+$temp=(Read-RootTimed module_temp 'for f in /data/local/tmp/x55* /data/local/tmp/voxi* /data/adb/modules/voxi_wfc_recovery/*.lock /data/adb/modules/voxi_wfc_recovery/*.state /data/adb/modules/voxi_wfc_recovery/*.tmp; do test -e "$f" && ls -ld "$f"; done').Text
+$qcrilEvidence=(Read-RootTimed qcril_x55_evidence 'logcat -d -b all -v threadtime | grep -E "PM_SUPPORTED|ESOC_SUPPORTED|ESOC_FD|VOTING_STATE|POWER_NODE|SDX55M|PeripheralManager|IWLAN|qti.cne|NetworkAvailabilityHandler" | tail -n 1200').Text
 
 $qcrild=Process-FromPs $processes '^\s*\d+\s+1\s+qcrild\s+qcrild\s*$'
 $qcrild2=Process-FromPs $processes '^\s*\d+\s+1\s+qcrild\s+qcrild -c 2\s*$'
@@ -131,3 +141,4 @@ Write-Host "RAW=$RunDir"
 Write-Host "AIRPLANE=$($summary.environment.airplaneMode)"
 Write-Host "WFC_HEALTHY=$($summary.health.goldenStrong)"
 Write-Host "FAILURE_CLASS=$($summary.health.failureClass)"
+Write-Timing snapshot_total $snapshotTotal

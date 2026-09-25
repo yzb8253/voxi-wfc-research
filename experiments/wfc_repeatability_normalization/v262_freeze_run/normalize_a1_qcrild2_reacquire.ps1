@@ -27,6 +27,10 @@ function Root([string]$Command) {
   $result.Text.Trim()
 }
 function Require([bool]$Condition,[string]$Message) { if(-not $Condition){throw "GATE_FAIL: $Message"} }
+function Write-Timing([string]$Name,[Diagnostics.Stopwatch]$Stopwatch) {
+  $Stopwatch.Stop()
+  Write-Host ("TIMING name={0} ms={1}" -f $Name,$Stopwatch.ElapsedMilliseconds)
+}
 function Owners {
   $text=Root 'lsof /dev/subsys_esoc0 2>/dev/null || true'
   @($text -split "\r?\n" | Where-Object {$_ -match '/dev/subsys_esoc0'})
@@ -57,6 +61,7 @@ Require ($owners.Count -eq 1 -and $owners[0] -match "\s$holderPid\s" -and $owner
 Require ($vendorX55 -eq 'OFFLINE' -and $kernelX55 -eq 'ONLINE' -and $crash -match '^\d+$') 'expected pre-release X55 split state missing or crash_count unreadable'
 
 Write-Host "ENTRY_GATE=PASS HOLDER=$holderPid PM=$pmPid QCRILD2=$slot2OldPid"
+$holderTermTimer=[Diagnostics.Stopwatch]::StartNew()
 [void](Root "kill -TERM $holderPid")
 Write-Host 'HOLDER_TERM_COUNT=1'
 $gone=$false
@@ -65,9 +70,11 @@ for($i=1;$i -le 70;$i++) {
   Start-Sleep -Seconds 1
 }
 Require $gone 'holder did not exit after one TERM; no escalation performed'
+Write-Timing qcrild2_holder_term_latency $holderTermTimer
 $saved=Root "cat $PidFile 2>/dev/null"
 if($saved -eq [string]$holderPid){[void](Root "rm -f $PidFile")}
 
+$ownerNoneTimer=[Diagnostics.Stopwatch]::StartNew()
 $none=$false; $offlineCrash=$null
 for($i=1;$i -le 15;$i++) {
   $now=@(Owners)
@@ -78,15 +85,23 @@ for($i=1;$i -le 15;$i++) {
   Start-Sleep -Seconds 1
 }
 Require $none 'post-holder-release owner-NONE/X55-OFFLINE fingerprint not reached; qcrild2 was not restarted'
+Write-Timing qcrild2_owner_none_x55_offline_latency $ownerNoneTimer
 Require ((QcrildPrimary) -eq $primaryBefore -and (FirstPid (QcrildSlot2)) -eq $slot2OldPid) 'QCRIL identity changed before targeted restart'
 Write-Host 'PRE_REACQUIRE_FINGERPRINT=PASS'
 
+$restartTimer=[Diagnostics.Stopwatch]::StartNew()
+$script:Qcrild2PidTimingWritten=$false
 [void](Root 'setprop ctl.restart vendor.qcrild2')
 Write-Host 'QCRILD2_RESTART_COUNT=1'
 $reacquired=$false; $slot2NewPid=0
 for($i=1;$i -le 15;$i++) {
   Start-Sleep -Seconds 1
   $slot2Now=QcrildSlot2; $slot2NewPid=FirstPid $slot2Now
+  if($slot2NewPid -ne $slot2OldPid -and -not $script:Qcrild2PidTimingWritten) {
+    Write-Timing qcrild2_restart_pid_change_latency $restartTimer
+    $script:Qcrild2PidTimingWritten=$true
+    $restartTimer=[Diagnostics.Stopwatch]::StartNew()
+  }
   $postOwners=@(Owners)
   $postPm=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
   $postExe=Root "readlink /proc/$postPm/exe 2>/dev/null"
@@ -96,6 +111,8 @@ for($i=1;$i -le 15;$i++) {
   if($slot2NewPid -ne $slot2OldPid -and $postOwners.Count -eq 1 -and $postOwners[0] -match "\s$postPm\s" -and $postExe -eq '/vendor/bin/pm-service' -and $postV -eq 'ONLINE' -and $postK -eq 'ONLINE' -and $postC -match '^\d+$' -and $null -ne $offlineCrash -and [int]$postC -eq [int]$offlineCrash){$reacquired=$true;break}
 }
 Require $reacquired 'qcrild2 restarted but native pm-service did not reacquire cleanly'
+if(-not $script:Qcrild2PidTimingWritten) { Write-Timing qcrild2_restart_pid_change_latency $restartTimer }
+else { Write-Timing qcrild2_pm_reacquire_x55_online_latency $restartTimer }
 Require ((QcrildPrimary) -eq $primaryBefore) 'primary qcrild changed'
 
 Write-Host 'NORMALIZATION=PASS'
