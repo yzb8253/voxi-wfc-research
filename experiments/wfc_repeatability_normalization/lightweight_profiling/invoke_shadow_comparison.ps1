@@ -46,6 +46,8 @@ $oldWriteEligible=@('A0_READY','P0_READY','FROZEN_RESIDUE') -contains $OldResult
 $equivalent=($OldResult -ceq [string]$new.classification)
 $moreConservative=($new.classification -ceq 'UNKNOWN' -and $OldResult -cne 'UNKNOWN')
 $unsafePromotion=(-not $oldWriteEligible -and [bool]$new.writeEligible)
+$structuralErrors=@($new.errors|Where-Object{$_ -match '^(missing:|schema:|capture:)'})
+$runtimeOrStructuralError=(-not [bool]$light.capture.complete -or @($light.capture.errors).Count -ne 0 -or $structuralErrors.Count -ne 0)
 $record=[pscustomobject][ordered]@{
   schema='voxi-wfc-shadow-comparison-v1'
   timestampUtc=[DateTimeOffset]::UtcNow.ToString('o')
@@ -60,6 +62,8 @@ $record=[pscustomobject][ordered]@{
   unsafePromotion=$unsafePromotion
   newWriteEligible=$new.writeEligible
   newErrors=@($new.errors)
+  structuralErrors=$structuralErrors
+  runtimeOrStructuralError=$runtimeOrStructuralError
   shadowElapsedMs=[int64]$timer.ElapsedMilliseconds
   deviceSpanMs=$light.capture.deviceSpanMs
   commandCount=$light.capture.commandCount
@@ -84,7 +88,6 @@ Write-Output ("SHADOW old={0} new={1} equivalent={2} moreConservative={3} unsafe
 Write-Output ("SHADOW_CNE oldRequest={0} newRequest={1} oldSatisfied={2} newSatisfied={3} match={4} epoch={5}" -f $oldRequest,$newRequest,$oldSatisfied,$newSatisfied,$cneMatch,$light.capture.observationEpoch)
 Write-Output ("SHADOW_RECORD={0}" -f $recordPath)
 
-if(@($new.errors).Count -ne 0){exit 82}
+if($runtimeOrStructuralError){exit 82}
 if($unsafePromotion){exit 80}
 if(-not $cneMatch){exit 81}
-

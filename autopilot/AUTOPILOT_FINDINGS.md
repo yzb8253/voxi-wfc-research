@@ -622,3 +622,13 @@ NEXT_ACTION: one read-only side-by-side device benchmark after approval; no reco
 - Null CNE request/satisfied values matched the full current connectivity table in all cycles. This proves current-absence semantics for the tested F1 state, not active non-null ID semantics.
 
 NEXT_ACTION: shadow-only observation may be designed. Keep the lightweight classifier disconnected from writes until broader natural-state coverage is reviewed.
+
+## Phase 1.8 shadow abort finding (2026-09-25)
+
+- A real residue sample confirms the new classifier can be more conservative: old `FROZEN_RESIDUE`, new `UNKNOWN`, reason `native:x55_not_consistently_online`.
+- That diagnostic is semantic current-state evidence, not a parser/runtime failure. Treating all classifier diagnostics as exit 82 was an instrumentation bug.
+- Two CNE comparisons remained null/null and matched. No active-ID sample was obtained.
+- The unchanged core again produced NO_CNE_REQUEST and retained the holder when native pm-service takeover failed; this is not a new failure class.
+- No conclusion about five-cycle recovery stability or authoritative lightweight replacement is available.
+
+NEXT_ACTION: no phone action. Review the preserved residue and statically corrected shadow adapter before authorizing a new independent run.

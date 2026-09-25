@@ -639,3 +639,17 @@ NEXT_ACTION: stop for review. A future approved step may benchmark the collector
 - Phone writes 0; recovery runs 0.
 
 NEXT_ACTION: stop for review. The only recommended next step is shadow-only integration with no write authority; do not run recovery.
+
+## Current checkpoint: Phase 1.8 aborted; preserved residue
+
+- Tested instrumentation commit: `8cd82f8`.
+- Run ID: `20260925T120057Z`.
+- Report: `SHADOW_INTEGRATION_RESULTS.md`.
+- Comparisons: A0 equal; frozen residue more conservative; unsafe promotions 0; active CNE samples 0.
+- Cycle 1 Attempt 1: one SIM OFF/ON, NO_CNE_REQUEST, cleanup native takeover failed.
+- Attempt 2 stopped in A preflight because the adapter misclassified a semantic UNKNOWN as runtime failure.
+- Current recorded state: airplane OFF, F1, qcrild/qcrild2 1971/16115, holder 32733 sole owner, pm-service 13670 non-owner, vendor/kernel X55 OFFLINE/ONLINE, crash_count 3.
+- Static-only fixes separate semantic UNKNOWN from structural errors and avoid waiting on the holder descendant. They are unexecuted.
+- No post-stop phone cleanup or recovery was performed.
+
+NEXT_ACTION: preserve state and stop. A new run or cleanup requires explicit user approval.

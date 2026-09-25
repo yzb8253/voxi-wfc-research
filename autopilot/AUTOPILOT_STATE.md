@@ -712,3 +712,14 @@ NEXT_ACTION: review Phase 1.6. If approved, run one read-only collector benchmar
 - Phone writes 0; recovery runs 0.
 
 NEXT_ACTION: review no-write shadow integration only. Do not replace preflight, authorize recovery, or run a phone-write experiment from this result.
+
+## 2026-09-25 Phase 1.8 stopped on shadow orchestrator bug
+
+- Tested commit: `8cd82f8`; run ID `20260925T120057Z`.
+- Cycle 1 Attempt 1 executed one unchanged recovery and one SIM OFF/ON, ending F1/NO_CNE_REQUEST with retained holder after native takeover failed.
+- Attempt 2 A preflight produced old `FROZEN_RESIDUE` versus new `UNKNOWN`; this was correctly more conservative, with null/null CNE IDs matching.
+- The shadow adapter incorrectly converted a state diagnostic into exit 82. The Windows driver also waited indefinitely for the retained holder descendant.
+- Experiment stopped before Attempt 2 normalization/P/core and before Cycles 2-5. No post-stop phone action occurred.
+- Static corrections exist but have not been run on the phone.
+
+NEXT_ACTION: preserve the airplane-OFF F1 residue with holder 32733. Do not run the corrected shadow series or perform cleanup without explicit approval.

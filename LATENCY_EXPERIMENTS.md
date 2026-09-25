@@ -93,3 +93,17 @@ Status: **READY_FOR_SHADOW_INTEGRATION / NOT CONNECTED TO WRITES**
 - Detailed report: `LIGHTWEIGHT_DEVICE_BENCHMARK.md`.
 
 No lightweight result is connected to preflight or a mutation path. The next allowed step is no-write shadow telemetry only.
+
+## 2026-09-25 — Phase 1.8 shadow recovery validation abort
+
+Status: **NOT READY / STOPPED ON ORCHESTRATOR RUNTIME BUG**
+
+- One cycle started; Attempt 1 used the unchanged core, one X55 rebirth, and one SIM OFF/ON, then ended `NO_CNE_REQUEST` with its known native takeover failure.
+- Attempt 2 full preflight classified the retained state `FROZEN_RESIDUE`; lightweight returned `UNKNOWN` because vendor/kernel X55 telemetry was split. This was more conservative, not unsafe.
+- The adapter incorrectly treated that state diagnostic as a parser/runtime error and stopped before Attempt 2 normalization or recovery.
+- Comparisons: 2 total, 1 equivalent, 1 more conservative, 0 unsafe promotions, 0 CNE mismatches, 0 non-null CNE samples.
+- A separate Windows runner bug waited for the retained holder descendant after the direct wrapper exited.
+- Both profiling/orchestration defects were corrected statically and remain unexecuted.
+- Detailed report: `SHADOW_INTEGRATION_RESULTS.md`.
+
+No additional phone action or cleanup followed the stop. Do not run the corrected series without new approval.

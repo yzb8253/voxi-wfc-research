@@ -71,7 +71,9 @@ for($cycle=1;$cycle -le $Cycles;$cycle++) {
   $stderr=Join-Path $OutputRoot ("cycle_{0}_wrapper_stderr.log" -f $cycle)
   $timer=[Diagnostics.Stopwatch]::StartNew()
   $args='-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "'+$Stable+'" -Serial '+$Serial
-  $process=Start-Process -FilePath 'powershell.exe' -ArgumentList $args -Wait -PassThru -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+  $process=Start-Process -FilePath 'powershell.exe' -ArgumentList $args -PassThru -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+  while(-not $process.HasExited){Start-Sleep -Seconds 1;$process.Refresh()}
+  $process.WaitForExit()
   $timer.Stop()
   $text=(Get-Content -LiteralPath $stdout -Raw)+(Get-Content -LiteralPath $stderr -Raw)
   if($process.ExitCode -ne 0){throw "SHADOW_RECOVERY_FAILED cycle=$cycle exit=$($process.ExitCode)"}
