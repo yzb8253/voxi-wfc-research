@@ -1,9 +1,9 @@
 [CmdletBinding()]
 param(
     [string]$Serial = 'fd0ff892',
-    [int]$ASettleSeconds = 12,
-    [int]$PSettleSeconds = 12,
-    [ValidateRange(1,5)][int]$MaxRecoveryAttempts = 4
+    [int]$ASettleSeconds = 20,
+    [int]$PSettleSeconds = 20,
+    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
 )
 
 Set-StrictMode -Version Latest
@@ -12,7 +12,6 @@ $ErrorActionPreference = 'Stop'
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 $Adb = Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $Preflight = Join-Path $PSScriptRoot 'repeatability_preflight.ps1'
-$FastNoCne = Join-Path $PSScriptRoot 'normalize_no_cne_fast.ps1'
 $Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 $LogDir = Join-Path $PSScriptRoot 'Stable-Logs'
@@ -29,7 +28,6 @@ function Assert-ScriptSyntax {
         $Preflight,
         (Join-Path $PSScriptRoot 'normalize_a1_native_owner.ps1'),
         (Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'),
-        $FastNoCne,
         $Recovery
     )
 
@@ -199,20 +197,10 @@ function Get-CneSnapshot {
 function Assert-PlatformAndTarget {
     Require (Test-Path -LiteralPath $Adb) ("adb.exe not found: {0}" -f $Adb)
     Require (Test-Path -LiteralPath $Preflight) ("preflight missing: {0}" -f $Preflight)
-    Require (Test-Path -LiteralPath $FastNoCne) ("fast NO_CNE normalizer missing: {0}" -f $FastNoCne)
     Require (Test-Path -LiteralPath $Recovery) ("v2.6.2 recovery missing: {0}" -f $Recovery)
 
-    $adbReady = $false
-    for($i=1; $i -le 10; $i++) {
-        $devices = Invoke-Adb @('devices')
-        if($devices.Text -match "(?m)^$([regex]::Escape($Serial))\s+device\s*$") {
-            $adbReady = $true
-            break
-        }
-        if($i -eq 1) { Log 'ADB_WAIT=target temporarily offline; waiting up to 10s' }
-        Start-Sleep -Seconds 1
-    }
-    Require $adbReady ("ADB target not online after 10s: {0}" -f $Serial)
+    $devices = Invoke-Adb @('devices')
+    Require ($devices.Text -match "(?m)^$([regex]::Escape($Serial))\s+device\s*$") ("ADB target not online: {0}" -f $Serial)
     Require ((Root 'id') -match 'uid=0\(root\)') 'Root access unavailable.'
 
     $device = Root 'getprop ro.product.device'
@@ -263,28 +251,6 @@ function Invoke-PreflightNormalization {
     Require ($rc -eq 0) ("Preflight normalization failed with exit code {0}." -f $rc)
     Require ($text -match 'PREFLIGHT_RESULT=(A0_READY|A0_NORMALIZED)') 'Preflight did not confirm A0_READY/A0_NORMALIZED.'
     Log ("PREFLIGHT_APPLY_NORMALIZATION=PASS result={0}" -f $Matches[1])
-}
-
-function Invoke-FastNoCneNormalization {
-    Require ((Get-AirplaneMode) -eq '0') 'Fast NO_CNE normalization requires airplane mode OFF.'
-
-    Log 'FAST_NO_CNE_NORMALIZATION=START'
-    $savedEap = $ErrorActionPreference
-    try {
-        $ErrorActionPreference = 'Continue'
-        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $FastNoCne -Serial $Serial 2>&1
-        $rc = $LASTEXITCODE
-    }
-    finally {
-        $ErrorActionPreference = $savedEap
-    }
-
-    foreach($line in @($output)) { Write-Host $line }
-    $text = (@($output | ForEach-Object { [string]$_ }) -join [Environment]::NewLine)
-
-    Require ($rc -eq 0) ("Fast NO_CNE normalization failed with exit code {0}." -f $rc)
-    Require ($text -match 'FAST_NO_CNE_NORMALIZATION=PASS') 'Fast NO_CNE normalization did not confirm PASS.'
-    Log 'FAST_NO_CNE_NORMALIZATION=PASS'
 }
 
 function Prepare-A0 {
@@ -346,7 +312,7 @@ function Invoke-V262Core {
     # The proven v2.6.2 core ends with Read-Host for manual runs.
     # Run it non-interactively so that final pause cannot deadlock this wrapper.
     # All phone-side recovery/cleanup work happens before that final prompt.
-    $psi.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Recovery + '" -NoPause -FastNoCneHandoff'
+    $psi.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Recovery + '" -NoPause'
     $psi.UseShellExecute = $false
     $psi.CreateNoWindow = $false
     $psi.RedirectStandardInput = $false
@@ -368,7 +334,7 @@ function Invoke-V262Core {
 Log '============================================================'
 Log 'X55 WFC STABLE WRAPPER v1 started'
 Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
-Log 'Core recovery uses the validated v2.6.2 sequence with fast NO_CNE handoff enabled.'
+Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.'
 Log '============================================================'
 
 try {
@@ -378,6 +344,7 @@ try {
     $entryAirplane = Get-AirplaneMode
     Require ($entryAirplane -eq '0') 'USER ENTRY GATE: start the stable script with airplane mode OFF.'
     Log 'ENTRY_GATE=PASS airplane=OFF'
+
     for($attempt = 1; $attempt -le $MaxRecoveryAttempts; $attempt++) {
         Write-Host ''
         Write-Host '============================================================'
@@ -424,20 +391,6 @@ try {
 
         $afterCne = Get-CneSnapshot
         Log ("ATTEMPT={0} FAILED coreExit={1} cneRequest={2} satisfied={3}" -f $attempt,$coreRc,$afterCne.Request,$afterCne.Satisfied)
-
-        if($coreRc -eq 22 -and $attempt -lt $MaxRecoveryAttempts) {
-            Write-Host ''
-            Write-Host '[FAST RETRY] NO_CNE_REQUEST detected. Skipping slow cleanup/native-owner wait and going directly to qcrild2 reacquire.' -ForegroundColor Yellow
-            Log 'FAST_RETRY=NO_CNE_REQUEST_DIRECT_QCRILD2_REACQUIRE'
-
-            Set-AirplaneMode $false
-            Ensure-WifiOn
-            Log ("FAST_A_SETTLE={0}s" -f $ASettleSeconds)
-            Start-Sleep -Seconds $ASettleSeconds
-            Invoke-FastNoCneNormalization
-            Log 'FAST_RETRY_NATIVE_REACQUIRE=PASS; next attempt will run full A0 prepare/verification'
-            continue
-        }
 
         if($attempt -lt $MaxRecoveryAttempts) {
             Write-Host ''
