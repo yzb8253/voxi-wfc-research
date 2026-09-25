@@ -3,8 +3,7 @@ param(
     [string]$Serial = 'fd0ff892',
     [int]$ASettleSeconds = 60,
     [int]$PSettleSeconds = 60,
-    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2,
-    [switch]$ForceCycle
+    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
 )
 
 Set-StrictMode -Version Latest
@@ -203,10 +202,27 @@ function Invoke-PreflightNormalization {
     Require ((Get-AirplaneMode) -eq '0') 'Normalization is only allowed with airplane mode OFF.'
 
     Log 'PREFLIGHT_APPLY_NORMALIZATION=START'
-    $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $Preflight -Serial $Serial -ApplyNormalization 2>&1
-    $rc = $LASTEXITCODE
-    foreach($line in @($output)) { Write-Host $line }
-    $text = (@($output) -join [Environment]::NewLine)
+
+    $psi = [Diagnostics.ProcessStartInfo]::new()
+    $psi.FileName = 'powershell.exe'
+    $psi.Arguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $Preflight + '" -Serial ' + $Serial + ' -ApplyNormalization'
+    $psi.UseShellExecute = $false
+    $psi.CreateNoWindow = $true
+    $psi.RedirectStandardOutput = $true
+    $psi.RedirectStandardError = $true
+
+    $proc = [Diagnostics.Process]::new()
+    $proc.StartInfo = $psi
+    if(-not $proc.Start()) { throw 'Unable to start repeatability preflight.' }
+
+    $stdout = $proc.StandardOutput.ReadToEnd()
+    $stderr = $proc.StandardError.ReadToEnd()
+    $proc.WaitForExit()
+    $rc = $proc.ExitCode
+    $proc.Dispose()
+
+    $text = (($stdout + [Environment]::NewLine + $stderr).Trim())
+    if($text) { Write-Host $text }
 
     Require ($rc -eq 0) ("Preflight normalization failed with exit code {0}." -f $rc)
     Require ($text -match 'PREFLIGHT_RESULT=(A0_READY|A0_NORMALIZED)') 'Preflight did not confirm A0_READY/A0_NORMALIZED.'
@@ -215,7 +231,7 @@ function Invoke-PreflightNormalization {
 
 function Prepare-A0 {
     Log 'A0_PREP=START'
-    Set-AirplaneMode $false
+    Require ((Get-AirplaneMode) -eq '0') 'Entry/normalization requires airplane mode OFF.'
     Ensure-WifiOn
     Log ("A_SETTLE={0}s" -f $ASettleSeconds)
     Start-Sleep -Seconds $ASettleSeconds
@@ -224,7 +240,8 @@ function Prepare-A0 {
     Require ((Get-AirplaneMode) -eq '0') 'A0 verification failed: airplane mode is not OFF.'
     $cne = Get-CneSnapshot
     Log ("A0_CNE registered={0} active={1} request={2} satisfied={3}" -f $cne.Registered,$cne.Active,$cne.Request,$cne.Satisfied)
-    Log 'A0_PREP=PASS'
+    Require ($cne.Request -eq 'null') ("A0 is native-clean but qti.cne request is still active: {0}" -f $cne.Request)
+    Log 'A0_PREP=PASS request=null'
 }
 
 function Prepare-P {
@@ -236,19 +253,20 @@ function Prepare-P {
 
     if(Test-WfcHealthy) {
         Log 'P_PREP=ALREADY_HEALTHY'
-        return
+        return $true
     }
 
     $cne = Get-CneSnapshot
     Log ("P_CNE registered={0} active={1} request={2} satisfied={3}" -f $cne.Registered,$cne.Active,$cne.Request,$cne.Satisfied)
 
     if($cne.Request -ne 'null') {
-        Write-Host ("[WARN] P entered with an existing CNE request ({0}). This matched the one observed failed cycle. The run remains bounded; a failure will automatically return to A0, normalize, and retry once." -f $cne.Request) -ForegroundColor Yellow
-        Log ("P_CNE_GATE=EXISTING_REQUEST request={0}" -f $cne.Request)
+        Write-Host ("[CNE GATE] Existing request {0} detected before v2.6.2. Core recovery is blocked; return to A0 and normalize instead." -f $cne.Request) -ForegroundColor Yellow
+        Log ("P_CNE_GATE=BLOCK_EXISTING_REQUEST request={0}" -f $cne.Request)
+        return $false
     }
-    else {
-        Log 'P_CNE_GATE=CLEAN_REQUEST_NULL'
-    }
+
+    Log 'P_CNE_GATE=PASS request=null'
+    return $true
 }
 
 function Invoke-V262Core {
@@ -280,25 +298,16 @@ function Invoke-V262Core {
 
 Log '============================================================'
 Log 'X55 WFC STABLE WRAPPER v1 started'
-Log ("Serial={0} MaxRecoveryAttempts={1} ForceCycle={2}" -f $Serial,$MaxRecoveryAttempts,[bool]$ForceCycle)
+Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
 Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.'
 Log '============================================================'
 
 try {
     Assert-PlatformAndTarget
 
-    if(Test-WfcHealthy) {
-        if(-not $ForceCycle) {
-            Log 'FINAL=ALREADY_HEALTHY_ZERO_WRITE'
-            Write-Host ''
-            Write-Host '[OK] WFC is already healthy. Healthy frozen state was left untouched.' -ForegroundColor Green
-            exit 0
-        }
-
-        Log 'FORCE_CYCLE=TRUE healthy frozen state will intentionally enter a controlled A0 -> P -> v2.6.2 cycle'
-        Write-Host ''
-        Write-Host '[TEST MODE] WFC is healthy, but -ForceCycle was explicitly requested. Starting one controlled full-cycle validation.' -ForegroundColor Yellow
-    }
+    $entryAirplane = Get-AirplaneMode
+    Require ($entryAirplane -eq '0') 'USER ENTRY GATE: start the stable script with airplane mode OFF.'
+    Log 'ENTRY_GATE=PASS airplane=OFF'
 
     for($attempt = 1; $attempt -le $MaxRecoveryAttempts; $attempt++) {
         Write-Host ''
@@ -315,12 +324,21 @@ try {
             exit 0
         }
 
-        Prepare-P
+        $pGate = Prepare-P
 
         if(Test-WfcHealthy) {
             Log ("ATTEMPT={0} HEALTHY_BEFORE_CORE" -f $attempt)
-            Write-Host '[OK] WFC became healthy before the core recovery. Leaving state untouched.' -ForegroundColor Green
+            Write-Host '[OK] WFC became healthy before the core recovery. Leaving airplane mode ON and state untouched.' -ForegroundColor Green
             exit 0
+        }
+
+        if(-not $pGate) {
+            if($attempt -lt $MaxRecoveryAttempts) {
+                Log 'BOUNDED_RETRY=P_CNE_GATE_DIRTY_RETURN_TO_A'
+                Set-AirplaneMode $false
+                continue
+            }
+            throw 'P CNE gate remained dirty on the final bounded attempt; v2.6.2 was not executed.'
         }
 
         $coreRc = Invoke-V262Core
@@ -340,6 +358,7 @@ try {
             Write-Host ''
             Write-Host '[RETRY] WFC is not healthy. Returning to airplane-OFF A state, applying the proven normalization, then retrying from a fresh P state.' -ForegroundColor Yellow
             Log 'BOUNDED_RETRY=RETURN_TO_A0'
+            Set-AirplaneMode $false
             continue
         }
     }
@@ -347,6 +366,7 @@ try {
     Write-Host ''
     Write-Host '[FINAL RECOVERY] Attempts exhausted. Restoring a clean airplane-OFF A0 state if possible.' -ForegroundColor Yellow
     try {
+        Set-AirplaneMode $false
         Prepare-A0
         Log 'FINAL_SAFE_A0_RESTORE=PASS'
     }
