@@ -47,7 +47,8 @@ function Require([bool]$Condition,[string]$Message) {
 }
 function Get-SubRow([int]$SubId) {
     $all=Root 'dumpsys isub'
-    @($all -split "\r?\n" | Where-Object { $_ -match ("\{id={0}\s" -f $SubId) }) | Select-Object -First 1
+    $pattern = ('\{{id={0}\s' -f $SubId)
+    @($all -split "\r?\n" | Where-Object { $_ -match $pattern }) | Select-Object -First 1
 }
 function Assert-Slot0 {
     $row=Get-SubRow 1
@@ -75,6 +76,16 @@ Require ((Root 'getprop ro.build.version.release') -eq $ExpectedAndroid) 'Androi
 Require ((Root 'getprop ro.build.version.incremental') -eq $ExpectedBuild) 'ROM build mismatch'
 Require ((Root 'getprop ro.build.fingerprint') -eq $ExpectedFingerprint) 'ROM fingerprint mismatch'
 Require ((Root 'settings get global airplane_mode_on') -eq '0') 'UICC deep fallback must start in airplane-OFF A0'
+
+# Pure parser self-test: catches regex/formatting mistakes before any telephony write.
+$sampleSub1 = '{id=1 iccId=x simSlotIndex=0 carrierId=2237 mcc=460 mnc=11 areUiccApplicationsEnabled=true}'
+$sampleSub11 = '{id=11 iccId=x simSlotIndex=1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=true}'
+$sampleDump = $sampleSub1 + [Environment]::NewLine + $sampleSub11
+$pattern1 = ('\{{id={0}\s' -f 1)
+$pattern11 = ('\{{id={0}\s' -f 11)
+Require (@($sampleDump -split "\r?\n" | Where-Object { $_ -match $pattern1 }).Count -eq 1) 'internal subId1 parser self-test failed'
+Require (@($sampleDump -split "\r?\n" | Where-Object { $_ -match $pattern11 }).Count -eq 1) 'internal subId11 parser self-test failed'
+Write-Host 'UICC_PARSER_SELFTEST=PASS'
 
 Assert-Slot0
 Assert-VoxiEnabledEntry
