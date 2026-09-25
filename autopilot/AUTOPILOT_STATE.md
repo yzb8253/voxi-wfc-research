@@ -661,3 +661,13 @@ NEXT_ACTION: establish `CONTROL_A0_R4B_V4`, then run the v4 series once and stop
 - R3, P, v2.6.2, SIM cycle and Cycles 2/3 did not run. Phone actions total 5; no adaptive action followed.
 
 NEXT_ACTION: preserve the F1 scene. Perform read-only analysis of initializeIWLAN -> DSD/NAH input subscription/replay -> first working qualification -> LastReported publication. Do not expand to R4c.
+
+## 2026-09-25 R_BIG_V1 five-cycle series stopped before candidate execution
+
+- Exactly one reboot established CONTROL_A0 with pm-service native ownership, X55 ONLINE/crash zero, and expected airplane-OFF F1.
+- Cycle 1 passed fixed P and the unchanged hash-locked v2.6.2 path. One SIM OFF/ON restored REGISTERED/WLAN and WFC in approximately 11 seconds; FREEZE retained holder PID 22768.
+- Cycle 2 sent one identity-gated TERM to that holder. The holder exited and kernel X55 became OFFLINE with no owner and crash count zero, but the vendor peripheral property remained ONLINE through the frozen 20-second gate.
+- The runner stopped at `HOLDER_RELEASE_NATIVE_OFFLINE_FAIL` before qcrild2 restart, P, v2.6.2, or any Cycle 2 SIM action.
+- Cycles 3-5 and R_BIG_V1 were not run. The upper-bound candidate is NOT TESTED / NOT FALSIFIED; three-rescue support was not achieved.
+
+NEXT_ACTION: preserve the stopped airplane-OFF F1 scene. Do not resume this series or execute an adaptive repair. A future experiment must separately decide whether the vendor/kernel OFFLINE disagreement is a stale observation or a required lifecycle condition.

@@ -219,3 +219,11 @@ The preserved scene is the known fallback precondition: airplane OFF; per_mgr ru
 Continuation was authorized. The corrected wrapper passed its expected-nonzero self-test, the strict qcrild2 reacquire normalized A, and P matched canonical P0. The unchanged v2.6.2 recovery then completed X55 rebirth, new PON_SUCCESS, and one SIM cycle but produced no qti.cne request or WFC within thirty seconds. The driver stopped before cycles 2/3. Final preserved scene is airplane ON, per_mgr running with non-owner pm-service 28375, holder 19581 sole owner, vendor X55 OFFLINE/kernel ONLINE/crash zero, and F1. This recovery failure is distinct from the earlier orchestrator failure.
 
 Host-only timeline forensics subsequently showed that W1 and V1 both reached ANM `ims -> [IWLAN]`, NRM IWLAN/HOME, and complete ImsResolver/MMTEL reconstruction. The first confirmed consequential fork is downstream: W1 delivered that NRM result to slot-1 SST and DNC, while V1 did not. The qti.cne IMS request is a later missing event. This transition liveness is outside the current snapshot schema; no canonical or recovery change has been made.
+
+## R_BIG_V1 Upper-Bound Attempt
+
+The five-cycle series used one reboot baseline. Cycle 1 reconfirmed the unchanged v2.6.2 recovery: fixed P, one SIM cycle, and direct WFC health at approximately 11 seconds, followed by FREEZE.
+
+Cycle 2 stopped during the historical minimal normalization before qcrild2 restart. The exact holder exited and kernel X55 became OFFLINE with no owner and crash count zero, while the vendor peripheral property remained ONLINE. Because the frozen gate required both representations to be OFFLINE, the runner stopped at `HOLDER_RELEASE_NATIVE_OFFLINE_FAIL` without adaptive repair.
+
+R_BIG_V1, Cycles 3-5, and their producer/provider/consumer generations were never executed. The candidate is therefore NOT TESTED / NOT FALSIFIED, and no stable upper bound was established by this run.

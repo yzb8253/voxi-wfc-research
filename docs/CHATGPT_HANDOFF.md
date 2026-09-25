@@ -250,3 +250,10 @@ Correction: the run above used the wrong v2.5 source and is classified `WRONG_RE
 Resume was authorized. The wrapper self-test and real qcrild2 fallback both passed; qcrild2 changed 27223 -> 16258, pm-service reacquired, and canonical A/P passed. The unchanged v2.6.2 recovery completed new PON_SUCCESS and one SIM cycle but did not create a qti.cne request or WFC within thirty seconds. Cycles 2/3 were not run. Final preserved scene: airplane ON, per_mgr running, pm-service 28375 non-owner, exact holder 19581 sole owner, vendor X55 OFFLINE/kernel ONLINE/crash 0, qcrild 1958/qcrild2 16258, F1. Do not add a workaround or continue without new authorization.
 
 Follow-up host-only forensics found the first confirmed event fork after SIM ON: both runs published ANM `ims -> [IWLAN]` and returned NRM IWLAN/HOME, but only successful W1 propagated that result through slot-1 SST into DNC. Failed V1 still completed CarrierConfig and ImsResolver/MMTEL reconstruction. Treat NRM-to-SST/DNC liveness as capture-only evidence; do not change canonical or v2.6.2 until a reliable pre-P read-only discriminator exists. See `experiments/wfc_repeatability_normalization/runs/v263_state_machine_3cycle/W1_V1_RECOVERY_EVENT_DIFF.md`.
+
+## R_BIG_V1 five-cycle checkpoint
+
+- One reboot baseline passed; Cycle 1 passed fixed P and unchanged v2.6.2, reaching WFC in about 11 seconds after exactly one SIM OFF/ON.
+- Cycle 2 stopped in the holder-release gate. Holder 22768 exited, the pidfile disappeared, no process owned `/dev/subsys_esoc0`, kernel X55 was OFFLINE, and crash count was zero, but the vendor X55 property remained ONLINE.
+- No qcrild2 restart or SIM write occurred in Cycle 2. Cycles 3-5 and R_BIG_V1 were not executed.
+- Classification: series stopped fail-closed; R_BIG_V1 NOT TESTED / NOT FALSIFIED. Do not resume or repair this preserved scene without new authorization.

@@ -574,3 +574,12 @@ NEXT_ACTION: no phone action. A new independently authorized series is needed to
 - The causal boundary is now upstream of QNS/provider/ANM: `initializeIWLAN -> replacement NAH -> DSD/profile input replay or fresh indication -> working cache -> LastReported`.
 
 NEXT_ACTION: static/read-only diff boot-generation versus qtidataservices replacement-generation input subscription, cached DSD-valid replay, profile arrival and first APN-level indication. Do not run R4c or add a QNS workaround.
+
+## R_BIG_V1 pre-execution stop finding (2026-09-25)
+
+- The new five-cycle upper-bound series did not reach R_BIG_V1. Cycle 1 independently reconfirmed the fixed P plus hash-locked v2.6.2 success path, reaching WFC in approximately 11 seconds after exactly one SIM cycle.
+- During Cycle 2 historical minimal normalization, the exact holder exited and `/dev/subsys_esoc0` became ownerless. Kernel X55 was OFFLINE and crash count remained zero, but `vendor.peripheral.SDX55M.state` stayed ONLINE.
+- This vendor-ONLINE/kernel-OFFLINE mismatch is the first anomaly. The strict gate correctly stopped before qcrild2 restart; it is not evidence that the qcrild2 reacquire path or R_BIG_V1 failed.
+- R_BIG_V1 has no GEN_A, provider PID, GEN_B, NAH generation, phone PID, P, or WFC result in this series.
+
+NEXT_ACTION: no phone action. Preserve the mismatch and treat R_BIG_V1 as NOT TESTED / NOT FALSIFIED.

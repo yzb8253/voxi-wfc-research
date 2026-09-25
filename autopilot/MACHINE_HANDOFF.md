@@ -579,3 +579,15 @@ NEXT_ACTION: stop. Do not resume v3 or repeat any reset. A corrected run require
 - Sanitized result: `experiment/reset-boundary-r4b/runs/r4b_3cycle_v4/RESULT.md`; raw timeline/debug/logcat remain host-only.
 
 NEXT_ACTION: read-only investigation of why initializeIWLAN's replacement NAH receives no usable DSD/profile qualification input. Do not execute R4c.
+
+## Current checkpoint: R_BIG_V1 series stopped in Cycle 2 HOLDER gate
+
+- Branch: `experiment/v263-repeatable-state-machine`.
+- Design/executor commit: `9d92861018bfd11f914783831768fdab66a4aa9f`.
+- CONTROL_A0 used the one authorized reboot and passed. Cycle 1 passed fixed P plus unchanged v2.6.2; WFC became healthy in approximately 11 seconds after one SIM OFF/ON and froze with holder PID 22768.
+- Cycle 2 airplane OFF exposed F1. One exact TERM removed holder 22768; the pidfile was removed only after process exit.
+- Stop fingerprint: per_mgr stopped, no pm-service, no holder, no subsys_esoc0 owner, kernel X55 OFFLINE, crash count 0, but vendor X55 property ONLINE. qcrild/qcrild2 remained 1923/1947.
+- Strict result: `HOLDER_RELEASE_NATIVE_OFFLINE_FAIL`. No Cycle 2 qcrild2 restart/P/SIM and no Cycle 3-5 R_BIG_V1 action occurred.
+- Sanitized report and snapshots: `experiment/destructive-upper-bound/runs/r_big_v1_5cycle/`. Raw logs remain host-only.
+
+NEXT_ACTION: stop. Do not resume this run, normalize the phone, or claim an R_BIG_V1 verdict. A new series requires separate authorization.
