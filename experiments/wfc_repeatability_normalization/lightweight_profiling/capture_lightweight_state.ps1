@@ -97,6 +97,27 @@ if($statusLine){
   try{$status=$statusLine|ConvertFrom-Json}catch{$captureErrors.Add('parse_error:wfc_status_json')}
 }else{$captureErrors.Add('missing:wfc_status_json')}
 
+# WfcStateProbe historically searched the entire ConnectivityService dump and
+# could therefore return a released request from mNetworkRequestInfoLogs.  The
+# lightweight safety projection must use only the live table before that
+# history marker.
+$connectivityText=Read-Root 'connectivity_current' 'dumpsys connectivity'
+$historyIndex=$connectivityText.IndexOf('mNetworkRequestInfoLogs')
+$currentConnectivity=if($historyIndex -ge 0){$connectivityText.Substring(0,$historyIndex)}else{$null}
+$currentCneLine=$null
+$currentCneRequestId=$null
+$currentCneSatisfiedId=$null
+if($null -eq $currentConnectivity) {
+  $captureErrors.Add('parse_error:connectivity_current_boundary')
+} else {
+  $currentCneLine=@($currentConnectivity -split "\r?\n"|Where-Object{
+    $_ -match 'activeRequest:' -and $_ -match 'com\.qualcomm\.qti\.cne' -and
+    $_ -match 'Capabilities:\s*IMS' -and $_ -match 'mSubId\s*=\s*11'
+  })|Select-Object -First 1
+  if($currentCneLine -match 'NetworkRequest \[ REQUEST id=(\d+)'){$currentCneRequestId=[int]$Matches[1]}
+  if($currentCneLine -match 'activeRequest:\s*(\d+)'){$currentCneSatisfiedId=[int]$Matches[1]}
+}
+
 $processText=Read-Root 'processes' "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +(qcrild|pm-service) +' || true"
 $processLines=@($processText -split "\r?\n"|Where-Object{$_})
 $primaryLine=@($processLines|Where-Object{$_ -match '^\s*\d+\s+1\s+qcrild\s+qcrild\s*$'})
@@ -196,9 +217,12 @@ $summary=[ordered]@{
     secondary=if($secondaryLine.Count -eq 1){Parse-ProcessLine $secondaryLine[0]}else{Null-Process}
   }
   cne=[ordered]@{
-    requestId=Read-Property $statusConnectivity 'qtiCneRequestId'
-    satisfiedId=Read-Property $statusConnectivity 'qtiCneSatisfiedRequestId'
-    currentEvidenceValid=((Has-Property $statusConnectivity 'qtiCneRequestId') -and (Has-Property $statusConnectivity 'qtiCneSatisfiedRequestId'))
+    requestId=$currentCneRequestId
+    satisfiedId=$currentCneSatisfiedId
+    currentEvidenceValid=($null -ne $currentConnectivity)
+    source='CONNECTIVITY_CURRENT_TABLE'
+    probeReportedRequestId=Read-Property $statusConnectivity 'qtiCneRequestId'
+    probeReportedSatisfiedId=Read-Property $statusConnectivity 'qtiCneSatisfiedRequestId'
   }
   health=[ordered]@{
     imsRegistrationRaw=Read-Property $statusIms 'registrationStateRaw'

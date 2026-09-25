@@ -6,6 +6,8 @@ $ErrorActionPreference='Stop'
 
 $repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 $classifier=Join-Path $repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\classify_lightweight_state.ps1'
+$collector=Join-Path $repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\capture_lightweight_state.ps1'
+$cneProjectionTest=Join-Path $repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\test_current_cne_projection.ps1'
 $fixture=Join-Path $repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\fixtures\03_frozen_holder_residue.json'
 $engine=Join-Path $PSScriptRoot 'X55-WFC-AGGRESSIVE-CONSERVATIVE-v0.ps1'
 $entry=Join-Path $PSScriptRoot 'X55-WFC-AGGRESSIVE-CONSERVATIVE-v1.ps1'
@@ -18,11 +20,14 @@ function Check([bool]$Condition,[string]$Name) {
     if($Condition){Write-Host "PASS $Name"}else{$failures.Add($Name);Write-Host "FAIL $Name"}
 }
 
-foreach($file in @($classifier,$engine,$entry,$reacquire,$core)) {
+foreach($file in @($classifier,$collector,$cneProjectionTest,$engine,$entry,$reacquire,$core)) {
     $tokens=$null;$errors=$null
     [void][System.Management.Automation.Language.Parser]::ParseFile($file,[ref]$tokens,[ref]$errors)
     Check (@($errors).Count -eq 0) ("PS5_PARSE " + (Split-Path $file -Leaf))
 }
+
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $cneProjectionTest|Out-Host
+Check ($LASTEXITCODE -eq 0) 'CURRENT_CNE_PROJECTION_TESTS'
 
 Check ((Get-FileHash -LiteralPath $core -Algorithm SHA256).Hash -ceq $expectedCoreHash) 'V262_CORE_HASH_FROZEN'
 $engineText=Get-Content -LiteralPath $engine -Raw

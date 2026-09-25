@@ -1,0 +1,4 @@
+Network Requests:
+  uid/pid:10104/3397 activeRequest: 262 callbackRequest: 262 [NetworkRequest [ REQUEST id=262, [ Transports: CELLULAR Capabilities: IMS&TRUSTED&NOT_VPN Specifier: <TelephonyNetworkSpecifier [mSubId = 11]> Uid: 10104 RequestorUid: 10104 RequestorPkg: com.qualcomm.qti.cne UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+mNetworkRequestInfoLogs (most recent first):
+  2026-09-25T20:36:54.274129 - RELEASE uid/pid:10104/3165 activeRequest: 1518 callbackRequest: 1518 [NetworkRequest [ REQUEST id=1518, [ Transports: CELLULAR Capabilities: IMS&TRUSTED&NOT_VPN Specifier: <TelephonyNetworkSpecifier [mSubId = 11]> Uid: 10104 RequestorUid: 10104 RequestorPkg: com.qualcomm.qti.cne UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
