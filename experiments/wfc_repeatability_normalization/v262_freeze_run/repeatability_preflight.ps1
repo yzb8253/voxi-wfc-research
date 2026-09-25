@@ -35,11 +35,11 @@ function TargetGate($State) {
 }
 function NativeClean($State) {
   $State.native.perMgrState -eq 'running' -and (PmOwns $State) -and -not (HolderOwns $State) -and
-  $State.native.x55Online -and $State.native.crashCount -eq 0
+  $State.native.x55Online -and $null -ne $State.native.crashCount
 }
 function FrozenResidue($State) {
   (HolderOwns $State) -and -not (PmOwns $State) -and $State.native.x55State -eq 'ONLINE' -and
-  $State.native.crashCount -eq 0 -and ($State.native.perMgrState -eq 'stopped' -or $State.native.perMgrState -eq 'running')
+  $null -ne $State.native.crashCount -and ($State.native.perMgrState -eq 'stopped' -or $State.native.perMgrState -eq 'running')
 }
 
 $state=Capture $label
