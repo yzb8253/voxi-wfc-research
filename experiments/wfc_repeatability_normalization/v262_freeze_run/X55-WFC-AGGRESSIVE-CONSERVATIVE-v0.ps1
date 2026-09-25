@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
     [string]$Serial = 'fd0ff892',
-    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
+    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2,
+    [ValidateSet('V0','V1')][string]$A0PreflightMode = 'V0'
 )
 
 Set-StrictMode -Version Latest
@@ -17,7 +18,8 @@ $Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-freeze-on-success.p
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 $LogDir = Join-Path $PSScriptRoot 'Aggressive-Conservative-Logs'
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
-$LogFile = Join-Path $LogDir ('X55-WFC-AGGRESSIVE-CONSERVATIVE-v0-{0}.log' -f (Get-Date -Format 'yyyyMMdd_HHmmss'))
+$VariantLabel = if($A0PreflightMode -eq 'V1'){'v1'}else{'v0'}
+$LogFile = Join-Path $LogDir ('X55-WFC-AGGRESSIVE-CONSERVATIVE-{0}-{1}.log' -f $VariantLabel,(Get-Date -Format 'yyyyMMdd_HHmmss'))
 
 $ExpectedDevice = 'cas'
 $ExpectedAndroid = '13'
@@ -295,6 +297,9 @@ function Get-LightPhaseObservation([string]$Phase) {
         $residue=($state.holder.processExists -or @($classified.errors|Where-Object{$_ -match '^(native:|holder:|identity:)'}).Count -ne 0)
         return [pscustomobject]@{Accepted=$false;ImmediateFallback=$residue;Reason=$(if($residue){'RESIDUE_OR_IDENTITY_UNCERTAINTY'}else{'UNKNOWN'});Classification='UNKNOWN';ElapsedMs=$timer.ElapsedMilliseconds}
     }
+    if($classified.classification -eq 'FROZEN_SPLIT_RESIDUE') {
+        return [pscustomobject]@{Accepted=$false;ImmediateFallback=$true;Reason='FROZEN_SPLIT_RESIDUE';Classification='FROZEN_SPLIT_RESIDUE';ElapsedMs=$timer.ElapsedMilliseconds}
+    }
     if($classified.classification -eq 'FROZEN_RESIDUE') {
         return [pscustomobject]@{Accepted=$false;ImmediateFallback=$true;Reason='FROZEN_RESIDUE';Classification='FROZEN_RESIDUE';ElapsedMs=$timer.ElapsedMilliseconds}
     }
@@ -361,6 +366,64 @@ function Invoke-PreflightNormalization {
     Write-Timing preflight_normalization_total $timer
 }
 
+function Invoke-ReadOnlyFullA0Verification {
+    $timer = [Diagnostics.Stopwatch]::StartNew()
+    Log 'POST_NORMALIZATION_FULL_FALLBACK=START'
+    $savedEap = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $Preflight -Serial $Serial 2>&1
+        $rc = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $savedEap
+    }
+    foreach($line in @($output)) { Write-Host $line }
+    $text = (@($output | ForEach-Object { [string]$_ }) -join [Environment]::NewLine)
+    Require ($rc -eq 0 -and $text -match 'PREFLIGHT_RESULT=A0_READY') 'Read-only full fallback did not confirm A0_READY.'
+    Log 'POST_NORMALIZATION_FULL_FALLBACK=PASS'
+    Write-Timing post_normalization_full_fallback $timer
+}
+
+function Invoke-V1FrozenSplitNormalization {
+    param([object]$InitialObservation)
+
+    Require ($A0PreflightMode -eq 'V1') 'V1 frozen-split path selected outside V1 mode.'
+    Require ($null -ne $InitialObservation -and $InitialObservation.Classification -eq 'FROZEN_SPLIT_RESIDUE') 'V1 frozen-split path requires the exact lightweight fingerprint.'
+    Require ((Get-AirplaneMode) -eq '0') 'Frozen-split normalization is only allowed with airplane mode OFF.'
+
+    $reacquire = Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'
+    $timer = [Diagnostics.Stopwatch]::StartNew()
+    Log 'V1_FROZEN_SPLIT_NORMALIZATION=START action=EXISTING_QCRILD2_REACQUIRE_ONLY'
+    $savedEap = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $reacquire -Serial $Serial 2>&1
+        $rc = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $savedEap
+    }
+    foreach($line in @($output)) { Write-Host $line }
+    Require ($rc -eq 0) ("V1 frozen-split qcrild2 reacquire failed with exit code {0}." -f $rc)
+    Log 'V1_FROZEN_SPLIT_NORMALIZATION=PASS'
+    Write-Timing v1_qcrild2_reacquire $timer
+
+    $post = Get-LightPhaseObservation 'A'
+    Log ("POST_NORMALIZATION_LIGHT classification={0} reason={1} ms={2}" -f $post.Classification,$post.Reason,$post.ElapsedMs)
+    if($post.Accepted -and $post.Classification -eq 'A0_READY') {
+        $script:LightFastCount++
+        Log 'POST_NORMALIZATION_LIGHT=PASS A0_READY'
+        return
+    }
+
+    # No second normalization and no inferred promotion. The old full
+    # classifier remains the fail-closed authority for an incomplete,
+    # active-CNE, identity-mismatched, or otherwise uncertain light result.
+    $script:FullFallbackCount++
+    Invoke-ReadOnlyFullA0Verification
+}
+
 function Prepare-A0 {
     Log 'A0_PREP=START'
     Require ((Get-AirplaneMode) -eq '0') 'Entry/normalization requires airplane mode OFF.'
@@ -370,6 +433,11 @@ function Prepare-A0 {
         $script:LightFastCount++
         Log 'SNAPSHOT_MODE=LIGHT_FAST_PATH'
         Log ("LIGHT_CLASSIFICATION={0}" -f $dynamic.Observation.Classification)
+    }
+    elseif($A0PreflightMode -eq 'V1' -and $null -ne $dynamic.Observation -and $dynamic.Observation.Classification -eq 'FROZEN_SPLIT_RESIDUE') {
+        Log 'SNAPSHOT_MODE=LIGHT_FROZEN_SPLIT_FAST_PATH'
+        Log 'LIGHT_CLASSIFICATION=FROZEN_SPLIT_RESIDUE'
+        Invoke-V1FrozenSplitNormalization -InitialObservation $dynamic.Observation
     }
     else {
         $reason=if($null -eq $dynamic.Observation){'NO_CLEAR_LIGHT_STATE_BY_MAX'}else{$dynamic.Observation.Reason}
