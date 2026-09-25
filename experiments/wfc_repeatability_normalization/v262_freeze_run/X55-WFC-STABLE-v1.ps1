@@ -281,10 +281,13 @@ function Invoke-V262Core {
 
     $psi = [Diagnostics.ProcessStartInfo]::new()
     $psi.FileName = 'powershell.exe'
-    $psi.Arguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $Recovery + '"'
+    # The proven v2.6.2 core ends with Read-Host for manual runs.
+    # Run it non-interactively so that final pause cannot deadlock this wrapper.
+    # All phone-side recovery/cleanup work happens before that final prompt.
+    $psi.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Recovery + '"'
     $psi.UseShellExecute = $false
     $psi.CreateNoWindow = $false
-    $psi.RedirectStandardInput = $true
+    $psi.RedirectStandardInput = $false
     $psi.RedirectStandardOutput = $false
     $psi.RedirectStandardError = $false
 
@@ -292,9 +295,6 @@ function Invoke-V262Core {
     $proc.StartInfo = $psi
     if(-not $proc.Start()) { throw 'Unable to start v2.6.2 core.' }
 
-    # Feed one newline now; the v2.6.2 final Read-Host consumes it after it finishes.
-    $proc.StandardInput.WriteLine('')
-    $proc.StandardInput.Flush()
     $proc.WaitForExit()
     $rc = $proc.ExitCode
     $proc.Dispose()
