@@ -51,7 +51,84 @@ Require ($perMgr -eq 'stopped' -or $perMgr -eq 'running') 'vendor.per_mgr must b
 Require ($holderCmd -match 'x55_holder\.pid' -and $holderCmd -match '/dev/subsys_esoc0') 'holder cmdline mismatch'
 Require ($holderFd9 -eq '/dev/subsys_esoc0') 'holder fd9 mismatch'
 Require ($preOwners.Count -eq 1 -and $preOwners[0] -match "\s$holderPid\s" -and $preOwners[0] -match '^sh\s') 'holder is not the sole esoc0 owner'
-Require ($kernelX55 -eq 'ONLINE' -and $crash -eq '0') 'kernel X55/crash gate failed'
+Require ($kernelX55 -eq 'ONLINE' -and $crash -match '^\d+
+if($perMgr -eq 'stopped'){Require ($x55 -eq 'ONLINE') 'pre-start vendor X55 state must be ONLINE'}
+
+Write-Host 'ENTRY_GATE=PASS'
+Write-Host "HOLDER_PID=$holderPid"
+Write-Host "PRE_OWNER=$($preOwners[0])"
+Write-Host "PRE_QCRILD=$qcrild"
+Write-Host "PRE_QCRILD2=$qcrild2"
+
+$startCount=0; $restartCount=0
+if($perMgr -eq 'stopped') {
+  [void](Root 'setprop ctl.start vendor.per_mgr')
+  $startCount=1
+} else {
+  Write-Host 'RESUME_STATE=PER_MGR_RUNNING_WITHOUT_OWNERSHIP'
+}
+$pmPid=''; $dual=$false
+for($i=1;$i -le 20;$i++) {
+  Start-Sleep -Seconds 1
+  $state=Root 'getprop init.svc.vendor.per_mgr'
+  $servicePid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+  $now=@(Owners)
+  if($state -eq 'running' -and $servicePid -match '^\d+$' -and $now.Count -eq 2 -and ($now -join "`n") -match "\s$holderPid\s" -and ($now -join "`n") -match "\s$servicePid\s") {
+    $exe=Root "readlink /proc/$servicePid/exe 2>/dev/null"
+    if($exe -eq '/vendor/bin/pm-service'){$pmPid=$servicePid;$dual=$true;break}
+  }
+}
+if(-not $dual) {
+  [void](Root 'setprop ctl.restart vendor.per_mgr')
+  $restartCount=1
+  for($i=1;$i -le 20;$i++) {
+    Start-Sleep -Seconds 1
+    $state=Root 'getprop init.svc.vendor.per_mgr'
+    $servicePid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+    $now=@(Owners)
+    if($state -eq 'running' -and $servicePid -match '^\d+$' -and $now.Count -eq 2 -and ($now -join "`n") -match "\s$holderPid\s" -and ($now -join "`n") -match "\s$servicePid\s") {
+      $exe=Root "readlink /proc/$servicePid/exe 2>/dev/null"
+      if($exe -eq '/vendor/bin/pm-service'){$pmPid=$servicePid;$dual=$true;break}
+    }
+  }
+}
+Require $dual 'pm-service did not form exact dual ownership; holder was not touched'
+Write-Host "DUAL_OWNER=PASS PM_PID=$pmPid START_COUNT=$startCount RESTART_COUNT=$restartCount"
+
+[void](Root "kill -TERM $holderPid")
+Write-Host 'TERM_COUNT=1'
+$gone=$false
+for($i=1;$i -le 70;$i++) {
+  if((Root "test -d /proc/$holderPid && echo LIVE || echo GONE") -eq 'GONE'){$gone=$true;break}
+  Start-Sleep -Seconds 1
+}
+Require $gone 'holder did not exit after one TERM; no escalation performed'
+
+$saved=Root "cat $PidFile 2>/dev/null"
+if($saved -eq [string]$holderPid){[void](Root "rm -f $PidFile")}
+
+Start-Sleep -Seconds 3
+$postOwners=@(Owners)
+$postState=Root 'getprop init.svc.vendor.per_mgr'
+$postPid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+$postExe=Root "readlink /proc/$postPid/exe 2>/dev/null"
+$postX55=Root 'getprop vendor.peripheral.SDX55M.state'
+$postKernel=Root 'cat /sys/bus/msm_subsys/devices/subsys10/state 2>/dev/null'
+$postCrash=Root 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count 2>/dev/null'
+$postQcrild=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild$'"
+$postQcrild2=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild -c 2$'"
+
+Require ($postState -eq 'running' -and $postPid -eq $pmPid -and $postExe -eq '/vendor/bin/pm-service') 'pm-service identity changed after handoff'
+Require ($postOwners.Count -eq 1 -and $postOwners[0] -match "\s$pmPid\s") 'pm-service is not sole esoc0 owner'
+Require ($postX55 -eq 'ONLINE' -and $postKernel -eq 'ONLINE' -and $postCrash -eq $crash) 'X55 did not remain cleanly online or crash_count changed during ownership handoff'
+Require ($postQcrild -eq $qcrild -and $postQcrild2 -eq $qcrild2) 'QCRIL process identity changed'
+
+Write-Host 'NORMALIZATION=PASS'
+Write-Host "POST_PM_PID=$postPid"
+Write-Host "POST_OWNER=$($postOwners[0])"
+Write-Host "POST_X55=$postX55/$postKernel CRASH_COUNT=$postCrash UNCHANGED_FROM_ENTRY=PASS"
+Write-Host 'QCRIL_UNCHANGED=PASS'
+) 'kernel X55/crash-count readability gate failed'
 if($perMgr -eq 'stopped'){Require ($x55 -eq 'ONLINE') 'pre-start vendor X55 state must be ONLINE'}
 
 Write-Host 'ENTRY_GATE=PASS'
