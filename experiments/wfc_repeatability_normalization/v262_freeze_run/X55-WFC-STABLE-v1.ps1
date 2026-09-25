@@ -3,7 +3,8 @@ param(
     [string]$Serial = 'fd0ff892',
     [int]$ASettleSeconds = 60,
     [int]$PSettleSeconds = 60,
-    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
+    [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2,
+    [switch]$ForceCycle
 )
 
 Set-StrictMode -Version Latest
@@ -275,7 +276,7 @@ function Invoke-V262Core {
 
 Log '============================================================'
 Log 'X55 WFC STABLE WRAPPER v1 started'
-Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
+Log ("Serial={0} MaxRecoveryAttempts={1} ForceCycle={2}" -f $Serial,$MaxRecoveryAttempts,[bool]$ForceCycle)
 Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.'
 Log '============================================================'
 
@@ -283,10 +284,16 @@ try {
     Assert-PlatformAndTarget
 
     if(Test-WfcHealthy) {
-        Log 'FINAL=ALREADY_HEALTHY_ZERO_WRITE'
+        if(-not $ForceCycle) {
+            Log 'FINAL=ALREADY_HEALTHY_ZERO_WRITE'
+            Write-Host ''
+            Write-Host '[OK] WFC is already healthy. Healthy frozen state was left untouched.' -ForegroundColor Green
+            exit 0
+        }
+
+        Log 'FORCE_CYCLE=TRUE healthy frozen state will intentionally enter a controlled A0 -> P -> v2.6.2 cycle'
         Write-Host ''
-        Write-Host '[OK] WFC is already healthy. Healthy frozen state was left untouched.' -ForegroundColor Green
-        exit 0
+        Write-Host '[TEST MODE] WFC is healthy, but -ForceCycle was explicitly requested. Starting one controlled full-cycle validation.' -ForegroundColor Yellow
     }
 
     for($attempt = 1; $attempt -le $MaxRecoveryAttempts; $attempt++) {
