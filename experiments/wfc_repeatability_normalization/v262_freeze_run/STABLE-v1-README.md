@@ -60,3 +60,23 @@ Default settle windows:
 - P state: 20 seconds
 
 Default maximum recovery attempts: 2.
+
+
+## Guarded UICC deep fallback
+
+The original stable two-attempt path remains unchanged.
+
+Only when both completed v2.6.2 attempts explicitly record `CNE_REQUEST_FRESHNESS=NO_CNE_REQUEST`, and the wrapper has successfully restored a clean airplane-OFF A0 state, one additional fallback is allowed:
+
+1. Re-verify the exact cas / Android 13 / V816.0.4.0.TJJCNXM build.
+2. Re-verify VOXI subId11 is enabled on slot1 with carrierId28 / MCCMNC23415.
+3. Re-verify protected China Telecom subId1 remains enabled on slot0 with MCCMNC46011.
+4. Execute one `ISub.setUiccApplicationsEnabled(false, 11)` transaction.
+5. Require the VOXI row to reach the verified apps-disabled F8 fingerprint: `simSlotIndex=-1` and `areUiccApplicationsEnabled=false`.
+6. Execute one symmetric `ISub.setUiccApplicationsEnabled(true, 11)` transaction.
+7. Require VOXI to return to slot1/apps-enabled with the same carrier identity, while slot0 remains intact.
+8. Rebuild the normal A/P state and, only if still needed, run one final unchanged v2.6.2 recovery cycle.
+
+The helper uses Android 13 ISub transaction 46 for `setUiccApplicationsEnabled(boolean,int)`. Every write is hard-coded to subId11. A guard sends one emergency TRUE to subId11 if the disable phase was entered but the normal re-enable path does not complete.
+
+This fallback is not entered for stale-CNE, dirty-P, mapping, platform, ADB, root, or native-owner failures. It is reserved for the repeated `NO_CNE_REQUEST` failure class.
