@@ -30,7 +30,10 @@ function Assert-ScriptSyntax {
         (Join-Path $PSScriptRoot 'normalize_a1_native_owner.ps1'),
         (Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'),
         $UiccDeepFallback,
-        $Recovery
+        $Recovery,
+        (Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\capture_lightweight_state.ps1'),
+        (Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\classify_lightweight_state.ps1'),
+        (Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\invoke_shadow_comparison.ps1')
     )
 
     foreach($file in $files) {

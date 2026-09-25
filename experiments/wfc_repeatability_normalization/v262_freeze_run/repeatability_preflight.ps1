@@ -7,7 +7,9 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 $ExperimentRoot=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 $Capture=Join-Path $ExperimentRoot 'capture_snapshot.ps1'
+$Shadow=Join-Path $ExperimentRoot 'lightweight_profiling\invoke_shadow_comparison.ps1'
 $RunName='v262_freeze_run'
 $label='preflight_' + (Get-Date -Format 'yyyyMMdd_HHmmss')
 
@@ -51,8 +53,26 @@ function FrozenResidue($State) {
   $null -ne $State.native.crashCount -and ($State.native.perMgrState -eq 'stopped' -or $State.native.perMgrState -eq 'running')
 }
 
+function Get-OldClassification($State) {
+  if(-not (TargetGate $State)){return 'UNKNOWN'}
+  if($State.health.goldenStrong){return 'HEALTHY_FREEZE'}
+  if($State.environment.airplaneMode -eq 1){if(NativeClean $State){return 'P0_READY'}else{return 'UNKNOWN'}}
+  if(NativeClean $State){return 'A0_READY'}
+  if(FrozenResidue $State){return 'FROZEN_RESIDUE'}
+  'UNKNOWN'
+}
+
+function Invoke-Shadow([string]$Name,[string]$OldResult) {
+  $summaryPath=Join-Path (Join-Path (Join-Path $ExperimentRoot 'runs') $RunName) ("snapshots\{0}.json" -f $Name)
+  $rawPath=Join-Path (Join-Path (Split-Path $Repo -Parent) 'voxi_wfc_local_runs\repeatability_normalization\v262_freeze_run') $Name
+  & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $Shadow -Serial $Serial -Label $Name -OldResult $OldResult -FullSummaryPath $summaryPath -FullRawPath $rawPath|Out-Host
+  if($LASTEXITCODE -ne 0){throw ("SHADOW_TELEMETRY_STOP exit={0}" -f $LASTEXITCODE)}
+}
+
 $preflightTotal=[Diagnostics.Stopwatch]::StartNew()
 $state=Capture $label
+$oldResult=Get-OldClassification $state
+Invoke-Shadow $label $oldResult
 $classificationTimer=[Diagnostics.Stopwatch]::StartNew()
 if(-not (TargetGate $state)){throw 'PREFLIGHT_FAIL: fixed VOXI identity/subscription gate failed'}
 
@@ -110,6 +130,8 @@ if($nativeExit -ne 0) {
 }
 
 $after=Capture ($label+'_normalized')
+$afterOldResult=Get-OldClassification $after
+Invoke-Shadow ($label+'_normalized') $afterOldResult
 if(-not (NativeClean $after)){throw 'PREFLIGHT_FAIL: normalization completed but native A0 fingerprint is not clean'}
 Write-Host ("A0_CNE_REQUEST_ACTIVE={0}" -f [bool]$after.data.qtiCneRequest)
 Write-Host 'PREFLIGHT_RESULT=A0_NORMALIZED'
