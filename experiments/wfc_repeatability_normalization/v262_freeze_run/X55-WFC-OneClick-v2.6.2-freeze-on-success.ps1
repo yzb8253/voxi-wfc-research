@@ -362,9 +362,10 @@ function Invoke-SimPowerCycle {
     Write-Host 'SIM2 POWER ON accepted. No second POWER ON trigger will be sent.'
     Write-Log ("SIM cycle {0}: single POWER ON sent; duplicate POWER ON disabled" -f $Attempt)
 
-    Start-Sleep -Seconds 2
-    try { Get-Sim2LifecycleSnapshot -Tag ("after_power_on_{0}" -f $Attempt) } catch { Write-Log ("SNAPSHOT_NONFATAL after POWER ON cycle {0}: {1}" -f $Attempt,$_.Exception.Message) }
-
+    # Do not take the expensive lifecycle snapshot on the hot path after
+    # POWER ON. It delayed the first real WFC probe and made visible recovery
+    # appear ahead of the script. Failure evidence is collected later instead.
+    Write-Log ("SIM cycle {0}: post-POWER-ON snapshot deferred until failure path" -f $Attempt)
     Write-Host 'Waiting for telephony / qti.cne / IMS / ePDG / WFC rebuild...'
 }
 
@@ -1071,9 +1072,20 @@ try {
         throw [System.OperationCanceledException]::new('RECOVERY_SUCCESS')
     }
 
+    # One final immediate probe closes the race where WFC becomes healthy at
+    # the edge of the wait window. If healthy now, freeze immediately.
+    if (Test-WfcHealthy -Tag 'after_sim_cycle_1_edge') {
+        $finalResult = 'SIM_CYCLE_1_SUCCESS'
+        $script:FreezeOnHealthy = $true
+        Write-Host '[HEALTHY] WFC became ready at the edge of the wait window.' -ForegroundColor Green
+        Write-Log 'FREEZE_ON_HEALTHY=TRUE reason=SIM_CYCLE_1_EDGE_SUCCESS'
+        throw [System.OperationCanceledException]::new('RECOVERY_SUCCESS')
+    }
+
     Write-Host ''
     Write-Host '[INFO] SIM cycle 1 did not restore WFC within 30 seconds.' -ForegroundColor Yellow
     Write-Log 'SIM cycle 1 completed; WFC not healthy after wait window'
+    try { Get-Sim2LifecycleSnapshot -Tag 'after_power_on_failure_1' } catch { Write-Log ("SNAPSHOT_NONFATAL after POWER ON failure: {0}" -f $_.Exception.Message) }
 
     $cneAfterSim = Get-CneSnapshot
     Write-Host ("CNE after SIM cycle: registered={0} active={1} request={2} satisfied={3}" -f $cneAfterSim.Registered,$cneAfterSim.Active,$cneAfterSim.Request,$cneAfterSim.Satisfied)
