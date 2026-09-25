@@ -378,8 +378,6 @@ try {
     $entryAirplane = Get-AirplaneMode
     Require ($entryAirplane -eq '0') 'USER ENTRY GATE: start the stable script with airplane mode OFF.'
     Log 'ENTRY_GATE=PASS airplane=OFF'
-    $skipA0Once = $false
-
     for($attempt = 1; $attempt -le $MaxRecoveryAttempts; $attempt++) {
         Write-Host ''
         Write-Host '============================================================'
@@ -387,14 +385,7 @@ try {
         Write-Host '============================================================'
         Log ("ATTEMPT={0} START" -f $attempt)
 
-        if($skipA0Once) {
-            Require ((Get-AirplaneMode) -eq '0') 'Fast-retry A0 handoff lost airplane-OFF state.'
-            Log 'A0_PREP=SKIPPED_ALREADY_FAST_NORMALIZED'
-            $skipA0Once = $false
-        }
-        else {
-            Prepare-A0
-        }
+        Prepare-A0
 
         if(Test-WfcHealthy) {
             Log ("ATTEMPT={0} HEALTHY_IN_A_UNEXPECTED_BUT_ACCEPTED" -f $attempt)
@@ -444,7 +435,7 @@ try {
             Log ("FAST_A_SETTLE={0}s" -f $ASettleSeconds)
             Start-Sleep -Seconds $ASettleSeconds
             Invoke-FastNoCneNormalization
-            $skipA0Once = $true
+            Log 'FAST_RETRY_NATIVE_REACQUIRE=PASS; next attempt will run full A0 prepare/verification'
             continue
         }
 
