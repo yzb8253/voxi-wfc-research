@@ -284,7 +284,7 @@ function Invoke-V262Core {
     # The proven v2.6.2 core ends with Read-Host for manual runs.
     # Run it non-interactively so that final pause cannot deadlock this wrapper.
     # All phone-side recovery/cleanup work happens before that final prompt.
-    $psi.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Recovery + '"'
+    $psi.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $Recovery + '" -NoPause'
     $psi.UseShellExecute = $false
     $psi.CreateNoWindow = $false
     $psi.RedirectStandardInput = $false
