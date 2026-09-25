@@ -1,8 +1,8 @@
 [CmdletBinding()]
 param(
     [string]$Serial = 'fd0ff892',
-    [int]$ASettleSeconds = 60,
-    [int]$PSettleSeconds = 60,
+    [int]$ASettleSeconds = 30,
+    [int]$PSettleSeconds = 30,
     [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2
 )
 
