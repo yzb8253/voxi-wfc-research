@@ -12,19 +12,18 @@ That file is not modified by this branch. On WFC success it still freezes the he
 
 ## Wrapper flow
 
-1. Exact device / ROM / VOXI slot1 safety gate.
-2. If WFC is already healthy: zero-write exit.
-3. Enter airplane-OFF A state.
-4. Keep Wi-Fi enabled and wait 60 seconds by default.
-5. Run the validated repeatability preflight with `-ApplyNormalization`.
-6. Require `A0_READY` or `A0_NORMALIZED`.
-7. Enter airplane-ON P state.
-8. Keep Wi-Fi enabled and wait 60 seconds by default.
-9. Record the current qti.cne request.
-10. Run the unchanged v2.6.2 core.
-11. If WFC becomes healthy: freeze and exit immediately.
-12. If recovery fails: return to A, normalize, rebuild P, and retry once.
-13. If both bounded attempts fail: try to restore a clean airplane-OFF A0 state and stop.
+1. User starts the script with airplane mode OFF.
+2. Exact device / ROM / VOXI slot1 safety gate.
+3. Keep Wi-Fi enabled and wait 60 seconds by default.
+4. Run the validated repeatability preflight with `-ApplyNormalization`.
+5. Require `A0_READY` or `A0_NORMALIZED`, then require A0 qti.cne `request=null`.
+6. Turn airplane mode ON automatically and keep Wi-Fi enabled.
+7. Wait 60 seconds by default and inspect the P-state qti.cne request.
+8. If P has an existing CNE request while WFC is unhealthy, block v2.6.2, return to A0, normalize, and retry within the bounded attempt count.
+9. Only when the P-state CNE gate is clean (`request=null`) run the unchanged v2.6.2 core.
+10. If WFC becomes healthy: freeze and exit immediately, leaving airplane mode ON + WFC HEALTHY.
+11. If the core fails: return to airplane-OFF A0, normalize, rebuild P, and retry once.
+12. If all bounded attempts fail: try to restore a clean airplane-OFF A0 state and stop.
 
 ## Why there is one bounded retry
 
@@ -37,13 +36,17 @@ Observed manual sequence on 2026-09-25:
 
 The wrapper therefore does not add unbounded process resets or experimental CNE/qtidataservices/cnd actions. It only automates the already observed A -> normalize -> P -> v2.6.2 workflow and one observed failure/retry path.
 
-## Airplane-mode automation
+## Airplane-mode contract
 
-The wrapper first tries the normal Android shell command:
+Normal user entry is airplane mode OFF. The wrapper verifies that state and does not silently begin from airplane mode ON.
 
-`cmd connectivity airplane-mode enable|disable`
+After A0 is normalized, the wrapper enables airplane mode with:
 
-It verifies `settings get global airplane_mode_on` after the command. If this ROM does not accept the command, it stops for a manual airplane-mode toggle and verifies again before continuing. It does not silently use another airplane-mode write method.
+`cmd connectivity airplane-mode enable`
+
+It verifies `settings get global airplane_mode_on` after the command. If this ROM does not accept the command, it stops for a manual airplane-mode ON toggle and verifies again before continuing. On successful recovery, the final state intentionally remains airplane mode ON + WFC HEALTHY + frozen native holder state.
+
+If a bounded recovery attempt fails, the wrapper may temporarily disable airplane mode in order to return to A0 and run the already validated normalization path before retrying.
 
 ## Double-click entry
 
