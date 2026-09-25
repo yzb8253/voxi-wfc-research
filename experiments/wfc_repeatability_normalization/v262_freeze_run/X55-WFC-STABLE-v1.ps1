@@ -236,8 +236,19 @@ function Prepare-A0 {
     Require ((Get-AirplaneMode) -eq '0') 'A0 verification failed: airplane mode is not OFF.'
     $cne = Get-CneSnapshot
     Log ("A0_CNE registered={0} active={1} request={2} satisfied={3}" -f $cne.Registered,$cne.Active,$cne.Request,$cne.Satisfied)
-    Require ($cne.Request -eq 'null') ("A0 is native-clean but qti.cne request is still active: {0}" -f $cne.Request)
-    Log 'A0_PREP=PASS request=null'
+
+    # Airplane-OFF A0 is a native/power-management baseline, not a requirement
+    # that CNE remain permanently request-free. After normalization, telephony
+    # may legitimately recreate an IMS demand while cellular service is active.
+    # Record it here, but make the stale-CNE decision only after entering P
+    # (airplane ON), where a persistent request while WFC is unhealthy matched
+    # the observed failed cycle.
+    if($cne.Request -eq 'null') {
+        Log 'A0_PREP=PASS cneRequest=null'
+    }
+    else {
+        Log ("A0_PREP=PASS cneRequest={0} (allowed in airplane-OFF A state)" -f $cne.Request)
+    }
 }
 
 function Prepare-P {
