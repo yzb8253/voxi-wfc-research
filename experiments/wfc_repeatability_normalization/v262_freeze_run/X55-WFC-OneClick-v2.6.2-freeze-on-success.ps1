@@ -1085,9 +1085,20 @@ try {
     Write-Host ''
     Write-Host '[INFO] SIM cycle 1 did not restore WFC within 30 seconds.' -ForegroundColor Yellow
     Write-Log 'SIM cycle 1 completed; WFC not healthy after wait window'
-    try { Get-Sim2LifecycleSnapshot -Tag 'after_power_on_failure_1' } catch { Write-Log ("SNAPSHOT_NONFATAL after POWER ON failure: {0}" -f $_.Exception.Message) }
 
+    # Read the lightweight CNE state before any expensive diagnostic snapshot.
+    # This keeps the NO_CNE fast path fast and reduces the chance that WFC
+    # becomes healthy while the script is busy collecting evidence.
     $cneAfterSim = Get-CneSnapshot
+
+    if (Test-WfcHealthy -Tag 'after_cne_probe_edge') {
+        $finalResult = 'SIM_CYCLE_1_SUCCESS'
+        $script:FreezeOnHealthy = $true
+        Write-Host '[HEALTHY] WFC became ready during the final CNE probe.' -ForegroundColor Green
+        Write-Log 'FREEZE_ON_HEALTHY=TRUE reason=SIM_CYCLE_1_CNE_EDGE_SUCCESS'
+        throw [System.OperationCanceledException]::new('RECOVERY_SUCCESS')
+    }
+
     Write-Host ("CNE after SIM cycle: registered={0} active={1} request={2} satisfied={3}" -f $cneAfterSim.Registered,$cneAfterSim.Active,$cneAfterSim.Request,$cneAfterSim.Satisfied)
     Write-Log ("CNE_AFTER_SIM registered={0} active={1} request={2} satisfied={3}" -f $cneAfterSim.Registered,$cneAfterSim.Active,$cneAfterSim.Request,$cneAfterSim.Satisfied)
 
@@ -1124,6 +1135,7 @@ try {
     }
     else {
         $finalResult = 'AUTO_RECOVERY_FAILED'
+        try { Get-Sim2LifecycleSnapshot -Tag 'after_power_on_failure_1' } catch { Write-Log ("SNAPSHOT_NONFATAL after POWER ON failure: {0}" -f $_.Exception.Message) }
 
         Write-Host ''
         Write-Host '============================================================'
