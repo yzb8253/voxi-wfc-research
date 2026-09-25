@@ -1,5 +1,8 @@
 [CmdletBinding()]
-param([string]$Serial='fd0ff892')
+param(
+  [string]$Serial='fd0ff892',
+  [switch]$QuickFallback
+)
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -68,7 +71,8 @@ if($perMgr -eq 'stopped') {
   Write-Host 'RESUME_STATE=PER_MGR_RUNNING_WITHOUT_OWNERSHIP'
 }
 $pmPid=''; $dual=$false
-for($i=1;$i -le 20;$i++) {
+$dualProbeCount = if($QuickFallback){3}else{20}
+for($i=1;$i -le $dualProbeCount;$i++) {
   Start-Sleep -Seconds 1
   $state=Root 'getprop init.svc.vendor.per_mgr'
   $servicePid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
@@ -81,7 +85,7 @@ for($i=1;$i -le 20;$i++) {
 if(-not $dual) {
   [void](Root 'setprop ctl.restart vendor.per_mgr')
   $restartCount=1
-  for($i=1;$i -le 20;$i++) {
+  for($i=1;$i -le $dualProbeCount;$i++) {
     Start-Sleep -Seconds 1
     $state=Root 'getprop init.svc.vendor.per_mgr'
     $servicePid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
@@ -90,6 +94,102 @@ if(-not $dual) {
       $exe=Root "readlink /proc/$servicePid/exe 2>/dev/null"
       if($exe -eq '/vendor/bin/pm-service'){$pmPid=$servicePid;$dual=$true;break}
     }
+  }
+}
+if(-not $dual -and $QuickFallback) {
+  # In repeatability runs this ROM usually never forms dual ownership.
+  # Do not burn ~40 polling rounds proving that again. Instead, verify the
+  # exact split fingerprint required by the already-validated qcrild2
+  # reacquire fallback, then return a nonzero code so preflight takes it.
+  $splitReady=$false
+  for($i=1;$i -le 10;$i++) {
+    $state=Root 'getprop init.svc.vendor.per_mgr'
+    $servicePid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+    $exe=if($servicePid -match '^\d+
+[void](Root "kill -TERM $holderPid")
+Write-Host 'TERM_COUNT=1'
+$gone=$false
+for($i=1;$i -le 70;$i++) {
+  if((Root "test -d /proc/$holderPid && echo LIVE || echo GONE") -eq 'GONE'){$gone=$true;break}
+  Start-Sleep -Seconds 1
+}
+Require $gone 'holder did not exit after one TERM; no escalation performed'
+
+$saved=Root "cat $PidFile 2>/dev/null"
+if($saved -eq [string]$holderPid){[void](Root "rm -f $PidFile")}
+
+Start-Sleep -Seconds 3
+$postOwners=@(Owners)
+$postState=Root 'getprop init.svc.vendor.per_mgr'
+$postPid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+$postExe=Root "readlink /proc/$postPid/exe 2>/dev/null"
+$postX55=Root 'getprop vendor.peripheral.SDX55M.state'
+$postKernel=Root 'cat /sys/bus/msm_subsys/devices/subsys10/state 2>/dev/null'
+$postCrash=Root 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count 2>/dev/null'
+$postQcrild=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild$'"
+$postQcrild2=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild -c 2$'"
+
+Require ($postState -eq 'running' -and $postPid -eq $pmPid -and $postExe -eq '/vendor/bin/pm-service') 'pm-service identity changed after handoff'
+Require ($postOwners.Count -eq 1 -and $postOwners[0] -match "\s$pmPid\s") 'pm-service is not sole esoc0 owner'
+Require ($postX55 -eq 'ONLINE' -and $postKernel -eq 'ONLINE' -and $postCrash -eq $crash) 'X55 did not remain cleanly online or crash_count changed during ownership handoff'
+Require ($postQcrild -eq $qcrild -and $postQcrild2 -eq $qcrild2) 'QCRIL process identity changed'
+
+Write-Host 'NORMALIZATION=PASS'
+Write-Host "POST_PM_PID=$postPid"
+Write-Host "POST_OWNER=$($postOwners[0])"
+Write-Host "POST_X55=$postX55/$postKernel CRASH_COUNT=$postCrash UNCHANGED_FROM_ENTRY=PASS"
+Write-Host 'QCRIL_UNCHANGED=PASS'
+){Root "readlink /proc/$servicePid/exe 2>/dev/null"}else{''}
+    $now=@(Owners)
+    $vendor=Root 'getprop vendor.peripheral.SDX55M.state'
+    $kernel=Root 'cat /sys/bus/msm_subsys/devices/subsys10/state 2>/dev/null'
+    $nowText=$now -join "`n"
+    if($state -eq 'running' -and $servicePid -match '^\d+
+[void](Root "kill -TERM $holderPid")
+Write-Host 'TERM_COUNT=1'
+$gone=$false
+for($i=1;$i -le 70;$i++) {
+  if((Root "test -d /proc/$holderPid && echo LIVE || echo GONE") -eq 'GONE'){$gone=$true;break}
+  Start-Sleep -Seconds 1
+}
+Require $gone 'holder did not exit after one TERM; no escalation performed'
+
+$saved=Root "cat $PidFile 2>/dev/null"
+if($saved -eq [string]$holderPid){[void](Root "rm -f $PidFile")}
+
+Start-Sleep -Seconds 3
+$postOwners=@(Owners)
+$postState=Root 'getprop init.svc.vendor.per_mgr'
+$postPid=Root 'getprop init.svc_debug_pid.vendor.per_mgr'
+$postExe=Root "readlink /proc/$postPid/exe 2>/dev/null"
+$postX55=Root 'getprop vendor.peripheral.SDX55M.state'
+$postKernel=Root 'cat /sys/bus/msm_subsys/devices/subsys10/state 2>/dev/null'
+$postCrash=Root 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count 2>/dev/null'
+$postQcrild=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild$'"
+$postQcrild2=Root "ps -A -o PID,PPID,NAME,ARGS | grep -E '^ *[0-9]+ +1 +qcrild +qcrild -c 2$'"
+
+Require ($postState -eq 'running' -and $postPid -eq $pmPid -and $postExe -eq '/vendor/bin/pm-service') 'pm-service identity changed after handoff'
+Require ($postOwners.Count -eq 1 -and $postOwners[0] -match "\s$pmPid\s") 'pm-service is not sole esoc0 owner'
+Require ($postX55 -eq 'ONLINE' -and $postKernel -eq 'ONLINE' -and $postCrash -eq $crash) 'X55 did not remain cleanly online or crash_count changed during ownership handoff'
+Require ($postQcrild -eq $qcrild -and $postQcrild2 -eq $qcrild2) 'QCRIL process identity changed'
+
+Write-Host 'NORMALIZATION=PASS'
+Write-Host "POST_PM_PID=$postPid"
+Write-Host "POST_OWNER=$($postOwners[0])"
+Write-Host "POST_X55=$postX55/$postKernel CRASH_COUNT=$postCrash UNCHANGED_FROM_ENTRY=PASS"
+Write-Host 'QCRIL_UNCHANGED=PASS'
+ -and $exe -eq '/vendor/bin/pm-service' -and
+       $now.Count -eq 1 -and $nowText -match "\s$holderPid\s" -and $nowText -notmatch "\s$servicePid\s" -and
+       $vendor -eq 'OFFLINE' -and $kernel -eq 'ONLINE') {
+      $splitReady=$true
+      Write-Host "QUICK_FALLBACK_SPLIT=PASS PM_PID=$servicePid HOLDER_PID=$holderPid"
+      break
+    }
+    Start-Sleep -Seconds 1
+  }
+  if($splitReady) {
+    Write-Host 'NORMALIZATION=QUICK_FALLBACK_TO_QCRILD2'
+    exit 40
   }
 }
 Require $dual 'pm-service did not form exact dual ownership; holder was not touched'
