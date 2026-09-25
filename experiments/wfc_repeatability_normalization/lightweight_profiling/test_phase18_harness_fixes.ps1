@@ -19,7 +19,7 @@ Write-Output 'PS51_PARSER=PASS'
 
 $classification=((& $Classifier -InputPath $Fixture -OutputFormat Json)|ConvertFrom-Json)
 if($classification.classification -ne 'UNKNOWN'){throw 'Semantic residue fixture did not classify UNKNOWN'}
-if(@($classification.errors|Where-Object{$_ -eq 'native:x55_not_consistently_online'}).Count -ne 1){throw 'Expected semantic residue diagnostic missing'}
+if(@($classification.errors|Where-Object{$_ -eq 'native:x55_unknown_combination'}).Count -ne 1){throw 'Expected semantic residue diagnostic missing'}
 $structural=@($classification.errors|Where-Object{$_ -match '^(missing:|schema:|capture:)'})
 if($structural.Count -ne 0){throw 'Semantic UNKNOWN was incorrectly structural'}
 Write-Output 'SEMANTIC_UNKNOWN_MORE_CONSERVATIVE=PASS'

@@ -156,7 +156,9 @@ function Classify-LightweightState {
   $crashCount=Get-Field $native 'crashCount' $errors 'native'
   Add-ErrorIf (-not (Test-Integer $ownerCount) -or [int64]$ownerCount -ne @($owners).Count) $errors 'native:owner_count'
   Add-ErrorIf ([string]$perMgrState -notmatch '^(running|stopped)$') $errors 'native:per_mgr_state'
-  Add-ErrorIf ([string]$vendorX55 -cne 'ONLINE' -or [string]$kernelX55 -cne 'ONLINE') $errors 'native:x55_not_consistently_online'
+  $x55Online=([string]$vendorX55 -ceq 'ONLINE' -and [string]$kernelX55 -ceq 'ONLINE')
+  $x55FrozenSplit=([string]$vendorX55 -ceq 'OFFLINE' -and [string]$kernelX55 -ceq 'ONLINE')
+  Add-ErrorIf (-not $x55Online -and -not $x55FrozenSplit) $errors 'native:x55_unknown_combination'
   Add-ErrorIf (-not (Test-Integer $crashCount) -or [int64]$crashCount -lt 0) $errors 'native:crash_count'
   $ownerPids=Get-OwnerPidSet @($owners) $errors
 
@@ -204,8 +206,14 @@ function Classify-LightweightState {
   $calculatedStrong=((Test-Integer $imsRaw) -and [int64]$imsRaw -eq 2 -and (Test-Integer $transportRaw) -and [int64]$transportRaw -eq 2 -and $voiceIwlan -eq $true -and $wfcAvailable -eq $true)
   Add-ErrorIf ($reportedStrong -is [bool] -and $reportedStrong -ne $calculatedStrong) $errors 'health:golden_strong_contradiction'
 
-  $nativeClean=($perMgrState -eq 'running' -and $pmOwns -and -not $holderOwns -and @($ownerPids).Count -eq 1)
-  $frozen=($holderOwns -and -not $pmOwns -and @($ownerPids).Count -eq 1 -and @('running','stopped') -contains [string]$perMgrState)
+  $nativeClean=($x55Online -and $perMgrState -eq 'running' -and $pmOwns -and -not $holderOwns -and @($ownerPids).Count -eq 1)
+  $frozen=($x55Online -and $holderOwns -and -not $pmOwns -and @($ownerPids).Count -eq 1 -and @('running','stopped') -contains [string]$perMgrState)
+  # This is not a generic UNKNOWN promotion. It is the exact, previously
+  # authoritative frozen-split fingerprint: the audited holder is the sole
+  # owner, native pm-service is alive but is not an owner, per_mgr is running,
+  # vendor state is OFFLINE while the kernel state remains ONLINE, and every
+  # fixed target/process/current-evidence gate above has passed.
+  $frozenSplit=($x55FrozenSplit -and $perMgrState -eq 'running' -and $holderOwns -and -not $pmOwns -and @($ownerPids).Count -eq 1)
   $classification='UNKNOWN'
   $writeEligible=$false
   if($errors.Count -eq 0 -and $qcrilValid) {
@@ -220,6 +228,12 @@ function Classify-LightweightState {
     } elseif([int64]$airplaneMode -eq 0 -and $frozen) {
       $classification='FROZEN_RESIDUE'
       $writeEligible=$true
+    } elseif([int64]$airplaneMode -eq 0 -and $frozenSplit) {
+      $classification='FROZEN_SPLIT_RESIDUE'
+      # The only write this classification may authorize is the existing,
+      # identity-gated qcrild2 reacquire normalization. Callers must not treat
+      # this as general write eligibility.
+      $writeEligible=$false
     }
   }
 
@@ -231,6 +245,7 @@ function Classify-LightweightState {
     goldenStrong=$calculatedStrong
     nativeClean=$nativeClean
     frozenResidue=$frozen
+    frozenSplitResidue=$frozenSplit
     errors=@($errors)
   }
 }
