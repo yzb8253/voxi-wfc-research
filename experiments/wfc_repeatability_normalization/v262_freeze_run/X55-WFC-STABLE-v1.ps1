@@ -23,6 +23,34 @@ $ExpectedAndroid = '13'
 $ExpectedBuild = 'V816.0.4.0.TJJCNXM'
 $ExpectedFingerprint = 'Xiaomi/cas/cas:13/TKQ1.221114.001/V816.0.4.0.TJJCNXM:user/release-keys'
 
+function Assert-ScriptSyntax {
+    $files = @(
+        $Preflight,
+        (Join-Path $PSScriptRoot 'normalize_a1_native_owner.ps1'),
+        (Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'),
+        $Recovery
+    )
+
+    foreach($file in $files) {
+        Require (Test-Path -LiteralPath $file) ("Required script missing: {0}" -f $file)
+        $tokens = $null
+        $errors = $null
+        [void][System.Management.Automation.Language.Parser]::ParseFile(
+            $file,
+            [ref]$tokens,
+            [ref]$errors
+        )
+        if($errors.Count -gt 0) {
+            $detail = @($errors | ForEach-Object {
+                "line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message
+            }) -join '; '
+            throw ("SCRIPT_SYNTAX_FAIL: {0}: {1}" -f (Split-Path $file -Leaf),$detail)
+        }
+    }
+
+    Log 'SCRIPT_SYNTAX_GATE=PASS'
+}
+
 function Log([string]$Message) {
     $line = '[{0}] {1}' -f (Get-Date -Format 'HH:mm:ss.fff'), $Message
     Write-Host $line
@@ -310,6 +338,7 @@ Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.
 Log '============================================================'
 
 try {
+    Assert-ScriptSyntax
     Assert-PlatformAndTarget
 
     $entryAirplane = Get-AirplaneMode
