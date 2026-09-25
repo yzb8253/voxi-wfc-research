@@ -80,3 +80,16 @@ Only when both completed v2.6.2 attempts explicitly record `CNE_REQUEST_FRESHNES
 The helper uses Android 13 ISub transaction 46 for `setUiccApplicationsEnabled(boolean,int)`. Every write is hard-coded to subId11. A guard sends one emergency TRUE to subId11 if the disable phase was entered but the normal re-enable path does not complete.
 
 This fallback is not entered for stale-CNE, dirty-P, mapping, platform, ADB, root, or native-owner failures. It is reserved for the repeated `NO_CNE_REQUEST` failure class.
+
+
+## Quick frozen-holder normalization
+
+When a previous successful run left the validated temporary X55 holder frozen and the next run starts with airplane mode OFF, preflight no longer spends two full 20-round windows waiting for the rarely observed dual-owner handoff.
+
+The stable wrapper now asks `normalize_a1_native_owner.ps1` for a bounded quick probe:
+- up to 3 dual-owner probes,
+- one vendor.per_mgr restart,
+- up to 3 more dual-owner probes,
+- then up to 10 seconds to verify the exact known split fingerprint required by the validated qcrild2 reacquire path.
+
+If that split fingerprint is present, preflight immediately switches to `normalize_a1_qcrild2_reacquire.ps1`. If the fingerprint is not present, the old safety failure behavior is preserved. The normal A0 verification, P preparation, two-attempt recovery core, and post-SIM timing are unchanged.
