@@ -723,3 +723,12 @@ NEXT_ACTION: review no-write shadow integration only. Do not replace preflight, 
 - Static corrections exist but have not been run on the phone.
 
 NEXT_ACTION: preserve the airplane-OFF F1 residue with holder 32733. Do not run the corrected shadow series or perform cleanup without explicit approval.
+
+## 2026-09-25 aggressive conservative v0 static build
+
+- Independent branch and manual entry created; golden/stable scripts and proven core are unchanged.
+- Phase 1.8 semantic-UNKNOWN and direct-process wait fixes pass offline regression tests.
+- Experimental optimization is limited to fail-closed lightweight preflight and dynamic 5-20 second A/P settle budgets.
+- No ADB use, phone write, cleanup, or real recovery run occurred.
+
+NEXT_ACTION: user may manually launch the experimental CMD with airplane mode OFF. Do not auto-run it.

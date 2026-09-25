@@ -653,3 +653,13 @@ NEXT_ACTION: stop for review. The only recommended next step is shadow-only inte
 - No post-stop phone cleanup or recovery was performed.
 
 NEXT_ACTION: preserve state and stop. A new run or cleanup requires explicit user approval.
+
+## Current checkpoint: aggressive conservative v0 ready for manual test
+
+- Branch: `wfc-aggressive-conservative-20260925`.
+- Experimental entry: `experiments/wfc_repeatability_normalization/v262_freeze_run/RUN-X55-WFC-AGGRESSIVE-CONSERVATIVE-v0.cmd`.
+- Golden/stable entry and v2.6.2 core are unchanged.
+- PS5.1 parser, 17 fixtures, semantic UNKNOWN, direct-parent/child, CMD, and ancestry audits pass.
+- No ADB use or phone write occurred.
+
+NEXT_ACTION: wait for the user's manual run; do not launch automatically.

@@ -632,3 +632,11 @@ NEXT_ACTION: shadow-only observation may be designed. Keep the lightweight class
 - No conclusion about five-cycle recovery stability or authoritative lightweight replacement is available.
 
 NEXT_ACTION: no phone action. Review the preserved residue and statically corrected shadow adapter before authorizing a new independent run.
+
+## Aggressive conservative v0 static finding (2026-09-25)
+
+- A fail-closed lightweight fast path can be isolated in a new wrapper without changing the proven core or stable entry.
+- Only clear phase-appropriate A0/P0/healthy states with null CNE IDs use the fast path; residue, UNKNOWN, active CNE, or structural uncertainty use full fallback.
+- A/P sleep budgets are dynamic 5-20 seconds. All higher-risk core timing remains frozen.
+
+NEXT_ACTION: manual experiment only; collect its logs before considering any promotion.
