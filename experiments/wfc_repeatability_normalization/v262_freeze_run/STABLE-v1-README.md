@@ -14,11 +14,11 @@ That file is not modified by this branch. On WFC success it still freezes the he
 
 1. User starts the script with airplane mode OFF.
 2. Exact device / ROM / VOXI slot1 safety gate.
-3. Keep Wi-Fi enabled and wait 30 seconds by default.
+3. Keep Wi-Fi enabled and wait 20 seconds by default.
 4. Run the validated repeatability preflight with `-ApplyNormalization`.
 5. Require `A0_READY` or `A0_NORMALIZED`. Record the A-state qti.cne request, but do not require it to stay null while airplane mode is OFF because telephony may recreate a fresh IMS demand.
 6. Turn airplane mode ON automatically and keep Wi-Fi enabled.
-7. Wait 30 seconds by default and inspect the P-state qti.cne request. The stale-CNE gate is enforced here, not in A0.
+7. Wait 20 seconds by default and inspect the P-state qti.cne request. The stale-CNE gate is enforced here, not in A0.
 8. If P has an existing CNE request while WFC is unhealthy, block v2.6.2, return to A0, normalize, and retry within the bounded attempt count.
 9. Only when the P-state CNE gate is clean (`request=null`) run the unchanged v2.6.2 core.
 10. If WFC becomes healthy: freeze and exit immediately, leaving airplane mode ON + WFC HEALTHY.
@@ -56,7 +56,7 @@ Use:
 
 Default settle windows:
 
-- A state: 30 seconds
-- P state: 30 seconds
+- A state: 20 seconds
+- P state: 20 seconds
 
 Default maximum recovery attempts: 2.
