@@ -78,3 +78,12 @@ This fast path is only used for the explicit `NO_CNE_REQUEST` result. Other fail
 ## WFC detection accuracy
 
 After SIM2 POWER ON, the core records the actual POWER ON timestamp and probes WFC frequently. It exits immediately when IMS is REGISTERED on WLAN with VOICE/IWLAN and WFC available. The expensive post-POWER-ON lifecycle snapshot is deferred to the failure path so it cannot delay successful detection. A final edge probe is made before declaring failure.
+
+
+## Bounded retry count
+
+Default bounded recovery attempts: 4.
+
+A `NO_CNE_REQUEST` result is treated as a retryable telephony/CNE publication miss, not as proof that the X55/SIM recovery sequence itself is broken. Attempts 1-3 use the direct qcrild2 fast-reacquire path when this exact failure class is observed. Attempt 4 is the final bounded attempt; if it also fails, the wrapper restores a clean airplane-OFF A0 state and exits.
+
+The A-state and P-state settle windows remain 12 seconds. The post-SIM2 POWER ON WFC recovery window remains 30 seconds because successful WFC registration has been observed later than 12 seconds.
