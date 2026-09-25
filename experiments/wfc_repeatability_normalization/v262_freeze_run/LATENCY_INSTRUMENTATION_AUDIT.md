@@ -1,7 +1,8 @@
 # Latency instrumentation audit
 
-Date: 2026-09-25  
-Branch: `wfc-latency-study-20260925`  
+Date: 2026-09-25
+
+Branch: `wfc-latency-study-20260925`
 Golden ancestor: `253ab93a2127806837cb472071846f568c811a34`
 
 ## Scope
@@ -49,3 +50,7 @@ The following remain unchanged:
 - Phone writes during instrumentation development: 0
 
 Real-device profiling must use this instrumentation checkpoint without further behavior edits.
+
+## Computer-B path compatibility
+
+The core formerly embedded computer A's absolute `adb.exe` path. Computer B cannot create that other user's directory. The path is now resolved from the repository location, matching the wrapper, preflight, and snapshot scripts. On computer A this resolves to the same original executable; on computer B it resolves to the local platform-tools executable. This changes no Android command, state-machine transition, gate, timeout, target, or recovery decision.

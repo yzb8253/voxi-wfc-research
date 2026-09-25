@@ -4,7 +4,8 @@
 )
 
 $ErrorActionPreference = 'Stop'
-$Adb = 'C:\Users\ZJH\Desktop\platform-tools\adb.exe'
+$Repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
+$Adb = Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $Serial = 'fd0ff892'
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 $HolderPidFile = '/data/local/tmp/x55_holder.pid'
