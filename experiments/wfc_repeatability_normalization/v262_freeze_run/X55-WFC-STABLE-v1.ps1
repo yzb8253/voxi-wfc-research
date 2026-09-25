@@ -203,26 +203,22 @@ function Invoke-PreflightNormalization {
 
     Log 'PREFLIGHT_APPLY_NORMALIZATION=START'
 
-    $psi = [Diagnostics.ProcessStartInfo]::new()
-    $psi.FileName = 'powershell.exe'
-    $psi.Arguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $Preflight + '" -Serial ' + $Serial + ' -ApplyNormalization'
-    $psi.UseShellExecute = $false
-    $psi.CreateNoWindow = $true
-    $psi.RedirectStandardOutput = $true
-    $psi.RedirectStandardError = $true
+    # repeatability_preflight intentionally allows its first normalization path
+    # to fail and then falls back to qcrild2 reacquire. With the wrapper's
+    # global ErrorActionPreference=Stop, child stderr must not terminate the
+    # wrapper before that fallback completes.
+    $savedEap = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $Preflight -Serial $Serial -ApplyNormalization 2>&1
+        $rc = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $savedEap
+    }
 
-    $proc = [Diagnostics.Process]::new()
-    $proc.StartInfo = $psi
-    if(-not $proc.Start()) { throw 'Unable to start repeatability preflight.' }
-
-    $stdout = $proc.StandardOutput.ReadToEnd()
-    $stderr = $proc.StandardError.ReadToEnd()
-    $proc.WaitForExit()
-    $rc = $proc.ExitCode
-    $proc.Dispose()
-
-    $text = (($stdout + [Environment]::NewLine + $stderr).Trim())
-    if($text) { Write-Host $text }
+    foreach($line in @($output)) { Write-Host $line }
+    $text = (@($output | ForEach-Object { [string]$_ }) -join [Environment]::NewLine)
 
     Require ($rc -eq 0) ("Preflight normalization failed with exit code {0}." -f $rc)
     Require ($text -match 'PREFLIGHT_RESULT=(A0_READY|A0_NORMALIZED)') 'Preflight did not confirm A0_READY/A0_NORMALIZED.'
@@ -333,12 +329,14 @@ try {
         }
 
         if(-not $pGate) {
+            Log 'P_CNE_GATE_DIRTY_RETURN_TO_A'
+            Set-AirplaneMode $false
             if($attempt -lt $MaxRecoveryAttempts) {
-                Log 'BOUNDED_RETRY=P_CNE_GATE_DIRTY_RETURN_TO_A'
-                Set-AirplaneMode $false
+                Log 'BOUNDED_RETRY=P_CNE_GATE_DIRTY'
                 continue
             }
-            throw 'P CNE gate remained dirty on the final bounded attempt; v2.6.2 was not executed.'
+            Log 'FINAL_ATTEMPT_BLOCKED_BY_DIRTY_P_CNE'
+            break
         }
 
         $coreRc = Invoke-V262Core
