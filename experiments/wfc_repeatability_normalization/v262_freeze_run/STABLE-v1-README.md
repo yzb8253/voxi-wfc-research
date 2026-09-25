@@ -70,8 +70,8 @@ When the first v2.6.2 attempt completes the X55 restart and one SIM2 power cycle
 2. The wrapper returns to airplane mode OFF.
 3. After the 12-second A-state settle window, `normalize_no_cne_fast.ps1` prepares the known pm-service/holder split fingerprint.
 4. It directly runs the validated slot2 `qcrild2` reacquire path.
-5. The second recovery attempt skips the normal A0 preflight because the fast path already verified native ownership recovery.
-6. The wrapper rebuilds P and runs v2.6.2 again.
+5. The next recovery attempt still runs the normal A0 prepare/preflight verification. Fast qcrild2 reacquire replaces only the known-slow cleanup/native-owner path; it does not bypass A0 stabilization.
+6. The wrapper then rebuilds P and runs v2.6.2 again.
 
 This fast path is only used for the explicit `NO_CNE_REQUEST` result. Other failure classes keep the normal bounded retry behavior.
 
