@@ -287,7 +287,10 @@ function Wait-WfcHealthy {
             return $false
         }
 
-        Start-Sleep -Seconds 1
+        # The full WFC probe itself takes roughly 1-2 seconds on this ROM.
+        # Keep only a short idle gap so the script notices HEALTHY close to when
+        # the phone UI does, without hammering the framework continuously.
+        Start-Sleep -Milliseconds 250
     }
 }
 
