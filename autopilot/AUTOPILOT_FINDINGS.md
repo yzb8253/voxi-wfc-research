@@ -583,3 +583,12 @@ NEXT_ACTION: static/read-only diff boot-generation versus qtidataservices replac
 - R_BIG_V1 has no GEN_A, provider PID, GEN_B, NAH generation, phone PID, P, or WFC result in this series.
 
 NEXT_ACTION: no phone action. Preserve the mismatch and treat R_BIG_V1 as NOT TESTED / NOT FALSIFIED.
+
+## R_BIG_V1.1 holder-gate and Cycle 2 finding (2026-09-25)
+
+- Removing only vendor peripheral OFFLINE from the holder-release hard gate was correct for this run. Exact holder exit yielded owner none, kernel OFFLINE and crash zero while vendor still reported ONLINE.
+- The next frozen qcrild2 restart restored pm-service sole ownership and made kernel/vendor states consistently ONLINE without any extra wait, property write, or service action. Vendor state at release was stale/transitional telemetry.
+- This correction exposed a later genuine failure: Cycle 2 fixed P passed, but unchanged v2.6.2 produced no CNE request after its single SIM cycle and timed out WFC.
+- The fail stage is `V262/WFC`, not HOLDER or qcrild2 reacquire. R_BIG_V1.1 Cycles 3-5 remain untested.
+
+NEXT_ACTION: no phone action. Preserve holder 27699 and the F1 counterexample; do not infer failure or success of R_BIG_V1.1 itself.

@@ -671,3 +671,13 @@ NEXT_ACTION: preserve the F1 scene. Perform read-only analysis of initializeIWLA
 - Cycles 3-5 and R_BIG_V1 were not run. The upper-bound candidate is NOT TESTED / NOT FALSIFIED; three-rescue support was not achieved.
 
 NEXT_ACTION: preserve the stopped airplane-OFF F1 scene. Do not resume this series or execute an adaptive repair. A future experiment must separately decide whether the vendor/kernel OFFLINE disagreement is a stale observation or a required lifecycle condition.
+
+## 2026-09-25 R_BIG_V1.1 gate correction and real Cycle 2 failure
+
+- A separate V1.1 series changed only the holder-release hard gate: owner none + kernel X55 OFFLINE + crash zero. Vendor peripheral state remained telemetry only.
+- The corrected gate passed with vendor ONLINE at release. One qcrild2 restart then changed `1964 -> 24725`, pm-service 24465 became sole owner, and kernel/vendor X55 naturally returned ONLINE with crash zero. The old vendor requirement was therefore an orchestrator gate defect.
+- Cycle 1 passed WFC in approximately 8 seconds. Cycle 2 native normalization and fixed P passed.
+- Cycle 2 unchanged v2.6.2 created a new PON_SUCCESS and used one SIM cycle, but produced no CNE request and no WFC within 30 seconds. Its unchanged failure cleanup retained holder 27699 because pm-service did not take ownership.
+- The series stopped at `CYCLE2_V262_WFC_NO_CNE_REQUEST`. Cycles 3-5 and R_BIG_V1.1 were not run, so the upper-bound candidate is NOT TESTED / NOT FALSIFIED.
+
+NEXT_ACTION: preserve the final airplane-ON F1 scene. Do not resume, clean up, or claim an R_BIG verdict without a new explicit experiment.

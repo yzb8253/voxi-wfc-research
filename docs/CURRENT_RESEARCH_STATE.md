@@ -227,3 +227,9 @@ The five-cycle series used one reboot baseline. Cycle 1 reconfirmed the unchange
 Cycle 2 stopped during the historical minimal normalization before qcrild2 restart. The exact holder exited and kernel X55 became OFFLINE with no owner and crash count zero, while the vendor peripheral property remained ONLINE. Because the frozen gate required both representations to be OFFLINE, the runner stopped at `HOLDER_RELEASE_NATIVE_OFFLINE_FAIL` without adaptive repair.
 
 R_BIG_V1, Cycles 3-5, and their producer/provider/consumer generations were never executed. The candidate is therefore NOT TESTED / NOT FALSIFIED, and no stable upper bound was established by this run.
+
+## R_BIG_V1.1 Gate-Corrected Attempt
+
+The follow-up changed only the holder-release hard gate. Holder gone, owner none, kernel X55 OFFLINE and crash zero now pass while vendor peripheral state is telemetry only. This gate passed with vendor still ONLINE; the immediately following single qcrild2 restart restored pm-service ownership and consistent kernel/vendor ONLINE state, confirming the old stop was orchestrator-only.
+
+Cycle 1 again recovered WFC. Cycle 2 native normalization and fixed P also passed, but the unchanged v2.6.2 recovery then produced no qti.cne IMS request and no WFC after its one SIM cycle. The series stopped at the genuine `V262/WFC` failure before any R_BIG_V1.1 cycle. Thus Cycles 3-5 are NOT_RUN and the upper-bound sequence remains NOT TESTED / NOT FALSIFIED.

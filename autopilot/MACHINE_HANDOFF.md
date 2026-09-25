@@ -591,3 +591,15 @@ NEXT_ACTION: read-only investigation of why initializeIWLAN's replacement NAH re
 - Sanitized report and snapshots: `experiment/destructive-upper-bound/runs/r_big_v1_5cycle/`. Raw logs remain host-only.
 
 NEXT_ACTION: stop. Do not resume this run, normalize the phone, or claim an R_BIG_V1 verdict. A new series requires separate authorization.
+
+## Current checkpoint: R_BIG_V1.1 stopped at Cycle 2 V262/WFC
+
+- Frozen V1.1 implementation commit: `7b0a345` (full SHA in Git history).
+- One reboot baseline passed. Cycle 1 passed fixed P and unchanged v2.6.2, reaching WFC in approximately 8 seconds and freezing holder 19306.
+- Corrected Cycle 2 holder gate passed at owner none / kernel OFFLINE / crash zero while vendor telemetry still said ONLINE.
+- One qcrild2 restart changed 1964 -> 24725; pm-service 24465 became sole owner and both X55 states were ONLINE. Native reacquire and fixed P passed.
+- Cycle 2 v2.6.2 created holder 27699 and a new PON_SUCCESS, then used one SIM OFF/ON. It produced no CNE request and no WFC in 30 seconds. Existing failure cleanup retained holder after pm-service takeover failed.
+- Final scene: airplane ON, F1, qcrild2 24725, per_mgr running, pm-service 6144 non-owner, holder 27699 sole subsys_esoc0 owner, kernel X55 ONLINE, vendor X55 OFFLINE, crash zero.
+- Cycles 3-5 and R_BIG_V1.1 never ran. Sanitized report: `experiment/destructive-upper-bound/runs/r_big_v1_1_5cycle/`.
+
+NEXT_ACTION: stop. No cleanup or continuation is authorized by this checkpoint.

@@ -257,3 +257,11 @@ Follow-up host-only forensics found the first confirmed event fork after SIM ON:
 - Cycle 2 stopped in the holder-release gate. Holder 22768 exited, the pidfile disappeared, no process owned `/dev/subsys_esoc0`, kernel X55 was OFFLINE, and crash count was zero, but the vendor X55 property remained ONLINE.
 - No qcrild2 restart or SIM write occurred in Cycle 2. Cycles 3-5 and R_BIG_V1 were not executed.
 - Classification: series stopped fail-closed; R_BIG_V1 NOT TESTED / NOT FALSIFIED. Do not resume or repair this preserved scene without new authorization.
+
+## R_BIG_V1.1 gate-corrected checkpoint
+
+- The new holder release gate passed with no owner, kernel X55 OFFLINE and crash zero while vendor X55 still reported ONLINE. Vendor state was telemetry only.
+- One qcrild2 restart changed 1964 -> 24725 and naturally restored pm-service sole ownership plus consistent kernel/vendor ONLINE state.
+- Cycle 1 passed WFC. Cycle 2 normalization and fixed P passed, but unchanged v2.6.2 produced no CNE request or WFC after its single SIM cycle.
+- Stop classification: `R_BIG_V1_1_SERIES_STOPPED_AT_CYCLE2_V262_WFC_NO_CNE_REQUEST`.
+- Final preserved scene has holder 27699 sole owner, pm-service 6144 non-owner, airplane ON and F1. Cycles 3-5/R_BIG were not run. Do not clean up or continue without explicit authorization.
