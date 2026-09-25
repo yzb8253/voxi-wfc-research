@@ -30,6 +30,10 @@ function Root([string]$Command) {
   $result.Text.Trim()
 }
 function Require([bool]$Condition,[string]$Message) { if(-not $Condition){throw "GATE_FAIL: $Message"} }
+function Write-Timing([string]$Name,[Diagnostics.Stopwatch]$Stopwatch) {
+  $Stopwatch.Stop()
+  Write-Host ("TIMING name={0} ms={1}" -f $Name,$Stopwatch.ElapsedMilliseconds)
+}
 function Owners {
   $text=Root 'lsof /dev/subsys_esoc0 2>/dev/null'
   @($text -split "\r?\n" | Where-Object {$_ -match '/dev/subsys_esoc0'})
@@ -72,6 +76,7 @@ if($perMgr -eq 'stopped') {
 }
 $pmPid=''; $dual=$false
 $dualProbeCount = if($QuickFallback){3}else{20}
+$firstProbeTimer=[Diagnostics.Stopwatch]::StartNew()
 for($i=1;$i -le $dualProbeCount;$i++) {
   Start-Sleep -Seconds 1
   $state=Root 'getprop init.svc.vendor.per_mgr'
@@ -82,9 +87,13 @@ for($i=1;$i -le $dualProbeCount;$i++) {
     if($exe -eq '/vendor/bin/pm-service'){$pmPid=$servicePid;$dual=$true;break}
   }
 }
+Write-Timing quick_native_owner_first_probe $firstProbeTimer
 if(-not $dual) {
+  $restartRequestTimer=[Diagnostics.Stopwatch]::StartNew()
   [void](Root 'setprop ctl.restart vendor.per_mgr')
+  Write-Timing quick_native_owner_per_mgr_restart_request $restartRequestTimer
   $restartCount=1
+  $secondProbeTimer=[Diagnostics.Stopwatch]::StartNew()
   for($i=1;$i -le $dualProbeCount;$i++) {
     Start-Sleep -Seconds 1
     $state=Root 'getprop init.svc.vendor.per_mgr'
@@ -95,11 +104,13 @@ if(-not $dual) {
       if($exe -eq '/vendor/bin/pm-service'){$pmPid=$servicePid;$dual=$true;break}
     }
   }
+  Write-Timing quick_native_owner_second_probe $secondProbeTimer
 }
 if(-not $dual -and $QuickFallback) {
   # Repeatability runs on this ROM usually do not form dual ownership.
   # Verify the exact split fingerprint needed by the validated qcrild2
   # reacquire fallback instead of spending ~40 polling rounds proving it.
+  $splitTimer=[Diagnostics.Stopwatch]::StartNew()
   $splitReady=$false
   for($i=1;$i -le 10;$i++) {
     $state=Root 'getprop init.svc.vendor.per_mgr'
@@ -118,6 +129,7 @@ if(-not $dual -and $QuickFallback) {
     }
     Start-Sleep -Seconds 1
   }
+  Write-Timing quick_native_owner_split_fingerprint $splitTimer
   if($splitReady) {
     Write-Host 'NORMALIZATION=QUICK_FALLBACK_TO_QCRILD2'
     exit 40

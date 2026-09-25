@@ -61,31 +61,38 @@ Require ($owners.Count -eq 1 -and $owners[0] -match "\s$holderPid\s" -and $owner
 Require ($vendorX55 -eq 'OFFLINE' -and $kernelX55 -eq 'ONLINE' -and $crash -match '^\d+$') 'expected pre-release X55 split state missing or crash_count unreadable'
 
 Write-Host "ENTRY_GATE=PASS HOLDER=$holderPid PM=$pmPid QCRILD2=$slot2OldPid"
-$holderTermTimer=[Diagnostics.Stopwatch]::StartNew()
+$holderTermRequestTimer=[Diagnostics.Stopwatch]::StartNew()
 [void](Root "kill -TERM $holderPid")
+Write-Timing qcrild2_holder_term_request $holderTermRequestTimer
 Write-Host 'HOLDER_TERM_COUNT=1'
+$holderExitTimer=[Diagnostics.Stopwatch]::StartNew()
 $gone=$false
 for($i=1;$i -le 70;$i++) {
   if((Root "test -d /proc/$holderPid && echo LIVE || echo GONE") -eq 'GONE'){$gone=$true;break}
   Start-Sleep -Seconds 1
 }
 Require $gone 'holder did not exit after one TERM; no escalation performed'
-Write-Timing qcrild2_holder_term_latency $holderTermTimer
+Write-Timing qcrild2_holder_exit_latency $holderExitTimer
 $saved=Root "cat $PidFile 2>/dev/null"
 if($saved -eq [string]$holderPid){[void](Root "rm -f $PidFile")}
 
 $ownerNoneTimer=[Diagnostics.Stopwatch]::StartNew()
+$vendorOfflineTimer=[Diagnostics.Stopwatch]::StartNew()
+$kernelOfflineTimer=[Diagnostics.Stopwatch]::StartNew()
+$ownerNoneWritten=$false; $vendorOfflineWritten=$false; $kernelOfflineWritten=$false
 $none=$false; $offlineCrash=$null
 for($i=1;$i -le 15;$i++) {
   $now=@(Owners)
   $v=Root 'getprop vendor.peripheral.SDX55M.state'
   $k=Root 'cat /sys/bus/msm_subsys/devices/subsys10/state 2>/dev/null'
   $c=Root 'cat /sys/bus/msm_subsys/devices/subsys10/crash_count 2>/dev/null'
+  if($now.Count -eq 0 -and -not $ownerNoneWritten){Write-Timing qcrild2_owner_none_latency $ownerNoneTimer;$ownerNoneWritten=$true}
+  if($v -eq 'OFFLINE' -and -not $vendorOfflineWritten){Write-Timing qcrild2_vendor_offline_latency $vendorOfflineTimer;$vendorOfflineWritten=$true}
+  if($k -eq 'OFFLINE' -and -not $kernelOfflineWritten){Write-Timing qcrild2_kernel_offline_latency $kernelOfflineTimer;$kernelOfflineWritten=$true}
   if($now.Count -eq 0 -and $v -eq 'OFFLINE' -and $k -eq 'OFFLINE' -and $c -match '^\d+$' -and [int]$c -ge [int]$crash){$offlineCrash=[int]$c;$none=$true;break}
   Start-Sleep -Seconds 1
 }
 Require $none 'post-holder-release owner-NONE/X55-OFFLINE fingerprint not reached; qcrild2 was not restarted'
-Write-Timing qcrild2_owner_none_x55_offline_latency $ownerNoneTimer
 Require ((QcrildPrimary) -eq $primaryBefore -and (FirstPid (QcrildSlot2)) -eq $slot2OldPid) 'QCRIL identity changed before targeted restart'
 Write-Host 'PRE_REACQUIRE_FINGERPRINT=PASS'
 

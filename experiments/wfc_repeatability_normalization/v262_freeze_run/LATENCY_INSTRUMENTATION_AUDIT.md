@@ -51,6 +51,8 @@ The following remain unchanged:
 
 Real-device profiling must use this instrumentation checkpoint without further behavior edits.
 
+After the first profile, observation-only coverage was refined for future runs: quick native-owner first/second probes, the per_mgr restart request, split-fingerprint evaluation, holder TERM request versus actual exit, owner NONE, vendor OFFLINE, and kernel OFFLINE now have distinct records. `TOTAL_END_TO_END_MS` is emitted alongside `TIMING name=wrapper_total`. The first profile predates these extra labels; its combined timings remain valid and are not reconstructed.
+
 ## Computer-B path compatibility
 
 The core formerly embedded computer A's absolute `adb.exe` path. Computer B cannot create that other user's directory. The path is now resolved from the repository location, matching the wrapper, preflight, and snapshot scripts. On computer A this resolves to the same original executable; on computer B it resolves to the local platform-tools executable. This changes no Android command, state-machine transition, gate, timeout, target, or recovery decision.

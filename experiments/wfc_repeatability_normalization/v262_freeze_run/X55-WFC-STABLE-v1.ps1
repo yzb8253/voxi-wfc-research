@@ -67,6 +67,7 @@ function Write-Timing([string]$Name,[Diagnostics.Stopwatch]$Stopwatch) {
 function Write-TotalTiming {
     if($null -ne $script:WrapperTotal -and $script:WrapperTotal.IsRunning) {
         Write-Timing wrapper_total $script:WrapperTotal
+        Log ("TOTAL_END_TO_END_MS={0}" -f $script:WrapperTotal.ElapsedMilliseconds)
     }
 }
 
