@@ -7,8 +7,12 @@ echo ============================================================
 echo      X55 + VOXI WFC STABLE WRAPPER v1
 echo ============================================================
 echo.
-echo This launcher uses the proven v2.6.2 recovery core.
-echo It can automatically return to A0 and retry once after failure.
+echo USER ENTRY:
+echo - Start with airplane mode OFF.
+echo - Keep USB debugging/root available.
+echo - The script prepares A0, turns airplane mode ON,
+echo   runs the proven v2.6.2 recovery core, and on success
+echo   leaves the phone in airplane mode ON + WFC HEALTHY.
 echo.
 
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0X55-WFC-STABLE-v1.ps1"
