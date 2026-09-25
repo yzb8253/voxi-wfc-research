@@ -701,3 +701,14 @@ NEXT_ACTION: implement a separately reviewed low-perturbation profiling-only col
 - PS5.1 parser and runtime suite pass. Phone writes 0; ADB not used.
 
 NEXT_ACTION: review Phase 1.6. If approved, run one read-only collector benchmark only; do not connect the classifier to a write path or run recovery.
+
+## 2026-09-25 Phase 1.7 read-only device benchmark complete
+
+- Final valid run completed three stable LIGHT_A/FULL/LIGHT_B cycles; all nine classifications were `A0_READY`.
+- Maximum lightweight host/device spans were 3463/3156 ms under the unchanged 15-second fail-closed ceiling.
+- No qcrild/qcrild2/pm-service, ownership, X55, crash_count, environment, target, or health drift occurred.
+- Current CNE absence semantics matched the full connectivity current table in 3/3 cycles; active non-null IDs remain unobserved.
+- Profiling-only fixes handled deterministic full-output paths and the standard lsof header. Recovery behavior is unchanged.
+- Phone writes 0; recovery runs 0.
+
+NEXT_ACTION: review no-write shadow integration only. Do not replace preflight, authorize recovery, or run a phone-write experiment from this result.

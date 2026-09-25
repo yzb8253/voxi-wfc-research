@@ -612,3 +612,13 @@ NEXT_ACTION: design and offline-verify low-perturbation profiling; no device mut
 - Collector parsing and cross-command coherence remain the main unproven device risks.
 
 NEXT_ACTION: one read-only side-by-side device benchmark after approval; no recovery action.
+
+## Lightweight real-device benchmark finding (2026-09-25)
+
+- After correcting an exact lsof-header parse defect, all six lightweight captures completed without errors.
+- Three stable A/FULL/B cycles were exactly classifier-equivalent (`A0_READY`) and had no key-field drift.
+- Actual lightweight device span was about 3.0 seconds, not the earlier theoretical 4-10 seconds; `status` was the slowest root read at about 1.45 seconds.
+- The collector did not correlate with any qcrild/qcrild2 restart, X55/owner epoch, or crash_count change.
+- Null CNE request/satisfied values matched the full current connectivity table in all cycles. This proves current-absence semantics for the tested F1 state, not active non-null ID semantics.
+
+NEXT_ACTION: shadow-only observation may be designed. Keep the lightweight classifier disconnected from writes until broader natural-state coverage is reviewed.

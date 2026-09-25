@@ -28,7 +28,7 @@ function Convert-Snapshot([string]$Name) {
   }
   [ordered]@{
     schema='voxi-wfc-lightweight-state-v1'
-    capture=[ordered]@{observationEpoch="fixture:$Name";hostStartUtc='2026-09-25T00:00:00.0000000Z';hostEndUtc='2026-09-25T00:00:00.1000000Z';deviceStartMs=[int64]100000;deviceEndMs=[int64]100100;spanMs=[int64]100;commandCount=0;complete=$true;errors=@()}
+    capture=[ordered]@{observationEpoch="fixture:$Name";hostStartUtc='2026-09-25T00:00:00.0000000Z';hostEndUtc='2026-09-25T00:00:00.1000000Z';deviceStartMs=[int64]100000;deviceEndMs=[int64]100100;deviceSpanMs=[int64]100;spanMs=[int64]100;commandCount=0;timingsMs=[ordered]@{meta=10;status=40;processes=10;holder=10;native=20;total=100};complete=$true;errors=@()}
     environment=[ordered]@{airplaneMode=[int]$old.environment.airplaneMode;wifiSetting=[string]$old.environment.wifiSetting}
     target=[ordered]@{subId=[int]$old.target.subId;slotId=[int]$old.target.slotId;phoneId=[int]$old.target.phoneId;carrierId=[int]$old.target.carrierId;mcc=[int]$old.target.mcc;mnc=[int]$old.target.mnc;mappingGate=[bool]$old.target.mappingGate;subscriptionActive=[bool]$old.subscription.active;uiccApplicationsEnabled=[bool]$old.subscription.uiccAppsEnabled}
     holder=[ordered]@{pidFilePresent=[bool]$old.residues.holderPidFile;pidFileValue=if($old.residues.holderPidFile){if($holder.processExists){$holder.pid}else{99999}}else{$null};processExists=[bool]$holder.processExists;pid=if($holder.processExists){$holder.pid}else{$null};cmdline=if($holder.processExists){$holder.cmdline}else{$null};fd9Target=if($holder.processExists){'/dev/subsys_esoc0'}else{$null}}

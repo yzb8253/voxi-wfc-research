@@ -6,8 +6,17 @@
                     "hostEndUtc":  "2026-09-25T00:00:00.1000000Z",
                     "deviceStartMs":  100000,
                     "deviceEndMs":  100100,
+                    "deviceSpanMs":  100,
                     "spanMs":  100,
                     "commandCount":  0,
+                    "timingsMs":  {
+                                      "meta":  10,
+                                      "status":  40,
+                                      "processes":  10,
+                                      "holder":  10,
+                                      "native":  20,
+                                      "total":  100
+                                  },
                     "complete":  true,
                     "errors":  [
 

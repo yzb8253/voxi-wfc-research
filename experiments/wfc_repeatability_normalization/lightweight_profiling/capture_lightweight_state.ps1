@@ -13,6 +13,7 @@ $captureErrors=New-Object 'System.Collections.Generic.List[string]'
 $hostStart=[DateTimeOffset]::UtcNow
 $epoch=[guid]::NewGuid().ToString('D')
 $commandCount=0
+$timings=[ordered]@{}
 
 function Quote-Sh([string]$Value) {
   $single=[string][char]39
@@ -42,9 +43,16 @@ function Invoke-Adb([string[]]$Arguments) {
 
 function Read-Root([string]$Name,[string]$Command) {
   $script:commandCount++
-  $result=Invoke-Adb @('-s',$Serial,'shell',('su -c '+(Quote-Sh $Command)))
-  if($result.ExitCode -ne 0){$script:captureErrors.Add("command_failed:$Name")}
-  $result.Text
+  $timer=[Diagnostics.Stopwatch]::StartNew()
+  try {
+    $result=Invoke-Adb @('-s',$Serial,'shell',('su -c '+(Quote-Sh $Command)))
+    if($result.ExitCode -ne 0){$script:captureErrors.Add("command_failed:$Name")}
+    $result.Text
+  } finally {
+    $timer.Stop()
+    $script:timings[$Name]=[int64]$timer.ElapsedMilliseconds
+    Write-Host ("TIMING_LIGHT {0} ms={1}" -f $Name,$timer.ElapsedMilliseconds)
+  }
 }
 
 function Parse-KeyValue([string]$Text) {
@@ -110,6 +118,7 @@ $ownerRows=@($nativeRaw -split "\r?\n"|Where-Object{$_ -match '^OWNER='})
 $owners=@()
 foreach($row in $ownerRows) {
   $line=$row.Substring(6).Trim()
+  if($line -match '^COMMAND\s+PID\s+'){continue}
   $parts=$line -split '\s+'
   if($parts.Count -lt 2 -or $parts[1] -notmatch '^\d+$' -or $parts[$parts.Count-1] -cne '/dev/subsys_esoc0') {
     $captureErrors.Add('parse_error:esoc_owner')
@@ -122,6 +131,8 @@ $deviceStart=if($meta.Contains('DEVICE_START_MS') -and $meta.DEVICE_START_MS -ma
 $deviceEnd=if($nativeKv.Contains('DEVICE_END_MS') -and $nativeKv.DEVICE_END_MS -match '^\d+$'){[int64]$nativeKv.DEVICE_END_MS}else{$captureErrors.Add('parse_error:device_end_ms');$null}
 $hostEnd=[DateTimeOffset]::UtcNow
 $spanMs=[int64][Math]::Round(($hostEnd-$hostStart).TotalMilliseconds)
+$deviceSpanMs=if($null -ne $deviceStart -and $null -ne $deviceEnd){[int64]$deviceEnd-[int64]$deviceStart}else{$null}
+$timings['total']=$spanMs
 
 if($null -eq $status){$status=[pscustomobject]@{}}
 $statusTarget=Read-Property $status 'target'
@@ -138,8 +149,10 @@ $summary=[ordered]@{
     hostEndUtc=$hostEnd.ToString('o')
     deviceStartMs=$deviceStart
     deviceEndMs=$deviceEnd
+    deviceSpanMs=$deviceSpanMs
     spanMs=$spanMs
     commandCount=$commandCount
+    timingsMs=$timings
     complete=($captureErrors.Count -eq 0)
     errors=@($captureErrors)
   }
@@ -202,5 +215,7 @@ $json=$summary|ConvertTo-Json -Depth 10
 [IO.File]::WriteAllText($OutputPath,$json+[Environment]::NewLine,[Text.UTF8Encoding]::new($false))
 Write-Output ("LIGHTWEIGHT_STATE={0}" -f (Resolve-Path -LiteralPath $OutputPath).Path)
 Write-Output ("CAPTURE_SPAN_MS={0}" -f $spanMs)
+Write-Output ("DEVICE_CAPTURE_SPAN_MS={0}" -f $deviceSpanMs)
 Write-Output ("COMMAND_COUNT={0}" -f $commandCount)
 Write-Output ("COMPLETE={0}" -f ($captureErrors.Count -eq 0))
+Write-Output ("TIMING_LIGHT total ms={0}" -f $spanMs)

@@ -625,3 +625,17 @@ NEXT_ACTION: implement only profiling-layer lightweight collection, prove decisi
 - PS5.1 parser/runtime tests pass. No ADB invocation and no phone write occurred.
 
 NEXT_ACTION: stop for review. A future approved step may benchmark the collector read-only; it must not execute recovery or use the classification to authorize a write.
+
+## Current checkpoint: Phase 1.7 read-only benchmark complete
+
+- Branch: `wfc-latency-study-20260925`.
+- Starting commit: `aac8a209d40a9c2b58de33449165e19c0af8e6ca`.
+- Report: `LIGHTWEIGHT_DEVICE_BENCHMARK.md`.
+- Valid run ID: `20260925T114613Z`; raw benchmark and full captures remain host-only under `voxi_wfc_local_runs`.
+- Three cycles: `A0_READY / A0_READY / A0_READY`, no drift, no device-side anomaly.
+- Lightweight max host/device span: 3463/3156 ms. Full snapshots: 33.303-33.488 seconds.
+- Current CNE absence path verified 3/3; active non-null path not observed.
+- Profiling code only changed; stable wrapper/preflight and recovery state machine remain untouched.
+- Phone writes 0; recovery runs 0.
+
+NEXT_ACTION: stop for review. The only recommended next step is shadow-only integration with no write authority; do not run recovery.

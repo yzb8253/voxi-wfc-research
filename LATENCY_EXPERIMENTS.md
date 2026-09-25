@@ -77,3 +77,19 @@ Status: **OFFLINE PASS / NOT INTEGRATED**
 - Windows PowerShell 5.1 parser and offline runtime suite pass.
 - Theoretical target is 4-10 seconds versus the measured 46-51 second full snapshot; no device benchmark has occurred.
 - Next permitted experiment is read-only collector benchmarking only, after review.
+
+## 2026-09-25 — Phase 1.7 real-device read-only benchmark
+
+Status: **READY_FOR_SHADOW_INTEGRATION / NOT CONNECTED TO WRITES**
+
+- Final valid run: three `LIGHT_A -> FULL -> LIGHT_B` cycles with 10-second inter-cycle pauses.
+- Every cycle classified `A0_READY / A0_READY / A0_READY`; no state drift and no unsafe promotion occurred.
+- Lightweight host spans were 3.109-3.463 seconds; device spans were 2.912-3.156 seconds, below the unchanged 15-second ceiling.
+- Full snapshots took 33.303-33.488 seconds; their approximately 27.2-second logcat scan remained dominant.
+- Slowest lightweight root read was `status` at 1.433-1.467 seconds.
+- qcrild/qcrild2/pm-service PIDs, native owner, X55 states, crash_count, environment, target mapping, and health did not change across any A/B bracket.
+- Current CNE absence semantics were confirmed 3/3 against the connectivity current table. Active non-null ID semantics were not naturally exercised.
+- `PHONE_WRITES=0`; `RECOVERY_RUNS=0`.
+- Detailed report: `LIGHTWEIGHT_DEVICE_BENCHMARK.md`.
+
+No lightweight result is connected to preflight or a mutation path. The next allowed step is no-write shadow telemetry only.
