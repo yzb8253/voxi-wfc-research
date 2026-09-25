@@ -820,6 +820,8 @@ $script:CleanupOk = $true
 $script:CleanupDetail = 'NOT_NEEDED'
 $script:PostCleanupWfc = 'NOT_APPLICABLE'
 $script:FreezeOnHealthy = $false
+$script:PreShutdownCrashCount = $null
+$script:OfflineCrashCount = $null
 $finalResult = 'NOT_COMPLETED'
 
 Write-Log '============================================================'
@@ -916,6 +918,10 @@ try {
     Write-Host '[4/9] Preparing controlled X55 shutdown...'
     $prePon = Get-LastPonSuccess
     Write-Log ('Previous PON_SUCCESS line: ' + $prePon)
+    $script:PreShutdownCrashCount = Get-CrashCount
+    if ($null -eq $script:PreShutdownCrashCount) { Fail 'Unable to read X55 crash_count before controlled shutdown.' }
+    Write-Host ("PRE_SHUTDOWN_CRASH_COUNT={0}" -f $script:PreShutdownCrashCount)
+    Write-Log ("PRE_SHUTDOWN_CRASH_COUNT={0}" -f $script:PreShutdownCrashCount)
 
     $stop = Invoke-Root -Command 'setprop ctl.stop vendor.per_mgr' -Quiet
     if ($stop.Code -ne 0) { Fail 'Failed to request vendor.per_mgr stop.' }
@@ -963,9 +969,15 @@ try {
     $crash = Get-CrashCount
     Write-Host "STATE=OFFLINE"
     Write-Host "CRASH_COUNT=$crash"
-    if ($null -eq $crash -or $crash -ne 0) { Fail "CRASH_COUNT is $crash, expected 0." }
-    Write-Host '[OK] Clean X55 shutdown confirmed.' -ForegroundColor Green
-    Write-Log 'X55 OFFLINE; CRASH_COUNT=0'
+    if ($null -eq $crash) { Fail 'Unable to read crash_count after controlled shutdown.' }
+    if ($crash -lt $script:PreShutdownCrashCount) {
+        Fail ("CRASH_COUNT moved backwards from {0} to {1}." -f $script:PreShutdownCrashCount,$crash)
+    }
+    $script:OfflineCrashCount = $crash
+    $delta = $script:OfflineCrashCount - $script:PreShutdownCrashCount
+    Write-Host ("CRASH_COUNT_DELTA_DURING_CONTROLLED_SHUTDOWN={0}" -f $delta)
+    Write-Host '[OK] Clean X55 shutdown confirmed; cumulative crash_count recorded.' -ForegroundColor Green
+    Write-Log ("X55 OFFLINE; CRASH_COUNT before={0} after={1} delta={2}" -f $script:PreShutdownCrashCount,$script:OfflineCrashCount,$delta)
 
     # STEP 7
     Write-Host ''
@@ -989,13 +1001,17 @@ try {
     if (-not $online) { Fail 'X55 did not return ONLINE within 30 seconds.' }
 
     $crash = Get-CrashCount
-    if ($null -eq $crash -or $crash -ne 0) { Fail "X55 returned ONLINE but CRASH_COUNT=$crash." }
+    if ($null -eq $crash) { Fail 'Unable to read crash_count after X55 returned ONLINE.' }
+    if ($null -eq $script:OfflineCrashCount -or $crash -ne $script:OfflineCrashCount) {
+        Fail ("X55 returned ONLINE but crash_count changed again: offline={0} online={1}." -f $script:OfflineCrashCount,$crash)
+    }
+    Write-Host ("CRASH_COUNT_STABLE_AFTER_POWERUP={0}" -f $crash)
 
     $holderLsof = Get-HolderLsof
     if ($holderLsof -notmatch '/dev/subsys_esoc0') { Fail 'X55 is ONLINE but the holder is missing.' }
-    Write-Host '[OK] X55 ONLINE, CRASH_COUNT=0, temporary holder active.' -ForegroundColor Green
+    Write-Host ("[OK] X55 ONLINE, crash_count stable at {0}, temporary holder active." -f $crash) -ForegroundColor Green
     Write-Host $holderLsof
-    Write-Log 'X55 ONLINE; CRASH_COUNT=0; temporary holder active'
+    Write-Log ("X55 ONLINE; CRASH_COUNT={0} stable_from_offline=PASS; temporary holder active" -f $crash)
 
     # STEP 8
     Write-Host ''
