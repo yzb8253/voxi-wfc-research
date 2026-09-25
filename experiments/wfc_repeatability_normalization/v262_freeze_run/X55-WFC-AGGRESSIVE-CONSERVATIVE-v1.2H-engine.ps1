@@ -15,7 +15,7 @@ $LightCollector = Join-Path $Repo 'experiments\wfc_repeatability_normalization\l
 $LightClassifier = Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\classify_lightweight_state.ps1'
 $UiccDeepFallback = Join-Path $PSScriptRoot 'uicc_apps_deep_fallback.ps1'
 $SplitPreparer = Join-Path $PSScriptRoot 'prepare_frozen_residue_split.ps1'
-$Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
+$Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-fast-holder-exp.ps1'
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 $LogDir = Join-Path $PSScriptRoot 'Aggressive-Conservative-Logs'
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
@@ -616,11 +616,12 @@ function Invoke-UiccDeepFallback {
 
 $script:WrapperTotal = [Diagnostics.Stopwatch]::StartNew()
 Log '============================================================'
-Log 'MODE=AGGRESSIVE_CONSERVATIVE_V0'
-Log 'X55 WFC AGGRESSIVE CONSERVATIVE v0 started'
+Log 'MODE=AGGRESSIVE_CONSERVATIVE_V1_2H'
+Log 'HOLDER_IMPL=FAST'
+Log 'X55 WFC AGGRESSIVE CONSERVATIVE v1.2H started'
 Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
 Log 'PON_SETTLE=10s SIM_OFF_HOLD=3s SIM_WINDOW=30s_sleep_budget_plus_probe_runtime'
-Log 'Core recovery file is the unchanged proven v2.6.2 freeze-on-success script.'
+Log 'Core recovery is the isolated v2.6.2 FAST-holder experiment copy; all non-holder core behavior is unchanged.'
 Log '============================================================'
 
 try {
