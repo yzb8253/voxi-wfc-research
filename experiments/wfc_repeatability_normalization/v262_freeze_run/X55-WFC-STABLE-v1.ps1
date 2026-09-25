@@ -12,6 +12,7 @@ $ErrorActionPreference = 'Stop'
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..')).Path
 $Adb = Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $Preflight = Join-Path $PSScriptRoot 'repeatability_preflight.ps1'
+$UiccDeepFallback = Join-Path $PSScriptRoot 'uicc_apps_deep_fallback.ps1'
 $Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 $LogDir = Join-Path $PSScriptRoot 'Stable-Logs'
@@ -28,6 +29,7 @@ function Assert-ScriptSyntax {
         $Preflight,
         (Join-Path $PSScriptRoot 'normalize_a1_native_owner.ps1'),
         (Join-Path $PSScriptRoot 'normalize_a1_qcrild2_reacquire.ps1'),
+        $UiccDeepFallback,
         $Recovery
     )
 
@@ -197,6 +199,7 @@ function Get-CneSnapshot {
 function Assert-PlatformAndTarget {
     Require (Test-Path -LiteralPath $Adb) ("adb.exe not found: {0}" -f $Adb)
     Require (Test-Path -LiteralPath $Preflight) ("preflight missing: {0}" -f $Preflight)
+    Require (Test-Path -LiteralPath $UiccDeepFallback) ("UICC deep fallback missing: {0}" -f $UiccDeepFallback)
     Require (Test-Path -LiteralPath $Recovery) ("v2.6.2 recovery missing: {0}" -f $Recovery)
 
     $devices = Invoke-Adb @('devices')
@@ -331,6 +334,49 @@ function Invoke-V262Core {
     $rc
 }
 
+function Get-LatestCoreCneFreshness {
+    param([datetime]$NotBefore)
+
+    $dir = Join-Path $PSScriptRoot 'X55-Logs'
+    if(-not (Test-Path -LiteralPath $dir)) { return 'UNKNOWN' }
+
+    $latest = Get-ChildItem -LiteralPath $dir -Filter 'X55-WFC-*.log' -File |
+        Where-Object { $_.LastWriteTime -ge $NotBefore.AddSeconds(-2) } |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+
+    if($null -eq $latest) { return 'UNKNOWN' }
+
+    $match = Select-String -LiteralPath $latest.FullName -Pattern 'CNE_REQUEST_FRESHNESS=([A-Z_]+)' |
+        Select-Object -Last 1
+
+    if($null -eq $match) { return 'UNKNOWN' }
+    if($match.Line -match 'CNE_REQUEST_FRESHNESS=([A-Z_]+)') { return $Matches[1] }
+    return 'UNKNOWN'
+}
+
+function Invoke-UiccDeepFallback {
+    Require ((Get-AirplaneMode) -eq '0') 'UICC deep fallback requires clean airplane-OFF A state.'
+    Log 'UICC_DEEP_FALLBACK=START'
+
+    $savedEap = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $UiccDeepFallback -Serial $Serial 2>&1
+        $rc = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $savedEap
+    }
+
+    foreach($line in @($output)) { Write-Host $line }
+    $text = (@($output | ForEach-Object { [string]$_ }) -join [Environment]::NewLine)
+
+    Require ($rc -eq 0) ("UICC deep fallback failed with exit code {0}." -f $rc)
+    Require ($text -match 'UICC_DEEP_FALLBACK=PASS') 'UICC deep fallback did not confirm PASS.'
+    Log 'UICC_DEEP_FALLBACK=PASS'
+}
+
 Log '============================================================'
 Log 'X55 WFC STABLE WRAPPER v1 started'
 Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
@@ -344,6 +390,7 @@ try {
     $entryAirplane = Get-AirplaneMode
     Require ($entryAirplane -eq '0') 'USER ENTRY GATE: start the stable script with airplane mode OFF.'
     Log 'ENTRY_GATE=PASS airplane=OFF'
+    $noCneFailureCount = 0
 
     for($attempt = 1; $attempt -le $MaxRecoveryAttempts; $attempt++) {
         Write-Host ''
@@ -379,6 +426,7 @@ try {
             break
         }
 
+        $coreStartedAt = Get-Date
         $coreRc = Invoke-V262Core
 
         if(Test-WfcHealthy) {
@@ -390,7 +438,9 @@ try {
         }
 
         $afterCne = Get-CneSnapshot
-        Log ("ATTEMPT={0} FAILED coreExit={1} cneRequest={2} satisfied={3}" -f $attempt,$coreRc,$afterCne.Request,$afterCne.Satisfied)
+        $coreFreshness = Get-LatestCoreCneFreshness -NotBefore $coreStartedAt
+        if($coreFreshness -eq 'NO_CNE_REQUEST') { $noCneFailureCount++ }
+        Log ("ATTEMPT={0} FAILED coreExit={1} cneRequest={2} satisfied={3} coreFreshness={4} noCneCount={5}" -f $attempt,$coreRc,$afterCne.Request,$afterCne.Satisfied,$coreFreshness,$noCneFailureCount)
 
         if($attempt -lt $MaxRecoveryAttempts) {
             Write-Host ''
@@ -403,17 +453,78 @@ try {
 
     Write-Host ''
     Write-Host '[FINAL RECOVERY] Attempts exhausted. Restoring a clean airplane-OFF A0 state if possible.' -ForegroundColor Yellow
+    $safeA0Restored = $false
     try {
         Set-AirplaneMode $false
         Prepare-A0
+        $safeA0Restored = $true
         Log 'FINAL_SAFE_A0_RESTORE=PASS'
     }
     catch {
         Log ("FINAL_SAFE_A0_RESTORE=FAIL {0}" -f $_.Exception.Message)
     }
 
+    if($safeA0Restored -and $noCneFailureCount -eq $MaxRecoveryAttempts -and $noCneFailureCount -ge 2) {
+        Write-Host ''
+        Write-Host '============================================================'
+        Write-Host ' DEEP FALLBACK: VOXI UICC APPS SOFTWARE REMOVE / INSERT'
+        Write-Host '============================================================'
+        Write-Host '[DEEP] Both normal attempts ended in NO_CNE_REQUEST. The original two-attempt recovery is complete and unchanged.' -ForegroundColor Yellow
+        Write-Host '[DEEP] Applying one guarded UICC Apps false -> true cycle to VOXI subId11 only.'
+        Log ("DEEP_FALLBACK_TRIGGER=PASS noCneCount={0}" -f $noCneFailureCount)
+
+        Invoke-UiccDeepFallback
+
+        # The UICC lifecycle itself may restore IMS/WFC while airplane is OFF.
+        # Either way, rebuild the desired final P state and then use the same
+        # unchanged v2.6.2 core once more if WFC is still unhealthy.
+        if(Test-WfcHealthy) {
+            Log 'DEEP_UICC_RESULT=HEALTHY_IN_A'
+        }
+        else {
+            Prepare-A0
+        }
+
+        $deepPGate = Prepare-P
+
+        if(Test-WfcHealthy) {
+            Log 'DEEP_FALLBACK=SUCCESS_BEFORE_CORE'
+            Log 'FINAL=WFC_HEALTHY_FREEZE'
+            Write-Host '[OK] DEEP FALLBACK RESULT: WFC HEALTHY after UICC lifecycle.' -ForegroundColor Green
+            exit 0
+        }
+
+        if($deepPGate) {
+            $deepCoreStartedAt = Get-Date
+            $deepCoreRc = Invoke-V262Core
+
+            if(Test-WfcHealthy) {
+                Log ("DEEP_FALLBACK=SUCCESS_AFTER_CORE coreExit={0}" -f $deepCoreRc)
+                Log 'FINAL=WFC_HEALTHY_FREEZE'
+                Write-Host '[OK] DEEP FALLBACK RESULT: WFC HEALTHY after one final unchanged v2.6.2 cycle.' -ForegroundColor Green
+                exit 0
+            }
+
+            $deepFreshness = Get-LatestCoreCneFreshness -NotBefore $deepCoreStartedAt
+            Log ("DEEP_FALLBACK=FAILED coreExit={0} coreFreshness={1}" -f $deepCoreRc,$deepFreshness)
+        }
+        else {
+            Log 'DEEP_FALLBACK=BLOCKED_BY_DIRTY_P_CNE'
+        }
+
+        Write-Host '[DEEP] UICC fallback did not recover WFC. Restoring airplane-OFF A0.' -ForegroundColor Yellow
+        try {
+            Set-AirplaneMode $false
+            Prepare-A0
+            Log 'DEEP_FINAL_SAFE_A0_RESTORE=PASS'
+        }
+        catch {
+            Log ("DEEP_FINAL_SAFE_A0_RESTORE=FAIL {0}" -f $_.Exception.Message)
+        }
+    }
+
     Log 'FINAL=WFC_NOT_RECOVERED'
-    Write-Host '[FAIL] WFC was not recovered within the bounded attempts.' -ForegroundColor Red
+    Write-Host '[FAIL] WFC was not recovered within the bounded attempts and guarded deep fallback.' -ForegroundColor Red
     exit 20
 }
 catch {
