@@ -1,0 +1,86 @@
+{
+    "schema":  "voxi-wfc-lightweight-state-v1",
+    "capture":  {
+                    "observationEpoch":  "fixture:snapshot_A1_native_takeover_failed.json",
+                    "hostStartUtc":  "2026-09-25T00:00:00.0000000Z",
+                    "hostEndUtc":  "2026-09-25T00:00:00.1000000Z",
+                    "deviceStartMs":  100000,
+                    "deviceEndMs":  100100,
+                    "spanMs":  100,
+                    "commandCount":  0,
+                    "complete":  true,
+                    "errors":  [
+
+                               ]
+                },
+    "environment":  {
+                        "airplaneMode":  0,
+                        "wifiSetting":  "1"
+                    },
+    "target":  {
+                   "subId":  11,
+                   "slotId":  1,
+                   "phoneId":  1,
+                   "carrierId":  28,
+                   "mcc":  234,
+                   "mnc":  15,
+                   "mappingGate":  true,
+                   "subscriptionActive":  true,
+                   "uiccApplicationsEnabled":  true
+               },
+    "holder":  {
+                   "pidFilePresent":  false,
+                   "pidFileValue":  null,
+                   "processExists":  false,
+                   "pid":  null,
+                   "cmdline":  null,
+                   "fd9Target":  null
+               },
+    "native":  {
+                   "ownerCount":  0,
+                   "owners":  [
+
+                              ],
+                   "perMgrState":  "running",
+                   "pmService":  {
+                                     "processExists":  true,
+                                     "pid":  23598,
+                                     "ppid":  1,
+                                     "name":  "pm-service",
+                                     "cmdline":  "pm-service",
+                                     "exe":  "/vendor/bin/pm-service",
+                                     "initPid":  23598
+                                 },
+                   "vendorX55State":  "ONLINE",
+                   "kernelX55State":  "ONLINE",
+                   "crashCount":  0
+               },
+    "qcril":  {
+                  "primary":  {
+                                  "processExists":  true,
+                                  "pid":  1958,
+                                  "ppid":  1,
+                                  "name":  "qcrild",
+                                  "cmdline":  "qcrild"
+                              },
+                  "secondary":  {
+                                    "processExists":  true,
+                                    "pid":  1994,
+                                    "ppid":  1,
+                                    "name":  "qcrild",
+                                    "cmdline":  "qcrild -c 2"
+                                }
+              },
+    "cne":  {
+                "requestId":  null,
+                "satisfiedId":  null,
+                "currentEvidenceValid":  true
+            },
+    "health":  {
+                   "imsRegistrationRaw":  0,
+                   "transportRaw":  -1,
+                   "voiceIwlanAvailable":  false,
+                   "wfcAvailable":  false,
+                   "goldenStrong":  false
+               }
+}

@@ -602,3 +602,13 @@ NEXT_ACTION: no phone action. Preserve holder 27699 and the F1 counterexample; d
 - The nominal 30-second WFC window is currently a 30-second sleep budget plus probe runtimes (`TIMEOUT_ACCOUNTING_DEFECT / CONTRACT_AMBIGUITY`). Do not change it without a separate experiment.
 
 NEXT_ACTION: design and offline-verify low-perturbation profiling; no device mutation before review.
+
+## Low-perturbation classifier finding (2026-09-25)
+
+- The old gate can be reproduced from compact current-state fields without all-buffer logcat or large dumpsys bundles.
+- New identity/type checks are strictly equal or more conservative across 17 fixtures. Unknown esoc owners, wrong qcrild2 identity, and malformed crash count now fail closed where old logic could pass.
+- No fixture moves from old FAIL/UNKNOWN to new write eligibility.
+- Estimated collector time is 4-10 seconds with a 15-second fail-closed span ceiling; this is unbenchmarked theory.
+- Collector parsing and cross-command coherence remain the main unproven device risks.
+
+NEXT_ACTION: one read-only side-by-side device benchmark after approval; no recovery action.

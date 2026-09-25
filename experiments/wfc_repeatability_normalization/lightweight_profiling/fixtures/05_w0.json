@@ -1,0 +1,90 @@
+{
+    "schema":  "voxi-wfc-lightweight-state-v1",
+    "capture":  {
+                    "observationEpoch":  "fixture:snapshot_W0.json",
+                    "hostStartUtc":  "2026-09-25T00:00:00.0000000Z",
+                    "hostEndUtc":  "2026-09-25T00:00:00.1000000Z",
+                    "deviceStartMs":  100000,
+                    "deviceEndMs":  100100,
+                    "spanMs":  100,
+                    "commandCount":  0,
+                    "complete":  true,
+                    "errors":  [
+
+                               ]
+                },
+    "environment":  {
+                        "airplaneMode":  1,
+                        "wifiSetting":  "2"
+                    },
+    "target":  {
+                   "subId":  11,
+                   "slotId":  1,
+                   "phoneId":  1,
+                   "carrierId":  28,
+                   "mcc":  234,
+                   "mnc":  15,
+                   "mappingGate":  true,
+                   "subscriptionActive":  true,
+                   "uiccApplicationsEnabled":  true
+               },
+    "holder":  {
+                   "pidFilePresent":  true,
+                   "pidFileValue":  15643,
+                   "processExists":  true,
+                   "pid":  15643,
+                   "cmdline":  "sh -c echo $$ \u003e/data/local/tmp/x55_holder.pid; exec 9\u003c/dev/subsys_esoc0 || exit 91; echo ===X55_HOLDER_OPEN===; while true; do sleep 60; done",
+                   "fd9Target":  "/dev/subsys_esoc0"
+               },
+    "native":  {
+                   "ownerCount":  1,
+                   "owners":  [
+                                  {
+                                      "pid":  15643,
+                                      "name":  "sh",
+                                      "path":  "/dev/subsys_esoc0"
+                                  }
+                              ],
+                   "perMgrState":  "stopped",
+                   "pmService":  {
+                                     "processExists":  false,
+                                     "pid":  null,
+                                     "ppid":  null,
+                                     "name":  null,
+                                     "cmdline":  null,
+                                     "exe":  null,
+                                     "initPid":  null
+                                 },
+                   "vendorX55State":  "ONLINE",
+                   "kernelX55State":  "ONLINE",
+                   "crashCount":  0
+               },
+    "qcril":  {
+                  "primary":  {
+                                  "processExists":  true,
+                                  "pid":  1958,
+                                  "ppid":  1,
+                                  "name":  "qcrild",
+                                  "cmdline":  "qcrild"
+                              },
+                  "secondary":  {
+                                    "processExists":  true,
+                                    "pid":  1994,
+                                    "ppid":  1,
+                                    "name":  "qcrild",
+                                    "cmdline":  "qcrild -c 2"
+                                }
+              },
+    "cne":  {
+                "requestId":  272,
+                "satisfiedId":  272,
+                "currentEvidenceValid":  true
+            },
+    "health":  {
+                   "imsRegistrationRaw":  2,
+                   "transportRaw":  2,
+                   "voiceIwlanAvailable":  true,
+                   "wfcAvailable":  true,
+                   "goldenStrong":  true
+               }
+}

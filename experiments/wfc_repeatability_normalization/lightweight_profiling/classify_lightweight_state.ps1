@@ -160,20 +160,26 @@ function Classify-LightweightState {
 
   $pmExists=Get-Field $pm 'processExists' $errors 'native.pmService'
   $pmPid=Get-Field $pm 'pid' $errors 'native.pmService'
+  $pmPpid=Get-Field $pm 'ppid' $errors 'native.pmService'
   $pmName=Get-Field $pm 'name' $errors 'native.pmService'
   $pmCmd=Get-Field $pm 'cmdline' $errors 'native.pmService'
   $pmExe=Get-Field $pm 'exe' $errors 'native.pmService'
+  $pmInitPid=Get-Field $pm 'initPid' $errors 'native.pmService'
   Add-ErrorIf (-not (Test-Bool $pmExists)) $errors 'native:pm_exists_type'
   if($pmExists -is [bool] -and $pmExists) {
     Add-ErrorIf (-not (Test-Integer $pmPid) -or [int64]$pmPid -le 1) $errors 'native:pm_pid'
+    Add-ErrorIf (-not (Test-Integer $pmPpid) -or [int64]$pmPpid -ne 1) $errors 'native:pm_ppid'
+    Add-ErrorIf (-not (Test-Integer $pmInitPid) -or [int64]$pmInitPid -ne [int64]$pmPid) $errors 'native:pm_init_pid_mismatch'
     Add-ErrorIf ([string]$pmName -cne 'pm-service' -or [string]$pmCmd -cne 'pm-service' -or [string]$pmExe -cne '/vendor/bin/pm-service') $errors 'native:pm_identity'
   } else {
-    Add-ErrorIf ($null -ne $pmPid -or $null -ne $pmName -or $null -ne $pmCmd -or $null -ne $pmExe) $errors 'native:absent_pm_has_identity'
+    Add-ErrorIf ($null -ne $pmPid -or $null -ne $pmPpid -or $null -ne $pmName -or $null -ne $pmCmd -or $null -ne $pmExe -or $null -ne $pmInitPid) $errors 'native:absent_pm_has_identity'
   }
 
   $pmOwns=($pmExists -is [bool] -and $pmExists -and (Test-Integer $pmPid) -and @($ownerPids | Where-Object {$_ -eq [int64]$pmPid}).Count -eq 1)
   $holderOwns=($holderLive -and (Test-Integer $holderPid) -and @($ownerPids | Where-Object {$_ -eq [int64]$holderPid}).Count -eq 1)
-  $knownOwnerCount=(if($pmOwns){1}else{0})+(if($holderOwns){1}else{0})
+  $knownOwnerCount=0
+  if($pmOwns){$knownOwnerCount++}
+  if($holderOwns){$knownOwnerCount++}
   Add-ErrorIf ($knownOwnerCount -ne @($ownerPids).Count) $errors 'native:unknown_owner'
 
   $cne=Get-Field $State 'cne' $errors 'root'

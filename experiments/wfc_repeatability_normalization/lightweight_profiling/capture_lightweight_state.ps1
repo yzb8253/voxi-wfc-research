@@ -73,6 +73,10 @@ function Read-Property([object]$Object,[string]$Name) {
   $property.Value
 }
 
+function Has-Property([object]$Object,[string]$Name) {
+  $null -ne $Object -and $null -ne $Object.PSObject.Properties[$Name]
+}
+
 if(-not (Test-Path -LiteralPath $Adb)){throw "adb.exe not found: $Adb"}
 $devices=Invoke-Adb @('devices')
 if($devices.Text -notmatch "(?m)^$([regex]::Escape($Serial))\s+device\s*$"){throw "ADB target not online: $Serial"}
@@ -100,7 +104,7 @@ $holderPresent=($holderKv.Contains('PIDFILE_PRESENT') -and $holderKv.PIDFILE_PRE
 $holderExists=($holderKv.Contains('PROCESS_EXISTS') -and $holderKv.PROCESS_EXISTS -eq '1')
 $holderProcess=if($holderExists -and $holderKv.Contains('PROCESS_LINE')){Parse-ProcessLine $holderKv.PROCESS_LINE}else{$null}
 
-$nativeRaw=Read-Root 'native' 'echo PER_MGR=$(getprop init.svc.vendor.per_mgr); echo VENDOR_X55=$(getprop vendor.peripheral.SDX55M.state); echo KERNEL_X55=$(cat /sys/bus/msm_subsys/devices/subsys10/state); echo CRASH_COUNT=$(cat /sys/bus/msm_subsys/devices/subsys10/crash_count); lsof /dev/subsys_esoc0 2>/dev/null | sed "s/^/OWNER=/"; echo DEVICE_END_MS=$(date +%s%3N)'
+$nativeRaw=Read-Root 'native' 'p=$(getprop init.svc_debug_pid.vendor.per_mgr); echo PER_MGR=$(getprop init.svc.vendor.per_mgr); echo PM_SERVICE_PID=$p; echo PM_SERVICE_EXE=$(readlink "/proc/$p/exe" 2>/dev/null); echo VENDOR_X55=$(getprop vendor.peripheral.SDX55M.state); echo KERNEL_X55=$(cat /sys/bus/msm_subsys/devices/subsys10/state); echo CRASH_COUNT=$(cat /sys/bus/msm_subsys/devices/subsys10/crash_count); lsof /dev/subsys_esoc0 2>/dev/null | sed "s/^/OWNER=/"; echo DEVICE_END_MS=$(date +%s%3N)'
 $nativeKv=Parse-KeyValue $nativeRaw
 $ownerRows=@($nativeRaw -split "\r?\n"|Where-Object{$_ -match '^OWNER='})
 $owners=@()
@@ -168,8 +172,8 @@ $summary=[ordered]@{
     perMgrState=if($nativeKv.Contains('PER_MGR')){[string]$nativeKv.PER_MGR}else{$null}
     pmService=if($pmLine.Count -eq 1){
       $parsed=Parse-ProcessLine $pmLine[0]
-      [ordered]@{processExists=$true;pid=$parsed.pid;name=$parsed.name;cmdline=$parsed.cmdline;exe='/vendor/bin/pm-service'}
-    }else{[ordered]@{processExists=$false;pid=$null;name=$null;cmdline=$null;exe=$null}}
+      [ordered]@{processExists=$true;pid=$parsed.pid;ppid=$parsed.ppid;name=$parsed.name;cmdline=$parsed.cmdline;exe=if($nativeKv.Contains('PM_SERVICE_EXE')){[string]$nativeKv.PM_SERVICE_EXE}else{$null};initPid=if($nativeKv.Contains('PM_SERVICE_PID') -and $nativeKv.PM_SERVICE_PID -match '^\d+$'){[int]$nativeKv.PM_SERVICE_PID}else{$null}}
+    }else{[ordered]@{processExists=$false;pid=$null;ppid=$null;name=$null;cmdline=$null;exe=$null;initPid=if($nativeKv.Contains('PM_SERVICE_PID') -and $nativeKv.PM_SERVICE_PID -match '^\d+$'){[int]$nativeKv.PM_SERVICE_PID}else{$null}}}
     vendorX55State=if($nativeKv.Contains('VENDOR_X55')){[string]$nativeKv.VENDOR_X55}else{$null}
     kernelX55State=if($nativeKv.Contains('KERNEL_X55')){[string]$nativeKv.KERNEL_X55}else{$null}
     crashCount=if($nativeKv.Contains('CRASH_COUNT') -and $nativeKv.CRASH_COUNT -match '^\d+$'){[int]$nativeKv.CRASH_COUNT}else{$null}
@@ -181,7 +185,7 @@ $summary=[ordered]@{
   cne=[ordered]@{
     requestId=Read-Property $statusConnectivity 'qtiCneRequestId'
     satisfiedId=Read-Property $statusConnectivity 'qtiCneSatisfiedRequestId'
-    currentEvidenceValid=($null -ne $statusConnectivity)
+    currentEvidenceValid=((Has-Property $statusConnectivity 'qtiCneRequestId') -and (Has-Property $statusConnectivity 'qtiCneSatisfiedRequestId'))
   }
   health=[ordered]@{
     imsRegistrationRaw=Read-Property $statusIms 'registrationStateRaw'

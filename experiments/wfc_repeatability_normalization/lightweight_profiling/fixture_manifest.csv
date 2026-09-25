@@ -1,0 +1,18 @@
+fixture,source,old_classifier_result,old_write_eligible,expected_new_result,expected_new_write_eligible,reason
+01_native_clean_a0,snapshot_A0.json,A0_READY,true,A0_READY,true,Exact archived native-clean A0
+02_p0,snapshot_P0.json,P0_READY,true,P0_READY,true,Exact archived native-clean airplane-on P0
+03_frozen_holder_residue,snapshot_A1.json,FROZEN_RESIDUE,true,FROZEN_RESIDUE,true,Exact archived holder residue
+04_healthy_frozen_wfc,snapshot_W0.json,HEALTHY_FREEZE,false,HEALTHY_FREEZE,false,Archived healthy frozen state
+05_w0,snapshot_W0.json,HEALTHY_FREEZE,false,HEALTHY_FREEZE,false,Golden W0 requirement
+06_w1,snapshot_W1.json,HEALTHY_FREEZE,false,HEALTHY_FREEZE,false,Golden W1 requirement
+07_known_f1,preflight_20260925_181323_normalized.json,A0_READY,true,A0_READY,true,Known F1 with native-clean A0
+08_no_cne_request_p0,snapshot_P0.json,P0_READY,true,P0_READY,true,Known null current CNE request remains valid P0
+09_unknown_owner,snapshot_A0.json+unknown owner,A0_READY,true,UNKNOWN,false,Old classifier ignored extra owners; new classifier fails closed
+10_stale_holder_pidfile,snapshot_A0.json+dead pidfile,A0_READY,true,A0_READY,true,Known dead cross-boot pidfile with no live process or ownership
+11_pm_running_not_owner,snapshot_A1_native_takeover_failed.json-owner removed,UNKNOWN,false,UNKNOWN,false,Running pm-service without esoc ownership
+12_x55_vendor_kernel_split,snapshot_A0.json+kernel OFFLINE,UNKNOWN,false,UNKNOWN,false,Vendor/kernel contradiction
+13_target_mapping_error,snapshot_A0.json+slot0,UNKNOWN,false,UNKNOWN,false,Fixed VOXI mapping violated
+14_uicc_disabled,snapshot_A0.json+UICC false,UNKNOWN,false,UNKNOWN,false,Target UICC disabled
+15_qcrild2_identity_error,snapshot_A0.json+wrong cmdline,A0_READY,true,UNKNOWN,false,New classifier is deliberately more conservative on required QCRIL identity
+16_missing_target_field,snapshot_A0.json-mnc,UNKNOWN,false,UNKNOWN,false,Required target field missing
+17_malformed_crash_count,snapshot_A0.json+string crash,A0_READY,true,UNKNOWN,false,Old null-only test accepted malformed non-null value; new classifier is conservative

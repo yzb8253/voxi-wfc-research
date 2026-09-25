@@ -65,3 +65,15 @@ Classification:
 4. **A/P settle study** — deferred until diagnostic overhead is reduced and successful A/B baselines exist.
 
 No candidate may be implemented from this partial run alone.
+
+## 2026-09-25 — Phase 1.6 offline lightweight classifier
+
+Status: **OFFLINE PASS / NOT INTEGRATED**
+
+- Added a five-root-read lightweight collector and a separate pure JSON classifier.
+- Recovery scripts, call sites, waits, timeouts, attempts, mutation order, and health predicate are unchanged.
+- Seventeen archived/derived fixtures produced 14 exact-equivalent and 3 more-conservative results.
+- Unsafe old FAIL/UNKNOWN -> new PASS transitions: 0.
+- Windows PowerShell 5.1 parser and offline runtime suite pass.
+- Theoretical target is 4-10 seconds versus the measured 46-51 second full snapshot; no device benchmark has occurred.
+- Next permitted experiment is read-only collector benchmarking only, after review.

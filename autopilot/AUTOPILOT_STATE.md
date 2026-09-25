@@ -691,3 +691,13 @@ NEXT_ACTION: preserve the final airplane-ON F1 scene. Do not resume, clean up, o
 - No recovery, timeout, slot0 contract, wait, mutation, or instrumentation code changed. Phone writes 0; ADB not used.
 
 NEXT_ACTION: implement a separately reviewed low-perturbation profiling-only collector and prove offline classifier equivalence before any further phone-write run. Keep timeout accounting and exit-30 classification as separate future experiments.
+
+## 2026-09-25 Phase 1.6 offline lightweight classifier complete
+
+- Added isolated lightweight collector/classifier components; they are not connected to preflight or any recovery mutation path.
+- Offline suite: 17 fixtures, 14 exact-equivalent, 3 more conservative, 0 unsafe old FAIL/UNKNOWN -> new PASS, 0 expected-result mismatches.
+- Required fields include timestamps/epoch, fixed target, holder identity/fd9, exact native ownership, pm-service init/ps/exe identity, both QCRIL identities, X55/crash, current CNE IDs, and four-field health.
+- Full logcat/dumpsys evidence remains available only as future failure/UNKNOWN diagnostics.
+- PS5.1 parser and runtime suite pass. Phone writes 0; ADB not used.
+
+NEXT_ACTION: review Phase 1.6. If approved, run one read-only collector benchmark only; do not connect the classifier to a write path or run recovery.

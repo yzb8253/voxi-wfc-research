@@ -614,3 +614,14 @@ NEXT_ACTION: stop. No cleanup or continuation is authorized by this checkpoint.
 - Windows PowerShell 5.1 parser passed for all five recovery/profiling scripts. No ADB call and no phone write occurred.
 
 NEXT_ACTION: implement only profiling-layer lightweight collection, prove decision equivalence offline, and request review before another phone-write run. Do not alter waits, timeouts, attempts, mutation order, health predicate, or slot0 safety contracts.
+
+## Current checkpoint: Phase 1.6 offline implementation complete
+
+- Branch: `wfc-latency-study-20260925`.
+- Components: `experiments/wfc_repeatability_normalization/lightweight_profiling/`.
+- Results: 17 fixtures; 14 equivalent, 3 more conservative, no unsafe promotion.
+- Design: `LIGHTWEIGHT_CLASSIFIER_DESIGN.md`; exit-30 TODO: `EXIT30_STATE_CONTRACT.md`.
+- Lightweight mode is not wired into the stable wrapper or preflight.
+- PS5.1 parser/runtime tests pass. No ADB invocation and no phone write occurred.
+
+NEXT_ACTION: stop for review. A future approved step may benchmark the collector read-only; it must not execute recovery or use the classification to authorize a write.
