@@ -1,6 +1,7 @@
 ﻿param(
     [switch]$Holder,
-    [switch]$NoPause
+    [switch]$NoPause,
+    [switch]$FastNoCneHandoff
 )
 
 $ErrorActionPreference = 'Stop'
@@ -258,35 +259,35 @@ function Test-WfcHealthy {
 function Wait-WfcHealthy {
     param(
         [int]$MaxSeconds = 30,
-        [string]$Tag = 'wait'
+        [string]$Tag = 'wait',
+        [datetime]$SinceUtc = [datetime]::MinValue
     )
 
-    # Physical/software reinsertion on this device can need 10+ seconds.
-    # First check at ~5s, then every 3s. For 30s this checks near 5,8,11,...,29s.
-    $elapsed = 0
+    # Poll frequently and report real elapsed time. For SIM recovery, SinceUtc
+    # is the actual SIM2 POWER ON timestamp, so "ready at" is no longer an
+    # approximation that ignores snapshot/probe overhead.
+    $startedUtc = if ($SinceUtc -eq [datetime]::MinValue) { [datetime]::UtcNow } else { $SinceUtc }
     $check = 0
-    $firstWait = if ($MaxSeconds -le 8) { 3 } else { 5 }
-    Start-Sleep -Seconds $firstWait
-    $elapsed += $firstWait
 
     while ($true) {
         $check++
+
         if (Test-WfcHealthy -Tag ("{0}_{1}" -f $Tag,$check)) {
-            Write-Host ("[HEALTHY] WFC ready at approximately {0}s." -f $elapsed) -ForegroundColor Green
-            Write-Log ("WFC HEALTHY tag={0} elapsed={1}s check={2}" -f $Tag,$elapsed,$check)
+            $elapsedHealthy = [Math]::Round(([datetime]::UtcNow - $startedUtc).TotalSeconds,1)
+            Write-Host ("[HEALTHY] WFC ready at {0}s." -f $elapsedHealthy) -ForegroundColor Green
+            Write-Log ("WFC HEALTHY tag={0} elapsed={1}s check={2}" -f $Tag,$elapsedHealthy,$check)
             return $true
         }
 
+        $elapsed = [Math]::Round(([datetime]::UtcNow - $startedUtc).TotalSeconds,1)
         Write-Host ("Check {0}: not healthy yet - elapsed {1}s" -f $check,$elapsed)
+
         if ($elapsed -ge $MaxSeconds) {
             Write-Log ("WFC NOT HEALTHY tag={0} after {1}s" -f $Tag,$elapsed)
             return $false
         }
 
-        $sleep = [Math]::Min(3, $MaxSeconds - $elapsed)
-        if ($sleep -le 0) { return $false }
-        Start-Sleep -Seconds $sleep
-        $elapsed += $sleep
+        Start-Sleep -Seconds 1
     }
 }
 
@@ -357,6 +358,7 @@ function Invoke-SimPowerCycle {
     }
 
     $script:SimMayBeOff = $false
+    $script:LastSimPowerOnUtc = [datetime]::UtcNow
     Write-Host 'SIM2 POWER ON accepted. No second POWER ON trigger will be sent.'
     Write-Log ("SIM cycle {0}: single POWER ON sent; duplicate POWER ON disabled" -f $Attempt)
 
@@ -821,6 +823,8 @@ $script:CleanupOk = $true
 $script:CleanupDetail = 'NOT_NEEDED'
 $script:PostCleanupWfc = 'NOT_APPLICABLE'
 $script:FreezeOnHealthy = $false
+$script:FastRetryResidue = $false
+$script:LastSimPowerOnUtc = [datetime]::MinValue
 $script:PreShutdownCrashCount = $null
 $script:OfflineCrashCount = $null
 $finalResult = 'NOT_COMPLETED'
@@ -1060,7 +1064,7 @@ try {
 
     Invoke-SimPowerCycle -Attempt 1
 
-    if (Wait-WfcHealthy -MaxSeconds 30 -Tag 'after_sim_cycle_1') {
+    if (Wait-WfcHealthy -MaxSeconds 30 -Tag 'after_sim_cycle_1' -SinceUtc $script:LastSimPowerOnUtc) {
         $finalResult = 'SIM_CYCLE_1_SUCCESS'
         $script:FreezeOnHealthy = $true
         Write-Log 'FREEZE_ON_HEALTHY=TRUE reason=SIM_CYCLE_1_SUCCESS'
@@ -1089,26 +1093,42 @@ try {
     Write-Host ("CNE request freshness: {0}" -f $cneFreshness)
     Write-Log ("CNE_REQUEST_FRESHNESS={0} baseline={1} afterSim={2}" -f $cneFreshness,$cneBefore.Request,$cneAfterSim.Request)
 
-    # v2.6 intentionally stops recovery here.
-    # No second SIM cycle, no vendor.cnd restart, no qtidataservices restart,
-    # and no physical-reinsert automation.
-    $finalResult = 'AUTO_RECOVERY_FAILED'
+    # No second SIM cycle, no vendor.cnd restart, no qtidataservices restart.
+    # When invoked by the stable wrapper, a clean NO_CNE_REQUEST result is
+    # handed back with the exact holder residue preserved for the targeted
+    # qcrild2 reacquire path. Other failures keep the normal cleanup behavior.
+    if ($FastNoCneHandoff -and $cneFreshness -eq 'NO_CNE_REQUEST') {
+        $finalResult = 'NO_CNE_REQUEST_FAST_RETRY'
+        $script:FastRetryResidue = $true
 
-    Write-Host ''
-    Write-Host '============================================================'
-    Write-Host '              AUTOMATIC RECOVERY FAILED' -ForegroundColor Red
-    Write-Host '============================================================'
-    Write-Host 'X55 restart succeeded.'
-    Write-Host 'Exactly one SIM2 software power cycle was executed.'
-    Write-Host ("CNE freshness after SIM cycle: {0}" -f $cneFreshness)
-    Write-Host 'No second SIM power cycle was attempted.'
-    Write-Host 'vendor.cnd was NOT restarted.'
-    Write-Host '.qtidataservices was NOT restarted.'
-    Write-Host 'Transactional cleanup will now restore vendor.per_mgr and remove the temporary holder.'
-    Write-Host ''
+        Write-Host ''
+        Write-Host '============================================================'
+        Write-Host '          NO_CNE_REQUEST -> FAST RETRY HANDOFF' -ForegroundColor Yellow
+        Write-Host '============================================================'
+        Write-Host 'X55 restart and SIM2 cycle completed, but qti.cne created no IMS request.'
+        Write-Host 'Skipping slow transactional cleanup; temporary holder is preserved.'
+        Write-Host 'The stable wrapper will return to airplane-OFF and run direct qcrild2 reacquire.'
+        Write-Log 'FINAL_RECOVERY_RESULT=NO_CNE_REQUEST_FAST_RETRY holder_preserved=TRUE'
+    }
+    else {
+        $finalResult = 'AUTO_RECOVERY_FAILED'
 
-    [void](Test-WfcHealthy -ShowStatus -Tag 'final_failed_before_cleanup')
-    Write-Log ("FINAL_RECOVERY_RESULT=AUTO_RECOVERY_FAILED sim_freshness={0}" -f $cneFreshness)
+        Write-Host ''
+        Write-Host '============================================================'
+        Write-Host '              AUTOMATIC RECOVERY FAILED' -ForegroundColor Red
+        Write-Host '============================================================'
+        Write-Host 'X55 restart succeeded.'
+        Write-Host 'Exactly one SIM2 software power cycle was executed.'
+        Write-Host ("CNE freshness after SIM cycle: {0}" -f $cneFreshness)
+        Write-Host 'No second SIM power cycle was attempted.'
+        Write-Host 'vendor.cnd was NOT restarted.'
+        Write-Host '.qtidataservices was NOT restarted.'
+        Write-Host 'Transactional cleanup will now restore vendor.per_mgr and remove the temporary holder.'
+        Write-Host ''
+
+        [void](Test-WfcHealthy -ShowStatus -Tag 'final_failed_before_cleanup')
+        Write-Log ("FINAL_RECOVERY_RESULT=AUTO_RECOVERY_FAILED sim_freshness={0}" -f $cneFreshness)
+    }
 
 }
 catch [System.OperationCanceledException] {
@@ -1154,6 +1174,13 @@ finally {
         $script:PostCleanupWfc = 'HEALTHY'
         Write-Host '[FREEZE] WFC is healthy. Transactional cleanup is intentionally skipped.' -ForegroundColor Green
         Write-Log 'CLEANUP_RESULT=SKIPPED_FREEZE_ON_HEALTHY'
+    }
+    elseif ($script:FastRetryResidue) {
+        $script:CleanupOk = $true
+        $script:CleanupDetail = 'SKIPPED_FOR_FAST_NO_CNE_RETRY'
+        $script:PostCleanupWfc = 'NOT_APPLICABLE'
+        Write-Host '[FAST RETRY] Holder residue intentionally preserved for direct qcrild2 reacquire.' -ForegroundColor Yellow
+        Write-Log 'CLEANUP_RESULT=SKIPPED_FOR_FAST_NO_CNE_RETRY'
     }
     else {
         try {
@@ -1243,7 +1270,10 @@ else {
     Write-Host ("CLEANUP_RESULT={0}" -f $(if ($script:CleanupOk) { $script:CleanupDetail } else { 'FAILED_' + $script:CleanupDetail }))
     Write-Host 'POST_CLEANUP_WFC=NOT_APPLICABLE'
 
-    if ($script:CleanupOk) {
+    if ($script:FastRetryResidue) {
+        Write-Host '[FAST RETRY] Recovery stopped at NO_CNE_REQUEST with the temporary holder intentionally preserved.' -ForegroundColor Yellow
+    }
+    elseif ($script:CleanupOk) {
         Write-Host '[OK] Recovery failed, but the script restored the verified native pm-service/X55 baseline.' -ForegroundColor Green
         Write-Host 'No temporary holder should remain.'
     }
@@ -1266,5 +1296,6 @@ if (-not $NoPause) {
 if (-not $script:CleanupOk) { exit 30 }
 if ($recoverySucceeded -and $script:PostCleanupWfc -eq 'HEALTHY') { exit 0 }
 if ($recoverySucceeded -and $script:PostCleanupWfc -eq 'LOST_AFTER_CLEANUP') { exit 21 }
+if ($finalResult -eq 'NO_CNE_REQUEST_FAST_RETRY') { exit 22 }
 if ($finalResult -eq 'AUTO_RECOVERY_FAILED') { exit 20 }
 exit 1
