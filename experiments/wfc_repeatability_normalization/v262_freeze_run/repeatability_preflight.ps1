@@ -12,7 +12,7 @@ $RunName='v262_freeze_run'
 $label='preflight_' + (Get-Date -Format 'yyyyMMdd_HHmmss')
 
 function Capture([string]$Name) {
-  & powershell -NoProfile -ExecutionPolicy Bypass -File $Capture -Label $Name -Serial $Serial -RunName $RunName
+  & powershell -NoProfile -ExecutionPolicy Bypass -File $Capture -Label $Name -Serial $Serial -RunName $RunName | Out-Host
   if($LASTEXITCODE -ne 0){throw 'Preflight snapshot failed'}
   $path=Join-Path (Join-Path (Join-Path $ExperimentRoot 'runs') $RunName) ("snapshots\{0}.json" -f $Name)
   Get-Content -LiteralPath $path -Raw|ConvertFrom-Json
