@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a reproducible defect in a script, parser, gate, or document.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Remove all device, SIM, account, network, and credential identifiers before submitting."
+  - type: input
+    id: commit
+    attributes:
+      label: Exact commit
+      placeholder: Full 40-character commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Device/codename, ROM build, Android version, host shell, and redacted SIM topology.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Minimal redacted evidence
+      description: Include timestamps, state/result labels, and phone-write count. Do not paste raw identifiers.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety checklist
+      options:
+        - label: I removed secrets and identifying device/network data.
+          required: true
+        - label: I stated every phone write performed.
+          required: true

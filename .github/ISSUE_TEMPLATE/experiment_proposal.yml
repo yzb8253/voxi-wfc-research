@@ -1,0 +1,46 @@
+name: Experiment proposal
+description: Propose a falsifiable, safety-bounded experiment before performing writes.
+title: "[Experiment]: "
+labels: ["experiment"]
+body:
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Falsifiable hypothesis
+    validations:
+      required: true
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline and fixed variables
+      description: Commit, reset/preparation, waits, health predicate, platform and state.
+    validations:
+      required: true
+  - type: textarea
+    id: actions
+    attributes:
+      label: Exact actions and write budget
+      description: Enumerate every allowed write, target, count, timeout and rollback.
+    validations:
+      required: true
+  - type: textarea
+    id: gates
+    attributes:
+      label: Entry, stop, success, and falsification gates
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk and recovery plan
+    validations:
+      required: true
+  - type: checkboxes
+    id: discipline
+    attributes:
+      label: Experiment discipline
+      options:
+        - label: No ad-hoc recovery action will be added after a valid failure.
+          required: true
+        - label: Missing or conflicting evidence will fail closed.
+          required: true

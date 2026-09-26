@@ -1,0 +1,36 @@
+name: New device report
+description: Share a carefully redacted observation from another device or ROM.
+title: "[Device]: "
+labels: ["device-report"]
+body:
+  - type: markdown
+    attributes:
+      value: "A report does not establish support. Do not run write experiments copied from another platform without a new static safety audit."
+  - type: textarea
+    id: platform
+    attributes:
+      label: Platform
+      description: Model, codename, SoC/modem, Android version, exact ROM build, root method.
+    validations:
+      required: true
+  - type: textarea
+    id: carrier
+    attributes:
+      label: Carrier and topology
+      description: Carrier/MCC-MNC and redacted single/dual-SIM topology. Do not include ICCID/IMSI/phone number.
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Read-only observation
+      description: State which commands were read-only and whether any writes occurred.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: Logs are redacted for device, SIM, account, Wi-Fi/VPN, IP and local-user identifiers.
+          required: true

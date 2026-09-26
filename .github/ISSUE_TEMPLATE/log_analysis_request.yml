@@ -1,0 +1,38 @@
+name: Log analysis request
+description: Request analysis of redacted experiment evidence.
+title: "[Logs]: "
+labels: ["log-analysis"]
+body:
+  - type: input
+    id: commit
+    attributes:
+      label: Commit and experiment ID
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Exact question
+      description: State the boundary or first divergence to identify.
+    validations:
+      required: true
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Known timeline
+      description: Use timestamps and relative milestones.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence links or excerpts
+    validations:
+      required: true
+  - type: checkboxes
+    id: attestation
+    attributes:
+      label: Redaction attestation
+      options:
+        - label: I removed credentials and device, SIM, account, network and local-user identifiers.
+          required: true
