@@ -7,8 +7,8 @@ $ErrorActionPreference = 'Stop'
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Module = Join-Path $Repo 'modules\voxi_wfc_golden'
 $Release = Join-Path $Repo 'release\golden-magisk'
-$Stage = Join-Path $Release '.stage-v1.1.0-rc4'
-$Zip = Join-Path $Release 'VOXI-WFC-Golden-Recovery-v1.1.0-rc4.zip'
+$Stage = Join-Path $Release '.stage-v1.1.0-rc5'
+$Zip = Join-Path $Release 'VOXI-WFC-Golden-Recovery-v1.1.0-rc5.zip'
 $ExpectedProbe = 'AC46E9F62DB88C043DA08E4D5BB1D100EA8AC10EF2A74838F99C2237C2B9A91D'
 
 $required = @(

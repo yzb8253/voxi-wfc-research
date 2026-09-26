@@ -17,14 +17,28 @@ foreach($path in $runtime) {
   Assert-True ((@([IO.File]::ReadAllBytes($path) | Where-Object { $_ -eq 13 }).Count) -eq 0) "Android payload contains CR: $path"
 }
 $prop = Get-Content (Join-Path $Module 'module.prop') -Raw
-foreach($line in @('name=VOXI WFC Golden Recovery RC4','version=v1.1.0-rc4','versionCode=113')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
+foreach($line in @('name=VOXI WFC Golden Recovery RC5','version=v1.1.0-rc5','versionCode=114')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
 $action = Get-Content (Join-Path $Module 'action.sh') -Raw
 $ctl = Get-Content (Join-Path $Module 'bin\goldenctl.sh') -Raw
 $runner = Get-Content (Join-Path $Module 'bin\golden-runner.sh') -Raw
 $preflight = Get-Content (Join-Path $Module 'bin\golden-preflight.sh') -Raw
 $common = Get-Content (Join-Path $Module 'bin\common.sh') -Raw
 $selftest = Get-Content (Join-Path $Module 'bin\golden-selftest.sh') -Raw
-Assert-True ($action -match 'goldenctl\.sh" recover') 'RC4 Action does not dispatch recover'
+$specialNames = @('LINES','COLUMNS','SECONDS','RANDOM','LINENO','PPID','UID','EUID','OPTIND','IFS','PATH','SHELL')
+foreach($runtimePath in $runtime) {
+  $runtimeBody = Get-Content -LiteralPath $runtimePath -Raw
+  foreach($specialName in $specialNames) {
+    $assignment = "(?m)^\s*$([regex]::Escape($specialName))\s*="
+    Assert-True ($runtimeBody -notmatch $assignment) "shell special variable used for business assignment: $specialName in $runtimePath"
+  }
+}
+Assert-True ($common -notmatch '(?m)^\s*LINES\s*=') 'legacy LINES business assignment remains'
+Assert-True ($common -match 'ESOC_UNKNOWN_OWNER_LINES=\$\(owner_lines\)') 'renamed owner-lines variable missing'
+Assert-True ($preflight -match 'NATIVE_FINGERPRINT_CHECK=START' -and $preflight -match 'NATIVE_FINGERPRINT_CHECK=PASS') 'native fingerprint diagnostics missing'
+foreach($a0Marker in @('AIRPLANE_OFF','WIFI','SETTLE','NETWORK','TARGET','NATIVE_FINGERPRINT','NATIVE_NORMALIZATION','FINAL_VERIFY')) {
+  Assert-True ($preflight -match "A0_STEP=$a0Marker") "A0 diagnostic marker missing: $a0Marker"
+}
+Assert-True ($action -match 'goldenctl\.sh" recover') 'RC5 Action does not dispatch recover'
 Assert-True ($ctl -match 'recover_command\(\)[\s\S]*selftest_command') 'recover does not call frozen self-test first'
 Assert-True ($ctl -match 'export PRE_RECOVERY_GATE_PASSED=YES') 'self-test authorization export missing'
 Assert-True ($runner -match 'PRE_RECOVERY_GATE_PASSED') 'runner does not require pre-recovery token'
@@ -66,7 +80,7 @@ $owner = Join-Path $Repo 'tools\test_voxi_wfc_golden_owner_preflight.sh'
 $selftestFixture = Join-Path $Repo 'tools\test_voxi_wfc_golden_selftest.sh'
 $mock = Join-Path $Repo 'tools\test_voxi_wfc_golden_recovery_mock.sh'
 foreach($fixture in @($owner,$selftestFixture,$mock)) { & $shPath -n $fixture; Assert-True ($LASTEXITCODE -eq 0) "fixture parse failed: $fixture" }
-$ownerOut = @(& $shPath $owner 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($ownerOut -join "`n") -match 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS')) 'owner fixtures failed'
+$ownerOut = @(& $shPath $owner 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($ownerOut -join "`n") -match 'OWNER_PREFLIGHT_FIXTURES=8/8 PASS')) 'owner fixtures failed'
 $selfOut = @(& $shPath $selftestFixture 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($selfOut -join "`n") -match 'RC1_SELFTEST_FIXTURE=PASS')) 'self-test fixture failed'
 $mockOut = @(& $shPath $mock 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($mockOut -join "`n") -match 'HOST_MODEL_PASS fixtures=19')) 'recovery host model failed'
 $matrix = Join-Path $Repo 'tools\test_voxi_wfc_golden_shell_matrix.ps1'
@@ -80,7 +94,10 @@ Assert-True ($selftestDiff.Count -eq 0) 'RC1 self-test changed'
 Write-Host 'PS5.1_STATIC=PASS'
 Write-Host 'RC1_SELFTEST_PATH_STATE_WRITES=0'
 Write-Host 'RECOVERY_CONTROLFLOW_AUDIT=PASS'
-Write-Host 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS'
+Write-Host 'OWNER_PREFLIGHT_FIXTURES=8/8 PASS'
+Write-Host 'OWNER_VARIABLE_COLLISION_FIXTURE=PASS'
+Write-Host 'BUSINESS_ASSIGNMENT_TO_LINES=0'
+Write-Host 'SHELL_SPECIAL_VARIABLE_COLLISION_AUDIT=PASS'
 Write-Host 'HOST_MODEL_PASS fixtures=19'
 Write-Host 'SHELL_OPTION_REGRESSION=PASS'
 Write-Host 'SIM_OFF_WRITE_PATHS=1'

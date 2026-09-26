@@ -5,9 +5,9 @@
 - Branch: `wfc-holder-ab-20260926`
 - Behavioral reference: `dfd82415073470691295547d39753f6172054748`
 - RC1 artifact: `v1.1.0-rc1` (device read-only validation passed)
-- RC4 artifact: `v1.1.0-rc4` (writable validation candidate)
-- RC4 Action mode: **self-test then recover only on PASS**
-- Device writes performed during development: **0**
+- RC5 artifact: `v1.1.0-rc5` (writable validation candidate)
+- RC5 Action mode: **self-test then recover only on PASS**
+- RC4 first writable device run: **STATE_WRITE_COUNT=1 (AIRPLANE_disable), MODEM_WRITE_COUNT=0, SIM_WRITE_COUNT=0**
 
 The v1.0.2 device exit (`EXIT_RC=1`, `EXIT_STAGE=OWNER_INSPECTION`) is **NOT PROVEN** to a specific command. The captured output proves that platform, target, network, and the first owner snapshot succeeded and that the snapshot was native-clean. It does not identify the command whose status escaped. Host POSIX fixtures do not reproduce an exit from a normal false predicate in a conditional context, so this audit does not invent a root cause.
 
@@ -104,19 +104,19 @@ No predicate is invoked as an unhandled top-level statement in the RC1 Action gr
 
 Public commands never intentionally return 1. Any unclassified public result is converted to 40 with `INTERNAL_UNCLASSIFIED_RC`.
 
-### RC4 recovery effects retained from Golden
+### RC5 recovery effects retained from Golden
 
-| Function | Purpose | RC contract | Mutation | RC4 reachability |
+| Function | Purpose | RC contract | Mutation | RC5 reachability |
 | --- | --- | --- | --- | --- |
-| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | RC4 recovery graph |
-| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | 0/30/60/70 | Modem ownership | RC4 recovery graph |
-| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | 0/30/60/70 | Modem/services | RC4 graph / restore CLI |
-| `prepare_a0`, `prepare_p` | Golden A/P steps | 0/10/30/40/60/70 | Airplane/Wi-Fi/native | RC4 recovery graph |
-| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30/40/60/70 | Modem/SIM | RC4 recovery graph |
-| `commit_freeze_success`, `attempt_failure_cleanup`, `runner_exit_guard` | Freeze commit and failure safety | Guarded documented RC | Native/SIM cleanup | RC4 recovery graph |
+| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | RC5 recovery graph |
+| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | 0/30/60/70 | Modem ownership | RC5 recovery graph |
+| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | 0/30/60/70 | Modem/services | RC5 graph / restore CLI |
+| `prepare_a0`, `prepare_p` | Golden A/P steps | 0/10/30/40/60/70 | Airplane/Wi-Fi/native | RC5 recovery graph |
+| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30/40/60/70 | Modem/SIM | RC5 recovery graph |
+| `commit_freeze_success`, `attempt_failure_cleanup`, `runner_exit_guard` | Freeze commit and failure safety | Guarded documented RC | Native/SIM cleanup | RC5 recovery graph |
 | `golden_runner_main` | Recovery orchestrator | Sanitized public RC set | State/modem/SIM | Requires self-test token |
 
-RC4 preserves Golden timing and mutation ordering while exposing stage transitions and documented Effect/Step return codes. It remains a candidate until writable device validation completes.
+RC5 preserves Golden timing and mutation ordering while exposing stage transitions and documented Effect/Step return codes. It remains a candidate until writable device validation completes.
 
 ## Owner snapshot contract
 
@@ -144,7 +144,7 @@ RC1 then uses a single `case`. Only `NATIVE_PM_SERVICE` returns success. No seco
 - RC1 collectors/printers: no normal false status is exposed as the function API.
 - Conditional conjunctions remain inside explicit `if` predicates; these are intentional.
 - Pipelines are either parsed as data or have their result explicitly classified by the step.
-- RC4 writable orchestration no longer uses `predicate && effect` or `predicate || effect`; helper-level predicate conjunctions remain internal and do not form a public recovery transition.
+- RC5 writable orchestration no longer uses `predicate && effect` or `predicate || effect`; helper-level predicate conjunctions remain internal and do not form a public recovery transition.
 - `service.sh`, `uninstall.sh`, and `x55-holder.sh` are not reachable from Action. Their effects are separately documented; RC1 Action never invokes them.
 
 ## Shell option and shell implementation tests
@@ -182,7 +182,7 @@ Host fixtures model recovery paths and holder identity transitions only; they do
 
 ## Publication status
 
-`v1.1.0-rc4` is a recovery candidate, not a stable release.
+`v1.1.0-rc5` is a recovery candidate, not a stable release.
 
 ## RC3/RC4 freeze and cleanup parity corrections
 
@@ -191,5 +191,11 @@ RC3 retains the read-only RC1 self-test unchanged. In the writable graph, strict
 For any core failure, `ATTEMPT_FAILURE_CLEANUP` runs before a retry: guarded emergency SIM ON if necessary, `restore_native`, and strict native-fingerprint verification. Only a clean native baseline permits attempt 2. A cleanup failure stops fail-closed. `goldenctl.sh restore-native` intentionally omits Wi-Fi/VPN and VOXI target gates because its sole purpose is to release an exact verified module holder; it still requires root, module runtime, the exact supported platform, and one owner snapshot/classification.
 
 RC4 keeps `SIM_MAY_BE_OFF=1` when the guarded emergency ON transaction fails. That failure is recorded independently but cannot skip `restore_native` or strict native verification. If native cleanup succeeds while SIM state remains uncertain, the result is `SIM_EMERGENCY_ON_FAILED_NATIVE_RESTORED`, returns 70, and blocks attempt 2. The final exit guard may perform one separately labelled, bounded final emergency attempt; it never clears the SIM flag on an unconfirmed ON.
+
+## RC4 writable-device BusyBox finding and RC5 correction
+
+RC4 passed the frozen RC1 self-test on the real device, entered A0, wrote only `AIRPLANE_disable`, completed A-settle/network checks, and then failed before any modem or SIM write. Magisk BusyBox printed the native lsof row `pm-service  1260 ... /dev/subsys_esoc0` followed by `unexpected '1260'`. The exact BusyBox implementation mechanism is not source-proven, but the failure site is high-confidence: A0's native verification is the first writable path to invoke the legacy `unknown_owner_present` function, whose business variable was named `LINES`.
+
+RC5 removes that special-name collision by replacing the business assignment with `ESOC_UNKNOWN_OWNER_LINES` while retaining predicate semantics (0 = unknown owner exists, 1 = no unknown owner). It adds an exact owner-row regression fixture, a runtime audit for common shell special names, and explicit `NATIVE_FINGERPRINT_CHECK` / `A0_STEP` markers. Golden X55, holder, PON, SIM, freeze, cleanup, timing, and the device-validated RC1 self-test are unchanged.
 
 **STATUS: WRITABLE DEVICE VALIDATION REQUIRED**

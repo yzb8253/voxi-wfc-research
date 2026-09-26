@@ -76,7 +76,8 @@ v1.0.2 preserved the recovery state machine and added owner classification plus 
 | v1.1.0-rc1 | **DEVICE READ-ONLY VALIDATION PASS** | `READY_FOR_RECOVERY=YES`, `SELFTEST_RESULT=PASS`, `ACTION_EXIT_RC=0`; all write counters zero under Magisk BusyBox `libbusybox.so` |
 | v1.1.0-rc2 | Writable candidate; device validation required | Calls the same frozen self-test before Golden A0 → P → X55 → SIM2 flow |
 | v1.1.0-rc3 | Writable candidate; device validation required | Restores dfd8241 per-attempt cleanup boundary and commits freeze only after final holder/X55/health verification |
-| v1.1.0-rc4 | Writable candidate; device validation required | Emergency SIM ON failure still continues native cleanup; uncertain SIM state blocks retry fail-closed |
+| v1.1.0-rc4 | First writable device run reached A0, then aborted before modem/SIM writes | Frozen RC1 gate passed; after Airplane OFF and A0 network PASS, Magisk BusyBox failed in the legacy unknown-owner predicate while handling the native `pm-service 1260 ... /dev/subsys_esoc0` row. Counters: state=1, modem=0, SIM=0. |
+| v1.1.0-rc5 | Writable candidate; device validation required | Removes the business assignment to special variable `LINES`, adds native-fingerprint/A0 markers, and keeps Golden core/timing unchanged |
 
 v1.1.0-rc1 adds the shared `pre_recovery_self_test`, explicit step BEGIN/END markers, shell option reporting, one-snapshot/one-classification owner handling, separated write counters, and public RC sanitization. It does not execute A0, P, X55, holder, qcrild, or SIM recovery. See [GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md](GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md).
 
@@ -92,8 +93,14 @@ RC4 corrects the remaining failure-cleanup parity edge: an emergency slot1 SIM O
 
 These differences do not introduce a new recovery hypothesis, but they prevent a claim of runtime parity until tested.
 
+## RC4 → RC5 Magisk BusyBox compatibility correction
+
+The first RC4 writable device run passed the unchanged RC1 self-test and entered A0. It executed only `AIRPLANE_disable`, completed the 20 s A settle and network preflight, then the Magisk BusyBox shell emitted the real native owner row followed by `unexpected '1260'`. The run ended in A0 with `STATE_WRITE_COUNT=1`, `MODEM_WRITE_COUNT=0`, and `SIM_WRITE_COUNT=0`; X55 shutdown, holder start, and SIM power operations were never reached.
+
+The failure site is narrowed to the legacy `unknown_owner_present` path where `LINES=$(owner_lines)` receives the lsof row. RC5 treats the variable-name collision as a high-confidence runtime diagnosis rather than a source-proven BusyBox implementation claim: it removes `LINES` as a business variable, uses `ESOC_UNKNOWN_OWNER_LINES`, adds an exact native-owner regression fixture, audits common shell special names, and adds `NATIVE_FINGERPRINT_CHECK` plus A0 step markers. The predicate's owner-classification semantics are unchanged.
+
 ## Static conclusion
 
 - Control-flow/write-budget parity: **PASS by inspection and fixtures**.
-- Device/runtime parity: **NOT YET PARITY / WRITABLE RC4 VALIDATION REQUIRED**.
+- Device/runtime parity: **NOT YET PARITY / WRITABLE RC5 VALIDATION REQUIRED**.
 - Original Golden files: unchanged.

@@ -9,6 +9,7 @@ ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 MODDIR="$ROOT_DIR/modules/voxi_wfc_golden"
 . "$MODDIR/bin/common.sh"
 . "$MODDIR/bin/golden-selftest.sh"
+. "$MODDIR/bin/golden-preflight.sh"
 
 PHONE_WRITE_COUNT=0
 STATE_WRITE_COUNT=0
@@ -116,6 +117,20 @@ set_fixture stopped '' '' ONLINE 1 \
 OUT_G=$(run_owner_case UNKNOWN_OWNER 30); RC_G=$?
 [ "$RC_G" -eq 0 ] || fail_fixture "G rc=$RC_G"
 
+# H. RC4 real-device BusyBox regression: legacy business variable LINES used to
+# receive this native pm-service owner row and triggered "unexpected '1260'".
+owner_lines() {
+  printf '%s\n' 'pm-service  1260 system 9r CHR 234,11 0t0 26176 /dev/subsys_esoc0'
+  return 0
+}
+get_per_mgr_pid() { printf '1260\n'; return 0; }
+saved_holder_pid() { return 1; }
+native_clean() { return 0; }
+if unknown_owner_present; then H_UNKNOWN_RC=0; else H_UNKNOWN_RC=$?; fi
+[ "$H_UNKNOWN_RC" -eq 1 ] || fail_fixture "H unknown-owner rc=$H_UNKNOWN_RC"
+if verify_native_fingerprint; then H_NATIVE_RC=0; else H_NATIVE_RC=$?; fi
+[ "$H_NATIVE_RC" -eq 0 ] || fail_fixture "H native-fingerprint rc=$H_NATIVE_RC"
+
 echo 'OWNER_FIXTURE_A_NATIVE=PASS'
 echo 'OWNER_FIXTURE_B_MODULE=PASS'
 echo 'OWNER_FIXTURE_C_UNKNOWN=PASS'
@@ -123,7 +138,9 @@ echo 'OWNER_FIXTURE_D_NO_OWNER=PASS'
 echo 'OWNER_FIXTURE_E_MULTIPLE=PASS'
 echo 'OWNER_FIXTURE_F_STALE_PIDFILE=PASS'
 echo 'OWNER_FIXTURE_G_IDENTITY_MISMATCH=PASS'
+echo 'OWNER_FIXTURE_H_BUSYBOX_LINES_COLLISION=PASS'
+echo 'OWNER_VARIABLE_COLLISION_FIXTURE=PASS'
 echo 'NATIVE_PM_SERVICE_REAL_DEVICE_FIXTURE=PASS'
 echo 'OWNER_CLASSIFY_ONCE=PASS'
-echo 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS'
+echo 'OWNER_PREFLIGHT_FIXTURES=8/8 PASS'
 echo 'PHONE_WRITES=0'

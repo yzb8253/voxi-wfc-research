@@ -1,6 +1,6 @@
 id=voxi_wfc_golden
-name=VOXI WFC Golden Recovery RC4
-version=v1.1.0-rc4
-versionCode=113
+name=VOXI WFC Golden Recovery RC5
+version=v1.1.0-rc5
+versionCode=114
 author=yzb8253
-description=First writable Magisk candidate of the validated dfd8241 Golden recovery
+description=Writable Magisk candidate with the RC4 BusyBox owner-variable collision fixed

@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Writable RC4 runner. It runs only after goldenctl exported the frozen
+# Writable RC5 runner. It runs only after goldenctl exported the frozen
 # pre_recovery_self_test result. Public returns use documented codes.
 RUNNER_SHELL_FLAGS_INITIAL=$-
 set +e
@@ -344,7 +344,7 @@ golden_runner_main() {
   LOG_CREATE_RC=$?
   if [ "$LOG_CREATE_RC" -eq 0 ]; then chmod 0600 "$LOG_FILE"; fi
   echo '================================='
-  echo ' VOXI WFC GOLDEN 一键恢复 RC4'
+  echo ' VOXI WFC GOLDEN 一键恢复 RC5'
   echo '================================='
   log_line "MODULE_VERSION=$MODULE_VERSION"
   log_line 'PORT_BASE=dfd82415073470691295547d39753f6172054748'

@@ -1,8 +1,8 @@
-# VOXI WFC Golden Recovery v1.1.0-rc4
+# VOXI WFC Golden Recovery v1.1.0-rc5
 
 **STATUS: WRITABLE DEVICE VALIDATION REQUIRED**
 
-这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 的可写 Magisk candidate。RC1 已在真机完成只读控制层验证；RC4 的 Action 先执行相同的只读 `pre_recovery_self_test`，只有 PASS 才会进入 Golden recovery。RC4 保持 RC3 的冻结提交校验，并确保 emergency SIM ON 失败时仍继续恢复 native X55 ownership；SIM 状态无法确认时则 fail closed，不允许第二次尝试。
+这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 的可写 Magisk candidate。RC1 已在真机完成只读控制层验证；RC5 的 Action 先执行相同的只读 `pre_recovery_self_test`，只有 PASS 才会进入 Golden recovery。RC4 首次可写真机运行在 A0 中暴露了 Magisk BusyBox 对业务变量 `LINES` 的兼容冲突：当变量接收真实 `pm-service 1260 ... /dev/subsys_esoc0` owner 行时 shell 报 `unexpected '1260'`，当次仅执行了 Airplane OFF，未进入 modem/SIM 写路径。RC5 移除该业务变量名并增加 native/A0 诊断 marker，同时保留 RC3/RC4 已完成的 freeze 与 failure-cleanup 安全修复。
 
 ## 支持范围
 
@@ -17,11 +17,11 @@
 
 ## 安装与使用
 
-1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.1.0-rc4.zip`。
+1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.1.0-rc5.zip`。
 2. 重启一次。
 3. 打开 Wi-Fi。
 4. 打开英国全局 VPN。模块会尽力识别 Android VPN，但不会以接口名或普通 default route 作为硬门槛。
-5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery RC4 → 操作。
+5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery RC5 → 操作。
 6. Action 会先显示 self-test；只有 `READY_FOR_RECOVERY=YES` 才会执行 A0、P、X55 和 SIM2 Golden recovery。
 
 点击时 Airplane mode 可以是 ON 或 OFF。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。
@@ -37,7 +37,7 @@ su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh logs
 su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh version
 ```
 
-`self-test` 保持完全只读。`recover` 为 RC4 Action 使用的可写 candidate；`restore-native` 仅对模块可精确验证的 holder 开放，即使 Wi-Fi/VPN 或 VOXI subscription 暂时不可用，也不扩大其 owner 身份要求。RC4 尚未完成可写真机验证。
+`self-test` 保持完全只读。`recover` 为 RC5 Action 使用的可写 candidate；`restore-native` 仅对模块可精确验证的 holder 开放，即使 Wi-Fi/VPN 或 VOXI subscription 暂时不可用，也不扩大其 owner 身份要求。RC5 尚未完成可写真机验证。
 
 ## 安全边界
 

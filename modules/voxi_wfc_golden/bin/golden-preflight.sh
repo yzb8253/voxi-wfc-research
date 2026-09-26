@@ -52,9 +52,21 @@ start_module_holder() {
 }
 
 verify_native_fingerprint() {
-  if ! native_clean; then return 1; fi
-  if [ -n "$(saved_holder_pid 2>/dev/null || true)" ]; then return 1; fi
-  if unknown_owner_present; then return 1; fi
+  log_line 'NATIVE_FINGERPRINT_CHECK=START'
+  if ! native_clean; then
+    log_line 'NATIVE_FINGERPRINT_CHECK=FAIL reason=NATIVE_CLEAN_FALSE'
+    return 1
+  fi
+  NATIVE_SAVED_HOLDER=$(saved_holder_pid 2>/dev/null || true)
+  if [ -n "$NATIVE_SAVED_HOLDER" ]; then
+    log_line "NATIVE_FINGERPRINT_CHECK=FAIL reason=MODULE_HOLDER_PRESENT pid=$NATIVE_SAVED_HOLDER"
+    return 1
+  fi
+  if unknown_owner_present; then
+    log_line 'NATIVE_FINGERPRINT_CHECK=FAIL reason=UNKNOWN_ESOC_OWNER'
+    return 1
+  fi
+  log_line 'NATIVE_FINGERPRINT_CHECK=PASS'
   return 0
 }
 
@@ -139,12 +151,22 @@ normalize_a0_native() {
 
 prepare_a0() {
   log_line 'A0_PREP=START'
+  log_line 'A0_STEP=AIRPLANE_OFF'
   set_airplane 0; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
+  log_line 'A0_STEP=WIFI'
   ensure_wifi_on; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
+  log_line 'A0_STEP=SETTLE'
   log_line 'A_SETTLE=20s'; sleep 20
+  log_line 'A0_STEP=NETWORK'
   network_preflight 20; RC=$?; if [ "$RC" -ne 0 ]; then log_line 'NETWORK_PREFLIGHT=FAIL in A0 Wi-Fi not ready'; return 30; fi
+  log_line 'A0_STEP=TARGET'
   target_gate; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
-  if ! verify_native_fingerprint; then normalize_a0_native; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi; fi
+  log_line 'A0_STEP=NATIVE_FINGERPRINT'
+  if ! verify_native_fingerprint; then
+    log_line 'A0_STEP=NATIVE_NORMALIZATION'
+    normalize_a0_native; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
+  fi
+  log_line 'A0_STEP=FINAL_VERIFY'
   if ! verify_native_fingerprint || [ "$(get_airplane)" != 0 ]; then return 30; fi
   log_line 'A0_READY=YES'; return 0
 }

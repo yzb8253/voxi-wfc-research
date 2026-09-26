@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.1.0-rc4
+MODULE_VERSION=v1.1.0-rc5
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
@@ -417,11 +417,14 @@ holder_identity_ok() {
 }
 
 unknown_owner_present() {
-  LINES=$(owner_lines)
-  if [ -z "$LINES" ]; then return 1; fi
+  ESOC_UNKNOWN_OWNER_LINES=$(owner_lines)
+  if [ -z "$ESOC_UNKNOWN_OWNER_LINES" ]; then return 1; fi
   PM_PID=$(get_per_mgr_pid)
   HPID=$(saved_holder_pid 2>/dev/null || true)
-  printf '%s\n' "$LINES" | awk -v pm="$PM_PID" -v hp="$HPID" '$2!=pm && $2!=hp {bad=1} END {exit !bad}'
+  printf '%s\n' "$ESOC_UNKNOWN_OWNER_LINES" | awk -v pm="$PM_PID" -v hp="$HPID" '$2!=pm && $2!=hp {bad=1} END {exit !bad}'
+  UNKNOWN_OWNER_RC=$?
+  if [ "$UNKNOWN_OWNER_RC" -eq 0 ]; then return 0; fi
+  return 1
 }
 
 collect_owner_entry_status() {

@@ -43,7 +43,7 @@ foreach($candidate in $Candidates) {
       $rc = $LASTEXITCODE
       if($rc -ne 0) { throw "$($candidate.Name)/$($mode.Name)/$(Split-Path $fixture -Leaf) rc=$rc output=$($output -join '; ')" }
       $joined = $output -join "`n"
-      if($joined -notmatch 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS|RC1_SELFTEST_FIXTURE=PASS') {
+      if($joined -notmatch 'OWNER_PREFLIGHT_FIXTURES=8/8 PASS|RC1_SELFTEST_FIXTURE=PASS') {
         throw "$($candidate.Name)/$($mode.Name)/$(Split-Path $fixture -Leaf) missing fixture PASS"
       }
       if($null -eq $baseline) { $baseline = $joined }

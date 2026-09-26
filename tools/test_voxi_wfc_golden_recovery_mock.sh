@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Host model only. It proves the RC4 orchestrator classifies each path and its
+# Host model only. It proves the RC5 orchestrator classifies each path and its
 # counters; it does not emulate Magisk, /dev/subsys_esoc0, or the X55.
 set -eu
 REPO=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
