@@ -38,6 +38,11 @@ Require (-not (Test-GoldenSimpleFreshCne 360 360)) 'same request incorrectly fre
 Require (-not (Test-GoldenSimpleFreshCne $null $null)) 'null->null incorrectly fresh'
 Write-Host 'CNE_FRESHNESS_FIXTURES=4/4_PASS'
 
+Require (Test-GoldenSimpleTun0DefaultRoute 'default dev tun0 table tun0 proto static scope link') 'direct tun0 default route fixture failed'
+Require (Test-GoldenSimpleTun0DefaultRoute 'default via 10.0.0.1 dev tun0 proto static') 'via tun0 default route fixture failed'
+Require (-not (Test-GoldenSimpleTun0DefaultRoute 'default via 192.168.1.1 dev wlan0 proto dhcp')) 'wlan0 default route incorrectly accepted as tun0'
+Write-Host 'VPN_TUN_ROUTE_FIXTURES=3/3_PASS'
+
 $currentFixture=Get-Content -LiteralPath (Join-Path $Light 'fixtures\cne_active_current_android13.txt') -Raw
 $staleFixture=Get-Content -LiteralPath (Join-Path $Light 'fixtures\cne_null_current_stale_history_android13.txt') -Raw
 $active=Get-CurrentCneProjection $currentFixture 11;$stale=Get-CurrentCneProjection $staleFixture 11;$missing=Get-CurrentCneProjection 'Network Requests: none' 11

@@ -37,6 +37,11 @@ function Test-GoldenSimpleFreshCne {
     [string]$Baseline -cne [string]$Current
 }
 
+function Test-GoldenSimpleTun0DefaultRoute {
+    param([Parameter(Mandatory=$true)][string]$RouteText)
+    $RouteText -match '(?m)^default\b[^\r\n]*\bdev\s+tun0(?:\s|$)'
+}
+
 function Test-GoldenSimpleStrictHealthText {
     param([Parameter(Mandatory=$true)][string]$Text)
     ($Text -match '(?m)^IMS:\s+REGISTERED\s+\(raw 2\)\s*$') -and

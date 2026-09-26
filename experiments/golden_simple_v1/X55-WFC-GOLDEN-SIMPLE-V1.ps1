@@ -115,7 +115,7 @@ function Ensure-WifiAndNetwork {
         $wlan=RootResult 'ip link show wlan0';$tun=RootResult 'ip link show tun0';$routes=RootResult 'ip route show table all';$conn=RootResult 'dumpsys connectivity'
         $networkReady=($wlan.ExitCode -eq 0 -and $wlan.Text -match '<[^>]*UP' -and
             $tun.ExitCode -eq 0 -and $tun.Text -match '<[^>]*UP' -and
-            $routes.Text -match '(?m)^default .* dev tun0(?:\s|$)' -and
+            (Test-GoldenSimpleTun0DefaultRoute -RouteText $routes.Text) -and
             $conn.Text -match 'VPN CONNECTED' -and $conn.Text -match 'Transports:\s*WIFI\|VPN')
         if($networkReady){break}
         Start-Sleep -Seconds 1
