@@ -4,8 +4,9 @@
 
 - Branch: `wfc-holder-ab-20260926`
 - Behavioral reference: `dfd82415073470691295547d39753f6172054748`
-- RC artifact: `v1.1.0-rc1`
-- RC Action mode: **read-only self-test only**
+- RC1 artifact: `v1.1.0-rc1` (device read-only validation passed)
+- RC2 artifact: `v1.1.0-rc2` (writable validation candidate)
+- RC2 Action mode: **self-test then recover only on PASS**
 - Device writes performed during development: **0**
 
 The v1.0.2 device exit (`EXIT_RC=1`, `EXIT_STAGE=OWNER_INSPECTION`) is **NOT PROVEN** to a specific command. The captured output proves that platform, target, network, and the first owner snapshot succeeded and that the snapshot was native-clean. It does not identify the command whose status escaped. Host POSIX fixtures do not reproduce an exit from a normal false predicate in a conditional context, so this audit does not invent a root cause.
@@ -103,20 +104,19 @@ No predicate is invoked as an unhandled top-level statement in the RC1 Action gr
 
 Public commands never intentionally return 1. Any unclassified public result is converted to 40 with `INTERNAL_UNCLASSIFIED_RC`.
 
-### Dormant recovery effects retained from Golden
+### RC2 recovery effects retained from Golden
 
-| Function | Purpose | RC contract when enabled later | Mutation | Current RC1 reachability |
+| Function | Purpose | RC contract | Mutation | RC2 reachability |
 | --- | --- | --- | --- | --- |
-| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | Unreachable |
-| `step_owner_preflight` | Future writable owner normalization gate | 0/30/40 | Possible native restore | Unreachable |
-| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | Internal legacy RC; wrapper must map before v1.1.0 | Modem ownership | Unreachable |
-| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | Internal legacy RC; wrapper must map before v1.1.0 | Modem/services | Unreachable |
-| `prepare_a0`, `prepare_p` | Golden A/P steps | Internal legacy RC; wrapper must map before v1.1.0 | Airplane/Wi-Fi/native | Unreachable |
-| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30 | Modem/SIM | Unreachable |
-| `emergency_sim_on`, `runner_exit_guard` | Failure safety | Guarded internal RC | SIM/native cleanup | Unreachable |
-| `golden_runner_main` | Recovery orchestrator | Sanitized public RC set | State/modem/SIM | Direct runner blocked before invocation |
+| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | RC2 recovery graph |
+| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | 0/30/60/70 | Modem ownership | RC2 recovery graph |
+| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | 0/30/60/70 | Modem/services | RC2 graph / restore CLI |
+| `prepare_a0`, `prepare_p` | Golden A/P steps | 0/10/30/40/60/70 | Airplane/Wi-Fi/native | RC2 recovery graph |
+| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30/40/60/70 | Modem/SIM | RC2 recovery graph |
+| `emergency_sim_on`, `runner_exit_guard` | Failure safety | Guarded documented RC | SIM/native cleanup | RC2 recovery graph |
+| `golden_runner_main` | Recovery orchestrator | Sanitized public RC set | State/modem/SIM | Requires self-test token |
 
-The dormant recovery implementation is retained to preserve Golden timing and mutation ordering. Its remaining internal short-circuit expressions are recorded, not hidden; RC1 does not claim the writable v1.1.0 runner is device-ready. They must be converted to the same explicit step contract before writable enablement.
+RC2 preserves Golden timing and mutation ordering while exposing stage transitions and documented Effect/Step return codes. It remains a candidate until writable device validation completes.
 
 ## Owner snapshot contract
 
@@ -144,7 +144,7 @@ RC1 then uses a single `case`. Only `NATIVE_PM_SERVICE` returns success. No seco
 - RC1 collectors/printers: no normal false status is exposed as the function API.
 - Conditional conjunctions remain inside explicit `if` predicates; these are intentional.
 - Pipelines are either parsed as data or have their result explicitly classified by the step.
-- Writable Golden source still contains legacy short-circuit expressions inside the dormant runner/preflight. Direct execution is blocked in RC1, and the static reachable-path audit excludes them without pretending they were removed.
+- RC2 writable orchestration no longer uses `predicate && effect` or `predicate || effect`; helper-level predicate conjunctions remain internal and do not form a public recovery transition.
 - `service.sh`, `uninstall.sh`, and `x55-holder.sh` are not reachable from Action. Their effects are separately documented; RC1 Action never invokes them.
 
 ## Shell option and shell implementation tests
@@ -172,8 +172,16 @@ RC1 self-test does not acquire a lock, create a log, remove a stale pidfile, or 
 
 The historical source under `experiments/wfc_repeatability_normalization/v262_freeze_run/` is untouched. Dormant module recovery constants remain: A settle 20 s, P settle 20 s, two attempts, post-PON settle 10 s, OFFLINE 20 s, ONLINE 30 s, PON 15 s, transaction 182/slot1, SIM OFF hold 3 s, one normal ON, one guarded emergency ON, unchanged WFC health and freeze/cleanup order.
 
+## RC1 device validation and RC2 recovery audit
+
+RC1 was device-validated on 2026-09-26. The Magisk Action completed ROOT, MODULE_RUNTIME, PROBE, PLATFORM_GATE, TARGET_GATE, NETWORK_OBSERVE, OWNER_INSPECTION, and ENTRY_CAPABILITY with RC=0. It reported the real native `pm-service` sole-owner state and all write counters at zero. The runtime shell executable was Magisk BusyBox `libbusybox.so`.
+
+RC2 freezes that exact `pre_recovery_self_test`. `goldenctl.sh recover` runs it first and exports `PRE_RECOVERY_GATE_PASSED=YES` only after RC=0 plus `READY_FOR_RECOVERY=YES`; the runner rejects direct execution without that token. The writable graph now emits explicit begin/end markers for A0, P, X55 shutdown, holder start, X55 power-up, PON, SIM cycle, and WFC wait. Effect steps return documented 0/10/20/30/40/50/60/70/90 codes; predicates retain private 0/1 semantics.
+
+Host fixtures model recovery paths and holder identity transitions only; they do not emulate X55 or assert device validation.
+
 ## Publication status
 
-`v1.1.0-rc1` is not a recovery release. Its only purpose is to validate the Android/Magisk shell and pre-recovery control-flow boundary on the real device.
+`v1.1.0-rc2` is a recovery candidate, not a stable release.
 
-**STATUS: READ-ONLY DEVICE VALIDATION REQUIRED**
+**STATUS: WRITABLE DEVICE VALIDATION REQUIRED**

@@ -1,6 +1,6 @@
 id=voxi_wfc_golden
-name=VOXI WFC Golden Recovery RC1
-version=v1.1.0-rc1
-versionCode=110
+name=VOXI WFC Golden Recovery RC2
+version=v1.1.0-rc2
+versionCode=111
 author=yzb8253
-description=Read-only control-flow validation build for the standalone dfd8241 Golden port
+description=First writable Magisk candidate of the validated dfd8241 Golden recovery

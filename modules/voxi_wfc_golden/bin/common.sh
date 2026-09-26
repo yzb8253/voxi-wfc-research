@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.1.0-rc1
+MODULE_VERSION=v1.1.0-rc2
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
@@ -346,6 +346,9 @@ set_airplane() {
 }
 
 ensure_wifi_on() {
+  if [ "$(settings get global wifi_on 2>/dev/null)" != 0 ]; then
+    return 0
+  fi
   record_write 'WIFI_ENABLE'
   svc wifi enable >/dev/null 2>&1
   RC=$?

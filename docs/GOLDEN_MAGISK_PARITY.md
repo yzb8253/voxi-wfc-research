@@ -2,7 +2,7 @@
 
 ## Status
 
-`READ-ONLY DEVICE VALIDATION REQUIRED`
+`WRITABLE DEVICE VALIDATION REQUIRED`
 
 Reference: `dfd82415073470691295547d39753f6172054748`. This audit establishes static behavioral correspondence only. It does not claim that the Magisk execution environment has reproduced the historical Golden result.
 
@@ -73,7 +73,8 @@ v1.0.2 preserved the recovery state machine and added owner classification plus 
 | v1.0.0 | `NETWORK_GATE=FAIL`, zero phone writes | Port-only strict tun0/default-route gate caused a false negative |
 | v1.0.1 | Network observation PASS, stopped before A0, zero phone writes | Network migration deviation fixed; owner/control-flow boundary remained opaque |
 | v1.0.2 | Native owner snapshot proved clean, then public RC=1 leaked during OWNER_INSPECTION | Shell/control-flow defect confirmed; exact command/root cause **NOT PROVEN** |
-| v1.1.0-rc1 | Not yet device-tested | Read-only self-test Action; writable commands and direct runner disabled |
+| v1.1.0-rc1 | **DEVICE READ-ONLY VALIDATION PASS** | `READY_FOR_RECOVERY=YES`, `SELFTEST_RESULT=PASS`, `ACTION_EXIT_RC=0`; all write counters zero under Magisk BusyBox `libbusybox.so` |
+| v1.1.0-rc2 | Writable candidate; device validation required | Calls the same frozen self-test before Golden A0 → P → X55 → SIM2 flow |
 
 v1.1.0-rc1 adds the shared `pre_recovery_self_test`, explicit step BEGIN/END markers, shell option reporting, one-snapshot/one-classification owner handling, separated write counters, and public RC sanitization. It does not execute A0, P, X55, holder, qcrild, or SIM recovery. See [GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md](GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md).
 
@@ -82,5 +83,5 @@ These differences do not introduce a new recovery hypothesis, but they prevent a
 ## Static conclusion
 
 - Control-flow/write-budget parity: **PASS by inspection and fixtures**.
-- Device/runtime parity: **NOT YET PARITY / READ-ONLY RC VALIDATION REQUIRED**.
+- Device/runtime parity: **NOT YET PARITY / WRITABLE RC2 VALIDATION REQUIRED**.
 - Original Golden files: unchanged.

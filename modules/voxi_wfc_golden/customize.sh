@@ -6,9 +6,9 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 ui_print '*********************************'
-ui_print ' VOXI WFC Golden Recovery v1.1.0-rc1'
+ui_print ' VOXI WFC Golden Recovery v1.1.0-rc2'
 ui_print '*********************************'
-ui_print 'STATUS: READ-ONLY CONTROL-FLOW VALIDATION RC'
+ui_print 'STATUS: WRITABLE DEVICE VALIDATION REQUIRED'
 
 [ -n "$MAGISK_VER" ] || [ -n "$MAGISK_VER_CODE" ] || abort 'Magisk environment not detected'
 [ "$(getprop ro.product.cpu.abi)" = arm64-v8a ] || abort 'Unsupported ABI (arm64-v8a required)'
@@ -31,10 +31,10 @@ fi
 chmod 0600 /data/adb/voxi-wfc-golden/config.conf
 
 set_perm_recursive "$MODPATH" 0 0 0755 0644
-for FILE in customize.sh action.sh service.sh uninstall.sh bin/common.sh bin/goldenctl.sh bin/golden-runner.sh bin/golden-preflight.sh bin/x55-holder.sh; do
+for FILE in customize.sh action.sh service.sh uninstall.sh bin/common.sh bin/goldenctl.sh bin/golden-selftest.sh bin/golden-runner.sh bin/golden-preflight.sh bin/x55-holder.sh; do
   set_perm "$MODPATH/$FILE" 0 0 0755
 done
 set_perm "$MODPATH/lib/wfc-probe.jar" 0 0 0644
 
-ui_print '安装完成。重启一次后，在模块页面点击“操作”。'
+ui_print '安装完成。重启一次后，在模块页面点击“操作”执行 Golden recovery。'
 ui_print '模块不会在开机时自动执行 recovery。'

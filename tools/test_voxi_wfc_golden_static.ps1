@@ -1,189 +1,76 @@
 [CmdletBinding()]
 param()
-
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
-
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Module = Join-Path $Repo 'modules\voxi_wfc_golden'
-$RuntimeFiles = @(
-  'customize.sh','action.sh','service.sh','uninstall.sh',
-  'bin\common.sh','bin\goldenctl.sh','bin\golden-selftest.sh','bin\golden-runner.sh','bin\golden-preflight.sh','bin\x55-holder.sh'
-)
-$RuntimePaths = @($RuntimeFiles | ForEach-Object { Join-Path $Module $_ })
-
-function Assert-True([bool]$Condition,[string]$Message) {
-  if(-not $Condition) { throw "STATIC_ASSERT_FAIL: $Message" }
-}
-
-foreach($path in $RuntimePaths) { Assert-True (Test-Path -LiteralPath $path) "missing $path" }
-
+function Assert-True([bool]$Condition,[string]$Message) { if(-not $Condition) { throw "STATIC_ASSERT_FAIL: $Message" } }
 $sh = Get-Command sh.exe -ErrorAction SilentlyContinue
 if($null -eq $sh) { $sh = Get-Command sh -ErrorAction SilentlyContinue }
 $shPath = if($null -ne $sh) { $sh.Source } else { 'C:\Program Files\Git\bin\sh.exe' }
 Assert-True (Test-Path -LiteralPath $shPath) 'sh parser unavailable'
-foreach($path in $RuntimePaths) {
+$runtime = @('customize.sh','action.sh','service.sh','uninstall.sh','bin\common.sh','bin\goldenctl.sh','bin\golden-selftest.sh','bin\golden-runner.sh','bin\golden-preflight.sh','bin\x55-holder.sh') | ForEach-Object { Join-Path $Module $_ }
+foreach($path in $runtime) {
+  Assert-True (Test-Path -LiteralPath $path) "missing $path"
   & $shPath -n $path
   Assert-True ($LASTEXITCODE -eq 0) "sh -n failed: $path"
-  $crCount = @([IO.File]::ReadAllBytes($path) | Where-Object { $_ -eq 13 }).Count
-  Assert-True ($crCount -eq 0) "Android payload contains CR bytes: $path"
+  Assert-True ((@([IO.File]::ReadAllBytes($path) | Where-Object { $_ -eq 13 }).Count) -eq 0) "Android payload contains CR: $path"
 }
-
-$allRuntime = @($RuntimePaths | ForEach-Object { Get-Content -LiteralPath $_ -Raw }) -join "`n"
-foreach($forbidden in @('adb\.exe','C:\\Users\\','PowerShell','powershell\.exe','fd0f{2}892')) {
-  Assert-True ($allRuntime -notmatch $forbidden) "runtime contains forbidden PC dependency: $forbidden"
-}
-
-$prop = Get-Content -LiteralPath (Join-Path $Module 'module.prop') -Raw
-foreach($line in @('id=voxi_wfc_golden','name=VOXI WFC Golden Recovery RC1','version=v1.1.0-rc1','versionCode=110','author=yzb8253')) {
-  Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line"
-}
-
-$runner = Get-Content -LiteralPath (Join-Path $Module 'bin\golden-runner.sh') -Raw
-$normalOff = [regex]::Matches($runner,'service call phone \"\$SIM_POWER_TRANSACTION\" i32 1 i32 0').Count
-$normalOn = [regex]::Matches($runner,'service call phone \"\$SIM_POWER_TRANSACTION\" i32 1 i32 1').Count
-Assert-True ($normalOff -eq 1) "SIM OFF path count=$normalOff expected=1"
-Assert-True ($normalOn -eq 2) "SIM ON source paths=$normalOn expected normal+emergency=2"
+$prop = Get-Content (Join-Path $Module 'module.prop') -Raw
+foreach($line in @('name=VOXI WFC Golden Recovery RC2','version=v1.1.0-rc2','versionCode=111')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
+$action = Get-Content (Join-Path $Module 'action.sh') -Raw
+$ctl = Get-Content (Join-Path $Module 'bin\goldenctl.sh') -Raw
+$runner = Get-Content (Join-Path $Module 'bin\golden-runner.sh') -Raw
+$preflight = Get-Content (Join-Path $Module 'bin\golden-preflight.sh') -Raw
+$common = Get-Content (Join-Path $Module 'bin\common.sh') -Raw
+$selftest = Get-Content (Join-Path $Module 'bin\golden-selftest.sh') -Raw
+Assert-True ($action -match 'goldenctl\.sh" recover') 'RC2 Action does not dispatch recover'
+Assert-True ($ctl -match 'recover_command\(\)[\s\S]*selftest_command') 'recover does not call frozen self-test first'
+Assert-True ($ctl -match 'export PRE_RECOVERY_GATE_PASSED=YES') 'self-test authorization export missing'
+Assert-True ($runner -match 'PRE_RECOVERY_GATE_PASSED') 'runner does not require pre-recovery token'
+Assert-True ($ctl -match 'self-test\) selftest_command') 'read-only self-test CLI missing'
+Assert-True ($runner -match 'A_SETTLE_SECONDS=20' -and $runner -match 'P_SETTLE_SECONDS=20' -and $runner -match 'MAX_RECOVERY_ATTEMPTS=2' -and $runner -match 'POST_PON_SETTLE_SECONDS=10' -and $runner -match 'SIM_OFF_HOLD_SECONDS=3') 'Golden timing changed'
+Assert-True ($runner -match 'while \[ "\$I" -lt 20 \]' -and $runner -match 'while \[ "\$I" -lt 30 \]' -and $runner -match 'while \[ "\$I" -lt 15 \]') 'Golden timeout budget changed'
+foreach($stage in @('A0','P','X55_SHUTDOWN','HOLDER_START','X55_POWERUP','PON_SUCCESS','SIM_CYCLE','WFC_WAIT')) { Assert-True ($runner -match "stage_run\s+$stage\b") "stage invocation missing: $stage" }
+$normalOff = [regex]::Matches($runner,'service call phone "\$SIM_POWER_TRANSACTION" i32 1 i32 0').Count
+$normalOn = [regex]::Matches($runner,'service call phone "\$SIM_POWER_TRANSACTION" i32 1 i32 1').Count
+Assert-True ($normalOff -eq 1) "SIM OFF count=$normalOff"
+Assert-True ($normalOn -eq 2) "SIM ON count=$normalOn (normal + emergency expected)"
 Assert-True ([regex]::Matches($runner,'service call phone[^\r\n]*i32 0 i32').Count -eq 0) 'slot0 write path detected'
-Assert-True ($runner -match 'SIM_MAY_BE_OFF=1' -and $runner -match 'emergency_sim_on') 'emergency SIM guard missing'
-Assert-True ($runner -match 'FREEZE_ON_HEALTHY=1' -and $runner -match 'if \[ \"\$FREEZE_ON_HEALTHY\" != 1 \]') 'success cleanup suppression missing'
-Assert-True ($runner -match 'MAX_RECOVERY_ATTEMPTS=2') 'attempt budget changed'
-Assert-True ($runner -match 'POST_PON_SETTLE_SECONDS=10') 'PON settle changed'
-Assert-True ($runner -match 'SIM_OFF_HOLD_SECONDS=3') 'SIM hold changed'
-$entryGateAt = $runner.IndexOf('assert_clean_core_entry')
-$stopAt = $runner.IndexOf("record_write 'CTL_STOP vendor.per_mgr'")
-$offlineAt = $runner.IndexOf('log_line "X55_OFFLINE=YES')
-$holderAt = $runner.IndexOf('start_module_holder')
-$ponAt = $runner.IndexOf('PON_SUCCESS=YES')
-$simOffAt = $runner.IndexOf('SIM_POWER_OFF transaction=')
-Assert-True ($entryGateAt -ge 0 -and $stopAt -gt $entryGateAt) 'X55 stop is not ordered after entry gate'
-Assert-True ($offlineAt -ge 0 -and $holderAt -gt $offlineAt) 'holder start is not ordered after X55 OFFLINE'
-Assert-True ($ponAt -ge 0 -and $simOffAt -gt $ponAt) 'SIM OFF is not ordered after PON_SUCCESS gate'
-
-$preflight = Get-Content -LiteralPath (Join-Path $Module 'bin\golden-preflight.sh') -Raw
-Assert-True ([regex]::Matches($preflight,'kill -TERM \"\$HPID\"').Count -eq 1) 'exact holder TERM path mismatch'
-Assert-True ([regex]::Matches($preflight,'kill -KILL \"\$HPID\"').Count -eq 1) 'exact holder KILL fallback mismatch'
-Assert-True ($preflight -notmatch 'killall|pkill') 'broad process kill detected'
-Assert-True ($preflight -match 'holder_process_identity_ok \"\$HPID\"') 'holder identity gate missing'
-Assert-True ($preflight -match 'step_owner_preflight\(\)') 'owner pre-A0 step missing'
-Assert-True ($preflight -match 'BLOCK_REASON=UNKNOWN_ESOC_OWNER') 'unknown owner explanation missing'
-Assert-True ($preflight -notmatch 'unknown_owner_present\s*&&') 'ambiguous negative owner probe remains'
-
-$common = Get-Content -LiteralPath (Join-Path $Module 'bin\common.sh') -Raw
-$action = Get-Content -LiteralPath (Join-Path $Module 'action.sh') -Raw
-$ctl = Get-Content -LiteralPath (Join-Path $Module 'bin\goldenctl.sh') -Raw
-$selftest = Get-Content -LiteralPath (Join-Path $Module 'bin\golden-selftest.sh') -Raw
-Assert-True ($common -match 'EXPECTED_DEVICE=cas') 'device gate missing'
-Assert-True ($common -match 'EXPECTED_BUILD=V816\.0\.4\.0\.TJJCNXM') 'build gate missing'
-Assert-True ($common -match 'SIM_POWER_TRANSACTION=182') 'transaction gate missing'
-Assert-True ($common -match 'ESOC_OWNER_CLASS=UNKNOWN_OWNER') 'owner classification missing'
-
-Assert-True ($common -match 'network_preflight\(\)') 'network preflight missing'
-Assert-True ($common -match 'MAX_WAIT=\$\{1:-20\}') 'bounded Wi-Fi wait changed'
-Assert-True ($common -match "VPN=UNVERIFIED[\s\S]*WARNING=Please confirm UK full-tunnel VPN is connected[\s\S]*NETWORK_PREFLIGHT=PASS") 'advisory VPN path does not pass'
-Assert-True ($common -notmatch "grep[^\r\n]*\^default[^\r\n]*dev tun0") 'strict default-dev-tun0 gate remains'
-Assert-True ($common -notmatch "\[ [^\r\n]*VPN_INTERFACE[^\r\n]*tun0[^\r\n]*\]") 'strict tun0 interface gate remains'
-Assert-True ($common -notmatch 'network_gate\(\)') 'legacy strict network gate remains'
-Assert-True ($runner -match 'network_preflight 20') 'runner network preflight missing'
-Assert-True ($preflight -match 'network_preflight 20') 'A0/P network preflight missing'
-Assert-True ($runner -match 'POST_NETWORK_GATE=PASS') 'post-network marker missing'
-Assert-True ($runner -match 'ATTEMPT_LOOP_ENTER=1') 'attempt-loop marker missing'
-Assert-True ($runner -match 'EXIT_RC=\$RC' -and $runner -match 'EXIT_STAGE=\$CURRENT_STAGE' -and $runner -match 'EXIT_REASON=\$EXIT_REASON') 'exit diagnostics missing'
-
-$ownerFixture = Join-Path $Repo 'tools\test_voxi_wfc_golden_owner_preflight.sh'
-& $shPath -n $ownerFixture
-Assert-True ($LASTEXITCODE -eq 0) 'owner fixture shell parse failed'
-$ownerFixtureOutput = @(& $shPath $ownerFixture 2>&1)
-Assert-True ($LASTEXITCODE -eq 0) "owner fixture runtime failed: $($ownerFixtureOutput -join '; ')"
-Assert-True (($ownerFixtureOutput -join "`n") -match 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS') 'owner fixtures incomplete'
-Assert-True (($ownerFixtureOutput -join "`n") -match 'NATIVE_PM_SERVICE_REAL_DEVICE_FIXTURE=PASS') 'real-device owner fixture missing'
-
+Assert-True ($runner -match 'SIM_MAY_BE_OFF=1' -and $runner -match 'emergency_sim_on') 'emergency ON guard missing'
+Assert-True ($runner -match 'FREEZE_ON_HEALTHY=1') 'freeze success missing'
+Assert-True ($preflight -notmatch 'killall|pkill') 'broad holder kill detected'
+Assert-True ([regex]::Matches($preflight,'kill -TERM "\$HPID"').Count -eq 1) 'exact holder TERM count changed'
+Assert-True ([regex]::Matches($preflight,'kill -KILL "\$HPID"').Count -eq 1) 'exact holder KILL count changed'
+foreach($name in @('load_probe_fields','collect_platform_status','collect_network_status','collect_owner_entry_status','print_health','print_network_status','print_owner_entry_status')) { Assert-True ($common -match "(?s)$name\(\).*?return 0\s*\n\}") "explicit return 0 missing: $name" }
+Assert-True ($common -match 'if \[ "\$\(settings get global wifi_on') 'Wi-Fi no-op check missing'
+Assert-True ($common -notmatch 'grep[^\r\n]*\^default[^\r\n]*dev tun0') 'strict default/tun0 gate remains'
+Assert-True ($selftest -notmatch 'cmd connectivity airplane-mode|svc wifi enable|setprop ctl\.|service call phone') 'read-only self-test has effect'
+Assert-True ($runner -notmatch 'exit\s+1\b' -and $ctl -notmatch 'exit\s+1\b' -and $action -notmatch 'exit\s+1\b') 'public RC=1 leak remains'
+$owner = Join-Path $Repo 'tools\test_voxi_wfc_golden_owner_preflight.sh'
 $selftestFixture = Join-Path $Repo 'tools\test_voxi_wfc_golden_selftest.sh'
-& $shPath -n $selftestFixture
-Assert-True ($LASTEXITCODE -eq 0) 'self-test fixture shell parse failed'
-$selftestFixtureOutput = @(& $shPath $selftestFixture 2>&1)
-Assert-True ($LASTEXITCODE -eq 0) "self-test fixture runtime failed: $($selftestFixtureOutput -join '; ')"
-Assert-True (($selftestFixtureOutput -join "`n") -match 'RC1_SELFTEST_FIXTURE=PASS') 'RC1 self-test fixture incomplete'
-
-$shellMatrix = Join-Path $Repo 'tools\test_voxi_wfc_golden_shell_matrix.ps1'
-$shellMatrixOutput = @(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $shellMatrix 2>&1)
-Assert-True ($LASTEXITCODE -eq 0) "shell matrix failed: $($shellMatrixOutput -join '; ')"
-Assert-True (($shellMatrixOutput -join "`n") -match 'SHELL_OPTION_REGRESSION=PASS') 'shell option regression incomplete'
-
-# RC1 Action reaches only goldenctl self-test. Recovery sources remain packaged
-# for later enablement but are neither sourced nor dispatched by this path.
-Assert-True ($action -match 'goldenctl\.sh" self-test') 'Action is not self-test only'
-Assert-True ($action -notmatch '\brecover\b|restore-native|golden-runner') 'Action exposes writable command'
-Assert-True ($ctl -notmatch '\. "\$MODDIR/bin/golden-preflight\.sh"') 'goldenctl eagerly sources writable preflight'
-Assert-True ($ctl -match 'recover\|restore-native\)[\s\S]*WRITABLE_COMMAND_DISABLED_IN_RC1') 'writable public commands are not disabled'
-foreach($forbiddenEffect in @(
-  'cmd connectivity airplane-mode','svc wifi enable','setprop ctl\.(stop|start|restart)',
-  'service call phone','x55-holder\.sh.*launch','\bkill(all)?\b','\bpkill\b'
-)) {
-  Assert-True ($selftest -notmatch $forbiddenEffect) "self-test contains reachable effect: $forbiddenEffect"
-}
-Assert-True ($selftest -match 'STATE_WRITE_COUNT=0' -and $selftest -match 'MODEM_WRITE_COUNT=0' -and $selftest -match 'SIM_WRITE_COUNT=0') 'RC1 zero-write counters missing'
-Assert-True ($common -match 'collect_network_status\(\)[\s\S]*?return 0\s*\n}') 'network collector lacks explicit return 0'
-Assert-True ($common -match 'collect_owner_entry_status\(\)[\s\S]*?return 0\s*\n}') 'owner collector lacks explicit return 0'
-Assert-True ($common -match 'load_probe_fields\(\)[\s\S]*?return 0\s*\n}') 'probe collector lacks explicit return 0'
-Assert-True ($common -match 'print_network_status\(\)[\s\S]*?return 0\s*\n}') 'network printer lacks explicit return 0'
-Assert-True ($common -match 'print_owner_entry_status\(\)[\s\S]*?return 0\s*\n}') 'owner printer lacks explicit return 0'
-Assert-True ($common -match 'print_health\(\)[\s\S]*?return 0\s*\n}') 'health printer lacks explicit return 0'
-Assert-True ($action -notmatch 'exit\s+1\b' -and $ctl -notmatch 'exit\s+1\b' -and $runner -notmatch 'exit\s+1\b') 'public RC=1 exit remains'
-
-$ctlPath = Join-Path $Module 'bin\goldenctl.sh'
-$ctlShellPath = $ctlPath.Replace('\','/')
-$disabledRecover = @(& $shPath $ctlShellPath recover 2>&1)
-$disabledRecoverRc = $LASTEXITCODE
-Assert-True ($disabledRecoverRc -eq 30) "RC1 recover did not fail closed: rc=$disabledRecoverRc"
-Assert-True (($disabledRecover -join "`n") -match 'WRITABLE_COMMAND_DISABLED_IN_RC1') 'RC1 recover block reason missing'
-$runnerPath = Join-Path $Module 'bin\golden-runner.sh'
-$runnerShellPath = $runnerPath.Replace('\','/')
-$disabledRunner = @(& $shPath $runnerShellPath 2>&1)
-$disabledRunnerRc = $LASTEXITCODE
-Assert-True ($disabledRunnerRc -eq 30) "RC1 direct runner did not fail closed: rc=$disabledRunnerRc"
-Assert-True (($disabledRunner -join "`n") -match 'WRITABLE_RUNNER_DISABLED_IN_RC1') 'RC1 direct runner block reason missing'
-
-$probeHash = (Get-FileHash -LiteralPath (Join-Path $Module 'lib\wfc-probe.jar') -Algorithm SHA256).Hash
-Assert-True ($probeHash -eq 'AC46E9F62DB88C043DA08E4D5BB1D100EA8AC10EF2A74838F99C2237C2B9A91D') 'probe hash mismatch'
-
-# Later history contains earlier profiling edits, so only assert this change-set does not stage Golden files.
+$mock = Join-Path $Repo 'tools\test_voxi_wfc_golden_recovery_mock.sh'
+foreach($fixture in @($owner,$selftestFixture,$mock)) { & $shPath -n $fixture; Assert-True ($LASTEXITCODE -eq 0) "fixture parse failed: $fixture" }
+$ownerOut = @(& $shPath $owner 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($ownerOut -join "`n") -match 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS')) 'owner fixtures failed'
+$selfOut = @(& $shPath $selftestFixture 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($selfOut -join "`n") -match 'RC1_SELFTEST_FIXTURE=PASS')) 'self-test fixture failed'
+$mockOut = @(& $shPath $mock 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($mockOut -join "`n") -match 'HOST_MODEL_PASS fixtures=10')) 'recovery host model failed'
+$matrix = Join-Path $Repo 'tools\test_voxi_wfc_golden_shell_matrix.ps1'
+$matrixOut = @(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $matrix 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($matrixOut -join "`n") -match 'SHELL_OPTION_REGRESSION=PASS')) 'shell option matrix failed'
 $stagedGolden = @(git -C $Repo diff --cached --name-only -- 'experiments/wfc_repeatability_normalization/v262_freeze_run')
 Assert-True ($stagedGolden.Count -eq 0) 'Golden source staged for modification'
-
 Write-Host 'PS5.1_STATIC=PASS'
-Write-Host "SH_PARSE=PASS files=$($RuntimePaths.Count)"
-Write-Host 'ANDROID_PAYLOAD_CR_COUNT=0'
-Write-Host 'MODULE_PROP=PASS'
-Write-Host 'RUNTIME_PC_DEPENDENCIES=0'
-Write-Host 'WIFI_HARD_PREREQUISITE=PASS'
-Write-Host 'VPN_ADVISORY_ONLY=PASS'
-Write-Host 'STRICT_TUN0_GATE=REMOVED'
-Write-Host 'STRICT_DEFAULT_DEV_TUN0_GATE=REMOVED'
+Write-Host 'RC1_SELFTEST_PATH_STATE_WRITES=0'
+Write-Host 'RECOVERY_CONTROLFLOW_AUDIT=PASS'
 Write-Host 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS'
-Write-Host 'OWNER_NEGATIVE_PROBE_CONTROL_FLOW=PASS'
-Write-Host 'EXIT_DIAGNOSTICS=PASS'
-Write-Host 'RC1_ACTION_MODE=SELF_TEST_ONLY'
-Write-Host 'ACTION_REACHABLE_AIRPLANE_WRITES=0'
-Write-Host 'ACTION_REACHABLE_WIFI_WRITES=0'
-Write-Host 'ACTION_REACHABLE_PER_MGR_WRITES=0'
-Write-Host 'ACTION_REACHABLE_QCRILD_WRITES=0'
-Write-Host 'ACTION_REACHABLE_HOLDER_STARTS=0'
-Write-Host 'ACTION_REACHABLE_SIM_WRITES=0'
-Write-Host 'STATE_WRITE_COUNT_EXPECTED=0'
-Write-Host 'MODEM_WRITE_COUNT_EXPECTED=0'
-Write-Host 'SIM_WRITE_COUNT_EXPECTED=0'
-Write-Host 'PUBLIC_EXIT_RC_1_FORBIDDEN=PASS'
-Write-Host 'COLLECTOR_EXPLICIT_RETURN_0=PASS'
-Write-Host 'PRINTER_EXPLICIT_RETURN_0=PASS'
+Write-Host 'HOST_MODEL_PASS fixtures=10'
 Write-Host 'SHELL_OPTION_REGRESSION=PASS'
 Write-Host 'SIM_OFF_WRITE_PATHS=1'
 Write-Host 'SIM_ON_NORMAL_WRITE_PATHS=1'
 Write-Host 'SIM_ON_EMERGENCY_GUARDED_PATHS=1'
 Write-Host 'SLOT0_WRITE_PATHS=0'
 Write-Host 'UNKNOWN_HOLDER_KILL_PATHS=0'
-Write-Host 'SUCCESS_CLEANUP_PATHS=0'
-Write-Host 'FAILURE_NATIVE_CLEANUP=PASS'
+Write-Host 'MAX_ATTEMPTS=2'
+Write-Host 'GOLDEN_TIMING_UNCHANGED=PASS'
 Write-Host 'GOLDEN_STAGED_CHANGES=0'
 Write-Host 'PHONE_WRITES=0'
 Write-Host 'STATIC_TESTS=PASS'

@@ -1,8 +1,8 @@
-# VOXI WFC Golden Recovery v1.1.0-rc1
+# VOXI WFC Golden Recovery v1.1.0-rc2
 
-**STATUS: READ-ONLY DEVICE VALIDATION REQUIRED**
+**STATUS: WRITABLE DEVICE VALIDATION REQUIRED**
 
-这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 独立 Magisk 移植的只读控制流验证版本。RC1 的 Magisk Action 只执行 SELF-TEST / PREFLIGHT，不会执行 recovery。
+这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 的首个可写 Magisk candidate。RC1 已在真机完成只读控制层验证；RC2 的 Action 先执行相同的只读 `pre_recovery_self_test`，只有 PASS 才会进入 Golden recovery。
 
 ## 支持范围
 
@@ -17,16 +17,16 @@
 
 ## 安装与使用
 
-1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.1.0-rc1.zip`。
+1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.1.0-rc2.zip`。
 2. 重启一次。
 3. 打开 Wi-Fi。
 4. 打开英国全局 VPN。模块会尽力识别 Android VPN，但不会以接口名或普通 default route 作为硬门槛。
-5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery RC1 → 操作。
-6. 等待终端显示 `READY_FOR_RECOVERY=YES`、`FINAL_RESULT=SELFTEST_PASS` 和 `ACTION_EXIT_RC=0`。
+5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery RC2 → 操作。
+6. Action 会先显示 self-test；只有 `READY_FOR_RECOVERY=YES` 才会执行 A0、P、X55 和 SIM2 Golden recovery。
 
-点击时 Airplane mode 可以是 ON 或 OFF；RC1 不构建 A0/P，只判断设备是否具备进入 recovery 的只读条件。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。
+点击时 Airplane mode 可以是 ON 或 OFF。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。
 
-RC1 会明确报告 `/dev/subsys_esoc0` owner。只有唯一 native `/vendor/bin/pm-service` owner、X55 ONLINE 和精确平台/VOXI mapping 才会输出 READY。RC1 不删除 stale pidfile，不 restore holder，也不执行任何服务、modem 或 SIM 写操作。
+只有唯一 native `/vendor/bin/pm-service` owner、X55 ONLINE 和精确平台/VOXI mapping 才会授权恢复。每个可写阶段输出 `RECOVERY_STAGE_BEGIN/END`，未知 owner 永远不会被 kill。
 
 ## CLI
 
@@ -37,7 +37,7 @@ su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh logs
 su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh version
 ```
 
-RC1 中 `recover`、`restore-native` 和直接 runner 都会 fail closed；正式 v1.1.0 必须等待 RC1 真机 self-test 验证通过后另行发布。
+`self-test` 保持完全只读。`recover` 为 RC2 Action 使用的可写 candidate；`restore-native` 仅对模块可精确验证的 holder 开放。RC2 尚未完成可写真机验证。
 
 ## 安全边界
 

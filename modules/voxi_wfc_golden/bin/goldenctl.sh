@@ -23,7 +23,7 @@ status_command() {
     return 40
   fi
   echo '================================='
-  echo ' VOXI WFC Golden Recovery RC1'
+  echo ' VOXI WFC Golden Recovery RC2'
   echo '================================='
   echo "MODULE_VERSION=$MODULE_VERSION"
   echo "DEVICE=$(getprop ro.product.device)"
@@ -81,6 +81,49 @@ selftest_command() {
   esac
 }
 
+recover_command() {
+  selftest_command
+  SELFTEST_RC=$?
+  if [ "$SELFTEST_RC" -ne 0 ] || [ "$READY_FOR_RECOVERY" != YES ]; then
+    echo 'RECOVERY_GATE=BLOCKED'
+    echo "STATE_WRITE_COUNT=${STATE_WRITE_COUNT:-0}"
+    echo "MODEM_WRITE_COUNT=${MODEM_WRITE_COUNT:-0}"
+    echo "SIM_WRITE_COUNT=${SIM_WRITE_COUNT:-0}"
+    case "$SELFTEST_RC" in 30|40|90) return "$SELFTEST_RC";; *) return 40;; esac
+  fi
+  if [ ! -r "$MODDIR/bin/golden-runner.sh" ]; then
+    echo 'RECOVERY_GATE=BLOCKED'
+    echo 'EXIT_REASON=RUNNER_RUNTIME_MISSING'
+    return 90
+  fi
+  export PRE_RECOVERY_GATE_PASSED=YES
+  exec "$MODDIR/bin/golden-runner.sh"
+}
+
+restore_native_command() {
+  if [ ! -r "$MODDIR/bin/golden-preflight.sh" ]; then echo 'EXIT_REASON=PREFLIGHT_RUNTIME_MISSING'; return 90; fi
+  . "$MODDIR/bin/golden-selftest.sh"
+  SOURCE_RC=$?
+  if [ "$SOURCE_RC" -ne 0 ]; then return 90; fi
+  step_root_gate; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
+  step_module_runtime_gate; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
+  step_probe_gate; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
+  step_platform_gate_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
+  step_target_gate_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
+  step_network_observe_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
+  . "$MODDIR/bin/golden-preflight.sh"
+  SOURCE_RC=$?
+  if [ "$SOURCE_RC" -ne 0 ]; then return 90; fi
+  collect_owner_entry_status; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
+  classify_owner_entry_status; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
+  print_owner_entry_status
+  case "$ESOC_OWNER_CLASS" in
+    NATIVE_PM_SERVICE) echo 'RESTORE_NATIVE=ALREADY_NATIVE'; return 0 ;;
+    MODULE_GOLDEN_HOLDER) restore_native; RC=$?; case "$RC" in 0|30|40|60|70) return "$RC";; *) return 40;; esac ;;
+    *) echo "RESTORE_NATIVE=BLOCK owner=$ESOC_OWNER_CLASS"; return 30 ;;
+  esac
+}
+
 logs_command() {
   echo "LOG_DIR=$LOG_DIR"
   ls -1t "$LOG_DIR"/*.log 2>/dev/null | head -n 20
@@ -88,7 +131,7 @@ logs_command() {
 }
 
 usage() {
-  echo 'Usage: goldenctl.sh {self-test|status|status-json|logs|version}'
+  echo 'Usage: goldenctl.sh {self-test|recover|restore-native|status|status-json|logs|version}'
   return 0
 }
 
@@ -99,12 +142,8 @@ case "$COMMAND" in
   status-json) status_json_command; PUBLIC_RC=$? ;;
   logs) logs_command; PUBLIC_RC=$? ;;
   version) echo "VOXI WFC Golden Recovery $MODULE_VERSION"; PUBLIC_RC=0 ;;
-  recover|restore-native)
-    echo 'RC1_READ_ONLY=YES'
-    echo 'READY_FOR_RECOVERY=NO'
-    echo 'EXIT_REASON=WRITABLE_COMMAND_DISABLED_IN_RC1'
-    PUBLIC_RC=30
-    ;;
+  recover) recover_command; PUBLIC_RC=$? ;;
+  restore-native) restore_native_command; PUBLIC_RC=$? ;;
   *) usage; PUBLIC_RC=40 ;;
 esac
 
