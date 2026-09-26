@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.1.0-rc6
+MODULE_VERSION=v1.1.0-rc7
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
