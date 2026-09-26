@@ -53,6 +53,7 @@ $script:PostSimIms='NO'
 $script:WfcHealthy='NO'
 $script:Total=[Diagnostics.Stopwatch]::StartNew()
 $script:UiccTrueAt=$null
+$script:TypedDisableReturn='NOT_EXECUTED';$script:TypedEnableReturn='NOT_EXECUTED';$script:TypedEmergency='NO'
 
 New-Item -ItemType Directory -Force -Path $LogDir|Out-Null
 
@@ -141,11 +142,15 @@ function Invoke-UiccPrime {
     $lines=New-Object System.Collections.Generic.List[string]
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $UiccHelper -Serial $Serial 2>&1 | ForEach-Object {
         $v=[string]$_;$lines.Add($v);Log ("UICC $v")
-        if($v -match '^UICC_APPS_FALSE_CALL='){$script:UiccFalseSent='YES';Add-PhoneWrite 'ISUB_FALSE_SUB11'}
+        if($v -match '^TYPED_HELPER_DEPLOYED='){Add-PhoneWrite 'ADB_PUSH_TYPED_ISUB_HELPER_JAR'}
+        if($v -match '^TYPED_DISABLE_RETURN=(.*)$'){$script:TypedDisableReturn=$Matches[1]}
+        if($v -match '^TYPED_ENABLE_RETURN=(.*)$'){$script:TypedEnableReturn=$Matches[1]}
+        if($v -match '^TYPED_EMERGENCY_ENABLE=YES'){$script:TypedEmergency='YES'}
+        if($v -match '^UICC_APPS_FALSE_CALL='){$script:UiccFalseSent='YES';Add-PhoneWrite 'TYPED_ISUB_FALSE_SUB11'}
         if($v -match '^UICC_F8_CONFIRMED_AFTER_MS=(\d+)'){$script:F8Confirmed='YES';$script:F8LatencyMs=[int64]$Matches[1]}
-        if($v -match '^UICC_APPS_TRUE_CALL='){$script:UiccTrueSent='YES';$script:UiccTrueAt=Get-Date;Add-PhoneWrite 'ISUB_TRUE_SUB11'}
+        if($v -match '^UICC_APPS_TRUE_CALL='){$script:UiccTrueSent='YES';$script:UiccTrueAt=Get-Date;Add-PhoneWrite 'TYPED_ISUB_TRUE_SUB11'}
         if($v -match '^UICC_REINSERT_CONFIRMED_AFTER_MS=(\d+)'){$script:UiccReinsert='YES';$script:UiccReinsertLatencyMs=[int64]$Matches[1]}
-        if($v -match '^\[UICC GUARD\]') {Add-PhoneWrite 'ISUB_TRUE_SUB11_EMERGENCY_GUARD'}
+        if($v -match '^\[UICC GUARD\]') {Add-PhoneWrite 'TYPED_ISUB_TRUE_SUB11_EMERGENCY'}
     }
     $rc=$LASTEXITCODE;Require ($rc -eq 0) "audited UICC helper failed exit=$rc"
     Require ($script:UiccFalseSent -eq 'YES' -and $script:F8Confirmed -eq 'YES' -and $script:UiccTrueSent -eq 'YES' -and $script:UiccReinsert -eq 'YES') 'UICC lifecycle evidence incomplete'
@@ -215,6 +220,7 @@ function Write-Summary {
     Log ("ENTRY_AIRPLANE=OFF");Log ("LEGACY_RESIDUE={0}" -f $script:LegacyResidue);Log ("NORMALIZATION_USED={0}" -f $script:NormalizationUsed);Log ("A0_READY={0}" -f $script:A0Ready)
     Log ("UICC_FALSE_SENT={0}" -f $script:UiccFalseSent);Log ("F8_CONFIRMED={0}" -f $script:F8Confirmed);Log ("F8_LATENCY_MS={0}" -f $script:F8LatencyMs)
     Log ("UICC_TRUE_SENT={0}" -f $script:UiccTrueSent);Log ("UICC_REINSERT_CONFIRMED={0}" -f $script:UiccReinsert);Log ("UICC_REINSERT_LATENCY_MS={0}" -f $script:UiccReinsertLatencyMs)
+    Log 'UICC_WRITE_TRANSPORT=TYPED_ISUB_APP_PROCESS';Log ("TYPED_DISABLE_RETURN={0}" -f $script:TypedDisableReturn);Log ("TYPED_ENABLE_RETURN={0}" -f $script:TypedEnableReturn);Log ("TYPED_EMERGENCY_ENABLE={0}" -f $script:TypedEmergency)
     Log ("CNE_BASELINE_REQUEST={0}" -f $script:CneBaseline);Log ("FRESH_CNE_REQUEST={0}" -f $script:FreshCne);Log ("CNE_TRIGGER_LATENCY_MS={0}" -f $script:CneTriggerLatencyMs)
     Log ("IMS_REGISTERED={0}" -f $script:ImsRegistered);Log ("IMS_TRANSPORT={0}" -f $script:ImsTransport);Log ("AIRPLANE_ON_TIME={0}" -f $script:AirplaneOnTime);Log ("P_READY_TIME={0}" -f $script:PReadyTime)
     Log ("SIM_CYCLE_COUNT={0}" -f $script:SimCycleCount);Log ("SIM_OFF_HOLD_MS={0}" -f $script:SimOffHoldMs);Log ("SIM_ON_TIME={0}" -f $script:SimOnTime)

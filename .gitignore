@@ -34,3 +34,4 @@ archive/computer_a_legacy/x55_wfc_oneclick/unnamed_root_variants/X55-Logs/
 # Host-only test logs; retain locally but never make them source of truth.
 experiments/wfc_repeatability_normalization/v262_freeze_run/Stable-CNE-Logs/
 experiments/golden_simple_v1/Golden-Simple-Logs/
+experiments/golden_simple_v1/typed_helper/build/

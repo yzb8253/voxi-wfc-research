@@ -11,6 +11,8 @@ $Contract=Join-Path $PSScriptRoot 'golden_simple_contract.ps1'
 $Cmd=Join-Path $PSScriptRoot 'RUN-X55-WFC-GOLDEN-SIMPLE-V1.cmd'
 $Uicc=Join-Path $PSScriptRoot 'uicc_apps_single_sim_prime.ps1'
 $Observer=Join-Path $PSScriptRoot 'uicc_isub_section_observer.ps1'
+$TypedJava=Join-Path $PSScriptRoot 'typed_helper\GoldenSimpleTypedUiccHelper.java'
+$TypedJar=Join-Path $PSScriptRoot 'golden-simple-typed-uicc-helper.jar'
 $OriginalUicc=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
 . $Contract
 . (Join-Path $Light 'current_cne_projection_v12h_r2.ps1')
@@ -19,7 +21,7 @@ $OriginalUicc=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
 function Require([bool]$Condition,[string]$Message){if(-not $Condition){throw $Message}}
 function Parse-Ps51([string]$Path){$t=$null;$e=$null;[void][Management.Automation.Language.Parser]::ParseFile($Path,[ref]$t,[ref]$e);Require (@($e).Count -eq 0) ("PS5.1 parse failed: {0}: {1}" -f $Path,(@($e|ForEach-Object{$_.Message}) -join '; '))}
 
-foreach($path in @($Main,$Contract,$Uicc,$Observer)){Parse-Ps51 $path}
+foreach($path in @($Main,$Contract,$Uicc,$Observer,(Join-Path $PSScriptRoot 'build_typed_uicc_helper.ps1'))){Parse-Ps51 $path}
 Write-Host 'PS5.1_PARSER=PASS'
 
 $sub1Stale='{id=1 iccId=x simSlotIndex=-1 carrierId=2237 mcc=460 mnc=11 areUiccApplicationsEnabled=true}'
@@ -73,18 +75,29 @@ Write-Host 'CNE_CURRENT_TABLE_FIXTURES=3/3_PASS'
 
 $uiccText=Get-Content -LiteralPath $Uicc -Raw
 $observerText=Get-Content -LiteralPath $Observer -Raw
+$javaText=Get-Content -LiteralPath $TypedJava -Raw
+$mainText=Get-Content -LiteralPath $Main -Raw
 Require ($uiccText -match "Require \(\(Root 'settings get global airplane_mode_on'\) -eq '0'\)") 'single-SIM helper airplane-OFF gate missing'
-Require ($uiccText -match '\$mustReenable=\$true' -and $uiccText -match 'finally\s*\{\s*if\(\$mustReenable\)' -and $uiccText -match 'Sending one emergency TRUE') 'emergency TRUE rollback contract missing'
+Require ($uiccText -match '\$mustReenable=\$true' -and $uiccText -match 'finally\s*\{\s*if\(\$mustReenable\)' -and $uiccText -match 'typed emergency TRUE') 'emergency TRUE rollback contract missing'
 Require ($uiccText -match 'UICC_F8_CONFIRMED_AFTER=' -and $uiccText -match 'UICC_REINSERT_CONFIRMED_AFTER=') 'single-SIM F8/reinsert gates missing'
 Require ($uiccText -match 'getprop gsm\.sim\.state' -and $observerText -match "states\[0\] -eq 'ABSENT'" -and $observerText -match 'simSlotIndex=0') 'slot0 ABSENT/no-mapping gate missing'
 Require ($observerText -match 'ActiveSubInfoList in the DB:' -and $observerText -match 'AllSubInfoList:' -and $observerText -match 'ALL_SECTION_END_MISSING') 'section boundaries are not explicit/fail-closed'
 Require ($uiccText -match 'Diagnostics\.Stopwatch' -and $uiccText -match 'Elapsed\.TotalSeconds -lt 30') 'F8 wait is not a wall-clock deadline'
-$isubWrites=@($uiccText -split "\r?\n"|Where-Object{$_ -match 'service call isub'})
-Require ($isubWrites.Count -eq 3 -and @($isubWrites|Where-Object{$_ -notmatch 'i32 11'}).Count -eq 0) 'UICC helper contains a write not fixed to subId11'
+$rawIsubWrites=@(($uiccText+"`n"+$mainText+"`n"+$javaText) -split "\r?\n"|Where-Object{$_ -match 'service call isub|service\s+call\s+isub'})
+Require ($rawIsubWrites.Count -eq 0) 'raw service call isub remains in GOLDEN_SIMPLE_V1 runtime'
+Require ($javaText -match 'ISub\$Stub' -and $javaText -match 'asInterface' -and $javaText -match 'setUiccApplicationsEnabled') 'typed ISub proxy path missing'
+Require ($javaText -match '"disable"\.equals' -and $javaText -match '"enable"\.equals' -and $javaText -match 'boolean enabled = "enable"\.equals') 'typed disable/enable modes missing'
+Require ($javaText -match 'private static final int SUB_ID = 11' -and $javaText -notmatch 'setUiccApplicationsEnabled"[^\r\n]*,[^\r\n]*(?:0|1|10|12)\)') 'typed write target is not fixed sub11'
+Require ($uiccText -match "Invoke-Typed 'disable'" -and $uiccText -match "Invoke-Typed 'enable'" -and $uiccText -match 'TYPED_EMERGENCY_ENABLE=YES') 'normal/emergency typed transport wiring missing'
+Require (Test-Path -LiteralPath $TypedJar) 'typed helper dex jar missing'
+$jarHash=(Get-FileHash -LiteralPath $TypedJar -Algorithm SHA256).Hash
+Require ($jarHash -eq '275C9760621AC0E02879961506EDC826236523808F9DBD7E7310A9C031D240B2') 'typed helper dex jar hash mismatch'
+Require ($uiccText -match [regex]::Escape($jarHash)) 'runtime helper hash gate does not match built jar'
+Require ((Get-FileHash -LiteralPath $Observer -Algorithm SHA256).Hash -eq '88C03D4E97FDF859F4D72C777F3338E40872D2E4C0C9337FD1AAB90DEC57E7E4') 'section observer changed during transport-only experiment'
 Write-Host 'EMERGENCY_TRUE_ROLLBACK_TEST=PASS'
+Write-Host 'TYPED_ISUB_TRANSPORT_TESTS=PASS'
 Write-Host 'SLOT0_WRITE_PATHS=0'
 
-$mainText=Get-Content -LiteralPath $Main -Raw
 Require ($mainText -notmatch 'stop vendor\.per_mgr|ctl\.stop vendor\.per_mgr|restart vendor\.cnd|restart qtidataservices|resetIms') 'forbidden main-path mutation found'
 Require ($mainText -match '\$SimPowerTransaction=182' -and $mainText -match 'Start-Sleep -Seconds 3') 'fixed SIM transaction/hold contract missing'
 Require ($mainText -match '\$CneFreshWaitMax=45' -and $mainText -match 'Get-CurrentCneProjection' -and $mainText -match 'mNetworkRequestInfoLogs|current-table boundary') 'CNE wait/current-table contract missing'

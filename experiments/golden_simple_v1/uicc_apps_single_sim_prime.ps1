@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$Serial='fd0ff892',[int]$IsubTransaction=46)
+param([string]$Serial='fd0ff892')
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
@@ -9,6 +9,9 @@ $ExpectedDevice='cas'
 $ExpectedAndroid='13'
 $ExpectedBuild='V816.0.4.0.TJJCNXM'
 $ExpectedFingerprint='Xiaomi/cas/cas:13/TKQ1.221114.001/V816.0.4.0.TJJCNXM:user/release-keys'
+$TypedJar=Join-Path $PSScriptRoot 'golden-simple-typed-uicc-helper.jar'
+$TypedJarSha256='275C9760621AC0E02879961506EDC826236523808F9DBD7E7310A9C031D240B2'
+$DeviceTypedJar='/data/local/tmp/golden-simple-typed-uicc-helper.jar'
 . (Join-Path $PSScriptRoot 'uicc_isub_section_observer.ps1')
 
 function Quote-Sh([string]$Value){$s=[string][char]39;$d=[string][char]34;$s+$Value.Replace($s,($s+$d+$s+$d+$s))+$s}
@@ -28,6 +31,7 @@ function Get-LiveObserver {
     $simState=Root 'getprop gsm.sim.state'
     Get-IsubSectionObserver -IsubText $isub -SimState $simState -SubId 11
 }
+function Invoke-Typed([string]$Mode){RootResult ("CLASSPATH={0} app_process /system/bin GoldenSimpleTypedUiccHelper {1}" -f $DeviceTypedJar,$Mode)}
 function Assert-SafeObserver([object]$Observer,[string]$ExpectedState) {
     Require ([bool]$Observer.Valid) ("isub section observer invalid: {0}" -f $Observer.Reason)
     Require ([bool]$Observer.Slot0Absent -and -not [bool]$Observer.Slot0Mapped) 'physical slot0 is not safely ABSENT/unmapped'
@@ -37,6 +41,8 @@ function Assert-SafeObserver([object]$Observer,[string]$ExpectedState) {
 }
 
 Require (Test-Path -LiteralPath $Adb) "adb.exe missing: $Adb"
+Require (Test-Path -LiteralPath $TypedJar) "typed helper jar missing: $TypedJar"
+Require ((Get-FileHash -LiteralPath $TypedJar -Algorithm SHA256).Hash -eq $TypedJarSha256) 'typed helper jar hash mismatch'
 $devices=Invoke-Adb @('devices');Require ($devices.Text -match "(?m)^$([regex]::Escape($Serial))\s+device\s*$") 'ADB target offline'
 Require ((Root 'id') -match 'uid=0\(root\)') 'root unavailable'
 Require ((Root 'getprop ro.product.device') -eq $ExpectedDevice) 'device mismatch'
@@ -48,14 +54,24 @@ Require ((Root 'settings get global airplane_mode_on') -eq '0') 'single-SIM UICC
 $entryObserver=Get-LiveObserver
 Assert-SafeObserver $entryObserver 'RESTORED'
 Write-Host 'UICC_SINGLE_SIM_ENTRY_GATE=PASS slot0=ABSENT subId11/slot1/23415/apps=true'
-Write-Host ("ISUB_SET_UICC_TRANSACTION={0}" -f $IsubTransaction)
+Write-Host 'UICC_WRITE_TRANSPORT=TYPED_ISUB_APP_PROCESS'
+$push=Invoke-Adb @('-s',$Serial,'push',$TypedJar,$DeviceTypedJar)
+Require ($push.ExitCode -eq 0) ("typed helper deployment failed: {0}" -f $push.Text)
+Write-Host ("TYPED_HELPER_DEPLOYED={0}" -f $DeviceTypedJar)
+$deviceHash=Root ("sha256sum {0}" -f $DeviceTypedJar)
+Require ($deviceHash -match $TypedJarSha256) 'device typed helper jar hash mismatch'
+$dry=Invoke-Typed 'dry-run';Write-Host $dry.Text
+Require ($dry.ExitCode -eq 0 -and $dry.Text -match 'TYPED_UICC_DRY_RUN=PASS') 'typed ISub dry-run gate failed'
 
 $mustReenable=$false
+$emergencySent=$false
 try {
-    $off=RootResult ("service call isub {0} i32 0 i32 11" -f $IsubTransaction)
-    Require ($off.ExitCode -eq 0) ("ISub false Binder call failed: {0}" -f $off.Text)
     $mustReenable=$true
-    Write-Host ("UICC_APPS_FALSE_CALL={0}" -f $off.Text)
+    $off=Invoke-Typed 'disable';Write-Host $off.Text
+    Require ($off.ExitCode -eq 0) ("typed ISub false invocation failed: {0}" -f $off.Text)
+    $return=if($off.Text -match '(?m)^TYPED_UICC_DISABLE_RETURN=(.*)$'){$Matches[1].Trim()}else{'UNOBSERVABLE'}
+    Write-Host ("TYPED_DISABLE_RETURN={0}" -f $return)
+    Write-Host 'UICC_APPS_FALSE_CALL=TYPED_ISUB_PROXY'
 
     $f8=$false;$poll=0;$last='';$heartbeat=-1;$deadline=[Diagnostics.Stopwatch]::StartNew()
     while($deadline.Elapsed.TotalSeconds -lt 30){
@@ -68,11 +84,15 @@ try {
         if($state -eq 'F8'){$f8=$true;Write-Host ("UICC_F8_CONFIRMED_AFTER_MS={0}" -f $deadline.ElapsedMilliseconds);Write-Host ("UICC_F8_CONFIRMED_AFTER={0}s" -f [Math]::Round($deadline.Elapsed.TotalSeconds,3));break}
         Start-Sleep -Milliseconds 500
     }
+    if(-not $f8){Write-Host 'TYPED_DISABLE_RESULT=NO_STATE_CHANGE'}
     Require $f8 'VOXI did not reach verified apps-disabled F8 within 30s'
+    Write-Host ("TYPED_DISABLE_TO_F8_MS={0}" -f $deadline.ElapsedMilliseconds)
 
-    $on=RootResult ("service call isub {0} i32 1 i32 11" -f $IsubTransaction)
-    Require ($on.ExitCode -eq 0) ("ISub true Binder call failed: {0}" -f $on.Text)
-    Write-Host ("UICC_APPS_TRUE_CALL={0}" -f $on.Text)
+    $on=Invoke-Typed 'enable';Write-Host $on.Text
+    Require ($on.ExitCode -eq 0) ("typed ISub true invocation failed: {0}" -f $on.Text)
+    $return=if($on.Text -match '(?m)^TYPED_UICC_ENABLE_RETURN=(.*)$'){$Matches[1].Trim()}else{'UNOBSERVABLE'}
+    Write-Host ("TYPED_ENABLE_RETURN={0}" -f $return)
+    Write-Host 'UICC_APPS_TRUE_CALL=TYPED_ISUB_PROXY'
 
     $restored=$false;$poll=0;$last='';$heartbeat=-1;$deadline=[Diagnostics.Stopwatch]::StartNew()
     while($deadline.Elapsed.TotalSeconds -lt 60){
@@ -86,6 +106,7 @@ try {
         Start-Sleep -Milliseconds 500
     }
     Require $restored 'VOXI did not return to enabled slot1 mapping within 60s'
+    Write-Host ("TYPED_ENABLE_TO_RESTORE_MS={0}" -f $deadline.ElapsedMilliseconds)
     $mustReenable=$false
     Assert-SafeObserver (Get-LiveObserver) 'RESTORED'
     Write-Host 'UICC_SINGLE_SIM_PRIME=PASS'
@@ -93,7 +114,8 @@ try {
 }
 finally {
     if($mustReenable){
-        Write-Host '[UICC GUARD] Sending one emergency TRUE for VOXI subId11.' -ForegroundColor Yellow
-        [void](RootResult ("service call isub {0} i32 1 i32 11" -f $IsubTransaction))
+        Write-Host '[UICC GUARD] Sending one typed emergency TRUE for VOXI subId11.' -ForegroundColor Yellow
+        if(-not $emergencySent){$emergencySent=$true;$emergency=Invoke-Typed 'enable';Write-Host $emergency.Text;Write-Host 'TYPED_EMERGENCY_ENABLE=YES'}
     }
+    elseif(-not $emergencySent){Write-Host 'TYPED_EMERGENCY_ENABLE=NO'}
 }
