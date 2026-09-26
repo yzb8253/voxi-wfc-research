@@ -34,8 +34,8 @@ Reference: `dfd82415073470691295547d39753f6172054748`. This audit establishes st
 | Emergency SIM ON | `emergency_sim_on` | At most one guarded slot1 ON when `SIM_MAY_BE_OFF=1` | STATIC PASS |
 | WFC health | `test_wfc_healthy` | raw 2 registration + raw 2 WLAN + VOICE/IWLAN + direct WFC | STATIC PASS |
 | 30 s WFC window | `wait_wfc_healthy 30` | 5 s first probe then 3 s cadence, same sleep-budget semantics | STATIC PASS |
-| Success freeze | `FREEZE_ON_HEALTHY=1` and exit guard | No native cleanup; holder/per_mgr frozen at healthy state | STATIC PASS |
-| Failure cleanup | `restore_native` | Transactional start/restart per_mgr only; holder retained until verified native takeover | NOT YET VALIDATED |
+| Success freeze | `HEALTHY_CANDIDATE` then `FREEZE_COMMIT` | Freeze is committed only after exact holder ownership, X55 ONLINE, stopped per_mgr, and final strict WFC recheck | STATIC PASS |
+| Per-attempt failure cleanup | `ATTEMPT_FAILURE_CLEANUP` | Guarded emergency SIM ON, transactional native restore, then strict native-baseline verification before retry | NOT YET VALIDATED |
 | Final safe A0 | runner failure tail | Airplane OFF, A0 prepare, bounded exit | NOT YET VALIDATED |
 
 ## Intentional implementation differences
@@ -75,13 +75,22 @@ v1.0.2 preserved the recovery state machine and added owner classification plus 
 | v1.0.2 | Native owner snapshot proved clean, then public RC=1 leaked during OWNER_INSPECTION | Shell/control-flow defect confirmed; exact command/root cause **NOT PROVEN** |
 | v1.1.0-rc1 | **DEVICE READ-ONLY VALIDATION PASS** | `READY_FOR_RECOVERY=YES`, `SELFTEST_RESULT=PASS`, `ACTION_EXIT_RC=0`; all write counters zero under Magisk BusyBox `libbusybox.so` |
 | v1.1.0-rc2 | Writable candidate; device validation required | Calls the same frozen self-test before Golden A0 → P → X55 → SIM2 flow |
+| v1.1.0-rc3 | Writable candidate; device validation required | Restores dfd8241 per-attempt cleanup boundary and commits freeze only after final holder/X55/health verification |
 
 v1.1.0-rc1 adds the shared `pre_recovery_self_test`, explicit step BEGIN/END markers, shell option reporting, one-snapshot/one-classification owner handling, separated write counters, and public RC sanitization. It does not execute A0, P, X55, holder, qcrild, or SIM recovery. See [GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md](GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md).
+
+## RC2 → RC3 safety parity correction
+
+RC2 deferred native cleanup after a core failure to the retry/A0 path or the process exit guard. That diverged from the dfd8241 core `finally` boundary: emergency SIM ON (when needed) and transactional native cleanup occur before the bounded stable-wrapper retry receives the failure.
+
+RC3 restores that order with `ATTEMPT_FAILURE_CLEANUP`: guarded SIM ON, `restore_native`, and strict native-baseline verification all complete before attempt 2 is eligible. A cleanup failure blocks retry fail-closed.
+
+RC2 also set `FREEZE_ON_HEALTHY=1` immediately after strict WFC health, before holder persistence was committed. RC3 separates `HEALTHY_CANDIDATE` from `FREEZE_ON_HEALTHY`; only `FREEZE_COMMIT` may set the freeze flag, after exact holder PID/fd9/cmdline/lsof sole-owner, X55 ONLINE, stopped `vendor.per_mgr`, and a final strict WFC probe. A failed freeze commit runs native cleanup and is never reported as a Golden freeze success.
 
 These differences do not introduce a new recovery hypothesis, but they prevent a claim of runtime parity until tested.
 
 ## Static conclusion
 
 - Control-flow/write-budget parity: **PASS by inspection and fixtures**.
-- Device/runtime parity: **NOT YET PARITY / WRITABLE RC2 VALIDATION REQUIRED**.
+- Device/runtime parity: **NOT YET PARITY / WRITABLE RC3 VALIDATION REQUIRED**.
 - Original Golden files: unchanged.

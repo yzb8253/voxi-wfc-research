@@ -23,7 +23,7 @@ status_command() {
     return 40
   fi
   echo '================================='
-  echo ' VOXI WFC Golden Recovery RC2'
+  echo ' VOXI WFC Golden Recovery RC3'
   echo '================================='
   echo "MODULE_VERSION=$MODULE_VERSION"
   echo "DEVICE=$(getprop ro.product.device)"
@@ -107,10 +107,11 @@ restore_native_command() {
   if [ "$SOURCE_RC" -ne 0 ]; then return 90; fi
   step_root_gate; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
   step_module_runtime_gate; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
-  step_probe_gate; RC=$?; if [ "$RC" -ne 0 ]; then return 40; fi
   step_platform_gate_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
-  step_target_gate_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
-  step_network_observe_readonly; RC=$?; if [ "$RC" -ne 0 ]; then return 30; fi
+  # Native ownership cleanup must remain usable when Wi-Fi/VPN or the target
+  # subscription is temporarily unavailable. It therefore does not invoke
+  # target/network/probe gates; it still requires exact supported platform and
+  # an exact module holder, never an unknown owner.
   . "$MODDIR/bin/golden-preflight.sh"
   SOURCE_RC=$?
   if [ "$SOURCE_RC" -ne 0 ]; then return 90; fi

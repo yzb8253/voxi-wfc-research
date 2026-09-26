@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Writable RC2 runner. It runs only after goldenctl exported the frozen
+# Writable RC3 runner. It runs only after goldenctl exported the frozen
 # pre_recovery_self_test result. Public returns use documented codes.
 RUNNER_SHELL_FLAGS_INITIAL=$-
 set +e
@@ -24,6 +24,8 @@ SIM_OFF_HOLD_SECONDS=3
 ENVIRONMENT_TOUCHED=0
 SIM_MAY_BE_OFF=0
 FREEZE_ON_HEALTHY=0
+HEALTHY_CANDIDATE=0
+FREEZE_COMMIT_FAILED=0
 HOLDER_PID_CREATED=
 RUNNER_EXITING=0
 FINAL_RESULT=NOT_COMPLETED
@@ -178,9 +180,8 @@ step_pon_success() {
 step_sim_cycle_and_wfc() {
   if wait_wfc_healthy 5 after_x55_only; then
     RECOVERY_RESULT=X55_ONLY_SUCCESS
-    FREEZE_ON_HEALTHY=1
-    FINAL_RESULT=WFC_HEALTHY_FREEZE
-    log_line 'CLEANUP_RESULT=SKIPPED_FREEZE_ON_HEALTHY'
+    HEALTHY_CANDIDATE=1
+    log_line 'HEALTHY_CANDIDATE=YES source=X55_ONLY'
     return 0
   fi
   probe_refresh
@@ -213,9 +214,8 @@ step_sim_cycle_and_wfc() {
   RC=$?
   if [ "$RC" -eq 0 ]; then
     RECOVERY_RESULT=SIM_CYCLE_1_SUCCESS
-    FREEZE_ON_HEALTHY=1
-    FINAL_RESULT=WFC_HEALTHY_FREEZE
-    log_line 'CLEANUP_RESULT=SKIPPED_FREEZE_ON_HEALTHY'
+    HEALTHY_CANDIDATE=1
+    log_line 'HEALTHY_CANDIDATE=YES source=SIM_CYCLE_1'
     return 0
   fi
   probe_refresh
@@ -232,8 +232,40 @@ step_sim_cycle_and_wfc() {
   return 20
 }
 
+commit_freeze_success() {
+  if [ "$HEALTHY_CANDIDATE" != 1 ]; then return 70; fi
+  case "$HOLDER_PID_CREATED" in ''|*[!0-9]*) log_line 'FREEZE_COMMIT=FAIL holder pid invalid'; return 70;; esac
+  if ! holder_identity_ok "$HOLDER_PID_CREATED"; then log_line 'FREEZE_COMMIT=FAIL holder identity/fd9/owner'; return 70; fi
+  if [ "$(owner_count)" -ne 1 ]; then log_line 'FREEZE_COMMIT=FAIL owner count'; return 70; fi
+  if [ "$(get_x55_state)" != ONLINE ]; then log_line 'FREEZE_COMMIT=FAIL X55 not online'; return 70; fi
+  if [ "$(get_per_mgr_state)" != stopped ]; then log_line 'FREEZE_COMMIT=FAIL per_mgr not stopped'; return 70; fi
+  if ! test_wfc_healthy; then log_line 'FREEZE_COMMIT=FAIL strict health recheck'; return 70; fi
+  FREEZE_ON_HEALTHY=1
+  FINAL_RESULT=WFC_HEALTHY_FREEZE
+  log_line 'FREEZE_COMMIT=PASS'
+  log_line 'CLEANUP_RESULT=SKIPPED_FREEZE_ON_HEALTHY'
+  return 0
+}
+
+attempt_failure_cleanup() {
+  if [ "$SIM_MAY_BE_OFF" = 1 ]; then
+    emergency_sim_on
+    SIM_GUARD_RC=$?
+    if [ "$SIM_GUARD_RC" -ne 0 ]; then log_line 'CLEANUP_RESULT=EMERGENCY_SIM_ON_FAILED'; return 70; fi
+  fi
+  if [ "$ENVIRONMENT_TOUCHED" != 1 ]; then log_line 'CLEANUP_RESULT=NOT_NEEDED'; return 0; fi
+  restore_native
+  RESTORE_RC=$?
+  if [ "$RESTORE_RC" -ne 0 ]; then log_line 'CLEANUP_RESULT=NATIVE_TAKEOVER_FAILED'; return 70; fi
+  if [ "$SIM_MAY_BE_OFF" != 0 ] || ! verify_native_fingerprint; then log_line 'CLEANUP_RESULT=POSTCONDITION_FAILED'; return 70; fi
+  ENVIRONMENT_TOUCHED=0
+  log_line 'CLEANUP_RESULT=CLEAN_NATIVE_BASELINE'
+  return 0
+}
+
 core_recovery() {
   ATTEMPT=$1
+  HEALTHY_CANDIDATE=0
   log_line "CORE_ATTEMPT=$ATTEMPT START"
   if test_wfc_healthy; then RECOVERY_RESULT=ALREADY_HEALTHY; return 0; fi
   stage_run X55_SHUTDOWN step_x55_shutdown; RC=$?
@@ -249,11 +281,7 @@ core_recovery() {
 }
 
 print_success() {
-  if ! holder_identity_ok "$HOLDER_PID_CREATED"; then
-    log_line 'FREEZE_INTEGRITY_FAILED holder is not alive/sole owner'
-    FINAL_RESULT=FREEZE_INTEGRITY_FAILED
-    return 70
-  fi
+  if [ "$FREEZE_ON_HEALTHY" != 1 ]; then return 70; fi
   log_line 'FROZEN_HOLDER_ALIVE=YES'
   log_line 'FROZEN_HOLDER_OWNS_ESOC=YES'
   print_health
@@ -294,7 +322,7 @@ golden_runner_main() {
   LOG_CREATE_RC=$?
   if [ "$LOG_CREATE_RC" -eq 0 ]; then chmod 0600 "$LOG_FILE"; fi
   echo '================================='
-  echo ' VOXI WFC GOLDEN 一键恢复 RC2'
+  echo ' VOXI WFC GOLDEN 一键恢复 RC3'
   echo '================================='
   log_line "MODULE_VERSION=$MODULE_VERSION"
   log_line 'PORT_BASE=dfd82415073470691295547d39753f6172054748'
@@ -325,12 +353,24 @@ golden_runner_main() {
     echo '[3/5] 重建 X55'
     core_recovery "$ATTEMPT"; RC=$?
     if [ "$RC" -eq 0 ]; then
-      print_success; SUCCESS_RC=$?
-      if [ "$SUCCESS_RC" -eq 0 ]; then EXIT_REASON=SUCCESS_WFC_HEALTHY_FREEZE; log_line "RECOVERY_TIME_MS=$(( $(now_ms) - START_MS ))"; return 0; fi
+      stage_run FREEZE_COMMIT commit_freeze_success; FREEZE_RC=$?
+      if [ "$FREEZE_RC" -eq 0 ]; then
+        print_success; SUCCESS_RC=$?
+        if [ "$SUCCESS_RC" -eq 0 ]; then EXIT_REASON=SUCCESS_WFC_HEALTHY_FREEZE; log_line "RECOVERY_TIME_MS=$(( $(now_ms) - START_MS ))"; return 0; fi
+      fi
+      FINAL_RESULT=FREEZE_INTEGRITY_FAILED
       EXIT_REASON=FREEZE_INTEGRITY_FAILED
-      return 70
+      FREEZE_COMMIT_FAILED=1
+      RC=70
     fi
     log_line "ATTEMPT_$ATTEMPT=FAILED core_rc=$RC recovery=$RECOVERY_RESULT"
+    stage_run ATTEMPT_FAILURE_CLEANUP attempt_failure_cleanup
+    CLEANUP_RC=$?
+    if [ "$CLEANUP_RC" -ne 0 ]; then
+      EXIT_REASON=ATTEMPT_CLEANUP_FAILED
+      return 70
+    fi
+    if [ "$FREEZE_COMMIT_FAILED" = 1 ]; then return 70; fi
     ATTEMPT=$((ATTEMPT + 1))
     if [ "$ATTEMPT" -le "$MAX_RECOVERY_ATTEMPTS" ]; then
       log_line 'BOUNDED_RETRY=RETURN_TO_A0'

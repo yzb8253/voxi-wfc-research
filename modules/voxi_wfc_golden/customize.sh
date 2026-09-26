@@ -6,7 +6,7 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 ui_print '*********************************'
-ui_print ' VOXI WFC Golden Recovery v1.1.0-rc2'
+ui_print ' VOXI WFC Golden Recovery v1.1.0-rc3'
 ui_print '*********************************'
 ui_print 'STATUS: WRITABLE DEVICE VALIDATION REQUIRED'
 
