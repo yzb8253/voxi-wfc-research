@@ -23,7 +23,7 @@ status_command() {
     return 40
   fi
   echo '================================='
-  echo ' VOXI WFC Golden Recovery RC3'
+  echo ' VOXI WFC Golden Recovery RC4'
   echo '================================='
   echo "MODULE_VERSION=$MODULE_VERSION"
   echo "DEVICE=$(getprop ro.product.device)"

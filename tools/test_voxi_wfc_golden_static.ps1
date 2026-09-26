@@ -17,14 +17,14 @@ foreach($path in $runtime) {
   Assert-True ((@([IO.File]::ReadAllBytes($path) | Where-Object { $_ -eq 13 }).Count) -eq 0) "Android payload contains CR: $path"
 }
 $prop = Get-Content (Join-Path $Module 'module.prop') -Raw
-foreach($line in @('name=VOXI WFC Golden Recovery RC3','version=v1.1.0-rc3','versionCode=112')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
+foreach($line in @('name=VOXI WFC Golden Recovery RC4','version=v1.1.0-rc4','versionCode=113')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
 $action = Get-Content (Join-Path $Module 'action.sh') -Raw
 $ctl = Get-Content (Join-Path $Module 'bin\goldenctl.sh') -Raw
 $runner = Get-Content (Join-Path $Module 'bin\golden-runner.sh') -Raw
 $preflight = Get-Content (Join-Path $Module 'bin\golden-preflight.sh') -Raw
 $common = Get-Content (Join-Path $Module 'bin\common.sh') -Raw
 $selftest = Get-Content (Join-Path $Module 'bin\golden-selftest.sh') -Raw
-Assert-True ($action -match 'goldenctl\.sh" recover') 'RC3 Action does not dispatch recover'
+Assert-True ($action -match 'goldenctl\.sh" recover') 'RC4 Action does not dispatch recover'
 Assert-True ($ctl -match 'recover_command\(\)[\s\S]*selftest_command') 'recover does not call frozen self-test first'
 Assert-True ($ctl -match 'export PRE_RECOVERY_GATE_PASSED=YES') 'self-test authorization export missing'
 Assert-True ($runner -match 'PRE_RECOVERY_GATE_PASSED') 'runner does not require pre-recovery token'
@@ -42,6 +42,12 @@ Assert-True ($normalOff -eq 1) "SIM OFF count=$normalOff"
 Assert-True ($normalOn -eq 2) "SIM ON count=$normalOn (normal + emergency expected)"
 Assert-True ([regex]::Matches($runner,'service call phone[^\r\n]*i32 0 i32').Count -eq 0) 'slot0 write path detected'
 Assert-True ($runner -match 'SIM_MAY_BE_OFF=1' -and $runner -match 'emergency_sim_on') 'emergency ON guard missing'
+$emergencySegment = [regex]::Match($runner,'emergency_sim_on\(\)[\s\S]*?\n\}').Value
+Assert-True ($emergencySegment -match 'if \[ "\$RC" -eq 0 \]; then\s+SIM_MAY_BE_OFF=0[\s\S]*return 0' -and $emergencySegment -match 'SIM_MAY_BE_OFF=1[\s\S]*return 60') 'emergency ON does not preserve SIM state semantics'
+Assert-True ($emergencySegment -notmatch 'RC=\$\?\s+SIM_MAY_BE_OFF=0') 'emergency ON clears SIM state before success confirmation'
+$simCycleSegment = [regex]::Match($runner,'step_sim_cycle_and_wfc\(\)[\s\S]*?\n\}').Value
+Assert-True ($simCycleSegment -match 'service call phone "\$SIM_POWER_TRANSACTION" i32 1 i32 1[^\r\n]*\s+RC=\$\?\s+if \[ "\$RC" -ne 0 \]; then return 60; fi\s+SIM_MAY_BE_OFF=0') 'normal ON does not clear SIM state only after success confirmation'
+Assert-True ($runner -match 'attempt_failure_cleanup\(\)[\s\S]*SIM_GUARD_FAILED=1[\s\S]*restore_native') 'emergency guard failure skips native cleanup'
 Assert-True ($runner -match 'FREEZE_ON_HEALTHY=1') 'freeze success missing'
 Assert-True ([regex]::Matches($runner,'(?m)^\s*FREEZE_ON_HEALTHY=1\s*$').Count -eq 1) 'premature/multiple freeze commit assignment'
 Assert-True ($runner -match 'commit_freeze_success\(\)[\s\S]*FREEZE_ON_HEALTHY=1') 'freeze commit function missing assignment'
@@ -62,7 +68,7 @@ $mock = Join-Path $Repo 'tools\test_voxi_wfc_golden_recovery_mock.sh'
 foreach($fixture in @($owner,$selftestFixture,$mock)) { & $shPath -n $fixture; Assert-True ($LASTEXITCODE -eq 0) "fixture parse failed: $fixture" }
 $ownerOut = @(& $shPath $owner 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($ownerOut -join "`n") -match 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS')) 'owner fixtures failed'
 $selfOut = @(& $shPath $selftestFixture 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($selfOut -join "`n") -match 'RC1_SELFTEST_FIXTURE=PASS')) 'self-test fixture failed'
-$mockOut = @(& $shPath $mock 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($mockOut -join "`n") -match 'HOST_MODEL_PASS fixtures=16')) 'recovery host model failed'
+$mockOut = @(& $shPath $mock 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($mockOut -join "`n") -match 'HOST_MODEL_PASS fixtures=19')) 'recovery host model failed'
 $matrix = Join-Path $Repo 'tools\test_voxi_wfc_golden_shell_matrix.ps1'
 $matrixOut = @(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $matrix 2>&1); Assert-True ($LASTEXITCODE -eq 0 -and (($matrixOut -join "`n") -match 'SHELL_OPTION_REGRESSION=PASS')) 'shell option matrix failed'
 $stagedGolden = @(git -C $Repo diff --cached --name-only -- 'experiments/wfc_repeatability_normalization/v262_freeze_run')
@@ -75,11 +81,13 @@ Write-Host 'PS5.1_STATIC=PASS'
 Write-Host 'RC1_SELFTEST_PATH_STATE_WRITES=0'
 Write-Host 'RECOVERY_CONTROLFLOW_AUDIT=PASS'
 Write-Host 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS'
-Write-Host 'HOST_MODEL_PASS fixtures=16'
+Write-Host 'HOST_MODEL_PASS fixtures=19'
 Write-Host 'SHELL_OPTION_REGRESSION=PASS'
 Write-Host 'SIM_OFF_WRITE_PATHS=1'
 Write-Host 'SIM_ON_NORMAL_WRITE_PATHS=1'
 Write-Host 'SIM_ON_EMERGENCY_GUARDED_PATHS=1'
+Write-Host 'SIM_MAY_BE_OFF_CLEAR_ON_SUCCESS_ONLY=PASS'
+Write-Host 'EMERGENCY_FAILURE_CONTINUES_NATIVE_CLEANUP=PASS'
 Write-Host 'SLOT0_WRITE_PATHS=0'
 Write-Host 'UNKNOWN_HOLDER_KILL_PATHS=0'
 Write-Host 'MAX_ATTEMPTS=2'

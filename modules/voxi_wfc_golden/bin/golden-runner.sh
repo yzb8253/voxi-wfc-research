@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-# Writable RC3 runner. It runs only after goldenctl exported the frozen
+# Writable RC4 runner. It runs only after goldenctl exported the frozen
 # pre_recovery_self_test result. Public returns use documented codes.
 RUNNER_SHELL_FLAGS_INITIAL=$-
 set +e
@@ -55,13 +55,17 @@ stage_run() {
 
 emergency_sim_on() {
   if [ "$SIM_MAY_BE_OFF" != 1 ]; then return 0; fi
-  log_line 'SIM_EMERGENCY_GUARD=START slot1 only'
+  log_line "SIM_EMERGENCY_GUARD=START context=${EMERGENCY_SIM_CONTEXT:-UNSPECIFIED} slot1 only"
   record_write "SIM_POWER_ON_EMERGENCY transaction=$SIM_POWER_TRANSACTION slot=1"
   service call phone "$SIM_POWER_TRANSACTION" i32 1 i32 1 >/dev/null 2>&1
   RC=$?
-  SIM_MAY_BE_OFF=0
-  log_line "SIM_EMERGENCY_GUARD_RC=$RC"
-  if [ "$RC" -eq 0 ]; then return 0; fi
+  if [ "$RC" -eq 0 ]; then
+    SIM_MAY_BE_OFF=0
+    log_line 'SIM_EMERGENCY_GUARD=PASS'
+    return 0
+  fi
+  SIM_MAY_BE_OFF=1
+  log_line "SIM_EMERGENCY_GUARD=FAIL rc=$RC"
   return 60
 }
 
@@ -70,6 +74,7 @@ runner_exit_guard() {
   trap - EXIT HUP INT TERM
   if [ "$RUNNER_EXITING" != 0 ]; then exit "$RC"; fi
   RUNNER_EXITING=1
+  EMERGENCY_SIM_CONTEXT=EXIT_GUARD
   emergency_sim_on
   GUARD_SIM_RC=$?
   if [ "$GUARD_SIM_RC" -ne 0 ]; then log_line 'EXIT_GUARD_EMERGENCY_SIM_ON=FAILED'; fi
@@ -248,17 +253,34 @@ commit_freeze_success() {
 }
 
 attempt_failure_cleanup() {
+  SIM_GUARD_FAILED=0
   if [ "$SIM_MAY_BE_OFF" = 1 ]; then
+    EMERGENCY_SIM_CONTEXT=ATTEMPT_FAILURE_CLEANUP
     emergency_sim_on
     SIM_GUARD_RC=$?
-    if [ "$SIM_GUARD_RC" -ne 0 ]; then log_line 'CLEANUP_RESULT=EMERGENCY_SIM_ON_FAILED'; return 70; fi
+    if [ "$SIM_GUARD_RC" -ne 0 ]; then SIM_GUARD_FAILED=1; fi
   fi
-  if [ "$ENVIRONMENT_TOUCHED" != 1 ]; then log_line 'CLEANUP_RESULT=NOT_NEEDED'; return 0; fi
-  restore_native
-  RESTORE_RC=$?
-  if [ "$RESTORE_RC" -ne 0 ]; then log_line 'CLEANUP_RESULT=NATIVE_TAKEOVER_FAILED'; return 70; fi
-  if [ "$SIM_MAY_BE_OFF" != 0 ] || ! verify_native_fingerprint; then log_line 'CLEANUP_RESULT=POSTCONDITION_FAILED'; return 70; fi
-  ENVIRONMENT_TOUCHED=0
+  if [ "$ENVIRONMENT_TOUCHED" = 1 ]; then
+    restore_native
+    RESTORE_RC=$?
+    if [ "$RESTORE_RC" -ne 0 ]; then
+      if [ "$SIM_GUARD_FAILED" = 1 ]; then log_line 'CLEANUP_RESULT=SIM_EMERGENCY_ON_FAILED_NATIVE_TAKEOVER_FAILED'; else log_line 'CLEANUP_RESULT=NATIVE_TAKEOVER_FAILED'; fi
+      return 70
+    fi
+    if ! verify_native_fingerprint; then
+      if [ "$SIM_GUARD_FAILED" = 1 ]; then log_line 'CLEANUP_RESULT=SIM_EMERGENCY_ON_FAILED_POSTCONDITION_FAILED'; else log_line 'CLEANUP_RESULT=POSTCONDITION_FAILED'; fi
+      return 70
+    fi
+    ENVIRONMENT_TOUCHED=0
+    log_line 'NATIVE_BASELINE=RESTORED'
+  else
+    log_line 'CLEANUP_NATIVE=NOT_NEEDED'
+  fi
+  if [ "$SIM_GUARD_FAILED" = 1 ]; then
+    log_line 'CLEANUP_RESULT=SIM_EMERGENCY_ON_FAILED_NATIVE_RESTORED'
+    return 70
+  fi
+  if [ "$SIM_MAY_BE_OFF" != 0 ]; then log_line 'CLEANUP_RESULT=SIM_STATE_NOT_CONFIRMED_ON'; return 70; fi
   log_line 'CLEANUP_RESULT=CLEAN_NATIVE_BASELINE'
   return 0
 }
@@ -322,7 +344,7 @@ golden_runner_main() {
   LOG_CREATE_RC=$?
   if [ "$LOG_CREATE_RC" -eq 0 ]; then chmod 0600 "$LOG_FILE"; fi
   echo '================================='
-  echo ' VOXI WFC GOLDEN 一键恢复 RC3'
+  echo ' VOXI WFC GOLDEN 一键恢复 RC4'
   echo '================================='
   log_line "MODULE_VERSION=$MODULE_VERSION"
   log_line 'PORT_BASE=dfd82415073470691295547d39753f6172054748'
