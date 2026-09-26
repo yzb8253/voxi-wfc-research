@@ -1,6 +1,6 @@
 id=voxi_wfc_golden
-name=VOXI WFC Golden Recovery RC7 Airplane-Off
-version=v1.1.0-rc7
-versionCode=116
+name=VOXI WFC Golden Recovery RC6
+version=v1.1.0-rc6
+versionCode=115
 author=yzb8253
-description=Golden X55 recovery with repeat-run frozen-state handling and final airplane mode OFF
+description=Writable Magisk candidate with forced Wi-Fi re-enable after airplane-mode entry
