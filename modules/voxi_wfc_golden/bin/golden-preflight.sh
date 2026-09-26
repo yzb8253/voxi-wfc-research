@@ -63,48 +63,84 @@ verify_native_fingerprint() {
   return 0
 }
 
-owner_pre_a0_gate() {
+step_owner_preflight() {
   echo '[3.5/9] 检查 X55 owner / Golden holder'
   log_line 'OWNER_INSPECTION=START'
   collect_owner_entry_status
+  RC=$?
+  if [ "$RC" -ne 0 ]; then
+    EXIT_REASON=OWNER_COLLECTION_FAILED
+    log_line 'OWNER_INSPECTION=ERROR reason=OWNER_COLLECTION_FAILED'
+    return 40
+  fi
+  classify_owner_entry_status
+  RC=$?
+  if [ "$RC" -ne 0 ]; then
+    EXIT_REASON=OWNER_CLASSIFICATION_FAILED
+    log_line 'OWNER_INSPECTION=ERROR reason=OWNER_CLASSIFICATION_FAILED'
+    return 40
+  fi
   print_owner_entry_status
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
 
-  HPID=$MODULE_HOLDER_PID
-  if [ -n "$HPID" ]; then
-    if [ "$MODULE_HOLDER_ALIVE" != YES ]; then
-      rm -f "$HOLDER_PIDFILE"
-      log_line "STALE_PIDFILE_REMOVED=$HPID"
-    elif [ "$MODULE_HOLDER_IDENTITY" = EXACT ]; then
+  case "$ESOC_OWNER_CLASS" in
+    NATIVE_PM_SERVICE)
+      log_line 'OWNER_BRANCH=NATIVE_PM_SERVICE'
+      log_line 'OWNER_INSPECTION=PASS'
+      log_line 'PRE_A0_GATE=PASS'
+      return 0
+      ;;
+    MODULE_GOLDEN_HOLDER)
       echo '[3.6/9] 恢复上一次 Golden holder 的原生 ownership'
-      if ! restore_native; then
+      restore_native
+      RC=$?
+      if [ "$RC" -ne 0 ]; then
         EXIT_REASON=PREVIOUS_HOLDER_RESTORE_FAILED
         log_line 'OWNER_INSPECTION=BLOCK reason=PREVIOUS_HOLDER_RESTORE_FAILED'
         return 30
       fi
-    else
-      EXIT_REASON=MODULE_HOLDER_IDENTITY_MISMATCH
-      log_line "OWNER_INSPECTION=BLOCK reason=MODULE_HOLDER_IDENTITY_MISMATCH pid=$HPID"
+      collect_owner_entry_status
+      RC=$?
+      if [ "$RC" -ne 0 ]; then return 40; fi
+      classify_owner_entry_status
+      RC=$?
+      if [ "$RC" -ne 0 ]; then return 40; fi
+      print_owner_entry_status
+      if [ "$ESOC_OWNER_CLASS" != NATIVE_PM_SERVICE ]; then
+        EXIT_REASON=POST_RESTORE_OWNER_NOT_NATIVE
+        log_line 'OWNER_INSPECTION=BLOCK reason=POST_RESTORE_OWNER_NOT_NATIVE'
+        return 30
+      fi
+      log_line 'OWNER_INSPECTION=PASS path=module_holder_restored'
+      log_line 'PRE_A0_GATE=PASS'
+      return 0
+      ;;
+    UNKNOWN_OWNER)
+      EXIT_REASON=UNKNOWN_ESOC_OWNER
+      log_line 'OWNER_INSPECTION=BLOCK'
+      echo 'BLOCK_REASON=UNKNOWN_ESOC_OWNER'
+      echo 'No phone write was executed.'
+      echo 'A previous PC Golden holder may still be active.'
+      echo 'Perform one full reboot before testing the standalone Magisk port.'
       return 30
-    fi
-  fi
-
-  if unknown_owner_present; then
-    collect_owner_entry_status
-    print_owner_entry_status
-    EXIT_REASON=UNKNOWN_ESOC_OWNER
-    log_line 'OWNER_INSPECTION=BLOCK'
-    echo 'BLOCK_REASON=UNKNOWN_ESOC_OWNER'
-    echo 'No phone write was executed.'
-    echo 'A previous PC Golden holder may still be active.'
-    echo 'Perform one full reboot before testing the standalone Magisk port.'
-    return 30
-  fi
-
-  collect_owner_entry_status
-  print_owner_entry_status
-  log_line 'OWNER_INSPECTION=PASS'
-  log_line 'PRE_A0_GATE=PASS'
-  return 0
+      ;;
+    NO_OWNER)
+      EXIT_REASON=NO_ESOC_OWNER
+      log_line 'OWNER_INSPECTION=BLOCK reason=NO_ESOC_OWNER'
+      return 30
+      ;;
+    MULTIPLE_OWNERS)
+      EXIT_REASON=MULTIPLE_ESOC_OWNERS
+      log_line 'OWNER_INSPECTION=BLOCK reason=MULTIPLE_ESOC_OWNERS'
+      return 30
+      ;;
+    *)
+      EXIT_REASON=OWNER_CLASSIFICATION_INVALID
+      log_line 'OWNER_INSPECTION=ERROR reason=OWNER_CLASSIFICATION_INVALID'
+      return 40
+      ;;
+  esac
 }
 
 qcrild2_reacquire() {

@@ -1,5 +1,9 @@
 #!/system/bin/sh
 
+set +e
+set +u
+set +x
+
 MODDIR=${0%/*}
 LOG=/data/adb/voxi-wfc-golden/uninstall.log
 umask 077

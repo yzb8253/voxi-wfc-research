@@ -1,8 +1,29 @@
 #!/system/bin/sh
 
+RUNNER_SHELL_FLAGS_INITIAL=$-
+set +e
+set +u
+set +x
+RUNNER_SHELL_FLAGS_EFFECTIVE=$-
 MODDIR=${0%/*}; MODDIR=${MODDIR%/*}
-. "$MODDIR/bin/common.sh" || exit 90
-. "$MODDIR/bin/golden-preflight.sh" || exit 90
+if [ ! -r "$MODDIR/bin/common.sh" ] || [ ! -r "$MODDIR/bin/golden-preflight.sh" ]; then exit 90; fi
+. "$MODDIR/bin/common.sh"
+SOURCE_RC=$?
+if [ "$SOURCE_RC" -ne 0 ]; then exit 90; fi
+. "$MODDIR/bin/golden-preflight.sh"
+SOURCE_RC=$?
+if [ "$SOURCE_RC" -ne 0 ]; then exit 90; fi
+
+# RC1 is a read-only validation build. Preserve the audited recovery source for
+# the later v1.1.0 enablement, but make direct execution fail closed as well.
+if [ "$MODULE_VERSION" = v1.1.0-rc1 ]; then
+  echo 'RC1_READ_ONLY=YES'
+  echo 'EXIT_REASON=WRITABLE_RUNNER_DISABLED_IN_RC1'
+  echo 'STATE_WRITE_COUNT=0'
+  echo 'MODEM_WRITE_COUNT=0'
+  echo 'SIM_WRITE_COUNT=0'
+  exit 30
+fi
 
 A_SETTLE_SECONDS=20
 P_SETTLE_SECONDS=20
@@ -206,6 +227,7 @@ print_success() {
   echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
   echo '如需恢复原生 X55 管理状态：'
   echo 'su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh restore-native'
+  return 0
 }
 
 golden_runner_main() {
@@ -245,12 +267,14 @@ golden_runner_main() {
   log_line 'POST_NETWORK_GATE=PASS'
 
   CURRENT_STAGE=OWNER_INSPECTION
-  if owner_pre_a0_gate; then
-    :
-  else
-    OWNER_GATE_RC=$?
-    return "$OWNER_GATE_RC"
-  fi
+  step_owner_preflight
+  OWNER_GATE_RC=$?
+  log_line "STEP_RESULT stage=$CURRENT_STAGE rc=$OWNER_GATE_RC"
+  case "$OWNER_GATE_RC" in
+    0) ;;
+    30) return 30 ;;
+    *) EXIT_REASON=OWNER_PREFLIGHT_INTERNAL_ERROR; return 40 ;;
+  esac
 
   ATTEMPT=1
   log_line 'ATTEMPT_LOOP_ENTER=1'
@@ -320,4 +344,12 @@ golden_runner_main() {
 }
 
 golden_runner_main "$@"
-exit $?
+PUBLIC_RC=$?
+case "$PUBLIC_RC" in
+  0|10|20|30|40|50|60|70|90) ;;
+  *)
+    EXIT_REASON=INTERNAL_UNCLASSIFIED_RC
+    PUBLIC_RC=40
+    ;;
+esac
+exit "$PUBLIC_RC"

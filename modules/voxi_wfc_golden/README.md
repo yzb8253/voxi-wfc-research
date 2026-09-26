@@ -1,8 +1,8 @@
-# VOXI WFC Golden Recovery v1.0.2
+# VOXI WFC Golden Recovery v1.1.0-rc1
 
-**STATUS: UNTESTED PORT OF VALIDATED GOLDEN**
+**STATUS: READ-ONLY DEVICE VALIDATION REQUIRED**
 
-这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 的独立 Magisk 手机端移植。Golden 本身有真实成功证据，但本模块是新的执行实现，在完成真机验证前不能标记为 VALIDATED。
+这是历史 Golden commit `dfd82415073470691295547d39753f6172054748` 独立 Magisk 移植的只读控制流验证版本。RC1 的 Magisk Action 只执行 SELF-TEST / PREFLIGHT，不会执行 recovery。
 
 ## 支持范围
 
@@ -17,28 +17,27 @@
 
 ## 安装与使用
 
-1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.0.2.zip`。
+1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.1.0-rc1.zip`。
 2. 重启一次。
 3. 打开 Wi-Fi。
 4. 打开英国全局 VPN。模块会尽力识别 Android VPN，但不会以接口名或普通 default route 作为硬门槛。
-5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery → 操作。
-6. 等待终端显示 `FINAL_RESULT=WFC_HEALTHY_FREEZE` 或安全失败。
+5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery RC1 → 操作。
+6. 等待终端显示 `READY_FOR_RECOVERY=YES`、`FINAL_RESULT=SELFTEST_PASS` 和 `ACTION_EXIT_RC=0`。
 
-点击时 Airplane mode 可以是 ON 或 OFF；模块会按 Golden 顺序自动构建 A0 与 P。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。AnyWhere/location spoofing 不是要求。
+点击时 Airplane mode 可以是 ON 或 OFF；RC1 不构建 A0/P，只判断设备是否具备进入 recovery 的只读条件。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。
 
-v1.0.2 会在 A0 前明确报告 `/dev/subsys_esoc0` owner。若发现不属于本模块的旧 holder（包括可能由 PC Golden freeze 留下的 holder），模块会以 `UNKNOWN_ESOC_OWNER` fail closed，不会 kill。请完整 reboot 一次恢复 native baseline 后再测试独立 Magisk 版本。
+RC1 会明确报告 `/dev/subsys_esoc0` owner。只有唯一 native `/vendor/bin/pm-service` owner、X55 ONLINE 和精确平台/VOXI mapping 才会输出 READY。RC1 不删除 stale pidfile，不 restore holder，也不执行任何服务、modem 或 SIM 写操作。
 
 ## CLI
 
 ```sh
 su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh status
-su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh recover
-su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh restore-native
+su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh self-test
 su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh logs
 su -c /data/adb/modules/voxi_wfc_golden/bin/goldenctl.sh version
 ```
 
-成功后模块保留 Golden frozen healthy state：`vendor.per_mgr` stopped、模块 holder 持有 `/dev/subsys_esoc0`、X55 ONLINE、WFC HEALTHY。需要返回原生 ownership 时使用 `restore-native`。
+RC1 中 `recover`、`restore-native` 和直接 runner 都会 fail closed；正式 v1.1.0 必须等待 RC1 真机 self-test 验证通过后另行发布。
 
 ## 安全边界
 

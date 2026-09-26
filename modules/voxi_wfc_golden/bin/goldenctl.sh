@@ -1,75 +1,119 @@
 #!/system/bin/sh
 
+CTL_SHELL_FLAGS_INITIAL=$-
+set +e
+set +u
+set +x
+CTL_SHELL_FLAGS_EFFECTIVE=$-
+
 MODDIR=${0%/*}; MODDIR=${MODDIR%/*}
-. "$MODDIR/bin/common.sh" || exit 90
-. "$MODDIR/bin/golden-preflight.sh" || exit 90
+if [ ! -r "$MODDIR/bin/common.sh" ]; then exit 90; fi
+. "$MODDIR/bin/common.sh"
+SOURCE_RC=$?
+if [ "$SOURCE_RC" -ne 0 ]; then exit 90; fi
 
 status_command() {
-  require_root || return 40
-  if ! probe_refresh; then
+  require_root
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
+  probe_refresh
+  RC=$?
+  if [ "$RC" -ne 0 ]; then
     echo 'PROBE=FAIL'
     return 40
   fi
   echo '================================='
-  echo ' VOXI WFC Golden Recovery'
+  echo ' VOXI WFC Golden Recovery RC1'
   echo '================================='
   echo "MODULE_VERSION=$MODULE_VERSION"
   echo "DEVICE=$(getprop ro.product.device)"
   echo "BUILD=$(getprop ro.build.version.incremental)"
   echo "AIRPLANE=$(get_airplane)"
-  echo "WIFI=$(settings get global wifi_on 2>/dev/null)"
   collect_network_status
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
   print_network_status
-  if wifi_ready_now; then echo 'NETWORK_PREFLIGHT=PASS'; else echo 'NETWORK_PREFLIGHT=FAIL'; fi
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
+  if is_wifi_ready_now; then echo 'NETWORK_PREFLIGHT=PASS'; else echo 'NETWORK_PREFLIGHT=FAIL'; fi
   echo "VOXI slot=$TARGET_SLOT phoneId=$TARGET_PHONE subId=$TARGET_SUB carrierId=$TARGET_CARRIER MCCMNC=${TARGET_MCC}${TARGET_MNC} active=$SUB_ACTIVE apps=$UICC_ENABLED"
   print_health
-  echo "PER_MGR=$(get_per_mgr_state)"
-  echo "PM_SERVICE_PID=$(get_per_mgr_pid)"
-  echo "PM_OWNS_ESOC=$(pm_owns_esoc && echo YES || echo NO)"
-  echo "X55=$(get_x55_state)"
-  echo "CRASH_COUNT=$(get_crash_count)"
-  HPID=$(saved_holder_pid 2>/dev/null || true)
-  echo "MODULE_HOLDER=${HPID:-NONE}"
-  if test_wfc_healthy; then echo 'RESULT=HEALTHY'; return 0; fi
+  if is_wfc_healthy; then
+    echo 'RESULT=HEALTHY'
+    return 0
+  fi
   echo "RESULT=UNHEALTHY failureClass=${FAILURE_CLASS:-UNKNOWN}"
   return 20
 }
 
-restore_command() {
-  require_root || return 40
-  acquire_lock || return 50
-  trap 'release_lock' EXIT HUP INT TERM
-  platform_gate || { echo 'RESTORE_NATIVE=BLOCKED_PLATFORM_OR_TARGET_GATE'; return 30; }
-  PHONE_WRITE_COUNT=0
-  ENVIRONMENT_TOUCHED=1
-  if restore_native; then
-    echo 'RESTORE_NATIVE=PASS'
-    echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
-    return 0
+status_json_command() {
+  require_root
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
+  run_probe
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 40; fi
+  printf '%s\n' "$PROBE_JSON"
+  return 0
+}
+
+selftest_command() {
+  if [ ! -r "$MODDIR/bin/golden-selftest.sh" ]; then
+    echo 'SELFTEST_RESULT=ERROR'
+    echo 'READY_FOR_RECOVERY=NO'
+    echo 'EXIT_REASON=SELFTEST_RUNTIME_MISSING'
+    return 90
   fi
-  echo 'RESTORE_NATIVE=FAIL'
-  echo '模块 holder 在需要时被保留；请不要手工 kill。必要时完整 reboot。'
-  echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
-  return 30
+  . "$MODDIR/bin/golden-selftest.sh"
+  RC=$?
+  if [ "$RC" -ne 0 ]; then return 90; fi
+  pre_recovery_self_test
+  RC=$?
+  case "$RC" in
+    0|30|40|90) return "$RC" ;;
+    *)
+      echo 'SELFTEST_RESULT=ERROR'
+      echo 'READY_FOR_RECOVERY=NO'
+      echo 'EXIT_REASON=INTERNAL_UNCLASSIFIED_RC'
+      print_write_counters
+      return 40
+      ;;
+  esac
 }
 
 logs_command() {
-  require_root || return 40
-  ensure_storage || return 40
   echo "LOG_DIR=$LOG_DIR"
   ls -1t "$LOG_DIR"/*.log 2>/dev/null | head -n 20
+  return 0
 }
 
 usage() {
-  echo 'Usage: goldenctl.sh {status|status-json|recover|restore-native|logs|version}'
+  echo 'Usage: goldenctl.sh {self-test|status|status-json|logs|version}'
+  return 0
 }
 
-case "${1:-}" in
-  status) status_command ;;
-  status-json) require_root && run_probe && printf '%s\n' "$PROBE_JSON" ;;
-  recover) exec "$MODDIR/bin/golden-runner.sh" ;;
-  restore-native) restore_command ;;
-  logs) logs_command ;;
-  version) echo "VOXI WFC Golden Recovery $MODULE_VERSION" ;;
-  *) usage; exit 2 ;;
+COMMAND=${1:-}
+case "$COMMAND" in
+  self-test) selftest_command; PUBLIC_RC=$? ;;
+  status) status_command; PUBLIC_RC=$? ;;
+  status-json) status_json_command; PUBLIC_RC=$? ;;
+  logs) logs_command; PUBLIC_RC=$? ;;
+  version) echo "VOXI WFC Golden Recovery $MODULE_VERSION"; PUBLIC_RC=0 ;;
+  recover|restore-native)
+    echo 'RC1_READ_ONLY=YES'
+    echo 'READY_FOR_RECOVERY=NO'
+    echo 'EXIT_REASON=WRITABLE_COMMAND_DISABLED_IN_RC1'
+    PUBLIC_RC=30
+    ;;
+  *) usage; PUBLIC_RC=40 ;;
 esac
+
+case "$PUBLIC_RC" in
+  0|10|20|30|40|50|60|70|90) ;;
+  *)
+    echo "PUBLIC_RC_SANITIZED_FROM=$PUBLIC_RC"
+    echo 'EXIT_REASON=INTERNAL_UNCLASSIFIED_RC'
+    PUBLIC_RC=40
+    ;;
+esac
+exit "$PUBLIC_RC"

@@ -2,7 +2,7 @@
 
 ## Status
 
-`UNTESTED PORT OF VALIDATED GOLDEN`
+`READ-ONLY DEVICE VALIDATION REQUIRED`
 
 Reference: `dfd82415073470691295547d39753f6172054748`. This audit establishes static behavioral correspondence only. It does not claim that the Magisk execution environment has reproduced the historical Golden result.
 
@@ -64,12 +64,23 @@ v1.0.1 corrects only this migration deviation. It reports independent Wi-Fi/VPN 
 
 The next device run proved the v1.0.1 network correction (`WIFI=READY`, `VPN=DETECTED`, `NETWORK_PREFLIGHT=PASS`) but exited before A0 with `PHONE_WRITE_COUNT=0`. The old runner placed an unlabelled holder/owner probe between network preflight and the attempt loop and used a bare negative-probe `&&` list. Consequently the captured Action output could not distinguish a shell-status/control-flow exit from the expected fail-closed unknown-owner branch.
 
-v1.0.2 preserves the recovery state machine and makes that boundary explicit. It classifies the current ESOC owner, uses explicit `if` control flow, identifies an old non-module (for example PC Golden) holder as `UNKNOWN_OWNER`, and prints stage/reason/return-code diagnostics. Unknown owners remain fail-closed and are never killed. Offline mocked fixtures cover native ownership, unknown external ownership, and the existing exact module-holder restore path.
+v1.0.2 preserved the recovery state machine and added owner classification plus stage/reason diagnostics. Its real-device run proved a clean native entry snapshot (`vendor.per_mgr=running`, `/vendor/bin/pm-service`, X55 ONLINE, one native owner, no module holder), but then exited with `EXIT_RC=1`, `EXIT_STAGE=OWNER_INSPECTION`, and `EXIT_REASON=NOT_SET`. The exact leaking command is not proven from the available evidence.
+
+## Port test history
+
+| Version | Real-device result | Interpretation |
+| --- | --- | --- |
+| v1.0.0 | `NETWORK_GATE=FAIL`, zero phone writes | Port-only strict tun0/default-route gate caused a false negative |
+| v1.0.1 | Network observation PASS, stopped before A0, zero phone writes | Network migration deviation fixed; owner/control-flow boundary remained opaque |
+| v1.0.2 | Native owner snapshot proved clean, then public RC=1 leaked during OWNER_INSPECTION | Shell/control-flow defect confirmed; exact command/root cause **NOT PROVEN** |
+| v1.1.0-rc1 | Not yet device-tested | Read-only self-test Action; writable commands and direct runner disabled |
+
+v1.1.0-rc1 adds the shared `pre_recovery_self_test`, explicit step BEGIN/END markers, shell option reporting, one-snapshot/one-classification owner handling, separated write counters, and public RC sanitization. It does not execute A0, P, X55, holder, qcrild, or SIM recovery. See [GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md](GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md).
 
 These differences do not introduce a new recovery hypothesis, but they prevent a claim of runtime parity until tested.
 
 ## Static conclusion
 
 - Control-flow/write-budget parity: **PASS by inspection and fixtures**.
-- Device/runtime parity: **NOT YET PARITY / UNTESTED PORT**.
+- Device/runtime parity: **NOT YET PARITY / READ-ONLY RC VALIDATION REQUIRED**.
 - Original Golden files: unchanged.

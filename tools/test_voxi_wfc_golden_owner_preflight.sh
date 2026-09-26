@@ -1,98 +1,129 @@
 #!/usr/bin/env sh
 
-# Offline mocked control-flow fixtures. No Android command reaches a device.
-set -eu
+# Offline owner/classification fixtures. No Android command reaches a device.
+set +e
+set +u
+set +x
 
 ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 MODDIR="$ROOT_DIR/modules/voxi_wfc_golden"
 . "$MODDIR/bin/common.sh"
-. "$MODDIR/bin/golden-preflight.sh"
+. "$MODDIR/bin/golden-selftest.sh"
 
-LOG_FILE=
 PHONE_WRITE_COUNT=0
-EXIT_REASON=NOT_SET
-HOLDER_PIDFILE=/fixture/x55_holder.pid
-RESTORE_CALLS=0
+STATE_WRITE_COUNT=0
+MODEM_WRITE_COUNT=0
+SIM_WRITE_COUNT=0
+FILESYSTEM_WRITE_COUNT=0
+LOG_FILE=
 
 fail_fixture() {
   echo "OWNER_FIXTURE_FAIL=$*" >&2
   exit 1
 }
 
-run_gate_and_enter_attempt() {
-  if owner_pre_a0_gate; then
-    echo 'ATTEMPT_LOOP_ENTER=1'
-    return 0
-  else
-    GATE_RC=$?
-    return "$GATE_RC"
-  fi
+fixture_collect_owner() {
+  COLLECT_CALLS=$((COLLECT_CALLS + 1))
+  PER_MGR_STATE=$FIX_PER_STATE
+  PER_MGR_PID=$FIX_PER_PID
+  PER_MGR_EXE=$FIX_PER_EXE
+  X55_STATE=$FIX_X55
+  ESOC_OWNER_LINES_SNAPSHOT=$FIX_OWNER_LINES
+  ESOC_OWNER_COUNT=$FIX_OWNER_COUNT
+  MODULE_HOLDER_PIDFILE_PRESENT=$FIX_PIDFILE_PRESENT
+  MODULE_HOLDER_PID=$FIX_HOLDER_PID
+  MODULE_HOLDER_ALIVE=$FIX_HOLDER_ALIVE
+  MODULE_HOLDER_IDENTITY=$FIX_HOLDER_IDENTITY
+  STALE_PIDFILE=$FIX_STALE
+  return 0
 }
 
-# Case A: no module holder, one native pm-service owner. A false negative
-# probe is deliberately returned under `set -e`; control must still advance.
-case_a_collect() {
-  PER_MGR_STATE=running
-  PER_MGR_PID=401
-  PER_MGR_EXE=/vendor/bin/pm-service
-  X55_STATE=ONLINE
-  ESOC_OWNER_COUNT=1
-  MODULE_HOLDER_PID=
-  MODULE_HOLDER_ALIVE=NO
-  MODULE_HOLDER_IDENTITY=NO
-  ESOC_OWNER_CLASS=NATIVE_PM_SERVICE
-}
-collect_owner_entry_status() { case_a_collect; }
-print_owner_entry_status() { echo "ESOC_OWNER_CLASS=$ESOC_OWNER_CLASS"; }
-unknown_owner_present() { return 1; }
-OUT_A=$(run_gate_and_enter_attempt)
-printf '%s\n' "$OUT_A" | grep -q 'OWNER_INSPECTION=PASS' || fail_fixture 'case A owner pass missing'
-printf '%s\n' "$OUT_A" | grep -q 'ATTEMPT_LOOP_ENTER=1' || fail_fixture 'case A did not enter attempt loop'
+collect_owner_entry_status() { fixture_collect_owner; return 0; }
 
-# Case B: no module pidfile identifies an old external holder. It must fail
-# closed without any write and expose a stable reason.
-case_b_collect() {
-  PER_MGR_STATE=stopped
-  PER_MGR_PID=
-  PER_MGR_EXE=
-  X55_STATE=ONLINE
-  ESOC_OWNER_COUNT=1
-  MODULE_HOLDER_PID=
-  MODULE_HOLDER_ALIVE=NO
-  MODULE_HOLDER_IDENTITY=NO
-  ESOC_OWNER_CLASS=UNKNOWN_OWNER
+set_fixture() {
+  FIX_PER_STATE=$1
+  FIX_PER_PID=$2
+  FIX_PER_EXE=$3
+  FIX_X55=$4
+  FIX_OWNER_COUNT=$5
+  FIX_OWNER_LINES=$6
+  FIX_PIDFILE_PRESENT=$7
+  FIX_HOLDER_PID=$8
+  FIX_HOLDER_ALIVE=$9
+  shift 9
+  FIX_HOLDER_IDENTITY=$1
+  FIX_STALE=$2
+  return 0
 }
-collect_owner_entry_status() { case_b_collect; }
-unknown_owner_present() { return 0; }
-set +e
-OUT_B=$(run_gate_and_enter_attempt)
-RC_B=$?
-set -e
-[ "$RC_B" -eq 30 ] || fail_fixture "case B rc=$RC_B"
-[ "$EXIT_REASON" = NOT_SET ] || true # command substitution has a subshell
-printf '%s\n' "$OUT_B" | grep -q 'BLOCK_REASON=UNKNOWN_ESOC_OWNER' || fail_fixture 'case B reason missing'
-[ "$PHONE_WRITE_COUNT" -eq 0 ] || fail_fixture 'case B phone write occurred'
 
-# Case C: an exact module holder follows the existing restore-native path,
-# then reclassifies as the native owner and advances.
-CASE_C_PHASE=holder
-collect_owner_entry_status() {
-  if [ "$CASE_C_PHASE" = holder ]; then
-    PER_MGR_STATE=stopped; PER_MGR_PID=; PER_MGR_EXE=; X55_STATE=ONLINE
-    ESOC_OWNER_COUNT=1; MODULE_HOLDER_PID=777; MODULE_HOLDER_ALIVE=YES
-    MODULE_HOLDER_IDENTITY=EXACT; ESOC_OWNER_CLASS=MODULE_GOLDEN_HOLDER
-  else
-    case_a_collect
-  fi
+run_owner_case() {
+  EXPECT_CLASS=$1
+  EXPECT_RC=$2
+  COLLECT_CALLS=0
+  if step_owner_inspection_readonly; then CASE_RC=0; else CASE_RC=$?; fi
+  echo "FIXTURE_CLASS=$ESOC_OWNER_CLASS"
+  echo "FIXTURE_RC=$CASE_RC"
+  echo "FIXTURE_COLLECT_CALLS=$COLLECT_CALLS"
+  if [ "$ESOC_OWNER_CLASS" != "$EXPECT_CLASS" ]; then return 99; fi
+  if [ "$CASE_RC" -ne "$EXPECT_RC" ]; then return 98; fi
+  if [ "$COLLECT_CALLS" -ne 1 ]; then return 97; fi
+  return 0
 }
-restore_native() { RESTORE_CALLS=$((RESTORE_CALLS + 1)); CASE_C_PHASE=native; return 0; }
-unknown_owner_present() { return 1; }
-OUT_C=$(run_gate_and_enter_attempt)
-printf '%s\n' "$OUT_C" | grep -q '恢复上一次 Golden holder' || fail_fixture 'case C restore path missing'
-printf '%s\n' "$OUT_C" | grep -q 'ATTEMPT_LOOP_ENTER=1' || fail_fixture 'case C did not enter attempt loop'
+
+# A. Exact real-device native snapshot from v1.0.2.
+set_fixture running 1283 /vendor/bin/pm-service ONLINE 1 \
+  'pm-service 1283 root 9r CHR /dev/subsys_esoc0' NO NONE NO NO NO
+OUT_A=$(run_owner_case NATIVE_PM_SERVICE 0); RC_A=$?
+[ "$RC_A" -eq 0 ] || fail_fixture "A rc=$RC_A"
+printf '%s\n' "$OUT_A" | grep -q 'OWNER_BRANCH=NATIVE_PM_SERVICE' || fail_fixture 'A branch'
+printf '%s\n' "$OUT_A" | grep -q 'OWNER_INSPECTION=PASS' || fail_fixture 'A pass'
+
+# B. Exact module holder is observable but blocked in read-only RC1.
+set_fixture stopped '' '' ONLINE 1 \
+  'sh 777 root 9r CHR /dev/subsys_esoc0' YES 777 YES EXACT NO
+OUT_B=$(run_owner_case MODULE_GOLDEN_HOLDER 30); RC_B=$?
+[ "$RC_B" -eq 0 ] || fail_fixture "B rc=$RC_B"
+printf '%s\n' "$OUT_B" | grep -q 'BLOCK_REASON=EXISTING_MODULE_HOLDER' || fail_fixture 'B reason'
+
+# C. External holder with no module pidfile.
+set_fixture stopped '' '' ONLINE 1 \
+  'sh 900 root 9r CHR /dev/subsys_esoc0' NO NONE NO NO NO
+OUT_C=$(run_owner_case UNKNOWN_OWNER 30); RC_C=$?
+[ "$RC_C" -eq 0 ] || fail_fixture "C rc=$RC_C"
+
+# D. No owner.
+set_fixture stopped '' '' OFFLINE 0 '' NO NONE NO NO NO
+OUT_D=$(run_owner_case NO_OWNER 30); RC_D=$?
+[ "$RC_D" -eq 0 ] || fail_fixture "D rc=$RC_D"
+
+# E. Multiple owners are never normalized by RC1.
+set_fixture running 1283 /vendor/bin/pm-service ONLINE 2 \
+  'pm-service 1283 root 9r CHR /dev/subsys_esoc0
+sh 777 root 9r CHR /dev/subsys_esoc0' YES 777 YES EXACT NO
+OUT_E=$(run_owner_case MULTIPLE_OWNERS 30); RC_E=$?
+[ "$RC_E" -eq 0 ] || fail_fixture "E rc=$RC_E"
+
+# F. Dead module pidfile is reported, not deleted; actual native snapshot wins.
+set_fixture running 1283 /vendor/bin/pm-service ONLINE 1 \
+  'pm-service 1283 root 9r CHR /dev/subsys_esoc0' YES 777 NO NO YES
+OUT_F=$(run_owner_case NATIVE_PM_SERVICE 0); RC_F=$?
+[ "$RC_F" -eq 0 ] || fail_fixture "F rc=$RC_F"
+printf '%s\n' "$OUT_F" | grep -q 'STALE_PIDFILE=YES' || fail_fixture 'F stale marker'
+
+# G. A live pidfile target with mismatched identity is unsafe.
+set_fixture stopped '' '' ONLINE 1 \
+  'sh 777 root 9r CHR /dev/subsys_esoc0' YES 777 YES MISMATCH NO
+OUT_G=$(run_owner_case UNKNOWN_OWNER 30); RC_G=$?
+[ "$RC_G" -eq 0 ] || fail_fixture "G rc=$RC_G"
 
 echo 'OWNER_FIXTURE_A_NATIVE=PASS'
-echo 'OWNER_FIXTURE_B_UNKNOWN=PASS'
-echo 'OWNER_FIXTURE_C_MODULE_RESTORE=PASS'
-echo 'OWNER_PREFLIGHT_FIXTURES=3/3 PASS'
+echo 'OWNER_FIXTURE_B_MODULE=PASS'
+echo 'OWNER_FIXTURE_C_UNKNOWN=PASS'
+echo 'OWNER_FIXTURE_D_NO_OWNER=PASS'
+echo 'OWNER_FIXTURE_E_MULTIPLE=PASS'
+echo 'OWNER_FIXTURE_F_STALE_PIDFILE=PASS'
+echo 'OWNER_FIXTURE_G_IDENTITY_MISMATCH=PASS'
+echo 'NATIVE_PM_SERVICE_REAL_DEVICE_FIXTURE=PASS'
+echo 'OWNER_CLASSIFY_ONCE=PASS'
+echo 'OWNER_PREFLIGHT_FIXTURES=7/7 PASS'
 echo 'PHONE_WRITES=0'

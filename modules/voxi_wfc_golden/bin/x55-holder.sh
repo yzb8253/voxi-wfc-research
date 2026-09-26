@@ -1,5 +1,9 @@
 #!/system/bin/sh
 
+set +e
+set +u
+set +x
+
 PIDFILE=${1:-/data/adb/voxi-wfc-golden/state/x55_holder.pid}
 ESOC=/dev/subsys_esoc0
 umask 077

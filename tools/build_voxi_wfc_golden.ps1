@@ -7,13 +7,13 @@ $ErrorActionPreference = 'Stop'
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Module = Join-Path $Repo 'modules\voxi_wfc_golden'
 $Release = Join-Path $Repo 'release\golden-magisk'
-$Stage = Join-Path $Release '.stage-v1.0.2'
-$Zip = Join-Path $Release 'VOXI-WFC-Golden-Recovery-v1.0.2.zip'
+$Stage = Join-Path $Release '.stage-v1.1.0-rc1'
+$Zip = Join-Path $Release 'VOXI-WFC-Golden-Recovery-v1.1.0-rc1.zip'
 $ExpectedProbe = 'AC46E9F62DB88C043DA08E4D5BB1D100EA8AC10EF2A74838F99C2237C2B9A91D'
 
 $required = @(
   'module.prop','customize.sh','action.sh','service.sh','uninstall.sh','README.md',
-  'bin\common.sh','bin\goldenctl.sh','bin\golden-runner.sh','bin\golden-preflight.sh','bin\x55-holder.sh',
+  'bin\common.sh','bin\goldenctl.sh','bin\golden-selftest.sh','bin\golden-runner.sh','bin\golden-preflight.sh','bin\x55-holder.sh',
   'lib\wfc-probe.jar'
 )
 foreach($item in $required) {

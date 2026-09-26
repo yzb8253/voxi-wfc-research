@@ -6,16 +6,16 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 ui_print '*********************************'
-ui_print ' VOXI WFC Golden Recovery v1.0.2'
+ui_print ' VOXI WFC Golden Recovery v1.1.0-rc1'
 ui_print '*********************************'
-ui_print 'STATUS: UNTESTED PORT OF VALIDATED GOLDEN'
+ui_print 'STATUS: READ-ONLY CONTROL-FLOW VALIDATION RC'
 
 [ -n "$MAGISK_VER" ] || [ -n "$MAGISK_VER_CODE" ] || abort 'Magisk environment not detected'
 [ "$(getprop ro.product.cpu.abi)" = arm64-v8a ] || abort 'Unsupported ABI (arm64-v8a required)'
 
 for FILE in \
   module.prop customize.sh action.sh service.sh uninstall.sh README.md \
-  bin/common.sh bin/goldenctl.sh bin/golden-runner.sh bin/golden-preflight.sh bin/x55-holder.sh \
+  bin/common.sh bin/goldenctl.sh bin/golden-selftest.sh bin/golden-runner.sh bin/golden-preflight.sh bin/x55-holder.sh \
   lib/wfc-probe.jar; do
   [ -f "$MODPATH/$FILE" ] || abort "Missing module file: $FILE"
 done
