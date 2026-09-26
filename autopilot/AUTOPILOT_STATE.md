@@ -732,3 +732,14 @@ NEXT_ACTION: preserve the airplane-OFF F1 residue with holder 32733. Do not run 
 - No ADB use, phone write, cleanup, or real recovery run occurred.
 
 NEXT_ACTION: user may manually launch the experimental CMD with airplane mode OFF. Do not auto-run it.
+
+## 2026-09-26 deep CNE request recovery archaeology
+
+- Static/offline review identified the only old deep sub-action with repeated direct fresh-ID evidence: fixed sub11 UICC re-enable after fixed disable reached confirmed F8.
+- Historical controlled cycles produced fresh current requests 360, 374 and 380 at 10.093, 12.053 and 34.337 seconds after the true write. The same qtidataservices/CNE PID issued all three.
+- UICC false/true is not universally sufficient: later active-F1 evidence contains one success and two failures. It is a minimal candidate, not a deterministic production repair.
+- Isolated resetIms, Qualcomm IMS, qtidataservices, cnd, coordinated cnd+CNE, full userspace, RIL-pair and qcrild2-cold actions produced no IMS CNE request in their controlled windows.
+- crash_count is cumulative/correlative: successes exist at counts 3 and 4; NO_CNE exists at 0, 2, 3 and 4. Root cause is not proven.
+- Added an offline evidence extractor, seven passing fixtures and `experiments/deep_cne_request_recovery/DEEP_CNE_REQUEST_RECOVERY_ANALYSIS.md`. Phone writes 0; ADB not used.
+
+NEXT_ACTION: review the proposed one-shot guarded F8 false/true `MINIMAL_CNE_RECOVERY` experiment. Do not execute or integrate it without separate authorization.

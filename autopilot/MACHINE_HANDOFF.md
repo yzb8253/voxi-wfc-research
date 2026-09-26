@@ -663,3 +663,15 @@ NEXT_ACTION: preserve state and stop. A new run or cleanup requires explicit use
 - No ADB use or phone write occurred.
 
 NEXT_ACTION: wait for the user's manual run; do not launch automatically.
+
+## Current checkpoint: deep CNE request recovery archaeology complete
+
+- Branch: `wfc-holder-ab-20260926`.
+- Report: `experiments/deep_cne_request_recovery/DEEP_CNE_REQUEST_RECOVERY_ANALYSIS.md`.
+- Offline extractor/test: `Get-DeepCneEvidence.ps1`, `Test-DeepCneEvidence.ps1`; Windows PowerShell 5.1 fixtures 7/7 PASS.
+- Direct result: the smallest old deep action with repeated fresh-request evidence is sub11 UICC true after confirmed F8. It generated IDs 360/374/380 without a CNE-process restart.
+- Important limit: later identical lifecycle failures exist, so this is a minimal candidate rather than a deterministic production path.
+- Isolated IMS/CNE/cnd/qcrild2/userspace actions did not create an IMS request. crash_count is not a proven cause.
+- No ADB command and no phone write occurred.
+
+NEXT_ACTION: stop for review. If authorized later, test exactly one guarded false/F8/true after an unchanged normal NO_CNE window; do not cascade into another core, process restart or second lifecycle.

@@ -640,3 +640,15 @@ NEXT_ACTION: no phone action. Review the preserved residue and statically correc
 - A/P sleep budgets are dynamic 5-20 seconds. All higher-risk core timing remains frozen.
 
 NEXT_ACTION: manual experiment only; collect its logs before considering any promotion.
+
+## Deep CNE request recovery finding (2026-09-26)
+
+- The old long wrapper's unique deep action was guarded UICC apps false -> confirmed F8 -> true for sub11; the rest was normal retry/cleanup/core orchestration.
+- The true half was followed by fresh Connectivity requests 360/374/380 in three controlled cycles. Old requests were released in Cycles 2/3, and qtidataservices/CNE stayed PID 3236.
+- Fresh-request delays were 10.093, 12.053 and 34.337 seconds. This independently supports preserving a conservative observation window.
+- Later false/true counterexamples mean the action is proven only within the successful F8 samples, not as a universal active-F1 cure.
+- All tested narrower process/service restarts failed to recreate IMS demand. The current boundary remains native per-APN QNS/DSD availability publication -> CNE demand.
+- A reduced candidate should run one guarded false/true only after the unchanged normal window ends NO_CNE, then stop mutations and wait up to 45 seconds for a new current-table ID. This is design-only.
+- crash_count=4 is not causal: WFC successes exist at 4 and NO_CNE exists at zero.
+
+NEXT_ACTION: no phone action. Require separate approval for one falsifiable minimal UICC lifecycle experiment.
