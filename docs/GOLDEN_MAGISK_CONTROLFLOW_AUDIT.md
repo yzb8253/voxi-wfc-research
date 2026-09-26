@@ -5,8 +5,8 @@
 - Branch: `wfc-holder-ab-20260926`
 - Behavioral reference: `dfd82415073470691295547d39753f6172054748`
 - RC1 artifact: `v1.1.0-rc1` (device read-only validation passed)
-- RC5 artifact: `v1.1.0-rc5` (writable validation candidate)
-- RC5 Action mode: **self-test then recover only on PASS**
+- RC6 artifact: `v1.1.0-rc6` (writable validation candidate)
+- RC6 Action mode: **self-test then recover only on PASS**
 - RC4 first writable device run: **STATE_WRITE_COUNT=1 (AIRPLANE_disable), MODEM_WRITE_COUNT=0, SIM_WRITE_COUNT=0**
 
 The v1.0.2 device exit (`EXIT_RC=1`, `EXIT_STAGE=OWNER_INSPECTION`) is **NOT PROVEN** to a specific command. The captured output proves that platform, target, network, and the first owner snapshot succeeded and that the snapshot was native-clean. It does not identify the command whose status escaped. Host POSIX fixtures do not reproduce an exit from a normal false predicate in a conditional context, so this audit does not invent a root cause.
@@ -104,19 +104,19 @@ No predicate is invoked as an unhandled top-level statement in the RC1 Action gr
 
 Public commands never intentionally return 1. Any unclassified public result is converted to 40 with `INTERNAL_UNCLASSIFIED_RC`.
 
-### RC5 recovery effects retained from Golden
+### RC6 recovery effects retained from Golden
 
-| Function | Purpose | RC contract | Mutation | RC5 reachability |
+| Function | Purpose | RC contract | Mutation | RC6 reachability |
 | --- | --- | --- | --- | --- |
-| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | RC5 recovery graph |
-| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | 0/30/60/70 | Modem ownership | RC5 recovery graph |
-| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | 0/30/60/70 | Modem/services | RC5 graph / restore CLI |
-| `prepare_a0`, `prepare_p` | Golden A/P steps | 0/10/30/40/60/70 | Airplane/Wi-Fi/native | RC5 recovery graph |
-| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30/40/60/70 | Modem/SIM | RC5 recovery graph |
-| `commit_freeze_success`, `attempt_failure_cleanup`, `runner_exit_guard` | Freeze commit and failure safety | Guarded documented RC | Native/SIM cleanup | RC5 recovery graph |
+| `set_airplane`, `ensure_wifi_on` | Construct A/P | 0/60 | State | RC6 recovery graph |
+| `stop_exact_holder`, `start_module_holder` | Exact holder lifecycle | 0/30/60/70 | Modem ownership | RC6 recovery graph |
+| `qcrild2_reacquire`, `restore_native`, `normalize_a0_native` | Golden normalization | 0/30/60/70 | Modem/services | RC6 graph / restore CLI |
+| `prepare_a0`, `prepare_p` | Golden A/P steps | 0/10/30/40/60/70 | Airplane/Wi-Fi/native | RC6 recovery graph |
+| `core_recovery` | Frozen dfd8241 X55/SIM recovery | 0/20/30/40/60/70 | Modem/SIM | RC6 recovery graph |
+| `commit_freeze_success`, `attempt_failure_cleanup`, `runner_exit_guard` | Freeze commit and failure safety | Guarded documented RC | Native/SIM cleanup | RC6 recovery graph |
 | `golden_runner_main` | Recovery orchestrator | Sanitized public RC set | State/modem/SIM | Requires self-test token |
 
-RC5 preserves Golden timing and mutation ordering while exposing stage transitions and documented Effect/Step return codes. It remains a candidate until writable device validation completes.
+RC6 preserves Golden timing and mutation ordering while exposing stage transitions and documented Effect/Step return codes. It remains a candidate until writable device validation completes.
 
 ## Owner snapshot contract
 
@@ -144,7 +144,7 @@ RC1 then uses a single `case`. Only `NATIVE_PM_SERVICE` returns success. No seco
 - RC1 collectors/printers: no normal false status is exposed as the function API.
 - Conditional conjunctions remain inside explicit `if` predicates; these are intentional.
 - Pipelines are either parsed as data or have their result explicitly classified by the step.
-- RC5 writable orchestration no longer uses `predicate && effect` or `predicate || effect`; helper-level predicate conjunctions remain internal and do not form a public recovery transition.
+- RC6 writable orchestration no longer uses `predicate && effect` or `predicate || effect`; helper-level predicate conjunctions remain internal and do not form a public recovery transition.
 - `service.sh`, `uninstall.sh`, and `x55-holder.sh` are not reachable from Action. Their effects are separately documented; RC1 Action never invokes them.
 
 ## Shell option and shell implementation tests
@@ -182,7 +182,7 @@ Host fixtures model recovery paths and holder identity transitions only; they do
 
 ## Publication status
 
-`v1.1.0-rc5` is a recovery candidate, not a stable release.
+`v1.1.0-rc6` is a recovery candidate, not a stable release.
 
 ## RC3/RC4 freeze and cleanup parity corrections
 
@@ -198,4 +198,12 @@ RC4 passed the frozen RC1 self-test on the real device, entered A0, wrote only `
 
 RC5 removes that special-name collision by replacing the business assignment with `ESOC_UNKNOWN_OWNER_LINES` while retaining predicate semantics (0 = unknown owner exists, 1 = no unknown owner). It adds an exact owner-row regression fixture, a runtime audit for common shell special names, and explicit `NATIVE_FINGERPRINT_CHECK` / `A0_STEP` markers. Golden X55, holder, PON, SIM, freeze, cleanup, timing, and the device-validated RC1 self-test are unchanged.
 
-**STATUS: WRITABLE DEVICE VALIDATION REQUIRED**
+## RC5 writable-device Golden success and RC6 Wi-Fi automation correction
+
+The RC5 device run passed the frozen RC1 gate and completed the writable Golden path: A0, P, native X55 shutdown, exact module holder start, X55 ONLINE, fresh PON_SUCCESS, one slot1 SIM OFF/ON cycle, strict IMS/WLAN/VOICE-IWLAN/WFC health, and FREEZE_COMMIT. The final result was `WFC_HEALTHY_FREEZE` with `ACTION_EXIT_RC=0`. This validates the Magisk holder/X55/SIM/WFC core path.
+
+However, the run was not fully one-click: after `AIRPLANE_enable`, `ensure_wifi_on` returned without calling `svc wifi enable` because it trusted the stale/nonzero global `wifi_on` setting. The device then disabled Wi-Fi as part of airplane-mode transition, and the user manually re-enabled Wi-Fi. Therefore RC5 proves the Golden core, but not autonomous P-state Wi-Fi restoration.
+
+RC6 leaves the validated Golden core and timing unchanged. In P state it force-reasserts Wi-Fi with `svc wifi enable` immediately after airplane-mode entry and waits up to 15 seconds for the live `wlan0` readiness predicate before starting the existing 20-second P settle. The forced command is write-accounted as `WIFI_ENABLE_AFTER_AIRPLANE`.
+
+**STATUS: GOLDEN CORE VALIDATED WITH MANUAL WI-FI ASSIST / RC6 ONE-CLICK AUTOMATION VALIDATION REQUIRED**

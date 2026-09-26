@@ -17,7 +17,7 @@ foreach($path in $runtime) {
   Assert-True ((@([IO.File]::ReadAllBytes($path) | Where-Object { $_ -eq 13 }).Count) -eq 0) "Android payload contains CR: $path"
 }
 $prop = Get-Content (Join-Path $Module 'module.prop') -Raw
-foreach($line in @('name=VOXI WFC Golden Recovery RC5','version=v1.1.0-rc5','versionCode=114')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
+foreach($line in @('name=VOXI WFC Golden Recovery RC6','version=v1.1.0-rc6','versionCode=115')) { Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line" }
 $action = Get-Content (Join-Path $Module 'action.sh') -Raw
 $ctl = Get-Content (Join-Path $Module 'bin\goldenctl.sh') -Raw
 $runner = Get-Content (Join-Path $Module 'bin\golden-runner.sh') -Raw
@@ -38,7 +38,7 @@ Assert-True ($preflight -match 'NATIVE_FINGERPRINT_CHECK=START' -and $preflight 
 foreach($a0Marker in @('AIRPLANE_OFF','WIFI','SETTLE','NETWORK','TARGET','NATIVE_FINGERPRINT','NATIVE_NORMALIZATION','FINAL_VERIFY')) {
   Assert-True ($preflight -match "A0_STEP=$a0Marker") "A0 diagnostic marker missing: $a0Marker"
 }
-Assert-True ($action -match 'goldenctl\.sh" recover') 'RC5 Action does not dispatch recover'
+Assert-True ($action -match 'goldenctl\.sh" recover') 'RC6 Action does not dispatch recover'
 Assert-True ($ctl -match 'recover_command\(\)[\s\S]*selftest_command') 'recover does not call frozen self-test first'
 Assert-True ($ctl -match 'export PRE_RECOVERY_GATE_PASSED=YES') 'self-test authorization export missing'
 Assert-True ($runner -match 'PRE_RECOVERY_GATE_PASSED') 'runner does not require pre-recovery token'
@@ -72,7 +72,11 @@ Assert-True ($preflight -notmatch 'killall|pkill') 'broad holder kill detected'
 Assert-True ([regex]::Matches($preflight,'kill -TERM "\$HPID"').Count -eq 1) 'exact holder TERM count changed'
 Assert-True ([regex]::Matches($preflight,'kill -KILL "\$HPID"').Count -eq 1) 'exact holder KILL count changed'
 foreach($name in @('load_probe_fields','collect_platform_status','collect_network_status','collect_owner_entry_status','print_health','print_network_status','print_owner_entry_status')) { Assert-True ($common -match "(?s)$name\(\).*?return 0\s*\n\}") "explicit return 0 missing: $name" }
-Assert-True ($common -match 'if \[ "\$\(settings get global wifi_on') 'Wi-Fi no-op check missing'
+Assert-True ($common -match 'WIFI_ENSURE_MODE=\$\{1:-normal\}') 'Wi-Fi ensure mode missing'
+Assert-True ($common -match 'WIFI_ENSURE=FORCE_AFTER_AIRPLANE') 'forced post-airplane Wi-Fi path missing'
+Assert-True ($common -match "record_write 'WIFI_ENABLE_AFTER_AIRPLANE'") 'forced post-airplane Wi-Fi write accounting missing'
+Assert-True ($common -match 'while \[ "\$WIFI_WAIT" -lt 15 \]') 'post-airplane Wi-Fi live wait missing'
+Assert-True ($preflight -match 'P_WIFI_REASSERT=START' -and $preflight -match 'ensure_wifi_on force' -and $preflight -match 'P_WIFI_REASSERT=PASS') 'P-state forced Wi-Fi reassert missing'
 Assert-True ($common -notmatch 'grep[^\r\n]*\^default[^\r\n]*dev tun0') 'strict default/tun0 gate remains'
 Assert-True ($selftest -notmatch 'cmd connectivity airplane-mode|svc wifi enable|setprop ctl\.|service call phone') 'read-only self-test has effect'
 Assert-True ($runner -notmatch 'exit\s+1\b' -and $ctl -notmatch 'exit\s+1\b' -and $action -notmatch 'exit\s+1\b') 'public RC=1 leak remains'
@@ -112,5 +116,6 @@ Write-Host 'GOLDEN_TIMING_UNCHANGED=PASS'
 Write-Host 'GOLDEN_STAGED_CHANGES=0'
 Write-Host 'RC1_SELFTEST_UNCHANGED=PASS'
 Write-Host 'RESTORE_NATIVE_NO_NETWORK_TARGET_DEPENDENCY=PASS'
+Write-Host 'P_WIFI_FORCE_REASSERT=PASS'
 Write-Host 'PHONE_WRITES=0'
 Write-Host 'STATIC_TESTS=PASS'

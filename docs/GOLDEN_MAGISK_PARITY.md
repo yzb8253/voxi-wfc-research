@@ -77,7 +77,8 @@ v1.0.2 preserved the recovery state machine and added owner classification plus 
 | v1.1.0-rc2 | Writable candidate; device validation required | Calls the same frozen self-test before Golden A0 → P → X55 → SIM2 flow |
 | v1.1.0-rc3 | Writable candidate; device validation required | Restores dfd8241 per-attempt cleanup boundary and commits freeze only after final holder/X55/health verification |
 | v1.1.0-rc4 | First writable device run reached A0, then aborted before modem/SIM writes | Frozen RC1 gate passed; after Airplane OFF and A0 network PASS, Magisk BusyBox failed in the legacy unknown-owner predicate while handling the native `pm-service 1260 ... /dev/subsys_esoc0` row. Counters: state=1, modem=0, SIM=0. |
-| v1.1.0-rc5 | Writable candidate; device validation required | Removes the business assignment to special variable `LINES`, adds native-fingerprint/A0 markers, and keeps Golden core/timing unchanged |
+| v1.1.0-rc5 | Writable core path succeeded on device with manual Wi-Fi assist | A0/P/X55 shutdown/holder/X55 power-up/fresh PON/SIM2 OFF+ON/strict WFC/FREEZE_COMMIT all passed; final `WFC_HEALTHY_FREEZE`, but Wi-Fi after entering airplane mode was manually re-enabled by the user because the script's stale `wifi_on` check skipped `svc wifi enable`. |
+| v1.1.0-rc6 | Writable automation candidate; device validation required | Keeps the RC5-validated Golden core unchanged and force-reasserts Wi-Fi after airplane-mode entry, waiting for live `wlan0` before the unchanged 20 s P settle |
 
 v1.1.0-rc1 adds the shared `pre_recovery_self_test`, explicit step BEGIN/END markers, shell option reporting, one-snapshot/one-classification owner handling, separated write counters, and public RC sanitization. It does not execute A0, P, X55, holder, qcrild, or SIM recovery. See [GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md](GOLDEN_MAGISK_CONTROLFLOW_AUDIT.md).
 
@@ -102,5 +103,5 @@ The failure site is narrowed to the legacy `unknown_owner_present` path where `L
 ## Static conclusion
 
 - Control-flow/write-budget parity: **PASS by inspection and fixtures**.
-- Device/runtime parity: **NOT YET PARITY / WRITABLE RC5 VALIDATION REQUIRED**.
+- Device/runtime parity: **GOLDEN CORE VALIDATED WITH MANUAL WI-FI ASSIST / RC6 ONE-CLICK AUTOMATION VALIDATION REQUIRED**.
 - Original Golden files: unchanged.

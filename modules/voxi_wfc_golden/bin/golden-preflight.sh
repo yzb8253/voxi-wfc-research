@@ -174,7 +174,9 @@ prepare_a0() {
 prepare_p() {
   log_line 'P_PREP=START'
   set_airplane 1; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
-  ensure_wifi_on; RC=$?; if [ "$RC" -ne 0 ]; then return "$RC"; fi
+  log_line 'P_WIFI_REASSERT=START'
+  ensure_wifi_on force; RC=$?; if [ "$RC" -ne 0 ]; then log_line "P_WIFI_REASSERT=FAIL rc=$RC"; return "$RC"; fi
+  log_line 'P_WIFI_REASSERT=PASS'
   log_line 'P_SETTLE=20s'; sleep 20
   network_preflight 20; RC=$?; if [ "$RC" -ne 0 ]; then log_line 'NETWORK_PREFLIGHT=FAIL in P Wi-Fi not ready'; return 30; fi
   if test_wfc_healthy; then log_line 'P_PREP=ALREADY_HEALTHY'; return 10; fi

@@ -1,6 +1,6 @@
 id=voxi_wfc_golden
-name=VOXI WFC Golden Recovery RC5
-version=v1.1.0-rc5
-versionCode=114
+name=VOXI WFC Golden Recovery RC6
+version=v1.1.0-rc6
+versionCode=115
 author=yzb8253
-description=Writable Magisk candidate with the RC4 BusyBox owner-variable collision fixed
+description=Writable Magisk candidate with forced Wi-Fi re-enable after airplane-mode entry

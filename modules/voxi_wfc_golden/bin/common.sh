@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.1.0-rc5
+MODULE_VERSION=v1.1.0-rc6
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
@@ -346,15 +346,38 @@ set_airplane() {
 }
 
 ensure_wifi_on() {
-  if [ "$(settings get global wifi_on 2>/dev/null)" != 0 ]; then
+  WIFI_ENSURE_MODE=${1:-normal}
+  if [ "$WIFI_ENSURE_MODE" != force ] && is_wifi_ready_now; then
+    log_line 'WIFI_ENSURE=ALREADY_READY'
     return 0
   fi
-  record_write 'WIFI_ENABLE'
+
+  if [ "$WIFI_ENSURE_MODE" = force ]; then
+    log_line 'WIFI_ENSURE=FORCE_AFTER_AIRPLANE'
+    record_write 'WIFI_ENABLE_AFTER_AIRPLANE'
+  else
+    log_line 'WIFI_ENSURE=ENABLE'
+    record_write 'WIFI_ENABLE'
+  fi
+
   svc wifi enable >/dev/null 2>&1
   RC=$?
-  if [ "$RC" -ne 0 ]; then return 60; fi
-  sleep 3
-  if [ "$(settings get global wifi_on 2>/dev/null)" != 0 ]; then return 0; fi
+  if [ "$RC" -ne 0 ]; then
+    log_line "WIFI_ENABLE_CMD=FAIL rc=$RC"
+    return 60
+  fi
+
+  WIFI_WAIT=0
+  while [ "$WIFI_WAIT" -lt 15 ]; do
+    if is_wifi_ready_now; then
+      log_line "WIFI_ENSURE=READY elapsed=${WIFI_WAIT}s"
+      return 0
+    fi
+    sleep 1
+    WIFI_WAIT=$((WIFI_WAIT + 1))
+  done
+
+  log_line 'WIFI_ENSURE=FAIL wlan0_not_ready_after_15s'
   return 60
 }
 
