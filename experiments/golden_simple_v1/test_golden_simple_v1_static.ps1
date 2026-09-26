@@ -9,7 +9,8 @@ $Light=Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_
 $Main=Join-Path $PSScriptRoot 'X55-WFC-GOLDEN-SIMPLE-V1.ps1'
 $Contract=Join-Path $PSScriptRoot 'golden_simple_contract.ps1'
 $Cmd=Join-Path $PSScriptRoot 'RUN-X55-WFC-GOLDEN-SIMPLE-V1.cmd'
-$Uicc=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
+$Uicc=Join-Path $PSScriptRoot 'uicc_apps_single_sim_prime.ps1'
+$OriginalUicc=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
 . $Contract
 . (Join-Path $Light 'current_cne_projection_v12h_r2.ps1')
 
@@ -19,15 +20,17 @@ function Parse-Ps51([string]$Path){$t=$null;$e=$null;[void][Management.Automatio
 foreach($path in @($Main,$Contract,$Uicc)){Parse-Ps51 $path}
 Write-Host 'PS5.1_PARSER=PASS'
 
-$sub1='{id=1 iccId=x simSlotIndex=0 carrierId=2237 mcc=460 mnc=11 areUiccApplicationsEnabled=true}'
+$sub1Stale='{id=1 iccId=x simSlotIndex=-1 carrierId=2237 mcc=460 mnc=11 areUiccApplicationsEnabled=true}'
 $sub11='{id=11 iccId=x simSlotIndex=1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=true}'
 $f8='{id=11 iccId=x simSlotIndex=-1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=false}'
-$dump=$sub1+"`n"+$sub11
-Require (Test-GoldenSimpleProtectedSlot0 $dump) 'protected slot0 fixture failed'
+$dump=$sub1Stale+"`n"+$sub11
+Require (Test-GoldenSimpleSlot0Absent $dump 'ABSENT,LOADED') 'physical slot0 ABSENT fixture failed'
+Require (-not (Test-GoldenSimpleSlot0Absent $dump 'LOADED,LOADED')) 'loaded slot0 incorrectly accepted'
+Require (-not (Test-GoldenSimpleSlot0Absent ('{id=1 simSlotIndex=0 areUiccApplicationsEnabled=true}'+"`n"+$sub11) 'ABSENT,LOADED')) 'mapped slot0 incorrectly accepted'
 Require (Test-GoldenSimpleVoxiEnabled $dump) 'VOXI enabled fixture failed'
-Require (Test-GoldenSimpleF8 ($sub1+"`n"+$f8)) 'F8 fixture failed'
-Require (-not (Test-GoldenSimpleVoxiEnabled ($sub1+"`n"+$f8))) 'F8 incorrectly accepted as enabled'
-Write-Host 'UICC_PARSER_FIXTURES=4/4_PASS'
+Require (Test-GoldenSimpleF8 ($sub1Stale+"`n"+$f8)) 'F8 fixture failed'
+Require (-not (Test-GoldenSimpleVoxiEnabled ($sub1Stale+"`n"+$f8))) 'F8 incorrectly accepted as enabled'
+Write-Host 'UICC_PARSER_FIXTURES=6/6_PASS'
 
 Require (Test-GoldenSimpleFreshCne $null 360) 'null->360 freshness failed'
 Require (Test-GoldenSimpleFreshCne 360 374) '360->374 freshness failed'
@@ -44,16 +47,21 @@ Require (-not $missing.valid) 'missing current-table boundary did not fail close
 Write-Host 'CNE_CURRENT_TABLE_FIXTURES=3/3_PASS'
 
 $uiccText=Get-Content -LiteralPath $Uicc -Raw
-Require ($uiccText -match "Require \(\(Root 'settings get global airplane_mode_on'\) -eq '0'\)") 'audited helper airplane-OFF gate missing'
+Require ($uiccText -match "Require \(\(Root 'settings get global airplane_mode_on'\) -eq '0'\)") 'single-SIM helper airplane-OFF gate missing'
 Require ($uiccText -match '\$mustReenable=\$true' -and $uiccText -match 'finally\s*\{\s*if\(\$mustReenable\)' -and $uiccText -match 'Sending one emergency TRUE') 'emergency TRUE rollback contract missing'
-Require ($uiccText -match 'UICC_F8_CONFIRMED_AFTER=' -and $uiccText -match 'UICC_REINSERT_CONFIRMED_AFTER=') 'audited F8/reinsert gates missing'
+Require ($uiccText -match 'UICC_F8_CONFIRMED_AFTER=' -and $uiccText -match 'UICC_REINSERT_CONFIRMED_AFTER=') 'single-SIM F8/reinsert gates missing'
+Require ($uiccText -match 'getprop gsm\.sim\.state' -and $uiccText -match "states\[0\] -eq 'ABSENT'" -and $uiccText -match 'simSlotIndex=0') 'slot0 ABSENT/no-mapping gate missing'
+$isubWrites=@($uiccText -split "\r?\n"|Where-Object{$_ -match 'service call isub'})
+Require ($isubWrites.Count -eq 3 -and @($isubWrites|Where-Object{$_ -notmatch 'i32 11'}).Count -eq 0) 'UICC helper contains a write not fixed to subId11'
 Write-Host 'EMERGENCY_TRUE_ROLLBACK_TEST=PASS'
+Write-Host 'SLOT0_WRITE_PATHS=0'
 
 $mainText=Get-Content -LiteralPath $Main -Raw
 Require ($mainText -notmatch 'stop vendor\.per_mgr|ctl\.stop vendor\.per_mgr|restart vendor\.cnd|restart qtidataservices|resetIms') 'forbidden main-path mutation found'
 Require ($mainText -match '\$SimPowerTransaction=182' -and $mainText -match 'Start-Sleep -Seconds 3') 'fixed SIM transaction/hold contract missing'
 Require ($mainText -match '\$CneFreshWaitMax=45' -and $mainText -match 'Get-CurrentCneProjection' -and $mainText -match 'mNetworkRequestInfoLogs|current-table boundary') 'CNE wait/current-table contract missing'
-Require ($mainText -match 'uicc_apps_deep_fallback\.ps1' -and $mainText -notmatch 'STABLE-CNE-V1-uicc-prime') 'exact original UICC helper is not used'
+Require ($mainText -match 'uicc_apps_single_sim_prime\.ps1' -and $mainText -notmatch 'uicc_apps_deep_fallback|STABLE-CNE-V1-uicc-prime') 'independent single-SIM UICC helper is not exclusively used'
+Require (@($mainText -split "\r?\n"|Where-Object{$_ -match 'service call phone' -and $_ -notmatch 'i32 1 i32 [01]'}).Count -eq 0) 'SIM power write is not fixed to slot1'
 Require ((Get-Content -LiteralPath $Cmd -Raw) -match 'powershell\.exe -NoProfile -ExecutionPolicy Bypass') 'CMD does not force Windows PowerShell'
 Write-Host 'STATIC_SAFETY_GATE=PASS'
 
@@ -68,6 +76,7 @@ $protected=@(
  'experiments/wfc_repeatability_normalization/v262_freeze_run/X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1',
  'experiments/wfc_repeatability_normalization/v262_freeze_run/X55-WFC-OneClick-v2.6.2-fast-holder-exp.ps1',
  'experiments/wfc_repeatability_normalization/v262_freeze_run/X55-WFC-STABLE-v1.ps1',
+ 'experiments/wfc_repeatability_normalization/v262_freeze_run/uicc_apps_deep_fallback.ps1',
  'experiments/wfc_repeatability_normalization/v262_freeze_run/X55-WFC-STABLE-CNE-V1-core.ps1',
  'experiments/wfc_repeatability_normalization/v262_freeze_run/X55-WFC-STABLE-CNE-V1-engine.ps1'
 )

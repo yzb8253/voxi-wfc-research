@@ -6,12 +6,12 @@ function Get-GoldenSimpleSubRow {
     @($IsubText -split "\r?\n" | Where-Object { $_ -match $pattern }) | Select-Object -First 1
 }
 
-function Test-GoldenSimpleProtectedSlot0 {
-    param([Parameter(Mandatory=$true)][string]$IsubText)
-    $row=Get-GoldenSimpleSubRow -IsubText $IsubText -SubId 1
-    (-not [string]::IsNullOrWhiteSpace($row)) -and
-    $row -match 'simSlotIndex=0' -and $row -match 'mcc=460' -and
-    $row -match 'mnc=11' -and $row -match 'areUiccApplicationsEnabled=true'
+function Test-GoldenSimpleSlot0Absent {
+    param([Parameter(Mandatory=$true)][string]$IsubText,[Parameter(Mandatory=$true)][string]$SimState)
+    $states=@($SimState.Split(',')|ForEach-Object{$_.Trim().ToUpperInvariant()})
+    $slot0PhysicalAbsent=($states.Count -ge 2 -and $states[0] -eq 'ABSENT')
+    $slot0Mappings=@($IsubText -split "\r?\n"|Where-Object{$_ -match 'simSlotIndex=0(?:\s|\})'})
+    $slot0PhysicalAbsent -and $slot0Mappings.Count -eq 0
 }
 
 function Test-GoldenSimpleVoxiEnabled {

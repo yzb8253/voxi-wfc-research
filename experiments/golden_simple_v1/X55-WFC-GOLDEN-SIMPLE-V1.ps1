@@ -8,7 +8,7 @@ $Repo=(Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $Adb=Join-Path (Split-Path $Repo -Parent) 'adb.exe'
 $Base=Join-Path $Repo 'experiments\wfc_repeatability_normalization\v262_freeze_run'
 $Preflight=Join-Path $Base 'repeatability_preflight.ps1'
-$UiccHelper=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
+$UiccHelper=Join-Path $PSScriptRoot 'uicc_apps_single_sim_prime.ps1'
 $CneProjection=Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\current_cne_projection_v12h_r2.ps1'
 $Contract=Join-Path $PSScriptRoot 'golden_simple_contract.ps1'
 $WfcCtl='/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
@@ -87,7 +87,8 @@ function Get-CurrentCne {
 }
 function Assert-Mapping {
     $isub=Root 'dumpsys isub'
-    Require (Test-GoldenSimpleProtectedSlot0 -IsubText $isub) 'protected subId1/slot0 gate failed'
+    $simState=Root 'getprop gsm.sim.state'
+    Require (Test-GoldenSimpleSlot0Absent -IsubText $isub -SimState $simState) 'slot0 physical ABSENT gate failed'
     Require (Test-GoldenSimpleVoxiEnabled -IsubText $isub) 'VOXI subId11/slot1 enabled gate failed'
 }
 function Assert-Platform {

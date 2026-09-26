@@ -8,11 +8,11 @@ This is a test candidate, not a claim that UICC prime is universally determinist
 
 ## Historical sequence and the nine required answers
 
-1. **Safest location for false/F8/true:** airplane OFF, after the existing repeatability preflight has either proved native-clean A0 or normalized only a recognized legacy holder/native residue. Immediately before the helper, both `subId1 -> slot0/46011/apps=true` and `subId11 -> slot1/carrier28/23415/apps=true` are rechecked. The unmodified audited helper owns the Binder calls, 30-second F8 gate, 60-second reinsert gate, protected-slot checks, and emergency TRUE rollback.
+1. **Safest location for false/F8/true:** airplane OFF, after the existing repeatability preflight has either proved native-clean A0 or normalized only a recognized legacy holder/native residue. The current physical configuration is single-SIM: slot0 must remain `ABSENT` with no subscription mapped to it, while `subId11 -> slot1/carrier28/23415/apps=true` is rechecked. A dedicated single-SIM helper preserves the audited sub11 Binder sequence, 30-second F8 gate, 60-second reinsert gate, and emergency TRUE rollback without modifying the historical dual-SIM helper.
 
 2. **Earliest safe airplane-ON point:** after the helper reports `UICC_REINSERT_CONFIRMED` and revalidates both subscription rows. Fresh CNE/IMS is not an airplane-OFF exit gate: the direct fresh-request timing captures were obtained in an IWLAN/P-like state, so requiring CNE in A0 would add a condition not established by the historical evidence.
 
-3. **Real pre-SIM readiness:** exact VOXI mapping and enabled/active UICC; protected slot0 intact; airplane ON; Wi-Fi and the existing UK VPN/TUN route ready; MMTEL `READY`; PS/WLAN `HOME`; and IWLAN preferred. This is a predecessor gate, not a success gate.
+3. **Real pre-SIM readiness:** exact VOXI mapping and enabled/active UICC; physical slot0 still `ABSENT` and unmapped; airplane ON; Wi-Fi and the existing UK VPN/TUN route ready; MMTEL `READY`; PS/WLAN `HOME`; and IWLAN preferred. This is a predecessor gate, not a success gate.
 
 4. **CNE/IMS before the SIM cycle:** not proven mandatory. The script first gives the primed lifecycle a 45-second natural CNE/WFC observation window. If strict WFC health is already reached with a fresh request, it exits with zero SIM cycles. Otherwise the predecessor gate above authorizes one SIM cycle. It does not pretend that MMTEL or IWLAN preference is equivalent to an actual CNE request.
 
@@ -28,11 +28,11 @@ This is a test candidate, not a claim that UICC prime is universally determinist
 
 ## Why STABLE_CNE_V1 is frozen
 
-Both retained runs reached SIM2 POWER ON and then called the altered UICC helper while subscription mapping was transient. The helper rejected the state before UICC FALSE because protected `subId1` was no longer mapped to slot0. One run explicitly ended with `CNE_PRIME=NOT_RUN` and `F8_CONFIRMED=NO`. This is a placement failure, not evidence against the audited airplane-OFF helper.
+Both retained runs reached SIM2 POWER ON and then called the altered UICC helper while subscription mapping was transient. They also exposed an inherited, invalid dual-SIM assumption: the real device has physical slot0 empty (`ABSENT,LOADED`), not a protected China Telecom subscription. The new helper therefore requires slot0 to remain physically absent and unmapped; it never writes slot0.
 
 ## Frozen control boundaries
 
-- UICC transaction and rollback: unmodified `uicc_apps_deep_fallback.ps1`.
+- UICC transaction and rollback: independent `uicc_apps_single_sim_prime.ps1`, mechanically preserving the audited sub11 false/F8/true and emergency-TRUE behavior while replacing the historical subId1 assertion with a read-only slot0-ABSENT assertion. The original helper remains unchanged.
 - Current CNE semantics: connectivity current table only, truncated before `mNetworkRequestInfoLogs`.
 - SIM power: transaction 182, fixed slot 1, one OFF, three-second hold, one ON, emergency ON only if OFF was sent and normal ON was not completed.
 - Success: fresh CNE plus strict IMS/WLAN/VOICE-IWLAN/WFC health.
