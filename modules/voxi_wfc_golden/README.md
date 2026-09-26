@@ -1,4 +1,4 @@
-# VOXI WFC Golden Recovery v1.0.0
+# VOXI WFC Golden Recovery v1.0.1
 
 **STATUS: UNTESTED PORT OF VALIDATED GOLDEN**
 
@@ -17,14 +17,14 @@
 
 ## 安装与使用
 
-1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.0.0.zip`。
+1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.0.1.zip`。
 2. 重启一次。
 3. 打开 Wi-Fi。
-4. 打开英国全局 VPN，确保 `tun0` 与 Android VPN network 已连接。
+4. 打开英国全局 VPN。模块会尽力识别 Android VPN，但不会以接口名或普通 default route 作为硬门槛。
 5. 打开 Magisk → 模块 → VOXI WFC Golden Recovery → 操作。
 6. 等待终端显示 `FINAL_RESULT=WFC_HEALTHY_FREEZE` 或安全失败。
 
-点击时 Airplane mode 可以是 ON 或 OFF；模块会按 Golden 顺序自动构建 A0 与 P。模块只验证 VPN/TUN 已连接，无法验证出口国家。AnyWhere/location spoofing 不是要求。
+点击时 Airplane mode 可以是 ON 或 OFF；模块会按 Golden 顺序自动构建 A0 与 P。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。AnyWhere/location spoofing 不是要求。
 
 ## CLI
 

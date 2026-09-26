@@ -214,7 +214,7 @@ prepare_a0() {
   ensure_wifi_on || return 1
   log_line 'A_SETTLE=20s'
   sleep 20
-  network_gate || { log_line 'NETWORK_GATE=FAIL in A0'; return 1; }
+  network_preflight 20 || { log_line 'NETWORK_PREFLIGHT=FAIL in A0 Wi-Fi not ready'; return 1; }
   target_gate || return 1
 
   if ! verify_native_fingerprint; then normalize_a0_native || return 1; fi
@@ -229,7 +229,7 @@ prepare_p() {
   ensure_wifi_on || return 1
   log_line 'P_SETTLE=20s'
   sleep 20
-  network_gate || { log_line 'NETWORK_GATE=FAIL in P'; return 1; }
+  network_preflight 20 || { log_line 'NETWORK_PREFLIGHT=FAIL in P Wi-Fi not ready'; return 1; }
   if test_wfc_healthy; then
     log_line 'P_PREP=ALREADY_HEALTHY'
     return 2

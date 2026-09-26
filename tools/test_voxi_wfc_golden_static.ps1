@@ -35,7 +35,7 @@ foreach($forbidden in @('adb\.exe','C:\\Users\\','PowerShell','powershell\.exe',
 }
 
 $prop = Get-Content -LiteralPath (Join-Path $Module 'module.prop') -Raw
-foreach($line in @('id=voxi_wfc_golden','name=VOXI WFC Golden Recovery','version=v1.0.0','versionCode=100','author=yzb8253')) {
+foreach($line in @('id=voxi_wfc_golden','name=VOXI WFC Golden Recovery','version=v1.0.1','versionCode=101','author=yzb8253')) {
   Assert-True ($prop -match "(?m)^$([regex]::Escape($line))$") "module.prop missing $line"
 }
 
@@ -71,15 +71,14 @@ Assert-True ($common -match 'EXPECTED_DEVICE=cas') 'device gate missing'
 Assert-True ($common -match 'EXPECTED_BUILD=V816\.0\.4\.0\.TJJCNXM') 'build gate missing'
 Assert-True ($common -match 'SIM_POWER_TRANSACTION=182') 'transaction gate missing'
 
-$routeFixtures = @(
-  @{Text='default dev tun0 table tun0 proto static scope link'; Expected=$true},
-  @{Text='default via 10.0.0.1 dev tun0 proto static'; Expected=$true},
-  @{Text='default via 192.168.1.1 dev wlan0 proto dhcp'; Expected=$false}
-)
-$routeRegex = '^default\b[^\r\n]*\bdev\s+tun0(?:\s|$)'
-foreach($fixture in $routeFixtures) {
-  Assert-True (([bool]($fixture.Text -match $routeRegex)) -eq $fixture.Expected) "route fixture failed: $($fixture.Text)"
-}
+Assert-True ($common -match 'network_preflight\(\)') 'network preflight missing'
+Assert-True ($common -match 'MAX_WAIT=\$\{1:-20\}') 'bounded Wi-Fi wait changed'
+Assert-True ($common -match "VPN=UNVERIFIED[\s\S]*WARNING=Please confirm UK full-tunnel VPN is connected[\s\S]*NETWORK_PREFLIGHT=PASS") 'advisory VPN path does not pass'
+Assert-True ($common -notmatch "grep[^\r\n]*\^default[^\r\n]*dev tun0") 'strict default-dev-tun0 gate remains'
+Assert-True ($common -notmatch "\[ [^\r\n]*VPN_INTERFACE[^\r\n]*tun0[^\r\n]*\]") 'strict tun0 interface gate remains'
+Assert-True ($common -notmatch 'network_gate\(\)') 'legacy strict network gate remains'
+Assert-True ($runner -match 'network_preflight 20') 'runner network preflight missing'
+Assert-True ($preflight -match 'network_preflight 20') 'A0/P network preflight missing'
 
 $probeHash = (Get-FileHash -LiteralPath (Join-Path $Module 'lib\wfc-probe.jar') -Algorithm SHA256).Hash
 Assert-True ($probeHash -eq 'AC46E9F62DB88C043DA08E4D5BB1D100EA8AC10EF2A74838F99C2237C2B9A91D') 'probe hash mismatch'
@@ -93,6 +92,10 @@ Write-Host "SH_PARSE=PASS files=$($RuntimePaths.Count)"
 Write-Host 'ANDROID_PAYLOAD_CR_COUNT=0'
 Write-Host 'MODULE_PROP=PASS'
 Write-Host 'RUNTIME_PC_DEPENDENCIES=0'
+Write-Host 'WIFI_HARD_PREREQUISITE=PASS'
+Write-Host 'VPN_ADVISORY_ONLY=PASS'
+Write-Host 'STRICT_TUN0_GATE=REMOVED'
+Write-Host 'STRICT_DEFAULT_DEV_TUN0_GATE=REMOVED'
 Write-Host 'SIM_OFF_WRITE_PATHS=1'
 Write-Host 'SIM_ON_NORMAL_WRITE_PATHS=1'
 Write-Host 'SIM_ON_EMERGENCY_GUARDED_PATHS=1'

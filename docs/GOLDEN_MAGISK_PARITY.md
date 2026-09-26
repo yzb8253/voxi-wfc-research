@@ -14,6 +14,7 @@ Reference: `dfd82415073470691295547d39753f6172054748`. This audit establishes st
 | Platform/target gate | `platform_gate`, `target_gate` in `bin/common.sh` | Exact `cas`, Android 13, build, fingerprint, SDX55M and VOXI slot1/sub11/23415 | NOT YET VALIDATED |
 | Existing `wfcctl` probe | bundled `lib/wfc-probe.jar`, `goldenctl.sh status[-json]` | Same WfcStateProbe health fields; no external module dependency | NOT YET VALIDATED |
 | User enters airplane OFF | runner accepts ON or OFF, constructs OFF/A0 first | Golden A0→P sequence preserved; UI entry is intentionally broadened before core writes | NOT YET PARITY (runtime) |
+| Network preflight | Wi-Fi hard prerequisite plus advisory VPN detection | v1.0.1 removes v1.0.0-only `tun0`/ordinary default-route hard gates that did not exist in dfd8241 | STATIC PASS; runtime re-test pending |
 | A0 prepare | `prepare_a0` | Airplane OFF, Wi-Fi enable, 20 s settle, target gate and native normalization | NOT YET VALIDATED |
 | `repeatability_preflight.ps1` | `prepare_a0`, `verify_native_fingerprint`, `restore_native` | Native-clean or exact module-holder residue only; unknown states fail closed | NOT YET VALIDATED |
 | `normalize_a1_native_owner.ps1` | dual-owner path in `restore_native` | Start/restart per_mgr with holder retained, verify `/vendor/bin/pm-service`, then exact holder release | NOT YET VALIDATED |
@@ -44,6 +45,20 @@ Reference: `dfd82415073470691295547d39753f6172054748`. This audit establishes st
 3. Logs contain selected, sanitized state rather than Golden's broad host-side snapshots.
 4. The holder is detached with device `nohup`; survival and signal behavior require first-device validation.
 5. qcrild2 reacquire is deliberately available only from the next airplane-OFF A0 normalization, not from `restore-native` or core cleanup.
+6. v1.0.1 keeps Wi-Fi as a prerequisite with a bounded 20-second readiness wait. VPN detection is advisory: Android policy routing/fwmark means an active VPN need not expose `tun0` or an ordinary `default ... dev tun0` route. The module cannot verify the public exit country; the user remains responsible for selecting a UK full-tunnel endpoint.
+
+## v1.0.0 first-device network-gate finding
+
+The first v1.0.0 Action run stopped before any phone write with:
+
+```text
+NETWORK_GATE=FAIL Wi-Fi/tun0/VPN
+PHONE_WRITE_COUNT=0
+```
+
+The device had connected Wi-Fi, an active FlClash UK global VPN and working Internet access. The failure was a false negative caused by a port-only gate requiring `tun0`, an ordinary default route through `tun0`, and tightly coupled Wi-Fi/VPN text matches. The frozen dfd8241 wrapper did not impose those requirements; it primarily ensured Wi-Fi was enabled.
+
+v1.0.1 corrects only this migration deviation. It reports independent Wi-Fi/VPN diagnostic fields, blocks only when Wi-Fi is not ready after the bounded wait, and reports an unconfirmed VPN as `VPN=UNVERIFIED` with a warning rather than rejecting recovery. No public-IP lookup is performed.
 
 These differences do not introduce a new recovery hypothesis, but they prevent a claim of runtime parity until tested.
 

@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.0.0
+MODULE_VERSION=v1.0.1
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
@@ -159,14 +159,95 @@ platform_gate() {
   target_gate
 }
 
-network_gate() {
-  ip link show wlan0 2>/dev/null | grep -q 'UP' || return 1
-  ip link show tun0 2>/dev/null | grep -q 'UP' || return 1
-  ip route show table all 2>/dev/null | grep -E '^default([[:space:]]|$).*([[:space:]])dev[[:space:]]+tun0([[:space:]]|$)' >/dev/null || return 1
+wifi_ready_now() {
+  WIFI_SETTING=$(settings get global wifi_on 2>/dev/null | tr -d '\r')
+  WIFI_LINK=$(ip link show wlan0 2>/dev/null)
+  [ "$WIFI_SETTING" != 0 ] && [ -n "$WIFI_LINK" ] && printf '%s\n' "$WIFI_LINK" | grep -q 'UP'
+}
+
+collect_network_status() {
+  WIFI_SETTING=$(settings get global wifi_on 2>/dev/null | tr -d '\r')
+  WIFI_LINK=$(ip link show wlan0 2>/dev/null)
+  if [ -z "$WIFI_LINK" ]; then WIFI_INTERFACE=MISSING
+  elif printf '%s\n' "$WIFI_LINK" | grep -q 'UP'; then WIFI_INTERFACE=UP
+  else WIFI_INTERFACE=DOWN
+  fi
+
   CONN_TEXT=$(dumpsys connectivity 2>/dev/null)
-  printf '%s\n' "$CONN_TEXT" | grep -qi 'VPN' || return 1
-  printf '%s\n' "$CONN_TEXT" | grep -qi 'CONNECTED' || return 1
-  printf '%s\n' "$CONN_TEXT" | grep -Eqi 'Transports:.*WIFI.*VPN|Transports:.*VPN.*WIFI' || return 1
+  WIFI_CONNECTED=UNVERIFIED
+  if printf '%s\n' "$CONN_TEXT" | grep -Eqi 'Transports:.*WIFI' &&
+     printf '%s\n' "$CONN_TEXT" | grep -qi 'CONNECTED'; then
+    WIFI_CONNECTED=YES
+  elif ip addr show wlan0 2>/dev/null | grep -q 'inet '; then
+    WIFI_CONNECTED=LIKELY
+  fi
+
+  VPN_TEXT=$(dumpsys vpn 2>/dev/null)
+  VPN_DETECTED=NO
+  VPN_INTERFACE=UNKNOWN
+  VPN_ROUTE_HINT=NONE
+  VPN_DETECTION_METHOD=NONE
+
+  if printf '%s\n' "$CONN_TEXT" | grep -Eqi 'TRANSPORT_VPN|Transports:.*VPN|VpnTransportInfo|type:[[:space:]]*VPN|VPN.*CONNECTED|CONNECTED.*VPN'; then
+    VPN_DETECTED=YES
+    VPN_DETECTION_METHOD=CONNECTIVITY
+  fi
+  if printf '%s\n' "$VPN_TEXT" | grep -Eqi 'NetworkInfo.*CONNECTED|VpnConfig|mConfig=.*user='; then
+    VPN_DETECTED=YES
+    if [ "$VPN_DETECTION_METHOD" = NONE ]; then VPN_DETECTION_METHOD=VPN_DUMPSYS; else VPN_DETECTION_METHOD="${VPN_DETECTION_METHOD}+VPN_DUMPSYS"; fi
+  fi
+
+  VPN_INTERFACE=$(printf '%s\n' "$VPN_TEXT" | sed -n -E 's/.*(mInterface|interface|InterfaceName)[=: ]+([^, }]+).*/\2/p' | head -n 1)
+  if [ -z "$VPN_INTERFACE" ]; then
+    VPN_INTERFACE=$(ip -o link show 2>/dev/null | awk -F': ' '$2 ~ /^(tun|tap|wg|ppp|clash)/ {sub(/@.*/,"",$2); print $2; exit}')
+    if [ -n "$VPN_INTERFACE" ]; then
+      VPN_DETECTED=YES
+      if [ "$VPN_DETECTION_METHOD" = NONE ]; then VPN_DETECTION_METHOD=IP_LINK; else VPN_DETECTION_METHOD="${VPN_DETECTION_METHOD}+IP_LINK"; fi
+    fi
+  fi
+  [ -n "$VPN_INTERFACE" ] || VPN_INTERFACE=UNKNOWN
+
+  if ip rule show 2>/dev/null | grep -Eqi 'fwmark|lookup.*(vpn|tun)'; then
+    VPN_ROUTE_HINT=POLICY_ROUTING_PRESENT
+  elif [ "$VPN_INTERFACE" != UNKNOWN ] && ip route show table all 2>/dev/null | grep -F "dev $VPN_INTERFACE" >/dev/null; then
+    VPN_ROUTE_HINT=INTERFACE_ROUTE_PRESENT
+  fi
+}
+
+print_network_status() {
+  echo "WIFI_SETTING=${WIFI_SETTING:-UNKNOWN}"
+  echo "WIFI_INTERFACE=${WIFI_INTERFACE:-UNKNOWN}"
+  echo "WIFI_CONNECTED=${WIFI_CONNECTED:-UNVERIFIED}"
+  echo "VPN_DETECTED=${VPN_DETECTED:-NO}"
+  echo "VPN_INTERFACE=${VPN_INTERFACE:-UNKNOWN}"
+  echo "VPN_ROUTE_HINT=${VPN_ROUTE_HINT:-NONE}"
+  echo "VPN_DETECTION_METHOD=${VPN_DETECTION_METHOD:-NONE}"
+}
+
+network_preflight() {
+  MAX_WAIT=${1:-20}
+  ELAPSED=0
+  while ! wifi_ready_now; do
+    [ "$ELAPSED" -ge "$MAX_WAIT" ] && break
+    sleep 1
+    ELAPSED=$((ELAPSED + 1))
+  done
+  collect_network_status
+  print_network_status
+  wifi_ready_now || {
+    echo 'WIFI=NOT_READY'
+    echo 'NETWORK_PREFLIGHT=FAIL'
+    return 1
+  }
+  echo 'WIFI=READY'
+  if [ "$VPN_DETECTED" = YES ]; then
+    echo 'VPN=DETECTED'
+  else
+    echo 'VPN=UNVERIFIED'
+    echo 'WARNING=Please confirm UK full-tunnel VPN is connected'
+  fi
+  echo 'NETWORK_PREFLIGHT=PASS'
+  return 0
 }
 
 get_airplane() { settings get global airplane_mode_on 2>/dev/null | tr -d '\r'; }

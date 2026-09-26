@@ -18,7 +18,9 @@ status_command() {
   echo "BUILD=$(getprop ro.build.version.incremental)"
   echo "AIRPLANE=$(get_airplane)"
   echo "WIFI=$(settings get global wifi_on 2>/dev/null)"
-  if network_gate; then echo 'VPN_TUN=READY'; else echo 'VPN_TUN=NOT_READY'; fi
+  collect_network_status
+  print_network_status
+  if wifi_ready_now; then echo 'NETWORK_PREFLIGHT=PASS'; else echo 'NETWORK_PREFLIGHT=FAIL'; fi
   echo "VOXI slot=$TARGET_SLOT phoneId=$TARGET_PHONE subId=$TARGET_SUB carrierId=$TARGET_CARRIER MCCMNC=${TARGET_MCC}${TARGET_MNC} active=$SUB_ACTIVE apps=$UICC_ENABLED"
   print_health
   echo "PER_MGR=$(get_per_mgr_state)"

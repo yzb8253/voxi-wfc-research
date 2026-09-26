@@ -228,8 +228,8 @@ golden_runner_main() {
   log_line 'ENTRY_GATE=PASS'
 
   echo '[3/9] 检查 Wi-Fi / VPN'
-  network_gate || { log_line 'NETWORK_GATE=FAIL Wi-Fi/tun0/VPN'; return 30; }
-  log_line 'NETWORK_GATE=PASS WIFI=wlan0 VPN_TUN=tun0 (country not verified)'
+  network_preflight 20 || { log_line 'NETWORK_PREFLIGHT=FAIL Wi-Fi not ready'; return 30; }
+  log_line "NETWORK_PREFLIGHT=PASS WIFI=$WIFI_INTERFACE VPN=$VPN_DETECTED interface=$VPN_INTERFACE routeHint=$VPN_ROUTE_HINT method=$VPN_DETECTION_METHOD country=UNVERIFIED"
 
   HPID=$(saved_holder_pid 2>/dev/null || true)
   if [ -n "$HPID" ]; then
