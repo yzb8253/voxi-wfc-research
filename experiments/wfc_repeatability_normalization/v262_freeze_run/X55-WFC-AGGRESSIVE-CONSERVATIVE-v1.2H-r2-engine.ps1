@@ -2,7 +2,8 @@
 param(
     [string]$Serial = 'fd0ff892',
     [ValidateRange(1,3)][int]$MaxRecoveryAttempts = 2,
-    [ValidateSet('V12H')][string]$A0PreflightMode = 'V12H'
+    [ValidateSet('V12H')][string]$A0PreflightMode = 'V12H',
+    [ValidateSet('NONE','OLD','FAST')][string]$ABVariant = 'NONE'
 )
 
 Set-StrictMode -Version Latest
@@ -16,7 +17,9 @@ $LightClassifier = Join-Path $Repo 'experiments\wfc_repeatability_normalization\
 $CurrentCneProjection = Join-Path $Repo 'experiments\wfc_repeatability_normalization\lightweight_profiling\current_cne_projection_v12h_r2.ps1'
 $UiccDeepFallback = Join-Path $PSScriptRoot 'uicc_apps_deep_fallback.ps1'
 $SplitPreparer = Join-Path $PSScriptRoot 'prepare_frozen_residue_split_v12h_r1.ps1'
-$Recovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-fast-holder-exp.ps1'
+$OldHolderRecovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-freeze-on-success.ps1'
+$FastHolderRecovery = Join-Path $PSScriptRoot 'X55-WFC-OneClick-v2.6.2-fast-holder-exp.ps1'
+$Recovery = if($ABVariant -eq 'OLD'){$OldHolderRecovery}else{$FastHolderRecovery}
 $WfcCtl = '/data/adb/modules/voxi_wfc_recovery/bin/wfcctl.sh'
 . $CurrentCneProjection
 $LogDir = Join-Path $PSScriptRoot 'Aggressive-Conservative-Logs'
@@ -47,6 +50,8 @@ $script:A0TotalMs=0
 $script:PTotalMs=0
 $script:CoreTotalMs=0
 $script:EntryHolderImpl='UNKNOWN'
+$script:LastCoreLog=$null
+$script:LastCoreMetrics=$null
 
 function Assert-ScriptSyntax {
     $files = @(
@@ -119,6 +124,73 @@ function Write-TotalTiming {
         Log ("CORE_TOTAL_MS={0}" -f $script:CoreTotalMs)
         Log ("ENTRY_HOLDER_IMPL={0}" -f $script:EntryHolderImpl)
     }
+}
+
+function Get-LastCoreLogValue([string]$Text,[string]$Pattern,[string]$Default='UNKNOWN') {
+    $matches=@([regex]::Matches($Text,$Pattern,[Text.RegularExpressions.RegexOptions]::Multiline))
+    if($matches.Count -eq 0){return $Default}
+    $matches[$matches.Count-1].Groups[1].Value
+}
+
+function Read-AbCoreMetrics([datetime]$StartedAt) {
+    $coreLogDir=Join-Path $PSScriptRoot 'X55-Logs'
+    $candidate=@(Get-ChildItem -LiteralPath $coreLogDir -Filter 'X55-WFC-*.log' -File -ErrorAction SilentlyContinue |
+        Where-Object{$_.LastWriteTime -ge $StartedAt.AddSeconds(-2)} |
+        Sort-Object LastWriteTime -Descending | Select-Object -First 1)
+    if($candidate.Count -ne 1){return $null}
+    $text=Get-Content -LiteralPath $candidate[0].FullName -Raw
+    $script:LastCoreLog=$candidate[0].FullName
+    [pscustomobject]@{
+        RecoveryResult=Get-LastCoreLogValue $text 'FINAL_RESULT recovery=([^\s]+)'
+        PreShutdownCrashCount=Get-LastCoreLogValue $text 'PRE_SHUTDOWN_CRASH_COUNT=(\d+)'
+        OfflineCrashCount=Get-LastCoreLogValue $text 'X55 OFFLINE; CRASH_COUNT before=\d+ after=(\d+)'
+        PostPowerupCrashCount=Get-LastCoreLogValue $text 'X55 ONLINE; CRASH_COUNT=(\d+)'
+        HolderPid=Get-LastCoreLogValue $text 'TEMP_HOLDER_PID=(\d+)'
+        SimPowerOffRequestMs=Get-LastCoreLogValue $text 'TIMING name=core_sim2_power_off_request ms=(\d+)' 'NOT_EXECUTED'
+        SimOffHoldMs=Get-LastCoreLogValue $text 'TIMING name=core_sim2_off_hold ms=(\d+)' 'NOT_EXECUTED'
+        SimPowerOnRequestMs=Get-LastCoreLogValue $text 'TIMING name=core_sim2_power_on_request ms=(\d+)' 'NOT_EXECUTED'
+        SimOnToHealthResultMs=Get-LastCoreLogValue $text 'TIMING name=core_sim_on_to_health_result ms=(\d+)' 'NOT_EXECUTED'
+        CoreTotalMs=Get-LastCoreLogValue $text 'TIMING name=core_total ms=(\d+)'
+    }
+}
+
+function Write-AbCoreResult([bool]$Healthy,[object]$CurrentCne,[int]$CoreExit) {
+    if($ABVariant -eq 'NONE'){return}
+    $m=$script:LastCoreMetrics
+    $recoveryResult=if($null -eq $m){'UNOBSERVABLE'}else{$m.RecoveryResult}
+    $holderPid=if($null -eq $m){'UNOBSERVABLE'}else{$m.HolderPid}
+    $preCrash=if($null -eq $m){'UNOBSERVABLE'}else{$m.PreShutdownCrashCount}
+    $offlineCrash=if($null -eq $m){'UNOBSERVABLE'}else{$m.OfflineCrashCount}
+    $postCrash=if($null -eq $m){'UNOBSERVABLE'}else{$m.PostPowerupCrashCount}
+    $offMs=if($null -eq $m){'UNOBSERVABLE'}else{$m.SimPowerOffRequestMs}
+    $holdMs=if($null -eq $m){'UNOBSERVABLE'}else{$m.SimOffHoldMs}
+    $onMs=if($null -eq $m){'UNOBSERVABLE'}else{$m.SimPowerOnRequestMs}
+    $healthMs=if($null -eq $m){'UNOBSERVABLE'}else{$m.SimOnToHealthResultMs}
+    $coreMs=if($null -eq $m){$script:CoreTotalMs}else{$m.CoreTotalMs}
+    $attemptResult=if($Healthy){'SUCCESS'}else{'FAILED'}
+    $failureClass=if($Healthy){'NONE'}elseif($CurrentCne.Request -eq 'null'){'NO_CNE'}else{'OTHER_FAILURE'}
+    Log ("AB_VARIANT={0}" -f $ABVariant)
+    Log ("CORE_ATTEMPT_RESULT={0}" -f $attemptResult)
+    Log ("RECOVERY_RESULT={0}" -f $recoveryResult)
+    Log ("WFC_HEALTHY={0}" -f $(if($Healthy){'YES'}else{'NO'}))
+    Log ("CNE_AFTER_SIM={0}/{1}" -f $CurrentCne.Request,$CurrentCne.Satisfied)
+    Log ("CORE_SIM_ON_TO_HEALTH_RESULT_MS={0}" -f $healthMs)
+    Log ("CORE_TOTAL_MS={0}" -f $coreMs)
+    Log ("PRE_SHUTDOWN_CRASH_COUNT={0}" -f $preCrash)
+    Log ("OFFLINE_CRASH_COUNT={0}" -f $offlineCrash)
+    Log ("POST_POWERUP_CRASH_COUNT={0}" -f $postCrash)
+    Log ("HOLDER_PID={0}" -f $holderPid)
+    Log ("HOLDER_IMPL={0}" -f $ABVariant)
+    Log ("SIM_POWER_OFF_REQUEST_MS={0}" -f $offMs)
+    Log ("SIM_OFF_HOLD_MS={0}" -f $holdMs)
+    Log ("SIM_POWER_ON_REQUEST_MS={0}" -f $onMs)
+    if(-not $Healthy){
+        Log ("FAILURE_CLASS={0}" -f $failureClass)
+        Log ("CURRENT_CNE_REQUEST={0}" -f $CurrentCne.Request)
+        Log ("CURRENT_CNE_SATISFIED={0}" -f $CurrentCne.Satisfied)
+    }
+    Log ("CORE_EXIT={0}" -f $CoreExit)
+    Log ("CORE_LOG={0}" -f $(if($null -eq $script:LastCoreLog){'UNOBSERVABLE'}else{$script:LastCoreLog}))
 }
 
 function Quote-Sh([string]$Value) {
@@ -544,6 +616,7 @@ function Invoke-V262Core {
     Log 'V262_CORE=START'
     $timer = [Diagnostics.Stopwatch]::StartNew()
 
+    $coreStartedAt=Get-Date
     $psi = [Diagnostics.ProcessStartInfo]::new()
     $psi.FileName = 'powershell.exe'
     # The proven v2.6.2 core ends with Read-Host for manual runs.
@@ -568,6 +641,7 @@ function Invoke-V262Core {
     Write-Timing v262_core_total $timer
     $script:CoreTotalMs+=$timer.ElapsedMilliseconds
     Log ("CORE_TOTAL_MS={0}" -f $timer.ElapsedMilliseconds)
+    if($ABVariant -ne 'NONE'){$script:LastCoreMetrics=Read-AbCoreMetrics -StartedAt $coreStartedAt}
     $rc
 }
 
@@ -596,14 +670,20 @@ function Invoke-UiccDeepFallback {
 $script:WrapperTotal = [Diagnostics.Stopwatch]::StartNew()
 Log '============================================================'
 Log 'MODE=AGGRESSIVE_CONSERVATIVE_V1_2H_R2'
-Log 'HOLDER_IMPL=FAST'
+Log ("AB_VARIANT={0}" -f $ABVariant)
+Log ("HOLDER_IMPL={0}" -f $(if($ABVariant -eq 'OLD'){'OLD'}else{'FAST'}))
+Log 'CNE_WRITE_DECISION_SOURCE=CONNECTIVITY_CURRENT_TABLE_ONLY'
 Log 'X55 WFC AGGRESSIVE CONSERVATIVE v1.2H-r2 started'
 Log ("Serial={0} MaxRecoveryAttempts={1}" -f $Serial,$MaxRecoveryAttempts)
 Log 'PON_SETTLE=10s SIM_OFF_HOLD=3s SIM_WINDOW=30s_sleep_budget_plus_probe_runtime'
-Log 'Core recovery is the isolated v2.6.2 FAST-holder experiment copy; all non-holder core behavior is unchanged.'
+Log ("Core recovery is the isolated v2.6.2 {0}-holder copy; all non-holder core behavior is unchanged." -f $(if($ABVariant -eq 'OLD'){'OLD'}else{'FAST'}))
 Log '============================================================'
 
 try {
+    if($ABVariant -ne 'NONE') {
+        Require ($MaxRecoveryAttempts -eq 1) 'A/B harness is locked to MaxRecoveryAttempts=1.'
+        Log 'AB_DEEP_FALLBACK=DISABLED_BY_SINGLE_ATTEMPT_INVARIANT'
+    }
     $syntaxTimer = [Diagnostics.Stopwatch]::StartNew()
     Assert-ScriptSyntax
     Write-Timing syntax_gate $syntaxTimer
@@ -656,7 +736,12 @@ try {
         $coreStartedAt = Get-Date
         $coreRc = Invoke-V262Core
 
-        if(Test-WfcHealthy) {
+        $coreHealthy=Test-WfcHealthy
+        if($ABVariant -ne 'NONE'){
+            $afterCne=Get-CurrentCneSnapshot
+            Write-AbCoreResult -Healthy $coreHealthy -CurrentCne $afterCne -CoreExit $coreRc
+        }
+        if($coreHealthy) {
             Log ("ATTEMPT={0} SUCCESS coreExit={1}" -f $attempt,$coreRc)
             Log 'FINAL=WFC_HEALTHY_FREEZE'
             $script:WfcResult='HEALTHY'
@@ -666,7 +751,7 @@ try {
             exit 0
         }
 
-        $afterCne = Get-CurrentCneSnapshot
+        if($ABVariant -eq 'NONE'){$afterCne=Get-CurrentCneSnapshot}
         $coreFreshness = if($afterCne.Request -eq 'null'){'NO_CNE_REQUEST'}else{'CURRENT_CNE_REQUEST'}
         if($coreFreshness -eq 'NO_CNE_REQUEST') { $noCneFailureCount++ }
         Log ("ATTEMPT={0} FAILED coreExit={1} cneRequest={2} satisfied={3} coreFreshness={4} noCneCount={5}" -f $attempt,$coreRc,$afterCne.Request,$afterCne.Satisfied,$coreFreshness,$noCneFailureCount)
