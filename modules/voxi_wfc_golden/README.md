@@ -1,4 +1,4 @@
-# VOXI WFC Golden Recovery v1.0.1
+# VOXI WFC Golden Recovery v1.0.2
 
 **STATUS: UNTESTED PORT OF VALIDATED GOLDEN**
 
@@ -17,7 +17,7 @@
 
 ## 安装与使用
 
-1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.0.1.zip`。
+1. 在 Magisk 中安装 `VOXI-WFC-Golden-Recovery-v1.0.2.zip`。
 2. 重启一次。
 3. 打开 Wi-Fi。
 4. 打开英国全局 VPN。模块会尽力识别 Android VPN，但不会以接口名或普通 default route 作为硬门槛。
@@ -25,6 +25,8 @@
 6. 等待终端显示 `FINAL_RESULT=WFC_HEALTHY_FREEZE` 或安全失败。
 
 点击时 Airplane mode 可以是 ON 或 OFF；模块会按 Golden 顺序自动构建 A0 与 P。Wi-Fi 是硬前提；VPN 只做 flexible/advisory detection，不绑定 `tun0` 或普通 Linux default route。模块无法验证出口国家，用户须自行确认英国全局节点。AnyWhere/location spoofing 不是要求。
+
+v1.0.2 会在 A0 前明确报告 `/dev/subsys_esoc0` owner。若发现不属于本模块的旧 holder（包括可能由 PC Golden freeze 留下的 holder），模块会以 `UNKNOWN_ESOC_OWNER` fail closed，不会 kill。请完整 reboot 一次恢复 native baseline 后再测试独立 Magisk 版本。
 
 ## CLI
 

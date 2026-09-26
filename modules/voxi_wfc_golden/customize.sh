@@ -6,7 +6,7 @@ POSTFSDATA=false
 LATESTARTSERVICE=true
 
 ui_print '*********************************'
-ui_print ' VOXI WFC Golden Recovery v1.0.1'
+ui_print ' VOXI WFC Golden Recovery v1.0.2'
 ui_print '*********************************'
 ui_print 'STATUS: UNTESTED PORT OF VALIDATED GOLDEN'
 

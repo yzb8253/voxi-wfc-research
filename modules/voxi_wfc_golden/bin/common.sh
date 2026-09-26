@@ -2,7 +2,7 @@
 
 # Shared read-only probes and exact-device safety gates for the dfd8241 port.
 
-MODULE_VERSION=v1.0.1
+MODULE_VERSION=v1.0.2
 DATA_DIR=/data/adb/voxi-wfc-golden
 LOG_DIR="$DATA_DIR/logs"
 STATE_DIR="$DATA_DIR/state"
@@ -320,6 +320,45 @@ unknown_owner_present() {
   PM_PID=$(get_per_mgr_pid)
   HPID=$(saved_holder_pid 2>/dev/null || true)
   printf '%s\n' "$LINES" | awk -v pm="$PM_PID" -v hp="$HPID" '$2!=pm && $2!=hp {bad=1} END {exit !bad}'
+}
+
+collect_owner_entry_status() {
+  PER_MGR_STATE=$(get_per_mgr_state)
+  PER_MGR_PID=$(get_per_mgr_pid)
+  PER_MGR_EXE=$(get_per_mgr_exe)
+  X55_STATE=$(get_x55_state)
+  ESOC_OWNER_COUNT=$(owner_count)
+  MODULE_HOLDER_PID=$(saved_holder_pid 2>/dev/null || true)
+  MODULE_HOLDER_ALIVE=NO
+  MODULE_HOLDER_IDENTITY=NO
+  [ -n "$MODULE_HOLDER_PID" ] && [ -d "/proc/$MODULE_HOLDER_PID" ] && MODULE_HOLDER_ALIVE=YES
+  if [ "$MODULE_HOLDER_ALIVE" = YES ] && holder_process_identity_ok "$MODULE_HOLDER_PID"; then
+    MODULE_HOLDER_IDENTITY=EXACT
+  fi
+
+  if [ "$ESOC_OWNER_COUNT" -gt 1 ]; then
+    ESOC_OWNER_CLASS=MULTIPLE_OWNERS
+  elif [ "$ESOC_OWNER_COUNT" -eq 0 ]; then
+    ESOC_OWNER_CLASS=NO_OWNER
+  elif [ -n "$PER_MGR_PID" ] && [ "$PER_MGR_EXE" = /vendor/bin/pm-service ] && owner_has_pid "$PER_MGR_PID"; then
+    ESOC_OWNER_CLASS=NATIVE_PM_SERVICE
+  elif [ -n "$MODULE_HOLDER_PID" ] && [ "$MODULE_HOLDER_IDENTITY" = EXACT ] && owner_has_pid "$MODULE_HOLDER_PID"; then
+    ESOC_OWNER_CLASS=MODULE_GOLDEN_HOLDER
+  else
+    ESOC_OWNER_CLASS=UNKNOWN_OWNER
+  fi
+}
+
+print_owner_entry_status() {
+  echo "PER_MGR_STATE=${PER_MGR_STATE:-UNKNOWN}"
+  echo "PER_MGR_PID=${PER_MGR_PID:-NONE}"
+  echo "PER_MGR_EXE=${PER_MGR_EXE:-NONE}"
+  echo "X55_STATE=${X55_STATE:-UNKNOWN}"
+  echo "ESOC_OWNER_COUNT=${ESOC_OWNER_COUNT:-UNKNOWN}"
+  echo "MODULE_HOLDER_PID=${MODULE_HOLDER_PID:-NONE}"
+  echo "MODULE_HOLDER_ALIVE=${MODULE_HOLDER_ALIVE:-NO}"
+  echo "MODULE_HOLDER_IDENTITY=${MODULE_HOLDER_IDENTITY:-NO}"
+  echo "ESOC_OWNER_CLASS=${ESOC_OWNER_CLASS:-UNKNOWN_OWNER}"
 }
 
 wait_value() {

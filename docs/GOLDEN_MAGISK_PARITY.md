@@ -60,6 +60,12 @@ The device had connected Wi-Fi, an active FlClash UK global VPN and working Inte
 
 v1.0.1 corrects only this migration deviation. It reports independent Wi-Fi/VPN diagnostic fields, blocks only when Wi-Fi is not ready after the bounded wait, and reports an unconfirmed VPN as `VPN=UNVERIFIED` with a warning rather than rejecting recovery. No public-IP lookup is performed.
 
+## v1.0.1 first-device owner-preflight finding
+
+The next device run proved the v1.0.1 network correction (`WIFI=READY`, `VPN=DETECTED`, `NETWORK_PREFLIGHT=PASS`) but exited before A0 with `PHONE_WRITE_COUNT=0`. The old runner placed an unlabelled holder/owner probe between network preflight and the attempt loop and used a bare negative-probe `&&` list. Consequently the captured Action output could not distinguish a shell-status/control-flow exit from the expected fail-closed unknown-owner branch.
+
+v1.0.2 preserves the recovery state machine and makes that boundary explicit. It classifies the current ESOC owner, uses explicit `if` control flow, identifies an old non-module (for example PC Golden) holder as `UNKNOWN_OWNER`, and prints stage/reason/return-code diagnostics. Unknown owners remain fail-closed and are never killed. Offline mocked fixtures cover native ownership, unknown external ownership, and the existing exact module-holder restore path.
+
 These differences do not introduce a new recovery hypothesis, but they prevent a claim of runtime parity until tested.
 
 ## Static conclusion

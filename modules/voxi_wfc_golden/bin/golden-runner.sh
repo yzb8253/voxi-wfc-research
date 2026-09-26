@@ -17,6 +17,8 @@ HOLDER_PID_CREATED=
 RUNNER_EXITING=0
 FINAL_RESULT=NOT_COMPLETED
 RECOVERY_RESULT=NOT_COMPLETED
+CURRENT_STAGE=INIT
+EXIT_REASON=NOT_SET
 START_MS=$(now_ms)
 
 emergency_sim_on() {
@@ -40,6 +42,9 @@ runner_exit_guard() {
     log_line 'EXIT_GUARD_NATIVE_CLEANUP=START'
     restore_native || log_line 'EXIT_GUARD_NATIVE_CLEANUP=FAILED holder preserved when required'
   fi
+  log_line "EXIT_RC=$RC"
+  log_line "EXIT_STAGE=$CURRENT_STAGE"
+  log_line "EXIT_REASON=$EXIT_REASON"
   log_line "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
   release_lock
   exit "$RC"
@@ -64,6 +69,7 @@ assert_clean_core_entry() {
 core_recovery() {
   ATTEMPT=$1
   log_line "CORE_ATTEMPT=$ATTEMPT START"
+  CURRENT_STAGE=X55_CORE
   assert_clean_core_entry || { log_line 'CORE_ENTRY_GATE=FAIL'; return 30; }
   log_line "PRE_PER_MGR=$(get_per_mgr_state) PRE_PM_PID=$(get_per_mgr_pid) PRE_X55=$(get_x55_state)"
 
@@ -137,6 +143,7 @@ core_recovery() {
   # Binder transaction 182 is validated ONLY on cas / Android 13 /
   # V816.0.4.0.TJJCNXM and is fixed to slot1. Slot0 has no write path.
   OFF_START=$(now_ms)
+  CURRENT_STAGE=SIM_CYCLE
   record_write "SIM_POWER_OFF transaction=$SIM_POWER_TRANSACTION slot=1"
   service call phone "$SIM_POWER_TRANSACTION" i32 1 i32 0 >/dev/null 2>&1 || return 30
   SIM_MAY_BE_OFF=1
@@ -155,6 +162,7 @@ core_recovery() {
   log_line "SIM_POWER_ON_REQUEST_MS=$(( $(now_ms) - ON_START ))"
   sleep 2
 
+  CURRENT_STAGE=WFC_WAIT
   if wait_wfc_healthy 30 after_sim_cycle_1; then
     RECOVERY_RESULT=SIM_CYCLE_1_SUCCESS
     FREEZE_ON_HEALTHY=1
@@ -215,50 +223,52 @@ golden_runner_main() {
   log_line "ENTRY_AIRPLANE=$(get_airplane)"
 
   echo '[1/9] 检查当前 WFC 状态'
+  CURRENT_STAGE=INITIAL_HEALTH
   if test_wfc_healthy; then
     echo 'WFC_ALREADY_HEALTHY'
     echo 'FINAL_RESULT=ALREADY_HEALTHY'
     echo 'PHONE_WRITE_COUNT=0'
+    EXIT_REASON=ALREADY_HEALTHY
     return 0
   fi
 
   echo '[2/9] 检查设备与 VOXI mapping'
-  platform_gate || { log_line 'ENTRY_GATE=FAIL platform/target'; return 30; }
+  CURRENT_STAGE=ENTRY_GATE
+  platform_gate || { EXIT_REASON=PLATFORM_OR_TARGET_GATE_FAILED; log_line 'ENTRY_GATE=FAIL platform/target'; return 30; }
   log_line "DEVICE=$(getprop ro.product.device) BUILD=$(getprop ro.build.version.incremental)"
   log_line 'ENTRY_GATE=PASS'
 
   echo '[3/9] 检查 Wi-Fi / VPN'
-  network_preflight 20 || { log_line 'NETWORK_PREFLIGHT=FAIL Wi-Fi not ready'; return 30; }
+  CURRENT_STAGE=NETWORK_PREFLIGHT
+  network_preflight 20 || { EXIT_REASON=WIFI_NOT_READY; log_line 'NETWORK_PREFLIGHT=FAIL Wi-Fi not ready'; return 30; }
   log_line "NETWORK_PREFLIGHT=PASS WIFI=$WIFI_INTERFACE VPN=$VPN_DETECTED interface=$VPN_INTERFACE routeHint=$VPN_ROUTE_HINT method=$VPN_DETECTION_METHOD country=UNVERIFIED"
+  log_line 'POST_NETWORK_GATE=PASS'
 
-  HPID=$(saved_holder_pid 2>/dev/null || true)
-  if [ -n "$HPID" ]; then
-    if [ ! -d "/proc/$HPID" ]; then
-      rm -f "$HOLDER_PIDFILE"
-      log_line "STALE_PIDFILE_REMOVED=$HPID"
-    elif holder_process_identity_ok "$HPID"; then
-      echo '[4/9] 恢复上一次 Golden holder 的原生 ownership'
-      restore_native || { log_line 'PREVIOUS_HOLDER_RESTORE=FAIL'; return 30; }
-    else
-      log_line "UNKNOWN_OR_MISMATCHED_HOLDER=BLOCK pid=$HPID"
-      return 30
-    fi
+  CURRENT_STAGE=OWNER_INSPECTION
+  if owner_pre_a0_gate; then
+    :
+  else
+    OWNER_GATE_RC=$?
+    return "$OWNER_GATE_RC"
   fi
-  unknown_owner_present && { log_line 'UNKNOWN_ESOC_OWNER=BLOCK'; return 30; }
 
   ATTEMPT=1
+  log_line 'ATTEMPT_LOOP_ENTER=1'
   while [ "$ATTEMPT" -le "$MAX_RECOVERY_ATTEMPTS" ]; do
+    CURRENT_STAGE=A0_PREP
     echo "[4/9] 准备 A0（Attempt $ATTEMPT/$MAX_RECOVERY_ATTEMPTS）"
-    prepare_a0 || { log_line "ATTEMPT_$ATTEMPT A0=FAIL"; break; }
+    prepare_a0 || { EXIT_REASON=A0_PREP_FAILED; log_line "ATTEMPT_$ATTEMPT A0=FAIL"; break; }
     if test_wfc_healthy; then
       RECOVERY_RESULT=HEALTHY_IN_A
       FINAL_RESULT=WFC_HEALTHY
       echo 'FINAL_RESULT=WFC_HEALTHY'
       echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
+      EXIT_REASON=SUCCESS_HEALTHY_IN_A0
       return 0
     fi
 
     echo '[5/9] 进入 Airplane ON / P state'
+    CURRENT_STAGE=P_PREP
     prepare_p
     P_RC=$?
     if [ "$P_RC" -eq 2 ]; then
@@ -266,9 +276,11 @@ golden_runner_main() {
       FINAL_RESULT=WFC_HEALTHY
       echo 'FINAL_RESULT=WFC_HEALTHY'
       echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
+      EXIT_REASON=SUCCESS_HEALTHY_BEFORE_CORE
       return 0
     fi
     if [ "$P_RC" -ne 0 ]; then
+      EXIT_REASON=P_PREP_FAILED
       log_line "ATTEMPT_$ATTEMPT P_GATE=FAIL"
       set_airplane 0 || true
       ATTEMPT=$((ATTEMPT + 1))
@@ -284,6 +296,7 @@ golden_runner_main() {
     if [ "$CORE_RC" -eq 0 ]; then
       print_success
       log_line "RECOVERY_TIME_MS=$(( $(now_ms) - START_MS ))"
+      EXIT_REASON=SUCCESS_WFC_HEALTHY_FREEZE
       return 0
     fi
     log_line "ATTEMPT_$ATTEMPT=FAILED core_rc=$CORE_RC recovery=$RECOVERY_RESULT"
@@ -299,6 +312,7 @@ golden_runner_main() {
   set_airplane 0 || log_line 'FINAL_AIRPLANE_OFF=FAIL'
   if prepare_a0; then log_line 'FINAL_SAFE_A0_RESTORE=PASS'; else log_line 'FINAL_SAFE_A0_RESTORE=FAIL'; fi
   FINAL_RESULT=WFC_NOT_RECOVERED
+  EXIT_REASON=WFC_NOT_RECOVERED
   echo 'FINAL_RESULT=WFC_NOT_RECOVERED'
   echo "PHONE_WRITE_COUNT=$PHONE_WRITE_COUNT"
   log_line "RECOVERY_TIME_MS=$(( $(now_ms) - START_MS ))"

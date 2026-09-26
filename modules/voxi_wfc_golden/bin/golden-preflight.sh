@@ -59,7 +59,51 @@ start_module_holder() {
 verify_native_fingerprint() {
   native_clean || return 1
   [ -z "$(saved_holder_pid 2>/dev/null || true)" ] || return 1
-  unknown_owner_present && return 1
+  if unknown_owner_present; then return 1; fi
+  return 0
+}
+
+owner_pre_a0_gate() {
+  echo '[3.5/9] 检查 X55 owner / Golden holder'
+  log_line 'OWNER_INSPECTION=START'
+  collect_owner_entry_status
+  print_owner_entry_status
+
+  HPID=$MODULE_HOLDER_PID
+  if [ -n "$HPID" ]; then
+    if [ "$MODULE_HOLDER_ALIVE" != YES ]; then
+      rm -f "$HOLDER_PIDFILE"
+      log_line "STALE_PIDFILE_REMOVED=$HPID"
+    elif [ "$MODULE_HOLDER_IDENTITY" = EXACT ]; then
+      echo '[3.6/9] 恢复上一次 Golden holder 的原生 ownership'
+      if ! restore_native; then
+        EXIT_REASON=PREVIOUS_HOLDER_RESTORE_FAILED
+        log_line 'OWNER_INSPECTION=BLOCK reason=PREVIOUS_HOLDER_RESTORE_FAILED'
+        return 30
+      fi
+    else
+      EXIT_REASON=MODULE_HOLDER_IDENTITY_MISMATCH
+      log_line "OWNER_INSPECTION=BLOCK reason=MODULE_HOLDER_IDENTITY_MISMATCH pid=$HPID"
+      return 30
+    fi
+  fi
+
+  if unknown_owner_present; then
+    collect_owner_entry_status
+    print_owner_entry_status
+    EXIT_REASON=UNKNOWN_ESOC_OWNER
+    log_line 'OWNER_INSPECTION=BLOCK'
+    echo 'BLOCK_REASON=UNKNOWN_ESOC_OWNER'
+    echo 'No phone write was executed.'
+    echo 'A previous PC Golden holder may still be active.'
+    echo 'Perform one full reboot before testing the standalone Magisk port.'
+    return 30
+  fi
+
+  collect_owner_entry_status
+  print_owner_entry_status
+  log_line 'OWNER_INSPECTION=PASS'
+  log_line 'PRE_A0_GATE=PASS'
   return 0
 }
 
@@ -130,7 +174,7 @@ restore_native() {
     HPID=
   fi
   if [ -z "$HPID" ]; then
-    unknown_owner_present && { log_line 'RESTORE_NATIVE=FAIL unknown owner without module holder'; return 1; }
+    if unknown_owner_present; then log_line 'RESTORE_NATIVE=FAIL unknown owner without module holder'; return 1; fi
     if [ "$(get_per_mgr_state)" != running ]; then
       record_write 'CTL_START vendor.per_mgr'
       setprop ctl.start vendor.per_mgr || return 1
@@ -159,7 +203,7 @@ restore_native() {
     return 1
   fi
   holder_process_identity_ok "$HPID" || { log_line 'RESTORE_NATIVE=FAIL holder identity gate'; return 1; }
-  unknown_owner_present && { log_line 'RESTORE_NATIVE=FAIL unknown owner'; return 1; }
+  if unknown_owner_present; then log_line 'RESTORE_NATIVE=FAIL unknown owner'; return 1; fi
 
   STATE=$(get_per_mgr_state)
   if [ "$STATE" != running ]; then
