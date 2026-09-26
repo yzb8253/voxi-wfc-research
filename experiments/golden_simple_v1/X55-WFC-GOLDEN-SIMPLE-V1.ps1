@@ -142,9 +142,9 @@ function Invoke-UiccPrime {
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $UiccHelper -Serial $Serial 2>&1 | ForEach-Object {
         $v=[string]$_;$lines.Add($v);Log ("UICC $v")
         if($v -match '^UICC_APPS_FALSE_CALL='){$script:UiccFalseSent='YES';Add-PhoneWrite 'ISUB_FALSE_SUB11'}
-        if($v -match '^UICC_F8_CONFIRMED_AFTER=(\d+)s'){$script:F8Confirmed='YES';$script:F8LatencyMs=([int]$Matches[1])*1000}
+        if($v -match '^UICC_F8_CONFIRMED_AFTER_MS=(\d+)'){$script:F8Confirmed='YES';$script:F8LatencyMs=[int64]$Matches[1]}
         if($v -match '^UICC_APPS_TRUE_CALL='){$script:UiccTrueSent='YES';$script:UiccTrueAt=Get-Date;Add-PhoneWrite 'ISUB_TRUE_SUB11'}
-        if($v -match '^UICC_REINSERT_CONFIRMED_AFTER=(\d+)s'){$script:UiccReinsert='YES';$script:UiccReinsertLatencyMs=([int]$Matches[1])*1000}
+        if($v -match '^UICC_REINSERT_CONFIRMED_AFTER_MS=(\d+)'){$script:UiccReinsert='YES';$script:UiccReinsertLatencyMs=[int64]$Matches[1]}
         if($v -match '^\[UICC GUARD\]') {Add-PhoneWrite 'ISUB_TRUE_SUB11_EMERGENCY_GUARD'}
     }
     $rc=$LASTEXITCODE;Require ($rc -eq 0) "audited UICC helper failed exit=$rc"

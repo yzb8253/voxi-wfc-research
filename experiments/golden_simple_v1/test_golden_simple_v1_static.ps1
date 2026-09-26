@@ -10,14 +10,16 @@ $Main=Join-Path $PSScriptRoot 'X55-WFC-GOLDEN-SIMPLE-V1.ps1'
 $Contract=Join-Path $PSScriptRoot 'golden_simple_contract.ps1'
 $Cmd=Join-Path $PSScriptRoot 'RUN-X55-WFC-GOLDEN-SIMPLE-V1.cmd'
 $Uicc=Join-Path $PSScriptRoot 'uicc_apps_single_sim_prime.ps1'
+$Observer=Join-Path $PSScriptRoot 'uicc_isub_section_observer.ps1'
 $OriginalUicc=Join-Path $Base 'uicc_apps_deep_fallback.ps1'
 . $Contract
 . (Join-Path $Light 'current_cne_projection_v12h_r2.ps1')
+. $Observer
 
 function Require([bool]$Condition,[string]$Message){if(-not $Condition){throw $Message}}
 function Parse-Ps51([string]$Path){$t=$null;$e=$null;[void][Management.Automation.Language.Parser]::ParseFile($Path,[ref]$t,[ref]$e);Require (@($e).Count -eq 0) ("PS5.1 parse failed: {0}: {1}" -f $Path,(@($e|ForEach-Object{$_.Message}) -join '; '))}
 
-foreach($path in @($Main,$Contract,$Uicc)){Parse-Ps51 $path}
+foreach($path in @($Main,$Contract,$Uicc,$Observer)){Parse-Ps51 $path}
 Write-Host 'PS5.1_PARSER=PASS'
 
 $sub1Stale='{id=1 iccId=x simSlotIndex=-1 carrierId=2237 mcc=460 mnc=11 areUiccApplicationsEnabled=true}'
@@ -31,6 +33,24 @@ Require (Test-GoldenSimpleVoxiEnabled $dump) 'VOXI enabled fixture failed'
 Require (Test-GoldenSimpleF8 ($sub1Stale+"`n"+$f8)) 'F8 fixture failed'
 Require (-not (Test-GoldenSimpleVoxiEnabled ($sub1Stale+"`n"+$f8))) 'F8 incorrectly accepted as enabled'
 Write-Host 'UICC_PARSER_FIXTURES=6/6_PASS'
+
+function New-IsubFixture([string]$ActiveRow,[string]$DbRow,[string]$AllRow,[string]$SlotMap='11',[string]$HistoryRow=''){
+    "SubscriptionController:`nsSlotIndexToSubId[1]: subIds=1=[$SlotMap]`n++++++++++`nActiveSubInfoList:`n$ActiveRow`nActiveSubInfoList in the DB:`n$DbRow`n++++++++++`nAllSubInfoList:`n$AllRow`n++++++++++`n2026-09-17T00:00:00 - historical event $HistoryRow"
+}
+$enabled='  {id=11 simSlotIndex=1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=true}'
+$disabled='  {id=11 simSlotIndex=-1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=false}'
+$dbTrue='  {id=11 simSlotIndex=-1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=true}'
+$normal=Get-IsubSectionObserver (New-IsubFixture $enabled $enabled $enabled) 'ABSENT,LOADED' 11
+Require ((Get-IsubObserverState $normal) -eq 'RESTORED') 'normal active fixture did not classify RESTORED'
+$f8obs=Get-IsubSectionObserver (New-IsubFixture '' $disabled $disabled '') 'ABSENT,ABSENT' 11
+Require ((Get-IsubObserverState $f8obs) -eq 'F8') 'active-missing stored-disabled fixture did not classify F8'
+$conflict=Get-IsubSectionObserver (New-IsubFixture '' $dbTrue $disabled '') 'ABSENT,ABSENT' 11
+Require ((Get-IsubObserverState $conflict) -eq 'CONFLICT') 'DB/ALL conflict fixture did not fail closed'
+$history=Get-IsubSectionObserver (New-IsubFixture '' $disabled $disabled '' $enabled) 'ABSENT,ABSENT' 11
+Require (-not $history.Active.Present -and (Get-IsubObserverState $history) -eq 'F8') 'historical event leaked into current sections'
+$restored=Get-IsubSectionObserver (New-IsubFixture $enabled $enabled $enabled) 'ABSENT,LOADED' 11
+Require ((Get-IsubObserverState $restored) -eq 'RESTORED' -and $restored.Active.Slot -eq '1') 'TRUE restoration fixture failed'
+Write-Host 'ISUB_SECTION_OBSERVER_FIXTURES=5/5_PASS'
 
 Require (Test-GoldenSimpleFreshCne $null 360) 'null->360 freshness failed'
 Require (Test-GoldenSimpleFreshCne 360 374) '360->374 freshness failed'
@@ -52,10 +72,13 @@ Require (-not $missing.valid) 'missing current-table boundary did not fail close
 Write-Host 'CNE_CURRENT_TABLE_FIXTURES=3/3_PASS'
 
 $uiccText=Get-Content -LiteralPath $Uicc -Raw
+$observerText=Get-Content -LiteralPath $Observer -Raw
 Require ($uiccText -match "Require \(\(Root 'settings get global airplane_mode_on'\) -eq '0'\)") 'single-SIM helper airplane-OFF gate missing'
 Require ($uiccText -match '\$mustReenable=\$true' -and $uiccText -match 'finally\s*\{\s*if\(\$mustReenable\)' -and $uiccText -match 'Sending one emergency TRUE') 'emergency TRUE rollback contract missing'
 Require ($uiccText -match 'UICC_F8_CONFIRMED_AFTER=' -and $uiccText -match 'UICC_REINSERT_CONFIRMED_AFTER=') 'single-SIM F8/reinsert gates missing'
-Require ($uiccText -match 'getprop gsm\.sim\.state' -and $uiccText -match "states\[0\] -eq 'ABSENT'" -and $uiccText -match 'simSlotIndex=0') 'slot0 ABSENT/no-mapping gate missing'
+Require ($uiccText -match 'getprop gsm\.sim\.state' -and $observerText -match "states\[0\] -eq 'ABSENT'" -and $observerText -match 'simSlotIndex=0') 'slot0 ABSENT/no-mapping gate missing'
+Require ($observerText -match 'ActiveSubInfoList in the DB:' -and $observerText -match 'AllSubInfoList:' -and $observerText -match 'ALL_SECTION_END_MISSING') 'section boundaries are not explicit/fail-closed'
+Require ($uiccText -match 'Diagnostics\.Stopwatch' -and $uiccText -match 'Elapsed\.TotalSeconds -lt 30') 'F8 wait is not a wall-clock deadline'
 $isubWrites=@($uiccText -split "\r?\n"|Where-Object{$_ -match 'service call isub'})
 Require ($isubWrites.Count -eq 3 -and @($isubWrites|Where-Object{$_ -notmatch 'i32 11'}).Count -eq 0) 'UICC helper contains a write not fixed to subId11'
 Write-Host 'EMERGENCY_TRUE_ROLLBACK_TEST=PASS'

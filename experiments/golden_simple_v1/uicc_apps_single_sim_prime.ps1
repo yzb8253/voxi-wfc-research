@@ -9,6 +9,7 @@ $ExpectedDevice='cas'
 $ExpectedAndroid='13'
 $ExpectedBuild='V816.0.4.0.TJJCNXM'
 $ExpectedFingerprint='Xiaomi/cas/cas:13/TKQ1.221114.001/V816.0.4.0.TJJCNXM:user/release-keys'
+. (Join-Path $PSScriptRoot 'uicc_isub_section_observer.ps1')
 
 function Quote-Sh([string]$Value){$s=[string][char]39;$d=[string][char]34;$s+$Value.Replace($s,($s+$d+$s+$d+$s))+$s}
 function Invoke-Adb([string[]]$Arguments){
@@ -22,20 +23,17 @@ function Invoke-Adb([string[]]$Arguments){
 function RootResult([string]$Command){Invoke-Adb @('-s',$Serial,'shell',('su -c '+(Quote-Sh $Command)))}
 function Root([string]$Command){$r=RootResult $Command;if($r.ExitCode -ne 0){throw "ADB/root command failed: $Command`n$($r.Text)"};$r.Text.Trim()}
 function Require([bool]$Condition,[string]$Message){if(-not $Condition){throw "UICC_SINGLE_SIM_FAIL: $Message"}}
-function Get-SubRow([int]$SubId){$all=Root 'dumpsys isub';$pattern=('\{{id={0}\s' -f $SubId);@($all -split "\r?\n"|Where-Object{$_ -match $pattern})|Select-Object -First 1}
-function Assert-Slot0Absent {
-    $states=@((Root 'getprop gsm.sim.state').Split(',')|ForEach-Object{$_.Trim().ToUpperInvariant()})
-    Require ($states.Count -ge 2 -and $states[0] -eq 'ABSENT') 'physical slot0 is not ABSENT'
-    $mapped=@((Root 'dumpsys isub') -split "\r?\n"|Where-Object{$_ -match 'simSlotIndex=0(?:\s|\})'})
-    Require ($mapped.Count -eq 0) 'a subscription is unexpectedly mapped to slot0'
+function Get-LiveObserver {
+    $isub=Root 'dumpsys isub'
+    $simState=Root 'getprop gsm.sim.state'
+    Get-IsubSectionObserver -IsubText $isub -SimState $simState -SubId 11
 }
-function Assert-VoxiEnabledEntry {
-    $row=Get-SubRow 11
-    Require (-not [string]::IsNullOrWhiteSpace($row)) 'VOXI subId11 row missing'
-    Require ($row -match 'simSlotIndex=1') 'VOXI subId11 is not mapped to slot1'
-    Require ($row -match 'carrierId=28') 'VOXI carrierId changed'
-    Require ($row -match 'mcc=234' -and $row -match 'mnc=15') 'VOXI MCC/MNC changed'
-    Require ($row -match 'areUiccApplicationsEnabled=true') 'VOXI UICC applications are not enabled at entry'
+function Assert-SafeObserver([object]$Observer,[string]$ExpectedState) {
+    Require ([bool]$Observer.Valid) ("isub section observer invalid: {0}" -f $Observer.Reason)
+    Require ([bool]$Observer.Slot0Absent -and -not [bool]$Observer.Slot0Mapped) 'physical slot0 is not safely ABSENT/unmapped'
+    $state=Get-IsubObserverState $Observer
+    if($state -eq 'CONFLICT'){throw 'UICC_SINGLE_SIM_FAIL: F8_OBSERVER_CONFLICT DB and AllSubInfoList disagree'}
+    Require ($state -eq $ExpectedState) ("observer expected {0}, got {1}: {2}" -f $ExpectedState,$state,(Format-IsubObserver $Observer))
 }
 
 Require (Test-Path -LiteralPath $Adb) "adb.exe missing: $Adb"
@@ -47,13 +45,8 @@ Require ((Root 'getprop ro.build.version.incremental') -eq $ExpectedBuild) 'ROM 
 Require ((Root 'getprop ro.build.fingerprint') -eq $ExpectedFingerprint) 'ROM fingerprint mismatch'
 Require ((Root 'settings get global airplane_mode_on') -eq '0') 'single-SIM UICC prime must start in airplane-OFF A0'
 
-$sample="{id=1 simSlotIndex=-1 areUiccApplicationsEnabled=true}`n{id=11 simSlotIndex=1 carrierId=28 mcc=234 mnc=15 areUiccApplicationsEnabled=true}"
-$pattern11=('\{{id={0}\s' -f 11)
-Require (@($sample -split "\r?\n"|Where-Object{$_ -match $pattern11}).Count -eq 1) 'internal subId11 parser self-test failed'
-Write-Host 'UICC_SINGLE_SIM_PARSER_SELFTEST=PASS'
-
-Assert-Slot0Absent
-Assert-VoxiEnabledEntry
+$entryObserver=Get-LiveObserver
+Assert-SafeObserver $entryObserver 'RESTORED'
 Write-Host 'UICC_SINGLE_SIM_ENTRY_GATE=PASS slot0=ABSENT subId11/slot1/23415/apps=true'
 Write-Host ("ISUB_SET_UICC_TRANSACTION={0}" -f $IsubTransaction)
 
@@ -64,12 +57,16 @@ try {
     $mustReenable=$true
     Write-Host ("UICC_APPS_FALSE_CALL={0}" -f $off.Text)
 
-    $f8=$false
-    for($i=1;$i -le 30;$i++){
-        Start-Sleep -Seconds 1
-        Assert-Slot0Absent
-        $row=Get-SubRow 11
-        if($row -match 'simSlotIndex=-1' -and $row -match 'areUiccApplicationsEnabled=false'){$f8=$true;Write-Host ("UICC_F8_CONFIRMED_AFTER={0}s" -f $i);break}
+    $f8=$false;$poll=0;$last='';$heartbeat=-1;$deadline=[Diagnostics.Stopwatch]::StartNew()
+    while($deadline.Elapsed.TotalSeconds -lt 30){
+        $poll++;$observer=Get-LiveObserver
+        Require ([bool]$observer.Valid) ("isub section observer invalid: {0}" -f $observer.Reason)
+        Require ([bool]$observer.Slot0Absent -and -not [bool]$observer.Slot0Mapped) 'physical slot0 is not safely ABSENT/unmapped'
+        $state=Get-IsubObserverState $observer;$formatted=Format-IsubObserver $observer;$beat=[int][Math]::Floor($deadline.Elapsed.TotalSeconds/5)
+        if($formatted -cne $last -or $beat -gt $heartbeat){Write-Host ("F8_POLL={0} elapsed_ms={1} {2}" -f $poll,$deadline.ElapsedMilliseconds,$formatted);$last=$formatted;$heartbeat=$beat}
+        if($state -eq 'CONFLICT'){Write-Host 'F8_OBSERVER_CONFLICT';throw 'UICC_SINGLE_SIM_FAIL: F8_OBSERVER_CONFLICT DB and AllSubInfoList disagree'}
+        if($state -eq 'F8'){$f8=$true;Write-Host ("UICC_F8_CONFIRMED_AFTER_MS={0}" -f $deadline.ElapsedMilliseconds);Write-Host ("UICC_F8_CONFIRMED_AFTER={0}s" -f [Math]::Round($deadline.Elapsed.TotalSeconds,3));break}
+        Start-Sleep -Milliseconds 500
     }
     Require $f8 'VOXI did not reach verified apps-disabled F8 within 30s'
 
@@ -77,17 +74,20 @@ try {
     Require ($on.ExitCode -eq 0) ("ISub true Binder call failed: {0}" -f $on.Text)
     Write-Host ("UICC_APPS_TRUE_CALL={0}" -f $on.Text)
 
-    $restored=$false
-    for($i=1;$i -le 60;$i++){
-        Start-Sleep -Seconds 1
-        Assert-Slot0Absent
-        $row=Get-SubRow 11
-        if($row -match 'simSlotIndex=1' -and $row -match 'carrierId=28' -and $row -match 'mcc=234' -and $row -match 'mnc=15' -and $row -match 'areUiccApplicationsEnabled=true'){$restored=$true;Write-Host ("UICC_REINSERT_CONFIRMED_AFTER={0}s" -f $i);break}
+    $restored=$false;$poll=0;$last='';$heartbeat=-1;$deadline=[Diagnostics.Stopwatch]::StartNew()
+    while($deadline.Elapsed.TotalSeconds -lt 60){
+        $poll++;$observer=Get-LiveObserver
+        Require ([bool]$observer.Valid) ("isub section observer invalid: {0}" -f $observer.Reason)
+        Require ([bool]$observer.Slot0Absent -and -not [bool]$observer.Slot0Mapped) 'physical slot0 is not safely ABSENT/unmapped'
+        $state=Get-IsubObserverState $observer;$formatted=Format-IsubObserver $observer;$beat=[int][Math]::Floor($deadline.Elapsed.TotalSeconds/5)
+        if($formatted -cne $last -or $beat -gt $heartbeat){Write-Host ("RESTORE_POLL={0} elapsed_ms={1} {2}" -f $poll,$deadline.ElapsedMilliseconds,$formatted);$last=$formatted;$heartbeat=$beat}
+        if($state -eq 'CONFLICT'){Write-Host 'RESTORE_OBSERVER_CONFLICT';throw 'UICC_SINGLE_SIM_FAIL: RESTORE_OBSERVER_CONFLICT DB and AllSubInfoList disagree'}
+        if($state -eq 'RESTORED'){$restored=$true;Write-Host ("UICC_REINSERT_CONFIRMED_AFTER_MS={0}" -f $deadline.ElapsedMilliseconds);Write-Host ("UICC_REINSERT_CONFIRMED_AFTER={0}s" -f [Math]::Round($deadline.Elapsed.TotalSeconds,3));break}
+        Start-Sleep -Milliseconds 500
     }
     Require $restored 'VOXI did not return to enabled slot1 mapping within 60s'
     $mustReenable=$false
-    Assert-Slot0Absent
-    Assert-VoxiEnabledEntry
+    Assert-SafeObserver (Get-LiveObserver) 'RESTORED'
     Write-Host 'UICC_SINGLE_SIM_PRIME=PASS'
     exit 0
 }
